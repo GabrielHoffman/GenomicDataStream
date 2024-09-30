@@ -30,13 +30,13 @@ Header-only C++ library
 ## Dependencies
 
 | Package  | Code | Ref | Role |
-| -------- | ------- | ------- | ------- |
+| -------- | ------- | -------------- | ------- |
 | vcfppR  | [CRAN](https://cran.r-project.org/package=vcfppR) | [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae049)  | C++ API for htslib  |
 | htslib  | [GitHub](https://github.com/samtools/htslib) | [GigaScience](https://doi.org/10.1093/gigascience/giab007)  | C API for VCF/BCF files |
 | beatchmat  | [BioC](https://bioconductor.org/packages/beachmat/) | [PLoS Comp Biol](https://doi.org/10.1371/journal.pcbi.1006135)  | C++ API for access data owned by R |
 |Rcpp| [CRAN](https://cran.r-project.org/package=Rcpp)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) |  API for R/C++ integration
 |RcppEigen|[CRAN](https://cran.r-project.org/package=RcppEigen) | [J Stat Software](https://doi.org/10.18637/jss.v052.i05) | API for Rcpp access to Eigen matrix library
-|RcppArmadillo|[CRAN](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for R/C++ Rcpp access to Armadillo matrix library
+|RcppArmadillo|[CRAN](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
 |Eigen|[eigen.tuxfamily.org](eigen.tuxfamily.org) | |C++ library for linear algebra with advanced features
 |Armadillo| [arma.sourceforge.net](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
 
