@@ -37,8 +37,8 @@ Header-only C++ library
 |Rcpp| [CRAN](https://cran.r-project.org/package=Rcpp)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) |  API for R/C++ integration
 |RcppEigen|[CRAN](https://cran.r-project.org/package=RcppEigen) | [J Stat Software](https://doi.org/10.18637/jss.v052.i05) | API for Rcpp access to Eigen matrix library
 |RcppArmadillo|[CRAN](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
-|Eigen|[eigen.tuxfamily.org](eigen.tuxfamily.org) | |C++ library for linear algebra with advanced features
-|Armadillo| [arma.sourceforge.net](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
+|Eigen|[eigen](eigen.tuxfamily.org) | |C++ library for linear algebra with advanced features
+|Armadillo| [arma](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
 
 
 
