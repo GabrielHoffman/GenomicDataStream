@@ -1,0 +1,10 @@
+
+RHTSLIB_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
+    'Rhtslib::pkgconfig("PKG_LIBS")')
+RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
+    'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
+
+PKG_CXXFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -DARMA -DEIGEN -w
+
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(RHTSLIB_LIBS) 
+
