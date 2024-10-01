@@ -2,7 +2,7 @@
  * @file		GenomicDataStream.h
  * @author		Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		GenomicDataStream defines an interface to read chunks of data into memory
+ * @brief		GenomicDataStream defines an interface to read chunks of data into memory as a matrix
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -11,9 +11,16 @@
 #define GenomicDataStream_H_
 
 
+
+#ifdef ARMA
 #include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+#endif
+
+#ifdef EIGEN
 #include <RcppEigen.h>
-// [[Rcpp::depends(RcppArmadillo, RcppEigen)]]
+// [[Rcpp::depends(RcppEigen)]]
+#endif 
 
 
 #include <VariantInfo.h>
@@ -21,14 +28,51 @@
 using namespace std;
 
 
+/** For Rcpp::NumericMatrix with MatrixInfo, set the row and col names
+ */ 
+static void setRowColNames( Rcpp::NumericMatrix &M, const MatrixInfo &info){
+	Rcpp::rownames(M) = info.get_rownames();
+	Rcpp::colnames(M) = info.get_colnames();
+}
+
+
+
+/** For all other datatypes, do nothing
+ */ 
+template<typename matType, typename infoType >
+static void setRowColNames( matType &M, const infoType &info){
+} 
+
+
+
+/** Store the data matrix and info for a data chunk
+ */ 
 template<typename matType, typename infoType >
 class DataChunk {
 	public:
-    DataChunk() {}
+    DataChunk() : data() {}
+
+    DataChunk( matType data) :
+	    data(data) {}
 
     DataChunk( matType data, infoType info) :
-	    data(data), info(info) {}
+	    data(data), info(info) { 
 
+		// For Rcpp::NumericMatrix with MatrixInfo, 
+    	// set the row and col names 
+	    setRowColNames(data, info);
+	 }
+
+    /** Accessor
+     */ 
+	matType getData() const { return data; }
+
+
+	/** Accessor
+     */   
+	infoType getInfo() const { return info;}    
+
+	private:
 	matType data;
 	infoType info;
 };
@@ -36,7 +80,11 @@ class DataChunk {
 
 
 
+
+
 struct Param {
+
+	Param(){}
 
 	Param( 	const string &file,
 			const string &field,
@@ -66,6 +114,8 @@ struct Param {
 class GenomicDataStream {
 	public: 
 
+	GenomicDataStream(){}
+
 	/** Constructor
 	 */
 	GenomicDataStream( const Param & param ): param(param) {}
@@ -74,16 +124,26 @@ class GenomicDataStream {
 	 */
 	virtual ~GenomicDataStream(){}
 	
+	#ifdef ARMA
 	/** Get next chunk of _features_ as arma::mat
 	 * 
 	 */ 
 	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){return false;
 	}
+	#endif
 
+	#ifdef EIGEN
 	/** Get next chunk of _features_ as Eigen::Map<Eigen::MatrixXd>
 	 * 
 	 */ 
 	virtual bool getNextChunk( DataChunk<Eigen::Map<Eigen::MatrixXd>, VariantInfo> & chunk){return false;
+	}
+	#endif
+
+	/** Get next chunk of _features_ as Rcpp::NumericMatrix
+	 * 
+	 */ 
+	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){return false;
 	}
 
 	protected:

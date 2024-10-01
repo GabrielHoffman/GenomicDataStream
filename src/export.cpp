@@ -18,6 +18,7 @@
 #endif 
 
 #include <vcfstream.h>
+#include <bgenstream.h>
 #include <vcfpp.h>
 #include <DelayedStream.h>
 
@@ -110,7 +111,6 @@ List extractVcf(
             const bool &missingToMean = false){
 
     // initialize stream
-
     Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
     vcfstream vcfObj( param );
 
@@ -119,19 +119,75 @@ List extractVcf(
     // 2) variant properties as varInfo
     // auto [X_geno, vInfo] = vcfObj.getNextChunk();
     DataChunk<arma::mat, VariantInfo> chunk;
+
     vcfObj.getNextChunk( chunk );
     
     // Convert genotype values for return
     // set colnames as variant IDs
     // set rownames as sample IDs
-    NumericMatrix X = wrap( chunk.data );
-    colnames(X) = wrap( chunk.info.ID );
-    rownames(X) = wrap( chunk.info.sampleNames );    
+    VariantInfo info = chunk.getInfo();
+    NumericMatrix X = wrap( chunk.getData() );
+    colnames(X) = wrap( info.ID );
+    rownames(X) = wrap( info.sampleNames );    
 
     // return genotype data and variant info
     return List::create(    Named("X") = X,
-                            Named("info") = toDF(chunk.info) );
+                            Named("info") = toDF(info) );
 }
+
+
+// [[Rcpp::export]]
+List extractVcf_eigen( 
+            const std::string &file,
+            const std::string &field,
+            const std::string &region = "",
+            const std::string &samples = "-",
+            const bool &missingToMean = false){
+
+    // initialize stream
+
+    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    vcfstream vcfObj( param );
+
+    // from VCF, get
+    DataChunk<Eigen::MatrixXd, VariantInfo> chunk;
+    vcfObj.getNextChunk( chunk );
+    
+    // Convert genotype values for return
+    // set colnames as variant IDs
+    // set rownames as sample IDs
+    VariantInfo info = chunk.getInfo();
+    NumericMatrix X = wrap( chunk.getData() );
+    colnames(X) = wrap( info.ID );
+    rownames(X) = wrap( info.sampleNames );    
+
+    // return genotype data and variant info
+    return List::create(    Named("X") = X,
+                            Named("info") = toDF(info) );
+}
+
+// [[Rcpp::export]]
+List extractVcf_NM( 
+            const std::string &file,
+            const std::string &field,
+            const std::string &region = "",
+            const std::string &samples = "-",
+            const bool &missingToMean = false){
+
+    // initialize stream
+
+    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    vcfstream vcfObj( param );
+
+    // from VCF, get
+    DataChunk<Rcpp::NumericMatrix, VariantInfo> chunk;
+    vcfObj.getNextChunk( chunk );
+    
+    // return genotype data and variant info
+    return List::create(    Named("X") = chunk.getData(),
+                            Named("info") = toDF( chunk.getInfo() ) );
+}
+
 
 
 // [[Rcpp::export]]
@@ -158,14 +214,64 @@ List extractVcf_chunks(
     // Convert genotype values for return
     // set colnames as variant IDs
     // set rownames as sample IDs
-    NumericMatrix X = wrap( chunk.data );
-    colnames(X) = wrap( chunk.info.ID );
-    rownames(X) = wrap( chunk.info.sampleNames );    
+    VariantInfo info = chunk.getInfo();
+    NumericMatrix X = wrap( chunk.getData() );
+    colnames(X) = wrap( info.ID );
+    rownames(X) = wrap( info.sampleNames );    
 
     // return genotype data and variant info
     return List::create(    Named("X") = X,
-                            Named("info") = toDF(chunk.info) );
+                            Named("info") = toDF(info) );
 }
+
+
+// [[Rcpp::export]]
+NumericMatrix getDA( const RObject &mat ){
+
+    DelayedStream ds( mat);
+
+    DataChunk<arma::mat, MatrixInfo> chunk;
+
+    ds.getNextChunk( chunk );
+
+    NumericMatrix X = wrap( chunk.getData() );
+
+    return X ;
+}
+
+
+
+// [[Rcpp::export]]
+NumericMatrix getDA_eigen( const RObject &mat ){
+
+    DelayedStream ds( mat);
+
+    DataChunk<Eigen::MatrixXd, MatrixInfo> chunk;
+
+    ds.getNextChunk( chunk );
+
+    NumericMatrix X = wrap( chunk.getData() );
+
+    return X ;
+}
+
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix getDA_NM( const RObject &mat ){
+
+    DelayedStream ds( mat);
+
+    DataChunk<Rcpp::NumericMatrix, MatrixInfo> chunk;
+
+    ds.getNextChunk( chunk );
+
+    return chunk.getData();
+}
+
+
+
+
+
 
 
 

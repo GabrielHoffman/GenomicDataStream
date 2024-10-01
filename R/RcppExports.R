@@ -13,7 +13,27 @@ extractVcf <- function(file, field, region = "", samples = "-", missingToMean = 
     .Call('_GenomicDataStream_extractVcf', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
 }
 
+extractVcf_eigen <- function(file, field, region = "", samples = "-", missingToMean = FALSE) {
+    .Call('_GenomicDataStream_extractVcf_eigen', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
+}
+
+extractVcf_NM <- function(file, field, region = "", samples = "-", missingToMean = FALSE) {
+    .Call('_GenomicDataStream_extractVcf_NM', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
+}
+
 extractVcf_chunks <- function(file, field, region = "", samples = "-", missingToMean = FALSE) {
     .Call('_GenomicDataStream_extractVcf_chunks', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
+}
+
+getDA <- function(mat) {
+    .Call('_GenomicDataStream_getDA', PACKAGE = 'GenomicDataStream', mat)
+}
+
+getDA_eigen <- function(mat) {
+    .Call('_GenomicDataStream_getDA_eigen', PACKAGE = 'GenomicDataStream', mat)
+}
+
+getDA_NM <- function(mat) {
+    .Call('_GenomicDataStream_getDA_NM', PACKAGE = 'GenomicDataStream', mat)
 }
 

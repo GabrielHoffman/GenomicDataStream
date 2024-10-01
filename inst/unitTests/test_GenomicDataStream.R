@@ -1,5 +1,60 @@
 
+test_DelayedStream(){
+
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+
+	library(muscat)
+	library(SingleCellExperiment)
+
+	data(example_sce)
+
+	M = counts(example_sce)
+
+	res1 = GenomicDataStream:::getDA_NM( M )
+	identical(rownames(M), rownames(res1))
+	identical(colnames(M), colnames(res1))
+
+	res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
+	identical(rownames(M), rownames(res2))
+	identical(colnames(M), colnames(res2))
+
+
+
+
+	res1 = GenomicDataStream:::getDA( M )
+	identical(as.numeric(M), as.numeric(res1))
+
+	res2 = GenomicDataStream:::getDA( as.matrix(M) )
+	identical(as.numeric(M), as.numeric(res2))
+
+
+	res1 = GenomicDataStream:::getDA_eigen( M )
+	identical(as.numeric(M), as.numeric(res1))
+
+	res2 = GenomicDataStream:::getDA_eigen( as.matrix(M) )
+	identical(as.numeric(M), as.numeric(res2))
+
+
+
+
+
+}
+
+
+
+
+
+
 test_vcfstream = function(){
+
+	# q()
+	# R
+
+	# file = "/Users/gabrielhoffman/prog/R-4.4.0/library/BinaryDosage/extdata/set2a.vcf.gz"
+
+	# res = GenomicDataStream:::extractVcf( file, "DS", "." )
+
 
 	suppressPackageStartupMessages({
 	library(RUnit)
@@ -19,13 +74,19 @@ test_vcfstream = function(){
 	vcf <- suppressWarnings(readVcf(file))
 	X_all = geno(vcf)[["DS"]]
 
-	res = lucida:::extractVcf( file, "DS", "." )
+	res = GenomicDataStream:::extractVcf( file, "DS", "." )
+	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
+
+	res = GenomicDataStream:::extractVcf_eigen( file, "DS", "." )
+	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
+
+	res = GenomicDataStream:::extractVcf_NM( file, "DS", "." )
 	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
 
 	res2 = vcfppR::vcftable(file, ".", format="DS")
 	checkEqualsNumeric(res2$DS, X_all, tol=1e-7)
 
-	res3 = lucida:::extractVcf_chunks( file, "DS", "." )
+	res3 = GenomicDataStream:::extractVcf_chunks( file, "DS", "." )
 	checkEqualsNumeric(res$X[,3:4], res3$X, tol=1e-7)
 
 	# range
@@ -37,20 +98,20 @@ test_vcfstream = function(){
 	vcf <- suppressWarnings(readVcf(file, "hg19", param=gr))
 	X_all = geno(vcf)[["DS"]]
 
-	res = lucida:::extractVcf( file, "DS", region )
+	res = GenomicDataStream:::extractVcf( file, "DS", region )
 	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
 
-	res3 = lucida:::extractVcf_chunks( file, "DS", region )
+	res3 = GenomicDataStream:::extractVcf_chunks( file, "DS", region )
 	checkEqualsNumeric(res$X[,3], res3$X, tol=1e-7)
 
 	# subset samples
 	#---------------
 	idx = c(6, 1, 9, 4)
 	sampleIds = paste0(rownames(res$X)[idx], collapse=",")
-	res2 = lucida:::extractVcf( file, "DS", region, sampleIds )
+	res2 = GenomicDataStream:::extractVcf( file, "DS", region, sampleIds )
 	checkEqualsNumeric(res2$X, res$X[sort(idx),], tol=1e-7)
 
-	res3 = lucida:::extractVcf_chunks( file, "DS", region, sampleIds  )
+	res3 = GenomicDataStream:::extractVcf_chunks( file, "DS", region, sampleIds  )
 	checkEqualsNumeric(res$X[sort(idx),3], res3$X, tol=1e-7)
 
 
@@ -61,10 +122,10 @@ test_vcfstream = function(){
     field = "DP"
 	vcf <- suppressWarnings(readVcf(file))
 	X_all = geno(vcf)[[field]]
-	res = lucida:::extractVcf( file, field, "." )
+	res = GenomicDataStream:::extractVcf( file, field, "." )
 	checkEqualsNumeric(t(res$X), X_all)
 
-	res2 = lucida:::extractVcf_chunks( file, field, "." )
+	res2 = GenomicDataStream:::extractVcf_chunks( file, field, "." )
 	checkEqualsNumeric(t(res2$X), X_all[3:4,])
 
 	# GT must be converted to integer
@@ -72,8 +133,8 @@ test_vcfstream = function(){
 	field = "GT"	
 
 	region = "chr21:5030082-5030105"
-	res = lucida:::extractVcf( file, field, region)
-	res2 = lucida:::extractVcf_chunks( file, field, region)
+	res = GenomicDataStream:::extractVcf( file, field, region)
+	res2 = GenomicDataStream:::extractVcf_chunks( file, field, region)
 
 	gr = GRanges('chr21', IRanges(5030082, 5030105))
 	# vcf <- suppressWarnings(readVcf(file, "hg19", param=gr))
@@ -94,12 +155,12 @@ test_vcfstream = function(){
 	checkEqualsNumeric(t(res2$X), X_ds[3,])
 
 	# check missingToMean
-	res2 = lucida:::extractVcf( file, field, region, missingToMean=TRUE)
+	res2 = GenomicDataStream:::extractVcf( file, field, region, missingToMean=TRUE)
 	a = colMeans(res$X, na.rm=T)
 	b = colMeans(res2$X)
 	checkEqualsNumeric(a,b)
 
-	res3 = lucida:::extractVcf_chunks( file, field, region, missingToMean=TRUE)
+	res3 = GenomicDataStream:::extractVcf_chunks( file, field, region, missingToMean=TRUE)
 	a = colMeans(res$X, na.rm=T)
 	b = colMeans(res3$X)
 	checkEqualsNumeric(a[3], b)
@@ -109,15 +170,17 @@ test_vcfstream = function(){
 	# Check errors
 	#-------------
 
-	# res = lucida:::extractVcf( file, "GT", "." )
+	# res = GenomicDataStream:::extractVcf( file, "GT", "." )
 	# Error: GT is not supported for multi-allelic site
 	# chr21:5030319 chr21:5030319:C:G,T C G,T
 
-	# res = lucida:::extractVcf( file, "GT", "343" )
+	# res = GenomicDataStream:::extractVcf( file, "GT", "343" )
 	# Error: region was not found! make sure the region format is correct
 
      
 }
+
+
 
 
 

@@ -2,7 +2,7 @@
  * @file		vcfstream.h
  * @author		Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		vcfstream reads a VCF into an arma::mat in chunks, storing variants in columns
+ * @brief		vcfstream reads a VCF into a matrix in chunks, storing variants in columns
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -10,15 +10,23 @@
 #ifndef VCF_STREAM_H_
 #define VCF_STREAM_H_
 
+#ifdef ARMA
 #include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+#endif
+
+#ifdef EIGEN
 #include <RcppEigen.h>
-// [[Rcpp::depends(RcppArmadillo, RcppEigen)]]
+// [[Rcpp::depends(RcppEigen)]]
+#endif 
+
+
 
 #include <string>
 #include <vcfpp.h>
 
 #include <VariantInfo.h>
-#include "/Users/gabrielhoffman/workspace/repos/GenomicDataStream/inst/include/GenomicDataStream.h"
+#include "GenomicDataStream.h"
 
 using namespace std;
 using namespace vcfpp;
@@ -93,7 +101,7 @@ class vcfstream :
 		if( vInfo != nullptr) delete vInfo;
 	}
 
-
+	#ifdef ARMA
 	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -103,30 +111,48 @@ class vcfstream :
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
 
-		chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
+	    chunk = DataChunk( M, *vInfo );
 
 		return ret;
 	}
+	#endif
 
-	virtual bool getNextChunk( DataChunk<Eigen::Map<Eigen::MatrixXd>, 
+	#ifdef EIGEN
+	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, 
 		VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		Eigen::Map<Eigen::MatrixXd> M(matDosage.data(), reader->nsamples, vInfo->size());
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
-		chunk = DataChunk<Eigen::Map<Eigen::MatrixXd>, VariantInfo>( M, *vInfo );
+		chunk = DataChunk( M, *vInfo );
 
 		return ret;
 	}
+	#endif
 
+
+	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, 
+		VariantInfo> & chunk){
+
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
+
+		Rcpp::NumericMatrix M(reader->nsamples, vInfo->size(), matDosage.data()); 
+		colnames(M) = Rcpp::wrap( vInfo->ID );
+	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
+
+		chunk = DataChunk<Rcpp::NumericMatrix, VariantInfo>( M, *vInfo );
+
+		return ret;
+	}
 
 	/** Concatenate variant identifiers 
 	 * 
 	 * @param record storing current variant
 	 * */
-	static string variantToString( const BcfRecord &record ){
+	static string variantToString( const BcfRecord &record ) {
 		string s = record.CHROM() + ":" + to_string(record.POS()) + " " + record.ID() + " " + record.REF() + " " + record.ALT();
 		return s;
 	}
@@ -136,7 +162,7 @@ class vcfstream :
 	* @param v for n samples, vector of length 2*n where dosage is computed as v[2*i] + v[2*i+1];
 	* @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
 	*/
-	static vector<double> intToDosage( const vector<int> &v, const bool &missingToMean){
+	static vector<double> intToDosage( const vector<int> &v, const bool &missingToMean) {
 
 		// store and return result
 		vector<double> res( v.size() / 2.0);
@@ -202,8 +228,6 @@ class vcfstream :
 	// this can be slow 
 	// set using reserve() to set initial capacity so avaoid re-alloc
 	vector<double> matDosage;	
-
-
 
 	bool getNextChunk_helper(){
 
