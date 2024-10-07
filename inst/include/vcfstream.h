@@ -31,6 +31,8 @@
 using namespace std;
 using namespace vcfpp;
 
+namespace GenomicDataStreamLib {
+
 /** vcfstream reads a VCF into an arma::mat in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
 */
@@ -52,35 +54,45 @@ class vcfstream :
  		// initialize
 		reader = new BcfReader( param.file );
 
-		// check if region is valid
-		switch( reader->getStatus( param.region) ){
-			
-			case 1: // region is vaild and not empty
+		validRegions.reserve(param.regions.size());
+		validRegions.clear();
 
-				reader->setRegion(param.region);
-				reader->setSamples(param.samples);
+		// check status of each region
+		// retain only valid, non-empty regions in validRegions
+		for(const string& region : param.regions){
 
-				// Initialize record with info in header
-				record = new BcfRecord( reader->header ); 
-
-				// 1: int; 2: float; 3: string; 0: error;
-				fieldType = reader->header.getFormatType(param.field);
-
-				if( fieldType == 3 && param.field.compare("GT"))
-					throw std::runtime_error("field GT is the only supported string type");				
+			switch( reader->getStatus( region ) ){
+				case 1: // region is vaild and not empty
+				validRegions.push_back(region);	
 				break;
-			
-			case 0: // the region is valid but empty.
- 				break;
- 			
-			case -1: // there is no index file found.
-				throw std::runtime_error("Could not retrieve index file");
+
+				case 0: // the region is valid but empty.
 				break;
-			
-			case -2: // the region is not valid
-				throw std::runtime_error("region was not found! make sure the region format is correct");
+
+				case -1: // there is no index file found.
+				throw runtime_error("Could not retrieve index file");
 				break;
+
+				case -2: // the region is not valid
+				throw runtime_error("region was not found: " + region );
+				break;
+			}
 		}
+
+		// initialize iterator
+		itReg = validRegions.begin();
+
+		reader->setRegion( *itReg );
+		reader->setSamples( param.samples );
+
+		// Initialize record with info in header
+		record = new BcfRecord( reader->header ); 
+
+		// 1: int; 2: float; 3: string; 0: error;
+		fieldType = reader->header.getFormatType(param.field);
+
+		if( fieldType == 3 && param.field.compare("GT"))
+		throw std::runtime_error("field GT is the only supported string type");				
 
 		// initialize varInfo with sample names
 		vInfo = new VariantInfo( reader->SamplesName );
@@ -95,14 +107,14 @@ class vcfstream :
 
 	/** destructor
 	 */ 
-	virtual ~vcfstream(){
+	~vcfstream(){
 		if( reader != nullptr) delete reader;
 		if( record != nullptr) delete record;
 		if( vInfo != nullptr) delete vInfo;
 	}
 
 	#ifdef ARMA
-	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -118,7 +130,7 @@ class vcfstream :
 	#endif
 
 	#ifdef EIGEN
-	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, 
+	bool getNextChunk( DataChunk<Eigen::MatrixXd, 
 		VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -132,8 +144,7 @@ class vcfstream :
 	}
 	#endif
 
-
-	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, 
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, 
 		VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -144,6 +155,17 @@ class vcfstream :
 	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
 
 		chunk = DataChunk<Rcpp::NumericMatrix, VariantInfo>( M, *vInfo );
+
+		return ret;
+	}
+
+	bool getNextChunk( DataChunk<vector<double>, 
+		VariantInfo> & chunk){
+
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
+
+		chunk = DataChunk<vector<double>, VariantInfo>( matDosage, *vInfo );
 
 		return ret;
 	}
@@ -208,6 +230,8 @@ class vcfstream :
 	BcfReader *reader = nullptr;
 	BcfRecord *record = nullptr;
 	VariantInfo *vInfo = nullptr;
+	vector<string>::iterator itReg;
+	vector<string> validRegions;
 
 	bool endOfFile = false;
 	int fieldType;
@@ -240,10 +264,23 @@ class vcfstream :
 		for(j=0; j < param.chunkSize; j++){
 
 			// get next variant
-			// if false, set endOfFile and break
+			// if false, reached end of region
 			if( ! reader->getNextVariant( *record ) ){
-				endOfFile = true;
-				break;
+
+				// else go to next region
+				itReg++;
+
+				// if this was the last region
+				// set endOfFile and break
+				if( itReg == validRegions.end()){
+					endOfFile = true;
+					break;
+				}
+
+				// else
+				// initialize the record for this region
+				reader->setRegion( *itReg );
+				reader->getNextVariant( *record ); 
 			}
 
 			// populate genotype with the values of the current variant
@@ -269,7 +306,7 @@ class vcfstream :
 						throw std::runtime_error("GT is not supported for site with ploidy > 2\n    " + variantToString(*record));
 					}					
 
-					// get GT as int's with a vector that is twice as long 				
+					// get GT as int's with vector that is twice as long
 					record->getGenotypes(values_int);
 					tmp = intToDosage( values_int, param.missingToMean );
 					matDosage.insert(matDosage.end(), tmp.begin(), tmp.end());
@@ -292,6 +329,6 @@ class vcfstream :
 };
 
 
-
+} // end namespace
 
 #endif
