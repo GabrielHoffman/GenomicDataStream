@@ -22,11 +22,14 @@
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
 
+#include <boost/algorithm/string.hpp>
+
 
 #include <VariantInfo.h>
 
 using namespace std;
 
+namespace GenomicDataStreamLib {
 
 /** For Rcpp::NumericMatrix with MatrixInfo, set the row and col names
  */ 
@@ -95,15 +98,26 @@ struct Param {
 			const int &initCapacity = 200) :
 		file(file), 
 		field(field), 
-		region(region), 
 		samples(samples), 
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
-		initCapacity(initCapacity) {}
+		initCapacity(initCapacity) {
+
+		// region is string of chr:start-end delim by "\t,\n"
+		// remove spaces, then split based on delim
+		string region_tmp = region;
+		boost::erase_all(region_tmp, " ");
+    	boost::split(regions, region_tmp, boost::is_any_of("\t,\n"));
+
+    	// remove duplicate regions
+    	sort(regions.begin(), regions.end());
+    	regions.erase(unique(regions.begin(), regions.end()), regions.end());
+
+		}
 
 	string file;
 	string field;
-	string region;
+	vector<string> regions;
 	string samples;
 	int chunkSize;
 	bool missingToMean;
@@ -111,6 +125,8 @@ struct Param {
 };
 
 
+/** Abstract class inheritited by vcfstream, DelayedStream
+ */ 
 class GenomicDataStream {
 	public: 
 
@@ -122,7 +138,7 @@ class GenomicDataStream {
 
 	/** destructor
 	 */
-	virtual ~GenomicDataStream(){}
+	virtual ~GenomicDataStream() {};
 	
 	#ifdef ARMA
 	/** Get next chunk of _features_ as arma::mat
@@ -146,11 +162,17 @@ class GenomicDataStream {
 	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){return false;
 	}
 
+	/** Get next chunk of _features_ as vector<double>
+	 * 
+	 */ 
+	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){return false;
+	}
+
 	protected:
 	Param param;
 };
 
-
+}
 
 
 #endif

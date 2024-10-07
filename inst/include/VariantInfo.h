@@ -13,6 +13,7 @@
 
 using namespace std;
 
+namespace GenomicDataStreamLib {
 
 class MatrixInfo {
 
@@ -138,6 +139,6 @@ class VariantInfo {
     vector<string> ID, REF, ALT;
 };
 
-
+}
 
 #endif

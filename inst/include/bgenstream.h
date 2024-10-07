@@ -20,14 +20,14 @@
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
 
-
-
 #include <string>
 
 #include <VariantInfo.h>
 #include <GenomicDataStream.h>
 
 using namespace std;
+
+namespace GenomicDataStreamLib {
 
 /** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
@@ -83,6 +83,6 @@ class bgenstream :
 };
 
 
-
+}
 
 #endif
