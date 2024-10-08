@@ -1,48 +1,32 @@
 
 
 
-<style>
-.right-menu {
-  display: block;
-  text-align: justify;
-}
-
-
-</style>
-
- <div align="justify"> your text
-<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>
- </div>
-
-<span class="right-menu">
-Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](eigen.tuxfamily.org) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired genotype data from a VCF) in way that the two components can't be separated for use in other applications.
- </span>
-
-
-
-# GenomicDataStream 
+## GenomicDataStream 
 ### A scalable interface between data and analysis underneath R
 
 ![](man/figures/GenomicDataStream.png)
 
 
-Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](eigen.tuxfamily.org) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired genotype data from a VCF) in way that the two components can't be separated for use in other applications. 
+<div align="justify"> 
+Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>,
+<a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>,
+<a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>,
+<a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>,
+<a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications.
 
 
-
-
- The `GenomicDataStream` C++ inferface separates 
-
- 1) data source 
- 2) streaming chunks of features into a data matrix
- 3) downstream analysis  
+The `GenomicDataStream` C++ inferface separates:
  
+1. data source 
+2. streaming chunks of features into a data matrix
+3. downstream analysis  
+ </div> 
 
 ### See header-only C++ library [documentation](doxygen/html/index.html)
  
 
-
-```c
+### Example code
+```c++
 #include <RcppArmadillo.h>
 #include <vcfstream.h>
 using namespace GenomicDataStreamLib;
