@@ -2,4 +2,7 @@ pandoc: '3.3'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-10-07T19:14Z
+last_built: 2024-10-08T15:57Z
+urls:
+  reference: http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference
+  article: http://DiseaseNeurogenomics.github.io/GenomicDataStream/articles
