@@ -10,6 +10,10 @@
 
 </style>
 
+ <div align="justify"> your text
+<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>
+ </div>
+
 <span class="right-menu">
 Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](eigen.tuxfamily.org) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired genotype data from a VCF) in way that the two components can't be separated for use in other applications.
  </span>
