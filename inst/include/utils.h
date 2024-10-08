@@ -110,17 +110,16 @@ static arma::vec colSums( const arma::mat &X){
  * 
  */
 static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true ){
-
-    // sqrt of residual decrees of freedom for estimating mean
+    
     double sqrt_rdf = sqrt(X.n_rows - 1.0);
-    double mu, sd;
 
     // if center, subtract mean of each column
     // if scale, divide by sd of each column
-    for(size_t j=0; j<X.n_cols; j++){
-        // mean of col j
-        mu = mean(X.col(j));
-        if( center ) X.col(j) -= mu;
+    // Note, norm() does not center the column
+    //   this give results consistent with base::scale()
+    //   when scale is FALSE
+    for(size_t j=0; j<X.n_cols; j++){q
+        if( center ) X.col(j) -= mean(X.col(j));
         if( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;
     }
 }

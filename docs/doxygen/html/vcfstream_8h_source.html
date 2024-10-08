@@ -149,82 +149,89 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;vcfpp.h&gt;</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="_variant_info_8h.html">VariantInfo.h</a>&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="_variant_info_8h.html">VariantInfo.h</a>&quot;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &quot;<a class="code" href="_genomic_data_stream_8h.html">GenomicDataStream.h</a>&quot;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">using namespace </span>std;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">using namespace </span>vcfpp;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_genomic_data_stream_lib.html">GenomicDataStreamLib</a> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html">   39</a></span><span class="keyword">class </span><a class="code hl_class" href="class_genomic_data_stream_lib_1_1vcfstream.html">vcfstream</a> : </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">public</span> <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStream</a> {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html#a196ccf137ee60c5cf2cea78e28149e8b">   52</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a196ccf137ee60c5cf2cea78e28149e8b">vcfstream</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_genomic_data_stream_lib_1_1_param.html">Param</a> &amp; <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>) : <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStream</a>(<a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// initialize</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        reader = <span class="keyword">new</span> BcfReader( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a71a2d22e96db8937d19c8686e9cfe3f5">file</a> );</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        validRegions.reserve(<a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22">regions</a>.size());</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        validRegions.clear();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">// check status of each region</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="comment">// retain only valid, non-empty regions in validRegions</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; region : <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22">regions</a>){</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">switch</span>( reader-&gt;getStatus( region ) ){</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <span class="keywordflow">case</span> 1: <span class="comment">// region is vaild and not empty</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                validRegions.push_back(region); </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <span class="keywordflow">case</span> 0: <span class="comment">// the region is valid but empty.</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <span class="keywordflow">case</span> -1: <span class="comment">// there is no index file found.</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Could not retrieve index file&quot;</span>);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html">utils.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">using namespace </span>std;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">using namespace </span>vcfpp;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_genomic_data_stream_lib.html">GenomicDataStreamLib</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="};">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html">   40</a></span><span class="keyword">class </span><a class="code hl_class" href="class_genomic_data_stream_lib_1_1vcfstream.html">vcfstream</a> : </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">public</span> <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStream</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html#a196ccf137ee60c5cf2cea78e28149e8b">   46</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a196ccf137ee60c5cf2cea78e28149e8b">vcfstream</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_genomic_data_stream_lib_1_1_param.html">Param</a> &amp; <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>) : <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStream</a>(<a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="comment">// initialize</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        reader = <span class="keyword">new</span> BcfReader( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a71a2d22e96db8937d19c8686e9cfe3f5">file</a> );</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        validRegions.reserve(<a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22">regions</a>.size());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        validRegions.clear();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// check status of each region</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="comment">// retain only valid, non-empty regions in validRegions</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; region : <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22">regions</a>){</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">switch</span>( reader-&gt;getStatus( region ) ){</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">case</span> 1: <span class="comment">// region is vaild and not empty</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                validRegions.push_back(region); </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordflow">case</span> 0: <span class="comment">// the region is valid but empty.</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keywordflow">case</span> -1: <span class="comment">// there is no index file found.</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Could not retrieve index file&quot;</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keywordflow">case</span> -2: <span class="comment">// the region is not valid</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;region was not found: &quot;</span> + region );</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <span class="keywordflow">case</span> -2: <span class="comment">// the region is not valid</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;region was not found: &quot;</span> + region );</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="comment">// initialize iterator</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        itReg = validRegions.begin();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        reader-&gt;setRegion( *itReg );</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        reader-&gt;setSamples( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#ae655d8a3cedb951ffe1add410d790f63">samples</a> );</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// initialize iterator</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        itReg = validRegions.begin();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Initialize record with info in header</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        record = <span class="keyword">new</span> BcfRecord( reader-&gt;header ); </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        reader-&gt;setRegion( *itReg );</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        reader-&gt;setSamples( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#ae655d8a3cedb951ffe1add410d790f63">samples</a> );</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="comment">// 1: int; 2: float; 3: string; 0: error;</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        fieldType = reader-&gt;header.getFormatType(<a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="comment">// Initialize record with info in header</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        record = <span class="keyword">new</span> BcfRecord( reader-&gt;header ); </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span>( fieldType == 3 &amp;&amp; <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>.compare(<span class="stringliteral">&quot;GT&quot;</span>))</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;field GT is the only supported string type&quot;</span>);             </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">// 1: int; 2: float; 3: string; 0: error;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        fieldType = reader-&gt;header.getFormatType(<a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">// initialize varInfo with sample names</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        vInfo = <span class="keyword">new</span> <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a>( reader-&gt;SamplesName );</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">if</span>( fieldType == 3 &amp;&amp; <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>.compare(<span class="stringliteral">&quot;GT&quot;</span>))</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;field GT is the only supported string type&quot;</span>);             </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="comment">// initialize varInfo with sample names</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        vInfo = <span class="keyword">new</span> <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a>( reader-&gt;SamplesName );</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">// Initialize vector with capacity to store nVariants</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment">// Note, this allocates memory but does not change .size()</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">// After j variants have been inserted, only entries up to j*nsamples are populated</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="comment">//  the rest of the vector is allocated doesn&#39;t have valid data</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">int</span> n = 1e6 * <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a896f2cdd6084c0e5c1d25feadea27dd1">initCapacity</a> / (double) (<span class="keyword">sizeof</span>(<span class="keywordtype">double</span>) * reader-&gt;nsamples);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        matDosage.reserve( n );</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="comment">// Initialize vector with capacity to store nVariants</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">// Note, this allocates memory but does not change .size()</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">// After j variants have been inserted, only entries up to j*nsamples are populated</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="comment">//  the rest of the vector is allocated doesn&#39;t have valid data</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordtype">int</span> n = 1e6 * <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a896f2cdd6084c0e5c1d25feadea27dd1">initCapacity</a> / (double) (<span class="keyword">sizeof</span>(<span class="keywordtype">double</span>) * reader-&gt;nsamples);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        matDosage.reserve( n );</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
 </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3">  110</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3">~vcfstream</a>(){</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">if</span>( reader != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> reader;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">if</span>( record != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> record;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">if</span>( vInfo != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> vInfo;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3">  104</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3">~vcfstream</a>(){</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span>( reader != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> reader;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">if</span>( record != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> record;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span>( vInfo != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> vInfo;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html#a9a0e0361945aa41ddb0ea2c4af97f101">  112</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a9a0e0361945aa41ddb0ea2c4af97f101">n_cols</a>(){</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> reader-&gt;nsamples;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
 </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
@@ -296,185 +303,146 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
 </div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1vcfstream.html#ac0677a09d629215785c2530e8ac56b4a">  187</a></span>    <span class="keyword">static</span> vector&lt;double&gt; <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#ac0677a09d629215785c2530e8ac56b4a">intToDosage</a>( <span class="keyword">const</span> vector&lt;int&gt; &amp;v, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;missingToMean) {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    BcfReader *reader = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    BcfRecord *record = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> *vInfo = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    vector&lt;string&gt;::iterator itReg;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    vector&lt;string&gt; validRegions;</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="comment">// store and return result</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        vector&lt;double&gt; res( v.size() / 2.0);</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        vector&lt;int&gt; missing;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="comment">// initialize</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordtype">int</span> runningSum = 0, nValid = 0;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordtype">double</span> value;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="comment">// for each entry in result</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="comment">// use two adjacent values</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i&lt;res.size(); i++){</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            value = v[2*i] + v[2*i+1];</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            <span class="comment">// -9 is the missing value, so -18 is diploid</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="keywordflow">if</span>( value == -18){ </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                <span class="comment">// if missing, set to NaN</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                value = std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                missing.push_back(i);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            }<span class="keywordflow">else</span>{</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                <span class="comment">// for computing mean</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                runningSum += value;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                nValid++;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            }</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            <span class="comment">// set dosage value</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            res[i] = value;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        }</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="comment">// mean excluding NaNs</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordtype">double</span> mu = runningSum / (double) nValid;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="comment">// if missing values should be set to mean</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">if</span>( missingToMean ){</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="comment">// for each entry with a missing value, set to mean</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; i : missing) res[i] = mu;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        }</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordtype">bool</span> continueIterating = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordtype">int</span> fieldType;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="comment">// store genotype values</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="comment">// type used based on fieldType</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="comment">// 1: int; </span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="comment">// 2: float; </span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="comment">// 3: string; </span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="comment">// 0: error;</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    vector&lt;int&gt; values_int; </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    vector&lt;float&gt; values_fl; </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    vector&lt;double&gt; tmp; </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="comment">// stores genotype dosage as doubles, with the next marker inserted at the end</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="comment">// NOTE that when current size is exceeded, .insert() reallocates memory</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">// this can be slow </span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="comment">// set using reserve() to set initial capacity so avoid re-alloc</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    vector&lt;double&gt; matDosage;   </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordtype">bool</span> getNextChunk_helper(){</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="comment">// if end of file reached, return false</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">if</span>( ! continueIterating ) <span class="keywordflow">return</span> continueIterating;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="comment">// clear data, but keep allocated capacity</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        matDosage.<a class="code hl_function" href="class_genomic_data_stream_lib_1_1_variant_info.html#af05ba6475ef76437f635496f63188d04">clear</a>();</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        vInfo-&gt;<a class="code hl_function" href="class_genomic_data_stream_lib_1_1_variant_info.html#af05ba6475ef76437f635496f63188d04">clear</a>();</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="comment">// loop thru variant, updating the count each time</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">for</span>(j=0; j &lt; <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a79dd1de90ded4117e9ad61cf09d517f3">chunkSize</a>; j++){</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="comment">// get next variant</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            <span class="comment">// if false, reached end of region</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            <span class="keywordflow">if</span>( ! reader-&gt;getNextVariant( *record ) ){</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">return</span> res;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
-</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                <span class="comment">// else go to next region</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                itReg++;</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    BcfReader *reader = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    BcfRecord *record = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <a class="code hl_class" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> *vInfo = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    vector&lt;string&gt;::iterator itReg;</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    vector&lt;string&gt; validRegions;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordtype">bool</span> endOfFile = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordtype">int</span> fieldType;</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="comment">// store genotype values</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// type used based on fieldType</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="comment">// 1: int; </span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="comment">// 2: float; </span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="comment">// 3: string; </span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="comment">// 0: error;</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    vector&lt;int&gt; values_int; </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    vector&lt;float&gt; values_fl; </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    vector&lt;double&gt; tmp; </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="comment">// stores genotype dosage as doubles, with the next marker inserted at the end</span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="comment">// NOTE that when current size is exceeded, .insert() reallocates memory</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="comment">// this can be slow </span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="comment">// set using reserve() to set initial capacity so avaoid re-alloc</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    vector&lt;double&gt; matDosage;   </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordtype">bool</span> getNextChunk_helper(){</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                <span class="comment">// if this was the last region</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                <span class="comment">// set continueIterating so false is retured at next call to </span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                <span class="comment">// getNextChunk_helper()</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                <span class="comment">// then break since no data left</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                <span class="keywordflow">if</span>( itReg == validRegions.end()){</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                    continueIterating = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                <span class="comment">// else</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                <span class="comment">// initialize the record for this region</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                reader-&gt;setRegion( *itReg );</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                reader-&gt;getNextVariant( *record ); </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            }</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="comment">// populate genotype with the values of the current variant</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            <span class="comment">// If string, convert to dosage</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <span class="comment">// use values vector based on fieldType</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            <span class="keywordflow">switch</span>(fieldType){</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                <span class="keywordflow">case</span> 1: <span class="comment">// int                  </span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                    record-&gt;getFORMAT( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>, values_int);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                    matDosage.insert(matDosage.end(), values_int.begin(), values_int.end());</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                <span class="keywordflow">case</span> 2: <span class="comment">// float                </span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>                    record-&gt;getFORMAT( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>, values_fl);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>                    matDosage.insert(matDosage.end(), values_fl.begin(), values_fl.end());</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                <span class="keywordflow">case</span> 3: <span class="comment">// string. Convert GT to doubles</span></div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="comment">// clear data, but keep allocated capacity</span></div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        matDosage.<a class="code hl_function" href="class_genomic_data_stream_lib_1_1_variant_info.html#af05ba6475ef76437f635496f63188d04">clear</a>();</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        vInfo-&gt;<a class="code hl_function" href="class_genomic_data_stream_lib_1_1_variant_info.html#af05ba6475ef76437f635496f63188d04">clear</a>();</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        <span class="comment">// loop thru variant, updating the count each time</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j;</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="keywordflow">for</span>(j=0; j &lt; <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a79dd1de90ded4117e9ad61cf09d517f3">chunkSize</a>; j++){</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            <span class="comment">// get next variant</span></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            <span class="comment">// if false, reached end of region</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <span class="keywordflow">if</span>( ! reader-&gt;getNextVariant( *record ) ){</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>                <span class="comment">// else go to next region</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                itReg++;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                <span class="comment">// if this was the last region</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                <span class="comment">// set endOfFile and break</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                <span class="keywordflow">if</span>( itReg == validRegions.end()){</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                    endOfFile = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                }</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                <span class="comment">// else</span></div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                <span class="comment">// initialize the record for this region</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>                reader-&gt;setRegion( *itReg );</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                reader-&gt;getNextVariant( *record ); </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            }</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            <span class="comment">// populate genotype with the values of the current variant</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            <span class="comment">// If string, convert to dosage</span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            <span class="comment">// use values vector based on fieldType</span></div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            <span class="keywordflow">switch</span>(fieldType){</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                <span class="keywordflow">case</span> 1: <span class="comment">// int                  </span></div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>                    record-&gt;getFORMAT( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>, values_int);</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>                    matDosage.insert(matDosage.end(), values_int.begin(), values_int.end());</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>                <span class="keywordflow">case</span> 2: <span class="comment">// float                </span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                    record-&gt;getFORMAT( <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">field</a>, values_fl);</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                    matDosage.insert(matDosage.end(), values_fl.begin(), values_fl.end());</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                <span class="keywordflow">case</span> 3: <span class="comment">// string. Convert GT to doubles</span></div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                    <span class="comment">// check if site is multi-allelic</span></div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                    <span class="keywordflow">if</span>( record-&gt;isMultiAllelics() ){</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;GT is not supported for multi-allelic site\n    &quot;</span> + <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a5f75bf7c9d4a4598f66f10bb2fa5a92f">variantToString</a>(*record));</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                    }</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>                    <span class="comment">// check if site ploidy &gt; 2</span></div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>                    <span class="keywordflow">if</span>( record-&gt;ploidy() &gt; 2 ){</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;GT is not supported for site with ploidy &gt; 2\n    &quot;</span> + <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a5f75bf7c9d4a4598f66f10bb2fa5a92f">variantToString</a>(*record));</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>                    }                   </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                    <span class="comment">// get GT as int&#39;s with vector that is twice as long</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                    record-&gt;getGenotypes(values_int);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                    tmp = <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#ac0677a09d629215785c2530e8ac56b4a">intToDosage</a>( values_int, <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#aa734aa0a3658f94686c62e3ad2a55e0c">missingToMean</a> );</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                    matDosage.insert(matDosage.end(), tmp.begin(), tmp.end());</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            }</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            <span class="comment">// store variant information </span></div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            vInfo-&gt;<a class="code hl_function" href="class_genomic_data_stream_lib_1_1_variant_info.html#a1a77b19502f5cecc07d1a2c155cf2cb3">addVariant</a>(  record-&gt;CHROM(), </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                                record-&gt;POS(), </div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>                                record-&gt;ID(), </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>                                record-&gt;REF(), </div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>                                record-&gt;ALT() );</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        }</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="comment">// After j variants have been inserted, only entries up to j*nsamples are populated</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="comment">//  the rest of the vector is allocated doesn&#39;t have valid data.</span></div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="comment">// Therefore, use entires based on .size(), not .capacity()</span></div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        <span class="keywordflow">return</span> ! endOfFile;</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    }</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>};</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>                    <span class="comment">// check if site is multi-allelic</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>                    <span class="keywordflow">if</span>( record-&gt;isMultiAllelics() ){</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>                        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;GT is not supported for multi-allelic site\n    &quot;</span> + <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a5f75bf7c9d4a4598f66f10bb2fa5a92f">variantToString</a>(*record));</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>                    }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>                    <span class="comment">// check if site ploidy &gt; 2</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                    <span class="keywordflow">if</span>( record-&gt;ploidy() &gt; 2 ){</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;GT is not supported for site with ploidy &gt; 2\n    &quot;</span> + <a class="code hl_function" href="class_genomic_data_stream_lib_1_1vcfstream.html#a5f75bf7c9d4a4598f66f10bb2fa5a92f">variantToString</a>(*record));</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                    }                   </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                    <span class="comment">// get GT as int&#39;s with vector that is twice as long</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>                    record-&gt;getGenotypes(values_int);</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>                    tmp = intToDosage( values_int, <a class="code hl_variable" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">param</a>.<a class="code hl_variable" href="struct_genomic_data_stream_lib_1_1_param.html#aa734aa0a3658f94686c62e3ad2a55e0c">missingToMean</a> );</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>                    matDosage.insert(matDosage.end(), tmp.begin(), tmp.end());</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            }</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            <span class="comment">// store variant information </span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            vInfo-&gt;<a class="code hl_function" href="class_genomic_data_stream_lib_1_1_variant_info.html#a1a77b19502f5cecc07d1a2c155cf2cb3">addVariant</a>(  record-&gt;CHROM(), </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                                record-&gt;POS(), </div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                                record-&gt;ID(), </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                                record-&gt;REF(), </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                                record-&gt;ALT() );</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="comment">// After j variants have been inserted, only entries up to j*nsamples are populated</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="comment">//  the rest of the vector is allocated doesn&#39;t have valid data.</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="comment">// Therefore, use entires based on .size(), not .capacity()</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    }</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>};</div>
 </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>} <span class="comment">// end namespace</span></div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>} <span class="comment">// end namespace</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_genomic_data_stream_8h_html"><div class="ttname"><a href="_genomic_data_stream_8h.html">GenomicDataStream.h</a></div></div>
 <div class="ttc" id="a_variant_info_8h_html"><div class="ttname"><a href="_variant_info_8h.html">VariantInfo.h</a></div></div>
 <div class="ttc" id="aclass_genomic_data_stream_lib_1_1_data_chunk_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_data_chunk.html">GenomicDataStreamLib::DataChunk</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:66</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_genomic_data_stream_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStreamLib::GenomicDataStream</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:142</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_genomic_data_stream_html_a39716878ac06d74a6550ceab57266224"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">GenomicDataStreamLib::GenomicDataStream::param</a></div><div class="ttdeci">Param param</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:184</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html">GenomicDataStreamLib::VariantInfo</a></div><div class="ttdef"><b>Definition</b> VariantInfo.h:58</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_a0649a6a511541799887cea656f28bb4c"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#a0649a6a511541799887cea656f28bb4c">GenomicDataStreamLib::VariantInfo::size</a></div><div class="ttdeci">int size() const</div><div class="ttdef"><b>Definition</b> VariantInfo.h:87</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_a1a77b19502f5cecc07d1a2c155cf2cb3"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#a1a77b19502f5cecc07d1a2c155cf2cb3">GenomicDataStreamLib::VariantInfo::addVariant</a></div><div class="ttdeci">void addVariant(const string &amp;chr, const int64_t &amp;pos, const string &amp;id, const string &amp;ref, const string &amp;alt)</div><div class="ttdef"><b>Definition</b> VariantInfo.h:72</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_adef3a7616c6496d025ee0e829c121f53"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#adef3a7616c6496d025ee0e829c121f53">GenomicDataStreamLib::VariantInfo::ID</a></div><div class="ttdeci">vector&lt; string &gt; ID</div><div class="ttdef"><b>Definition</b> VariantInfo.h:139</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_aeb16d5d41fd7d6772024458d489d6ee7"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#aeb16d5d41fd7d6772024458d489d6ee7">GenomicDataStreamLib::VariantInfo::sampleNames</a></div><div class="ttdeci">vector&lt; string &gt; sampleNames</div><div class="ttdef"><b>Definition</b> VariantInfo.h:136</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_af05ba6475ef76437f635496f63188d04"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#af05ba6475ef76437f635496f63188d04">GenomicDataStreamLib::VariantInfo::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition</b> VariantInfo.h:118</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html">GenomicDataStreamLib::vcfstream</a></div><div class="ttdef"><b>Definition</b> vcfstream.h:40</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a08547aa8a6c41a89bb428aa6d53633c3"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3">GenomicDataStreamLib::vcfstream::~vcfstream</a></div><div class="ttdeci">~vcfstream()</div><div class="ttdef"><b>Definition</b> vcfstream.h:110</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a196ccf137ee60c5cf2cea78e28149e8b"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a196ccf137ee60c5cf2cea78e28149e8b">GenomicDataStreamLib::vcfstream::vcfstream</a></div><div class="ttdeci">vcfstream(const Param &amp;param)</div><div class="ttdef"><b>Definition</b> vcfstream.h:52</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_genomic_data_stream_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStreamLib::GenomicDataStream</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:160</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_genomic_data_stream_html_a39716878ac06d74a6550ceab57266224"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224">GenomicDataStreamLib::GenomicDataStream::param</a></div><div class="ttdeci">Param param</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:206</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html">GenomicDataStreamLib::VariantInfo</a></div><div class="ttdef"><b>Definition</b> VariantInfo.h:21</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_a0649a6a511541799887cea656f28bb4c"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#a0649a6a511541799887cea656f28bb4c">GenomicDataStreamLib::VariantInfo::size</a></div><div class="ttdeci">int size() const</div><div class="ttdef"><b>Definition</b> VariantInfo.h:50</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_a1a77b19502f5cecc07d1a2c155cf2cb3"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#a1a77b19502f5cecc07d1a2c155cf2cb3">GenomicDataStreamLib::VariantInfo::addVariant</a></div><div class="ttdeci">void addVariant(const string &amp;chr, const int64_t &amp;pos, const string &amp;id, const string &amp;ref, const string &amp;alt)</div><div class="ttdef"><b>Definition</b> VariantInfo.h:35</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_adef3a7616c6496d025ee0e829c121f53"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#adef3a7616c6496d025ee0e829c121f53">GenomicDataStreamLib::VariantInfo::ID</a></div><div class="ttdeci">vector&lt; string &gt; ID</div><div class="ttdef"><b>Definition</b> VariantInfo.h:102</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_aeb16d5d41fd7d6772024458d489d6ee7"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#aeb16d5d41fd7d6772024458d489d6ee7">GenomicDataStreamLib::VariantInfo::sampleNames</a></div><div class="ttdeci">vector&lt; string &gt; sampleNames</div><div class="ttdef"><b>Definition</b> VariantInfo.h:99</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_variant_info_html_af05ba6475ef76437f635496f63188d04"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_variant_info.html#af05ba6475ef76437f635496f63188d04">GenomicDataStreamLib::VariantInfo::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition</b> VariantInfo.h:81</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html">GenomicDataStreamLib::vcfstream</a></div><div class="ttdef"><b>Definition</b> vcfstream.h:41</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a08547aa8a6c41a89bb428aa6d53633c3"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3">GenomicDataStreamLib::vcfstream::~vcfstream</a></div><div class="ttdeci">~vcfstream()</div><div class="ttdef"><b>Definition</b> vcfstream.h:104</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a196ccf137ee60c5cf2cea78e28149e8b"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a196ccf137ee60c5cf2cea78e28149e8b">GenomicDataStreamLib::vcfstream::vcfstream</a></div><div class="ttdeci">vcfstream(const Param &amp;param)</div><div class="ttdef"><b>Definition</b> vcfstream.h:46</div></div>
 <div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a37f8e1f07090669a0724ad792877e25e"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a37f8e1f07090669a0724ad792877e25e">GenomicDataStreamLib::vcfstream::getNextChunk</a></div><div class="ttdeci">bool getNextChunk(DataChunk&lt; Rcpp::NumericMatrix, VariantInfo &gt; &amp;chunk)</div><div class="ttdef"><b>Definition</b> vcfstream.h:147</div></div>
 <div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a4d6286b4cc7a16c2d429e306f4401e4d"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a4d6286b4cc7a16c2d429e306f4401e4d">GenomicDataStreamLib::vcfstream::getNextChunk</a></div><div class="ttdeci">bool getNextChunk(DataChunk&lt; vector&lt; double &gt;, VariantInfo &gt; &amp;chunk)</div><div class="ttdef"><b>Definition</b> vcfstream.h:162</div></div>
 <div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a5f75bf7c9d4a4598f66f10bb2fa5a92f"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a5f75bf7c9d4a4598f66f10bb2fa5a92f">GenomicDataStreamLib::vcfstream::variantToString</a></div><div class="ttdeci">static string variantToString(const BcfRecord &amp;record)</div><div class="ttdef"><b>Definition</b> vcfstream.h:177</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_ac0677a09d629215785c2530e8ac56b4a"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#ac0677a09d629215785c2530e8ac56b4a">GenomicDataStreamLib::vcfstream::intToDosage</a></div><div class="ttdeci">static vector&lt; double &gt; intToDosage(const vector&lt; int &gt; &amp;v, const bool &amp;missingToMean)</div><div class="ttdef"><b>Definition</b> vcfstream.h:187</div></div>
+<div class="ttc" id="aclass_genomic_data_stream_lib_1_1vcfstream_html_a9a0e0361945aa41ddb0ea2c4af97f101"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1vcfstream.html#a9a0e0361945aa41ddb0ea2c4af97f101">GenomicDataStreamLib::vcfstream::n_cols</a></div><div class="ttdeci">int n_cols()</div><div class="ttdef"><b>Definition</b> vcfstream.h:112</div></div>
 <div class="ttc" id="anamespace_genomic_data_stream_lib_html"><div class="ttname"><a href="namespace_genomic_data_stream_lib.html">GenomicDataStreamLib</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:30</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html">GenomicDataStreamLib::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:100</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a1b9f4af368dec4a8fcac78fadf26f9bc"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">GenomicDataStreamLib::Param::field</a></div><div class="ttdeci">string field</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:131</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a71a2d22e96db8937d19c8686e9cfe3f5"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a71a2d22e96db8937d19c8686e9cfe3f5">GenomicDataStreamLib::Param::file</a></div><div class="ttdeci">string file</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:130</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a79dd1de90ded4117e9ad61cf09d517f3"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a79dd1de90ded4117e9ad61cf09d517f3">GenomicDataStreamLib::Param::chunkSize</a></div><div class="ttdeci">int chunkSize</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:134</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a896f2cdd6084c0e5c1d25feadea27dd1"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a896f2cdd6084c0e5c1d25feadea27dd1">GenomicDataStreamLib::Param::initCapacity</a></div><div class="ttdeci">int initCapacity</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:136</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_aa734aa0a3658f94686c62e3ad2a55e0c"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#aa734aa0a3658f94686c62e3ad2a55e0c">GenomicDataStreamLib::Param::missingToMean</a></div><div class="ttdeci">bool missingToMean</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:135</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_ad0ccf260a76e952e31209fbd10e72c22"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22">GenomicDataStreamLib::Param::regions</a></div><div class="ttdeci">vector&lt; string &gt; regions</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:132</div></div>
-<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_ae655d8a3cedb951ffe1add410d790f63"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#ae655d8a3cedb951ffe1add410d790f63">GenomicDataStreamLib::Param::samples</a></div><div class="ttdeci">string samples</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:133</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html">GenomicDataStreamLib::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:102</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a1b9f4af368dec4a8fcac78fadf26f9bc"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc">GenomicDataStreamLib::Param::field</a></div><div class="ttdeci">string field</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:149</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a71a2d22e96db8937d19c8686e9cfe3f5"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a71a2d22e96db8937d19c8686e9cfe3f5">GenomicDataStreamLib::Param::file</a></div><div class="ttdeci">string file</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:148</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a79dd1de90ded4117e9ad61cf09d517f3"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a79dd1de90ded4117e9ad61cf09d517f3">GenomicDataStreamLib::Param::chunkSize</a></div><div class="ttdeci">int chunkSize</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:152</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_a896f2cdd6084c0e5c1d25feadea27dd1"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#a896f2cdd6084c0e5c1d25feadea27dd1">GenomicDataStreamLib::Param::initCapacity</a></div><div class="ttdeci">int initCapacity</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:154</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_aa734aa0a3658f94686c62e3ad2a55e0c"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#aa734aa0a3658f94686c62e3ad2a55e0c">GenomicDataStreamLib::Param::missingToMean</a></div><div class="ttdeci">bool missingToMean</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:153</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_ad0ccf260a76e952e31209fbd10e72c22"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22">GenomicDataStreamLib::Param::regions</a></div><div class="ttdeci">vector&lt; string &gt; regions</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:150</div></div>
+<div class="ttc" id="astruct_genomic_data_stream_lib_1_1_param_html_ae655d8a3cedb951ffe1add410d790f63"><div class="ttname"><a href="struct_genomic_data_stream_lib_1_1_param.html#ae655d8a3cedb951ffe1add410d790f63">GenomicDataStreamLib::Param::samples</a></div><div class="ttdeci">string samples</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:151</div></div>
+<div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

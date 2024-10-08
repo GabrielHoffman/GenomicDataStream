@@ -179,10 +179,39 @@ Functions</h2></td></tr>
 <tr class="separator:a3cc73e08f9cd5989de54ff55c29e6730"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aead7ca38ed54ddc47235bc055ad3a0e3" id="r_aead7ca38ed54ddc47235bc055ad3a0e3"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aead7ca38ed54ddc47235bc055ad3a0e3">_GenomicDataStream_column_sums</a> (SEXP initmatSEXP)</td></tr>
 <tr class="separator:aead7ca38ed54ddc47235bc055ad3a0e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fee884670a74f3630ba041bcf13a0e9" id="r_a7fee884670a74f3630ba041bcf13a0e9"><td class="memItemLeft" align="right" valign="top">arma::vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fee884670a74f3630ba041bcf13a0e9">colSums_test</a> (const arma::mat &amp;X)</td></tr>
+<tr class="separator:a7fee884670a74f3630ba041bcf13a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af04246609af79292f8dd4f5a9c8c4353" id="r_af04246609af79292f8dd4f5a9c8c4353"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af04246609af79292f8dd4f5a9c8c4353">_GenomicDataStream_colSums_test</a> (SEXP XSEXP)</td></tr>
+<tr class="separator:af04246609af79292f8dd4f5a9c8c4353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62357b90027c8c7431e79c4955b63428" id="r_a62357b90027c8c7431e79c4955b63428"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62357b90027c8c7431e79c4955b63428">standardize_test</a> (arma::mat &amp;X, const bool &amp;center, const bool &amp;scale)</td></tr>
+<tr class="separator:a62357b90027c8c7431e79c4955b63428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9acd48d49a2c3ab68ca5ad31d82b611c" id="r_a9acd48d49a2c3ab68ca5ad31d82b611c"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9acd48d49a2c3ab68ca5ad31d82b611c">_GenomicDataStream_standardize_test</a> (SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP)</td></tr>
+<tr class="separator:a9acd48d49a2c3ab68ca5ad31d82b611c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8671f35cf54b0bdd6e5fe1bebed8564b" id="r_a8671f35cf54b0bdd6e5fe1bebed8564b"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8671f35cf54b0bdd6e5fe1bebed8564b">fastLM</a> (const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region, const std::string &amp;samples, const bool &amp;missingToMean)</td></tr>
+<tr class="separator:a8671f35cf54b0bdd6e5fe1bebed8564b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da2a8358e86331f0e2ae50146911b34" id="r_a6da2a8358e86331f0e2ae50146911b34"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6da2a8358e86331f0e2ae50146911b34">_GenomicDataStream_fastLM</a> (SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP missingToMeanSEXP)</td></tr>
+<tr class="separator:a6da2a8358e86331f0e2ae50146911b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28813cc54257bc2fa1103e5290158da5" id="r_a28813cc54257bc2fa1103e5290158da5"><td class="memItemLeft" align="right" valign="top">RcppExport void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28813cc54257bc2fa1103e5290158da5">R_init_GenomicDataStream</a> (DllInfo *dll)</td></tr>
 <tr class="separator:a28813cc54257bc2fa1103e5290158da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="af04246609af79292f8dd4f5a9c8c4353" name="af04246609af79292f8dd4f5a9c8c4353"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af04246609af79292f8dd4f5a9c8c4353">&#9670;&#160;</a></span>_GenomicDataStream_colSums_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_colSums_test </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aead7ca38ed54ddc47235bc055ad3a0e3" name="aead7ca38ed54ddc47235bc055ad3a0e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aead7ca38ed54ddc47235bc055ad3a0e3">&#9670;&#160;</a></span>_GenomicDataStream_column_sums()</h2>
 
@@ -380,6 +409,47 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6da2a8358e86331f0e2ae50146911b34" name="a6da2a8358e86331f0e2ae50146911b34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da2a8358e86331f0e2ae50146911b34">&#9670;&#160;</a></span>_GenomicDataStream_fastLM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_fastLM </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>ySEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>fileSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>fieldSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>regionSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>samplesSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>missingToMeanSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="acbaf00f40124f1c10da0415f04c6be97" name="acbaf00f40124f1c10da0415f04c6be97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acbaf00f40124f1c10da0415f04c6be97">&#9670;&#160;</a></span>_GenomicDataStream_getDA()</h2>
 
@@ -448,6 +518,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9acd48d49a2c3ab68ca5ad31d82b611c" name="a9acd48d49a2c3ab68ca5ad31d82b611c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9acd48d49a2c3ab68ca5ad31d82b611c">&#9670;&#160;</a></span>_GenomicDataStream_standardize_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_standardize_test </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>centerSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>scaleSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4dae3b9b927e207694dbeede6f798f7f" name="a4dae3b9b927e207694dbeede6f798f7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4dae3b9b927e207694dbeede6f798f7f">&#9670;&#160;</a></span>_GenomicDataStream_test_DS()</h2>
 
@@ -484,6 +580,23 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>regionSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fee884670a74f3630ba041bcf13a0e9" name="a7fee884670a74f3630ba041bcf13a0e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fee884670a74f3630ba041bcf13a0e9">&#9670;&#160;</a></span>colSums_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::vec colSums_test </td>
+          <td>(</td>
+          <td class="paramtype">const arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -687,6 +800,47 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8671f35cf54b0bdd6e5fe1bebed8564b" name="a8671f35cf54b0bdd6e5fe1bebed8564b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8671f35cf54b0bdd6e5fe1bebed8564b">&#9670;&#160;</a></span>fastLM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List fastLM </td>
+          <td>(</td>
+          <td class="paramtype">const arma::colvec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>field</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>samples</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a22afe5603a4108e7f2f058a68f48c7a0" name="a22afe5603a4108e7f2f058a68f48c7a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a22afe5603a4108e7f2f058a68f48c7a0">&#9670;&#160;</a></span>getDA()</h2>
 
@@ -766,6 +920,32 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">DllInfo *</td>          <td class="paramname"><span class="paramname"><em>dll</em></span></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62357b90027c8c7431e79c4955b63428" name="a62357b90027c8c7431e79c4955b63428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62357b90027c8c7431e79c4955b63428">&#9670;&#160;</a></span>standardize_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void standardize_test </td>
+          <td>(</td>
+          <td class="paramtype">arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

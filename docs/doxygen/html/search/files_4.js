@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rcppexports_2ecpp_0',['RcppExports.cpp',['../_rcpp_exports_8cpp.html',1,'']]]
+  ['matrixinfo_2eh_0',['MatrixInfo.h',['../_matrix_info_8h.html',1,'']]]
 ];

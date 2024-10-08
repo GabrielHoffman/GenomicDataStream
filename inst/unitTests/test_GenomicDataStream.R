@@ -72,8 +72,8 @@ test_standardize = function()
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
 	set.seed(1)
-	n = 63
-	p = 34
+	n = 6
+	p = 3
 	X = matrix(rnorm(n*p), n, p)
 
 	a = base::colSums(X)
@@ -101,8 +101,6 @@ test_standardize = function()
 	X_res = X + 0.0
 	GenomicDataStream:::standardize_test(X_res, FALSE, FALSE)
 	checkEqualsNumeric(scale(X, FALSE, FALSE), X_res)
-
-
 
 }
 
@@ -280,8 +278,9 @@ test_regression(){
 	res1 = do.call(rbind, res1)
 
 	res = GenomicDataStream:::fastLM(y, file, "DS", "." )
-	res = t(do.call(cbind, unlist(res, recursive=FALSE)))
-	checkEqualsNumeric(res1, res)
+	beta = t(do.call(cbind, lapply(res, function(x) x$coef)))
+	checkEqualsNumeric(res1, beta)
+
 
 	# add checks removing variants and samples
 

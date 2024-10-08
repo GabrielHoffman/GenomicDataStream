@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['test_5fds_0',['test_DS',['../export_8cpp.html#aaa480f499e1d9e5870f3aa5abc5c675e',1,'test_DS(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#aaa480f499e1d9e5870f3aa5abc5c675e',1,'test_DS(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp']]],
-  ['test_5fgt_1',['test_GT',['../export_8cpp.html#af6b46fe745e9b79a985ea29a2238e2f0',1,'test_GT(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#af6b46fe745e9b79a985ea29a2238e2f0',1,'test_GT(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp']]],
-  ['todf_2',['toDF',['../export_8cpp.html#a92c4b4101778c8258e06efc528ccc97e',1,'export.cpp']]]
+  ['r_0',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
+  ['r_5finit_5fgenomicdatastream_1',['R_init_GenomicDataStream',['../_rcpp_exports_8cpp.html#a28813cc54257bc2fa1103e5290158da5',1,'RcppExports.cpp']]],
+  ['rcppexports_2ecpp_2',['RcppExports.cpp',['../_rcpp_exports_8cpp.html',1,'']]],
+  ['ref_3',['REF',['../class_genomic_data_stream_lib_1_1_variant_info.html#a8a649215947848314655126ee2f9133a',1,'GenomicDataStreamLib::VariantInfo']]],
+  ['regions_4',['regions',['../struct_genomic_data_stream_lib_1_1_param.html#ad0ccf260a76e952e31209fbd10e72c22',1,'GenomicDataStreamLib::Param']]]
 ];

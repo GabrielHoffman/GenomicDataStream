@@ -144,6 +144,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a196ccf137ee60c5cf2cea78e28149e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08547aa8a6c41a89bb428aa6d53633c3" id="r_a08547aa8a6c41a89bb428aa6d53633c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08547aa8a6c41a89bb428aa6d53633c3">~vcfstream</a> ()</td></tr>
 <tr class="separator:a08547aa8a6c41a89bb428aa6d53633c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a0e0361945aa41ddb0ea2c4af97f101" id="r_a9a0e0361945aa41ddb0ea2c4af97f101"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a0e0361945aa41ddb0ea2c4af97f101">n_cols</a> ()</td></tr>
+<tr class="separator:a9a0e0361945aa41ddb0ea2c4af97f101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37f8e1f07090669a0724ad792877e25e" id="r_a37f8e1f07090669a0724ad792877e25e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37f8e1f07090669a0724ad792877e25e">getNextChunk</a> (<a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;chunk)</td></tr>
 <tr class="separator:a37f8e1f07090669a0724ad792877e25e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d6286b4cc7a16c2d429e306f4401e4d" id="r_a4d6286b4cc7a16c2d429e306f4401e4d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d6286b4cc7a16c2d429e306f4401e4d">getNextChunk</a> (<a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; vector&lt; double &gt;, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;chunk)</td></tr>
@@ -160,8 +162,6 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5f75bf7c9d4a4598f66f10bb2fa5a92f" id="r_a5f75bf7c9d4a4598f66f10bb2fa5a92f"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f75bf7c9d4a4598f66f10bb2fa5a92f">variantToString</a> (const BcfRecord &amp;record)</td></tr>
 <tr class="separator:a5f75bf7c9d4a4598f66f10bb2fa5a92f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0677a09d629215785c2530e8ac56b4a" id="r_ac0677a09d629215785c2530e8ac56b4a"><td class="memItemLeft" align="right" valign="top">static vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0677a09d629215785c2530e8ac56b4a">intToDosage</a> (const vector&lt; int &gt; &amp;v, const bool &amp;missingToMean)</td></tr>
-<tr class="separator:ac0677a09d629215785c2530e8ac56b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -170,7 +170,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a39716878ac06d74a6550ceab57266224 inherit pro_attribs_class_genomic_data_stream_lib_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>vcfstream reads a VCF into an arma::mat in chunks, storing variants in columns. Applies filtering for specified samples and genome region. </p>
+<div class="textblock"><p>vcfstream reads a VCF/BCF into an matrix in chunks, storing variants in columns. Applies filtering for specified samples and genome region. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a196ccf137ee60c5cf2cea78e28149e8b" name="a196ccf137ee60c5cf2cea78e28149e8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a196ccf137ee60c5cf2cea78e28149e8b">&#9670;&#160;</a></span>vcfstream()</h2>
@@ -194,18 +194,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>constructor </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>.vcf, .vcf.gz or .bcf file with tabix index </td></tr>
-    <tr><td class="paramname">field</td><td>'GT' for genotype strings, 'DS' for dosage, or another other field stored as an integer or float. 'GT' is the only string type supported </td></tr>
-    <tr><td class="paramname">region</td><td>target in the format 'chr2:1-12345'. Setting region to "" includes all variants </td></tr>
-    <tr><td class="paramname">samples</td><td>string of comma separated sample IDs to extract: "ID1,ID2,ID3" </td></tr>
-    <tr><td class="paramname">chunkSize</td><td>number of variants to return per chunk </td></tr>
-    <tr><td class="paramname">missingToMean</td><td>if true, set missing values to the mean dosage value. if false, set to NaN </td></tr>
-    <tr><td class="paramname">initCapacity</td><td>initial capacity of temporary vector to avoid re-alloc on insert. Size is in Mb. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>constructor initilizing with parameter values </p>
 
 </div>
 </div>
@@ -292,8 +281,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac0677a09d629215785c2530e8ac56b4a" name="ac0677a09d629215785c2530e8ac56b4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0677a09d629215785c2530e8ac56b4a">&#9670;&#160;</a></span>intToDosage()</h2>
+<a id="a9a0e0361945aa41ddb0ea2c4af97f101" name="a9a0e0361945aa41ddb0ea2c4af97f101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a0e0361945aa41ddb0ea2c4af97f101">&#9670;&#160;</a></span>n_cols()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,29 +291,21 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static vector&lt; double &gt; GenomicDataStreamLib::vcfstream::intToDosage </td>
+          <td class="memname">int GenomicDataStreamLib::vcfstream::n_cols </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; int &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>v</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Compute dosage values from vector of GT stored as int. Sum adjacent values to get dosage </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">v</td><td>for n samples, vector of length 2*n where dosage is computed as v[2*i] + v[2*i+1]; </td></tr>
-    <tr><td class="paramname">missingToMean</td><td>if true, set missing values to the mean dosage value. if false, set to NaN </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Get number of columns in data matrix </p>
+
+<p>Reimplemented from <a class="el" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a23afd2cd1a4974e281a1a4b21e33db01">GenomicDataStreamLib::GenomicDataStream</a>.</p>
 
 </div>
 </div>

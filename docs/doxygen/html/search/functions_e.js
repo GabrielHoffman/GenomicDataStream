@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['_7ebgenstream_0',['~bgenstream',['../class_genomic_data_stream_lib_1_1bgenstream.html#a58ec653e0107241fa73d57e8214af3ce',1,'GenomicDataStreamLib::bgenstream']]],
-  ['_7edelayedstream_1',['~DelayedStream',['../class_genomic_data_stream_lib_1_1_delayed_stream.html#a6440cf28d17c77773693fe2ca4e16736',1,'GenomicDataStreamLib::DelayedStream']]],
-  ['_7egenomicdatastream_2',['~GenomicDataStream',['../class_genomic_data_stream_lib_1_1_genomic_data_stream.html#ab402bf360ac0ac327bdf8e187a10e4f1',1,'GenomicDataStreamLib::GenomicDataStream']]],
-  ['_7evcfstream_3',['~vcfstream',['../class_genomic_data_stream_lib_1_1vcfstream.html#a08547aa8a6c41a89bb428aa6d53633c3',1,'GenomicDataStreamLib::vcfstream']]]
+  ['test_5fds_0',['test_DS',['../export_8cpp.html#aaa480f499e1d9e5870f3aa5abc5c675e',1,'test_DS(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#aaa480f499e1d9e5870f3aa5abc5c675e',1,'test_DS(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp']]],
+  ['test_5fgt_1',['test_GT',['../export_8cpp.html#af6b46fe745e9b79a985ea29a2238e2f0',1,'test_GT(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#af6b46fe745e9b79a985ea29a2238e2f0',1,'test_GT(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp']]],
+  ['todf_2',['toDF',['../export_8cpp.html#a92c4b4101778c8258e06efc528ccc97e',1,'export.cpp']]]
 ];

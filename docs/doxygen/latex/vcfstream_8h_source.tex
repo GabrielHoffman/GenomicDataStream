@@ -29,78 +29,83 @@
 \DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <string>}}
 \DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <vcfpp.h>}}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}"{}}}
 \DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_genomic_data_stream_8h}{GenomicDataStream.h}}"{}}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{using\ namespace\ }std;}
-\DoxyCodeLine{00032\ \textcolor{keyword}{using\ namespace\ }vcfpp;}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream}{vcfstream}}\ :\ }
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a196ccf137ee60c5cf2cea78e28149e8b}{vcfstream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ :\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ \{}
-\DoxyCodeLine{00053\ \ \ \ \ }
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize}}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ reader\ =\ \textcolor{keyword}{new}\ BcfReader(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}}\ );}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ validRegions.reserve(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}}.size());}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ validRegions.clear();}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ status\ of\ each\ region}}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ retain\ only\ valid,\ non-\/empty\ regions\ in\ validRegions}}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ region\ :\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}})\{}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ reader-\/>getStatus(\ region\ )\ )\{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ region\ is\ vaild\ and\ not\ empty}}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validRegions.push\_back(region);\ }
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ the\ region\ is\ valid\ but\ empty.}}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:\ \textcolor{comment}{//\ there\ is\ no\ index\ file\ found.}}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ retrieve\ index\ file"{}});}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{using\ namespace\ }vcfpp;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream}{vcfstream}}\ :\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a196ccf137ee60c5cf2cea78e28149e8b}{vcfstream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ :\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ reader\ =\ \textcolor{keyword}{new}\ BcfReader(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}}\ );}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ validRegions.reserve(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}}.size());}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ validRegions.clear();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ status\ of\ each\ region}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ retain\ only\ valid,\ non-\/empty\ regions\ in\ validRegions}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ region\ :\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}})\{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ reader-\/>getStatus(\ region\ )\ )\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ region\ is\ vaild\ and\ not\ empty}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validRegions.push\_back(region);\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ the\ region\ is\ valid\ but\ empty.}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:\ \textcolor{comment}{//\ there\ is\ no\ index\ file\ found.}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ retrieve\ index\ file"{}});}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/2:\ \textcolor{comment}{//\ the\ region\ is\ not\ valid}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}region\ was\ not\ found:\ "{}}\ +\ region\ );}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/2:\ \textcolor{comment}{//\ the\ region\ is\ not\ valid}}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}region\ was\ not\ found:\ "{}}\ +\ region\ );}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ iterator}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ itReg\ =\ validRegions.begin();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ reader-\/>setRegion(\ *itReg\ );}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ reader-\/>setSamples(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}\ );}
 \DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ iterator}}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ itReg\ =\ validRegions.begin();}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ record\ with\ info\ in\ header}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ record\ =\ \textcolor{keyword}{new}\ BcfRecord(\ reader-\/>header\ );\ }
 \DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ reader-\/>setRegion(\ *itReg\ );}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ reader-\/>setSamples(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}\ );}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1:\ int;\ 2:\ float;\ 3:\ string;\ 0:\ error;}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ fieldType\ =\ reader-\/>header.getFormatType(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}});}
 \DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ record\ with\ info\ in\ header}}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ record\ =\ \textcolor{keyword}{new}\ BcfRecord(\ reader-\/>header\ );\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ fieldType\ ==\ 3\ \&\&\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}}.compare(\textcolor{stringliteral}{"{}GT"{}}))}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}field\ GT\ is\ the\ only\ supported\ string\ type"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1:\ int;\ 2:\ float;\ 3:\ string;\ 0:\ error;}}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ fieldType\ =\ reader-\/>header.getFormatType(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ varInfo\ with\ sample\ names}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ vInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}(\ reader-\/>SamplesName\ );}
 \DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ fieldType\ ==\ 3\ \&\&\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}}.compare(\textcolor{stringliteral}{"{}GT"{}}))}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}field\ GT\ is\ the\ only\ supported\ string\ type"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ varInfo\ with\ sample\ names}}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ vInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}(\ reader-\/>SamplesName\ );}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ vector\ with\ capacity\ to\ store\ nVariants}}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note,\ this\ allocates\ memory\ but\ does\ not\ change\ .size()}}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ After\ j\ variants\ have\ been\ inserted,\ only\ entries\ up\ to\ j*nsamples\ are\ populated}}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ the\ rest\ of\ the\ vector\ is\ allocated\ doesn't\ have\ valid\ data}}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 1e6\ *\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{initCapacity}}\ /\ (double)\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double})\ *\ reader-\/>nsamples);}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ matDosage.reserve(\ n\ );}
-\DoxyCodeLine{00106\ \ \ \ \ \}}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a08547aa8a6c41a89bb428aa6d53633c3}{\string~vcfstream}}()\{}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ reader\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ reader;}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ record\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ record;}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ vInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ vInfo;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ vector\ with\ capacity\ to\ store\ nVariants}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note,\ this\ allocates\ memory\ but\ does\ not\ change\ .size()}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ After\ j\ variants\ have\ been\ inserted,\ only\ entries\ up\ to\ j*nsamples\ are\ populated}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ the\ rest\ of\ the\ vector\ is\ allocated\ doesn't\ have\ valid\ data}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 1e6\ *\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{initCapacity}}\ /\ (double)\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double})\ *\ reader-\/>nsamples);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ matDosage.reserve(\ n\ );}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a08547aa8a6c41a89bb428aa6d53633c3}{\string~vcfstream}}()\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ reader\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ reader;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ record\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ record;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ vInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ vInfo;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a9a0e0361945aa41ddb0ea2c4af97f101}{n\_cols}}()\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reader-\/>nsamples;}
 \DoxyCodeLine{00114\ \ \ \ \ \}}
 \DoxyCodeLine{00115\ }
 \DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ ARMA}}
@@ -165,154 +170,116 @@
 \DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
 \DoxyCodeLine{00180\ \ \ \ \ \}}
 \DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ }
-\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{static}\ vector<double>\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_ac0677a09d629215785c2530e8ac56b4a}{intToDosage}}(\ \textcolor{keyword}{const}\ vector<int>\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&missingToMean)\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00183\ \ \ \ \ BcfReader\ *reader\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00184\ \ \ \ \ BcfRecord\ *record\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00185\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}\ *vInfo\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00186\ \ \ \ \ vector<string>::iterator\ itReg;}
+\DoxyCodeLine{00187\ \ \ \ \ vector<string>\ validRegions;}
 \DoxyCodeLine{00188\ }
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ and\ return\ result}}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ vector<double>\ res(\ v.size()\ /\ 2.0);}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ vector<int>\ missing;}
-\DoxyCodeLine{00192\ }
-\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize}}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ value;}
-\DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ v[2*i]\ +\ v[2*i+1];}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ missing.push\_back(i);}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
-\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ runningSum\ +=\ value;}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nValid++;}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00212\ }
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
-\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ res[i]\ =\ value;}
-\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00216\ }
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{bool}\ continueIterating\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{int}\ fieldType;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{comment}{//\ store\ genotype\ values}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ type\ used\ based\ on\ fieldType}}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{comment}{//\ 1:\ int;\ }}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{comment}{//\ 2:\ float;\ }}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{comment}{//\ 3:\ string;\ }}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//\ 0:\ error;}}
+\DoxyCodeLine{00198\ \ \ \ \ vector<int>\ values\_int;\ }
+\DoxyCodeLine{00199\ \ \ \ \ vector<float>\ values\_fl;\ }
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ vector<double>\ tmp;\ }
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//\ stores\ genotype\ dosage\ as\ doubles,\ with\ the\ next\ marker\ inserted\ at\ the\ end}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{comment}{//\ NOTE\ that\ when\ current\ size\ is\ exceeded,\ .insert()\ reallocates\ memory}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{comment}{//\ this\ can\ be\ slow\ }}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{comment}{//\ set\ using\ reserve()\ to\ set\ initial\ capacity\ so\ avoid\ re-\/alloc}}
+\DoxyCodeLine{00207\ \ \ \ \ vector<double>\ matDosage;\ \ \ }
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ end\ of\ file\ reached,\ return\ false}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ continueIterating\ )\ \textcolor{keywordflow}{return}\ continueIterating;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ data,\ but\ keep\ allocated\ capacity}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ matDosage.\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04}{clear}}();}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04}{clear}}();}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ loop\ thru\ variant,\ updating\ the\ count\ each\ time}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;\ j\ <\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunkSize}};\ j++)\{}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ next\ variant}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ false,\ reached\ end\ of\ region}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ reader-\/>getNextVariant(\ *record\ )\ )\{}
 \DoxyCodeLine{00225\ }
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
-\DoxyCodeLine{00227\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ else\ go\ to\ next\ region}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ itReg++;}
 \DoxyCodeLine{00228\ }
-\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00230\ \ \ \ \ BcfReader\ *reader\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00231\ \ \ \ \ BcfRecord\ *record\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00232\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}\ *vInfo\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00233\ \ \ \ \ vector<string>::iterator\ itReg;}
-\DoxyCodeLine{00234\ \ \ \ \ vector<string>\ validRegions;}
-\DoxyCodeLine{00235\ }
-\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{bool}\ endOfFile\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{int}\ fieldType;}
-\DoxyCodeLine{00238\ }
-\DoxyCodeLine{00239\ \ \ \ \ \textcolor{comment}{//\ store\ genotype\ values}}
-\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ type\ used\ based\ on\ fieldType}}
-\DoxyCodeLine{00241\ \ \ \ \ \textcolor{comment}{//\ 1:\ int;\ }}
-\DoxyCodeLine{00242\ \ \ \ \ \textcolor{comment}{//\ 2:\ float;\ }}
-\DoxyCodeLine{00243\ \ \ \ \ \textcolor{comment}{//\ 3:\ string;\ }}
-\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ 0:\ error;}}
-\DoxyCodeLine{00245\ \ \ \ \ vector<int>\ values\_int;\ }
-\DoxyCodeLine{00246\ \ \ \ \ vector<float>\ values\_fl;\ }
-\DoxyCodeLine{00247\ }
-\DoxyCodeLine{00248\ \ \ \ \ vector<double>\ tmp;\ }
-\DoxyCodeLine{00249\ }
-\DoxyCodeLine{00250\ \ \ \ \ \textcolor{comment}{//\ stores\ genotype\ dosage\ as\ doubles,\ with\ the\ next\ marker\ inserted\ at\ the\ end}}
-\DoxyCodeLine{00251\ \ \ \ \ \textcolor{comment}{//\ NOTE\ that\ when\ current\ size\ is\ exceeded,\ .insert()\ reallocates\ memory}}
-\DoxyCodeLine{00252\ \ \ \ \ \textcolor{comment}{//\ this\ can\ be\ slow\ }}
-\DoxyCodeLine{00253\ \ \ \ \ \textcolor{comment}{//\ set\ using\ reserve()\ to\ set\ initial\ capacity\ so\ avaoid\ re-\/alloc}}
-\DoxyCodeLine{00254\ \ \ \ \ vector<double>\ matDosage;\ \ \ }
-\DoxyCodeLine{00255\ }
-\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ this\ was\ the\ last\ region}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ continueIterating\ so\ false\ is\ retured\ at\ next\ call\ to\ }}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ getNextChunk\_helper()}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ then\ break\ since\ no\ data\ left}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ itReg\ ==\ validRegions.end())\{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ continueIterating\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ else}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ the\ record\ for\ this\ region}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reader-\/>setRegion(\ *itReg\ );}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reader-\/>getNextVariant(\ *record\ );\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ populate\ genotype\ with\ the\ values\ of\ the\ current\ variant}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ string,\ convert\ to\ dosage}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ values\ vector\ based\ on\ fieldType}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(fieldType)\{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ int\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>getFORMAT(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}},\ values\_int);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matDosage.insert(matDosage.end(),\ values\_int.begin(),\ values\_int.end());}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ float\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>getFORMAT(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}},\ values\_fl);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matDosage.insert(matDosage.end(),\ values\_fl.begin(),\ values\_fl.end());}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \textcolor{comment}{//\ string.\ Convert\ GT\ to\ doubles}}
 \DoxyCodeLine{00257\ }
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ data,\ but\ keep\ allocated\ capacity}}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ matDosage.\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04}{clear}}();}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04}{clear}}();}
-\DoxyCodeLine{00261\ }
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ loop\ thru\ variant,\ updating\ the\ count\ each\ time}}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j;}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;\ j\ <\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunkSize}};\ j++)\{}
-\DoxyCodeLine{00265\ }
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ next\ variant}}
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ false,\ reached\ end\ of\ region}}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ reader-\/>getNextVariant(\ *record\ )\ )\{}
-\DoxyCodeLine{00269\ }
-\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ else\ go\ to\ next\ region}}
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ itReg++;}
-\DoxyCodeLine{00272\ }
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ this\ was\ the\ last\ region}}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ endOfFile\ and\ break}}
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ itReg\ ==\ validRegions.end())\{}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endOfFile\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00279\ }
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ else}}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ the\ record\ for\ this\ region}}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reader-\/>setRegion(\ *itReg\ );}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reader-\/>getNextVariant(\ *record\ );\ }
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00285\ }
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ populate\ genotype\ with\ the\ values\ of\ the\ current\ variant}}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ string,\ convert\ to\ dosage}}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ values\ vector\ based\ on\ fieldType}}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(fieldType)\{}
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ int\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>getFORMAT(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}},\ values\_int);}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matDosage.insert(matDosage.end(),\ values\_int.begin(),\ values\_int.end());}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ float\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>getFORMAT(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}},\ values\_fl);}
-\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matDosage.insert(matDosage.end(),\ values\_fl.begin(),\ values\_fl.end());}
-\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \textcolor{comment}{//\ string.\ Convert\ GT\ to\ doubles}}
-\DoxyCodeLine{00299\ }
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ site\ is\ multi-\/allelic}}
-\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ record-\/>isMultiAllelics()\ )\{}
-\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}GT\ is\ not\ supported\ for\ multi-\/allelic\ site\(\backslash\)n\ \ \ \ "{}}\ +\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f}{variantToString}}(*record));}
-\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ site\ ploidy\ >\ 2}}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ record-\/>ploidy()\ >\ 2\ )\{}
-\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}GT\ is\ not\ supported\ for\ site\ with\ ploidy\ >\ 2\(\backslash\)n\ \ \ \ "{}}\ +\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f}{variantToString}}(*record));}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00308\ }
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ GT\ as\ int's\ with\ vector\ that\ is\ twice\ as\ long}}
-\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>getGenotypes(values\_int);}
-\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\ =\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_ac0677a09d629215785c2530e8ac56b4a}{intToDosage}}(\ values\_int,\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missingToMean}}\ );}
-\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matDosage.insert(matDosage.end(),\ tmp.begin(),\ tmp.end());}
-\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00315\ }
-\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ variant\ information\ }}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a1a77b19502f5cecc07d1a2c155cf2cb3}{addVariant}}(\ \ \ \ record-\/>CHROM(),\ }
-\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>POS(),\ }
-\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>ID(),\ }
-\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>REF(),\ }
-\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>ALT()\ );}
-\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00323\ }
-\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ After\ j\ variants\ have\ been\ inserted,\ only\ entries\ up\ to\ j*nsamples\ are\ populated}}
-\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ the\ rest\ of\ the\ vector\ is\ allocated\ doesn't\ have\ valid\ data.}}
-\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Therefore,\ use\ entires\ based\ on\ .size(),\ not\ .capacity()}}
-\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\ endOfFile;}
-\DoxyCodeLine{00328\ \ \ \ \ \}}
-\DoxyCodeLine{00329\ \};}
-\DoxyCodeLine{00330\ }
-\DoxyCodeLine{00331\ }
-\DoxyCodeLine{00332\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00333\ }
-\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ site\ is\ multi-\/allelic}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ record-\/>isMultiAllelics()\ )\{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}GT\ is\ not\ supported\ for\ multi-\/allelic\ site\(\backslash\)n\ \ \ \ "{}}\ +\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f}{variantToString}}(*record));}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ site\ ploidy\ >\ 2}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ record-\/>ploidy()\ >\ 2\ )\{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}GT\ is\ not\ supported\ for\ site\ with\ ploidy\ >\ 2\(\backslash\)n\ \ \ \ "{}}\ +\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f}{variantToString}}(*record));}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ GT\ as\ int's\ with\ vector\ that\ is\ twice\ as\ long}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>getGenotypes(values\_int);}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\ =\ intToDosage(\ values\_int,\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}.\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missingToMean}}\ );}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matDosage.insert(matDosage.end(),\ tmp.begin(),\ tmp.end());}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ variant\ information\ }}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a1a77b19502f5cecc07d1a2c155cf2cb3}{addVariant}}(\ \ \ \ record-\/>CHROM(),\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>POS(),\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>ID(),\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>REF(),\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record-\/>ALT()\ );}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ After\ j\ variants\ have\ been\ inserted,\ only\ entries\ up\ to\ j*nsamples\ are\ populated}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ the\ rest\ of\ the\ vector\ is\ allocated\ doesn't\ have\ valid\ data.}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Therefore,\ use\ entires\ based\ on\ .size(),\ not\ .capacity()}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00286\ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \};}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

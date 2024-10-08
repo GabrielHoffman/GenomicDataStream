@@ -5,7 +5,7 @@
 ### A scalable interface between data and analysis underneath R
 
 ![](man/figures/GenomicDataStream.png)
-
+ \image html "GenomicDataStream.png"
 
 <div align="justify"> 
 Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>,
@@ -20,7 +20,7 @@ The `GenomicDataStream` C++ inferface separates:
 1. data source 
 2. streaming chunks of features into a data matrix
 3. downstream analysis  
- </div> 
+</div> 
 
 ### See header-only C++ library [documentation](doxygen/html/index.html)
  

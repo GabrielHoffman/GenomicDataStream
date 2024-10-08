@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['param_0',['Param',['../struct_genomic_data_stream_lib_1_1_param.html',1,'GenomicDataStreamLib::Param'],['../struct_genomic_data_stream_lib_1_1_param.html#ab914a966ef2bf6d120f08f128cfe6f70',1,'GenomicDataStreamLib::Param::Param()'],['../struct_genomic_data_stream_lib_1_1_param.html#ab668429cc868adcd210ab086d9a9104c',1,'GenomicDataStreamLib::Param::Param(const string &amp;file, const string &amp;field, const string &amp;region=&quot;&quot;, const string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false, const int &amp;initCapacity=200)']]],
-  ['param_1',['param',['../class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a39716878ac06d74a6550ceab57266224',1,'GenomicDataStreamLib::GenomicDataStream']]],
-  ['pos_2',['POS',['../class_genomic_data_stream_lib_1_1_variant_info.html#a47158d4d9702bc13484a68586e7d5a07',1,'GenomicDataStreamLib::VariantInfo']]]
+  ['matrixinfo_0',['MatrixInfo',['../class_genomic_data_stream_lib_1_1_matrix_info.html',1,'GenomicDataStreamLib::MatrixInfo'],['../class_genomic_data_stream_lib_1_1_matrix_info.html#a4b965c3a19044cc2ca86a27c60f3f372',1,'GenomicDataStreamLib::MatrixInfo::MatrixInfo()'],['../class_genomic_data_stream_lib_1_1_matrix_info.html#a93b0b756a697b482eb1831e54a97c1cc',1,'GenomicDataStreamLib::MatrixInfo::MatrixInfo(const Rcpp::CharacterVector &amp;rownames, const Rcpp::CharacterVector &amp;colnames)'],['../class_genomic_data_stream_lib_1_1_matrix_info.html#a02751aecc19d5e4674b3ce606df39c73',1,'GenomicDataStreamLib::MatrixInfo::MatrixInfo(const Rcpp::RObject &amp;mat)']]],
+  ['matrixinfo_2eh_1',['MatrixInfo.h',['../_matrix_info_8h.html',1,'']]],
+  ['missingtomean_2',['missingToMean',['../struct_genomic_data_stream_lib_1_1_param.html#aa734aa0a3658f94686c62e3ad2a55e0c',1,'GenomicDataStreamLib::Param']]]
 ];

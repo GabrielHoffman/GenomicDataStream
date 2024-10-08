@@ -19,6 +19,8 @@ Inheritance diagram for Genomic\+Data\+Stream\+Lib\+::Genomic\+Data\+Stream\+:\b
 \item 
 virtual \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
 \item 
+virtual int \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a23afd2cd1a4974e281a1a4b21e33db01}{n\+\_\+cols}} ()
+\item 
 virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ad827e33fd6042c249df592c37eb3ed58}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
 \item 
 virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
@@ -31,7 +33,7 @@ virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_str
 
 
 \doxysubsection{Detailed Description}
-Abstract class inheritited by vcfstream, \doxylink{class_genomic_data_stream_lib_1_1_delayed_stream}{Delayed\+Stream} 
+Abstract class inheritited by vcfstream, bgenstream, \doxylink{class_genomic_data_stream_lib_1_1_delayed_stream}{Delayed\+Stream} 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!GenomicDataStream@{GenomicDataStream}}
@@ -74,6 +76,16 @@ virtual bool Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::get\+Next\
 Get next chunk of {\itshape features} as vector$<$double$>$ 
 
 Reimplemented in \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a4d6286b4cc7a16c2d429e306f4401e4d}{Genomic\+Data\+Stream\+Lib\+::vcfstream}}.
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_a23afd2cd1a4974e281a1a4b21e33db01}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!n\_cols@{n\_cols}}
+\index{n\_cols@{n\_cols}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{n\_cols()}{n\_cols()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_a23afd2cd1a4974e281a1a4b21e33db01} 
+virtual int Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::n\+\_\+cols (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get number of columns in data matrix 
+
+Reimplemented in \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_a0970b71c5c19eb17f982d1ef5df2bdad}{Genomic\+Data\+Stream\+Lib\+::\+Delayed\+Stream}}, and \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a9a0e0361945aa41ddb0ea2c4af97f101}{Genomic\+Data\+Stream\+Lib\+::vcfstream}}.
 
 
 
