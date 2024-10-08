@@ -25,7 +25,7 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
  
 
 
-```c++
+```c
 #include <RcppArmadillo.h>
 #include <vcfstream.h>
 using namespace GenomicDataStreamLib;
@@ -89,7 +89,7 @@ Header-only C++ library
 ## Dependencies
 
 | Package | Ref | Role |
- - | -- | --------- |
+| - | -- | --------- |
 [vcfppR](https://cran.r-project.org/package=vcfppR) | [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae049)  | C++ API for htslib  |
 [htslib](https://github.com/samtools/htslib) | [GigaScience](https://doi.org/10.1093/gigascience/giab007)  | C API for VCF/BCF files |
 [beatchmat](https://bioconductor.org/packages/beachmat/) | [PLoS Comp Biol](https://doi.org/10.1371/journal.pcbi.1006135)  | C++ API for access data owned by R |
