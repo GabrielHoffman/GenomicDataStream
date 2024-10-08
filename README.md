@@ -21,7 +21,7 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
  3) downstream analysis  
  
 
-### See [C++ library documentation](doxygen/html/index.html)
+### See header-only C++ library [documentation](doxygen/html/index.html)
  
 
 
@@ -63,33 +63,12 @@ while( vcfObj.getNextChunk( chunk ) ){
 }
 ```
 
-
-
-Header-only C++ library
-
-#### 1) Input:
-  
- - VCF/BCF via `vcfstream`
- - BGEN via `bgenstream`
- - H5AD via `DelayedArray` to `DelayedStream`
-  
-#### 2) Data matrix:
- 
- - `Rcpp::NumericMatix`
- - `arma::mat`
- - `Eigen::Map<Eigen::MatrixXd>`
- 
-#### 3) Analyses
- - Regression
- - PCA
-
- 
  
 
 ## Dependencies
 
 | Package | Ref | Role |
-| - | -- | --------- |
+| - | --- | --------- |
 [vcfppR](https://cran.r-project.org/package=vcfppR) | [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae049)  | C++ API for htslib  |
 [htslib](https://github.com/samtools/htslib) | [GigaScience](https://doi.org/10.1093/gigascience/giab007)  | C API for VCF/BCF files |
 [beatchmat](https://bioconductor.org/packages/beachmat/) | [PLoS Comp Biol](https://doi.org/10.1371/journal.pcbi.1006135)  | C++ API for access data owned by R |
