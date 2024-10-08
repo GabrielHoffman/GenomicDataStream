@@ -23,6 +23,48 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
 
 ### See [C++ library documentation](doxygen/html/index.html)
  
+
+
+```c++
+#include <RcppArmadillo.h>
+#include <vcfstream.h>
+using namespace GenomicDataStreamLib;
+
+// parameters 
+string file = "test.vcf.gz";
+string field = "DS";    // read dosage field
+string region = "";     // no region filter
+string samples = "-";   // no samples filter
+int chunkSize = 4;      // each chunk will read 4 variants
+
+// initialize parameters
+Param param(file, field, region, samples, chunkSize);
+
+// initialize vcfstream
+vcfstream vcfObj( param );
+
+// declare DataChunk storing an Armadillo matrix for each chunk
+DataChunk<arma::mat, VariantInfo> chunk;
+
+// variables for data from a chunk
+arma::mat X_chunk;
+VariantInfo info_chunk;
+
+// loop through chunks
+while( vcfObj.getNextChunk( chunk ) ){
+
+    // get data from chunk
+    X_chunk = chunk.getData();
+
+    // get variant information
+    info_chunk = chunk.getInfo();
+
+    // Do analysis with variants in this chunk
+}
+```
+
+
+
 Header-only C++ library
 
 #### 1) Input:

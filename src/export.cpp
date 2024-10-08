@@ -428,9 +428,8 @@ List fastLM( const arma::colvec& y,
     VariantInfo info_chunk;
     List lst;
     arma::mat X_cov(60, 1, fill::ones);
-    vcfObj.getNextChunk( chunk );
 
-    do{
+    while( vcfObj.getNextChunk( chunk ) ){
 
         // get data from chunk
         X_chunk = chunk.getData();
@@ -447,9 +446,65 @@ List fastLM( const arma::colvec& y,
 
         // save results to list
         append(lst, lst_local);
-    }while( vcfObj.getNextChunk( chunk ) );
+    }
+
     return lst;
 }
 
 
+// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
+// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
+// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
+// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
+// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
 
+
+// Rcpp::Rcout << "getNextChunk..." << std::endl;
+// vcfObj.getNextChunk( chunk );
+// chunk.getData().brief_print();
+// info_chunk = chunk.getInfo();
+// List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+// append(lst, lst_local);
+
+// Rcpp::Rcout << "getNextChunk..." << std::endl;
+// vcfObj.getNextChunk( chunk );
+// chunk.getData().brief_print();
+// info_chunk = chunk.getInfo();
+// lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+// append(lst, lst_local);
+
+// Rcpp::Rcout << "getNextChunk..." << std::endl;
+// vcfObj.getNextChunk( chunk );
+// chunk.getData().brief_print();
+// info_chunk = chunk.getInfo();
+// lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+// append(lst, lst_local);
+
+// int count = 0;
+// while( vcfObj.getNextChunk( chunk ) ){
+
+//     Rcpp::Rcout << "count: " << count++ << std::endl;
+
+//     // get data from chunk
+//     X_chunk = chunk.getData();
+
+//     // get variant information
+//     info_chunk = chunk.getInfo();
+
+
+//     Rcpp::Rcout << "\tX_chunk: " << X_chunk.n_cols << std::endl;
+//     Rcpp::Rcout << "\tinfo_chunk: " << info_chunk.size() << std::endl;
+
+//     // standardize X for mean and sd
+//     // standardize( X_chunk );
+
+//     // Linear regression with the jth feature
+//     // used as a covariate in the jth model
+//     List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
+
+
+//     Rcpp::Rcout << "\tlst_local: " << lst_local.size() << std::endl;
+
+//     // save results to list
+//     append(lst, lst_local);
+// }

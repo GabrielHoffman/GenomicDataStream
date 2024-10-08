@@ -186,7 +186,7 @@ class vcfstream :
 	vector<string>::iterator itReg;
 	vector<string> validRegions;
 
-	bool endOfFile = false;
+	bool continueIterating = true;
 	int fieldType;
 
 	// store genotype values
@@ -203,10 +203,13 @@ class vcfstream :
 	// stores genotype dosage as doubles, with the next marker inserted at the end
 	// NOTE that when current size is exceeded, .insert() reallocates memory
 	// this can be slow 
-	// set using reserve() to set initial capacity so avaoid re-alloc
+	// set using reserve() to set initial capacity so avoid re-alloc
 	vector<double> matDosage;	
 
 	bool getNextChunk_helper(){
+
+		// if end of file reached, return false
+		if( ! continueIterating ) return continueIterating;
 
 		// clear data, but keep allocated capacity
 		matDosage.clear();
@@ -224,9 +227,11 @@ class vcfstream :
 				itReg++;
 
 				// if this was the last region
-				// set endOfFile and break
+				// set continueIterating so false is retured at next call to 
+				// getNextChunk_helper()
+				// then break since no data left
 				if( itReg == validRegions.end()){
-					endOfFile = true;
+					continueIterating = false;
 					break;
 				}
 
@@ -235,8 +240,6 @@ class vcfstream :
 				reader->setRegion( *itReg );
 				reader->getNextVariant( *record ); 
 			}
-
-			Rcpp::Rcout << *itReg << "\t" << j << std::endl;
 
 			// populate genotype with the values of the current variant
 			// If string, convert to dosage
@@ -279,7 +282,7 @@ class vcfstream :
 		// After j variants have been inserted, only entries up to j*nsamples are populated
 		//  the rest of the vector is allocated doesn't have valid data.
 		// Therefore, use entires based on .size(), not .capacity()
-		return ! endOfFile;
+		return true;
 	}
 };
 
