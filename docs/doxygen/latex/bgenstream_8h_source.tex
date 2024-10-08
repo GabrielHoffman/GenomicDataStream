@@ -1,0 +1,87 @@
+\doxysection{bgenstream.\+h}
+\hypertarget{bgenstream_8h_source}{}\label{bgenstream_8h_source}\index{inst/include/bgenstream.h@{inst/include/bgenstream.h}}
+\mbox{\hyperlink{bgenstream_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ bgenstream.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ reads\ a\ BGEN\ into\ matrix\ in\ chunks,\ storing\ variants\ in\ columns}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ BGEN\_STREAM\_H\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ BGEN\_STREAM\_H\_}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ [[Rcpp::depends(RcppArmadillo)]]}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifdef\ EIGEN}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <RcppEigen.h>}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ [[Rcpp::depends(RcppEigen)]]}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_genomic_data_stream_8h}{GenomicDataStream.h}}>}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream}{bgenstream}}\ :\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_afe1bda59cad508a97831df88c2dd8883}{bgenstream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ :\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_a58ec653e0107241fa73d57e8214af3ce}{\string~bgenstream}}()\{\}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ ARMA}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_aa832ce8b903936c685d0f20eeae278a4}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk<arma::mat,\ VariantInfo>}}\ \&\ chunk)\{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ EIGEN}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_aa832ce8b903936c685d0f20eeae278a4}{getNextChunk}}(\ DataChunk<Eigen::MatrixXd,\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ VariantInfo>\ \&\ chunk)\{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_aa832ce8b903936c685d0f20eeae278a4}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}<Rcpp::NumericMatrix,\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\{}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ endOfFile\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ stores\ genotype\ dosage\ as\ doubles,\ with\ the\ next\ marker\ inserted\ at\ the\ end}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ NOTE\ that\ when\ current\ size\ is\ exceeded,\ .insert()\ reallocates\ memory}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ this\ can\ be\ slow\ }}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ set\ using\ reserve()\ to\ set\ initial\ capacity\ so\ avaoid\ re-\/alloc}}
+\DoxyCodeLine{00082\ \ \ \ \ vector<double>\ matDosage;\ \ \ }
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

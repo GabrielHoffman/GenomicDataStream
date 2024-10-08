@@ -15,43 +15,6 @@ using namespace std;
 
 namespace GenomicDataStreamLib {
 
-class MatrixInfo {
-
-    public:
-    MatrixInfo() {}
-
-    MatrixInfo(const Rcpp::CharacterVector &rownames, const Rcpp::CharacterVector &colnames) :
-        rownames(rownames), colnames(colnames) {}
-
-    MatrixInfo( const Rcpp::RObject &mat){
-        Rcpp::List lst;
-        if( mat.hasAttribute("dimnames") ){
-            lst = mat.attr("dimnames");
-        }else if( mat.hasAttribute("Dimnames") ){
-            lst = mat.attr("Dimnames");
-        }
-        rownames = lst[0];
-        colnames = lst[1];
-    }
-
-    /** Accessor
-     */
-    Rcpp::CharacterVector get_rownames() const { 
-        return rownames;
-    }
-
-    /** Accessor
-    */
-    Rcpp::CharacterVector get_colnames() const{ 
-        return colnames;
-    }
-
-    private:
-    Rcpp::CharacterVector rownames, colnames;
-};
-
-
-
 /** Store variant information and sample names
  * 
  */

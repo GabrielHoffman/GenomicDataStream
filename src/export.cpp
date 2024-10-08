@@ -26,6 +26,7 @@ using namespace std;
 using namespace vcfpp;
 using namespace Rcpp;
 using namespace arma;
+using namespace GenomicDataStreamLib;
 
 
 // [[Rcpp::export]]
@@ -189,6 +190,29 @@ List extractVcf_NM(
 }
 
 
+// [[Rcpp::export]]
+List extractVcf_vector( 
+            const std::string &file,
+            const std::string &field,
+            const std::string &region = "",
+            const std::string &samples = "-",
+            const bool &missingToMean = false){
+
+    // initialize stream
+
+    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    vcfstream vcfObj( param );
+
+    // from VCF, get
+    DataChunk<vector<double>, VariantInfo> chunk;
+    vcfObj.getNextChunk( chunk );
+    
+    // return genotype data and variant info
+    return List::create(    Named("X") = Rcpp::wrap(chunk.getData()),
+                            Named("info") = toDF( chunk.getInfo() ) );
+}
+
+
 
 // [[Rcpp::export]]
 List extractVcf_chunks( 
@@ -255,23 +279,177 @@ NumericMatrix getDA_eigen( const RObject &mat ){
     return X ;
 }
 
-
 // [[Rcpp::export]]
-Rcpp::NumericMatrix getDA_NM( const RObject &mat ){
+Rcpp::NumericMatrix getDA_NM(  RObject mat ){
 
+
+    Rcpp::Rcout << "read_lin_block" << std::endl;
+    auto a = beachmat::read_lin_block(mat);
+    Rcpp::Rcout << "end" << std::endl;
+    
+    Rcpp::Rcout << "DelayedStream" << std::endl;
     DelayedStream ds( mat);
+    Rcpp::Rcout << "success" << std::endl;
 
     DataChunk<Rcpp::NumericMatrix, MatrixInfo> chunk;
 
+
+    Rcpp::Rcout << "getNextChunk" << std::endl;
     ds.getNextChunk( chunk );
+    Rcpp::Rcout << "success" << std::endl;
 
     return chunk.getData();
 }
 
 
+// [[Rcpp::export]]
+Rcpp::NumericVector getDA_vector(const RObject &mat ){
+
+    DelayedStream ds( mat);
+
+    DataChunk<vector<double>, MatrixInfo> chunk;
+
+    ds.getNextChunk( chunk );
+
+    return Rcpp::wrap(chunk.getData());
+}
+
+
+#include "Rtatami.h"
+#include <algorithm>
+
+// [[Rcpp::export]]
+Rcpp::NumericVector column_sums(const Rcpp::RObject &initmat) {
+    Rtatami::BoundNumericPointer parsed(initmat);
+    const auto& ptr = parsed->ptr;
+
+    auto NR = ptr->nrow();
+    auto NC = ptr->ncol();
+    std::vector<double> buffer(NR);
+    Rcpp::NumericVector output(NC);
+    auto wrk = ptr->dense_column();
+
+    for (int i = 0; i < NC; ++i) {
+        auto extracted = wrk->fetch(i, buffer.data());
+        output[i] = std::accumulate(extracted, extracted + NR, 0.0);
+    }
+
+    DelayedStream ds(initmat);
+
+
+    return output;
+}
 
 
 
+
+// [[Rcpp::export]]
+arma::vec colSums_test( const arma::mat &X){
+    return colSums(X);
+}
+
+// [[Rcpp::export]]
+void standardize_test( arma::mat &X, const bool &center = true, const bool &scale = true ){
+
+    standardize(X, center, scale);
+}
+
+
+// adapted from https://github.com/RcppCore/RcppArmadillo/blob/master/src/fastLm.cpp
+List lm(const arma::mat& X, const arma::colvec& y) {
+    int n = X.n_rows, k = X.n_cols;
+
+    arma::colvec coef = arma::solve(X, y);     // fit model y ~ X
+    arma::colvec res  = y - X*coef;            // residuals
+    double s2 = arma::dot(res, res) / (n - k); // std.errors of coefficients
+    arma::colvec std_err = arma::sqrt(s2 * arma::diagvec(arma::pinv(arma::trans(X)*X)));
+
+    return Rcpp::List::create(Rcpp::Named("coefficients") = coef,
+                              Rcpp::Named("stderr")       = std_err,
+                              Rcpp::Named("df.residual")  = n - k);
+}
+
+List linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const VariantInfo &info){
+
+    // create design matrix with jth feature in the last column
+    // X = cbind(X_cov, X_features[,0])
+    int n_covs = X_cov.n_cols;
+    arma::mat X(X_cov);
+    X.insert_cols(n_covs, X_features.col(0));
+
+    List lst;
+
+    for(int j=0; j<X_features.n_cols; j++){
+        // Create design matrix with intercept as first column
+        X.col(n_covs) = X_features.col(j);
+
+        // linear regression
+        List fit = lm(X, y);
+
+        // save result to list
+        lst.push_back( fit, info.ID[j] );
+    }    
+
+    return lst;
+}
+
+
+void append(List &lst, const List &lst2){
+    CharacterVector ch = lst2.names();
+    // append entries to List
+    for(int i=0; i<lst2.size(); i++){
+        lst.push_back(lst2[i], as<string>(ch[i]));
+    }
+}
+
+
+// [[Rcpp::export]]
+List fastLM( const arma::colvec& y, 
+                const std::string &file,
+                const std::string &field,
+                const std::string &region = "",
+                const std::string &samples = "-",
+                const bool &missingToMean = false){
+
+    int chunkSize = 4;
+    Param param(file, field, region, samples, chunkSize, missingToMean);
+
+    vcfstream vcfObj( param );
+
+    if( vcfObj.n_cols() != y.size() ){
+        Rcpp::stop("Data stream and y must have same number of samples");
+    }
+
+    DataChunk<arma::mat, VariantInfo> chunk;
+
+    // store dosage from chunk
+    // n samples and p features
+    arma::mat X_chunk;
+    VariantInfo info_chunk;
+    List lst;
+    arma::mat X_cov(60, 1, fill::ones);
+    vcfObj.getNextChunk( chunk );
+
+    do{
+
+        // get data from chunk
+        X_chunk = chunk.getData();
+
+        // get variant information
+        info_chunk = chunk.getInfo();
+
+        // standardize X for mean and sd
+        // standardize( X_chunk );
+
+        // Linear regression with the jth feature
+        // used as a covariate in the jth model
+        List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
+
+        // save results to list
+        append(lst, lst_local);
+    }while( vcfObj.getNextChunk( chunk ) );
+    return lst;
+}
 
 
 

@@ -25,29 +25,23 @@
 #include <string>
 #include <vcfpp.h>
 
-#include <VariantInfo.h>
+#include "VariantInfo.h"
 #include "GenomicDataStream.h"
+#include "utils.h"
 
 using namespace std;
 using namespace vcfpp;
 
 namespace GenomicDataStreamLib {
 
-/** vcfstream reads a VCF into an arma::mat in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
+/** vcfstream reads a VCF/BCF into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
 */
 class vcfstream : 
 	public GenomicDataStream {
 	public:
 
-	/** constructor
-	 * @param file .vcf, .vcf.gz or .bcf file with tabix index
-	 * @param field 'GT' for genotype strings, 'DS' for dosage, or another other field stored as an integer or float.  'GT' is the only string type supported
-	 * @param region target in the format 'chr2:1-12345'. Setting region to "" includes all variants
-	 * @param samples string of comma separated sample IDs to extract: "ID1,ID2,ID3"
-	 * @param chunkSize number of variants to return per chunk
-	 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
-	 * @param initCapacity initial capacity of temporary vector to avoid re-alloc on insert.  Size is in Mb.
+	/** constructor initilizing with parameter values
 	*/
 	vcfstream(const Param & param) : GenomicDataStream(param) {
 	
@@ -111,6 +105,12 @@ class vcfstream :
 		if( reader != nullptr) delete reader;
 		if( record != nullptr) delete record;
 		if( vInfo != nullptr) delete vInfo;
+	}
+
+	/** Get number of columns in data matrix
+	 */ 
+	int n_cols(){
+		return reader->nsamples;
 	}
 
 	#ifdef ARMA
@@ -179,53 +179,6 @@ class vcfstream :
 		return s;
 	}
 
-
-	/** Compute dosage values from vector of GT stored as int.  Sum adjacent values to get dosage
-	* @param v for n samples, vector of length 2*n where dosage is computed as v[2*i] + v[2*i+1];
-	* @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
-	*/
-	static vector<double> intToDosage( const vector<int> &v, const bool &missingToMean) {
-
-		// store and return result
-		vector<double> res( v.size() / 2.0);
-		vector<int> missing;
-
-		// initialize
-		int runningSum = 0, nValid = 0;
-		double value;
-
-		// for each entry in result
-		// use two adjacent values
-		for(int i=0; i<res.size(); i++){
-			value = v[2*i] + v[2*i+1];
-
-			// -9 is the missing value, so -18 is diploid
-			if( value == -18){ 
-				// if missing, set to NaN
-				value = std::numeric_limits<double>::quiet_NaN();
-				missing.push_back(i);
-			}else{
-				// for computing mean
-				runningSum += value;
-				nValid++;
-			}
-
-			// set dosage value
-			res[i] = value;
-		}
-
-		// mean excluding NaNs
-		double mu = runningSum / (double) nValid;
-
-		// if missing values should be set to mean
-		if( missingToMean ){
-			// for each entry with a missing value, set to mean
-			for(const int& i : missing) res[i] = mu;
-		}
-
-		return res;
-	}
-
 	private:
 	BcfReader *reader = nullptr;
 	BcfRecord *record = nullptr;
@@ -282,6 +235,8 @@ class vcfstream :
 				reader->setRegion( *itReg );
 				reader->getNextVariant( *record ); 
 			}
+
+			Rcpp::Rcout << *itReg << "\t" << j << std::endl;
 
 			// populate genotype with the values of the current variant
 			// If string, convert to dosage

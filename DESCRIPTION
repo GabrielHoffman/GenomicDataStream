@@ -11,7 +11,8 @@ License: Artistic-2.0
 Suggests:
     BiocStyle,
     RUnit,
-    knitr    
+    knitr,
+    rmarkdown
 Depends:
     R (>= 4.3.0)
 LinkingTo:
@@ -20,6 +21,7 @@ LinkingTo:
 	RcppEigen,
 	beachmat,
 	Rhtslib,
+	BH,
 	vcfppR (>= 0.6.0),
 Encoding: UTF-8
 SystemRequirements: 
@@ -27,3 +29,4 @@ SystemRequirements:
     C++17
 RoxygenNote: 7.3.2
 RdMacros: Rdpack
+VignetteBuilder: knitr

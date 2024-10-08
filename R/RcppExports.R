@@ -21,6 +21,10 @@ extractVcf_NM <- function(file, field, region = "", samples = "-", missingToMean
     .Call('_GenomicDataStream_extractVcf_NM', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
 }
 
+extractVcf_vector <- function(file, field, region = "", samples = "-", missingToMean = FALSE) {
+    .Call('_GenomicDataStream_extractVcf_vector', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
+}
+
 extractVcf_chunks <- function(file, field, region = "", samples = "-", missingToMean = FALSE) {
     .Call('_GenomicDataStream_extractVcf_chunks', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
 }
@@ -35,5 +39,25 @@ getDA_eigen <- function(mat) {
 
 getDA_NM <- function(mat) {
     .Call('_GenomicDataStream_getDA_NM', PACKAGE = 'GenomicDataStream', mat)
+}
+
+getDA_vector <- function(mat) {
+    .Call('_GenomicDataStream_getDA_vector', PACKAGE = 'GenomicDataStream', mat)
+}
+
+column_sums <- function(initmat) {
+    .Call('_GenomicDataStream_column_sums', PACKAGE = 'GenomicDataStream', initmat)
+}
+
+colSums_test <- function(X) {
+    .Call('_GenomicDataStream_colSums_test', PACKAGE = 'GenomicDataStream', X)
+}
+
+standardize_test <- function(X, center = TRUE, scale = TRUE) {
+    invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
+}
+
+fastLM <- function(y, file, field, region = "", samples = "-", missingToMean = FALSE) {
+    .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, missingToMean)
 }
 

@@ -1,15 +1,23 @@
 
 test_DelayedStream(){
 
-	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+	library(GenomicDataStream)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	# res1 = GenomicDataStream:::getDA_NM( M )
+
+	# res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
 
 
 	library(muscat)
 	library(SingleCellExperiment)
+	library(DelayedArray)
 
 	data(example_sce)
 
-	M = counts(example_sce)
+	M = counts(example_sce)[1:3, 1:3]
+	M = DelayedArray(as.matrix(M))
 
 	res1 = GenomicDataStream:::getDA_NM( M )
 	identical(rownames(M), rownames(res1))
@@ -18,8 +26,6 @@ test_DelayedStream(){
 	res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
 	identical(rownames(M), rownames(res2))
 	identical(colnames(M), colnames(res2))
-
-
 
 
 	res1 = GenomicDataStream:::getDA( M )
@@ -37,12 +43,68 @@ test_DelayedStream(){
 
 
 
+	res1 = GenomicDataStream:::getDA_vector( M )
+	identical(as.numeric(M), as.numeric(res1))
 
+	res2 = GenomicDataStream:::getDA_vector( as.matrix(M) )
+	identical(as.numeric(M), as.numeric(res2))
+
+
+	library(Matrix)
+	library(GenomicDataStream)
+
+	x <- round(rsparsematrix(1000, 10, 0.2))
+
+	# Initializing it in C++.
+	library(beachmat)
+	ptr <- initializeCpp(x)
+	GenomicDataStream:::column_sums(ptr)
+	colSums(x)
 
 }
 
 
+test_standardize = function()
 
+	library(GenomicDataStream)
+	library(RUnit)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	set.seed(1)
+	n = 63
+	p = 34
+	X = matrix(rnorm(n*p), n, p)
+
+	a = base::colSums(X)
+	b = GenomicDataStream:::colSums_test(X)
+	checkEqualsNumeric(a,b)
+
+	# modify X to make a deep copy
+
+	# TRUE TRUE
+	X_res = X + 0.0
+	GenomicDataStream:::standardize_test(X_res)
+	checkEqualsNumeric(scale(X), X_res)
+
+	# TRUE FALSE
+	X_res = X + 0.0
+	GenomicDataStream:::standardize_test(X_res, TRUE, FALSE)
+	checkEqualsNumeric(scale(X, TRUE, FALSE), X_res)
+
+	# FALSE TRUE
+	X_res = X + 0.0
+	GenomicDataStream:::standardize_test(X_res, FALSE, TRUE)
+	checkEqualsNumeric(scale(X, FALSE, TRUE), X_res)
+
+	# FALSE FALSE
+	X_res = X + 0.0
+	GenomicDataStream:::standardize_test(X_res, FALSE, FALSE)
+	checkEqualsNumeric(scale(X, FALSE, FALSE), X_res)
+
+
+
+}
 
 
 
@@ -82,6 +144,11 @@ test_vcfstream = function(){
 
 	res = GenomicDataStream:::extractVcf_NM( file, "DS", "." )
 	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
+
+	res1 = GenomicDataStream:::extractVcf_vector( file, "DS", "." )
+	A = matrix(res1$X, nrow(X_all), ncol(X_all), byrow=TRUE)
+	checkEqualsNumeric(as.numeric(A), as.numeric(X_all), tol=1e-7)
+
 
 	res2 = vcfppR::vcftable(file, ".", format="DS")
 	checkEqualsNumeric(res2$DS, X_all, tol=1e-7)
@@ -165,6 +232,13 @@ test_vcfstream = function(){
 	b = colMeans(res3$X)
 	checkEqualsNumeric(a[3], b)
 
+	# using multiple chunks
+	reg = "chr21:5030082-5030104,chr21:5030105-5030105"
+	res4 = GenomicDataStream:::extractVcf_chunks( file, field, reg, missingToMean=TRUE)
+	a = colMeans(res$X, na.rm=T)
+	b = colMeans(res4$X)
+	checkEqualsNumeric(a[3], b)
+
 
 
 	# Check errors
@@ -180,6 +254,39 @@ test_vcfstream = function(){
      
 }
 
+
+test_regression(){
+	
+	suppressPackageStartupMessages({
+	library(RUnit)
+	library(VariantAnnotation)
+	library(vcfppR)
+	library(GenomicDataStream)
+	})
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	file = "/Users/gabrielhoffman/prog/R-4.4.0/library/BinaryDosage/extdata/set2a.vcf.gz"
+
+
+	# VariantAnnotation
+	vcf <- suppressWarnings(readVcf(file))
+	X_all = geno(vcf)[["DS"]]
+	y = seq(ncol(X_all))
+
+	res1 = lapply(seq(nrow(X_all)), function(j){
+		coef(lm(y ~ X_all[j,]))
+	})
+	res1 = do.call(rbind, res1)
+
+	res = GenomicDataStream:::fastLM(y, file, "DS", "." )
+	res = t(do.call(cbind, unlist(res, recursive=FALSE)))
+	checkEqualsNumeric(res1, res)
+
+	# add checks removing variants and samples
+
+
+}
 
 
 

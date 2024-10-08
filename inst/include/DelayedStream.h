@@ -23,6 +23,9 @@
 #include "beachmat3/beachmat.h"
 // #include "Rtatami.h"
 
+
+#include "MatrixInfo.h"
+
 using namespace Rcpp;
 using namespace std;
 
@@ -67,6 +70,12 @@ class DelayedStream :
 	 */ 
 	~DelayedStream(){
 		if( mInfo != nullptr) delete mInfo;
+	}
+
+	/** Get number of columns in data matrix
+	 */ 
+	int n_cols(){
+		return ptr->get_ncol();
 	}
 
 

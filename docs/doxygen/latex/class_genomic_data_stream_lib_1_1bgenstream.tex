@@ -1,0 +1,74 @@
+\doxysection{Genomic\+Data\+Stream\+Lib\+::bgenstream Class Reference}
+\hypertarget{class_genomic_data_stream_lib_1_1bgenstream}{}\label{class_genomic_data_stream_lib_1_1bgenstream}\index{GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}}
+
+
+{\ttfamily \#include $<$bgenstream.\+h$>$}
+
+Inheritance diagram for Genomic\+Data\+Stream\+Lib\+::bgenstream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_genomic_data_stream_lib_1_1bgenstream}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_afe1bda59cad508a97831df88c2dd8883}{bgenstream}} (const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})
+\item 
+virtual \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_a58ec653e0107241fa73d57e8214af3ce}{\texorpdfstring{$\sim$}{\string~}bgenstream}} ()
+\item 
+virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_aa832ce8b903936c685d0f20eeae278a4}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94}{Genomic\+Data\+Stream}} ()
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_abf01ac486fb36aeda7951a5fb5ef5b81}{Genomic\+Data\+Stream}} (const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})
+\item 
+virtual \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
+\item 
+virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+bgenstream reads a BGEN into an matrix in chunks, storing variants in columns. Applies filtering for specified samples and genome region. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1bgenstream_afe1bda59cad508a97831df88c2dd8883}\index{GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}!bgenstream@{bgenstream}}
+\index{bgenstream@{bgenstream}!GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}}
+\doxysubsubsection{\texorpdfstring{bgenstream()}{bgenstream()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1bgenstream_afe1bda59cad508a97831df88c2dd8883} 
+Genomic\+Data\+Stream\+Lib\+::bgenstream\+::bgenstream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&}]{param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+constructor \Hypertarget{class_genomic_data_stream_lib_1_1bgenstream_a58ec653e0107241fa73d57e8214af3ce}\index{GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}!````~bgenstream@{\texorpdfstring{$\sim$}{\string~}bgenstream}}
+\index{````~bgenstream@{\texorpdfstring{$\sim$}{\string~}bgenstream}!GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}bgenstream()}{\string~bgenstream()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1bgenstream_a58ec653e0107241fa73d57e8214af3ce} 
+virtual Genomic\+Data\+Stream\+Lib\+::bgenstream\+::\texorpdfstring{$\sim$}{\string~}bgenstream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+destructor 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1bgenstream_aa832ce8b903936c685d0f20eeae278a4}\index{GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!GenomicDataStreamLib::bgenstream@{GenomicDataStreamLib::bgenstream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1bgenstream_aa832ce8b903936c685d0f20eeae278a4} 
+virtual bool Genomic\+Data\+Stream\+Lib\+::bgenstream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get next chunk of {\itshape features} as Rcpp\+::\+Numeric\+Matrix 
+
+Reimplemented from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ad827e33fd6042c249df592c37eb3ed58}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{bgenstream_8h}{bgenstream.\+h}}\end{DoxyCompactItemize}

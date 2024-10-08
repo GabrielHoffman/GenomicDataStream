@@ -1,0 +1,13 @@
+
+
+vcfstream:
+	make sure vector<double> works
+	handle multiple VCF files
+	BED file of regions
+
+
+bgenstream:
+
+
+DelayedStream:
+	make sure vector<double> works

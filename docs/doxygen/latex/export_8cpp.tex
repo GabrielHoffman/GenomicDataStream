@@ -1,0 +1,118 @@
+\doxysection{src/export.cpp File Reference}
+\hypertarget{export_8cpp}{}\label{export_8cpp}\index{src/export.cpp@{src/export.cpp}}
+{\ttfamily \#include $<$vcfstream.\+h$>$}\newline
+{\ttfamily \#include $<$bgenstream.\+h$>$}\newline
+{\ttfamily \#include $<$vcfpp.\+h$>$}\newline
+{\ttfamily \#include $<$Delayed\+Stream.\+h$>$}\newline
+{\ttfamily \#include "{}Rtatami.\+h"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+arma\+::vec \mbox{\hyperlink{export_8cpp_af6b46fe745e9b79a985ea29a2238e2f0}{test\+\_\+\+GT}} (const std\+::string \&vcffile, const std\+::string \&region)
+\item 
+arma\+::vec \mbox{\hyperlink{export_8cpp_aaa480f499e1d9e5870f3aa5abc5c675e}{test\+\_\+\+DS}} (const std\+::string \&vcffile, const std\+::string \&region)
+\item 
+Data\+Frame \mbox{\hyperlink{export_8cpp_a92c4b4101778c8258e06efc528ccc97e}{to\+DF}} (const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&v\+Info)
+\item 
+List \mbox{\hyperlink{export_8cpp_afe3666d76d365548df8bd7997ef992c5}{extract\+Vcf}} (const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
+\item 
+List \mbox{\hyperlink{export_8cpp_a48fafdd006867f48d98c7aa3c36f349b}{extract\+Vcf\+\_\+eigen}} (const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
+\item 
+List \mbox{\hyperlink{export_8cpp_a64307563a65a79dc6c25e62e761a9509}{extract\+Vcf\+\_\+\+NM}} (const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
+\item 
+List \mbox{\hyperlink{export_8cpp_add8bc8889fbfeaccc7a5d946b75b7816}{extract\+Vcf\+\_\+vector}} (const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
+\item 
+List \mbox{\hyperlink{export_8cpp_a87314c379514dfbcbf0011cc3387ff6f}{extract\+Vcf\+\_\+chunks}} (const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
+\item 
+Numeric\+Matrix \mbox{\hyperlink{export_8cpp_a22afe5603a4108e7f2f058a68f48c7a0}{get\+DA}} (const RObject \&mat)
+\item 
+Numeric\+Matrix \mbox{\hyperlink{export_8cpp_a417982b4f8c0801dee2c63b1dd748569}{get\+DA\+\_\+eigen}} (const RObject \&mat)
+\item 
+Rcpp\+::\+Numeric\+Matrix \mbox{\hyperlink{export_8cpp_a40d41bf6e3152a32723faf78f3e98dc5}{get\+DA\+\_\+\+NM}} (RObject mat)
+\item 
+Rcpp\+::\+Numeric\+Vector \mbox{\hyperlink{export_8cpp_a932f9bc1dfdb070374ca2867c4705c96}{get\+DA\+\_\+vector}} (const RObject \&mat)
+\item 
+Rcpp\+::\+Numeric\+Vector \mbox{\hyperlink{export_8cpp_a3cc73e08f9cd5989de54ff55c29e6730}{column\+\_\+sums}} (const Rcpp\+::\+RObject \&initmat)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{export_8cpp_a3cc73e08f9cd5989de54ff55c29e6730}\index{export.cpp@{export.cpp}!column\_sums@{column\_sums}}
+\index{column\_sums@{column\_sums}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{column\_sums()}{column\_sums()}}
+{\footnotesize\ttfamily \label{export_8cpp_a3cc73e08f9cd5989de54ff55c29e6730} 
+Rcpp\+::\+Numeric\+Vector column\+\_\+sums (\begin{DoxyParamCaption}\item[{const Rcpp\+::\+RObject \&}]{initmat}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_afe3666d76d365548df8bd7997ef992c5}\index{export.cpp@{export.cpp}!extractVcf@{extractVcf}}
+\index{extractVcf@{extractVcf}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{extractVcf()}{extractVcf()}}
+{\footnotesize\ttfamily \label{export_8cpp_afe3666d76d365548df8bd7997ef992c5} 
+List extract\+Vcf (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a87314c379514dfbcbf0011cc3387ff6f}\index{export.cpp@{export.cpp}!extractVcf\_chunks@{extractVcf\_chunks}}
+\index{extractVcf\_chunks@{extractVcf\_chunks}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{extractVcf\_chunks()}{extractVcf\_chunks()}}
+{\footnotesize\ttfamily \label{export_8cpp_a87314c379514dfbcbf0011cc3387ff6f} 
+List extract\+Vcf\+\_\+chunks (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a48fafdd006867f48d98c7aa3c36f349b}\index{export.cpp@{export.cpp}!extractVcf\_eigen@{extractVcf\_eigen}}
+\index{extractVcf\_eigen@{extractVcf\_eigen}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{extractVcf\_eigen()}{extractVcf\_eigen()}}
+{\footnotesize\ttfamily \label{export_8cpp_a48fafdd006867f48d98c7aa3c36f349b} 
+List extract\+Vcf\+\_\+eigen (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a64307563a65a79dc6c25e62e761a9509}\index{export.cpp@{export.cpp}!extractVcf\_NM@{extractVcf\_NM}}
+\index{extractVcf\_NM@{extractVcf\_NM}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{extractVcf\_NM()}{extractVcf\_NM()}}
+{\footnotesize\ttfamily \label{export_8cpp_a64307563a65a79dc6c25e62e761a9509} 
+List extract\+Vcf\+\_\+\+NM (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_add8bc8889fbfeaccc7a5d946b75b7816}\index{export.cpp@{export.cpp}!extractVcf\_vector@{extractVcf\_vector}}
+\index{extractVcf\_vector@{extractVcf\_vector}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{extractVcf\_vector()}{extractVcf\_vector()}}
+{\footnotesize\ttfamily \label{export_8cpp_add8bc8889fbfeaccc7a5d946b75b7816} 
+List extract\+Vcf\+\_\+vector (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a22afe5603a4108e7f2f058a68f48c7a0}\index{export.cpp@{export.cpp}!getDA@{getDA}}
+\index{getDA@{getDA}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{getDA()}{getDA()}}
+{\footnotesize\ttfamily \label{export_8cpp_a22afe5603a4108e7f2f058a68f48c7a0} 
+Numeric\+Matrix get\+DA (\begin{DoxyParamCaption}\item[{const RObject \&}]{mat}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a417982b4f8c0801dee2c63b1dd748569}\index{export.cpp@{export.cpp}!getDA\_eigen@{getDA\_eigen}}
+\index{getDA\_eigen@{getDA\_eigen}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{getDA\_eigen()}{getDA\_eigen()}}
+{\footnotesize\ttfamily \label{export_8cpp_a417982b4f8c0801dee2c63b1dd748569} 
+Numeric\+Matrix get\+DA\+\_\+eigen (\begin{DoxyParamCaption}\item[{const RObject \&}]{mat}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a40d41bf6e3152a32723faf78f3e98dc5}\index{export.cpp@{export.cpp}!getDA\_NM@{getDA\_NM}}
+\index{getDA\_NM@{getDA\_NM}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{getDA\_NM()}{getDA\_NM()}}
+{\footnotesize\ttfamily \label{export_8cpp_a40d41bf6e3152a32723faf78f3e98dc5} 
+Rcpp\+::\+Numeric\+Matrix get\+DA\+\_\+\+NM (\begin{DoxyParamCaption}\item[{RObject}]{mat}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a932f9bc1dfdb070374ca2867c4705c96}\index{export.cpp@{export.cpp}!getDA\_vector@{getDA\_vector}}
+\index{getDA\_vector@{getDA\_vector}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{getDA\_vector()}{getDA\_vector()}}
+{\footnotesize\ttfamily \label{export_8cpp_a932f9bc1dfdb070374ca2867c4705c96} 
+Rcpp\+::\+Numeric\+Vector get\+DA\+\_\+vector (\begin{DoxyParamCaption}\item[{const RObject \&}]{mat}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_aaa480f499e1d9e5870f3aa5abc5c675e}\index{export.cpp@{export.cpp}!test\_DS@{test\_DS}}
+\index{test\_DS@{test\_DS}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_DS()}{test\_DS()}}
+{\footnotesize\ttfamily \label{export_8cpp_aaa480f499e1d9e5870f3aa5abc5c675e} 
+arma\+::vec test\+\_\+\+DS (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{vcffile}{, }\item[{const std\+::string \&}]{region}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_af6b46fe745e9b79a985ea29a2238e2f0}\index{export.cpp@{export.cpp}!test\_GT@{test\_GT}}
+\index{test\_GT@{test\_GT}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_GT()}{test\_GT()}}
+{\footnotesize\ttfamily \label{export_8cpp_af6b46fe745e9b79a985ea29a2238e2f0} 
+arma\+::vec test\+\_\+\+GT (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{vcffile}{, }\item[{const std\+::string \&}]{region}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a92c4b4101778c8258e06efc528ccc97e}\index{export.cpp@{export.cpp}!toDF@{toDF}}
+\index{toDF@{toDF}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{toDF()}{toDF()}}
+{\footnotesize\ttfamily \label{export_8cpp_a92c4b4101778c8258e06efc528ccc97e} 
+Data\+Frame to\+DF (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&}]{v\+Info}{}\end{DoxyParamCaption})}
+

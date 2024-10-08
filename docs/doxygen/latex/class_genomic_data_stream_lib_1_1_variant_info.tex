@@ -1,0 +1,135 @@
+\doxysection{Genomic\+Data\+Stream\+Lib\+::Variant\+Info Class Reference}
+\hypertarget{class_genomic_data_stream_lib_1_1_variant_info}{}\label{class_genomic_data_stream_lib_1_1_variant_info}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+
+
+{\ttfamily \#include $<$Variant\+Info.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_afc46bec18735a293be3a034492f3947a}{Variant\+Info}} ()
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a344415707679448299a5bc4c2c7bcf5c}{Variant\+Info}} (const vector$<$ string $>$ \&\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_aeb16d5d41fd7d6772024458d489d6ee7}{sample\+Names}})
+\item 
+void \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a1a77b19502f5cecc07d1a2c155cf2cb3}{add\+Variant}} (const string \&chr, const int64\+\_\+t \&pos, const string \&id, const string \&ref, const string \&alt)
+\item 
+int \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a0649a6a511541799887cea656f28bb4c}{size}} () const
+\item 
+void \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a8026abd2838113742dcb19a83c56eab3}{append}} (const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&v\+Info)
+\item 
+void \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04}{clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_aeb16d5d41fd7d6772024458d489d6ee7}{sample\+Names}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a16af9ff03f9cf83d4c18ee19fdb34806}{CHROM}}
+\item 
+vector$<$ int64\+\_\+t $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a47158d4d9702bc13484a68586e7d5a07}{POS}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_adef3a7616c6496d025ee0e829c121f53}{ID}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_a8a649215947848314655126ee2f9133a}{REF}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info_adf14aba837e0761f5dcd7b88a0e3b9fe}{ALT}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Store variant information and sample names 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_afc46bec18735a293be3a034492f3947a}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!VariantInfo@{VariantInfo}}
+\index{VariantInfo@{VariantInfo}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{VariantInfo()}{VariantInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_afc46bec18735a293be3a034492f3947a} 
+Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+Variant\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a344415707679448299a5bc4c2c7bcf5c}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!VariantInfo@{VariantInfo}}
+\index{VariantInfo@{VariantInfo}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{VariantInfo()}{VariantInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a344415707679448299a5bc4c2c7bcf5c} 
+Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+Variant\+Info (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{sample\+Names}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+constructor to intitialize sample\+Names 
+\begin{DoxyParams}{Parameters}
+{\em sample\+Names} & retained samples after filtering \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a1a77b19502f5cecc07d1a2c155cf2cb3}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!addVariant@{addVariant}}
+\index{addVariant@{addVariant}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{addVariant()}{addVariant()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a1a77b19502f5cecc07d1a2c155cf2cb3} 
+void Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::add\+Variant (\begin{DoxyParamCaption}\item[{const string \&}]{chr}{, }\item[{const int64\+\_\+t \&}]{pos}{, }\item[{const string \&}]{id}{, }\item[{const string \&}]{ref}{, }\item[{const string \&}]{alt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+add information for one variant at a time \Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a8026abd2838113742dcb19a83c56eab3}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!append@{append}}
+\index{append@{append}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a8026abd2838113742dcb19a83c56eab3} 
+void Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::append (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&}]{v\+Info}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+append variants in a new \doxylink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info} to the end of the current object \Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!clear@{clear}}
+\index{clear@{clear}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_af05ba6475ef76437f635496f63188d04} 
+void Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Clear vectors storing variant information, but leave sample\+Names \Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a0649a6a511541799887cea656f28bb4c}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!size@{size}}
+\index{size@{size}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a0649a6a511541799887cea656f28bb4c} 
+int Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+number of variants 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_adf14aba837e0761f5dcd7b88a0e3b9fe}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!ALT@{ALT}}
+\index{ALT@{ALT}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{ALT}{ALT}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_adf14aba837e0761f5dcd7b88a0e3b9fe} 
+vector$<$string$>$ Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+ALT}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a16af9ff03f9cf83d4c18ee19fdb34806}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!CHROM@{CHROM}}
+\index{CHROM@{CHROM}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{CHROM}{CHROM}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a16af9ff03f9cf83d4c18ee19fdb34806} 
+vector$<$string$>$ Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+CHROM}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_adef3a7616c6496d025ee0e829c121f53}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!ID@{ID}}
+\index{ID@{ID}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{ID}{ID}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_adef3a7616c6496d025ee0e829c121f53} 
+vector$<$string$>$ Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+ID}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a47158d4d9702bc13484a68586e7d5a07}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!POS@{POS}}
+\index{POS@{POS}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{POS}{POS}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a47158d4d9702bc13484a68586e7d5a07} 
+vector$<$int64\+\_\+t$>$ Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+POS}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_a8a649215947848314655126ee2f9133a}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!REF@{REF}}
+\index{REF@{REF}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{REF}{REF}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_a8a649215947848314655126ee2f9133a} 
+vector$<$string$>$ Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::\+REF}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_variant_info_aeb16d5d41fd7d6772024458d489d6ee7}\index{GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}!sampleNames@{sampleNames}}
+\index{sampleNames@{sampleNames}!GenomicDataStreamLib::VariantInfo@{GenomicDataStreamLib::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{sampleNames}{sampleNames}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_variant_info_aeb16d5d41fd7d6772024458d489d6ee7} 
+vector$<$string$>$ Genomic\+Data\+Stream\+Lib\+::\+Variant\+Info\+::sample\+Names}
+
+Add information about statistical test for each variant. NOT COMPLETE 
+\begin{DoxyParams}{Parameters}
+{\em test\+Results} & stores results from analysis with fastlmm\+Batch\+Design \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_variant_info_8h}{Variant\+Info.\+h}}\end{DoxyCompactItemize}

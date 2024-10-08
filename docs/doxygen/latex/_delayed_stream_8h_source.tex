@@ -1,0 +1,215 @@
+\doxysection{Delayed\+Stream.\+h}
+\hypertarget{_delayed_stream_8h_source}{}\label{_delayed_stream_8h_source}\index{inst/include/DelayedStream.h@{inst/include/DelayedStream.h}}
+\mbox{\hyperlink{_delayed_stream_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ DelayedStream.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ DelayedStream\ reads\ a\ DelayedArray\ into\ memory}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ DELAYED\_STREAM\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ DELAYED\_STREAM\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ [[Rcpp::depends(RcppArmadillo)]]}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ EIGEN}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <RcppEigen.h>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ [[Rcpp::depends(RcppEigen)]]}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}beachmat3/beachmat.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \#include\ "{}Rtatami.h"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{using\ namespace\ }Rcpp;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ Handle\ sparse\ input\ and\ outputs}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ Handle\ chunk\ size,\ workLarge.reserve(),\ workLarge.clear()}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ returns\ all\ zeros}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ res2\ =\ GenomicDataStream:::getDA(\ as.matrix(M)\ )}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream}{DelayedStream}}\ :\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_aac1344586903e9f4d8711f51b54c868a}{DelayedStream}}(\ RObject\ mat)\ :\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}()\ \{}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}read\_lin\_block"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\ =\ beachmat::read\_lin\_block(mat);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}end"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ pointer\ to\ data\ matrix}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ ptr\ =\ beachmat::read\_lin\_block(mat);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ NCout\ =\ ptr-\/>get\_nrow();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ NRout\ =\ ptr-\/>get\_ncol();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ size\ of\ workspace}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ buffer\ stores\ one\ row}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ buffer.reserve(\ ptr-\/>get\_ncol()\ );}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ row\ and\ col\ names}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ mInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{MatrixInfo}}(\ mat\ );}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_a6440cf28d17c77773693fe2ca4e16736}{\string~DelayedStream}}()\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ mInfo;}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ ARMA}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_aa509e528a88d4f698320306fa6def59a}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk<arma::mat,\ MatrixInfo>}}\ \&\ chunk)\{}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ workLarge\ chunk}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mat(ptr\_aux\_mem,\ n\_rows,\ n\_cols,\ copy\_aux\_mem\ =\ true,\ strict\ =\ false)}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ copy\_aux\_mem\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ create\ read-\/only\ matrix\ without\ re-\/allocating\ memory}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ arma::mat\ M(workLarge.data(),\ NRout,\ NCout,\ copy\_aux\_mem,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}(\ M,\ *mInfo\ );}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ EIGEN}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_aa509e528a88d4f698320306fa6def59a}{getNextChunk}}(\ DataChunk<Eigen::MatrixXd,\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ MatrixInfo>\ \&\ chunk)\{}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ workLarge\ chunk}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(workLarge.data(),\ NRout,\ NCout);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ chunk\ =\ DataChunk(\ M,\ *mInfo\ );}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_aa509e528a88d4f698320306fa6def59a}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}<Rcpp::NumericMatrix,\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{MatrixInfo}}>\ \&\ chunk)\{}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ workLarge\ chunk}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}NumericMatrix"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ NRout\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ NCout\ <<\ std::endl;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ workLarge.size()\ <<\ std::endl;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ Rcpp::NumericMatrix\ M(NRout,\ NCout,\ workLarge.data());\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}DataChunk"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}(\ M,\ *mInfo\ );}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}return"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream_a48f4a7ff2248574bed6a2cd09803a36e}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}<vector<double>,\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{MatrixInfo}}>\ \&\ chunk)\{}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ workLarge\ chunk}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}(\ workLarge,\ *mInfo\ );}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00138\ \ \ \ \ std::unique\_ptr<beachmat::lin\_matrix>\ ptr;}
+\DoxyCodeLine{00139\ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ vector<double>\ buffer;\ }}
+\DoxyCodeLine{00141\ \ \ \ \ vector<double>\ workLarge;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ endOfFile\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{MatrixInfo}}\ *mInfo\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{int}\ NRout,\ NCout;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{comment}{//\ tatami\ support}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{comment}{/*bool\ getNextChunk\_helper()\{}}
+\DoxyCodeLine{00148\ \textcolor{comment}{}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ "{}BoundNumericPointer"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00150\ \textcolor{comment}{}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ \ \ \ \ \ Rtatami::BoundNumericPointer\ parsed(mat);}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ "{}success"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ \ \ \ \ \ auto\ ptr\ =\ parsed-\/>ptr;}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ \ \ \ \ \ NROW\ =\ ptr-\/>nrow();}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ \ \ \ \ \ NCOL\ =\ ptr-\/>ncol();}}
+\DoxyCodeLine{00156\ \textcolor{comment}{}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ \ \ \ \ \ buffer.reserve(NCOL);}}
+\DoxyCodeLine{00158\ \textcolor{comment}{}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ \ \ \ \ \ auto\ wrk\ =\ ptr-\/>dense\_column();}}
+\DoxyCodeLine{00160\ \textcolor{comment}{}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (int\ j\ =\ 0;\ j\ <\ NCOL;\ j++)\ \{}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ auto\ extracted\ =\ wrk-\/>fetch(j,\ buffer.data());}}
+\DoxyCodeLine{00163\ \textcolor{comment}{}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ //\ insert\ into\ the\ larger\ work}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ workLarge.insert(workLarge.end(),\ buffer.begin(),\ buffer.end());}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ \ \ \ \ \ endOfFile\ =\ true;}}
+\DoxyCodeLine{00168\ \textcolor{comment}{}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ !\ endOfFile;}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ original\ code\ based\ on\ stand-\/alone\ beachmat}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ vector<double>\ buffer(ptr-\/>get\_ncol());}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ column\ j}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ j\ =\ 0;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <\ ptr-\/>get\_nrow();\ j++)\ \{}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pointer\ to\ column\ i}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rp\ =\ ptr-\/>get\_row(j,\ buffer.data());}
+\DoxyCodeLine{00186\ \ \ \ \ \ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =0;\ k<ptr-\/>get\_ncol();\ k++)\{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ rp[k]\ <<\ \textcolor{charliteral}{'\ '}\ <<\ buffer[k]\ <<\ std::endl;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ into\ the\ larger\ work}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ workLarge.insert(workLarge.end(),\ buffer.begin(),\ buffer.end());}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ endOfFile\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}end\ helper"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\ endOfFile;}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

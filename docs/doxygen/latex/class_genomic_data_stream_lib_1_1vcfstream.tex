@@ -1,0 +1,134 @@
+\doxysection{Genomic\+Data\+Stream\+Lib\+::vcfstream Class Reference}
+\hypertarget{class_genomic_data_stream_lib_1_1vcfstream}{}\label{class_genomic_data_stream_lib_1_1vcfstream}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+
+
+{\ttfamily \#include $<$vcfstream.\+h$>$}
+
+Inheritance diagram for Genomic\+Data\+Stream\+Lib\+::vcfstream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_genomic_data_stream_lib_1_1vcfstream}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a196ccf137ee60c5cf2cea78e28149e8b}{vcfstream}} (const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a08547aa8a6c41a89bb428aa6d53633c3}{\texorpdfstring{$\sim$}{\string~}vcfstream}} ()
+\item 
+bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a37f8e1f07090669a0724ad792877e25e}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a4d6286b4cc7a16c2d429e306f4401e4d}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94}{Genomic\+Data\+Stream}} ()
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_abf01ac486fb36aeda7951a5fb5ef5b81}{Genomic\+Data\+Stream}} (const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})
+\item 
+virtual \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static string \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f}{variant\+To\+String}} (const Bcf\+Record \&record)
+\item 
+static vector$<$ double $>$ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_ac0677a09d629215785c2530e8ac56b4a}{int\+To\+Dosage}} (const vector$<$ int $>$ \&v, const bool \&missing\+To\+Mean)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+vcfstream reads a VCF into an arma\+::mat in chunks, storing variants in columns. Applies filtering for specified samples and genome region. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1vcfstream_a196ccf137ee60c5cf2cea78e28149e8b}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}!vcfstream@{vcfstream}}
+\index{vcfstream@{vcfstream}!GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+\doxysubsubsection{\texorpdfstring{vcfstream()}{vcfstream()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1vcfstream_a196ccf137ee60c5cf2cea78e28149e8b} 
+Genomic\+Data\+Stream\+Lib\+::vcfstream\+::vcfstream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&}]{param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+constructor 
+\begin{DoxyParams}{Parameters}
+{\em file} & .vcf, .vcf.\+gz or .bcf file with tabix index \\
+\hline
+{\em field} & \textquotesingle{}GT\textquotesingle{} for genotype strings, \textquotesingle{}DS\textquotesingle{} for dosage, or another other field stored as an integer or float. \textquotesingle{}GT\textquotesingle{} is the only string type supported \\
+\hline
+{\em region} & target in the format \textquotesingle{}chr2\+:1-\/12345\textquotesingle{}. Setting region to "{}"{} includes all variants \\
+\hline
+{\em samples} & string of comma separated sample IDs to extract\+: "{}\+ID1,\+ID2,\+ID3"{} \\
+\hline
+{\em chunk\+Size} & number of variants to return per chunk \\
+\hline
+{\em missing\+To\+Mean} & if true, set missing values to the mean dosage value. if false, set to NaN \\
+\hline
+{\em init\+Capacity} & initial capacity of temporary vector to avoid re-\/alloc on insert. Size is in Mb. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_genomic_data_stream_lib_1_1vcfstream_a08547aa8a6c41a89bb428aa6d53633c3}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}!````~vcfstream@{\texorpdfstring{$\sim$}{\string~}vcfstream}}
+\index{````~vcfstream@{\texorpdfstring{$\sim$}{\string~}vcfstream}!GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}vcfstream()}{\string~vcfstream()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1vcfstream_a08547aa8a6c41a89bb428aa6d53633c3} 
+Genomic\+Data\+Stream\+Lib\+::vcfstream\+::\texorpdfstring{$\sim$}{\string~}vcfstream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+destructor 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1vcfstream_a37f8e1f07090669a0724ad792877e25e}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1vcfstream_a37f8e1f07090669a0724ad792877e25e} 
+bool Genomic\+Data\+Stream\+Lib\+::vcfstream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get next chunk of {\itshape features} as Rcpp\+::\+Numeric\+Matrix 
+
+Reimplemented from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ad827e33fd6042c249df592c37eb3ed58}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}.
+
+\Hypertarget{class_genomic_data_stream_lib_1_1vcfstream_a4d6286b4cc7a16c2d429e306f4401e4d}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1vcfstream_a4d6286b4cc7a16c2d429e306f4401e4d} 
+bool Genomic\+Data\+Stream\+Lib\+::vcfstream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get next chunk of {\itshape features} as vector$<$double$>$ 
+
+Reimplemented from \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44}{Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream}}.
+
+\Hypertarget{class_genomic_data_stream_lib_1_1vcfstream_ac0677a09d629215785c2530e8ac56b4a}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}!intToDosage@{intToDosage}}
+\index{intToDosage@{intToDosage}!GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+\doxysubsubsection{\texorpdfstring{intToDosage()}{intToDosage()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1vcfstream_ac0677a09d629215785c2530e8ac56b4a} 
+static vector$<$ double $>$ Genomic\+Data\+Stream\+Lib\+::vcfstream\+::int\+To\+Dosage (\begin{DoxyParamCaption}\item[{const vector$<$ int $>$ \&}]{v}{, }\item[{const bool \&}]{missing\+To\+Mean}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Compute dosage values from vector of GT stored as int. Sum adjacent values to get dosage 
+\begin{DoxyParams}{Parameters}
+{\em v} & for n samples, vector of length 2\texorpdfstring{$\ast$}{*}n where dosage is computed as v\mbox{[}2\texorpdfstring{$\ast$}{*}i\mbox{]} + v\mbox{[}2\texorpdfstring{$\ast$}{*}i+1\mbox{]}; \\
+\hline
+{\em missing\+To\+Mean} & if true, set missing values to the mean dosage value. if false, set to NaN \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f}\index{GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}!variantToString@{variantToString}}
+\index{variantToString@{variantToString}!GenomicDataStreamLib::vcfstream@{GenomicDataStreamLib::vcfstream}}
+\doxysubsubsection{\texorpdfstring{variantToString()}{variantToString()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1vcfstream_a5f75bf7c9d4a4598f66f10bb2fa5a92f} 
+static string Genomic\+Data\+Stream\+Lib\+::vcfstream\+::variant\+To\+String (\begin{DoxyParamCaption}\item[{const Bcf\+Record \&}]{record}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Concatenate variant identifiers
+
+
+\begin{DoxyParams}{Parameters}
+{\em record} & storing current variant \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{vcfstream_8h}{vcfstream.\+h}}\end{DoxyCompactItemize}
