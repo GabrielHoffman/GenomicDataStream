@@ -1,10 +1,37 @@
 
 RHTSLIB_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-    'Rhtslib::pkgconfig("PKG_LIBS")')
+    'Rhtslib::pkgconfig("PKG_LIBS")') 
 RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
     'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
-PKG_CXXFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -DARMA -DEIGEN -w
+
+PKG_CXXFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -DARMA -DEIGEN -w -I/Users/gabrielhoffman/workspace/repos/test_bgen/rbgen/inst/include/genfile/include -I/Users/gabrielhoffman/workspace/repos/test_bgen/rbgen/inst/include/db/include/ -I/Users/gabrielhoffman/workspace/repos/test_bgen/rbgen/inst/include/3rd_party/sqlite3
 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(RHTSLIB_LIBS) 
 
+
+PKG_CPPFLAGS = \
+-I ../inst/include/ \
+-I ../inst/include/zstd-1.1.0/lib  \
+-I ../inst/include/zstd-1.1.0/lib/common  \
+-I ../inst/include/zstd-1.1.0/lib/compress  \
+-I ../inst/include/zstd-1.1.0/lib/decompress  \
+-D SQLITE_ENABLE_COLUMN_METADATA \
+-D SQLITE_ENABLE_STAT4 \
+-D SQLITE_MAX_EXPR_DEPTH=10000 \
+-D SQLITE_USE_URI=1 \
+-Wno-unused-local-typedefs \
+-fPIC -O3 -w
+
+C_SOURCES = $(wildcard zstd-1.1.0/*.c) $(wildcard sqlite3/*.c)
+C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) 
+CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp)
+CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
+OBJECTS = RcppExports.o export.o $(CXX_OBJECTS) $(C_OBJECTS)
+
+$(info $(C_OBJECTS))
+$(info $(CXX_OBJECTS))
+
+.PHONY: all
+all: $(SHLIB)
+$(SHLIB): ${OBJECTS} Makevars

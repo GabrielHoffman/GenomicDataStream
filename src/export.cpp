@@ -315,6 +315,25 @@ Rcpp::NumericVector getDA_vector(const RObject &mat ){
 }
 
 
+// [[Rcpp::export]]
+void test_bgen(const string &filename){
+
+    Param param(filename, "");
+    bgenstream bgenObj(param);
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
 #include "Rtatami.h"
 #include <algorithm>
 

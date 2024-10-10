@@ -89,29 +89,27 @@ class DelayedStream :
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
 		arma::mat M(workLarge.data(), NRout, NCout, copy_aux_mem, true);
 
-		chunk = DataChunk( M, *mInfo );
+		chunk = DataChunk<arma::mat, MatrixInfo>( M, *mInfo );
 
 		return ret;
 	}
 	#endif
 
 	#ifdef EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd, 
-		MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<Eigen::MatrixXd, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
 		bool ret = getNextChunk_helper();
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(workLarge.data(), NRout, NCout);
 
-		chunk = DataChunk( M, *mInfo );
+		chunk = DataChunk<Eigen::MatrixXd, MatrixInfo>( M, *mInfo );
 
 		return ret;
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, 
-		MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
 		bool ret = getNextChunk_helper();
@@ -126,19 +124,18 @@ class DelayedStream :
 
 	    Rcpp::Rcout << "DataChunk" << std::endl;
 
-		chunk = DataChunk( M, *mInfo );
+		chunk = DataChunk<Rcpp::NumericMatrix, MatrixInfo>( M, *mInfo );
 	    Rcpp::Rcout << "return" << std::endl;
 
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<vector<double>, 
-		MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<vector<double>, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
 		bool ret = getNextChunk_helper();
 
-		chunk = DataChunk( workLarge, *mInfo );
+		chunk = DataChunk<vector<double>, MatrixInfo>( workLarge, *mInfo );
 
 		return ret;
 	}

@@ -45,6 +45,10 @@ getDA_vector <- function(mat) {
     .Call('_GenomicDataStream_getDA_vector', PACKAGE = 'GenomicDataStream', mat)
 }
 
+test_bgen <- function(filename) {
+    invisible(.Call('_GenomicDataStream_test_bgen', PACKAGE = 'GenomicDataStream', filename))
+}
+
 column_sums <- function(initmat) {
     .Call('_GenomicDataStream_column_sums', PACKAGE = 'GenomicDataStream', initmat)
 }
@@ -59,5 +63,9 @@ standardize_test <- function(X, center = TRUE, scale = TRUE) {
 
 fastLM <- function(y, file, field, region = "", samples = "-", missingToMean = FALSE) {
     .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, missingToMean)
+}
+
+load <- function(filename, index_filename, ranges, rsids, max_entries_per_sample) {
+    .Call('_GenomicDataStream_load', PACKAGE = 'GenomicDataStream', filename, index_filename, ranges, rsids, max_entries_per_sample)
 }
 

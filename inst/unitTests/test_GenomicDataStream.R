@@ -1,4 +1,26 @@
 
+test_bgenstream(){
+
+
+
+	library(GenomicDataStream)
+
+	
+	file = "/Users/gabrielhoffman/workspace/repos/test_bgen/bgen/example/example.16bits.bgen"
+
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	GenomicDataStream:::test_bgen(file)
+
+
+
+
+
+
+}
+
+
+
 test_DelayedStream(){
 
 	library(GenomicDataStream)

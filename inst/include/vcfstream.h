@@ -123,29 +123,27 @@ class vcfstream :
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
 
-	    chunk = DataChunk( M, *vInfo );
+	    chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
 
 		return ret;
 	}
 	#endif
 
 	#ifdef EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd, 
-		VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
-		chunk = DataChunk( M, *vInfo );
+		chunk = DataChunk<Eigen::MatrixXd, VariantInfo>( M, *vInfo );
 
 		return ret;
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, 
-		VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -159,8 +157,7 @@ class vcfstream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<vector<double>, 
-		VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();

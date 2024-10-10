@@ -118,7 +118,7 @@ static void standardize( arma::mat &X, const bool &center = true, const bool &sc
     // Note, norm() does not center the column
     //   this give results consistent with base::scale()
     //   when scale is FALSE
-    for(size_t j=0; j<X.n_cols; j++){q
+    for(size_t j=0; j<X.n_cols; j++){
         if( center ) X.col(j) -= mean(X.col(j));
         if( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;
     }
