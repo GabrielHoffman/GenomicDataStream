@@ -25,7 +25,7 @@ namespace {
 		DataSetter(
 			IntegerVector* ploidy,
 			Dimension const& ploidy_dimension,
-			NumericVector* data,
+			vector<double> * data,
 			Dimension const& data_dimension,
 			LogicalVector* phased,
 			std::size_t variant_i,
@@ -107,10 +107,11 @@ namespace {
 		}
 
 		void set_value( genfile::bgen::uint32_t entry_i, double value ) {
+
 			int const index = m_variant_i + m_storage_i * m_data_dimension[0] + entry_i * m_data_dimension[0] * m_data_dimension[1] ;
-#if DEBUG
+// #if DEBUG
 			std::cerr << "Setting data for index " << m_variant_i << ", " << m_storage_i << ", " << entry_i << ": index " << index << "...\n" << std::flush ;
-#endif
+// #endif
 			(*m_data)[ index ] = value ;
 		}
 
@@ -129,7 +130,7 @@ namespace {
 	private:
 		Rcpp::IntegerVector* m_ploidy ;
 		Rcpp::Dimension const m_ploidy_dimension ;
-		Rcpp::NumericVector* m_data ;
+		vector<double> * m_data ;
 		Rcpp::Dimension const m_data_dimension ;
 		Rcpp::LogicalVector* m_phased ;
 
@@ -212,7 +213,8 @@ namespace {
 		using namespace Rcpp ;
 
 		View::UniquePtr view = View::create( filename ) ;
-		{
+
+		if( ranges.nrows() > 0){
 			StringVector const& chromosome = ranges["chromosome"] ;
 			IntegerVector const& start = ranges["start"] ;
 			IntegerVector const& end = ranges["end"] ;
@@ -245,7 +247,7 @@ void get_all_samples(
 
 void get_requested_samples(
 	genfile::bgen::View const& view,
-	Rcpp::StringVector const& requestedSamples,
+	vector<string> const& requestedSamples,
 	std::size_t* number_of_samples,
 	std::vector< std::string >* sampleNames,
 	std::map< std::size_t, std::size_t >* requestedSamplesByIndexInDataIndex
@@ -305,7 +307,7 @@ Rcpp::List load_unsafe(
 	Rcpp::DataFrame const& ranges,
 	std::vector< std::string > const& requested_rsids,
 	std::size_t max_entries_per_sample,
-	Rcpp::StringVector const* const requestedSamples
+	std::vector< std::string > const* const requestedSamples
 ) {
 	using namespace genfile::bgen ;
 	using namespace Rcpp ;
@@ -337,7 +339,8 @@ Rcpp::List load_unsafe(
 	Dimension data_dimension = Dimension( number_of_variants, number_of_samples, max_entries_per_sample ) ;
 	Dimension ploidy_dimension = Dimension( number_of_variants, number_of_samples ) ;
 
-	NumericVector data = NumericVector( data_dimension, NA_REAL ) ;
+	// NumericVector data = NumericVector( data_dimension, NA_REAL ) ;
+	vector<double> data = vector<double> ( number_of_variants * number_of_samples * max_entries_per_sample);
 	IntegerVector ploidy = IntegerVector( ploidy_dimension, NA_INTEGER ) ;
 	LogicalVector phased = LogicalVector( number_of_variants, NA_LOGICAL ) ;
 
@@ -390,7 +393,7 @@ Rcpp::List load_unsafe(
 	ploidyNames[0] = rsids ;
 	ploidyNames[1] = sampleNames ;
 
-	data.attr( "dimnames" ) = dataNames ;
+	// data.attr( "dimnames" ) = dataNames ;
 	ploidy.attr( "dimnames" ) = ploidyNames ;
 
 	List result ;

@@ -5,7 +5,6 @@
 ### A scalable interface between data and analysis underneath R
 
 ![](man/figures/GenomicDataStream.png)
- \image html "GenomicDataStream.png"
 
 <div align="justify"> 
 Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>,

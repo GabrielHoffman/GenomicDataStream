@@ -5,15 +5,37 @@ test_bgenstream(){
 
 	library(GenomicDataStream)
 
-	
-	file = "/Users/gabrielhoffman/workspace/repos/test_bgen/bgen/example/example.16bits.bgen"
+
+	file = "/Users/gabrielhoffman/workspace/repos/test_bgen/bgen/example/example.8bits.bgen"
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	# GenomicDataStream:::test_bgen(file)
+
+	res = GenomicDataStream:::load( file, sprintf("%s.bgi", file), ranges = data.frame( chromosome = '01', start = 0, end = 100000 ), rsids = character(0), max_entries_per_sample=3)
+
+
+	head( res$variants )
+	res$data[1,1:10,1:3]
+
+
+	library( rbgen )
+
+	## Test we can load data
+	D = bgen.load( file, ranges = data.frame( chromosome = '01', start = 0, end = 100000 ))
+	str( D )
+	head( D$variants )
+	D$data[1,1:10,1:3]
+
+
 
 	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	GenomicDataStream:::test_bgen(file)
+
+	res = GenomicDataStream:::test_bgen( file, "DS" )
 
 
-
+	res[1:3, 1:3]
 
 
 

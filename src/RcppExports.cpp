@@ -157,13 +157,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // test_bgen
-void test_bgen(const string& filename);
-RcppExport SEXP _GenomicDataStream_test_bgen(SEXP filenameSEXP) {
+Rcpp::NumericMatrix test_bgen(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const bool& missingToMean);
+RcppExport SEXP _GenomicDataStream_test_bgen(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP missingToMeanSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const string& >::type filename(filenameSEXP);
-    test_bgen(filename);
-    return R_NilValue;
+    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
+    rcpp_result_gen = Rcpp::wrap(test_bgen(file, field, region, samples, missingToMean));
+    return rcpp_result_gen;
 END_RCPP
 }
 // column_sums
@@ -244,7 +249,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getDA_eigen", (DL_FUNC) &_GenomicDataStream_getDA_eigen, 1},
     {"_GenomicDataStream_getDA_NM", (DL_FUNC) &_GenomicDataStream_getDA_NM, 1},
     {"_GenomicDataStream_getDA_vector", (DL_FUNC) &_GenomicDataStream_getDA_vector, 1},
-    {"_GenomicDataStream_test_bgen", (DL_FUNC) &_GenomicDataStream_test_bgen, 1},
+    {"_GenomicDataStream_test_bgen", (DL_FUNC) &_GenomicDataStream_test_bgen, 5},
     {"_GenomicDataStream_column_sums", (DL_FUNC) &_GenomicDataStream_column_sums, 1},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},

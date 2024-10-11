@@ -4,7 +4,7 @@ Title: Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks
 Version: 0.0.1
 Date: 2024-09-29
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
-Description: Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries
+Description: Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries.  BGEN support based on rbgen_v1.1.5.
 URL: https://github.com/GabrielHoffman/GenomicDataStream
 BugReports: https://github.com/GabrielHoffman/GenomicDataStream/issues
 License: Artistic-2.0

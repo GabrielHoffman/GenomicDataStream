@@ -5,8 +5,7 @@ RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
     'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
 
-PKG_CXXFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -DARMA -DEIGEN -w -I/Users/gabrielhoffman/workspace/repos/test_bgen/rbgen/inst/include/genfile/include -I/Users/gabrielhoffman/workspace/repos/test_bgen/rbgen/inst/include/db/include/ -I/Users/gabrielhoffman/workspace/repos/test_bgen/rbgen/inst/include/3rd_party/sqlite3
-
+PKG_CXXFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -DARMA -DEIGEN -w 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(RHTSLIB_LIBS) 
 
 

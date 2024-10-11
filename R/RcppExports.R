@@ -45,8 +45,8 @@ getDA_vector <- function(mat) {
     .Call('_GenomicDataStream_getDA_vector', PACKAGE = 'GenomicDataStream', mat)
 }
 
-test_bgen <- function(filename) {
-    invisible(.Call('_GenomicDataStream_test_bgen', PACKAGE = 'GenomicDataStream', filename))
+test_bgen <- function(file, field, region = "", samples = "-", missingToMean = FALSE) {
+    .Call('_GenomicDataStream_test_bgen', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
 }
 
 column_sums <- function(initmat) {

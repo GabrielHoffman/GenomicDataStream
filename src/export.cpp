@@ -316,18 +316,26 @@ Rcpp::NumericVector getDA_vector(const RObject &mat ){
 
 
 // [[Rcpp::export]]
-void test_bgen(const string &filename){
+Rcpp::NumericMatrix test_bgen( 
+            const std::string &file,
+            const std::string &field,
+            const std::string &region = "",
+            const std::string &samples = "-",
+            const bool &missingToMean = false){
 
-    Param param(filename, "");
+    Param param( file, field, region, samples, std::numeric_limits<int>::max());
+
     bgenstream bgenObj(param);
 
+    DataChunk<arma::mat, VariantInfo> chunk;
 
+    bgenObj.getNextChunk( chunk );
 
+    Rcpp::Rcout << "getData" << endl;
+    
+    NumericMatrix X = wrap( chunk.getData() );
 
-
-
-
-
+    return X ;
 }
 
 
