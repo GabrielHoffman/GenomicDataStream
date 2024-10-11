@@ -20,9 +20,9 @@ LinkingTo:
 	RcppArmadillo,
 	RcppEigen,
 	beachmat,
-	Rhtslib,
+	Rhtslib  (>= 3.0.0),
 	BH,
-	vcfppR (>= 0.6.0),
+	vcfppR (>= 0.6.0)
 Encoding: UTF-8
 SystemRequirements: 
     GNU make,
