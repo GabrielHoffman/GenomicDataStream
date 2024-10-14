@@ -35,6 +35,15 @@ using namespace std;
 using namespace genfile::bgen;
 using namespace Rcpp;
 
+
+/** TODO
+ * chunks
+ * Remove Rcpp dependency
+ * Currently uses Armadillo cube
+ * How to convert to Eigen, NumericMatrix, vector<double>
+ * 
+ */
+
 namespace GenomicDataStreamLib {
 
 /** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
@@ -50,13 +59,21 @@ class bgenstream :
 
 		Rcpp::DataFrame const ranges;
 		vector<string> const requested_rsids;
-		size_t max_entries_per_sample;	
 
+		// Initialize view
 		view = construct_view( param.file, param.file + ".bgi", ranges, requested_rsids ) ;
+
+		// Filter variants
+		IndexQuery::UniquePtr query = IndexQuery::create( param.file + ".bgi" );
+		vector<string> rsids = {"RSID_101", "RSID_2", "RSID_102"};
+		query->include_rsids( rsids ) ;
+		query->initialise() ;
+
+		view->set_query( query ) ;
 
 		number_of_variants = view->number_of_variants() ;
 
-		// if get all samples
+		// Filter samples
 		if( param.samples.compare("-") == 0 ){
 			get_all_samples( *view, &number_of_samples, &sampleNames, &requestedSamplesByIndexInDataIndex ) ;
 		}else{
@@ -70,104 +87,99 @@ class bgenstream :
 			get_requested_samples( *view, requestedSamples, &number_of_samples, &sampleNames, &requestedSamplesByIndexInDataIndex ) ;
 		}
 
-
 		vInfo = new VariantInfo( sampleNames );
 
-		matDosage.reserve( number_of_variants*number_of_samples );
+		// store probabilities
+		int n = 1e6 * param.initCapacity / (double) (sizeof(double) * number_of_samples * max_entries_per_sample);
+		probs.reserve( n );
 
+		// store dosage
+		n = 1e6 * param.initCapacity / (double) (sizeof(double) * number_of_samples);
+		matDosage.reserve(n);
 	}
 
 	/** destructor
 	 */ 
 	~bgenstream(){
 		if( vInfo != nullptr) delete vInfo;
-		if( data != nullptr) delete data;
 	}
 
 	#ifdef ARMA
 	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
 
-
-		Rcpp::Rcout << "getNextChunk_helper" << endl;
+		Rcpp::Rcout << "getNextChunk_helper()..." << endl;
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		Rcpp::Rcout << "matDosage" << endl;
-		for(size_t i=0; i<data->size(); i++){
-			if(i < 10) Rcpp::Rcout << data->at(i) << ' ';
-			matDosage[i] = data->at(i);
-		}
+		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
-		Rcpp::Rcout << "\nInit matrix" << endl;
-		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
-		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
-		arma::mat M(matDosage.data(), number_of_samples, number_of_variants, copy_aux_mem, true);
-
-		Rcpp::Rcout << "DataChunk" << endl;
 	    chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
 
-		return true;
+
+		return ret;
 	}
 	#endif
 
 	#ifdef EIGEN
 	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
 
-		return true;
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
+
+		chunk = DataChunk<Eigen::MatrixXd, VariantInfo>( M, *vInfo );
+
+		return ret;
 	}
 	#endif
 
 
 	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
 
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
 
-		return true;
+		Rcpp::NumericMatrix M(number_of_samples, vInfo->size(), matDosage.data()); 
+		colnames(M) = Rcpp::wrap( vInfo->ID );
+	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
+
+		chunk = DataChunk<Rcpp::NumericMatrix, VariantInfo>( M, *vInfo );
+
+		return ret;
 	}
 
 
 	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){
 
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
 
-		return true;
+		chunk = DataChunk<vector<double>, VariantInfo>( matDosage, *vInfo );
+
+		return ret;
 	}
 
 
 
 
 	private:
-	View::UniquePtr view; 
-	std::size_t number_of_variants;
-	std::size_t number_of_samples = 0;
-	std::vector< std::string > sampleNames;
-	std::map< std::size_t, std::size_t > requestedSamplesByIndexInDataIndex;
+	View::UniquePtr view = nullptr; 
+	size_t number_of_variants;
+	size_t number_of_samples = 0;
+	vector<string> sampleNames;
+	map<size_t, size_t> requestedSamplesByIndexInDataIndex;
 	VariantInfo *vInfo = nullptr;
-	vector<double> *data = nullptr;
-		
-
-	// stores genotype dosage as doubles, with the next marker inserted at the end
-	// NOTE that when current size is exceeded, .insert() reallocates memory
-	// this can be slow 
-	// set using reserve() to set initial capacity so avaoid re-alloc
+	vector<double> probs;	
 	vector<double> matDosage;
+	size_t max_entries_per_sample = 3;		
 
 
 	bool getNextChunk_helper(){	
 
-		// Declare storage for all the things we need
-		StringVector chromosomes( number_of_variants ) ;
-		IntegerVector positions( number_of_variants ) ;
-		StringVector rsids( number_of_variants ) ;
-		IntegerVector number_of_alleles( number_of_variants ) ;
-		StringVector allele0s( number_of_variants ) ;
-		StringVector allele1s( number_of_variants ) ;
-
-		int max_entries_per_sample = 3;
 		Dimension data_dimension = Dimension( number_of_variants, number_of_samples, max_entries_per_sample ) ;
 		Dimension ploidy_dimension = Dimension( number_of_variants, number_of_samples ) ;
 
-		// NumericVector data = NumericVector( data_dimension, NA_REAL ) ;
-		data = new vector<double> ( number_of_variants * number_of_samples * max_entries_per_sample);
 		IntegerVector ploidy = IntegerVector( ploidy_dimension, NA_INTEGER ) ;
 		LogicalVector phased = LogicalVector( number_of_variants, NA_LOGICAL ) ;
 
@@ -178,66 +190,46 @@ class bgenstream :
 		// Iterate through variants
 		for( size_t j = 0; j < number_of_variants; j++ ) {
 
-			Rcpp::Rcout << j << endl;
-
+			// read variant information
 			view->read_variant( &SNPID, &rsid, &chromosome, &position, &alleles ) ;
-			chromosomes[j] = chromosome ;
-			positions[j] = position ;
-			rsids[j] = rsid ;
-			number_of_alleles[j] = alleles.size() ;
-			allele0s[j] = alleles[0] ;
-			allele1s[j] = alleles[1] ;
+		
+			// store variant info
+			vInfo->addVariant(chromosome, position, rsid, alleles[0], alleles[1] );
 
+			// read genotype probabilities into DataSetter object
 			DataSetter setter(
 				&ploidy, ploidy_dimension,
-				data, data_dimension,
+				&probs, data_dimension,
 				&phased,
 				j,
 				requestedSamplesByIndexInDataIndex
-			) ;
+			);
 			
 			view->read_genotype_data_block( setter ) ;		
 		}
 
+		// Convert to dosage values stored in vector<double>
+		//------------------
 
+		// use probs to create Cube 
+		cube C(probs.data(), number_of_variants, number_of_samples, max_entries_per_sample, true, true);
+	
+		vec dsg = {0,1,2}; // weight alleles by dosage
 
-		DataFrame variants = DataFrame::create(
-			Named("chromosome") = chromosomes,
-			Named("position") = positions,
-			Named("rsid") = rsids,
-			Named("number_of_alleles") = number_of_alleles,
-			Named("allele0") = allele0s,
-			Named("allele1") = allele1s
-		) ;
-		variants.attr( "row.names" ) = rsids ;
+		// Using Tmp matrix
+		// mat M(number_of_samples, number_of_variants);
+		// for(int j=0; j<number_of_variants; j++){
+		// 	M.col(j) = C.row_as_mat(j).t() * dsg;
+		// }
+	    // chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
 
-		StringVector genotypeNames(max_entries_per_sample) ;
-		for( std::size_t i = 0; i < max_entries_per_sample; ++i ) {
-			genotypeNames[i] = "g=" + atoi(i) ;
+		// compute dosage from Cube
+		// copy results of each variant to vector<double>
+		for(int j=0; j<number_of_variants; j++){
+			vec v = C.row_as_mat(j).t() * dsg;
+			memcpy(matDosage.data() + number_of_samples*j, v.memptr(), number_of_samples*sizeof(double));
 		}
 
-		List dataNames = List(3) ;
-		dataNames[0] = rsids ;
-		dataNames[1] = sampleNames ;
-		dataNames[2] = genotypeNames ;
-
-		List ploidyNames = List(2) ;
-		ploidyNames[0] = rsids ;
-		ploidyNames[1] = sampleNames ;
-
-		// data.attr( "dimnames" ) = dataNames ;
-		ploidy.attr( "dimnames" ) = ploidyNames ;
-
-		List result ;
-		result[ "variants" ] = variants ;
-		result[ "samples" ] = sampleNames ;
-		result[ "ploidy" ] = ploidy ;
-		result[ "phased" ] = phased ;
-		// result[ "data" ] = data ;
-
-		// matDosage = vector<double>(data);
-
-		// return( result ) ;
 		return false;
 	}
 };
