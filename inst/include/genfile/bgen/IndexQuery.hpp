@@ -119,8 +119,8 @@ namespace genfile {
 		// Class for index queries implemented using a sqlite file, a la bgenix.
 		struct SqliteIndexQuery: public IndexQuery {
 		public:
-			// We use shared_ptr to avoid using C++11 features here.
-			typedef std::shared_ptr< SqliteIndexQuery > UniquePtr ;
+			// We use unique_ptr to avoid using C++11 features here.
+			typedef std::unique_ptr< SqliteIndexQuery > UniquePtr ;
 
 		public:
 			// Construct given an index file and an index table name
