@@ -39,13 +39,10 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
 #ifndef GenomicDataStream_H_
 #define GenomicDataStream_H_
 
-
-#ifdef ARMA
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
-#endif
 
-#ifdef EIGEN
+#ifdef USE_EIGEN
 #include <RcppEigen.h>
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
@@ -53,6 +50,7 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
 #include <boost/algorithm/string.hpp>
 
 #include "VariantInfo.h"
+#include "MatrixInfo.h"
 #include "utils.h"
 
 using namespace std;
@@ -155,7 +153,7 @@ struct Param {
 };
 
 
-/** Abstract class inheritited by vcfstream, bgenstream, DelayedStream
+/** Virtual class inheritited by vcfstream, bgenstream, DelayedStream
  */ 
 class GenomicDataStream {
 	public: 
@@ -172,17 +170,15 @@ class GenomicDataStream {
 	
 	/** Get number of columns in data matrix
 	 */ 
-	virtual int n_cols(){};
+	virtual int n_samples(){ return 0;}
 
-	#ifdef ARMA
 	/** Get next chunk of _features_ as arma::mat
 	 * 
 	 */ 
 	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){return false;
 	}
-	#endif
 
-	#ifdef EIGEN
+	#ifdef USE_EIGEN
 	/** Get next chunk of _features_ as Eigen::Map<Eigen::MatrixXd>
 	 * 
 	 */ 
@@ -190,11 +186,13 @@ class GenomicDataStream {
 	}
 	#endif
 
+	#ifdef USE_RCPP
 	/** Get next chunk of _features_ as Rcpp::NumericMatrix
 	 * 
 	 */ 
 	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){return false;
 	}
+	#endif
 
 	/** Get next chunk of _features_ as vector<double>
 	 * 

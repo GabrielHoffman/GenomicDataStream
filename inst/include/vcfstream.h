@@ -10,12 +10,10 @@
 #ifndef VCF_STREAM_H_
 #define VCF_STREAM_H_
 
-#ifdef ARMA
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
-#endif
 
-#ifdef EIGEN
+#ifdef USE_EIGEN
 #include <RcppEigen.h>
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
@@ -109,11 +107,10 @@ class vcfstream :
 
 	/** Get number of columns in data matrix
 	 */ 
-	int n_cols(){
+	int n_samples(){
 		return reader->nsamples;
 	}
 
-	#ifdef ARMA
 	bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -127,9 +124,8 @@ class vcfstream :
 
 		return ret;
 	}
-	#endif
 
-	#ifdef EIGEN
+	#ifdef USE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -143,6 +139,7 @@ class vcfstream :
 	}
 	#endif
 
+	#ifdef USE_RCPP
 	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -156,6 +153,7 @@ class vcfstream :
 
 		return ret;
 	}
+	#endif
 
 	bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){
 

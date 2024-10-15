@@ -157,8 +157,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // test_bgen
-Rcpp::NumericMatrix test_bgen(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const bool& missingToMean);
-RcppExport SEXP _GenomicDataStream_test_bgen(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP missingToMeanSEXP) {
+Rcpp::List test_bgen(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean);
+RcppExport SEXP _GenomicDataStream_test_bgen(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -166,8 +166,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
+    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
     Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
-    rcpp_result_gen = Rcpp::wrap(test_bgen(file, field, region, samples, missingToMean));
+    rcpp_result_gen = Rcpp::wrap(test_bgen(file, field, region, samples, chunkSize, missingToMean));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -221,17 +222,34 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// test_bgen2
+List test_bgen2(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean);
+RcppExport SEXP _GenomicDataStream_test_bgen2(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
+    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
+    rcpp_result_gen = Rcpp::wrap(test_bgen2(y, file, field, region, samples, chunkSize, missingToMean));
+    return rcpp_result_gen;
+END_RCPP
+}
 // load
-Rcpp::List load(std::string const& filename, std::string const& index_filename, Rcpp::DataFrame const& ranges, std::vector< std::string > const& rsids, std::size_t max_entries_per_sample);
+Rcpp::List load(string const& filename, string const& index_filename, Rcpp::DataFrame const& ranges, vector<string> const& rsids, size_t max_entries_per_sample);
 RcppExport SEXP _GenomicDataStream_load(SEXP filenameSEXP, SEXP index_filenameSEXP, SEXP rangesSEXP, SEXP rsidsSEXP, SEXP max_entries_per_sampleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string const& >::type filename(filenameSEXP);
-    Rcpp::traits::input_parameter< std::string const& >::type index_filename(index_filenameSEXP);
+    Rcpp::traits::input_parameter< string const& >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< string const& >::type index_filename(index_filenameSEXP);
     Rcpp::traits::input_parameter< Rcpp::DataFrame const& >::type ranges(rangesSEXP);
-    Rcpp::traits::input_parameter< std::vector< std::string > const& >::type rsids(rsidsSEXP);
-    Rcpp::traits::input_parameter< std::size_t >::type max_entries_per_sample(max_entries_per_sampleSEXP);
+    Rcpp::traits::input_parameter< vector<string> const& >::type rsids(rsidsSEXP);
+    Rcpp::traits::input_parameter< size_t >::type max_entries_per_sample(max_entries_per_sampleSEXP);
     rcpp_result_gen = Rcpp::wrap(load(filename, index_filename, ranges, rsids, max_entries_per_sample));
     return rcpp_result_gen;
 END_RCPP
@@ -249,11 +267,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getDA_eigen", (DL_FUNC) &_GenomicDataStream_getDA_eigen, 1},
     {"_GenomicDataStream_getDA_NM", (DL_FUNC) &_GenomicDataStream_getDA_NM, 1},
     {"_GenomicDataStream_getDA_vector", (DL_FUNC) &_GenomicDataStream_getDA_vector, 1},
-    {"_GenomicDataStream_test_bgen", (DL_FUNC) &_GenomicDataStream_test_bgen, 5},
+    {"_GenomicDataStream_test_bgen", (DL_FUNC) &_GenomicDataStream_test_bgen, 6},
     {"_GenomicDataStream_column_sums", (DL_FUNC) &_GenomicDataStream_column_sums, 1},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
     {"_GenomicDataStream_fastLM", (DL_FUNC) &_GenomicDataStream_fastLM, 6},
+    {"_GenomicDataStream_test_bgen2", (DL_FUNC) &_GenomicDataStream_test_bgen2, 7},
     {"_GenomicDataStream_load", (DL_FUNC) &_GenomicDataStream_load, 5},
     {NULL, NULL, 0}
 };

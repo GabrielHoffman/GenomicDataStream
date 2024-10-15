@@ -1,0 +1,7 @@
+^vignettes/Makefile$
+^inst/doxygen$
+\.o$
+\.so$
+\.tmp$
+^docs$
+^.git$

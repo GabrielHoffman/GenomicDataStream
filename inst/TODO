@@ -1,4 +1,21 @@
 
+- Run with lucida
+- test bgen with arma, Eigen, etc
+- optimize for speed
+- pass R CMD check
+- confirm that returning wrapper around vector<double> is safe
+- DelayedStream doesn't work yet
+- Use same file for VCF, BCF, BGEN
+	and confirm same results
+
+# show contents of file
+tar zvft lucida_0.0.3.tar.gz
+
+# omit .o files
+GenomicDataStream/.Rbuildignore
+
+
+
 
 vcfstream:
 	make sure vector<double> works

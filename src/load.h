@@ -1,35 +1,39 @@
+/** Adapted from load.cpp in rbgen v1.1.5
+ * 
+ * Changes: Remove dependency on Rcpp
+ */
+
 #include <sstream>
 #include <map>
 #include "genfile/bgen/View.hpp"
 #include "genfile/bgen/IndexQuery.hpp"
+
+
 #include <Rcpp.h>
 
 // [[Rcpp::depends(BH)]]
 
 // #define DEBUG 1
 
+using namespace std;
+
 namespace {
 	template< typename Integer >
-	std::string atoi( Integer const value ) {
-		std::ostringstream stream ;
+	string atoi( Integer const value ) {
+		ostringstream stream ;
 		stream << value ;
 		return stream.str() ;
 	}
 	
 	struct DataSetter {
-		typedef Rcpp::IntegerVector IntegerVector ;
-		typedef Rcpp::NumericVector NumericVector ;
-		typedef Rcpp::LogicalVector LogicalVector ;
-		typedef Rcpp::Dimension Dimension ;
-
 		DataSetter(
-			IntegerVector* ploidy,
-			Dimension const& ploidy_dimension,
+			vector<int>* ploidy,
+			vector<int> const& ploidy_dimension,
 			vector<double> * data,
-			Dimension const& data_dimension,
-			LogicalVector* phased,
-			std::size_t variant_i,
-			std::map< std::size_t, std::size_t > const& requested_samples
+			vector<int> const& data_dimension,
+			vector<bool>* phased,
+			size_t variant_i,
+			map<size_t, size_t> const& requested_samples
 		):
 			m_ploidy( ploidy ),
 			m_ploidy_dimension( ploidy_dimension ),
@@ -51,7 +55,7 @@ namespace {
 		}
 	
 		// Called once allowing us to set storage.
-		void initialise( std::size_t number_of_samples, std::size_t number_of_alleles ) {
+		void initialise( size_t number_of_samples, size_t number_of_alleles ) {
 		}
 
 		// If present with this signature, called once after initialise()
@@ -68,13 +72,13 @@ namespace {
 		}
 
 		// Called once per sample to determine whether we want data for this sample
-		bool set_sample( std::size_t i ) {
+		bool set_sample( size_t i ) {
 			if( m_requested_sample_i != m_requested_samples.end() && m_requested_sample_i->first == i ) {
 				m_storage_i = m_requested_sample_i->second ;
 				++m_requested_sample_i ;
-#if DEBUG
-				std::cerr << "DataSetter::set_sample(): sample " << i << " has storage index " << m_storage_i << ".\n" ;
-#endif
+// #if DEBUG
+// 				std::cerr << "DataSetter::set_sample(): sample " << i << " has storage index " << m_storage_i << ".\n" ;
+// #endif
 				return true ;
 			} else {
 				// Don't want this sample
@@ -84,8 +88,8 @@ namespace {
 
 		// Called once per sample to set the number of probabilities that are present.
 		void set_number_of_entries(
-			std::size_t ploidy,
-			std::size_t number_of_entries,
+			size_t ploidy,
+			size_t number_of_entries,
 			genfile::OrderType order_type,
 			genfile::ValueType value_type
 		) {
@@ -98,7 +102,8 @@ namespace {
 			}
 			if( m_order_type == genfile::eUnknownOrderType ) {
 				m_order_type = order_type ;
-				(*m_phased)( m_variant_i ) = ( m_order_type == genfile::ePerPhasedHaplotypePerAllele ) ;
+				// (*m_phased)( m_variant_i ) = ( m_order_type == genfile::ePerPhasedHaplotypePerAllele ) ;
+				(*m_phased)[ m_variant_i ] = ( m_order_type == genfile::ePerPhasedHaplotypePerAllele ) ;
 			} else {
 				assert( order_type == m_order_type ) ;
 			}
@@ -110,16 +115,16 @@ namespace {
 
 			int const index = m_variant_i + m_storage_i * m_data_dimension[0] + entry_i * m_data_dimension[0] * m_data_dimension[1] ;
 // #if DEBUG
-			std::cerr << "Setting data for index " << m_variant_i << ", " << m_storage_i << ", " << entry_i << ": index " << index << "...\n" << std::flush ;
+// 			std::cerr << "Setting data for index " << m_variant_i << ", " << m_storage_i << ", " << entry_i << ": index " << index << "...\n" << std::flush ;
 // #endif
 			(*m_data)[ index ] = value ;
 		}
 
 		void set_value( genfile::bgen::uint32_t entry_i, genfile::MissingValue value ) {
 			int const index = m_variant_i + m_storage_i * m_data_dimension[0] + entry_i * m_data_dimension[0] * m_data_dimension[1] ;
-#if DEBUG
-			std::cerr << "Setting data for index " << m_variant_i << ", " << m_storage_i << ", " << entry_i << ": index " << index << "...\n" << std::flush ;
-#endif
+// #if DEBUG
+// 			std::cerr << "Setting data for index " << m_variant_i << ", " << m_storage_i << ", " << entry_i << ": index " << index << "...\n" << std::flush ;
+// #endif
 			(*m_data)[ index ] = NA_REAL ;
 		}
 
@@ -128,25 +133,25 @@ namespace {
 		}
 
 	private:
-		Rcpp::IntegerVector* m_ploidy ;
-		Rcpp::Dimension const m_ploidy_dimension ;
+		vector<int>* m_ploidy ;
+		vector<int> const m_ploidy_dimension ;
 		vector<double> * m_data ;
-		Rcpp::Dimension const m_data_dimension ;
-		Rcpp::LogicalVector* m_phased ;
+		vector<int> const m_data_dimension ;
+		vector<bool> * m_phased ;
 
-		std::size_t const m_variant_i ;
+		size_t const m_variant_i ;
 
-		std::map< std::size_t, std::size_t > const& m_requested_samples ;
-		std::map< std::size_t, std::size_t >::const_iterator m_requested_sample_i ;
-		std::size_t m_storage_i ;
+		map<size_t, size_t> const& m_requested_samples ;
+		map<size_t, size_t>::const_iterator m_requested_sample_i ;
+		size_t m_storage_i ;
 
 		genfile::OrderType m_order_type ;
 	} ;
 
 	struct set_sample_names {
-		typedef std::map< std::size_t, std::size_t > SampleIndexMap ;
+		typedef map< size_t, size_t > SampleIndexMap ;
 		
-		set_sample_names( std::vector< std::string >* result, SampleIndexMap* sample_indices ):
+		set_sample_names( vector<string>* result, SampleIndexMap* sample_indices ):
 			m_result( result ),
 			m_sample_indices( sample_indices ),
 			m_index(0)
@@ -156,22 +161,22 @@ namespace {
 			assert( sample_indices->size() == result->size() ) ;
 		}
 
-		void operator()( std::string const& value ) {
+		void operator()( string const& value ) {
 			m_sample_indices->insert( std::make_pair( m_index, m_index ) ) ;
 			(*m_result)[m_index++] = value ;
 		}
 	private:
-		std::vector< std::string >* m_result ;
+		vector<string>* m_result ;
 		SampleIndexMap* m_sample_indices ;
-		std::size_t m_index ;
+		size_t m_index ;
 	} ;
 	
 	struct set_requested_sample_names {
-		typedef std::map< std::string, std::size_t > RequestedSamples ;
-		typedef std::map< std::size_t, std::size_t > SampleIndexMap ;
+		typedef map<string, size_t> RequestedSamples ;
+		typedef map<size_t, size_t> SampleIndexMap ;
 		
 		set_requested_sample_names(
-			std::vector< std::string >* result,
+			vector<string>* result,
 			SampleIndexMap* sample_indices,
 			RequestedSamples const& requested_samples
 		):
@@ -187,27 +192,27 @@ namespace {
 			assert( result->size() == requested_samples.size() ) ;
 		}
 		
-		void operator()( std::string const& value ) {
+		void operator()(string const& value ) {
 			RequestedSamples::const_iterator where = m_requested_samples.find( value ) ;
 			if( where != m_requested_samples.end() ) {
 				(*m_result)[ where->second ] = value ;
-				m_sample_indices->insert( std::make_pair( m_value_index, where->second ) ) ;
+				m_sample_indices->insert( make_pair( m_value_index, where->second ) ) ;
 			}
 			++m_value_index ;
 		}
 	private:
-		std::vector< std::string >* m_result ;
+		vector<string>* m_result ;
 		SampleIndexMap* m_sample_indices ;
 		RequestedSamples const& m_requested_samples ;
-		std::size_t m_index ;
-		std::size_t m_value_index ;
+		size_t m_index ;
+		size_t m_value_index ;
 	} ;
 	
 	genfile::bgen::View::UniquePtr construct_view(
-		std::string const& filename,
-		std::string const& index_filename,
+		string const& filename,
+		string const& index_filename,
 		Rcpp::DataFrame const& ranges,
-		std::vector< std::string > const& rsids = std::vector< std::string >()
+		vector<string> const& rsids = vector<string>()
 	) {
 		using namespace genfile::bgen ;
 		using namespace Rcpp ;
@@ -224,7 +229,7 @@ namespace {
 				if( end[i] < start[i] ) {
 					throw std::invalid_argument( "Range (" + chromosome[i] + ":" + atoi( start[i] ) + "-" + atoi( end[i] ) + ") is malformed." ) ;
 				}
-				query->include_range( IndexQuery::GenomicRange( std::string( chromosome[i] ), start[i], end[i] )) ;
+				query->include_range( IndexQuery::GenomicRange( string( chromosome[i] ), start[i], end[i] )) ;
 			}
 			query->include_rsids( rsids ) ;
 			query->initialise() ;
@@ -236,9 +241,9 @@ namespace {
 
 void get_all_samples(
 	genfile::bgen::View const& view,
-	std::size_t* number_of_samples,
-	std::vector< std::string >* sampleNames,
-	std::map< std::size_t, std::size_t >* requestedSamplesByIndexInDataIndex
+	size_t* number_of_samples,
+	vector<string>* sampleNames,
+	map<size_t, size_t>* requestedSamplesByIndexInDataIndex
 ) {
 	*number_of_samples = view.number_of_samples() ;
 	sampleNames->resize( *number_of_samples ) ;
@@ -248,14 +253,14 @@ void get_all_samples(
 void get_requested_samples(
 	genfile::bgen::View const& view,
 	vector<string> const& requestedSamples,
-	std::size_t* number_of_samples,
-	std::vector< std::string >* sampleNames,
-	std::map< std::size_t, std::size_t >* requestedSamplesByIndexInDataIndex
+	size_t* number_of_samples,
+	vector<string>* sampleNames,
+	map<size_t, size_t>* requestedSamplesByIndexInDataIndex
 ) {
 	// convert requested sample IDs to a map of requested indices.
-	std::map< std::string, std::size_t > requestedSamplesByName ;
-	for( std::size_t i = 0; i < requestedSamples.size(); ++i ) {
-		requestedSamplesByName.insert( std::map< std::string, std::size_t >::value_type( std::string( requestedSamples[i] ), i )) ;
+	map<string, size_t> requestedSamplesByName ;
+	for( size_t i = 0; i < requestedSamples.size(); ++i ) {
+		requestedSamplesByName.insert( std::map< string, size_t >::value_type( string( requestedSamples[i] ), i )) ;
 	}
 	if( requestedSamplesByName.size() != requestedSamples.size() ) {
 		throw std::invalid_argument(
@@ -271,12 +276,12 @@ void get_requested_samples(
 	// We count distinct samples, among those requested, that we've found in the data
 	// And we also count the min and max index of those samples.
 	// If min = 0 and max = (#requested samples-1) and each sample was unique, we're ok.
-	std::set< std::size_t > checkSamples ;
-	std::size_t minIndex = std::numeric_limits< std::size_t >::max() ;
-	std::size_t maxIndex = 0 ;
+	set<size_t> checkSamples ;
+	size_t minIndex = std::numeric_limits< size_t >::max() ;
+	size_t maxIndex = 0 ;
 	
 	for(
-		std::map< std::size_t, std::size_t >::const_iterator p = requestedSamplesByIndexInDataIndex->begin();
+		map<size_t, size_t>::const_iterator p = requestedSamplesByIndexInDataIndex->begin();
 		p != requestedSamplesByIndexInDataIndex->end();
 		++p
 	 ) {
@@ -286,13 +291,13 @@ void get_requested_samples(
 	}
 	if( checkSamples.size() != requestedSamples.size() || minIndex != 0 || maxIndex != (requestedSamples.size()-1) ) {
 		// Huh.  To be most useful, let's print diagnostics
-		std::cerr << "!! Uh-oh: requested sample indices (data, request) are:\n" ;
+		// std::cerr << "!! Uh-oh: requested sample indices (data, request) are:\n" ;
 		for(
-			std::map< std::size_t, std::size_t >::const_iterator p = requestedSamplesByIndexInDataIndex->begin();
+			map<size_t, size_t>::const_iterator p = requestedSamplesByIndexInDataIndex->begin();
 			p != requestedSamplesByIndexInDataIndex->end();
 			++p
 		 ) {
-			std::cerr << p->first << ", " << p->second << ".\n" ;
+			// std::cerr << p->first << ", " << p->second << ".\n" ;
 		}
 		
 		throw std::invalid_argument(
@@ -302,25 +307,25 @@ void get_requested_samples(
 }
 
 Rcpp::List load_unsafe(
-	std::string const& filename,
-	std::string const& index_filename,
+	string const& filename,
+	string const& index_filename,
 	Rcpp::DataFrame const& ranges,
-	std::vector< std::string > const& requested_rsids,
-	std::size_t max_entries_per_sample,
-	std::vector< std::string > const* const requestedSamples
+	vector<string> const& requested_rsids,
+	size_t max_entries_per_sample,
+	vector<string> const* const requestedSamples
 ) {
 	using namespace genfile::bgen ;
 	using namespace Rcpp ;
 
 	View::UniquePtr view = construct_view( filename, index_filename, ranges, requested_rsids ) ;
 
-	std::size_t const number_of_variants = view->number_of_variants() ;
-	std::size_t number_of_samples = 0 ;
+	size_t const number_of_variants = view->number_of_variants() ;
+	size_t number_of_samples = 0 ;
 
-	// Build list of sample names as a std::vector.
+	// Build list of sample names as a vector.
 	// Note: Rcpp will convert it to StringVector on return
-	std::vector< std::string > sampleNames ;
-	std::map< std::size_t, std::size_t > requestedSamplesByIndexInDataIndex ;
+	vector<string> sampleNames ;
+	map<size_t, size_t> requestedSamplesByIndexInDataIndex ;
 	
 	if( requestedSamples ) {
 		get_requested_samples( *view, *requestedSamples, &number_of_samples, &sampleNames, &requestedSamplesByIndexInDataIndex ) ;
@@ -336,20 +341,25 @@ Rcpp::List load_unsafe(
 	StringVector allele0s( number_of_variants ) ;
 	StringVector allele1s( number_of_variants ) ;
 
-	Dimension data_dimension = Dimension( number_of_variants, number_of_samples, max_entries_per_sample ) ;
-	Dimension ploidy_dimension = Dimension( number_of_variants, number_of_samples ) ;
+	vector<int> data_dimension;
+	data_dimension.push_back(number_of_variants);
+	data_dimension.push_back(number_of_samples);
+	data_dimension.push_back(max_entries_per_sample);
 
-	// NumericVector data = NumericVector( data_dimension, NA_REAL ) ;
+	vector<int> ploidy_dimension;
+	ploidy_dimension.push_back( number_of_variants ) ;
+	ploidy_dimension.push_back( number_of_samples ) ;
+
 	vector<double> data = vector<double> ( number_of_variants * number_of_samples * max_entries_per_sample);
-	IntegerVector ploidy = IntegerVector( ploidy_dimension, NA_INTEGER ) ;
-	LogicalVector phased = LogicalVector( number_of_variants, NA_LOGICAL ) ;
+	vector<int> ploidy(ploidy_dimension[0]*ploidy_dimension[1], numeric_limits<int>::quiet_NaN());
+	vector<bool> phased( number_of_variants, numeric_limits<bool>::quiet_NaN() ) ;
 
-	std::string SNPID, rsid, chromosome ;
+	string SNPID, rsid, chromosome ;
 	genfile::bgen::uint32_t position ;
-	std::vector< std::string > alleles ;
+	vector<string> alleles ;
 
 	// Iterate through variants
-	for( std::size_t variant_i = 0; variant_i < number_of_variants; ++variant_i ) {
+	for( size_t variant_i = 0; variant_i < number_of_variants; ++variant_i ) {
 		view->read_variant( &SNPID, &rsid, &chromosome, &position, &alleles ) ;
 		chromosomes[variant_i] = chromosome ;
 		positions[variant_i] = position ;
@@ -380,7 +390,7 @@ Rcpp::List load_unsafe(
 	variants.attr( "row.names" ) = rsids ;
 
 	StringVector genotypeNames(max_entries_per_sample) ;
-	for( std::size_t i = 0; i < max_entries_per_sample; ++i ) {
+	for( size_t i = 0; i < max_entries_per_sample; ++i ) {
 		genotypeNames[i] = "g=" + atoi(i) ;
 	}
 
@@ -389,12 +399,12 @@ Rcpp::List load_unsafe(
 	dataNames[1] = sampleNames ;
 	dataNames[2] = genotypeNames ;
 
-	List ploidyNames = List(2) ;
-	ploidyNames[0] = rsids ;
-	ploidyNames[1] = sampleNames ;
+	// List ploidyNames = List(2) ;
+	// ploidyNames[0] = rsids ;
+	// ploidyNames[1] = sampleNames ;
 
-	// data.attr( "dimnames" ) = dataNames ;
-	ploidy.attr( "dimnames" ) = ploidyNames ;
+	// // data.attr( "dimnames" ) = dataNames ;
+	// ploidy.attr( "dimnames" ) = ploidyNames ;
 
 	List result ;
 	result[ "variants" ] = variants ;
@@ -408,11 +418,11 @@ Rcpp::List load_unsafe(
 
 // [[Rcpp::export]]
 Rcpp::List load(
-	std::string const& filename,
-	std::string const& index_filename,
+	string const& filename,
+	string const& index_filename,
 	Rcpp::DataFrame const& ranges,
-	std::vector< std::string > const& rsids,
-	std::size_t max_entries_per_sample
+	vector<string> const& rsids,
+	size_t max_entries_per_sample
 ) {
 	try {
 		return load_unsafe( filename, index_filename, ranges, rsids, max_entries_per_sample, 0 ) ;
@@ -428,11 +438,11 @@ Rcpp::List load(
 
 // // [[Rcpp::export]]
 // Rcpp::List load(
-// 	std::string const& filename,
-// 	std::string const& index_filename,
+// 	string const& filename,
+// 	string const& index_filename,
 // 	Rcpp::DataFrame const& ranges,
-// 	std::vector< std::string > const& rsids,
-// 	std::size_t max_entries_per_sample,
+// 	vector<string> const& rsids,
+// 	size_t max_entries_per_sample,
 // 	Rcpp::StringVector const& requestedSamples
 // ) {
 // 	try {

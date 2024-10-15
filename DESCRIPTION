@@ -14,7 +14,9 @@ Suggests:
     knitr,
     rmarkdown
 Depends:
-    R (>= 4.3.0)
+    R (>= 4.3.0),
+    Rcpp,
+    Rdpack
 LinkingTo:
 	Rcpp,
 	RcppArmadillo,

@@ -9,12 +9,10 @@
 #ifndef DELAYED_STREAM_H
 #define DELAYED_STREAM_H
 
-#ifdef ARMA
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
-#endif
 
-#ifdef EIGEN
+#ifdef USE_EIGEN
 #include <RcppEigen.h>
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
@@ -78,8 +76,6 @@ class DelayedStream :
 		return ptr->get_ncol();
 	}
 
-
-	#ifdef ARMA
 	bool getNextChunk( DataChunk<arma::mat, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
@@ -93,9 +89,8 @@ class DelayedStream :
 
 		return ret;
 	}
-	#endif
 
-	#ifdef EIGEN
+	#ifdef USE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::MatrixXd, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
@@ -109,6 +104,7 @@ class DelayedStream :
 	}
 	#endif
 
+	#ifdef USE_RCPP
 	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
@@ -129,6 +125,7 @@ class DelayedStream :
 
 		return ret;
 	}
+	#endif
 
 	bool getNextChunk( DataChunk<vector<double>, MatrixInfo> & chunk){
 

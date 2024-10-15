@@ -3,8 +3,8 @@ test_bgenstream(){
 
 
 
+	library(RUnit)
 	library(GenomicDataStream)
-
 
 	file = "/Users/gabrielhoffman/workspace/repos/test_bgen/bgen/example/example.8bits.bgen"
 
@@ -12,7 +12,7 @@ test_bgenstream(){
 
 	# GenomicDataStream:::test_bgen(file)
 
-	res = GenomicDataStream:::load( file, sprintf("%s.bgi", file), ranges = data.frame( chromosome = '01', start = 0, end = 100000 ), rsids = character(0), max_entries_per_sample=3)
+	res = GenomicDataStream:::load( file, sprintf("%s.bgi", file), ranges = data.frame( chromosome = '01', start = 1001, end = 1002 ), rsids = character(0), max_entries_per_sample=3)
 
 
 	head( res$variants )
@@ -22,22 +22,82 @@ test_bgenstream(){
 	library( rbgen )
 
 	## Test we can load data
-	D = bgen.load( file, ranges = data.frame( chromosome = '01', start = 0, end = 100000 ))
-	str( D )
-	head( D$variants )
-	D$data[1,1:10,1:3]
+	D = bgen.load( file, ranges = data.frame( chromosome = '01', start = 0, end = 14444 ), samples=c("sample_001","sample_002"))
+	# head( D$variants )
+	# c(D$data)
+
+
+	# D$data[1,1,,drop=FALSE]
+
+	# get dosage
+	X = lapply(seq(nrow(D$data)), function(j){
+		D$data[j,,] %*% c(0,1,2)
+		})
+	names(X) = dimnames(D$data)[[1]]
+
+	X = do.call(cbind, X)
+	colnames(X) = dimnames(D$data)[[1]]
+
+
+	regions = "01:0-14444"
+	res = GenomicDataStream:::test_bgen( file, "DS", region=regions, samples=c("sample_001,sample_002" ), chunkSize = 1e5)
+
+	checkEqualsNumeric(X, res$X)
 
 
 
-	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream"); rm(res)
+	regions = "01:0-14444"
+	res = GenomicDataStream:::test_bgen( file, "DS", region=regions, chunkSize = 1e5, missingToMean=FALSE)
+
+	res$X[1:2, 1:2]
 
 
-	res = GenomicDataStream:::test_bgen( file, "DS" )
 
 
-	res[1:3, 1:3]
 
 
+	regions = "."
+	y = rnorm(500)
+
+
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream"); rm(res)
+
+
+	res = GenomicDataStream:::test_bgen2( y, file, "DS", region=regions, chunkSize=300)
+
+
+
+	# Rcpp::sourceCpp(code = "
+	# 	#include <RcppArmadillo.h>
+	# 	// [[Rcpp::depends(RcppArmadillo, GenomicDataStream)]]
+
+	# 	#include <GenomicDataStream.h>
+	# 	#include <bgenstream.h>
+
+	# 	using namespace std;
+	# 	using namespace GenomicDataStreamLib;
+
+	# 	// [[Rcpp::export]]
+	# 	string f( string file){
+	# 		Param param(file, \"DS\");
+	# 		bgenstream bgenObj(param);
+	# 		return file;
+	# 	}")
+
+	# f(file)
+
+
+	# Rcpp::cppFunction(code = "
+	# 	string f( string file){
+			
+	# 	#include <GenomicDataStream.h>
+	# 		Param param(file, \"DS\");
+
+	# 		return file;
+	# 	}", depends=c("RcppArmadillo", "GenomicDataStream"))
+
+	# f(file)
 
 }
 
@@ -169,7 +229,7 @@ test_vcfstream = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	file = "/Users/gabrielhoffman/prog/R-4.4.0/library/BinaryDosage/extdata/set2a.vcf.gz"
+	file <- system.file("extdata", "set1a.vcf.gz", package = "BinaryDosage")
 
 	# whole region
 	#-------------
@@ -308,7 +368,8 @@ test_regression(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	file = "/Users/gabrielhoffman/prog/R-4.4.0/library/BinaryDosage/extdata/set2a.vcf.gz"
+	file <- system.file("extdata", "set1a.vcf.gz", package = "BinaryDosage")
+	
 
 
 	# VariantAnnotation

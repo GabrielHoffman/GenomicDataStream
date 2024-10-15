@@ -1,12 +1,9 @@
 
 
-#ifdef ARMA
+#ifdef USE_ARMA
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #endif
-
-
-using namespace arma;
 
 
 #include <vector>
@@ -16,6 +13,7 @@ using namespace arma;
 
 #ifndef UTILS_H_
 #define UTILS_H_
+
 
 namespace GenomicDataStreamLib {
 
@@ -94,7 +92,7 @@ static size_t removeDuplicates(vector<T>& vec){
 static arma::vec colSums( const arma::mat &X){
 
     // row vector of 1's
-    arma::rowvec ONE(X.n_rows, fill::ones);
+    arma::rowvec ONE(X.n_rows, arma::fill::ones);
 
     // matrix multiplication to get sums
     arma::mat tmp = ONE * X;
@@ -123,6 +121,34 @@ static void standardize( arma::mat &X, const bool &center = true, const bool &sc
         if( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;
     }
 }
+
+
+/** if string contains only digits, return true.  Else false
+ */
+static bool isOnlyDigits(const std::string& s){
+    int n = count_if(s.begin(), s.end(),
+                         [](unsigned char c){ return isdigit(c); } 
+                        );
+    return( n == s.size());
+}
+
+
+/** Replace nan values with mean
+ */ 
+static void nanToMean( arma::vec & v){
+    // get indeces of finite elements
+    arma::uvec idx = arma::find_finite(v);
+
+    // if number of finite elements is less than the total
+    if( idx.n_elem < v.n_elem ){
+        // compute mean from finite elements
+        double mu = arma::mean( v.elem(idx));
+
+        // replace nan with mu
+        v.replace(arma::datum::nan, mu);
+    }
+}
+
 
 }
 

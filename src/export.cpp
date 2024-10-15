@@ -316,14 +316,15 @@ Rcpp::NumericVector getDA_vector(const RObject &mat ){
 
 
 // [[Rcpp::export]]
-Rcpp::NumericMatrix test_bgen( 
+Rcpp::List test_bgen( 
             const std::string &file,
             const std::string &field,
             const std::string &region = "",
             const std::string &samples = "-",
+            const int &chunkSize = std::numeric_limits<int>::max(),
             const bool &missingToMean = false){
 
-    Param param( file, field, region, samples, std::numeric_limits<int>::max());
+    Param param( file, field, region, samples, chunkSize, missingToMean);
 
     bgenstream bgenObj(param);
 
@@ -331,11 +332,17 @@ Rcpp::NumericMatrix test_bgen(
 
     bgenObj.getNextChunk( chunk );
 
-    Rcpp::Rcout << "getData" << endl;
-    
+    // Convert genotype values for return
+    // set colnames as variant IDs
+    // set rownames as sample IDs
+    VariantInfo info = chunk.getInfo();
     NumericMatrix X = wrap( chunk.getData() );
+    colnames(X) = wrap( info.ID );
+    rownames(X) = wrap( info.sampleNames );    
 
-    return X ;
+    // return genotype data and variant info
+    return List::create(    Named("X") = X,
+                            Named("info") = toDF(info) );
 }
 
 
@@ -443,7 +450,7 @@ List fastLM( const arma::colvec& y,
 
     vcfstream vcfObj( param );
 
-    if( vcfObj.n_cols() != y.size() ){
+    if( vcfObj.n_samples() != y.size() ){
         Rcpp::stop("Data stream and y must have same number of samples");
     }
 
@@ -479,59 +486,52 @@ List fastLM( const arma::colvec& y,
 }
 
 
-// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
-// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
-// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
-// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
-// Rcpp::Rcout << "getNextChunk: " << vcfObj.getNextChunk( chunk ) << std::endl;
+// [[Rcpp::export]]
+List test_bgen2( const arma::colvec& y, 
+                const std::string &file,
+                const std::string &field,
+                const std::string &region = "",
+                const std::string &samples = "-",
+                const int &chunkSize = std::numeric_limits<int>::max(),
+                const bool &missingToMean = true){
 
+    Param param(file, field, region, samples, chunkSize, missingToMean);
 
-// Rcpp::Rcout << "getNextChunk..." << std::endl;
-// vcfObj.getNextChunk( chunk );
-// chunk.getData().brief_print();
-// info_chunk = chunk.getInfo();
-// List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
-// append(lst, lst_local);
+    bgenstream bgenObj(param);
 
-// Rcpp::Rcout << "getNextChunk..." << std::endl;
-// vcfObj.getNextChunk( chunk );
-// chunk.getData().brief_print();
-// info_chunk = chunk.getInfo();
-// lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
-// append(lst, lst_local);
+    if( bgenObj.n_samples() != y.size() ){
+        Rcpp::stop("Data stream and y must have same number of samples");
+    }
 
-// Rcpp::Rcout << "getNextChunk..." << std::endl;
-// vcfObj.getNextChunk( chunk );
-// chunk.getData().brief_print();
-// info_chunk = chunk.getInfo();
-// lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
-// append(lst, lst_local);
+    DataChunk<arma::mat, VariantInfo> chunk;
 
-// int count = 0;
-// while( vcfObj.getNextChunk( chunk ) ){
+    // store dosage from chunk
+    // n samples and p features
+    arma::mat X_chunk;
+    VariantInfo info_chunk;
+    List lst;
+    arma::mat X_cov(500, 1, fill::ones);
 
-//     Rcpp::Rcout << "count: " << count++ << std::endl;
+    int i = 0;
+    while( bgenObj.getNextChunk( chunk ) ){
 
-//     // get data from chunk
-//     X_chunk = chunk.getData();
+        // get data from chunk
+        X_chunk = chunk.getData();
 
-//     // get variant information
-//     info_chunk = chunk.getInfo();
+        // get variant information
+        info_chunk = chunk.getInfo();
 
+        // standardize X for mean and sd
+        // standardize( X_chunk );
 
-//     Rcpp::Rcout << "\tX_chunk: " << X_chunk.n_cols << std::endl;
-//     Rcpp::Rcout << "\tinfo_chunk: " << info_chunk.size() << std::endl;
+        // Linear regression with the jth feature
+        // used as a covariate in the jth model
+        List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
 
-//     // standardize X for mean and sd
-//     // standardize( X_chunk );
+        // // save results to list
+        append(lst, lst_local);
+    }
 
-//     // Linear regression with the jth feature
-//     // used as a covariate in the jth model
-//     List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
+    return lst;
+}
 
-
-//     Rcpp::Rcout << "\tlst_local: " << lst_local.size() << std::endl;
-
-//     // save results to list
-//     append(lst, lst_local);
-// }

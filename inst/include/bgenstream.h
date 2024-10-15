@@ -10,12 +10,10 @@
 #ifndef BGEN_STREAM_H_
 #define BGEN_STREAM_H_
 
-#ifdef ARMA
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
-#endif
 
-#ifdef EIGEN
+#ifdef USE_EIGEN
 #include <RcppEigen.h>
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
@@ -29,22 +27,44 @@
 
 #include <VariantInfo.h>
 #include <GenomicDataStream.h>
+#include <GenomicRanges.h>
 #include "load.h"
 
 using namespace std;
+using namespace arma;
 using namespace genfile::bgen;
-using namespace Rcpp;
 
-
-/** TODO
- * chunks
- * Remove Rcpp dependency
- * Currently uses Armadillo cube
- * How to convert to Eigen, NumericMatrix, vector<double>
- * 
- */
 
 namespace GenomicDataStreamLib {
+
+/** Construct view of BGEN file using index to subset variants
+ * based on region or variant id
+ * @param filename path to BGEN file
+ * @param index_filename path to index for BGEN file
+ * @param gr `GenomicRanges` of intervals
+ * @param rsids vector<string> of variant ids
+ */ 
+genfile::bgen::View::UniquePtr construct_view(
+	const string & filename,
+	const string & index_filename,
+	const GenomicRanges & gr,
+	const vector<string> & rsids = vector<string>()) {
+
+	using namespace genfile::bgen ;
+
+	View::UniquePtr view = View::create( filename ) ;
+
+	if( gr.size() > 0){		
+		IndexQuery::UniquePtr query = IndexQuery::create( index_filename ) ;
+		for( int i = 0; i < gr.size(); i++ ) {
+			query->include_range( IndexQuery::GenomicRange( gr.get_chrom(i) , gr.get_start(i), gr.get_end(i) ) ) ;
+		}
+		query->include_rsids( rsids ) ;
+		query->initialise() ;
+		view->set_query( query ) ;
+	}
+	return view ;
+}
 
 /** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
@@ -57,21 +77,14 @@ class bgenstream :
 	*/
 	bgenstream(const Param & param) : GenomicDataStream(param) {
 
-		Rcpp::DataFrame const ranges;
-		vector<string> const requested_rsids;
+		// Initialize genomic regions
+		GenomicRanges gr( param.regions );
 
-		// Initialize view
-		view = construct_view( param.file, param.file + ".bgi", ranges, requested_rsids ) ;
+		// Initialize view and filter variants
+		view = construct_view( param.file, param.file + ".bgi", gr ) ;
 
-		// Filter variants
-		IndexQuery::UniquePtr query = IndexQuery::create( param.file + ".bgi" );
-		vector<string> rsids = {"RSID_101", "RSID_2", "RSID_102"};
-		query->include_rsids( rsids ) ;
-		query->initialise() ;
-
-		view->set_query( query ) ;
-
-		number_of_variants = view->number_of_variants() ;
+		// number of variants after filtering 
+		n_variants_total = view->number_of_variants() ;
 
 		// Filter samples
 		if( param.samples.compare("-") == 0 ){
@@ -104,10 +117,14 @@ class bgenstream :
 		if( vInfo != nullptr) delete vInfo;
 	}
 
-	#ifdef ARMA
+	/** Get number of columns in data matrix
+	 */ 
+	int n_samples(){
+		return number_of_samples;
+	}
+
 	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
 
-		Rcpp::Rcout << "getNextChunk_helper()..." << endl;
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
@@ -115,12 +132,10 @@ class bgenstream :
 
 	    chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
 
-
 		return ret;
 	}
-	#endif
 
-	#ifdef EIGEN
+	#ifdef USE_EIGEN
 	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -134,7 +149,7 @@ class bgenstream :
 	}
 	#endif
 
-
+	#ifdef USE_RCPP
 	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -148,6 +163,7 @@ class bgenstream :
 
 		return ret;
 	}
+	#endif
 
 
 	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){
@@ -160,35 +176,49 @@ class bgenstream :
 		return ret;
 	}
 
-
-
-
 	private:
 	View::UniquePtr view = nullptr; 
-	size_t number_of_variants;
 	size_t number_of_samples = 0;
 	vector<string> sampleNames;
 	map<size_t, size_t> requestedSamplesByIndexInDataIndex;
 	VariantInfo *vInfo = nullptr;
 	vector<double> probs;	
 	vector<double> matDosage;
-	size_t max_entries_per_sample = 3;		
-
+	size_t max_entries_per_sample = 3;
+	int n_variants_total;	
+	int variant_idx_start = 0;
 
 	bool getNextChunk_helper(){	
 
-		Dimension data_dimension = Dimension( number_of_variants, number_of_samples, max_entries_per_sample ) ;
-		Dimension ploidy_dimension = Dimension( number_of_variants, number_of_samples ) ;
+		// clear data, but keep allocated capacity
+		matDosage.clear();
+		vInfo->clear();
 
-		IntegerVector ploidy = IntegerVector( ploidy_dimension, NA_INTEGER ) ;
-		LogicalVector phased = LogicalVector( number_of_variants, NA_LOGICAL ) ;
+		// number of variants in this chunk
+		size_t chunkSize = min(param.chunkSize, n_variants_total - variant_idx_start);
+
+		// if no variants remain, return false
+		if( chunkSize == 0) return false;
+
+		vector<int> data_dimension;
+		data_dimension.push_back(chunkSize);
+		data_dimension.push_back(number_of_samples);
+		data_dimension.push_back(max_entries_per_sample);
+
+		vector<int> ploidy_dimension;
+		ploidy_dimension.push_back( chunkSize ) ;
+		ploidy_dimension.push_back( number_of_samples ) ;
+
+		vector<int> ploidy(ploidy_dimension[0]*ploidy_dimension[1], numeric_limits<int>::quiet_NaN());
+		vector<bool> phased( chunkSize, numeric_limits<bool>::quiet_NaN() ) ;
 
 		string SNPID, rsid, chromosome;
 		genfile::bgen::uint32_t position;
 		vector<string> alleles;
 
 		// Iterate through variants
-		for( size_t j = 0; j < number_of_variants; j++ ) {
+		size_t k = 0;
+		for( size_t j = variant_idx_start; j < variant_idx_start + chunkSize; j++ ) {
 
 			// read variant information
 			view->read_variant( &SNPID, &rsid, &chromosome, &position, &alleles ) ;
@@ -201,38 +231,47 @@ class bgenstream :
 				&ploidy, ploidy_dimension,
 				&probs, data_dimension,
 				&phased,
-				j,
+				k++,
 				requestedSamplesByIndexInDataIndex
 			);
 			
 			view->read_genotype_data_block( setter ) ;		
 		}
+		// increament starting position to beginning of next chunk
+		variant_idx_start += chunkSize;
 
 		// Convert to dosage values stored in vector<double>
 		//------------------
 
 		// use probs to create Cube 
-		cube C(probs.data(), number_of_variants, number_of_samples, max_entries_per_sample, true, true);
+		cube C(probs.data(), chunkSize, number_of_samples, max_entries_per_sample, true, true);
 	
 		vec dsg = {0,1,2}; // weight alleles by dosage
 
-		// Using Tmp matrix
-		// mat M(number_of_samples, number_of_variants);
-		// for(int j=0; j<number_of_variants; j++){
-		// 	M.col(j) = C.row_as_mat(j).t() * dsg;
-		// }
-	    // chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
-
 		// compute dosage from Cube
 		// copy results of each variant to vector<double>
-		for(int j=0; j<number_of_variants; j++){
+		for(int j=0; j<chunkSize; j++){
+			// compute dosages
 			vec v = C.row_as_mat(j).t() * dsg;
+
+			// replace missing with mean
+			if( param.missingToMean ) nanToMean( v );				
+
+	    	// save vector in matDosage
 			memcpy(matDosage.data() + number_of_samples*j, v.memptr(), number_of_samples*sizeof(double));
 		}
 
-		return false;
+		return true;
 	}
 };
+
+
+// Using Tmp matrix
+// mat M(number_of_samples, chunkSize);
+// for(int j=0; j<chunkSize; j++){
+// 	M.col(j) = C.row_as_mat(j).t() * dsg;
+// }
+// chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
 
 
 }
