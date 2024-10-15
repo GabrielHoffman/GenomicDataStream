@@ -158,7 +158,9 @@ namespace genfile {
 		namespace impl {
 			void check_for_two_alleles( uint16_t numberOfAlleles ) {
 				if( numberOfAlleles != 2 ) {
+#if DEBUG_BGEN_FORMAT
 					std::cerr << "genfile::bgen::impl::check_for_two_alleles: only biallelic variants are currently supported.\n" ;
+#endif
 					assert(0) ;
 				}
 			}
