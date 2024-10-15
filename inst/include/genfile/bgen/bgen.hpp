@@ -518,10 +518,10 @@ namespace genfile {
 				set_allele( i, allele ) ;
 			}
 			if( !aStream ) {
-#if DEBUG_BGEN_FORMAT
-				std::cerr << "bgen: layout = " << layout << ", alleles = " << numberOfAlleles << ".\n" << std::flush ;
-				std::cerr << *SNPID << ", " << *RSID << ", " << *chromosome << ", " << *SNP_position << ".\n" << std::flush ;
-#endif
+// #if DEBUG_BGEN_FORMAT
+// 				std::cerr << "bgen: layout = " << layout << ", alleles = " << numberOfAlleles << ".\n" << std::flush ;
+// 				std::cerr << *SNPID << ", " << *RSID << ", " << *chromosome << ", " << *SNP_position << ".\n" << std::flush ;
+// #endif
 				throw BGenError() ;
 			}
 			return true ;
@@ -1137,10 +1137,10 @@ namespace genfile {
 				// These values are specific bit combinations and should not be changed.
 				enum SampleStatus { eIgnore = 0, eSetThisSample = 1, eSetAsMissing = 3 } ;
 				byte_t const* ploidy_p = pack.ploidy ;
-	#if DEBUG_BGEN_FORMAT
-				std::cerr << "parse_probability_data_v12(): numberOfSamples = " << numberOfSamples
-					<< ", phased = " << phased << ".\n" ;
-	#endif
+	// #if DEBUG_BGEN_FORMAT
+	// 			std::cerr << "parse_probability_data_v12(): numberOfSamples = " << numberOfSamples
+	// 				<< ", phased = " << phased << ".\n" ;
+	// #endif
 
 				setter.initialise( pack.numberOfSamples, uint32_t( 2 ) ) ;
 				call_set_min_max_ploidy( setter, uint32_t( 2 ), uint32_t( 2 ), 2, pack.phased ) ;
@@ -1221,12 +1221,12 @@ namespace genfile {
 				
 				byte_t const* ploidy_p = pack.ploidy ;
 				
-	#if DEBUG_BGEN_FORMAT
-				std::cerr << "parse_probability_data_v12(): numberOfSamples = " << numberOfSamples
-					<< ", phased = " << phased << ".\n" ;
-				std::cerr << "parse_probability_data_v12(): *buffer: "
-					<< bgen::impl::to_hex( buffer, end ) << ".\n" ;
-	#endif
+	// #if DEBUG_BGEN_FORMAT
+	// 			std::cerr << "parse_probability_data_v12(): numberOfSamples = " << numberOfSamples
+	// 				<< ", phased = " << phased << ".\n" ;
+	// 			std::cerr << "parse_probability_data_v12(): *buffer: "
+	// 				<< bgen::impl::to_hex( buffer, end ) << ".\n" ;
+	// #endif
 
 				setter.initialise( pack.numberOfSamples, uint32_t( pack.numberOfAlleles ) ) ;
 				call_set_min_max_ploidy(
@@ -1482,13 +1482,15 @@ namespace genfile {
 					m_values[m_entry_i++] = value ;
 					m_sum += value ;
 
-#if DEBUG_BGEN_FORMAT
-					std::cerr << "set_value( " << entry_i << ", " << value << "); m_entry_i = " << m_entry_i << "\n" ;
-#endif
+// #if DEBUG_BGEN_FORMAT
+// 					std::cerr << "set_value( " << entry_i << ", " << value << "); m_entry_i = " << m_entry_i << "\n" ;
+// #endif
 					if( value != value || value < 0.0 || value > (1.0+m_max_error_per_prob) ) {
-						std::cerr << "Sample " << m_sample_i << ", value " << entry_i << " is "
-							<< std::setprecision(17) << value
-							<< ", expected within bounds 0 - " << (1.0+m_max_error_per_prob) << ".\n" ;
+// #if DEBUG_BGEN_FORMAT
+						// std::cerr << "Sample " << m_sample_i << ", value " << entry_i << " is "
+						// 	<< std::setprecision(17) << value
+						// 	<< ", expected within bounds 0 - " << (1.0+m_max_error_per_prob) << ".\n" ;
+// #endif
 						throw BGenError() ;
 					}
 					if( value != 0.0 ) {
@@ -1518,6 +1520,7 @@ namespace genfile {
 							|| m_state == eBaked
 						)
 					) {
+#if DEBUG_BGEN_FORMAT
 						std::cerr << "genfile::bgen::v12::ProbabilityDataWriter::finalise(): m_number_of_samples = "
 							<< m_number_of_samples
 							<< " m_state = " << m_state
@@ -1527,6 +1530,7 @@ namespace genfile {
 							<< " m_order_type = " << m_order_type
 							<< " m_ploidy = " << m_ploidy
 							<< ".\n" ;
+#endif
 						throw BGenError() ;
 					}
 					// Write any remaining data
@@ -1593,12 +1597,14 @@ namespace genfile {
 					} else {
 						double const max_error_in_sum = (count * m_max_error_per_prob) ;
 						if( ( sum != sum ) || (sum > (1.0+max_error_in_sum)) || (sum < (1.0-max_error_in_sum))) {
+#if DEBUG_BGEN_FORMAT
 							std::cerr << "These " << count << " values sum to " << std::fixed << std::setprecision(17) << sum << ", "
 								<< "I expected the sum to be in the range " << (1.0-max_error_in_sum) << " - " << (1.0+max_error_in_sum) << ".\n" ;
 							std::cerr << "Values are:\n" ;
 							for( std::size_t i = 0; i < count; ++i ) {
 								std::cerr << values[i] << "\n" ;
 							}
+#endif 
 							throw BGenError() ;
 						}
 						// We project onto the unit simplex before computing the approximation.
@@ -1774,10 +1780,10 @@ namespace genfile {
 				assert( (m_writer->repr().second >= m_writer->repr().first) && std::size_t(m_writer->repr().second - m_writer->repr().first) <= m_buffer1->size() ) ;
 				uLongf const uncompressed_data_size = (m_writer->repr().second - m_writer->repr().first) ;
 
-#if DEBUG_BGEN_FORMAT
-				std::cerr << ( m_writer->repr().first ) << "  :" << m_writer->repr().second << ", diff = " << (m_writer->repr().second - m_writer->repr().first) << "\n" ;
-				std::cerr << "expected " << uncompressed_data_size << "\n" ;
-#endif
+// #if DEBUG_BGEN_FORMAT
+// 				std::cerr << ( m_writer->repr().first ) << "  :" << m_writer->repr().second << ", diff = " << (m_writer->repr().second - m_writer->repr().first) << "\n" ;
+// 				std::cerr << "expected " << uncompressed_data_size << "\n" ;
+// #endif
 				uint32_t const compressionType = ( m_context.flags & e_CompressedSNPBlocks ) ;
 				if( compressionType != e_NoCompression ) {
 		#if HAVE_ZLIB
