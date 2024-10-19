@@ -1,14 +1,12 @@
 
 
-#ifdef USE_ARMA
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
-#endif
 
+#include <armadillo>
 
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <unordered_set>
 
 
 #ifndef UTILS_H_

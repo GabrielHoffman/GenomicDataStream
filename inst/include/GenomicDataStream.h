@@ -39,18 +39,21 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
 #ifndef GenomicDataStream_H_
 #define GenomicDataStream_H_
 
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#include <armadillo>
 
 #ifdef USE_EIGEN
-#include <RcppEigen.h>
-// [[Rcpp::depends(RcppEigen)]]
+#include <Eigen/Sparse>
 #endif 
+
+
+#ifdef USE_RCPP
+#include <RcppArmadillo.h>
+#endif 
+
 
 #include <boost/algorithm/string.hpp>
 
 #include "VariantInfo.h"
-#include "MatrixInfo.h"
 #include "utils.h"
 
 using namespace std;
@@ -66,20 +69,14 @@ class DataChunk {
     DataChunk() : data() {}
 
     DataChunk( matType data) :
-	    data(data) {}
+	    data(data) {} 
 
     DataChunk( matType data, infoType info) :
-	    data(data), info(info) { 
-
-		// For Rcpp::NumericMatrix with MatrixInfo, 
-    	// set the row and col names 
-	    setRowColNames(data, info);
-	 }
+		data(data), info(info) {}
 
     /** Accessor
      */ 
 	matType getData() const { return data; }
-
 
 	/** Accessor
      */   
@@ -173,16 +170,23 @@ class GenomicDataStream {
 	virtual int n_samples(){ return 0;}
 
 	/** Get next chunk of _features_ as arma::mat
-	 * 
 	 */ 
 	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){return false;
 	}
 
+	/** Get next chunk of _features_ as arma::sp_mat
+	 */ 
+	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){return false;
+	}
+
 	#ifdef USE_EIGEN
 	/** Get next chunk of _features_ as Eigen::Map<Eigen::MatrixXd>
-	 * 
 	 */ 
 	virtual bool getNextChunk( DataChunk<Eigen::Map<Eigen::MatrixXd>, VariantInfo> & chunk){return false;
+	}
+	/** Get next chunk of _features_ as SparseMatrix<double>
+	 */ 
+	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){return false;
 	}
 	#endif
 

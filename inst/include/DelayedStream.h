@@ -9,18 +9,17 @@
 #ifndef DELAYED_STREAM_H
 #define DELAYED_STREAM_H
 
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#ifndef DISABLE_DELAYED_STREAM
+
+#include <armadillo>
 
 #ifdef USE_EIGEN
-#include <RcppEigen.h>
-// [[Rcpp::depends(RcppEigen)]]
+#include <Eigen/Sparse>
 #endif 
 
 #include <vector>
 #include "beachmat3/beachmat.h"
 // #include "Rtatami.h"
-
 
 #include "MatrixInfo.h"
 
@@ -90,6 +89,16 @@ class DelayedStream :
 		return ret;
 	}
 
+	bool getNextChunk( DataChunk<arma::sp_mat, MatrixInfo> & chunk){
+
+		// Update workLarge chunk
+		bool ret = getNextChunk_helper();
+
+		/// FILL IN
+
+		return ret;
+	}
+
 	#ifdef USE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::MatrixXd, MatrixInfo> & chunk){
 
@@ -99,6 +108,17 @@ class DelayedStream :
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(workLarge.data(), NRout, NCout);
 
 		chunk = DataChunk<Eigen::MatrixXd, MatrixInfo>( M, *mInfo );
+
+		return ret;
+	}
+
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, MatrixInfo> & chunk){
+
+		// Update workLarge chunk
+		bool ret = getNextChunk_helper();
+
+
+		/// FILL IN
 
 		return ret;
 	}
@@ -116,7 +136,8 @@ class DelayedStream :
 	    Rcpp::Rcout << workLarge.size() << std::endl;
 
 		Rcpp::NumericMatrix M(NRout, NCout, workLarge.data()); 
-
+		Rcpp::rownames(M) = mInfo->get_rownames();
+   		Rcpp::colnames(M) = mInfo->get_colnames();
 
 	    Rcpp::Rcout << "DataChunk" << std::endl;
 
@@ -213,5 +234,5 @@ class DelayedStream :
 
 
 
-
+#endif
 #endif

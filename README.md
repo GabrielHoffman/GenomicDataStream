@@ -79,7 +79,12 @@ while( vcfObj.getNextChunk( chunk ) ){
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
 
 
+## NOTES
+`-D DELAYED_STREAM_SUPPORT`: Enable support for `DelayedStream`.  Disabling remove dependence on `Rcpp` for header only library
 
+`-D USE_RCPP`: enable support for `Rcpp`. Disabling allows use of library outside of R
+
+`-D USE_EIGEN`: enables use of Eigen library
 
 
 	

@@ -1,8 +1,14 @@
 \doxysection{inst/include/bgenstream.h File Reference}
 \hypertarget{bgenstream_8h}{}\label{bgenstream_8h}\index{inst/include/bgenstream.h@{inst/include/bgenstream.h}}
+{\ttfamily \#include $<$armadillo$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}genfile/bgen/\+View.\+hpp"{}}\newline
+{\ttfamily \#include "{}genfile/bgen/\+Index\+Query.\+hpp"{}}\newline
+{\ttfamily \#include $<$boost/algorithm/string.\+hpp$>$}\newline
 {\ttfamily \#include $<$Variant\+Info.\+h$>$}\newline
 {\ttfamily \#include $<$Genomic\+Data\+Stream.\+h$>$}\newline
+{\ttfamily \#include $<$Genomic\+Ranges.\+h$>$}\newline
+{\ttfamily \#include "{}load.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,4 +18,9 @@ class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream}{Genomic\+Dat
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{namespace_genomic_data_stream_lib}{Genomic\+Data\+Stream\+Lib}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+genfile\+::bgen\+::\+View\+::\+Unique\+Ptr \mbox{\hyperlink{namespace_genomic_data_stream_lib_ac5d28f56d32ebfb2bd96d7d456f87bb0}{Genomic\+Data\+Stream\+Lib\+::construct\+\_\+view}} (const string \&filename, const string \&index\+\_\+filename, const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges}{Genomic\+Ranges}} \&gr, const vector$<$ string $>$ \&rsids=vector$<$ string $>$())
 \end{DoxyCompactItemize}

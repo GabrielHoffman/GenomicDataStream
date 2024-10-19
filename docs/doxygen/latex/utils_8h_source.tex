@@ -4,118 +4,137 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
-\DoxyCodeLine{00005\ \textcolor{comment}{//\ [[Rcpp::depends(RcppArmadillo)]]}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <random>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ UTILS\_H\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ UTILS\_H\_}}
+\DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ UTILS\_H\_}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ UTILS\_H\_}}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{static}\ vector<double>\ intToDosage(\ \textcolor{keyword}{const}\ vector<int>\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&missingToMean)\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{static}\ vector<double>\ intToDosage(\ \textcolor{keyword}{const}\ vector<int>\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&missingToMean)\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ store\ and\ return\ result}}
+\DoxyCodeLine{00025\ \ \ \ \ vector<double>\ res(\ v.size()\ /\ 2.0);}
+\DoxyCodeLine{00026\ \ \ \ \ vector<int>\ missing;}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ store\ and\ return\ result}}
-\DoxyCodeLine{00029\ \ \ \ \ vector<double>\ res(\ v.size()\ /\ 2.0);}
-\DoxyCodeLine{00030\ \ \ \ \ vector<int>\ missing;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ initialize}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ value;}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ initialize}}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{double}\ value;}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ value\ =\ v[2*i]\ +\ v[2*i+1];}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ missing.push\_back(i);}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ runningSum\ +=\ value;}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ nValid++;}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ value\ =\ v[2*i]\ +\ v[2*i+1];}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ missing.push\_back(i);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ runningSum\ +=\ value;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ nValid++;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ res[i]\ =\ value;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
 \DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ res[i]\ =\ value;}
-\DoxyCodeLine{00054\ \ \ \ \ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
-\DoxyCodeLine{00063\ \ \ \ \ \}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
-\DoxyCodeLine{00066\ \}}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00071\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00072\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ removeDuplicates(vector<T>\&\ vec)\{}
-\DoxyCodeLine{00073\ \ \ \ \ unordered\_set<T>\ seen;}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{auto}\ newEnd\ =\ remove\_if(vec.begin(),\ vec.end(),\ [\&seen](\textcolor{keyword}{const}\ T\&\ value)}
-\DoxyCodeLine{00076\ \ \ \ \ \{}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ if\ (seen.find(value)\ !=\ end(seen))}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ return\ true;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00068\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ removeDuplicates(vector<T>\&\ vec)\{}
+\DoxyCodeLine{00069\ \ \ \ \ unordered\_set<T>\ seen;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}\ newEnd\ =\ remove\_if(vec.begin(),\ vec.end(),\ [\&seen](\textcolor{keyword}{const}\ T\&\ value)}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ if\ (seen.find(value)\ !=\ end(seen))}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ return\ true;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ seen.insert(value);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ return\ false;}
+\DoxyCodeLine{00078\ \ \ \ \ \});}
 \DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ seen.insert(value);}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ return\ false;}
-\DoxyCodeLine{00082\ \ \ \ \ \});}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ vec.erase(newEnd,\ vec.end());}
+\DoxyCodeLine{00080\ \ \ \ \ vec.erase(newEnd,\ vec.end());}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{return}\ vec.size();}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{return}\ vec.size();}
-\DoxyCodeLine{00087\ \}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00094\ \textcolor{keyword}{static}\ arma::vec\ colSums(\ \textcolor{keyword}{const}\ arma::mat\ \&X)\{}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ row\ vector\ of\ 1's}}
-\DoxyCodeLine{00097\ \ \ \ \ arma::rowvec\ ONE(X.n\_rows,\ fill::ones);}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{//\ matrix\ multiplication\ to\ get\ sums}}
-\DoxyCodeLine{00100\ \ \ \ \ arma::mat\ tmp\ =\ ONE\ *\ X;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{static}\ arma::vec\ colSums(\ \textcolor{keyword}{const}\ arma::mat\ \&X)\{}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ row\ vector\ of\ 1's}}
+\DoxyCodeLine{00093\ \ \ \ \ arma::rowvec\ ONE(X.n\_rows,\ arma::fill::ones);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ matrix\ multiplication\ to\ get\ sums}}
+\DoxyCodeLine{00096\ \ \ \ \ arma::mat\ tmp\ =\ ONE\ *\ X;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ arma::conv\_to<arma::vec>::from(\ tmp\ );}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
 \DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ arma::conv\_to<arma::vec>::from(\ tmp\ );}
-\DoxyCodeLine{00103\ \}}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00112\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ standardize(\ arma::mat\ \&X,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&center\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&scale\ =\ \textcolor{keyword}{true}\ )\{}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ sqrt\ of\ residual\ decrees\ of\ freedom\ for\ estimating\ mean}}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{double}\ sqrt\_rdf\ =\ sqrt(X.n\_rows\ -\/\ 1.0);}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{double}\ mu,\ sd;}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ if\ center,\ subtract\ mean\ of\ each\ column}}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ if\ scale,\ divide\ by\ sd\ of\ each\ column}}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j=0;\ j<X.n\_cols;\ j++)\{}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mean\ of\ col\ j}}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ mu\ =\ mean(X.col(j));}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ center\ )\ X.col(j)\ -\/=\ mu;}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scale\ )\ \ X.col(j)\ /=\ norm(X.col(j))\ /\ sqrt\_rdf;}
-\DoxyCodeLine{00125\ \ \ \ \ \}}
-\DoxyCodeLine{00126\ \}}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \}}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ standardize(\ arma::mat\ \&X,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&center\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&scale\ =\ \textcolor{keyword}{true}\ )\{}
+\DoxyCodeLine{00109\ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{double}\ sqrt\_rdf\ =\ sqrt(X.n\_rows\ -\/\ 1.0);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{//\ if\ center,\ subtract\ mean\ of\ each\ column}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//\ if\ scale,\ divide\ by\ sd\ of\ each\ column}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ Note,\ norm()\ does\ not\ center\ the\ column}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{//\ \ \ this\ give\ results\ consistent\ with\ base::scale()}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ \ \ when\ scale\ is\ FALSE}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j=0;\ j<X.n\_cols;\ j++)\{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ center\ )\ X.col(j)\ -\/=\ mean(X.col(j));}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scale\ )\ \ X.col(j)\ /=\ norm(X.col(j))\ /\ sqrt\_rdf;}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isOnlyDigits(\textcolor{keyword}{const}\ std::string\&\ s)\{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ count\_if(s.begin(),\ s.end(),}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ c)\{\ return\ isdigit(c);\ \}\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}(\ n\ ==\ s.size());}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ nanToMean(\ arma::vec\ \&\ v)\{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ get\ indeces\ of\ finite\ elements}}
+\DoxyCodeLine{00138\ \ \ \ \ arma::uvec\ idx\ =\ arma::find\_finite(v);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ if\ number\ of\ finite\ elements\ is\ less\ than\ the\ total}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{if}(\ idx.n\_elem\ <\ v.n\_elem\ )\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ mean\ from\ finite\ elements}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ arma::mean(\ v.elem(idx));}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ replace\ nan\ with\ mu}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ v.replace(arma::datum::nan,\ mu);}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

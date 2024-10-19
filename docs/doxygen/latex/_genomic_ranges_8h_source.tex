@@ -1,0 +1,95 @@
+\doxysection{Genomic\+Ranges.\+h}
+\hypertarget{_genomic_ranges_8h_source}{}\label{_genomic_ranges_8h_source}\index{inst/include/GenomicRanges.h@{inst/include/GenomicRanges.h}}
+\mbox{\hyperlink{_genomic_ranges_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ GenomicRanges.h.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ Store\ genomic\ ranges\ of\ type\ chrom:start-\/end}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ GENOMIC\_RANGES\_H\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ GENOMIC\_RANGES\_H\_}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges}{GenomicRanges}}\ \{}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_a060ec81f344b38ddb7d25cb32b4dcccf}{GenomicRanges}}(\ \textcolor{keyword}{const}\ vector<string>\ \&chrom,\ \textcolor{keyword}{const}\ vector<uint32\_t>\ \&start,\ \textcolor{keyword}{const}\ vector<uint32\_t>\ \&end)\ :\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ chrom(chrom),\ start(start),\ end(end)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_a16eef149b50ad2a8468b04a3a8be43c5}{GenomicRanges}}(\ \textcolor{keyword}{const}\ vector<string>\ \&regions\ )\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ initialize(\ regions\ );}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_ae5875c3a97deecf6a538b92260cdbb8f}{GenomicRanges}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&regionString\ )\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ vector<string>\ regions;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ boost::split(regions,\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ initialize(\ regions\ );}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_af511642fda68f69414ad5cc350011a20}{get\_chrom}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chrom[i];\}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_ae17a984ffdeb760f9553bb3cf1916c2c}{get\_start}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ start[i];\}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_a4f82f0b565831271c39a4981f13412f5}{get\_end}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end[i];\}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges_a7512a8ef62fc3d6e7b1a9f4b4f7b4b42}{size}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end.size();\}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \ \ vector<string>\ chrom;}
+\DoxyCodeLine{00059\ \ \ \ \ vector<uint32\_t>\ start;}
+\DoxyCodeLine{00060\ \ \ \ \ vector<uint32\_t>\ end;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ initialize(vector<string>\ regions)\{}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ only\ entry\ is\ "{}."{},\ don't\ add\ any\ regions\ and\ return\ early}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ regions.size()\ ==\ 1\ \&\&\ regions[0].compare(\textcolor{stringliteral}{"{}."{}})\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Remove\ duplicate\ entries,\ but\ preserve\ element\ order.\ }}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ removeDuplicates(\ regions\ );}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ vector<string>\ reg,\ pos;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \&\ it\ :\ regions)\{}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ parse}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(reg,\ it,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}:"{}}));}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(pos,\ reg[1],\ boost::is\_any\_of(\textcolor{stringliteral}{"{}-\/"{}}));}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ only\ start\ give,\ set\ end\ to\ same\ value}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pos.size()\ ==\ 1\ )\ pos.push\_back(\ pos[0]\ );}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ region}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ (reg.size()\ !=\ 2)\ ||\ (pos.size()\ >\ 2)\ ||\ (pos[1]\ <\ pos[2]))\{\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !isOnlyDigits(pos[0])\ ||\ !isOnlyDigits(pos[1]))\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ regions}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ chrom.push\_back(\ reg[0]\ );}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ start.push\_back(\ stoul(pos[0])\ );}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ end.push\_back(\ stoul(pos[1])\ );}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

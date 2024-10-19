@@ -1,8 +1,8 @@
 /***********************************************************************
- * @file		GRanges.h
+ * @file		GenomicRanges.h.h
  * @author		Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		Store genomic ranges of stype chrom:start-end
+ * @brief		Store genomic ranges of type chrom:start-end
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -21,7 +21,7 @@ using namespace std;
 namespace GenomicDataStreamLib {
 
 
-/** Store genomic ranges
+/** Store genomic ranges of type chrom:start-end
  */
 class GenomicRanges {
 

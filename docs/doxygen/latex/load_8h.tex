@@ -1,0 +1,45 @@
+\doxysection{src/load.h File Reference}
+\hypertarget{load_8h}{}\label{load_8h}\index{src/load.h@{src/load.h}}
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include "{}genfile/bgen/\+View.\+hpp"{}}\newline
+{\ttfamily \#include "{}genfile/bgen/\+Index\+Query.\+hpp"{}}\newline
+{\ttfamily \#include $<$Rcpp.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{load_8h_a59568dc7c7841c9cb3536f788ba70013}{get\+\_\+all\+\_\+samples}} (genfile\+::bgen\+::\+View const \&view, size\+\_\+t \texorpdfstring{$\ast$}{*}number\+\_\+of\+\_\+samples, vector$<$ string $>$ \texorpdfstring{$\ast$}{*}sample\+Names, map$<$ size\+\_\+t, size\+\_\+t $>$ \texorpdfstring{$\ast$}{*}requested\+Samples\+By\+Index\+In\+Data\+Index)
+\item 
+void \mbox{\hyperlink{load_8h_a628d768b369e0da26f00ef636d999629}{get\+\_\+requested\+\_\+samples}} (genfile\+::bgen\+::\+View const \&view, vector$<$ string $>$ const \&requested\+Samples, size\+\_\+t \texorpdfstring{$\ast$}{*}number\+\_\+of\+\_\+samples, vector$<$ string $>$ \texorpdfstring{$\ast$}{*}sample\+Names, map$<$ size\+\_\+t, size\+\_\+t $>$ \texorpdfstring{$\ast$}{*}requested\+Samples\+By\+Index\+In\+Data\+Index)
+\item 
+Rcpp\+::\+List \mbox{\hyperlink{load_8h_a439eddccf728134318b039f9ae24f9de}{load\+\_\+unsafe}} (string const \&filename, string const \&index\+\_\+filename, Rcpp\+::\+Data\+Frame const \&ranges, vector$<$ string $>$ const \&requested\+\_\+rsids, size\+\_\+t max\+\_\+entries\+\_\+per\+\_\+sample, vector$<$ string $>$ const \texorpdfstring{$\ast$}{*}const requested\+Samples)
+\item 
+Rcpp\+::\+List \mbox{\hyperlink{load_8h_a1b27e86095c3e8cebd20483847f254f7}{load}} (string const \&filename, string const \&index\+\_\+filename, Rcpp\+::\+Data\+Frame const \&ranges, vector$<$ string $>$ const \&rsids, size\+\_\+t max\+\_\+entries\+\_\+per\+\_\+sample)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{load_8h_a59568dc7c7841c9cb3536f788ba70013}\index{load.h@{load.h}!get\_all\_samples@{get\_all\_samples}}
+\index{get\_all\_samples@{get\_all\_samples}!load.h@{load.h}}
+\doxysubsubsection{\texorpdfstring{get\_all\_samples()}{get\_all\_samples()}}
+{\footnotesize\ttfamily \label{load_8h_a59568dc7c7841c9cb3536f788ba70013} 
+void get\+\_\+all\+\_\+samples (\begin{DoxyParamCaption}\item[{genfile\+::bgen\+::\+View const \&}]{view}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{number\+\_\+of\+\_\+samples}{, }\item[{vector$<$ string $>$ \texorpdfstring{$\ast$}{*}}]{sample\+Names}{, }\item[{map$<$ size\+\_\+t, size\+\_\+t $>$ \texorpdfstring{$\ast$}{*}}]{requested\+Samples\+By\+Index\+In\+Data\+Index}{}\end{DoxyParamCaption})}
+
+\Hypertarget{load_8h_a628d768b369e0da26f00ef636d999629}\index{load.h@{load.h}!get\_requested\_samples@{get\_requested\_samples}}
+\index{get\_requested\_samples@{get\_requested\_samples}!load.h@{load.h}}
+\doxysubsubsection{\texorpdfstring{get\_requested\_samples()}{get\_requested\_samples()}}
+{\footnotesize\ttfamily \label{load_8h_a628d768b369e0da26f00ef636d999629} 
+void get\+\_\+requested\+\_\+samples (\begin{DoxyParamCaption}\item[{genfile\+::bgen\+::\+View const \&}]{view}{, }\item[{vector$<$ string $>$ const \&}]{requested\+Samples}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{number\+\_\+of\+\_\+samples}{, }\item[{vector$<$ string $>$ \texorpdfstring{$\ast$}{*}}]{sample\+Names}{, }\item[{map$<$ size\+\_\+t, size\+\_\+t $>$ \texorpdfstring{$\ast$}{*}}]{requested\+Samples\+By\+Index\+In\+Data\+Index}{}\end{DoxyParamCaption})}
+
+\Hypertarget{load_8h_a1b27e86095c3e8cebd20483847f254f7}\index{load.h@{load.h}!load@{load}}
+\index{load@{load}!load.h@{load.h}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily \label{load_8h_a1b27e86095c3e8cebd20483847f254f7} 
+Rcpp\+::\+List load (\begin{DoxyParamCaption}\item[{string const \&}]{filename}{, }\item[{string const \&}]{index\+\_\+filename}{, }\item[{Rcpp\+::\+Data\+Frame const \&}]{ranges}{, }\item[{vector$<$ string $>$ const \&}]{rsids}{, }\item[{size\+\_\+t}]{max\+\_\+entries\+\_\+per\+\_\+sample}{}\end{DoxyParamCaption})}
+
+\Hypertarget{load_8h_a439eddccf728134318b039f9ae24f9de}\index{load.h@{load.h}!load\_unsafe@{load\_unsafe}}
+\index{load\_unsafe@{load\_unsafe}!load.h@{load.h}}
+\doxysubsubsection{\texorpdfstring{load\_unsafe()}{load\_unsafe()}}
+{\footnotesize\ttfamily \label{load_8h_a439eddccf728134318b039f9ae24f9de} 
+Rcpp\+::\+List load\+\_\+unsafe (\begin{DoxyParamCaption}\item[{string const \&}]{filename}{, }\item[{string const \&}]{index\+\_\+filename}{, }\item[{Rcpp\+::\+Data\+Frame const \&}]{ranges}{, }\item[{vector$<$ string $>$ const \&}]{requested\+\_\+rsids}{, }\item[{size\+\_\+t}]{max\+\_\+entries\+\_\+per\+\_\+sample}{, }\item[{vector$<$ string $>$ const \texorpdfstring{$\ast$}{*}const}]{requested\+Samples}{}\end{DoxyParamCaption})}
+

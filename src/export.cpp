@@ -7,12 +7,12 @@
  ***********************************************************************/
 
 
-#ifdef ARMA
+#ifdef USE_ARMA
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #endif
 
-#ifdef EIGEN
+#ifdef USE_EIGEN
 #include <RcppEigen.h>
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
@@ -249,70 +249,97 @@ List extractVcf_chunks(
 }
 
 
-// [[Rcpp::export]]
-NumericMatrix getDA( const RObject &mat ){
+// // [[Rcpp::export]]
+// NumericMatrix getDA( const RObject &mat ){
 
-    DelayedStream ds( mat);
+//     DelayedStream ds( mat);
 
-    DataChunk<arma::mat, MatrixInfo> chunk;
+//     DataChunk<arma::mat, MatrixInfo> chunk;
 
-    ds.getNextChunk( chunk );
+//     ds.getNextChunk( chunk );
 
-    NumericMatrix X = wrap( chunk.getData() );
+//     NumericMatrix X = wrap( chunk.getData() );
 
-    return X ;
-}
-
-
-
-// [[Rcpp::export]]
-NumericMatrix getDA_eigen( const RObject &mat ){
-
-    DelayedStream ds( mat);
-
-    DataChunk<Eigen::MatrixXd, MatrixInfo> chunk;
-
-    ds.getNextChunk( chunk );
-
-    NumericMatrix X = wrap( chunk.getData() );
-
-    return X ;
-}
-
-// [[Rcpp::export]]
-Rcpp::NumericMatrix getDA_NM(  RObject mat ){
+//     return X ;
+// }
 
 
-    Rcpp::Rcout << "read_lin_block" << std::endl;
-    auto a = beachmat::read_lin_block(mat);
-    Rcpp::Rcout << "end" << std::endl;
+
+// // [[Rcpp::export]]
+// NumericMatrix getDA_eigen( const RObject &mat ){
+
+//     DelayedStream ds( mat);
+
+//     DataChunk<Eigen::MatrixXd, MatrixInfo> chunk;
+
+//     ds.getNextChunk( chunk );
+
+//     NumericMatrix X = wrap( chunk.getData() );
+
+//     return X ;
+// }
+
+// // [[Rcpp::export]]
+// Rcpp::NumericMatrix getDA_NM(  RObject mat ){
+
+
+//     Rcpp::Rcout << "read_lin_block" << std::endl;
+//     auto a = beachmat::read_lin_block(mat);
+//     Rcpp::Rcout << "end" << std::endl;
     
-    Rcpp::Rcout << "DelayedStream" << std::endl;
-    DelayedStream ds( mat);
-    Rcpp::Rcout << "success" << std::endl;
+//     Rcpp::Rcout << "DelayedStream" << std::endl;
+//     DelayedStream ds( mat);
+//     Rcpp::Rcout << "success" << std::endl;
 
-    DataChunk<Rcpp::NumericMatrix, MatrixInfo> chunk;
-
-
-    Rcpp::Rcout << "getNextChunk" << std::endl;
-    ds.getNextChunk( chunk );
-    Rcpp::Rcout << "success" << std::endl;
-
-    return chunk.getData();
-}
+//     DataChunk<Rcpp::NumericMatrix, MatrixInfo> chunk;
 
 
-// [[Rcpp::export]]
-Rcpp::NumericVector getDA_vector(const RObject &mat ){
+//     Rcpp::Rcout << "getNextChunk" << std::endl;
+//     ds.getNextChunk( chunk );
+//     Rcpp::Rcout << "success" << std::endl;
 
-    DelayedStream ds( mat);
+//     return chunk.getData();
+// }
 
-    DataChunk<vector<double>, MatrixInfo> chunk;
 
-    ds.getNextChunk( chunk );
+// // [[Rcpp::export]]
+// Rcpp::NumericVector getDA_vector(const RObject &mat ){
 
-    return Rcpp::wrap(chunk.getData());
-}
+//     DelayedStream ds( mat);
+
+//     DataChunk<vector<double>, MatrixInfo> chunk;
+
+//     ds.getNextChunk( chunk );
+
+//     return Rcpp::wrap(chunk.getData());
+// }
+
+
+// #include "Rtatami.h"
+// #include <algorithm>
+
+// // [[Rcpp::export]]
+// Rcpp::NumericVector column_sums(const Rcpp::RObject &initmat) {
+//     Rtatami::BoundNumericPointer parsed(initmat);
+//     const auto& ptr = parsed->ptr;
+
+//     auto NR = ptr->nrow();
+//     auto NC = ptr->ncol();
+//     std::vector<double> buffer(NR);
+//     Rcpp::NumericVector output(NC);
+//     auto wrk = ptr->dense_column();
+
+//     for (int i = 0; i < NC; ++i) {
+//         auto extracted = wrk->fetch(i, buffer.data());
+//         output[i] = std::accumulate(extracted, extracted + NR, 0.0);
+//     }
+
+//     DelayedStream ds(initmat);
+
+
+//     return output;
+// }
+
 
 
 // [[Rcpp::export]]
@@ -347,32 +374,6 @@ Rcpp::List test_bgen(
 
 
 
-
-
-#include "Rtatami.h"
-#include <algorithm>
-
-// [[Rcpp::export]]
-Rcpp::NumericVector column_sums(const Rcpp::RObject &initmat) {
-    Rtatami::BoundNumericPointer parsed(initmat);
-    const auto& ptr = parsed->ptr;
-
-    auto NR = ptr->nrow();
-    auto NC = ptr->ncol();
-    std::vector<double> buffer(NR);
-    Rcpp::NumericVector output(NC);
-    auto wrk = ptr->dense_column();
-
-    for (int i = 0; i < NC; ++i) {
-        auto extracted = wrk->fetch(i, buffer.data());
-        output[i] = std::accumulate(extracted, extracted + NR, 0.0);
-    }
-
-    DelayedStream ds(initmat);
-
-
-    return output;
-}
 
 
 

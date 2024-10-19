@@ -7,6 +7,8 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h_source.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_genomic_ranges_8h.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_genomic_ranges_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_matrix_info_8h.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_matrix_info_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_r_e_a_d_m_e_8md.html</loc></url>
@@ -22,6 +24,8 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_delayed_stream.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_genomic_data_stream-members.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_genomic_data_stream.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_genomic_ranges-members.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_genomic_ranges.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_matrix_info-members.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_matrix_info.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_lib_1_1_variant_info-members.html</loc></url>
@@ -45,7 +49,11 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/globals_func.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/hierarchy.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/index.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/load_8h.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/load_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/namespace_genomic_data_stream_lib.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/namespacemembers.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/namespacemembers_func.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/namespaces.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/struct_genomic_data_stream_lib_1_1_param-members.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/struct_genomic_data_stream_lib_1_1_param.html</loc></url>

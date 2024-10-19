@@ -7,6 +7,9 @@
 - DelayedStream doesn't work yet
 - Use same file for VCF, BCF, BGEN
 	and confirm same results
+	- convert with plink2
+how to handle ploidy >2 and PAR
+
 
 # show contents of file
 tar zvft lucida_0.0.3.tar.gz

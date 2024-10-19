@@ -13,60 +13,68 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ MATRIX\_INFO\_H}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MATRIX\_INFO\_H}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_DELAYED\_STREAM}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }std;}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
-\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Rcpp.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }std;}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{MatrixInfo}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a4b965c3a19044cc2ca86a27c60f3f372}{MatrixInfo}}()\ \{\}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{MatrixInfo}}\ \{}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a93b0b756a697b482eb1831e54a97c1cc}{MatrixInfo}}(\textcolor{keyword}{const}\ Rcpp::CharacterVector\ \&rownames,\ \textcolor{keyword}{const}\ Rcpp::CharacterVector\ \&colnames)\ :}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ rownames(rownames),\ colnames(colnames)\ \{\}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a4b965c3a19044cc2ca86a27c60f3f372}{MatrixInfo}}()\ \{\}}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a02751aecc19d5e4674b3ce606df39c73}{MatrixInfo}}(\ \textcolor{keyword}{const}\ Rcpp::RObject\ \&mat)\{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ Rcpp::List\ lst;}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mat.hasAttribute(\textcolor{stringliteral}{"{}dimnames"{}})\ )\{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ lst\ =\ mat.attr(\textcolor{stringliteral}{"{}dimnames"{}});}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ mat.hasAttribute(\textcolor{stringliteral}{"{}Dimnames"{}})\ )\{}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ lst\ =\ mat.attr(\textcolor{stringliteral}{"{}Dimnames"{}});}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ rownames\ =\ lst[0];}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ colnames\ =\ lst[1];}
-\DoxyCodeLine{00036\ \ \ \ \ \}}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00040\ \ \ \ \ Rcpp::CharacterVector\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a6685ba71a93c575a3f3a83fa61bd3a1e}{get\_rownames}}()\textcolor{keyword}{\ const\ }\{\ }
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rownames;}
-\DoxyCodeLine{00042\ \ \ \ \ \}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00046\ \ \ \ \ Rcpp::CharacterVector\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a07d6e87ded5a31391e296bc9c894b278}{get\_colnames}}()\textcolor{keyword}{\ const}\{\ }
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ colnames;}
-\DoxyCodeLine{00048\ \ \ \ \ \}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00051\ \ \ \ \ Rcpp::CharacterVector\ rownames,\ colnames;}
-\DoxyCodeLine{00052\ \};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00057\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setRowColNames(\ Rcpp::NumericMatrix\ \&M,\ \textcolor{keyword}{const}\ MatrixInfo\ \&info)\{}
-\DoxyCodeLine{00058\ \ \ \ \ Rcpp::rownames(M)\ =\ info.get\_rownames();}
-\DoxyCodeLine{00059\ \ \ \ \ Rcpp::colnames(M)\ =\ info.get\_colnames();}
-\DoxyCodeLine{00060\ \}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00066\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ matType,\ \textcolor{keyword}{typename}\ infoType\ >}
-\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setRowColNames(\ matType\ \&M,\ \textcolor{keyword}{const}\ infoType\ \&info)\{}
-\DoxyCodeLine{00068\ \}\ }
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a93b0b756a697b482eb1831e54a97c1cc}{MatrixInfo}}(\textcolor{keyword}{const}\ Rcpp::CharacterVector\ \&rownames,\ \textcolor{keyword}{const}\ Rcpp::CharacterVector\ \&colnames)\ :}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ rownames(rownames),\ colnames(colnames)\ \{\}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a02751aecc19d5e4674b3ce606df39c73}{MatrixInfo}}(\ \textcolor{keyword}{const}\ Rcpp::RObject\ \&mat)\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ Rcpp::List\ lst;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mat.hasAttribute(\textcolor{stringliteral}{"{}dimnames"{}})\ )\{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ lst\ =\ mat.attr(\textcolor{stringliteral}{"{}dimnames"{}});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ mat.hasAttribute(\textcolor{stringliteral}{"{}Dimnames"{}})\ )\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ lst\ =\ mat.attr(\textcolor{stringliteral}{"{}Dimnames"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ rownames\ =\ lst[0];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ colnames\ =\ lst[1];}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \ \ \ \ Rcpp::CharacterVector\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a6685ba71a93c575a3f3a83fa61bd3a1e}{get\_rownames}}()\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rownames;}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00049\ \ \ \ \ Rcpp::CharacterVector\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info_a07d6e87ded5a31391e296bc9c894b278}{get\_colnames}}()\textcolor{keyword}{\ const}\{\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ colnames;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ \ \ \ \ Rcpp::CharacterVector\ rownames,\ colnames;}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ /**\ For\ Rcpp::NumericMatrix\ with\ MatrixInfo,\ set\ the\ row\ and\ col\ names}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ \ */\ }}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ static\ void\ setRowColNames(\ Rcpp::NumericMatrix\ \&M,\ const\ MatrixInfo\ \&info)\{}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ \ \ \ Rcpp::rownames(M)\ =\ info.get\_rownames();}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ \ \ \ Rcpp::colnames(M)\ =\ info.get\_colnames();}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ /**\ For\ all\ other\ datatypes,\ do\ nothing}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ */\ }}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ template<typename\ matType,\ typename\ infoType\ >}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ static\ void\ setRowColNames(\ matType\ \&M,\ const\ infoType\ \&info)\{}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ \}\ }}
+\DoxyCodeLine{00072\ }
 \DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

@@ -5,7 +5,7 @@ RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
     'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
 
-PKG_CPPFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -D USE_EIGEN -D USE_RCPP \
+PKG_CPPFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -D USE_EIGEN -D USE_RCPP -D USE_ARMA \
 -I ../inst/include/ \
 -I ../inst/include/zstd-1.1.0/lib  \
 -I ../inst/include/zstd-1.1.0/lib/common  \
@@ -18,6 +18,9 @@ PKG_CPPFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $
 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(RHTSLIB_LIBS) 
 
+CXX_STD=CXX17
+
+PKG_CFLAGS=-DSQLITE_WITHOUT_ZONEMALLOC
 
 
 C_SOURCES = $(wildcard zstd-1.1.0/*.c) $(wildcard sqlite3/*.c)

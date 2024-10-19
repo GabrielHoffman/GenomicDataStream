@@ -10,15 +10,11 @@
 #ifndef VCF_STREAM_H_
 #define VCF_STREAM_H_
 
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#include <armadillo>
 
 #ifdef USE_EIGEN
-#include <RcppEigen.h>
-// [[Rcpp::depends(RcppEigen)]]
+#include <Eigen/Sparse>
 #endif 
-
-
 
 #include <string>
 #include <vcfpp.h>
@@ -125,6 +121,19 @@ class vcfstream :
 		return ret;
 	}
 
+	bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){
+
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
+
+		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), false, true);
+
+		// create sparse matrix from dense matrix
+	    chunk = DataChunk<arma::sp_mat, VariantInfo>( arma::sp_mat(M), *vInfo );
+
+		return ret;
+	}
+
 	#ifdef USE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
@@ -134,6 +143,18 @@ class vcfstream :
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd, VariantInfo>( M, *vInfo );
+
+		return ret;
+	}
+
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){
+
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
+
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
+
+		chunk = DataChunk<Eigen::SparseMatrix<double>, VariantInfo>( M.sparseView(), *vInfo );
 
 		return ret;
 	}

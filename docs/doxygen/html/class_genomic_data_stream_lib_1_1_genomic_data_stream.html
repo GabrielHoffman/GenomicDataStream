@@ -148,10 +148,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abf01ac486fb36aeda7951a5fb5ef5b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab402bf360ac0ac327bdf8e187a10e4f1" id="r_ab402bf360ac0ac327bdf8e187a10e4f1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab402bf360ac0ac327bdf8e187a10e4f1">~GenomicDataStream</a> ()</td></tr>
 <tr class="separator:ab402bf360ac0ac327bdf8e187a10e4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23afd2cd1a4974e281a1a4b21e33db01" id="r_a23afd2cd1a4974e281a1a4b21e33db01"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23afd2cd1a4974e281a1a4b21e33db01">n_cols</a> ()</td></tr>
-<tr class="separator:a23afd2cd1a4974e281a1a4b21e33db01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad827e33fd6042c249df592c37eb3ed58" id="r_ad827e33fd6042c249df592c37eb3ed58"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad827e33fd6042c249df592c37eb3ed58">getNextChunk</a> (<a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;chunk)</td></tr>
-<tr class="separator:ad827e33fd6042c249df592c37eb3ed58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f469c8091d92f51b951f690f01c73bb" id="r_a3f469c8091d92f51b951f690f01c73bb"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f469c8091d92f51b951f690f01c73bb">n_samples</a> ()</td></tr>
+<tr class="separator:a3f469c8091d92f51b951f690f01c73bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4cb044175502769119a71c4e7dff289" id="r_ab4cb044175502769119a71c4e7dff289"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4cb044175502769119a71c4e7dff289">getNextChunk</a> (<a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;chunk)</td></tr>
+<tr class="separator:ab4cb044175502769119a71c4e7dff289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae285cb1e17e043fc88066de26527dfdc" id="r_ae285cb1e17e043fc88066de26527dfdc"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae285cb1e17e043fc88066de26527dfdc">getNextChunk</a> (<a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;chunk)</td></tr>
+<tr class="separator:ae285cb1e17e043fc88066de26527dfdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ec4588e15220fa9536d0a53daefb44" id="r_a51ec4588e15220fa9536d0a53daefb44"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51ec4588e15220fa9536d0a53daefb44">getNextChunk</a> (<a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; vector&lt; double &gt;, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;chunk)</td></tr>
 <tr class="separator:a51ec4588e15220fa9536d0a53daefb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -161,7 +163,7 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a39716878ac06d74a6550ceab57266224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract class inheritited by vcfstream, bgenstream, <a class="el" href="class_genomic_data_stream_lib_1_1_delayed_stream.html">DelayedStream</a> </p>
+<div class="textblock"><p>Virtual class inheritited by vcfstream, bgenstream, <a class="el" href="class_genomic_data_stream_lib_1_1_delayed_stream.html">DelayedStream</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a68600e6a994940b8d78577f9fc99fb94" name="a68600e6a994940b8d78577f9fc99fb94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a68600e6a994940b8d78577f9fc99fb94">&#9670;&#160;</a></span>GenomicDataStream() <span class="overload">[1/2]</span></h2>
@@ -241,8 +243,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad827e33fd6042c249df592c37eb3ed58" name="ad827e33fd6042c249df592c37eb3ed58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad827e33fd6042c249df592c37eb3ed58">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[1/2]</span></h2>
+<a id="ab4cb044175502769119a71c4e7dff289" name="ab4cb044175502769119a71c4e7dff289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4cb044175502769119a71c4e7dff289">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +255,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual bool GenomicDataStreamLib::GenomicDataStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -263,14 +265,42 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get next chunk of <em>features</em> as Rcpp::NumericMatrix </p>
+<p>Get next chunk of <em>features</em> as arma::mat </p>
 
-<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1bgenstream.html#aa832ce8b903936c685d0f20eeae278a4">GenomicDataStreamLib::bgenstream</a>, and <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#a37f8e1f07090669a0724ad792877e25e">GenomicDataStreamLib::vcfstream</a>.</p>
+<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1bgenstream.html#a0c3af4daa0aaed56474c72782a706808">GenomicDataStreamLib::bgenstream</a>, and <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#a533b36cada0fc875557493cbc912a1fd">GenomicDataStreamLib::vcfstream</a>.</p>
+
+</div>
+</div>
+<a id="ae285cb1e17e043fc88066de26527dfdc" name="ae285cb1e17e043fc88066de26527dfdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae285cb1e17e043fc88066de26527dfdc">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool GenomicDataStreamLib::GenomicDataStream::getNextChunk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_genomic_data_stream_lib_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat, <a class="el" href="class_genomic_data_stream_lib_1_1_variant_info.html">VariantInfo</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get next chunk of <em>features</em> as arma::sp_mat </p>
+
+<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1bgenstream.html#a4a5a1796de80e4ea02007dd6e753deee">GenomicDataStreamLib::bgenstream</a>, and <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#ad28d9be9964ff6f4b99b8abfc5205b9f">GenomicDataStreamLib::vcfstream</a>.</p>
 
 </div>
 </div>
 <a id="a51ec4588e15220fa9536d0a53daefb44" name="a51ec4588e15220fa9536d0a53daefb44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51ec4588e15220fa9536d0a53daefb44">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ec4588e15220fa9536d0a53daefb44">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,12 +323,12 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as vector&lt;double&gt; </p>
 
-<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#a4d6286b4cc7a16c2d429e306f4401e4d">GenomicDataStreamLib::vcfstream</a>.</p>
+<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1bgenstream.html#a9b9570e38408ef91438743d2cc3fe105">GenomicDataStreamLib::bgenstream</a>, and <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#a4d6286b4cc7a16c2d429e306f4401e4d">GenomicDataStreamLib::vcfstream</a>.</p>
 
 </div>
 </div>
-<a id="a23afd2cd1a4974e281a1a4b21e33db01" name="a23afd2cd1a4974e281a1a4b21e33db01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23afd2cd1a4974e281a1a4b21e33db01">&#9670;&#160;</a></span>n_cols()</h2>
+<a id="a3f469c8091d92f51b951f690f01c73bb" name="a3f469c8091d92f51b951f690f01c73bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f469c8091d92f51b951f690f01c73bb">&#9670;&#160;</a></span>n_samples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -307,7 +337,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int GenomicDataStreamLib::GenomicDataStream::n_cols </td>
+          <td class="memname">virtual int GenomicDataStreamLib::GenomicDataStream::n_samples </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -321,7 +351,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get number of columns in data matrix </p>
 
-<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1_delayed_stream.html#a0970b71c5c19eb17f982d1ef5df2bdad">GenomicDataStreamLib::DelayedStream</a>, and <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#a9a0e0361945aa41ddb0ea2c4af97f101">GenomicDataStreamLib::vcfstream</a>.</p>
+<p>Reimplemented in <a class="el" href="class_genomic_data_stream_lib_1_1bgenstream.html#ab0f0a8c026aad89e087393dc36b7aab8">GenomicDataStreamLib::bgenstream</a>, and <a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html#ac775a95fd1c03bf2d879a32f0a12b844">GenomicDataStreamLib::vcfstream</a>.</p>
 
 </div>
 </div>

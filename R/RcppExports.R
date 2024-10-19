@@ -29,28 +29,8 @@ extractVcf_chunks <- function(file, field, region = "", samples = "-", missingTo
     .Call('_GenomicDataStream_extractVcf_chunks', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
 }
 
-getDA <- function(mat) {
-    .Call('_GenomicDataStream_getDA', PACKAGE = 'GenomicDataStream', mat)
-}
-
-getDA_eigen <- function(mat) {
-    .Call('_GenomicDataStream_getDA_eigen', PACKAGE = 'GenomicDataStream', mat)
-}
-
-getDA_NM <- function(mat) {
-    .Call('_GenomicDataStream_getDA_NM', PACKAGE = 'GenomicDataStream', mat)
-}
-
-getDA_vector <- function(mat) {
-    .Call('_GenomicDataStream_getDA_vector', PACKAGE = 'GenomicDataStream', mat)
-}
-
 test_bgen <- function(file, field, region = "", samples = "-", chunkSize, missingToMean = FALSE) {
     .Call('_GenomicDataStream_test_bgen', PACKAGE = 'GenomicDataStream', file, field, region, samples, chunkSize, missingToMean)
-}
-
-column_sums <- function(initmat) {
-    .Call('_GenomicDataStream_column_sums', PACKAGE = 'GenomicDataStream', initmat)
 }
 
 colSums_test <- function(X) {
@@ -65,7 +45,7 @@ fastLM <- function(y, file, field, region = "", samples = "-", missingToMean = F
     .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, missingToMean)
 }
 
-test_bgen2 <- function(y, file, field, region = "", samples = "-", chunkSize, missingToMean = FALSE) {
+test_bgen2 <- function(y, file, field, region = "", samples = "-", chunkSize, missingToMean = TRUE) {
     .Call('_GenomicDataStream_test_bgen2', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
 }
 

@@ -116,7 +116,8 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">GenomicDataStreamLib Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -131,6 +132,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_genomic_data_stream_lib_1_1_genomic_data_stream.html">GenomicDataStream</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_genomic_data_stream_lib_1_1_genomic_ranges.html">GenomicRanges</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_genomic_data_stream_lib_1_1_matrix_info.html">MatrixInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_genomic_data_stream_lib_1_1_param.html">Param</a></td></tr>
@@ -139,7 +142,53 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_genomic_data_stream_lib_1_1vcfstream.html">vcfstream</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac5d28f56d32ebfb2bd96d7d456f87bb0" id="r_ac5d28f56d32ebfb2bd96d7d456f87bb0"><td class="memItemLeft" align="right" valign="top">genfile::bgen::View::UniquePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5d28f56d32ebfb2bd96d7d456f87bb0">construct_view</a> (const string &amp;filename, const string &amp;index_filename, const <a class="el" href="class_genomic_data_stream_lib_1_1_genomic_ranges.html">GenomicRanges</a> &amp;gr, const vector&lt; string &gt; &amp;rsids=vector&lt; string &gt;())</td></tr>
+<tr class="separator:ac5d28f56d32ebfb2bd96d7d456f87bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ac5d28f56d32ebfb2bd96d7d456f87bb0" name="ac5d28f56d32ebfb2bd96d7d456f87bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d28f56d32ebfb2bd96d7d456f87bb0">&#9670;&#160;</a></span>construct_view()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">genfile::bgen::View::UniquePtr GenomicDataStreamLib::construct_view </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>index_filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_genomic_data_stream_lib_1_1_genomic_ranges.html">GenomicRanges</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>gr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rsids</em></span><span class="paramdefsep"> = </span><span class="paramdefval">vector&lt;string&gt;()</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Construct view of BGEN file using index to subset variants based on region or variant id </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to BGEN file </td></tr>
+    <tr><td class="paramname">index_filename</td><td>path to index for BGEN file </td></tr>
+    <tr><td class="paramname">gr</td><td><code><a class="el" href="class_genomic_data_stream_lib_1_1_genomic_ranges.html">GenomicRanges</a></code> of intervals </td></tr>
+    <tr><td class="paramname">rsids</td><td>vector&lt;string&gt; of variant ids </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

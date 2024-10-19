@@ -10,12 +10,10 @@
 #ifndef BGEN_STREAM_H_
 #define BGEN_STREAM_H_
 
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#include <armadillo>
 
 #ifdef USE_EIGEN
-#include <RcppEigen.h>
-// [[Rcpp::depends(RcppEigen)]]
+#include <Eigen/Sparse>
 #endif 
 
 #include <string>
@@ -135,6 +133,18 @@ class bgenstream :
 		return ret;
 	}
 
+	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){
+
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
+
+		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
+
+	    chunk = DataChunk<arma::sp_mat, VariantInfo>( arma::sp_mat(M), *vInfo );
+
+		return ret;
+	}
+
 	#ifdef USE_EIGEN
 	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
@@ -144,6 +154,19 @@ class bgenstream :
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd, VariantInfo>( M, *vInfo );
+
+		return ret;
+	}
+
+
+	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){
+
+		// Update matDosage and vInfo for the chunk
+		bool ret = getNextChunk_helper();
+
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
+
+		chunk = DataChunk<Eigen::SparseMatrix<double>, VariantInfo>( M.sparseView(), *vInfo );
 
 		return ret;
 	}
