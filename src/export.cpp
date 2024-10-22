@@ -7,10 +7,10 @@
  ***********************************************************************/
 
 
-#ifdef USE_ARMA
+
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
-#endif
+
 
 #ifdef USE_EIGEN
 #include <RcppEigen.h>
@@ -449,9 +449,25 @@ List fastLM( const arma::colvec& y,
     int chunkSize = 4;
     Param param(file, field, region, samples, chunkSize, missingToMean);
 
-    vcfstream vcfObj( param );
+    // Initialise GenomicDataStream with file
+    unique_ptr<GenomicDataStream> gdsStream;
+    
+    switch( getFileType(file) ){
+        case VCF:
+        case VCFGZ:
+        case BCF:
+            gdsStream = make_unique<vcfstream>( param );
+            break;
+        case BGEN:
+            gdsStream = make_unique<bgenstream>( param );
+            break;
+        case OTHER:
+            Rcpp::stop("Invalid file extension: " + file);
+            break;
+    }
 
-    if( vcfObj.n_samples() != y.size() ){
+
+    if( gdsStream->n_samples() != y.size() ){
         Rcpp::stop("Data stream and y must have same number of samples");
     }
 
@@ -464,7 +480,7 @@ List fastLM( const arma::colvec& y,
     List lst;
     arma::mat X_cov(60, 1, fill::ones);
 
-    while( vcfObj.getNextChunk( chunk ) ){
+    while( gdsStream->getNextChunk( chunk ) ){
 
         // get data from chunk
         X_chunk = chunk.getData();
@@ -488,13 +504,13 @@ List fastLM( const arma::colvec& y,
 
 
 // [[Rcpp::export]]
-List test_bgen2( const arma::colvec& y, 
+List test_bgen2( const arma::colvec y, 
                 const std::string &file,
                 const std::string &field,
                 const std::string &region = "",
                 const std::string &samples = "-",
                 const int &chunkSize = std::numeric_limits<int>::max(),
-                const bool &missingToMean = true){
+                const bool &missingToMean = true){ 
 
     Param param(file, field, region, samples, chunkSize, missingToMean);
 
