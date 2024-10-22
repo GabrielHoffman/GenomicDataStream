@@ -17,16 +17,13 @@
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
 
-#include <vcfstream.h>
-#include <bgenstream.h>
-#include <vcfpp.h>
-#include <DelayedStream.h>
+#include <GenomicDataStream.h>
 
 using namespace std;
 using namespace vcfpp;
 using namespace Rcpp;
 using namespace arma;
-using namespace GenomicDataStreamLib;
+using namespace gds;
 
 
 // [[Rcpp::export]]
@@ -450,22 +447,7 @@ List fastLM( const arma::colvec& y,
     Param param(file, field, region, samples, chunkSize, missingToMean);
 
     // Initialise GenomicDataStream with file
-    unique_ptr<GenomicDataStream> gdsStream;
-    
-    switch( getFileType(file) ){
-        case VCF:
-        case VCFGZ:
-        case BCF:
-            gdsStream = make_unique<vcfstream>( param );
-            break;
-        case BGEN:
-            gdsStream = make_unique<bgenstream>( param );
-            break;
-        case OTHER:
-            Rcpp::stop("Invalid file extension: " + file);
-            break;
-    }
-
+    unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
     if( gdsStream->n_samples() != y.size() ){
         Rcpp::stop("Data stream and y must have same number of samples");

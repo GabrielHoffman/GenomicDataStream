@@ -2,7 +2,7 @@
  * @file		vcfstream.h
  * @author		Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		vcfstream reads a VCF into a matrix in chunks, storing variants in columns
+ * @brief		vcfstream reads a VCF/VCFGZ/BCF into a matrix in chunks, storing variants in columns
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -20,13 +20,13 @@
 #include <vcfpp.h>
 
 #include "VariantInfo.h"
-#include "GenomicDataStream.h"
+#include "GenomicDataStream_virtual.h"
 #include "utils.h"
 
 using namespace std;
 using namespace vcfpp;
 
-namespace GenomicDataStreamLib {
+namespace gds {
 
 /** vcfstream reads a VCF/BCF into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 

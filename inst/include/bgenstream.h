@@ -21,17 +21,16 @@
 
 #include <boost/algorithm/string.hpp>
 
-#include <VariantInfo.h>
-#include <GenomicDataStream.h>
-#include <GenomicRanges.h>
-#include <bgen_load.h>
+#include "VariantInfo.h"
+#include "GenomicDataStream_virtual.h"
+#include "GenomicRanges.h"
+#include "bgen_load.h"
 
 using namespace std;
 using namespace arma;
 using namespace genfile::bgen;
 
-
-namespace GenomicDataStreamLib {
+namespace gds {
 
 /** Construct view of BGEN file using index to subset variants
  * based on region or variant id
@@ -40,7 +39,7 @@ namespace GenomicDataStreamLib {
  * @param gr `GenomicRanges` of intervals
  * @param rsids vector<string> of variant ids
  */ 
-genfile::bgen::View::UniquePtr construct_view(
+static genfile::bgen::View::UniquePtr construct_view(
 	const string & filename,
 	const string & index_filename,
 	const GenomicRanges & gr,

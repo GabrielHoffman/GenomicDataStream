@@ -18,8 +18,7 @@
 
 using namespace std;
 
-namespace GenomicDataStreamLib {
-
+namespace gds {
 
 /** Store genomic ranges of type chrom:start-end
  */

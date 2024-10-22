@@ -13,7 +13,7 @@
 
 using namespace std;
 
-namespace GenomicDataStreamLib {
+namespace gds {
 
 /** Store variant information and sample names
  * 

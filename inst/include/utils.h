@@ -7,13 +7,14 @@
 #include <random>
 #include <algorithm>
 #include <unordered_set>
+#include <regex>
 
 
 #ifndef UTILS_H_
 #define UTILS_H_
 
 
-namespace GenomicDataStreamLib {
+namespace gds {
 
 /** Compute dosage values from vector of GT stored as int.  Sum adjacent values to get dosage
 * @param v for n samples, vector of length 2*n where dosage is computed as v[2*i] + v[2*i+1];
@@ -145,6 +146,36 @@ static void nanToMean( arma::vec & v){
         // replace nan with mu
         v.replace(arma::datum::nan, mu);
     }
+}
+
+
+/** enum to indicate file type for genetics files
+ */ 
+typedef enum {
+    VCF,
+    VCFGZ,
+    BCF,
+    BGEN,
+    OTHER
+} FileType;
+
+/** Use regex to get file type from file name
+ */ 
+static FileType getFileType( const string &file ){
+
+    FileType ft = OTHER;
+
+    if( regex_search( file, regex("\\.vcf$")) ){
+        ft = VCF;
+    }else if( regex_search( file, regex("\\.vcf\\.gz$")) ){
+        ft = VCFGZ;
+    }else if( regex_search( file, regex("\\.bcf$")) ) {
+        ft = BCF;
+    }else if( regex_search( file, regex("\\.bgen$")) ){
+        ft = BGEN;
+    }
+
+    return ft;
 }
 
 

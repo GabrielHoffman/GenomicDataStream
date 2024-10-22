@@ -2,7 +2,7 @@
  * @file		GenomicDataStream.h
  * @author		Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		GenomicDataStream defines an interface to read chunks of data into memory as a matrix
+ * @brief		GenomicDataStream defines an interface to read chunks of data into memory as a matrix.  Supports VCF/VCFGZ/BCF, BGEN, and DelayedArray.  Importing this header gives access to the entire library and gds namespace.
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -30,212 +30,43 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
 [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
 [Eigen](eigen.tuxfamily.org) | |C++ library for linear algebra with advanced features
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
-
-
  * 
  * 
  */
 
-#ifndef GenomicDataStream_H_
-#define GenomicDataStream_H_
 
-#ifndef DISABLE_EIGEN
-#include <Eigen/Sparse>
-#endif 
-
-
-#ifndef DISABLE_RCPP
-#include <RcppArmadillo.h>
-#endif 
-
-#include <regex>
-#include <boost/algorithm/string.hpp>
-
-#include "VariantInfo.h"
+#include "bgenstream.h"
+#include "vcfstream.h"
+#include "DelayedStream.h"
 #include "utils.h"
 
-using namespace std;
+namespace gds {
 
-namespace GenomicDataStreamLib {
-
-
-/** Store the data matrix and info for a data chunk
+/** Create a reader for VCF/VCFGZ/BCF and BGEN that instantiates either vcfstream or bgenstream based on the file extension in param.
+ * @param param class of Param type
  */ 
-template<typename matType, typename infoType >
-class DataChunk {
-	public:
-    DataChunk() : data() {}
+static unique_ptr<GenomicDataStream> createFileView( const Param & param ){
 
-    DataChunk( matType data) :
-	    data(data) {} 
+    unique_ptr<GenomicDataStream> gdsStream;
 
-    DataChunk( matType data, infoType info) :
-		data(data), info(info) {}
+    // Define reader for VCF/VCFGZ/BCF or BGEN
+    // depending on file extension
+    switch( getFileType(param.file) ){
+        case VCF:
+        case VCFGZ:
+        case BCF:
+            gdsStream = make_unique<vcfstream>( param );
+            break;
+        case BGEN:
+            gdsStream = make_unique<bgenstream>( param );
+            break;
+        case OTHER:
+            throw runtime_error("Invalid file extension: " + param.file);
+            break;
+    }  
 
-    /** Accessor
-     */ 
-	matType getData() const { return data; }
-
-	/** Accessor
-     */   
-	infoType getInfo() const { return info;}    
-
-	private:
-	matType data;
-	infoType info;
-};
-
-
-
-
-
-/** Store parameters to pass to GenomicDataStream
- * 
- */
-struct Param {
-
-	Param(){}
-
-	/** constructor
-	 * @param file .vcf, .vcf.gz or .bcf file with tabix index
-	 * @param field `"GT"` for genotype strings, `"DS"` for dosage, or another other field stored as an integer or float.  `"GT"` is the only string type supported
-	 * @param regionString target in the format `"chr2:1-12345"`.  Multiple regions can be separated by one of `,\n\t`, for example `"chr2:1-12345, chr3:1000-8000"`. Setting region to `""` includes all variants
-	 * @param samples string of comma separated sample IDs to extract: "ID1,ID2,ID3"
-	 * @param chunkSize number of variants to return per chunk
-	 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
-	 * @param initCapacity initial capacity of temporary vector to avoid re-alloc on insert.  Size is in Mb.
-	 * @param permuteFeatureOrder default is `false`. If `true` permute regions in `regionString` to avoid linkage disequilibrium betweeen nearby regions 
-	 * @param rndSeed random seed for permutation
-	*/
-	Param( 	const string &file,
-			const string &field,
-			string regionString = "",
-			const string &samples = "-",
-			const int &chunkSize = std::numeric_limits<int>::max(),
-			const bool &missingToMean = false,
-			const int &initCapacity = 200,
-			const bool &permuteFeatureOrder = false,
-			const int &rndSeed = 12345) :
-		file(file), 
-		field(field), 
-		samples(samples), 
-		chunkSize(chunkSize), 
-		missingToMean(missingToMean), 
-		initCapacity(initCapacity) {
-
-		// regionString is string of chr:start-end delim by "\t,\n"
-		// remove spaces, then split based on delim
-		boost::erase_all(regionString, " ");
-    	boost::split(regions, regionString, boost::is_any_of("\t,\n"));
-
-    	// remove duplicate regions, but preserve order
-    	removeDuplicates( regions );
-
-    	if( permuteFeatureOrder ){
-    		// permuate order of region to avoid correlated features
-    		// in streaming SVD
-    		std::shuffle( regions.begin(), regions.end(), std::mt19937(rndSeed));
-    	}
-	}
-
-	string file;
-	string field;
-	vector<string> regions;
-	string samples;
-	int chunkSize;
-	bool missingToMean;
-	int initCapacity;
-};
-
-
-typedef enum {
-    VCF,
-    VCFGZ,
-    BCF,
-    BGEN,
-    OTHER
-} FileType;
-
-
-static FileType getFileType( const string &file ){
-
-    FileType ft = OTHER;
-
-    if( regex_search( file, regex("\\.vcf$")) ){
-        ft = VCF;
-    }else if( regex_search( file, regex("\\.vcf\\.gz$")) ){
-        ft = VCFGZ;
-    }else if( regex_search( file, regex("\\.bcf$")) ) {
-        ft = BCF;
-    }else if( regex_search( file, regex("\\.bgen$")) ){
-        ft = BGEN;
-    }
-
-    return ft;
+    return gdsStream; 
 }
 
 
-/** Virtual class inheritited by vcfstream, bgenstream, DelayedStream
- */ 
-class GenomicDataStream {
-	public: 
-
-	GenomicDataStream(){}
-
-	/** Constructor
-	 */
-	GenomicDataStream( const Param & param ): param(param) {}
-
-	/** destructor
-	 */
-	virtual ~GenomicDataStream() {};
-	
-	/** Get number of columns in data matrix
-	 */ 
-	virtual int n_samples(){ return 0;}
-
-	/** Get next chunk of _features_ as arma::mat
-	 */ 
-	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){return false;
-	}
-
-	/** Get next chunk of _features_ as arma::sp_mat
-	 */ 
-	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){return false;
-	}
-
-	#ifndef DISABLE_EIGEN
-	/** Get next chunk of _features_ as Eigen::Map<Eigen::MatrixXd>
-	 */ 
-	virtual bool getNextChunk( DataChunk<Eigen::Map<Eigen::MatrixXd>, VariantInfo> & chunk){return false;
-	}
-	/** Get next chunk of _features_ as SparseMatrix<double>
-	 */ 
-	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){return false;
-	}
-	#endif
-
-	#ifndef DISABLE_RCPP
-	/** Get next chunk of _features_ as Rcpp::NumericMatrix
-	 * 
-	 */ 
-	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){return false;
-	}
-	#endif
-
-	/** Get next chunk of _features_ as vector<double>
-	 * 
-	 */ 
-	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){return false;
-	}
-
-	protected:
-	Param param;
-};
-
-
-
 }
-
-
-#endif

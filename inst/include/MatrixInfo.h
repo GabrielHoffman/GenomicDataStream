@@ -16,7 +16,7 @@
 
 using namespace std;
 
-namespace GenomicDataStreamLib {
+namespace gds {
 
 
 class MatrixInfo {

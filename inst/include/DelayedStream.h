@@ -9,6 +9,7 @@
 #ifndef DELAYED_STREAM_H
 #define DELAYED_STREAM_H
 
+// If this flag is not specified, run rest of code
 #ifndef DISABLE_DELAYED_STREAM
 
 #ifndef DISABLE_EIGEN
@@ -17,14 +18,14 @@
 
 #include <vector>
 #include "beachmat3/beachmat.h"
-// #include "Rtatami.h"
 
+#include "GenomicDataStream_virtual.h"
 #include "MatrixInfo.h"
 
 using namespace Rcpp;
 using namespace std;
 
-namespace GenomicDataStreamLib {
+namespace gds {
 
 // Handle sparse input and outputs
 // Handle chunk size, workLarge.reserve(), workLarge.clear()

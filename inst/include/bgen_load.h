@@ -204,7 +204,7 @@ namespace {
 	} ;
 }
 
-void get_all_samples(
+static void get_all_samples(
 	genfile::bgen::View const& view,
 	size_t* number_of_samples,
 	vector<string>* sampleNames,
@@ -215,7 +215,7 @@ void get_all_samples(
 	view.get_sample_ids( set_sample_names( sampleNames, requestedSamplesByIndexInDataIndex ) ) ;
 }
 
-void get_requested_samples(
+static void get_requested_samples(
 	genfile::bgen::View const& view,
 	vector<string> const& requestedSamples,
 	size_t* number_of_samples,
