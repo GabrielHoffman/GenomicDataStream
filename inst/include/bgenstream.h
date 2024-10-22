@@ -10,9 +10,7 @@
 #ifndef BGEN_STREAM_H_
 #define BGEN_STREAM_H_
 
-#include <armadillo>
-
-#ifdef USE_EIGEN
+#ifndef DISABLE_EIGEN
 #include <Eigen/Sparse>
 #endif 
 
@@ -26,7 +24,7 @@
 #include <VariantInfo.h>
 #include <GenomicDataStream.h>
 #include <GenomicRanges.h>
-#include "load.h"
+#include <bgen_load.h>
 
 using namespace std;
 using namespace arma;
@@ -47,6 +45,13 @@ genfile::bgen::View::UniquePtr construct_view(
 	const string & index_filename,
 	const GenomicRanges & gr,
 	const vector<string> & rsids = vector<string>()) {
+
+	if( ! filesystem::exists( filename ) ){
+		throw runtime_error("File does not exist: " + filename);
+	}
+	if( ! filesystem::exists( index_filename ) ){
+		throw runtime_error("File does not exist: " + index_filename);
+	}
 
 	using namespace genfile::bgen ;
 
@@ -74,7 +79,7 @@ class bgenstream :
 	/** constructor
 	*/
 	bgenstream(const Param & param) : GenomicDataStream(param) {
-
+		
 		// Initialize genomic regions
 		GenomicRanges gr( param.regions );
 
@@ -145,7 +150,7 @@ class bgenstream :
 		return ret;
 	}
 
-	#ifdef USE_EIGEN
+	#ifndef DISABLE_EIGEN
 	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -172,7 +177,7 @@ class bgenstream :
 	}
 	#endif
 
-	#ifdef USE_RCPP
+	#ifndef DISABLE_RCPP
 	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk

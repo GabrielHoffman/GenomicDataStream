@@ -46,7 +46,7 @@ test_bgenstream(){
 
 
 
-	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream"); rm(res)
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream"); rm(res)
 	regions = "01:0-14444"
 	res = GenomicDataStream:::test_bgen( file, "DS", region=regions, chunkSize = 1e5, missingToMean=FALSE)
 

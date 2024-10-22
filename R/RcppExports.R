@@ -49,7 +49,3 @@ test_bgen2 <- function(y, file, field, region = "", samples = "-", chunkSize, mi
     .Call('_GenomicDataStream_test_bgen2', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
 }
 
-load <- function(filename, index_filename, ranges, rsids, max_entries_per_sample) {
-    .Call('_GenomicDataStream_load', PACKAGE = 'GenomicDataStream', filename, index_filename, ranges, rsids, max_entries_per_sample)
-}
-

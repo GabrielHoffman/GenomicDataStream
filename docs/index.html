@@ -167,6 +167,17 @@
 </tbody>
 </table>
 </div>
+<div class="section level2">
+<h2 id="notes">NOTES<a class="anchor" aria-label="anchor" href="#notes"></a>
+</h2>
+<p><code>GenomicDataStream</code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>:</p>
+<p><code>-D DISABLE_DELAYED_STREAM</code><br>
+Omit <code>DelayedStream</code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code></p>
+<p><code>-D DISABLE_EIGEN</code><br>
+Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code></p>
+<p><code>-D DISABLE_RCPP</code><br>
+Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code></p>
+</div>
 
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>

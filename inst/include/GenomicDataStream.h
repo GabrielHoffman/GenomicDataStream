@@ -39,18 +39,16 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
 #ifndef GenomicDataStream_H_
 #define GenomicDataStream_H_
 
-#include <armadillo>
-
-#ifdef USE_EIGEN
+#ifndef DISABLE_EIGEN
 #include <Eigen/Sparse>
 #endif 
 
 
-#ifdef USE_RCPP
+#ifndef DISABLE_RCPP
 #include <RcppArmadillo.h>
 #endif 
 
-
+#include <regex>
 #include <boost/algorithm/string.hpp>
 
 #include "VariantInfo.h"
@@ -150,6 +148,33 @@ struct Param {
 };
 
 
+typedef enum {
+    VCF,
+    VCFGZ,
+    BCF,
+    BGEN,
+    OTHER
+} FileType;
+
+
+static FileType getFileType( const string &file ){
+
+    FileType ft = OTHER;
+
+    if( regex_search( file, regex("\\.vcf$")) ){
+        ft = VCF;
+    }else if( regex_search( file, regex("\\.vcf\\.gz$")) ){
+        ft = VCFGZ;
+    }else if( regex_search( file, regex("\\.bcf$")) ) {
+        ft = BCF;
+    }else if( regex_search( file, regex("\\.bgen$")) ){
+        ft = BGEN;
+    }
+
+    return ft;
+}
+
+
 /** Virtual class inheritited by vcfstream, bgenstream, DelayedStream
  */ 
 class GenomicDataStream {
@@ -179,7 +204,7 @@ class GenomicDataStream {
 	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){return false;
 	}
 
-	#ifdef USE_EIGEN
+	#ifndef DISABLE_EIGEN
 	/** Get next chunk of _features_ as Eigen::Map<Eigen::MatrixXd>
 	 */ 
 	virtual bool getNextChunk( DataChunk<Eigen::Map<Eigen::MatrixXd>, VariantInfo> & chunk){return false;
@@ -190,7 +215,7 @@ class GenomicDataStream {
 	}
 	#endif
 
-	#ifdef USE_RCPP
+	#ifndef DISABLE_RCPP
 	/** Get next chunk of _features_ as Rcpp::NumericMatrix
 	 * 
 	 */ 

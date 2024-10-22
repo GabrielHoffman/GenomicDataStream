@@ -11,9 +11,7 @@
 
 #ifndef DISABLE_DELAYED_STREAM
 
-#include <armadillo>
-
-#ifdef USE_EIGEN
+#ifndef DISABLE_EIGEN
 #include <Eigen/Sparse>
 #endif 
 
@@ -99,7 +97,7 @@ class DelayedStream :
 		return ret;
 	}
 
-	#ifdef USE_EIGEN
+	#ifndef DISABLE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::MatrixXd, MatrixInfo> & chunk){
 
 		// Update workLarge chunk
@@ -124,7 +122,7 @@ class DelayedStream :
 	}
 	#endif
 
-	#ifdef USE_RCPP
+	#ifndef DISABLE_RCPP
 	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, MatrixInfo> & chunk){
 
 		// Update workLarge chunk

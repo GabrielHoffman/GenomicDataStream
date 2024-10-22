@@ -79,13 +79,20 @@ while( vcfObj.getNextChunk( chunk ) ){
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
 
 
-## NOTES
-`-D DELAYED_STREAM_SUPPORT`: Enable support for `DelayedStream`.  Disabling remove dependence on `Rcpp` for header only library
+## Notes
 
-`-D USE_RCPP`: enable support for `Rcpp`. Disabling allows use of library outside of R
-
-`-D USE_EIGEN`: enables use of Eigen library
+`GenomicDataStream` provide flexability in terms of data input types and and matrix libraries.  This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times.  Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in `Makevars`:
 
 
-	
-	
+ `-D DISABLE_DELAYED_STREAM`     
+       Omit `DelayedStream` class, remove dependence on `Rcpp` and `beachmat`  
+ 
+ `-D DISABLE_EIGEN`   
+       Omit support for Eigen matrix library, and remove dependence on `RcppEigen`
+
+ `-D DISABLE_RCPP`   
+       Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
+   
+
+
+

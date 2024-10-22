@@ -10,13 +10,13 @@
 #ifndef VCF_STREAM_H_
 #define VCF_STREAM_H_
 
-#include <armadillo>
-
-#ifdef USE_EIGEN
+#ifndef DISABLE_EIGEN
 #include <Eigen/Sparse>
 #endif 
 
+#include <filesystem>
 #include <string>
+
 #include <vcfpp.h>
 
 #include "VariantInfo.h"
@@ -39,6 +39,10 @@ class vcfstream :
 	*/
 	vcfstream(const Param & param) : GenomicDataStream(param) {
 	
+		if( ! filesystem::exists( param.file ) ){
+			throw runtime_error("File does not exist: " + param.file);
+		}
+
  		// initialize
 		reader = new BcfReader( param.file );
 
@@ -134,7 +138,7 @@ class vcfstream :
 		return ret;
 	}
 
-	#ifdef USE_EIGEN
+	#ifndef DISABLE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
@@ -160,7 +164,7 @@ class vcfstream :
 	}
 	#endif
 
-	#ifdef USE_RCPP
+	#ifndef DISABLE_RCPP
 	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
 
 		// Update matDosage and vInfo for the chunk
