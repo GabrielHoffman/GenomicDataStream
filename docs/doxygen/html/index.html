@@ -121,14 +121,54 @@ $(function(){ initResizable(false); });
 <div class="textblock"><div class="image">
 <img src="GenomicDataStream.png" alt=""/>
 </div>
- <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications. </div><p> The <code>GenomicDataStream</code> C++ inferface separates</p>
+ <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications. </div><p> The <code>GenomicDataStream</code> C++ interface separates</p>
 <ol type="1">
 <li>data source</li>
 <li>streaming chunks of features into a data matrix</li>
 <li>downstream analysis <br  />
 </li>
 </ol>
-<h2><a class="anchor" id="autotoc_md0"></a>
+<h3><a class="anchor" id="autotoc_md0"></a>
+Example code with C++17</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;RcppArmadillo.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="_genomic_data_stream_8h.html">GenomicDataStream.h</a>&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// use namespace for GenomicDataStream</span></div>
+<div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacegds.html">gds</a>;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// parameters </span></div>
+<div class="line"><span class="keywordtype">string</span> file = <span class="stringliteral">&quot;test.vcf.gz&quot;</span>;</div>
+<div class="line"><span class="keywordtype">string</span> field = <span class="stringliteral">&quot;DS&quot;</span>;    <span class="comment">// read dosage field</span></div>
+<div class="line"><span class="keywordtype">string</span> region = <span class="stringliteral">&quot;&quot;</span>;     <span class="comment">// no region filter</span></div>
+<div class="line"><span class="keywordtype">string</span> samples = <span class="stringliteral">&quot;-&quot;</span>;   <span class="comment">// no samples filter</span></div>
+<div class="line"><span class="keywordtype">int</span> chunkSize = 4;      <span class="comment">// each chunk will read 4 variants</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// initialize parameters</span></div>
+<div class="line"><a class="code hl_struct" href="structgds_1_1_param.html">Param</a> param(file, field, region, samples, chunkSize);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Initialise GenomicDataStream to read </span></div>
+<div class="line"><span class="comment">// VCF/VCFGZ/BCF and BGEN with same interface</span></div>
+<div class="line">unique_ptr&lt;GenomicDataStream&gt; gdsStream = createFileView( param );</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// declare DataChunk storing an Armadillo matrix for each chunk</span></div>
+<div class="line"><a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;arma::mat, VariantInfo&gt;</a> chunk;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// loop through chunks</span></div>
+<div class="line"><span class="keywordflow">while</span>( gdsStream-&gt;getNextChunk( chunk ) ){</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// get data from chunk</span></div>
+<div class="line">    <span class="comment">// chunk.getData();</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// get variant information</span></div>
+<div class="line">    <span class="comment">// chunk.getInfo();</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Do analysis with variants in this chunk</span></div>
+<div class="line">}</div>
+<div class="ttc" id="a_genomic_data_stream_8h_html"><div class="ttname"><a href="_genomic_data_stream_8h.html">GenomicDataStream.h</a></div></div>
+<div class="ttc" id="aclassgds_1_1_data_chunk_html"><div class="ttname"><a href="classgds_1_1_data_chunk.html">gds::DataChunk</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:32</div></div>
+<div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:33</div></div>
+<div class="ttc" id="astructgds_1_1_param_html"><div class="ttname"><a href="structgds_1_1_param.html">gds::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:62</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1"></a>
 Dependencies</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -146,10 +186,19 @@ Dependencies</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=RcppArmadillo">RcppArmadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.18637/jss.v040.i08">J Stat Software</a>   </td><td class="markdownTableBodyNone">API for Rcpp access to Armadillo matrix library    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a href="eigen.tuxfamily.org">Eigen</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">C++ library for linear algebra with advanced features    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://eigen.tuxfamily.org">Eigen</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">C++ library for linear algebra with advanced features    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a href="https://arma.sourceforge.net">Armadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.21105/joss.00026">J Open Src Soft</a>   </td><td class="markdownTableBodyNone">User-friendly C++ library for linear algebra   </td></tr>
 </table>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Notes</h2>
+<div style="text-align: justify"> <code>GenomicDataStream</code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>: </div><p><code>-D DISABLE_DELAYED_STREAM</code> <br  />
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit <code>DelayedStream</code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code> <br  />
+</p>
+<p><code>-D DISABLE_EIGEN</code> <br  />
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code> and <code>Eigen</code></p>
+<p><code>-D DISABLE_RCPP</code> <br  />
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code> </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

@@ -1,9 +1,7 @@
 \doxysection{src/export.cpp File Reference}
 \hypertarget{export_8cpp}{}\label{export_8cpp}\index{src/export.cpp@{src/export.cpp}}
-{\ttfamily \#include $<$vcfstream.\+h$>$}\newline
-{\ttfamily \#include $<$bgenstream.\+h$>$}\newline
-{\ttfamily \#include $<$vcfpp.\+h$>$}\newline
-{\ttfamily \#include $<$Delayed\+Stream.\+h$>$}\newline
+{\ttfamily \#include $<$Rcpp\+Armadillo.\+h$>$}\newline
+{\ttfamily \#include $<$Genomic\+Data\+Stream.\+h$>$}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,7 +9,7 @@ arma\+::vec \mbox{\hyperlink{export_8cpp_af6b46fe745e9b79a985ea29a2238e2f0}{test
 \item 
 arma\+::vec \mbox{\hyperlink{export_8cpp_aaa480f499e1d9e5870f3aa5abc5c675e}{test\+\_\+\+DS}} (const std\+::string \&vcffile, const std\+::string \&region)
 \item 
-Data\+Frame \mbox{\hyperlink{export_8cpp_a92c4b4101778c8258e06efc528ccc97e}{to\+DF}} (const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&v\+Info)
+Data\+Frame \mbox{\hyperlink{export_8cpp_a92c4b4101778c8258e06efc528ccc97e}{to\+DF}} (const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&v\+Info)
 \item 
 List \mbox{\hyperlink{export_8cpp_afe3666d76d365548df8bd7997ef992c5}{extract\+Vcf}} (const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
 \item 
@@ -31,13 +29,13 @@ void \mbox{\hyperlink{export_8cpp_a7948cb70a34ad29b874afa09a0fd2558}{standardize
 \item 
 List \mbox{\hyperlink{export_8cpp_a1a510dc58cc491453ca222f63a754a73}{lm}} (const arma\+::mat \&X, const arma\+::colvec \&y)
 \item 
-List \mbox{\hyperlink{export_8cpp_af49b4212a1550a79b853b3e13c90ecd1}{linear\+Regression}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+cov, const arma\+::mat \&X\+\_\+features, const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&info)
+List \mbox{\hyperlink{export_8cpp_af49b4212a1550a79b853b3e13c90ecd1}{linear\+Regression}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+cov, const arma\+::mat \&X\+\_\+features, const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&info)
 \item 
 void \mbox{\hyperlink{export_8cpp_aa169b4bc2def138b9d9f1b7eb0843747}{append}} (List \&lst, const List \&lst2)
 \item 
 List \mbox{\hyperlink{export_8cpp_ab61798755e9c0d0cb8648f6ad25b4ca1}{fast\+LM}} (const arma\+::colvec \&y, const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_ac609a7071fdb4476448eee2f57465f12}{test\+\_\+bgen2}} (const arma\+::colvec \&y, const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const int \&chunk\+Size=std\+::numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&missing\+To\+Mean=true)
+List \mbox{\hyperlink{export_8cpp_a964c709c881984d4e784322ded39a9ee}{test\+\_\+bgen2}} (const arma\+::colvec y, const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const int \&chunk\+Size=std\+::numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&missing\+To\+Mean=true)
 \end{DoxyCompactItemize}
 
 
@@ -94,7 +92,7 @@ List fast\+LM (\begin{DoxyParamCaption}\item[{const arma\+::colvec \&}]{y}{, }\i
 \index{linearRegression@{linearRegression}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{linearRegression()}{linearRegression()}}
 {\footnotesize\ttfamily \label{export_8cpp_af49b4212a1550a79b853b3e13c90ecd1} 
-List linear\+Regression (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X\+\_\+cov}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&}]{info}{}\end{DoxyParamCaption})}
+List linear\+Regression (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X\+\_\+cov}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&}]{info}{}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a1a510dc58cc491453ca222f63a754a73}\index{export.cpp@{export.cpp}!lm@{lm}}
 \index{lm@{lm}!export.cpp@{export.cpp}}
@@ -114,11 +112,11 @@ void standardize\+\_\+test (\begin{DoxyParamCaption}\item[{arma\+::mat \&}]{X}{,
 {\footnotesize\ttfamily \label{export_8cpp_aac26cad02f8e21a11c82980634e0de5d} 
 Rcpp\+::\+List test\+\_\+bgen (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily std\+:\+:numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_ac609a7071fdb4476448eee2f57465f12}\index{export.cpp@{export.cpp}!test\_bgen2@{test\_bgen2}}
+\Hypertarget{export_8cpp_a964c709c881984d4e784322ded39a9ee}\index{export.cpp@{export.cpp}!test\_bgen2@{test\_bgen2}}
 \index{test\_bgen2@{test\_bgen2}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{test\_bgen2()}{test\_bgen2()}}
-{\footnotesize\ttfamily \label{export_8cpp_ac609a7071fdb4476448eee2f57465f12} 
-List test\+\_\+bgen2 (\begin{DoxyParamCaption}\item[{const arma\+::colvec \&}]{y}{, }\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily std\+:\+:numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a964c709c881984d4e784322ded39a9ee} 
+List test\+\_\+bgen2 (\begin{DoxyParamCaption}\item[{const arma\+::colvec}]{y}{, }\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily std\+:\+:numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_aaa480f499e1d9e5870f3aa5abc5c675e}\index{export.cpp@{export.cpp}!test\_DS@{test\_DS}}
 \index{test\_DS@{test\_DS}!export.cpp@{export.cpp}}
@@ -136,5 +134,5 @@ arma\+::vec test\+\_\+\+GT (\begin{DoxyParamCaption}\item[{const std\+::string \
 \index{toDF@{toDF}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{toDF()}{toDF()}}
 {\footnotesize\ttfamily \label{export_8cpp_a92c4b4101778c8258e06efc528ccc97e} 
-Data\+Frame to\+DF (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} \&}]{v\+Info}{}\end{DoxyParamCaption})}
+Data\+Frame to\+DF (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&}]{v\+Info}{}\end{DoxyParamCaption})}
 

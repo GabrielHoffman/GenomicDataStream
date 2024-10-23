@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['datachunk_0',['DataChunk',['../class_genomic_data_stream_lib_1_1_data_chunk.html#ab8264b09de2da1a8ae5fd200f9330858',1,'GenomicDataStreamLib::DataChunk::DataChunk()'],['../class_genomic_data_stream_lib_1_1_data_chunk.html#a65391cb2870e452d02a6f40041535e18',1,'GenomicDataStreamLib::DataChunk::DataChunk(matType data)'],['../class_genomic_data_stream_lib_1_1_data_chunk.html#a73376559575da50ff9e0c230fb4552e5',1,'GenomicDataStreamLib::DataChunk::DataChunk(matType data, infoType info)']]],
-  ['delayedstream_1',['DelayedStream',['../class_genomic_data_stream_lib_1_1_delayed_stream.html#aac1344586903e9f4d8711f51b54c868a',1,'GenomicDataStreamLib::DelayedStream']]]
+  ['datachunk_0',['DataChunk',['../classgds_1_1_data_chunk.html#a26d00c35d6343785c0f403cd5ba3263c',1,'gds::DataChunk::DataChunk()'],['../classgds_1_1_data_chunk.html#a5bf9e9b8ef03345d03ded992e29f01f3',1,'gds::DataChunk::DataChunk(matType data)'],['../classgds_1_1_data_chunk.html#aaa3cd721410bfb8f64052987963f8c3b',1,'gds::DataChunk::DataChunk(matType data, infoType info)']]],
+  ['delayedstream_1',['DelayedStream',['../classgds_1_1_delayed_stream.html#a7c750e4ed9783f3bdbf7f6a8de0c157c',1,'gds::DelayedStream']]]
 ];

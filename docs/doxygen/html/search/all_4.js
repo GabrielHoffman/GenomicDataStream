@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['data_20and_20analysis_20underneath_20r_0',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
-  ['datachunk_1',['DataChunk',['../class_genomic_data_stream_lib_1_1_data_chunk.html',1,'GenomicDataStreamLib::DataChunk&lt; matType, infoType &gt;'],['../class_genomic_data_stream_lib_1_1_data_chunk.html#ab8264b09de2da1a8ae5fd200f9330858',1,'GenomicDataStreamLib::DataChunk::DataChunk()'],['../class_genomic_data_stream_lib_1_1_data_chunk.html#a65391cb2870e452d02a6f40041535e18',1,'GenomicDataStreamLib::DataChunk::DataChunk(matType data)'],['../class_genomic_data_stream_lib_1_1_data_chunk.html#a73376559575da50ff9e0c230fb4552e5',1,'GenomicDataStreamLib::DataChunk::DataChunk(matType data, infoType info)']]],
-  ['delayedstream_2',['DelayedStream',['../class_genomic_data_stream_lib_1_1_delayed_stream.html',1,'GenomicDataStreamLib::DelayedStream'],['../class_genomic_data_stream_lib_1_1_delayed_stream.html#aac1344586903e9f4d8711f51b54c868a',1,'GenomicDataStreamLib::DelayedStream::DelayedStream()']]],
-  ['delayedstream_2eh_3',['DelayedStream.h',['../_delayed_stream_8h.html',1,'']]],
-  ['dependencies_4',['Dependencies',['../index.html#autotoc_md0',1,'']]]
+  ['c_2017_0',['Example code with C++17',['../index.html#autotoc_md0',1,'']]],
+  ['chrom_1',['CHROM',['../classgds_1_1_variant_info.html#a70b37daa458aca44124d9065e69a4453',1,'gds::VariantInfo']]],
+  ['chunksize_2',['chunkSize',['../structgds_1_1_param.html#ae82660852c54b3b6ac70d7aea6a37824',1,'gds::Param']]],
+  ['clear_3',['clear',['../classgds_1_1_variant_info.html#a304659a38460f4dc8d9dbb509f3fe8c2',1,'gds::VariantInfo']]],
+  ['code_20with_20c_2017_4',['Example code with C++17',['../index.html#autotoc_md0',1,'']]],
+  ['colsums_5ftest_5',['colSums_test',['../export_8cpp.html#a7fee884670a74f3630ba041bcf13a0e9',1,'colSums_test(const arma::mat &amp;X):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a7fee884670a74f3630ba041bcf13a0e9',1,'colSums_test(const arma::mat &amp;X):&#160;export.cpp']]]
 ];

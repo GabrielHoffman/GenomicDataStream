@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['n_5fcols_0',['n_cols',['../class_genomic_data_stream_lib_1_1_delayed_stream.html#a0970b71c5c19eb17f982d1ef5df2bdad',1,'GenomicDataStreamLib::DelayedStream']]],
-  ['n_5fsamples_1',['n_samples',['../class_genomic_data_stream_lib_1_1bgenstream.html#ab0f0a8c026aad89e087393dc36b7aab8',1,'GenomicDataStreamLib::bgenstream::n_samples()'],['../class_genomic_data_stream_lib_1_1_genomic_data_stream.html#a3f469c8091d92f51b951f690f01c73bb',1,'GenomicDataStreamLib::GenomicDataStream::n_samples()'],['../class_genomic_data_stream_lib_1_1vcfstream.html#ac775a95fd1c03bf2d879a32f0a12b844',1,'GenomicDataStreamLib::vcfstream::n_samples()']]]
+  ['main_0',['main',['../lucida_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'lucida.cpp']]],
+  ['matrixinfo_1',['MatrixInfo',['../classgds_1_1_matrix_info.html',1,'gds::MatrixInfo'],['../classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4',1,'gds::MatrixInfo::MatrixInfo()'],['../classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe',1,'gds::MatrixInfo::MatrixInfo(const Rcpp::CharacterVector &amp;rownames, const Rcpp::CharacterVector &amp;colnames)'],['../classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561',1,'gds::MatrixInfo::MatrixInfo(const Rcpp::RObject &amp;mat)']]],
+  ['matrixinfo_2eh_2',['MatrixInfo.h',['../_matrix_info_8h.html',1,'']]],
+  ['missingtomean_3',['missingToMean',['../structgds_1_1_param.html#af5eae8c29ee634c69c59e5f76d8df801',1,'gds::Param']]]
 ];

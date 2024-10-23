@@ -6,145 +6,41 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ GenomicDataStream.h}}
 \DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
 \DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
-\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ GenomicDataStream\ defines\ an\ interface\ to\ read\ chunks\ of\ data\ into\ memory\ as\ a\ matrix}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ GenomicDataStream\ defines\ an\ interface\ to\ read\ chunks\ of\ data\ into\ memory\ as\ a\ matrix.\ \ Supports\ VCF/VCFGZ/BCF,\ BGEN,\ and\ DelayedArray.\ \ Importing\ this\ header\ gives\ access\ to\ the\ entire\ library\ and\ gds\ namespace.}}
 \DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
 \DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
 \DoxyCodeLine{00008\ }
-\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifndef\ GenomicDataStream\_H\_}}
-\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ GenomicDataStream\_H\_}}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <armadillo>}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifdef\ USE\_EIGEN}}
-\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <Eigen/Sparse>}}
-\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifdef\ USE\_RCPP}}
-\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
-\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <boost/algorithm/string.hpp>}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}"{}}}
-\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{using\ namespace\ }std;}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_genomic_data_stream_lib}{GenomicDataStreamLib}}\ \{}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00066\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ matType,\ \textcolor{keyword}{typename}\ infoType\ >}
-\DoxyCodeLine{00067\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}\ \{}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk_ab8264b09de2da1a8ae5fd200f9330858}{DataChunk}}()\ :\ data()\ \{\}}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk_a65391cb2870e452d02a6f40041535e18}{DataChunk}}(\ matType\ data)\ :}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ data(data)\ \{\}\ }
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk_a73376559575da50ff9e0c230fb4552e5}{DataChunk}}(\ matType\ data,\ infoType\ info)\ :}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ data(data),\ info(info)\ \{\}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00079\ \ \ \ \ matType\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk_a7be57cf0f5f082c8be7698801bd90e30}{getData}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ data;\ \}}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00083\ \ \ \ \ infoType\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk_a7ad24e79500adb7e3b9eceb627075705}{getInfo}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ info;\}\ \ \ \ }
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00086\ \ \ \ \ matType\ data;}
-\DoxyCodeLine{00087\ \ \ \ \ infoType\ info;}
-\DoxyCodeLine{00088\ \};}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00097\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}\ \{}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bgenstream_8h}{bgenstream.h}}"{}}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vcfstream_8h}{vcfstream.h}}"{}}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_delayed_stream_8h}{DelayedStream.h}}"{}}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ab914a966ef2bf6d120f08f128cfe6f70}{Param}}()\{\}}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ab01a813630a44f7851b93f0472f38523}{Param}}(\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}},}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}},}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ regionString\ =\ \textcolor{stringliteral}{"{}"{}},}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}\ =\ \textcolor{stringliteral}{"{}-\/"{}},}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunkSize}}\ =\ std::numeric\_limits<int>::max(),}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missingToMean}}\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{initCapacity}}\ =\ 200,}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&permuteFeatureOrder\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&rndSeed\ =\ 12345)\ :}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}}(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}}),\ }
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}}(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}}),\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}),\ }
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunkSize}}(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunkSize}}),\ }
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missingToMean}}(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missingToMean}}),\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{initCapacity}}(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{initCapacity}})\ \{}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ regionString\ is\ string\ of\ chr:start-\/end\ delim\ by\ "{}\(\backslash\)t,\(\backslash\)n"{}}}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ spaces,\ then\ split\ based\ on\ delim}}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ boost::erase\_all(regionString,\ \textcolor{stringliteral}{"{}\ "{}});}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ boost::split(\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}},\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ duplicate\ regions,\ but\ preserve\ order}}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ removeDuplicates(\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}}\ );}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ permuteFeatureOrder\ )\{}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ permuate\ order\ of\ region\ to\ avoid\ correlated\ features}}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ streaming\ SVD}}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ std::shuffle(\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}}.begin(),\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}}.end(),\ std::mt19937(rndSeed));}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00141\ \ \ \ \ \}}
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}};}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}};}
-\DoxyCodeLine{00145\ \ \ \ \ vector<string>\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}};}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}};}
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunkSize}};}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missingToMean}};}
-\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{initCapacity}};}
-\DoxyCodeLine{00150\ \};}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00155\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{public}:\ }
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00158\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94}{GenomicDataStream}}()\{\}}
-\DoxyCodeLine{00159\ }
-\DoxyCodeLine{00162\ \ \ \ \ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_abf01ac486fb36aeda7951a5fb5ef5b81}{GenomicDataStream}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}\ ):\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}(\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})\ \{\}}
-\DoxyCodeLine{00163\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1}{\string~GenomicDataStream}}()\ \{\};}
-\DoxyCodeLine{00167\ \ \ \ \ }
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a3f469c8091d92f51b951f690f01c73bb}{n\_samples}}()\{\ \textcolor{keywordflow}{return}\ 0;\}}
-\DoxyCodeLine{00171\ }
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk<arma::mat,\ VariantInfo>}}\ \&\ chunk)\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00175\ \ \ \ \ \}}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ae285cb1e17e043fc88066de26527dfdc}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk<arma::sp\_mat,\ VariantInfo>}}\ \&\ chunk)\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00180\ \ \ \ \ \}}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ USE\_EIGEN}}
-\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}<Eigen::Map<Eigen::MatrixXd>,\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00186\ \ \ \ \ \}}
-\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289}{getNextChunk}}(\ DataChunk<Eigen::SparseMatrix<double>,\ VariantInfo>\ \&\ chunk)\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00190\ \ \ \ \ \}}
-\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00192\ }
-\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ USE\_RCPP}}
-\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289}{getNextChunk}}(\ DataChunk<Rcpp::NumericMatrix,\ VariantInfo>\ \&\ chunk)\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00198\ \ \ \ \ \}}
-\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00200\ }
-\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44}{getNextChunk}}(\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{DataChunk}}<vector<double>,\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00205\ \ \ \ \ \}}
-\DoxyCodeLine{00206\ }
-\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00208\ \ \ \ \ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}\ \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}};}
-\DoxyCodeLine{00209\ \};}
-\DoxyCodeLine{00210\ }
-\DoxyCodeLine{00211\ }
-\DoxyCodeLine{00212\ }
-\DoxyCodeLine{00213\ \}}
-\DoxyCodeLine{00214\ }
-\DoxyCodeLine{00215\ }
-\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{static}\ unique\_ptr<GenomicDataStream>\ createFileView(\ \textcolor{keyword}{const}\ Param\ \&\ param\ )\{}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ unique\_ptr<GenomicDataStream>\ gdsStream;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ Define\ reader\ for\ VCF/VCFGZ/BCF\ or\ BGEN}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{comment}{//\ depending\ on\ file\ extension}}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{switch}(\ getFileType(param.file)\ )\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<vcfstream>(\ param\ );}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<bgenstream>(\ param\ );}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Invalid\ file\ extension:\ "{}}\ +\ param.file);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00120\ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ gdsStream;\ }
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \}}
 
 \end{DoxyCode}

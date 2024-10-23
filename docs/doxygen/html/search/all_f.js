@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['test_5fbgen_0',['test_bgen',['../export_8cpp.html#aac26cad02f8e21a11c82980634e0de5d',1,'test_bgen(const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a2dab76e160c1b46f60ee5772871c3579',1,'test_bgen(const std::string &amp;file, const std::string &amp;field, const std::string &amp;region, const std::string &amp;samples, const int &amp;chunkSize, const bool &amp;missingToMean):&#160;export.cpp']]],
-  ['test_5fbgen2_1',['test_bgen2',['../export_8cpp.html#ac609a7071fdb4476448eee2f57465f12',1,'test_bgen2(const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=true):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#abee00497b7feea8ca01acd7dc37a140a',1,'test_bgen2(const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region, const std::string &amp;samples, const int &amp;chunkSize, const bool &amp;missingToMean):&#160;export.cpp']]],
-  ['test_5fds_2',['test_DS',['../export_8cpp.html#aaa480f499e1d9e5870f3aa5abc5c675e',1,'test_DS(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#aaa480f499e1d9e5870f3aa5abc5c675e',1,'test_DS(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp']]],
-  ['test_5fgt_3',['test_GT',['../export_8cpp.html#af6b46fe745e9b79a985ea29a2238e2f0',1,'test_GT(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#af6b46fe745e9b79a985ea29a2238e2f0',1,'test_GT(const std::string &amp;vcffile, const std::string &amp;region):&#160;export.cpp']]],
-  ['todf_4',['toDF',['../export_8cpp.html#a92c4b4101778c8258e06efc528ccc97e',1,'export.cpp']]]
+  ['r_0',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
+  ['r_5finit_5fgenomicdatastream_1',['R_init_GenomicDataStream',['../_rcpp_exports_8cpp.html#a28813cc54257bc2fa1103e5290158da5',1,'RcppExports.cpp']]],
+  ['rcppexports_2ecpp_2',['RcppExports.cpp',['../_rcpp_exports_8cpp.html',1,'']]],
+  ['ref_3',['REF',['../classgds_1_1_variant_info.html#ae7596addc5a5f568d18890669ec52409',1,'gds::VariantInfo']]],
+  ['regions_4',['regions',['../structgds_1_1_param.html#a15532b76e72f2f03fd4336e99585eb4b',1,'gds::Param']]]
 ];

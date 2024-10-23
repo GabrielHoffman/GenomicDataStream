@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['field_0',['field',['../struct_genomic_data_stream_lib_1_1_param.html#a1b9f4af368dec4a8fcac78fadf26f9bc',1,'GenomicDataStreamLib::Param']]],
-  ['file_1',['file',['../struct_genomic_data_stream_lib_1_1_param.html#a71a2d22e96db8937d19c8686e9cfe3f5',1,'GenomicDataStreamLib::Param']]]
+  ['field_0',['field',['../structgds_1_1_param.html#aad1725c672bbad45c1ea52f6c9593da6',1,'gds::Param']]],
+  ['file_1',['file',['../structgds_1_1_param.html#ada92631b1e8dfaec19d59cb4225540c5',1,'gds::Param']]]
 ];

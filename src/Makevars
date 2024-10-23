@@ -5,7 +5,7 @@ RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
     'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
 
-PKG_CPPFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) -D USE_EIGEN -D USE_RCPP -D USE_ARMA \
+PKG_CPPFLAGS = -I../inst/include/ $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -I ../inst/include/ \
 -I ../inst/include/zstd-1.1.0/lib  \
 -I ../inst/include/zstd-1.1.0/lib/common  \

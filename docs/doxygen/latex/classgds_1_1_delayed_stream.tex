@@ -1,0 +1,130 @@
+\doxysection{gds\+::Delayed\+Stream Class Reference}
+\hypertarget{classgds_1_1_delayed_stream}{}\label{classgds_1_1_delayed_stream}\index{gds::DelayedStream@{gds::DelayedStream}}
+
+
+{\ttfamily \#include $<$Delayed\+Stream.\+h$>$}
+
+Inheritance diagram for gds\+::Delayed\+Stream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classgds_1_1_delayed_stream}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgds_1_1_delayed_stream_a7c750e4ed9783f3bdbf7f6a8de0c157c}{Delayed\+Stream}} (RObject mat)
+\item 
+\mbox{\hyperlink{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}{\texorpdfstring{$\sim$}{\string~}\+Delayed\+Stream}} ()
+\item 
+int \mbox{\hyperlink{classgds_1_1_delayed_stream_a11c86349dd107c30b1236df77c3e9fa0}{n\+\_\+cols}} ()
+\item 
+bool \mbox{\hyperlink{classgds_1_1_delayed_stream_ac4478ff29ff8e563dc9b54ac65a0e08a}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&chunk)
+\item 
+bool \mbox{\hyperlink{classgds_1_1_delayed_stream_ab529b82580d95e0ac159b9d9047a1b9f}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&chunk)
+\item 
+bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a20e577f587fd351f9657a2a5e8869c20}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Matrix\+Xd, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&chunk)
+\item 
+bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a8a2486b1a0221aeb21c5c1d17c85ddc5}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&chunk)
+\item 
+bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a21dfd5a35efb99062cae52e259c82f49}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&chunk)
+\item 
+bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a50c2d2995c9cb78619297b6cec469f91}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&chunk)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds\+::\+Genomic\+Data\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{Genomic\+Data\+Stream}} ()
+\item 
+\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5d494b75983473682da572b0afa9d19f}{Genomic\+Data\+Stream}} (const \mbox{\hyperlink{structgds_1_1_param}{Param}} \&\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})
+\item 
+virtual \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
+\item 
+virtual int \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aa14c75508fa34a5487ffc78527a92501}{n\+\_\+samples}} ()
+\item 
+virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_abc1e0e120842317be28740f402913a51}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat, \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aff99837640c19539a935087c83d9c264}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat, \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a20b920af743459417840472752692335}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Map$<$ Eigen\+::\+Matrix\+Xd $>$, \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af1dcc773d8bdf052332c5f057ec5e1e1}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$, \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_adf63a5d7538aa6855b5e53edb933009b}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_add2e49708e64340270263729dc1035c9}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds\+::\+Genomic\+Data\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structgds_1_1_param}{Param}} \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Reads an Robject 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classgds_1_1_delayed_stream_a7c750e4ed9783f3bdbf7f6a8de0c157c}\index{gds::DelayedStream@{gds::DelayedStream}!DelayedStream@{DelayedStream}}
+\index{DelayedStream@{DelayedStream}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{DelayedStream()}{DelayedStream()}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a7c750e4ed9783f3bdbf7f6a8de0c157c} 
+gds\+::\+Delayed\+Stream\+::\+Delayed\+Stream (\begin{DoxyParamCaption}\item[{RObject}]{mat}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}\index{gds::DelayedStream@{gds::DelayedStream}!````~DelayedStream@{\texorpdfstring{$\sim$}{\string~}DelayedStream}}
+\index{````~DelayedStream@{\texorpdfstring{$\sim$}{\string~}DelayedStream}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}DelayedStream()}{\string~DelayedStream()}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0} 
+gds\+::\+Delayed\+Stream\+::\texorpdfstring{$\sim$}{\string~}\+Delayed\+Stream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+destructor 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classgds_1_1_delayed_stream_ac4478ff29ff8e563dc9b54ac65a0e08a}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_ac4478ff29ff8e563dc9b54ac65a0e08a} 
+bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_delayed_stream_ab529b82580d95e0ac159b9d9047a1b9f}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_ab529b82580d95e0ac159b9d9047a1b9f} 
+bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+FILL IN\Hypertarget{classgds_1_1_delayed_stream_a20e577f587fd351f9657a2a5e8869c20}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a20e577f587fd351f9657a2a5e8869c20} 
+bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Matrix\+Xd, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_delayed_stream_a8a2486b1a0221aeb21c5c1d17c85ddc5}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a8a2486b1a0221aeb21c5c1d17c85ddc5} 
+bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+FILL IN\Hypertarget{classgds_1_1_delayed_stream_a21dfd5a35efb99062cae52e259c82f49}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a21dfd5a35efb99062cae52e259c82f49} 
+bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_delayed_stream_a50c2d2995c9cb78619297b6cec469f91}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a50c2d2995c9cb78619297b6cec469f91} 
+bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_delayed_stream_a11c86349dd107c30b1236df77c3e9fa0}\index{gds::DelayedStream@{gds::DelayedStream}!n\_cols@{n\_cols}}
+\index{n\_cols@{n\_cols}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{n\_cols()}{n\_cols()}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a11c86349dd107c30b1236df77c3e9fa0} 
+int gds\+::\+Delayed\+Stream\+::n\+\_\+cols (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get number of columns in data matrix 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_delayed_stream_8h}{Delayed\+Stream.\+h}}\end{DoxyCompactItemize}

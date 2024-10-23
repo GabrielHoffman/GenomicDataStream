@@ -140,22 +140,22 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">using namespace </span>std;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_genomic_data_stream_lib.html">GenomicDataStreamLib</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegds.html">gds</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1_matrix_info.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="class_genomic_data_stream_lib_1_1_matrix_info.html">MatrixInfo</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="classgds_1_1_matrix_info.html">MatrixInfo</a> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a4b965c3a19044cc2ca86a27c60f3f372">   25</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a4b965c3a19044cc2ca86a27c60f3f372">MatrixInfo</a>() {}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">   25</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">MatrixInfo</a>() {}</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a93b0b756a697b482eb1831e54a97c1cc">   27</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a93b0b756a697b482eb1831e54a97c1cc">MatrixInfo</a>(<span class="keyword">const</span> Rcpp::CharacterVector &amp;rownames, <span class="keyword">const</span> Rcpp::CharacterVector &amp;colnames) :</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe">   27</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe">MatrixInfo</a>(<span class="keyword">const</span> Rcpp::CharacterVector &amp;rownames, <span class="keyword">const</span> Rcpp::CharacterVector &amp;colnames) :</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        rownames(rownames), colnames(colnames) {}</div>
 </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a02751aecc19d5e4674b3ce606df39c73">   30</a></span>    <a class="code hl_function" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a02751aecc19d5e4674b3ce606df39c73">MatrixInfo</a>( <span class="keyword">const</span> Rcpp::RObject &amp;mat){</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561">   30</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561">MatrixInfo</a>( <span class="keyword">const</span> Rcpp::RObject &amp;mat){</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        Rcpp::List lst;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span>( mat.hasAttribute(<span class="stringliteral">&quot;dimnames&quot;</span>) ){</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            lst = mat.attr(<span class="stringliteral">&quot;dimnames&quot;</span>);</div>
@@ -168,13 +168,13 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a6685ba71a93c575a3f3a83fa61bd3a1e">   43</a></span>    Rcpp::CharacterVector <a class="code hl_function" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a6685ba71a93c575a3f3a83fa61bd3a1e">get_rownames</a>()<span class="keyword"> const </span>{ </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#abf9fcb8dab49b53a536e947283f37811">   43</a></span>    Rcpp::CharacterVector <a class="code hl_function" href="classgds_1_1_matrix_info.html#abf9fcb8dab49b53a536e947283f37811">get_rownames</a>()<span class="keyword"> const </span>{ </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> rownames;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
 </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a07d6e87ded5a31391e296bc9c894b278">   49</a></span>    Rcpp::CharacterVector <a class="code hl_function" href="class_genomic_data_stream_lib_1_1_matrix_info.html#a07d6e87ded5a31391e296bc9c894b278">get_colnames</a>()<span class="keyword"> const</span>{ </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a6bb606f23fc4707540fdefd790ea9389">   49</a></span>    Rcpp::CharacterVector <a class="code hl_function" href="classgds_1_1_matrix_info.html#a6bb606f23fc4707540fdefd790ea9389">get_colnames</a>()<span class="keyword"> const</span>{ </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> colnames;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 </div>
@@ -206,13 +206,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_matrix_info_html"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_matrix_info.html">GenomicDataStreamLib::MatrixInfo</a></div><div class="ttdef"><b>Definition</b> MatrixInfo.h:22</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_matrix_info_html_a02751aecc19d5e4674b3ce606df39c73"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_matrix_info.html#a02751aecc19d5e4674b3ce606df39c73">GenomicDataStreamLib::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const Rcpp::RObject &amp;mat)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:30</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_matrix_info_html_a07d6e87ded5a31391e296bc9c894b278"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_matrix_info.html#a07d6e87ded5a31391e296bc9c894b278">GenomicDataStreamLib::MatrixInfo::get_colnames</a></div><div class="ttdeci">Rcpp::CharacterVector get_colnames() const</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:49</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_matrix_info_html_a4b965c3a19044cc2ca86a27c60f3f372"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_matrix_info.html#a4b965c3a19044cc2ca86a27c60f3f372">GenomicDataStreamLib::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo()</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:25</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_matrix_info_html_a6685ba71a93c575a3f3a83fa61bd3a1e"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_matrix_info.html#a6685ba71a93c575a3f3a83fa61bd3a1e">GenomicDataStreamLib::MatrixInfo::get_rownames</a></div><div class="ttdeci">Rcpp::CharacterVector get_rownames() const</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:43</div></div>
-<div class="ttc" id="aclass_genomic_data_stream_lib_1_1_matrix_info_html_a93b0b756a697b482eb1831e54a97c1cc"><div class="ttname"><a href="class_genomic_data_stream_lib_1_1_matrix_info.html#a93b0b756a697b482eb1831e54a97c1cc">GenomicDataStreamLib::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const Rcpp::CharacterVector &amp;rownames, const Rcpp::CharacterVector &amp;colnames)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:27</div></div>
-<div class="ttc" id="anamespace_genomic_data_stream_lib_html"><div class="ttname"><a href="namespace_genomic_data_stream_lib.html">GenomicDataStreamLib</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:36</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html"><div class="ttname"><a href="classgds_1_1_matrix_info.html">gds::MatrixInfo</a></div><div class="ttdef"><b>Definition</b> MatrixInfo.h:22</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_a4cbb33dd36a7ff13602b481c8fdb9dd4"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo()</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:25</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_a6bb606f23fc4707540fdefd790ea9389"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a6bb606f23fc4707540fdefd790ea9389">gds::MatrixInfo::get_colnames</a></div><div class="ttdeci">Rcpp::CharacterVector get_colnames() const</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:49</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_a9b987aec12c4627d22f5ba81d5e82ebe"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const Rcpp::CharacterVector &amp;rownames, const Rcpp::CharacterVector &amp;colnames)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:27</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_ab275659b6aa03cf3d5fcf1397f1f5561"><div class="ttname"><a href="classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const Rcpp::RObject &amp;mat)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:30</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_abf9fcb8dab49b53a536e947283f37811"><div class="ttname"><a href="classgds_1_1_matrix_info.html#abf9fcb8dab49b53a536e947283f37811">gds::MatrixInfo::get_rownames</a></div><div class="ttdeci">Rcpp::CharacterVector get_rownames() const</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:43</div></div>
+<div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

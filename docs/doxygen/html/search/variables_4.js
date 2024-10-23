@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['missingtomean_0',['missingToMean',['../struct_genomic_data_stream_lib_1_1_param.html#aa734aa0a3658f94686c62e3ad2a55e0c',1,'GenomicDataStreamLib::Param']]]
+  ['missingtomean_0',['missingToMean',['../structgds_1_1_param.html#af5eae8c29ee634c69c59e5f76d8df801',1,'gds::Param']]]
 ];

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['samplenames_0',['sampleNames',['../class_genomic_data_stream_lib_1_1_variant_info.html#aeb16d5d41fd7d6772024458d489d6ee7',1,'GenomicDataStreamLib::VariantInfo']]],
-  ['samples_1',['samples',['../struct_genomic_data_stream_lib_1_1_param.html#ae655d8a3cedb951ffe1add410d790f63',1,'GenomicDataStreamLib::Param']]],
-  ['scalable_20interface_20between_20data_20and_20analysis_20underneath_20r_2',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
-  ['size_3',['size',['../class_genomic_data_stream_lib_1_1_genomic_ranges.html#a7512a8ef62fc3d6e7b1a9f4b4f7b4b42',1,'GenomicDataStreamLib::GenomicRanges::size()'],['../class_genomic_data_stream_lib_1_1_variant_info.html#a0649a6a511541799887cea656f28bb4c',1,'GenomicDataStreamLib::VariantInfo::size()']]],
-  ['standardize_5ftest_4',['standardize_test',['../export_8cpp.html#a7948cb70a34ad29b874afa09a0fd2558',1,'standardize_test(arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a62357b90027c8c7431e79c4955b63428',1,'standardize_test(arma::mat &amp;X, const bool &amp;center, const bool &amp;scale):&#160;export.cpp']]]
+  ['param_0',['Param',['../structgds_1_1_param.html',1,'gds::Param'],['../structgds_1_1_param.html#a53694d9da67ec6e0e5a5e4993858f915',1,'gds::Param::Param()'],['../structgds_1_1_param.html#adaa21655e8b80c7f850b79c68ff6b68a',1,'gds::Param::Param(const string &amp;file, const string &amp;field, string regionString=&quot;&quot;, const string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false, const int &amp;initCapacity=200, const bool &amp;permuteFeatureOrder=false, const int &amp;rndSeed=12345)']]],
+  ['param_1',['param',['../classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a',1,'gds::GenomicDataStream']]],
+  ['pos_2',['POS',['../classgds_1_1_variant_info.html#ab14ce9b79f6a06ea228606f90810f543',1,'gds::VariantInfo']]]
 ];
