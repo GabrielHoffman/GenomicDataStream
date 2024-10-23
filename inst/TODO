@@ -8,6 +8,9 @@
 - Use same file for VCF, BCF, BGEN
 	and confirm same results
 	- convert with plink2
+- Support from plink bed/bim/fam
+- Support from plink2 pgen/pvar/psam?
+
 how to handle ploidy >2 and PAR
 
 
