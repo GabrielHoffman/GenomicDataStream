@@ -12,7 +12,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 
-#ifdef USE_EIGEN
+#ifndef DISABLE_EIGEN
 #include <RcppEigen.h>
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
