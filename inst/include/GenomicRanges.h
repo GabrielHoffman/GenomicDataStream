@@ -40,9 +40,11 @@ class GenomicRanges {
 	/** Constructor from string of delimited chr:start-end,chr:start-end for delim "\t,\n"
 	 */
 	GenomicRanges( const string &regionString ){
+
 		vector<string> regions;
 		boost::split(regions, regionString, boost::is_any_of("\t,\n"));
 		initialize( regions );
+		
 	}
 
 	/** Accessors
@@ -60,13 +62,16 @@ class GenomicRanges {
 
 	void initialize(vector<string> regions){
 
-		// if only entry is ".", don't add any regions and return early
+		// if only entry is "." or "", 
+		// don't add any regions and return early
 		if( regions.size() == 1 && regions[0].compare(".") == 0) return;
+		if( regions.size() == 1 && regions[0].compare("") == 0) return;
 
 		// Remove duplicate entries, but preserve element order. 
 		removeDuplicates( regions );
 
 		vector<string> reg, pos;
+		long p0, p1;
 
 		for(auto const & it : regions){
 
@@ -77,8 +82,12 @@ class GenomicRanges {
 			// if only start give, set end to same value
 			if( pos.size() == 1 ) pos.push_back( pos[0] );
 
+			// convert strings to long int
+			p0 = atol(pos[0].c_str());
+			p1 = atol(pos[1].c_str());
+
 			// check region
-			if( (reg.size() != 2) || (pos.size() > 2) || (pos[1] < pos[2])){ 
+			if( (reg.size() != 2) || (pos.size() > 2) || (p1 < p0) || (p0<0) || (p1<0)){ 
 				throw logic_error("Not a valid genomic range: " + it);
 			}
 			if( !isOnlyDigits(pos[0]) || !isOnlyDigits(pos[1])){
@@ -87,8 +96,8 @@ class GenomicRanges {
 
 			// save regions
 			chrom.push_back( reg[0] );
-			start.push_back( stoul(pos[0]) );
-			end.push_back( stoul(pos[1]) );
+			start.push_back( p0 );
+			end.push_back( p1 );
 		}	
 	}
 };

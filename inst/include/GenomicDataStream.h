@@ -34,10 +34,11 @@ string samples = "-";   // no samples filter
 int chunkSize = 4;      // each chunk will read 4 variants
 
 // initialize parameters
-Param param(file, field, region, samples, chunkSize);
+Param param(file, region, samples, chunkSize);
+param.setField( field );
 
 // Initialise GenomicDataStream to read 
-// VCF/VCFGZ/BCF and BGEN with same interface
+// VCF/BCF and BGEN with same interface
 unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
 // declare DataChunk storing an Armadillo matrix for each chunk

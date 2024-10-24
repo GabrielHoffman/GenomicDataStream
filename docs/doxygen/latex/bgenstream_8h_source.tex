@@ -69,228 +69,239 @@
 \DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
 \DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{classgds_1_1bgenstream_ab40664aea50aad09deda363e014bff55}{bgenstream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})\ :\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{GenomicDataStream}}(\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})\ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ genomic\ regions}}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ gr(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}\ );}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ view\ and\ filter\ variants}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ view\ =\ construct\_view(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}},\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}\ +\ \textcolor{stringliteral}{"{}.bgi"{}},\ gr\ )\ ;}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ variants\ after\ filtering\ }}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ n\_variants\_total\ =\ view-\/>number\_of\_variants()\ ;}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filter\ samples}}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}.compare(\textcolor{stringliteral}{"{}-\/"{}})\ ==\ 0\ )\{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ get\_all\_samples(\ *view,\ \&number\_of\_samples,\ \&sampleNames,\ \&requestedSamplesByIndexInDataIndex\ )\ ;}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ subset\ of\ samples}}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ vector<string>\ requestedSamples;}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ boost::erase\_all(param.samples,\ "{}\ "{});}}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(requestedSamples,\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}},\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ get\_requested\_samples(\ *view,\ requestedSamples,\ \&number\_of\_samples,\ \&sampleNames,\ \&requestedSamplesByIndexInDataIndex\ )\ ;}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ vInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}(\ sampleNames\ );}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{classgds_1_1bgenstream_a2b96c26c4a4907a05987030d571d4b9e}{bgenstream}}()\ \{\}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classgds_1_1bgenstream_ab40664aea50aad09deda363e014bff55}{bgenstream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})\ :\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{GenomicDataStream}}(\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ genomic\ regions}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ gr(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}\ );}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ view\ and\ filter\ variants}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ view\ =\ construct\_view(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}},\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}\ +\ \textcolor{stringliteral}{"{}.bgi"{}},\ gr\ )\ ;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ variants\ after\ filtering\ }}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ n\_variants\_total\ =\ view-\/>number\_of\_variants()\ ;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filter\ samples}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}.compare(\textcolor{stringliteral}{"{}-\/"{}})\ ==\ 0\ )\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ get\_all\_samples(\ *view,\ \&number\_of\_samples,\ \&sampleNames,\ \&requestedSamplesByIndexInDataIndex\ )\ ;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ subset\ of\ samples}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ vector<string>\ requestedSamples;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ boost::erase\_all(param.samples,\ "{}\ "{});}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(requestedSamples,\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}},\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ get\_requested\_samples(\ *view,\ requestedSamples,\ \&number\_of\_samples,\ \&sampleNames,\ \&requestedSamplesByIndexInDataIndex\ )\ ;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ probabilities}}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 1e6\ *\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}\ /\ (double)\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double})\ *\ number\_of\_samples\ *\ max\_entries\_per\_sample);}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ probs.reserve(\ n\ );}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ dosage}}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ n\ =\ 1e6\ *\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}\ /\ (double)\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double})\ *\ number\_of\_samples);}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ matDosage.reserve(n);}
-\DoxyCodeLine{00114\ \ \ \ \ \}}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{classgds_1_1bgenstream_a53ab520737910fda72d86a38e96b324a}{\string~bgenstream}}()\{}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ vInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ vInfo;}
-\DoxyCodeLine{00120\ \ \ \ \ \}}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1bgenstream_a6bf542e3fa9458c45a97e30bb4692ef9}{n\_samples}}()\{}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ number\_of\_samples;}
-\DoxyCodeLine{00126\ \ \ \ \ \}}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_ab022147332194e68b37e316a6e30f194}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat,\ VariantInfo>}}\ \&\ chunk)\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ vInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}(\ sampleNames\ );}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ probabilities}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 1e6\ *\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}\ /\ (double)\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double})\ *\ number\_of\_samples\ *\ max\_entries\_per\_sample);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ probs.reserve(\ n\ );}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ dosage}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ n\ =\ 1e6\ *\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}\ /\ (double)\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double})\ *\ number\_of\_samples);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ matDosage.reserve(n);}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{classgds_1_1bgenstream_a9d7ae93b053703d19963111dd6453d39}{\string~bgenstream}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ vInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ vInfo;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1bgenstream_a228d27dbb4127265cf41510b0cc4edc0}{n\_samples}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ number\_of\_samples;}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
 \DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_ad8f523f8824ffef9d54f4deaf6839af5}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat,\ VariantInfo>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
 \DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat,\ VariantInfo>}}(\ M,\ *vInfo\ );}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
 \DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00138\ \ \ \ \ \}}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a1ffe087a138f347b18f4c92b013a7d11}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat,\ VariantInfo>}}\ \&\ chunk)\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat,\ VariantInfo>}}(\ M,\ *vInfo\ );}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
 \DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_abec5fb6503f19951b0491c40159f30e3}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat,\ VariantInfo>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat,\ VariantInfo>}}(\ arma::sp\_mat(M),\ *vInfo\ );}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
 \DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00150\ \ \ \ \ \}}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}}
-\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a1dfd5b441036f75d9d9f3ff4bb4765bf}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd,\ VariantInfo>}}\ \&\ chunk)\{}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}());}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat,\ VariantInfo>}}(\ arma::sp\_mat(M),\ *vInfo\ );}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a134f520a939b159416e115e3a52ef39e}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd,\ VariantInfo>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
 \DoxyCodeLine{00159\ }
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd,\ VariantInfo>}}(\ M,\ *vInfo\ );}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}());}
 \DoxyCodeLine{00161\ }
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00163\ \ \ \ \ \}}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_aa89bb71e620ec959c9fcb5c748c8b0f9}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd,\ VariantInfo>}}(\ M,\ *vInfo\ );}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ }
 \DoxyCodeLine{00167\ }
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00170\ }
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}());}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a873d35772fe0394d9036b48348b94b6f}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
 \DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::SparseMatrix<double>}},\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>(\ M.sparseView(),\ *vInfo\ );}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}());}
 \DoxyCodeLine{00174\ }
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00176\ \ \ \ \ \}}
-\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00178\ }
-\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}}
-\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a92f77905b76bb1422dcdaeb2e88222b5}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix,\ VariantInfo>}}\ \&\ chunk)\{}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ Rcpp::NumericMatrix\ M(number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}(),\ matDosage.data());\ }
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ colnames(M)\ =\ Rcpp::wrap(\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a1835605a0f135eb81f721dddb949941e}{ID}}\ );}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ rownames(M)\ =\ Rcpp::wrap(\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_ad77368d79bf9efcaf87fd004c7a41efa}{sampleNames}}\ );\ \ }
-\DoxyCodeLine{00188\ }
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix,\ VariantInfo>}}(\ M,\ *vInfo\ );}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::SparseMatrix<double>}},\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>(\ M.sparseView(),\ *vInfo\ );}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_ae638d422ede105778f03a9d9ce0b0054}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix,\ VariantInfo>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ Rcpp::NumericMatrix\ M(number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3c74aebc1cdc2dea834b2772b87c19d2}{size}}(),\ matDosage.data());\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ colnames(M)\ =\ Rcpp::wrap(\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a1835605a0f135eb81f721dddb949941e}{ID}}\ );}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ rownames(M)\ =\ Rcpp::wrap(\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_ad77368d79bf9efcaf87fd004c7a41efa}{sampleNames}}\ );\ \ }
 \DoxyCodeLine{00190\ }
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00192\ \ \ \ \ \}}
-\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00194\ }
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a2f1164bc4b4538aead8d10ac81312616}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\{}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00200\ }
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<vector<double>}},\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>(\ matDosage,\ *vInfo\ );}
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00204\ \ \ \ \ \}}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00207\ \ \ \ \ View::UniquePtr\ view\ =\ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ number\_of\_samples\ =\ 0;}
-\DoxyCodeLine{00209\ \ \ \ \ vector<string>\ sampleNames;}
-\DoxyCodeLine{00210\ \ \ \ \ map<size\_t,\ size\_t>\ requestedSamplesByIndexInDataIndex;}
-\DoxyCodeLine{00211\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *vInfo\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00212\ \ \ \ \ vector<double>\ probs;\ \ \ }
-\DoxyCodeLine{00213\ \ \ \ \ vector<double>\ matDosage;}
-\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_entries\_per\_sample\ =\ 3;}
-\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_variants\_total;\ \ \ }
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{int}\ variant\_idx\_start\ =\ 0;}
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{\ }
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ data,\ but\ keep\ allocated\ capacity}}
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ matDosage.\mbox{\hyperlink{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2}{clear}}();}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2}{clear}}();}
-\DoxyCodeLine{00223\ }
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ variants\ in\ this\ chunk}}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chunkSize\ =\ min(\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}},\ n\_variants\_total\ -\/\ variant\_idx\_start);}
-\DoxyCodeLine{00226\ }
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ no\ variants\ remain,\ return\ false}}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ chunkSize\ ==\ 0)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00229\ }
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ vector<int>\ data\_dimension;}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ data\_dimension.push\_back(chunkSize);}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ data\_dimension.push\_back(number\_of\_samples);}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ data\_dimension.push\_back(max\_entries\_per\_sample);}
-\DoxyCodeLine{00234\ }
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ vector<int>\ ploidy\_dimension;}
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ ploidy\_dimension.push\_back(\ chunkSize\ )\ ;}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ ploidy\_dimension.push\_back(\ number\_of\_samples\ )\ ;}
-\DoxyCodeLine{00238\ }
-\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ vector<int>\ ploidy(ploidy\_dimension[0]*ploidy\_dimension[1],\ numeric\_limits<int>::quiet\_NaN());}
-\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ vector<bool>\ phased(\ chunkSize,\ numeric\_limits<bool>::quiet\_NaN()\ )\ ;}
-\DoxyCodeLine{00241\ }
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ SNPID,\ rsid,\ chromosome;}
-\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ genfile::bgen::uint32\_t\ position;}
-\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ vector<string>\ alleles;}
-\DoxyCodeLine{00245\ }
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ through\ variants}}
-\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k\ =\ 0;}
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{size\_t}\ j\ =\ variant\_idx\_start;\ j\ <\ variant\_idx\_start\ +\ chunkSize;\ j++\ )\ \{}
-\DoxyCodeLine{00249\ }
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ variant\ information}}
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ view-\/>read\_variant(\ \&SNPID,\ \&rsid,\ \&chromosome,\ \&position,\ \&alleles\ )\ ;}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ variant\ info}}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3d1b40360d6864731d9fd6cf675a3df8}{addVariant}}(chromosome,\ position,\ rsid,\ alleles[0],\ alleles[1]\ );}
-\DoxyCodeLine{00255\ }
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ genotype\ probabilities\ into\ DataSetter\ object}}
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ DataSetter\ setter(}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&ploidy,\ ploidy\_dimension,}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&probs,\ data\_dimension,}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&phased,}
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k++,}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ requestedSamplesByIndexInDataIndex}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ view-\/>read\_genotype\_data\_block(\ setter\ )\ ;\ \ \ \ \ \ }
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increament\ starting\ position\ to\ beginning\ of\ next\ chunk}}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ variant\_idx\_start\ +=\ chunkSize;}
-\DoxyCodeLine{00269\ }
-\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ dosage\ values\ stored\ in\ vector<double>}}
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00272\ }
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ probs\ to\ create\ Cube\ }}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ cube\ C(probs.data(),\ chunkSize,\ number\_of\_samples,\ max\_entries\_per\_sample,\ \textcolor{keyword}{true},\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00275\ \ \ \ \ }
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ vec\ dsg\ =\ \{0,1,2\};\ \textcolor{comment}{//\ weight\ alleles\ by\ dosage}}
-\DoxyCodeLine{00277\ }
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosage\ from\ Cube}}
-\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ results\ of\ each\ variant\ to\ vector<double>}}
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<chunkSize;\ j++)\{}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosages}}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ vec\ v\ =\ C.row\_as\_mat(j).t()\ *\ dsg;}
-\DoxyCodeLine{00283\ }
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ replace\ missing\ with\ mean}}
-\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}\ )\ nanToMean(\ v\ );\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00286\ }
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ vector\ in\ matDosage}}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(matDosage.data()\ +\ number\_of\_samples*j,\ v.memptr(),\ number\_of\_samples*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00290\ }
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00292\ \ \ \ \ \}}
-\DoxyCodeLine{00293\ \};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix,\ VariantInfo>}}(\ M,\ *vInfo\ );}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00194\ \ \ \ \ \}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1bgenstream_a87fb2dc39a7be62f5f2de9c44869b876}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ matDosage\ and\ vInfo\ for\ the\ chunk}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<vector<double>}},\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>(\ matDosage,\ *vInfo\ );}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00205\ \ \ \ \ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00208\ \ \ \ \ View::UniquePtr\ view\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ number\_of\_samples\ =\ 0;}
+\DoxyCodeLine{00210\ \ \ \ \ vector<string>\ sampleNames;}
+\DoxyCodeLine{00211\ \ \ \ \ map<size\_t,\ size\_t>\ requestedSamplesByIndexInDataIndex;}
+\DoxyCodeLine{00212\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *vInfo\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00213\ \ \ \ \ vector<double>\ probs;\ \ \ }
+\DoxyCodeLine{00214\ \ \ \ \ vector<double>\ matDosage;}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_entries\_per\_sample\ =\ 4;}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_variants\_total;\ \ \ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{int}\ variant\_idx\_start\ =\ 0;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{\ }
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ data,\ but\ keep\ allocated\ capacity}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ matDosage.\mbox{\hyperlink{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2}{clear}}();}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2}{clear}}();}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ variants\ in\ this\ chunk}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chunkSize\ =\ min(\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}},\ n\_variants\_total\ -\/\ variant\_idx\_start);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ no\ variants\ remain,\ return\ false}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ chunkSize\ ==\ 0)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ vector<int>\ data\_dimension;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ data\_dimension.push\_back(chunkSize);}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ data\_dimension.push\_back(number\_of\_samples);}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ data\_dimension.push\_back(max\_entries\_per\_sample);}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ vector<int>\ ploidy\_dimension;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ ploidy\_dimension.push\_back(\ chunkSize\ )\ ;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ ploidy\_dimension.push\_back(\ number\_of\_samples\ )\ ;}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ vector<int>\ ploidy(ploidy\_dimension[0]*ploidy\_dimension[1],\ numeric\_limits<int>::quiet\_NaN());}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ vector<bool>\ phased(\ chunkSize,\ numeric\_limits<bool>::quiet\_NaN()\ )\ ;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ SNPID,\ rsid,\ chromosome;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ genfile::bgen::uint32\_t\ position;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ vector<string>\ alleles;}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ through\ variants}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k\ =\ 0;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{size\_t}\ j\ =\ variant\_idx\_start;\ j\ <\ variant\_idx\_start\ +\ chunkSize;\ j++\ )\ \{}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ variant\ information}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ view-\/>read\_variant(\ \&SNPID,\ \&rsid,\ \&chromosome,\ \&position,\ \&alleles\ )\ ;}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ variant\ info}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a3d1b40360d6864731d9fd6cf675a3df8}{addVariant}}(chromosome,\ position,\ rsid,\ alleles[0],\ alleles[1]\ );}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ genotype\ probabilities\ into\ DataSetter\ object}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ DataSetter\ setter(}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&ploidy,\ ploidy\_dimension,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&probs,\ data\_dimension,}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&phased,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k++,}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ requestedSamplesByIndexInDataIndex}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ view-\/>read\_genotype\_data\_block(\ setter\ )\ ;\ \ \ \ \ \ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increament\ starting\ position\ to\ beginning\ of\ next\ chunk}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ variant\_idx\_start\ +=\ chunkSize;}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ dosage\ values\ stored\ in\ vector<double>}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ probs\ to\ create\ Cube\ }}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ cube\ C(probs.data(),\ chunkSize,\ number\_of\_samples,\ max\_entries\_per\_sample,\ \textcolor{keyword}{true},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00276\ \ \ \ \ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ weight\ alleles\ by\ dosage}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ With\ max\_entries\_per\_sample\ =\ 4,\ the\ unphased\ coding\ is\ }}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ AA/AB/BB/NULL\ so\ use\ weights\ 0/1/2/0\ to\ conver\ to\ dosage}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ the\ last\ entry\ doesn't\ encode\ valid\ information}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ When\ phased,\ the\ coding\ is\ [a1\ a2]\ /\ [a1\ a2]}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ so\ use\ weights\ 0/1/0/1}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ vec\ w\_unph\ =\ \{0,1,2,0\};\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ vec\ w\_ph\ =\ \{0,1,0,1\};\ }
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ vec\ w,\ dsg;}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosage\ from\ Cube}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ results\ of\ each\ variant\ to\ vector<double>}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<chunkSize;\ j++)\{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosages\ with\ weights\ depend\ on\ phasing}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ phased[j]\ ?\ w\_ph\ :\ w\_unph;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ dsg\ =\ C.row\_as\_mat(j).t()\ *\ w;}
 \DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ }
-\DoxyCodeLine{00296\ \textcolor{comment}{//\ Using\ Tmp\ matrix}}
-\DoxyCodeLine{00297\ \textcolor{comment}{//\ mat\ M(number\_of\_samples,\ chunkSize);}}
-\DoxyCodeLine{00298\ \textcolor{comment}{//\ for(int\ j=0;\ j<chunkSize;\ j++)\{}}
-\DoxyCodeLine{00299\ \textcolor{comment}{//\ \ M.col(j)\ =\ C.row\_as\_mat(j).t()\ *\ dsg;}}
-\DoxyCodeLine{00300\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00301\ \textcolor{comment}{//\ chunk\ =\ DataChunk<arma::mat,\ VariantInfo>(\ M,\ *vInfo\ );}}
-\DoxyCodeLine{00302\ }
-\DoxyCodeLine{00303\ }
-\DoxyCodeLine{00304\ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ replace\ missing\ with\ mean}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}\ )\ nanToMean(\ dsg\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ vector\ in\ matDosage}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(matDosage.data()\ +\ number\_of\_samples*j,\ dsg.memptr(),\ number\_of\_samples*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \};}
 \DoxyCodeLine{00305\ }
-\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ Using\ Tmp\ matrix}}
+\DoxyCodeLine{00308\ \textcolor{comment}{//\ mat\ M(number\_of\_samples,\ chunkSize);}}
+\DoxyCodeLine{00309\ \textcolor{comment}{//\ for(int\ j=0;\ j<chunkSize;\ j++)\{}}
+\DoxyCodeLine{00310\ \textcolor{comment}{//\ \ M.col(j)\ =\ C.row\_as\_mat(j).t()\ *\ dsg;}}
+\DoxyCodeLine{00311\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00312\ \textcolor{comment}{//\ chunk\ =\ DataChunk<arma::mat,\ VariantInfo>(\ M,\ *vInfo\ );}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

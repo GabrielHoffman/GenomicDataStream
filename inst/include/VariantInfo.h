@@ -41,8 +41,8 @@ class VariantInfo {
         CHROM.push_back( chr );
         POS.push_back( pos );
         ID.push_back( id );
-        REF.push_back( ref );
-        ALT.push_back( alt );
+        A1.push_back( ref );
+        A2.push_back( alt );
     }
 
     /** number of variants
@@ -67,13 +67,13 @@ class VariantInfo {
                         vInfo.ID.begin(),
                         vInfo.ID.end());
 
-    	REF.insert(REF.end(),
-                        vInfo.REF.begin(),
-                        vInfo.REF.end());
+    	A1.insert(A1.end(),
+                        vInfo.A1.begin(),
+                        vInfo.A1.end());
 
-    	ALT.insert(ALT.end(),
-                        vInfo.ALT.begin(),
-                        vInfo.ALT.end());
+    	A2.insert(A2.end(),
+                        vInfo.A2.begin(),
+                        vInfo.A2.end());
     }
 
     /** Clear vectors storing variant information, but leave sampleNames
@@ -82,8 +82,8 @@ class VariantInfo {
         CHROM.clear();
         POS.clear();
         ID.clear();
-        REF.clear();
-        ALT.clear();
+        A1.clear();
+        A2.clear();
     }
 
     /** Add information about statistical test for each variant.
@@ -99,7 +99,7 @@ class VariantInfo {
     vector<string> sampleNames;
     vector<string> CHROM;
     vector<int64_t> POS;
-    vector<string> ID, REF, ALT;
+    vector<string> ID, A1, A2;
 };
 
 }

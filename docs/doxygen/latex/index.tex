@@ -25,10 +25,11 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ chunkSize\ =\ 4;\ \ \ \ \ \ \textcolor{comment}{//\ each\ chunk\ will\ read\ 4\ variants}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ initialize\ parameters}}
-\DoxyCodeLine{\mbox{\hyperlink{structgds_1_1_param}{Param}}\ param(file,\ field,\ region,\ samples,\ chunkSize);}
+\DoxyCodeLine{\mbox{\hyperlink{structgds_1_1_param}{Param}}\ param(file,\ region,\ samples,\ chunkSize);}
+\DoxyCodeLine{param.setField(\ field\ );}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Initialise\ GenomicDataStream\ to\ read\ }}
-\DoxyCodeLine{\textcolor{comment}{//\ VCF/VCFGZ/BCF\ and\ BGEN\ with\ same\ interface}}
+\DoxyCodeLine{\textcolor{comment}{//\ VCF/BCF\ and\ BGEN\ with\ same\ interface}}
 \DoxyCodeLine{unique\_ptr<GenomicDataStream>\ gdsStream\ =\ createFileView(\ param\ );}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ declare\ DataChunk\ storing\ an\ Armadillo\ matrix\ for\ each\ chunk}}

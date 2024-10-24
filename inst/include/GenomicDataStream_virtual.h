@@ -65,7 +65,6 @@ struct Param {
 
 	/** constructor
 	 * @param file .vcf, .vcf.gz or .bcf file with tabix index
-	 * @param field `"GT"` for genotype strings, `"DS"` for dosage, or another other field stored as an integer or float.  `"GT"` is the only string type supported
 	 * @param regionString target in the format `"chr2:1-12345"`.  Multiple regions can be separated by one of `,\n\t`, for example `"chr2:1-12345, chr3:1000-8000"`. Setting region to `""` includes all variants
 	 * @param samples string of comma separated sample IDs to extract: "ID1,ID2,ID3"
 	 * @param chunkSize number of variants to return per chunk
@@ -73,18 +72,19 @@ struct Param {
 	 * @param initCapacity initial capacity of temporary vector to avoid re-alloc on insert.  Size is in Mb.
 	 * @param permuteFeatureOrder default is `false`. If `true` permute regions in `regionString` to avoid linkage disequilibrium betweeen nearby regions 
 	 * @param rndSeed random seed for permutation
+	 * 
+	 * Note that field must be set separately for VCF/BCF:
+	 * field: `"GT"` for genotype strings, `"DS"` for dosage, or another other field stored as an integer or float.  `"GT"` is the only string type supported
 	*/
 	Param( 	const string &file,
-			const string &field,
 			string regionString = "",
 			const string &samples = "-",
-			const int &chunkSize = std::numeric_limits<int>::max(),
+			const int &chunkSize = numeric_limits<int>::max(),
 			const bool &missingToMean = false,
 			const int &initCapacity = 200,
 			const bool &permuteFeatureOrder = false,
 			const int &rndSeed = 12345) :
 		file(file), 
-		field(field), 
 		samples(samples), 
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
@@ -105,8 +105,12 @@ struct Param {
     	}
 	}
 
+	void setField( const string &field_){
+		field = field_;
+	}
+
 	string file;
-	string field;
+	string field = "";
 	vector<string> regions;
 	string samples;
 	int chunkSize;
@@ -120,11 +124,11 @@ struct Param {
 class GenomicDataStream {
 	public: 
 
-	GenomicDataStream(){}
+	GenomicDataStream() {}
 
 	/** Constructor
 	 */
-	GenomicDataStream( const Param & param ): param(param) {}
+	GenomicDataStream( const Param & param ) : param(param) {}
 
 	/** destructor
 	 */
@@ -132,42 +136,36 @@ class GenomicDataStream {
 	
 	/** Get number of columns in data matrix
 	 */ 
-	virtual int n_samples(){ return 0;}
+	virtual int n_samples() = 0;
 
 	/** Get next chunk of _features_ as arma::mat
 	 */ 
-	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){return false;
-	}
+	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk) = 0;
 
 	/** Get next chunk of _features_ as arma::sp_mat
 	 */ 
-	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){return false;
-	}
+	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk) = 0;
 
 	#ifndef DISABLE_EIGEN
-	/** Get next chunk of _features_ as Eigen::Map<Eigen::MatrixXd>
+	/** Get next chunk of _features_ as Eigen::MatrixXd
 	 */ 
-	virtual bool getNextChunk( DataChunk<Eigen::Map<Eigen::MatrixXd>, VariantInfo> & chunk){return false;
-	}
+	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk) = 0;
+
 	/** Get next chunk of _features_ as SparseMatrix<double>
 	 */ 
-	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){return false;
-	}
+	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk) = 0;
 	#endif
 
 	#ifndef DISABLE_RCPP
 	/** Get next chunk of _features_ as Rcpp::NumericMatrix
-	 * 
 	 */ 
-	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){return false;
-	}
+	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk)  = 0;
 	#endif
 
 	/** Get next chunk of _features_ as vector<double>
 	 * 
 	 */ 
-	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){return false;
-	}
+	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk) = 0;
 
 	protected:
 	Param param;

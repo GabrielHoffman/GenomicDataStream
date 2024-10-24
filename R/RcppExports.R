@@ -33,6 +33,10 @@ test_bgen <- function(file, field, region = "", samples = "-", chunkSize, missin
     .Call('_GenomicDataStream_test_bgen', PACKAGE = 'GenomicDataStream', file, field, region, samples, chunkSize, missingToMean)
 }
 
+getDosage <- function(file, field, region = "", samples = "-", chunkSize, missingToMean = FALSE) {
+    .Call('_GenomicDataStream_getDosage', PACKAGE = 'GenomicDataStream', file, field, region, samples, chunkSize, missingToMean)
+}
+
 colSums_test <- function(X) {
     .Call('_GenomicDataStream_colSums_test', PACKAGE = 'GenomicDataStream', X)
 }

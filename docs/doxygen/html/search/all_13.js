@@ -5,6 +5,6 @@ var searchData=
   ['varianttostring_2',['variantToString',['../classgds_1_1vcfstream.html#a48cab5666912231e906b13c3dc0b7288',1,'gds::vcfstream']]],
   ['vcf_3',['VCF',['../namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91',1,'gds']]],
   ['vcfgz_4',['VCFGZ',['../namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c',1,'gds']]],
-  ['vcfstream_5',['vcfstream',['../classgds_1_1vcfstream.html',1,'gds::vcfstream'],['../classgds_1_1vcfstream.html#a3cfa8c09bc2c259f912cb9a4266c00c7',1,'gds::vcfstream::vcfstream()']]],
+  ['vcfstream_5',['vcfstream',['../classgds_1_1vcfstream.html',1,'gds::vcfstream'],['../classgds_1_1vcfstream.html#a9319c080d7656a4da7470e99e0d0b027',1,'gds::vcfstream::vcfstream()'],['../classgds_1_1vcfstream.html#a3cfa8c09bc2c259f912cb9a4266c00c7',1,'gds::vcfstream::vcfstream(const Param &amp;param)']]],
   ['vcfstream_2eh_6',['vcfstream.h',['../vcfstream_8h.html',1,'']]]
 ];

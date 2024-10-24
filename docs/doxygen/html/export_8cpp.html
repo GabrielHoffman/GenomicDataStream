@@ -125,14 +125,11 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;RcppArmadillo.h&gt;</code><br />
+<code>#include &lt;RcppEigen.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="_genomic_data_stream_8h_source.html">GenomicDataStream.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af6b46fe745e9b79a985ea29a2238e2f0" id="r_af6b46fe745e9b79a985ea29a2238e2f0"><td class="memItemLeft" align="right" valign="top">arma::vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6b46fe745e9b79a985ea29a2238e2f0">test_GT</a> (const std::string &amp;vcffile, const std::string &amp;region)</td></tr>
-<tr class="separator:af6b46fe745e9b79a985ea29a2238e2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa480f499e1d9e5870f3aa5abc5c675e" id="r_aaa480f499e1d9e5870f3aa5abc5c675e"><td class="memItemLeft" align="right" valign="top">arma::vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa480f499e1d9e5870f3aa5abc5c675e">test_DS</a> (const std::string &amp;vcffile, const std::string &amp;region)</td></tr>
-<tr class="separator:aaa480f499e1d9e5870f3aa5abc5c675e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92c4b4101778c8258e06efc528ccc97e" id="r_a92c4b4101778c8258e06efc528ccc97e"><td class="memItemLeft" align="right" valign="top">DataFrame&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92c4b4101778c8258e06efc528ccc97e">toDF</a> (const <a class="el" href="classgds_1_1_variant_info.html">VariantInfo</a> &amp;vInfo)</td></tr>
 <tr class="separator:a92c4b4101778c8258e06efc528ccc97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe3666d76d365548df8bd7997ef992c5" id="r_afe3666d76d365548df8bd7997ef992c5"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe3666d76d365548df8bd7997ef992c5">extractVcf</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
@@ -145,8 +142,8 @@ Functions</h2></td></tr>
 <tr class="separator:add8bc8889fbfeaccc7a5d946b75b7816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87314c379514dfbcbf0011cc3387ff6f" id="r_a87314c379514dfbcbf0011cc3387ff6f"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87314c379514dfbcbf0011cc3387ff6f">extractVcf_chunks</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
 <tr class="separator:a87314c379514dfbcbf0011cc3387ff6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac26cad02f8e21a11c82980634e0de5d" id="r_aac26cad02f8e21a11c82980634e0de5d"><td class="memItemLeft" align="right" valign="top">Rcpp::List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac26cad02f8e21a11c82980634e0de5d">test_bgen</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false)</td></tr>
-<tr class="separator:aac26cad02f8e21a11c82980634e0de5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1930783f5731b40372ed400d81283748" id="r_a1930783f5731b40372ed400d81283748"><td class="memItemLeft" align="right" valign="top">Rcpp::List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1930783f5731b40372ed400d81283748">getDosage</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false)</td></tr>
+<tr class="separator:a1930783f5731b40372ed400d81283748"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fee884670a74f3630ba041bcf13a0e9" id="r_a7fee884670a74f3630ba041bcf13a0e9"><td class="memItemLeft" align="right" valign="top">arma::vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fee884670a74f3630ba041bcf13a0e9">colSums_test</a> (const arma::mat &amp;X)</td></tr>
 <tr class="separator:a7fee884670a74f3630ba041bcf13a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7948cb70a34ad29b874afa09a0fd2558" id="r_a7948cb70a34ad29b874afa09a0fd2558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7948cb70a34ad29b874afa09a0fd2558">standardize_test</a> (arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true)</td></tr>
@@ -159,8 +156,6 @@ Functions</h2></td></tr>
 <tr class="separator:aa169b4bc2def138b9d9f1b7eb0843747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab61798755e9c0d0cb8648f6ad25b4ca1" id="r_ab61798755e9c0d0cb8648f6ad25b4ca1"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab61798755e9c0d0cb8648f6ad25b4ca1">fastLM</a> (const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
 <tr class="separator:ab61798755e9c0d0cb8648f6ad25b4ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a964c709c881984d4e784322ded39a9ee" id="r_a964c709c881984d4e784322ded39a9ee"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a964c709c881984d4e784322ded39a9ee">test_bgen2</a> (const arma::colvec y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=std::numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=true)</td></tr>
-<tr class="separator:a964c709c881984d4e784322ded39a9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="aa169b4bc2def138b9d9f1b7eb0843747" name="aa169b4bc2def138b9d9f1b7eb0843747"></a>
@@ -422,6 +417,47 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a1930783f5731b40372ed400d81283748" name="a1930783f5731b40372ed400d81283748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1930783f5731b40372ed400d81283748">&#9670;&#160;</a></span>getDosage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::List getDosage </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>field</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>samples</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;-&quot;</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::numeric_limits&lt;int&gt;::max()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af49b4212a1550a79b853b3e13c90ecd1" name="af49b4212a1550a79b853b3e13c90ecd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af49b4212a1550a79b853b3e13c90ecd1">&#9670;&#160;</a></span>linearRegression()</h2>
 
@@ -494,135 +530,6 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>scale</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aac26cad02f8e21a11c82980634e0de5d" name="aac26cad02f8e21a11c82980634e0de5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac26cad02f8e21a11c82980634e0de5d">&#9670;&#160;</a></span>test_bgen()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Rcpp::List test_bgen </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>field</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>samples</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;-&quot;</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::numeric_limits&lt;int&gt;::max()</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a964c709c881984d4e784322ded39a9ee" name="a964c709c881984d4e784322ded39a9ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a964c709c881984d4e784322ded39a9ee">&#9670;&#160;</a></span>test_bgen2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">List test_bgen2 </td>
-          <td>(</td>
-          <td class="paramtype">const arma::colvec</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>field</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>samples</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;-&quot;</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::numeric_limits&lt;int&gt;::max()</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aaa480f499e1d9e5870f3aa5abc5c675e" name="aaa480f499e1d9e5870f3aa5abc5c675e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa480f499e1d9e5870f3aa5abc5c675e">&#9670;&#160;</a></span>test_DS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">arma::vec test_DS </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>vcffile</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af6b46fe745e9b79a985ea29a2238e2f0" name="af6b46fe745e9b79a985ea29a2238e2f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6b46fe745e9b79a985ea29a2238e2f0">&#9670;&#160;</a></span>test_GT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">arma::vec test_GT </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>vcffile</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

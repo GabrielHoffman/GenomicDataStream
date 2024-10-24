@@ -9,14 +9,16 @@
 \item 
 \mbox{\hyperlink{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}{Param}} ()
 \item 
-\mbox{\hyperlink{structgds_1_1_param_adaa21655e8b80c7f850b79c68ff6b68a}{Param}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}, const string \&\mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}}, string region\+String="{}"{}, const string \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}="{}-\/"{}, const int \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunk\+Size}}=std\+::numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missing\+To\+Mean}}=false, const int \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}=200, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
+\mbox{\hyperlink{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}{Param}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}, string region\+String="{}"{}, const string \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}="{}-\/"{}, const int \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunk\+Size}}=numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missing\+To\+Mean}}=false, const int \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}=200, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
+\item 
+void \mbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{set\+Field}} (const string \&field\+\_\+)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 string \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}
 \item 
-string \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}}
+string \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}} = "{}"{}
 \item 
 vector$<$ string $>$ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}
 \item 
@@ -40,17 +42,15 @@ Store parameters to pass to \doxylink{classgds_1_1_genomic_data_stream}{Genomic\
 {\footnotesize\ttfamily \label{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915} 
 gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{structgds_1_1_param_adaa21655e8b80c7f850b79c68ff6b68a}\index{gds::Param@{gds::Param}!Param@{Param}}
+\Hypertarget{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}\index{gds::Param@{gds::Param}!Param@{Param}}
 \index{Param@{Param}!gds::Param@{gds::Param}}
 \doxysubsubsection{\texorpdfstring{Param()}{Param()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{structgds_1_1_param_adaa21655e8b80c7f850b79c68ff6b68a} 
-gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{const string \&}]{field}{, }\item[{string}]{region\+String}{ = {\ttfamily "{}"{}}, }\item[{const string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily std\+:\+:numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}, }\item[{const int \&}]{init\+Capacity}{ = {\ttfamily 200}, }\item[{const bool \&}]{permute\+Feature\+Order}{ = {\ttfamily false}, }\item[{const int \&}]{rnd\+Seed}{ = {\ttfamily 12345}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d} 
+gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string}]{region\+String}{ = {\ttfamily "{}"{}}, }\item[{const string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}, }\item[{const int \&}]{init\+Capacity}{ = {\ttfamily 200}, }\item[{const bool \&}]{permute\+Feature\+Order}{ = {\ttfamily false}, }\item[{const int \&}]{rnd\+Seed}{ = {\ttfamily 12345}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 constructor 
 \begin{DoxyParams}{Parameters}
 {\em file} & .vcf, .vcf.\+gz or .bcf file with tabix index \\
-\hline
-{\em field} & {\ttfamily "{}\+GT"{}} for genotype strings, {\ttfamily "{}\+DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}\+GT"{}} is the only string type supported \\
 \hline
 {\em region\+String} & target in the format {\ttfamily "{}chr2\+:1-\/12345"{}}. Multiple regions can be separated by one of {\ttfamily ,\textbackslash{}n\textbackslash{}t}, for example {\ttfamily "{}chr2\+:1-\/12345, chr3\+:1000-\/8000"{}}. Setting region to {\ttfamily "{}"{}} includes all variants \\
 \hline
@@ -64,9 +64,18 @@ constructor
 \hline
 {\em permute\+Feature\+Order} & default is {\ttfamily false}. If {\ttfamily true} permute regions in {\ttfamily region\+String} to avoid linkage disequilibrium betweeen nearby regions \\
 \hline
-{\em rnd\+Seed} & random seed for permutation \\
+{\em rnd\+Seed} & random seed for permutation\\
 \hline
 \end{DoxyParams}
+Note that field must be set separately for VCF/\+BCF\+: field\+: {\ttfamily "{}\+GT"{}} for genotype strings, {\ttfamily "{}\+DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}\+GT"{}} is the only string type supported 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}\index{gds::Param@{gds::Param}!setField@{setField}}
+\index{setField@{setField}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{setField()}{setField()}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d} 
+void gds\+::\+Param\+::set\+Field (\begin{DoxyParamCaption}\item[{const string \&}]{field\+\_\+}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 
 
 \doxysubsection{Member Data Documentation}
@@ -80,7 +89,7 @@ int gds\+::\+Param\+::chunk\+Size}
 \index{field@{field}!gds::Param@{gds::Param}}
 \doxysubsubsection{\texorpdfstring{field}{field}}
 {\footnotesize\ttfamily \label{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6} 
-string gds\+::\+Param\+::field}
+string gds\+::\+Param\+::field = "{}"{}}
 
 \Hypertarget{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}\index{gds::Param@{gds::Param}!file@{file}}
 \index{file@{file}!gds::Param@{gds::Param}}

@@ -133,14 +133,16 @@ $(function(){ initResizable(false); });
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a53694d9da67ec6e0e5a5e4993858f915" id="r_a53694d9da67ec6e0e5a5e4993858f915"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53694d9da67ec6e0e5a5e4993858f915">Param</a> ()</td></tr>
 <tr class="separator:a53694d9da67ec6e0e5a5e4993858f915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaa21655e8b80c7f850b79c68ff6b68a" id="r_adaa21655e8b80c7f850b79c68ff6b68a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaa21655e8b80c7f850b79c68ff6b68a">Param</a> (const string &amp;<a class="el" href="#ada92631b1e8dfaec19d59cb4225540c5">file</a>, const string &amp;<a class="el" href="#aad1725c672bbad45c1ea52f6c9593da6">field</a>, string regionString=&quot;&quot;, const string &amp;<a class="el" href="#a73e7ac933fc1c6305261e9179eac9732">samples</a>=&quot;-&quot;, const int &amp;<a class="el" href="#ae82660852c54b3b6ac70d7aea6a37824">chunkSize</a>=std::numeric_limits&lt; int &gt;::max(), const bool &amp;<a class="el" href="#af5eae8c29ee634c69c59e5f76d8df801">missingToMean</a>=false, const int &amp;<a class="el" href="#a3cb8f5dccbb7b7e45fc04e290b133c26">initCapacity</a>=200, const bool &amp;permuteFeatureOrder=false, const int &amp;rndSeed=12345)</td></tr>
-<tr class="separator:adaa21655e8b80c7f850b79c68ff6b68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6b37ea87807ebdb47ad85d2d7f947d" id="r_a2c6b37ea87807ebdb47ad85d2d7f947d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c6b37ea87807ebdb47ad85d2d7f947d">Param</a> (const string &amp;<a class="el" href="#ada92631b1e8dfaec19d59cb4225540c5">file</a>, string regionString=&quot;&quot;, const string &amp;<a class="el" href="#a73e7ac933fc1c6305261e9179eac9732">samples</a>=&quot;-&quot;, const int &amp;<a class="el" href="#ae82660852c54b3b6ac70d7aea6a37824">chunkSize</a>=numeric_limits&lt; int &gt;::max(), const bool &amp;<a class="el" href="#af5eae8c29ee634c69c59e5f76d8df801">missingToMean</a>=false, const int &amp;<a class="el" href="#a3cb8f5dccbb7b7e45fc04e290b133c26">initCapacity</a>=200, const bool &amp;permuteFeatureOrder=false, const int &amp;rndSeed=12345)</td></tr>
+<tr class="separator:a2c6b37ea87807ebdb47ad85d2d7f947d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bedb8b7bc80339cdedb98066dbd157d" id="r_a0bedb8b7bc80339cdedb98066dbd157d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bedb8b7bc80339cdedb98066dbd157d">setField</a> (const string &amp;field_)</td></tr>
+<tr class="separator:a0bedb8b7bc80339cdedb98066dbd157d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ada92631b1e8dfaec19d59cb4225540c5" id="r_ada92631b1e8dfaec19d59cb4225540c5"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada92631b1e8dfaec19d59cb4225540c5">file</a></td></tr>
 <tr class="separator:ada92631b1e8dfaec19d59cb4225540c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad1725c672bbad45c1ea52f6c9593da6" id="r_aad1725c672bbad45c1ea52f6c9593da6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad1725c672bbad45c1ea52f6c9593da6">field</a></td></tr>
+<tr class="memitem:aad1725c672bbad45c1ea52f6c9593da6" id="r_aad1725c672bbad45c1ea52f6c9593da6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad1725c672bbad45c1ea52f6c9593da6">field</a> = &quot;&quot;</td></tr>
 <tr class="separator:aad1725c672bbad45c1ea52f6c9593da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15532b76e72f2f03fd4336e99585eb4b" id="r_a15532b76e72f2f03fd4336e99585eb4b"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15532b76e72f2f03fd4336e99585eb4b">regions</a></td></tr>
 <tr class="separator:a15532b76e72f2f03fd4336e99585eb4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +183,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="adaa21655e8b80c7f850b79c68ff6b68a" name="adaa21655e8b80c7f850b79c68ff6b68a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaa21655e8b80c7f850b79c68ff6b68a">&#9670;&#160;</a></span>Param() <span class="overload">[2/2]</span></h2>
+<a id="a2c6b37ea87807ebdb47ad85d2d7f947d" name="a2c6b37ea87807ebdb47ad85d2d7f947d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6b37ea87807ebdb47ad85d2d7f947d">&#9670;&#160;</a></span>Param() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,11 +200,6 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>field</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>regionString</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>, </td>
         </tr>
         <tr>
@@ -213,7 +210,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::numeric_limits&lt;int&gt;::max()</span>, </td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">numeric_limits&lt;int&gt;::max()</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -245,17 +242,43 @@ Public Attributes</h2></td></tr>
 <p>constructor </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>.vcf, .vcf.gz or .bcf file with tabix index </td></tr>
-    <tr><td class="paramname">field</td><td><code>"GT"</code> for genotype strings, <code>"DS"</code> for dosage, or another other field stored as an integer or float. <code>"GT"</code> is the only string type supported </td></tr>
     <tr><td class="paramname">regionString</td><td>target in the format <code>"chr2:1-12345"</code>. Multiple regions can be separated by one of <code>,\n\t</code>, for example <code>"chr2:1-12345, chr3:1000-8000"</code>. Setting region to <code>""</code> includes all variants </td></tr>
     <tr><td class="paramname">samples</td><td>string of comma separated sample IDs to extract: "ID1,ID2,ID3" </td></tr>
     <tr><td class="paramname">chunkSize</td><td>number of variants to return per chunk </td></tr>
     <tr><td class="paramname">missingToMean</td><td>if true, set missing values to the mean dosage value. if false, set to NaN </td></tr>
     <tr><td class="paramname">initCapacity</td><td>initial capacity of temporary vector to avoid re-alloc on insert. Size is in Mb. </td></tr>
     <tr><td class="paramname">permuteFeatureOrder</td><td>default is <code>false</code>. If <code>true</code> permute regions in <code>regionString</code> to avoid linkage disequilibrium betweeen nearby regions </td></tr>
-    <tr><td class="paramname">rndSeed</td><td>random seed for permutation </td></tr>
+    <tr><td class="paramname">rndSeed</td><td>random seed for permutation</td></tr>
   </table>
   </dd>
 </dl>
+<p>Note that field must be set separately for VCF/BCF: field: <code>"GT"</code> for genotype strings, <code>"DS"</code> for dosage, or another other field stored as an integer or float. <code>"GT"</code> is the only string type supported </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0bedb8b7bc80339cdedb98066dbd157d" name="a0bedb8b7bc80339cdedb98066dbd157d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bedb8b7bc80339cdedb98066dbd157d">&#9670;&#160;</a></span>setField()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gds::Param::setField </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>field_</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -281,7 +304,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string gds::Param::field</td>
+          <td class="memname">string gds::Param::field = &quot;&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">

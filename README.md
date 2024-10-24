@@ -40,10 +40,11 @@ string samples = "-";   // no samples filter
 int chunkSize = 4;      // each chunk will read 4 variants
 
 // initialize parameters
-Param param(file, field, region, samples, chunkSize);
+Param param(file, region, samples, chunkSize);
+param.setField( field );
 
 // Initialise GenomicDataStream to read 
-// VCF/VCFGZ/BCF and BGEN with same interface
+// VCF/BCF and BGEN with same interface
 unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
 // declare DataChunk storing an Armadillo matrix for each chunk
@@ -62,7 +63,17 @@ while( gdsStream->getNextChunk( chunk ) ){
 }
 ```
 
- 
+## Supported formats
+#### Genetic data 
+| Format | Version | Support |
+| -- | --- | --------- |
+| BGEN | 1.1 | biallelic variants
+|BGEN |1.2, 1.3| phased or unphased biallelic variants
+|VCF / BCF | 4.x | biallelic variants with `GT/GP` fields, continuous dosage with `DS` field
+
+#### Single cell data
+Count matrices for single cell data are stored in the H5AD format.  This format, based on [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression.  H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.
+
 
 ## Dependencies
 
@@ -71,6 +82,7 @@ while( gdsStream->getNextChunk( chunk ) ){
 [vcfppR](https://cran.r-project.org/package=vcfppR) | [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae049)  | C++ API for htslib  |
 [htslib](https://github.com/samtools/htslib) | [GigaScience](https://doi.org/10.1093/gigascience/giab007)  | C API for VCF/BCF files |
 [beatchmat](https://bioconductor.org/packages/beachmat/) | [PLoS Comp Biol](https://doi.org/10.1371/journal.pcbi.1006135)  | C++ API for access data owned by R |
+[DelayedArray](https://bioconductor.org/packages/DelayedArray/) | | R interface for handling on-disk data formats |
 [Rcpp](https://cran.r-project.org/package=Rcpp)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) |  API for R/C++ integration
 [RcppEigen](https://cran.r-project.org/package=RcppEigen) | [J Stat Software](https://doi.org/10.18637/jss.v052.i05) | API for Rcpp access to Eigen matrix library
 [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
@@ -93,6 +105,14 @@ Omit support for Eigen matrix library, and remove dependence on `RcppEigen` and 
  `-D DISABLE_RCPP`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
+
+`GenomicDataStream` is written so that core functions are in C++17 with no dependence or R or Rcpp.  On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.
+
+
+
+
+
+
 
 
 

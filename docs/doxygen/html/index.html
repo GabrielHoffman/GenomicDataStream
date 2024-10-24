@@ -144,10 +144,11 @@ Example code with C++17</h3>
 <div class="line"><span class="keywordtype">int</span> chunkSize = 4;      <span class="comment">// each chunk will read 4 variants</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// initialize parameters</span></div>
-<div class="line"><a class="code hl_struct" href="structgds_1_1_param.html">Param</a> param(file, field, region, samples, chunkSize);</div>
+<div class="line"><a class="code hl_struct" href="structgds_1_1_param.html">Param</a> param(file, region, samples, chunkSize);</div>
+<div class="line">param.setField( field );</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Initialise GenomicDataStream to read </span></div>
-<div class="line"><span class="comment">// VCF/VCFGZ/BCF and BGEN with same interface</span></div>
+<div class="line"><span class="comment">// VCF/BCF and BGEN with same interface</span></div>
 <div class="line">unique_ptr&lt;GenomicDataStream&gt; gdsStream = createFileView( param );</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// declare DataChunk storing an Armadillo matrix for each chunk</span></div>

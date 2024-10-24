@@ -75,6 +75,8 @@ class bgenstream :
 	public GenomicDataStream {
 	public:
 
+	bgenstream() {}
+
 	/** constructor
 	*/
 	bgenstream(const Param & param) : GenomicDataStream(param) {
@@ -115,17 +117,17 @@ class bgenstream :
 
 	/** destructor
 	 */ 
-	~bgenstream(){
+	~bgenstream() override {
 		if( vInfo != nullptr) delete vInfo;
 	}
 
 	/** Get number of columns in data matrix
 	 */ 
-	int n_samples(){
+	int n_samples() override {
 		return number_of_samples;
 	}
 
-	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
+	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -137,7 +139,7 @@ class bgenstream :
 		return ret;
 	}
 
-	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){
+	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -150,7 +152,7 @@ class bgenstream :
 	}
 
 	#ifndef DISABLE_EIGEN
-	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
+	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -163,7 +165,7 @@ class bgenstream :
 	}
 
 
-	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){
+	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -177,7 +179,7 @@ class bgenstream :
 	#endif
 
 	#ifndef DISABLE_RCPP
-	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
+	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -192,8 +194,7 @@ class bgenstream :
 	}
 	#endif
 
-
-	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){
+	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -211,7 +212,7 @@ class bgenstream :
 	VariantInfo *vInfo = nullptr;
 	vector<double> probs;	
 	vector<double> matDosage;
-	size_t max_entries_per_sample = 3;
+	size_t max_entries_per_sample = 4;
 	int n_variants_total;	
 	int variant_idx_start = 0;
 
@@ -273,19 +274,29 @@ class bgenstream :
 		// use probs to create Cube 
 		cube C(probs.data(), chunkSize, number_of_samples, max_entries_per_sample, true, true);
 	
-		vec dsg = {0,1,2}; // weight alleles by dosage
+		// weight alleles by dosage
+		// With max_entries_per_sample = 4, the unphased coding is 
+		//  AA/AB/BB/NULL so use weights 0/1/2/0 to conver to dosage
+		//  since the last entry doesn't encode valid information
+		// When phased, the coding is [a1 a2] / [a1 a2]
+		//  so use weights 0/1/0/1
+		vec w_unph = {0,1,2,0}; 
+		vec w_ph = {0,1,0,1}; 
+
+		vec w, dsg;
 
 		// compute dosage from Cube
 		// copy results of each variant to vector<double>
 		for(int j=0; j<chunkSize; j++){
-			// compute dosages
-			vec v = C.row_as_mat(j).t() * dsg;
+			// compute dosages with weights depend on phasing
+			w = phased[j] ? w_ph : w_unph;
+			dsg = C.row_as_mat(j).t() * w;
 
 			// replace missing with mean
-			if( param.missingToMean ) nanToMean( v );				
+			if( param.missingToMean ) nanToMean( dsg );				
 
 	    	// save vector in matDosage
-			memcpy(matDosage.data() + number_of_samples*j, v.memptr(), number_of_samples*sizeof(double));
+			memcpy(matDosage.data() + number_of_samples*j, dsg.memptr(), number_of_samples*sizeof(double));
 		}
 
 		return true;

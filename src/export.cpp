@@ -25,67 +25,6 @@ using namespace Rcpp;
 using namespace arma;
 using namespace gds;
 
-
-// [[Rcpp::export]]
-arma::vec test_GT( const std::string &vcffile,
-			const std::string &region){
-	// "https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV/1kGP_high_coverage_Illumina.chr21.filtered.SNV_INDEL_SV_phased_panel.vcf.gz"
-	BcfReader vcf( vcffile, region );
-    BcfRecord var(vcf.header); // construct a variant record
-
-    vector<char> gt; // genotype can be bool, char or int type
-    vector<int> hetsum(vcf.nsamples, 0);
-
-    vec v;
-
-    while (vcf.getNextVariant(var)) {
-
-        var.getGenotypes(gt);
-
-        v = conv_to< vec >::from(gt);
-
-
-        if (!var.isSNP() || !var.isNoneMissing()) continue; 
-
-        assert(var.ploidy()==2); // make sure it is diploidy
-
-
-    }
-
-    return v;
-
-}
-
-
-// [[Rcpp::export]]
-arma::vec test_DS( const std::string &vcffile,
-			const std::string &region){
-	// "https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV/1kGP_high_coverage_Illumina.chr21.filtered.SNV_INDEL_SV_phased_panel.vcf.gz"
-	BcfReader vcf( vcffile, region );
-    BcfRecord var(vcf.header); // construct a variant record
-
-    vector<float> gt; // genotype can be bool, char or int type
-    vector<int> hetsum(vcf.nsamples, 0);
-
-    vec v;
-
-    while (vcf.getNextVariant(var)) {
-
-        var.getFORMAT("GT", gt);
-
-        v = conv_to< vec >::from(gt);
-
-
-        if (!var.isSNP() || !var.isNoneMissing()) continue; 
-
-        assert(var.ploidy()==2); // make sure it is diploidy
-
-    }
-
-    return v;
-
-}
-
 // convert to List
 DataFrame toDF( const VariantInfo &vInfo){
 
@@ -94,8 +33,8 @@ DataFrame toDF( const VariantInfo &vInfo){
                     Named("CHROM") = Rcpp::wrap(vInfo.CHROM),
                     Named("POS") = Rcpp::wrap(vInfo.POS),
                     Named("ID") = Rcpp::wrap(vInfo.ID),
-                    Named("REF") = Rcpp::wrap(vInfo.REF),
-                    Named("ALT") = Rcpp::wrap(vInfo.ALT),
+                    Named("A1") = Rcpp::wrap(vInfo.A1),
+                    Named("A2") = Rcpp::wrap(vInfo.A2),
                     _["stringsAsFactors"] = false);
 }
 
@@ -109,7 +48,8 @@ List extractVcf(
             const bool &missingToMean = false){
 
     // initialize stream
-    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    Param param( file, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    param.setField(field);
     vcfstream vcfObj( param );
 
     // from VCF, get
@@ -144,7 +84,8 @@ List extractVcf_eigen(
 
     // initialize stream
 
-    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    Param param( file, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    param.setField(field);
     vcfstream vcfObj( param );
 
     // from VCF, get
@@ -174,7 +115,8 @@ List extractVcf_NM(
 
     // initialize stream
 
-    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    Param param( file, region, samples, std::numeric_limits<int>::max(), missingToMean);    
+    param.setField(field);
     vcfstream vcfObj( param );
 
     // from VCF, get
@@ -197,7 +139,8 @@ List extractVcf_vector(
 
     // initialize stream
 
-    Param param( file, field, region, samples, std::numeric_limits<int>::max(), missingToMean);
+    Param param( file, region, samples, std::numeric_limits<int>::max(), missingToMean);    
+    param.setField(field);
     vcfstream vcfObj( param );
 
     // from VCF, get
@@ -220,7 +163,8 @@ List extractVcf_chunks(
             const bool &missingToMean = false){
 
     // initialize stream
-    Param param(file, field, region, samples, 2, missingToMean);
+    Param param(file, region, samples, 2, missingToMean);
+    param.setField(field);
     vcfstream vcfObj( param );
 
     // from VCF, get
@@ -339,8 +283,10 @@ List extractVcf_chunks(
 
 
 
+
+
 // [[Rcpp::export]]
-Rcpp::List test_bgen( 
+Rcpp::List getDosage( 
             const std::string &file,
             const std::string &field,
             const std::string &region = "",
@@ -348,13 +294,14 @@ Rcpp::List test_bgen(
             const int &chunkSize = std::numeric_limits<int>::max(),
             const bool &missingToMean = false){
 
-    Param param( file, field, region, samples, chunkSize, missingToMean);
+    Param param( file, region, samples, chunkSize, missingToMean);
+    param.setField(field);
 
-    bgenstream bgenObj(param);
+    unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
     DataChunk<arma::mat, VariantInfo> chunk;
 
-    bgenObj.getNextChunk( chunk );
+    gdsStream->getNextChunk( chunk );
 
     // Convert genotype values for return
     // set colnames as variant IDs
@@ -368,6 +315,8 @@ Rcpp::List test_bgen(
     return List::create(    Named("X") = X,
                             Named("info") = toDF(info) );
 }
+
+
 
 
 
@@ -444,7 +393,9 @@ List fastLM( const arma::colvec& y,
                 const bool &missingToMean = false){
 
     int chunkSize = 4;
-    Param param(file, field, region, samples, chunkSize, missingToMean);
+    Param param(file, region, samples, chunkSize, missingToMean);
+
+    param.setField(field);
 
     // Initialise GenomicDataStream with file
     unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
@@ -470,9 +421,6 @@ List fastLM( const arma::colvec& y,
         // get variant information
         info_chunk = chunk.getInfo();
 
-        // standardize X for mean and sd
-        // standardize( X_chunk );
-
         // Linear regression with the jth feature
         // used as a covariate in the jth model
         List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
@@ -485,52 +433,5 @@ List fastLM( const arma::colvec& y,
 }
 
 
-// [[Rcpp::export]]
-List test_bgen2( const arma::colvec y, 
-                const std::string &file,
-                const std::string &field,
-                const std::string &region = "",
-                const std::string &samples = "-",
-                const int &chunkSize = std::numeric_limits<int>::max(),
-                const bool &missingToMean = true){ 
 
-    Param param(file, field, region, samples, chunkSize, missingToMean);
-
-    bgenstream bgenObj(param);
-
-    if( bgenObj.n_samples() != y.size() ){
-        Rcpp::stop("Data stream and y must have same number of samples");
-    }
-
-    DataChunk<arma::mat, VariantInfo> chunk;
-
-    // store dosage from chunk
-    // n samples and p features
-    arma::mat X_chunk;
-    VariantInfo info_chunk;
-    List lst;
-    arma::mat X_cov(500, 1, fill::ones);
-
-    int i = 0;
-    while( bgenObj.getNextChunk( chunk ) ){
-
-        // get data from chunk
-        X_chunk = chunk.getData();
-
-        // get variant information
-        info_chunk = chunk.getInfo();
-
-        // standardize X for mean and sd
-        // standardize( X_chunk );
-
-        // Linear regression with the jth feature
-        // used as a covariate in the jth model
-        List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
-
-        // // save results to list
-        append(lst, lst_local);
-    }
-
-    return lst;
-}
 

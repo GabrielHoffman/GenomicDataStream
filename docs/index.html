@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks • GenomicDataStream</title>
+<title>Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks • GenomicDataStream</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks">
-<meta name="description" content="Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
-<meta property="og:description" content="Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks">
+<meta name="description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
+<meta property="og:description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,26 +86,69 @@
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="dt">int</span> chunkSize <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>      <span class="co">// each chunk will read 4 variants</span></span>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">// initialize parameters</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>Param param<span class="op">(</span>file<span class="op">,</span> field<span class="op">,</span> region<span class="op">,</span> samples<span class="op">,</span> chunkSize<span class="op">);</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">// Initialise GenomicDataStream to read </span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">// VCF/VCFGZ/BCF and BGEN with same interface</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>unique_ptr<span class="op">&lt;</span>GenomicDataStream<span class="op">&gt;</span> gdsStream <span class="op">=</span> createFileView<span class="op">(</span> param <span class="op">);</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">// declare DataChunk storing an Armadillo matrix for each chunk</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">,</span> VariantInfo<span class="op">&gt;</span> chunk<span class="op">;</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>    <span class="co">// chunk.getData();</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    <span class="co">// chunk.getInfo();</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>Param param<span class="op">(</span>file<span class="op">,</span> region<span class="op">,</span> samples<span class="op">,</span> chunkSize<span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>param<span class="op">.</span>setField<span class="op">(</span> field <span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">// Initialise GenomicDataStream to read </span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">// VCF/BCF and BGEN with same interface</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>unique_ptr<span class="op">&lt;</span>GenomicDataStream<span class="op">&gt;</span> gdsStream <span class="op">=</span> createFileView<span class="op">(</span> param <span class="op">);</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">// declare DataChunk storing an Armadillo matrix for each chunk</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">,</span> VariantInfo<span class="op">&gt;</span> chunk<span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="co">// chunk.getData();</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    <span class="co">// chunk.getInfo();</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="supported-formats">Supported formats<a class="anchor" aria-label="anchor" href="#supported-formats"></a>
+</h2>
+<div class="section level4">
+<h4 id="genetic-data">Genetic data<a class="anchor" aria-label="anchor" href="#genetic-data"></a>
+</h4>
+<table class="table">
+<colgroup>
+<col width="14%">
+<col width="21%">
+<col width="64%">
+</colgroup>
+<thead><tr>
+<th>Format</th>
+<th>Version</th>
+<th>Support</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>BGEN</td>
+<td>1.1</td>
+<td>biallelic variants</td>
+</tr>
+<tr>
+<td>BGEN</td>
+<td>1.2, 1.3</td>
+<td>phased or unphased biallelic variants</td>
+</tr>
+<tr>
+<td>VCF / BCF</td>
+<td>4.x</td>
+<td>biallelic variants with <code>GT/GP</code> fields, continuous dosage with <code>DS</code> field</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="single-cell-data">Single cell data<a class="anchor" aria-label="anchor" href="#single-cell-data"></a>
+</h4>
+<p>Count matrices for single cell data are stored in the H5AD format. This format, based on <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression. H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.</p>
 </div>
 </div>
 <div class="section level2">
@@ -137,6 +180,11 @@
 <td><a href="https://bioconductor.org/packages/beachmat/" class="external-link">beatchmat</a></td>
 <td><a href="https://doi.org/10.1371/journal.pcbi.1006135" class="external-link">PLoS Comp Biol</a></td>
 <td>C++ API for access data owned by R</td>
+</tr>
+<tr>
+<td><a href="https://bioconductor.org/packages/DelayedArray/" class="external-link">DelayedArray</a></td>
+<td></td>
+<td>R interface for handling on-disk data formats</td>
 </tr>
 <tr>
 <td><a href="https://cran.r-project.org/package=Rcpp" class="external-link">Rcpp</a></td>
@@ -176,6 +224,7 @@
            Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code> and <code>Eigen</code></p>
 <p><code>-D DISABLE_RCPP</code><br>
            Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code></p>
+<p><code>GenomicDataStream</code> is written so that core functions are in C++17 with no dependence or R or Rcpp. On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.</p>
 </div>
 
   </main><aside class="col-md-3"><div class="links">

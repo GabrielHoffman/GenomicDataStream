@@ -16,6 +16,53 @@
 
 namespace gds {
 
+/** Compute dosage values from vector of GP stored as double or float.  Sum adjacent values to get dosage
+* @param v for n samples, vector of length 3*n where dosage is computed as c(v[3*i], v[3*i+1], v[3*i+2]) %*% c(0,1,2)
+* @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
+*/
+
+template<typename T>
+static vector<double> GP_to_dosage( const vector<T> &v, const bool &missingToMean) {
+    vector<double> res( v.size() / 3.0);
+    vector<int> missing;
+
+    // initialize
+    int runningSum = 0, nValid = 0;
+    double value;
+
+    // for each entry in result
+    // use two adjacent values
+    for(int i=0; i<res.size(); i++){
+        // compute dosage from genotype probabilties
+        value = v[3*i]*0 + v[3*i+1]*1 + v[3*i+2]*2;
+
+        // -9 is the missing value, so -18 is diploid
+        if( value == -18){ 
+            // if missing, set to NaN
+            value = std::numeric_limits<double>::quiet_NaN();
+            missing.push_back(i);
+        }else{
+            // for computing mean
+            runningSum += value;
+            nValid++;
+        }
+
+        // set dosage value
+        res[i] = value;
+    }
+
+    // mean excluding NaNs
+    double mu = runningSum / (double) nValid;
+
+    // if missing values should be set to mean
+    if( missingToMean ){
+        // for each entry with a missing value, set to mean
+        for(const int& i : missing) res[i] = mu;
+    }
+
+    return res;
+}
+
 /** Compute dosage values from vector of GT stored as int.  Sum adjacent values to get dosage
 * @param v for n samples, vector of length 2*n where dosage is computed as v[2*i] + v[2*i+1];
 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN

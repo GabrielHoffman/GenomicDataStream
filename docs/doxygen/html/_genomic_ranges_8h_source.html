@@ -162,69 +162,78 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#ae2da7152da492b0e3c0cb945629336f1">   42</a></span>    <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#ae2da7152da492b0e3c0cb945629336f1">GenomicRanges</a>( <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;regionString ){</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        vector&lt;string&gt; regions;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        boost::split(regions, regionString, boost::is_any_of(<span class="stringliteral">&quot;\t,\n&quot;</span>));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        initialize( regions );</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        vector&lt;string&gt; regions;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        boost::split(regions, regionString, boost::is_any_of(<span class="stringliteral">&quot;\t,\n&quot;</span>));</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        initialize( regions );</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#a8b1422b3f04aa00d939d1c701bb3ef9b">   50</a></span>    <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#a8b1422b3f04aa00d939d1c701bb3ef9b">get_chrom</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> chrom[i];}</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#ab7badfa4db93a2c364e426832ed6f5d6">   51</a></span>    <span class="keyword">const</span> uint32_t <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#ab7badfa4db93a2c364e426832ed6f5d6">get_start</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> start[i];}</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#a4f0a76e3c50d5c8e9b174f9f92adcc67">   52</a></span>    <span class="keyword">const</span> uint32_t <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#a4f0a76e3c50d5c8e9b174f9f92adcc67">get_end</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> end[i];}</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3">   54</a></span>    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> end.size();}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#a8b1422b3f04aa00d939d1c701bb3ef9b">   52</a></span>    <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#a8b1422b3f04aa00d939d1c701bb3ef9b">get_chrom</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> chrom[i];}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#ab7badfa4db93a2c364e426832ed6f5d6">   53</a></span>    <span class="keyword">const</span> uint32_t <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#ab7badfa4db93a2c364e426832ed6f5d6">get_start</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> start[i];}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#a4f0a76e3c50d5c8e9b174f9f92adcc67">   54</a></span>    <span class="keyword">const</span> uint32_t <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#a4f0a76e3c50d5c8e9b174f9f92adcc67">get_end</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> end[i];}</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    vector&lt;string&gt; chrom;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    vector&lt;uint32_t&gt; start;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    vector&lt;uint32_t&gt; end;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> initialize(vector&lt;string&gt; regions){</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3">   56</a></span>    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> end.size();}</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    vector&lt;string&gt; chrom;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    vector&lt;uint32_t&gt; start;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    vector&lt;uint32_t&gt; end;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">// if only entry is &quot;.&quot;, don&#39;t add any regions and return early</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span>( regions.size() == 1 &amp;&amp; regions[0].compare(<span class="stringliteral">&quot;.&quot;</span>) == 0) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">// Remove duplicate entries, but preserve element order. </span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        removeDuplicates( regions );</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        vector&lt;string&gt; reg, pos;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span> <span class="keyword">const</span> &amp; it : regions){</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">void</span> initialize(vector&lt;string&gt; regions){</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// if only entry is &quot;.&quot; or &quot;&quot;, </span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">// don&#39;t add any regions and return early</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">if</span>( regions.size() == 1 &amp;&amp; regions[0].compare(<span class="stringliteral">&quot;.&quot;</span>) == 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span>( regions.size() == 1 &amp;&amp; regions[0].compare(<span class="stringliteral">&quot;&quot;</span>) == 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="comment">// Remove duplicate entries, but preserve element order. </span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        removeDuplicates( regions );</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="comment">// parse</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            boost::split(reg, it, boost::is_any_of(<span class="stringliteral">&quot;:&quot;</span>));</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            boost::split(pos, reg[1], boost::is_any_of(<span class="stringliteral">&quot;-&quot;</span>));</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="comment">// if only start give, set end to same value</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span>( pos.size() == 1 ) pos.push_back( pos[0] );</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="comment">// check region</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keywordflow">if</span>( (reg.size() != 2) || (pos.size() &gt; 2) || (pos[1] &lt; pos[2])){ </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                <span class="keywordflow">throw</span> logic_error(<span class="stringliteral">&quot;Not a valid genomic range: &quot;</span> + it);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">if</span>( !isOnlyDigits(pos[0]) || !isOnlyDigits(pos[1])){</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">throw</span> logic_error(<span class="stringliteral">&quot;Not a valid genomic range: &quot;</span> + it);              </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="comment">// save regions</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            chrom.push_back( reg[0] );</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            start.push_back( stoul(pos[0]) );</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            end.push_back( stoul(pos[1]) );</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }   </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>};</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        vector&lt;string&gt; reg, pos;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">long</span> p0, p1;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span> <span class="keyword">const</span> &amp; it : regions){</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="comment">// parse</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            boost::split(reg, it, boost::is_any_of(<span class="stringliteral">&quot;:&quot;</span>));</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            boost::split(pos, reg[1], boost::is_any_of(<span class="stringliteral">&quot;-&quot;</span>));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <span class="comment">// if only start give, set end to same value</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">if</span>( pos.size() == 1 ) pos.push_back( pos[0] );</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="comment">// convert strings to long int</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            p0 = atol(pos[0].c_str());</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            p1 = atol(pos[1].c_str());</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="comment">// check region</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">if</span>( (reg.size() != 2) || (pos.size() &gt; 2) || (p1 &lt; p0) || (p0&lt;0) || (p1&lt;0)){ </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                <span class="keywordflow">throw</span> logic_error(<span class="stringliteral">&quot;Not a valid genomic range: &quot;</span> + it);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">if</span>( !isOnlyDigits(pos[0]) || !isOnlyDigits(pos[1])){</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                <span class="keywordflow">throw</span> logic_error(<span class="stringliteral">&quot;Not a valid genomic range: &quot;</span> + it);              </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="comment">// save regions</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            chrom.push_back( reg[0] );</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            start.push_back( p0 );</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            end.push_back( p1 );</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }   </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>};</div>
 </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassgds_1_1_genomic_ranges_html"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html">gds::GenomicRanges</a></div><div class="ttdef"><b>Definition</b> GenomicRanges.h:25</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a3091615155ee722ffb635270fdf593d5"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a3091615155ee722ffb635270fdf593d5">gds::GenomicRanges::GenomicRanges</a></div><div class="ttdeci">GenomicRanges(const vector&lt; string &gt; &amp;chrom, const vector&lt; uint32_t &gt; &amp;start, const vector&lt; uint32_t &gt; &amp;end)</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:30</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a3f29b99ac1d64a87caba95df9c0ae72e"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a3f29b99ac1d64a87caba95df9c0ae72e">gds::GenomicRanges::GenomicRanges</a></div><div class="ttdeci">GenomicRanges(const vector&lt; string &gt; &amp;regions)</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:36</div></div>
-<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a4f0a76e3c50d5c8e9b174f9f92adcc67"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a4f0a76e3c50d5c8e9b174f9f92adcc67">gds::GenomicRanges::get_end</a></div><div class="ttdeci">const uint32_t get_end(const int &amp;i) const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:52</div></div>
-<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a7d1b020b0a925df57b1d9b56ddbae8e3"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3">gds::GenomicRanges::size</a></div><div class="ttdeci">const int size() const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:54</div></div>
-<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a8b1422b3f04aa00d939d1c701bb3ef9b"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a8b1422b3f04aa00d939d1c701bb3ef9b">gds::GenomicRanges::get_chrom</a></div><div class="ttdeci">const string get_chrom(const int &amp;i) const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:50</div></div>
-<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_ab7badfa4db93a2c364e426832ed6f5d6"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#ab7badfa4db93a2c364e426832ed6f5d6">gds::GenomicRanges::get_start</a></div><div class="ttdeci">const uint32_t get_start(const int &amp;i) const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:51</div></div>
+<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a4f0a76e3c50d5c8e9b174f9f92adcc67"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a4f0a76e3c50d5c8e9b174f9f92adcc67">gds::GenomicRanges::get_end</a></div><div class="ttdeci">const uint32_t get_end(const int &amp;i) const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:54</div></div>
+<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a7d1b020b0a925df57b1d9b56ddbae8e3"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3">gds::GenomicRanges::size</a></div><div class="ttdeci">const int size() const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:56</div></div>
+<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_a8b1422b3f04aa00d939d1c701bb3ef9b"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#a8b1422b3f04aa00d939d1c701bb3ef9b">gds::GenomicRanges::get_chrom</a></div><div class="ttdeci">const string get_chrom(const int &amp;i) const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:52</div></div>
+<div class="ttc" id="aclassgds_1_1_genomic_ranges_html_ab7badfa4db93a2c364e426832ed6f5d6"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#ab7badfa4db93a2c364e426832ed6f5d6">gds::GenomicRanges::get_start</a></div><div class="ttdeci">const uint32_t get_start(const int &amp;i) const</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:53</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_ranges_html_ae2da7152da492b0e3c0cb945629336f1"><div class="ttname"><a href="classgds_1_1_genomic_ranges.html#ae2da7152da492b0e3c0cb945629336f1">gds::GenomicRanges::GenomicRanges</a></div><div class="ttdeci">GenomicRanges(const string &amp;regionString)</div><div class="ttdef"><b>Definition</b> GenomicRanges.h:42</div></div>
 <div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:33</div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div></div>

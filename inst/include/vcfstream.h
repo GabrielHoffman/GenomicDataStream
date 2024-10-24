@@ -35,12 +35,20 @@ class vcfstream :
 	public GenomicDataStream {
 	public:
 
+	vcfstream() {}
+
 	/** constructor initilizing with parameter values
 	*/
 	vcfstream(const Param & param) : GenomicDataStream(param) {
-	
+
+		// check that file exists	
 		if( ! filesystem::exists( param.file ) ){
 			throw runtime_error("File does not exist: " + param.file);
+		}
+
+		// check that field was specified
+		if( param.field.compare("") == 0 ){
+			throw runtime_error("Field for VCF/BCF not specified");	
 		}
 
  		// initialize
@@ -81,11 +89,12 @@ class vcfstream :
 		record = new BcfRecord( reader->header ); 
 
 		// 1: int; 2: float; 3: string; 0: error;
-		fieldType = reader->header.getFormatType(param.field);
+		fieldType = reader->header.getFormatType( param.field );
 
 		if( fieldType == 3 && param.field.compare("GT"))
-		throw std::runtime_error("field GT is the only supported string type");				
-
+			throw std::runtime_error("field GT is the only supported string type");		
+		if( fieldType == 0)
+			throw std::runtime_error("field not found: " + param.field);		
 		// initialize varInfo with sample names
 		vInfo = new VariantInfo( reader->SamplesName );
 
@@ -99,7 +108,7 @@ class vcfstream :
 
 	/** destructor
 	 */ 
-	~vcfstream(){
+	~vcfstream() override {
 		if( reader != nullptr) delete reader;
 		if( record != nullptr) delete record;
 		if( vInfo != nullptr) delete vInfo;
@@ -107,11 +116,11 @@ class vcfstream :
 
 	/** Get number of columns in data matrix
 	 */ 
-	int n_samples(){
+	int n_samples() override {
 		return reader->nsamples;
 	}
 
-	bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -125,7 +134,7 @@ class vcfstream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -139,7 +148,7 @@ class vcfstream :
 	}
 
 	#ifndef DISABLE_EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -151,7 +160,7 @@ class vcfstream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -165,7 +174,7 @@ class vcfstream :
 	#endif
 
 	#ifndef DISABLE_RCPP
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -180,7 +189,7 @@ class vcfstream :
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk){
+	bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -228,6 +237,9 @@ class vcfstream :
 
 	bool getNextChunk_helper(){
 
+		// if no valid regions
+		if( validRegions.size() == 0) return false;
+
 		// if end of file reached, return false
 		if( ! continueIterating ) return continueIterating;
 
@@ -271,7 +283,21 @@ class vcfstream :
 					break;
 				case 2: // float				
 					record->getFORMAT( param.field, values_fl);
-					matDosage.insert(matDosage.end(), values_fl.begin(), values_fl.end());
+
+					if( param.field.compare("DS") == 0){
+						// dosage
+						matDosage.insert(matDosage.end(), values_fl.begin(), values_fl.end());
+					}else if( param.field.compare("GP") == 0){
+						// check if site ploidy > 2
+						if( record->ploidy() > 2 ){
+							throw std::runtime_error("GP is not supported for site with ploidy > 2\n    " + variantToString(*record));
+						}	
+
+						// genotype probabilities
+						vector<double> dsg = GP_to_dosage(values_fl, param.missingToMean);
+
+						matDosage.insert(matDosage.end(), dsg.begin(), dsg.end());
+					}	
 					break;
 				case 3: // string. Convert GT to doubles
 
@@ -305,6 +331,7 @@ class vcfstream :
 		return true;
 	}
 };
+
 
 
 } // end namespace

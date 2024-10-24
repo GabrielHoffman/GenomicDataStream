@@ -266,7 +266,8 @@ static void get_requested_samples(
 		}
 		
 		throw std::invalid_argument(
-			"load_unsafe(): requiredSamples contains a sample not present in the data, or data contains a repeated sample ID."
+			// "load_unsafe(): requiredSamples contains a sample not present in the data, or data contains a repeated sample ID."
+			"requested sample not found in file"
 		) ;
 	}
 }
