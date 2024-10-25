@@ -17,6 +17,8 @@
 #include <RcppArmadillo.h>
 #endif 
 
+#include <filesystem>
+
 #include <boost/algorithm/string.hpp>
 
 #include "VariantInfo.h"
@@ -84,7 +86,7 @@ struct Param {
 			const int &initCapacity = 200,
 			const bool &permuteFeatureOrder = false,
 			const int &rndSeed = 12345) :
-		file(file), 
+		file( std::filesystem::absolute(file) ), 
 		samples(samples), 
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
