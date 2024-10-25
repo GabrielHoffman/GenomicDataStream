@@ -273,8 +273,6 @@ class bgenstream :
 
 		// use probs to create Cube 
 		cube C(probs.data(), chunkSize, number_of_samples, max_entries_per_sample, true, true);
-
-		C.print();
 	
 		// weight alleles by dosage
 		// With max_entries_per_sample = 4, the unphased coding is 
@@ -319,15 +317,6 @@ class bgenstream :
 		return true;
 	}
 };
-
-
-// Using Tmp matrix
-// mat M(number_of_samples, chunkSize);
-// for(int j=0; j<chunkSize; j++){
-// 	M.col(j) = C.row_as_mat(j).t() * dsg;
-// }
-// chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
-
 
 }
 
