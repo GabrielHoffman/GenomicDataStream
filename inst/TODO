@@ -1,8 +1,22 @@
 
+Bugs
+1) NA's depend on chunkSize.  Sometimes works
+dat = GenomicDataStream:::getDosage(file, "DS", chunkSize=10000)
+
+2) On minerva: region not found when empty
+
+gcc version?
+
+
+
 Oct 24, 2024
 DelayedStream doesn't work yet
 Stream from disk while subsetting rows and columns
 
+Eigen::Map ?
+
+On Minerva, This gives all NA values
+/hpc/users/hoffmg01/.Rlib/R_433/GenomicDataStream/extdata/test_noph_v1.1.bgen
 
 
 Other formats
@@ -10,6 +24,14 @@ Other formats
 	- plink2 pgen/pvar/psam
 	- Seurat?
 
+
+file = "/sc/arion/projects/CommonMind/christian/CMC-VNTR/files/VNTR_RNA_DLPFC.vcf.gz"
+
+file = "./VNTR_RNA_DLPFC.vcf.gz"
+
+system.time(res <- GenomicDataStream:::fastLM(y, file, "DS", region="."))
+
+system.time(res <- GenomicDataStream:::fastLM_eigen(y, file, "DS"))
 
 // Old
 - Run with lucida
@@ -50,3 +72,43 @@ bgenstream:
 
 DelayedStream:
 	make sure vector<double> works
+
+
+
+# file = "/sc/arion/projects/CommonMind/christian/CMC-VNTR/files/VNTR_RNA_DLPFC.vcf.gz"
+
+
+dat = GenomicDataStream:::getDosage(file, "DS", chunkSize=10000)
+
+library(vcfppR)
+
+res = vcftable(file, region="chr1")
+
+ml R/4.4.0 gcc/11.2.0
+export R_LIBS=/hpc/packages/minerva-centos7/rpackages/4.4.0/site-library:/hpc/packages/minerva-centos7/rpackages/bioconductor/3.19:/hpc/users/hoffmg01/.Rlib/R_440
+
+
+# ./plink2 --vcf VNTR_RNA_DLPFC.vcf.gz vcf-dosage=DS --export vcf --out test
+
+
+
+# write small VCF example
+zgrep "^##" VNTR_RNA_DLPFC.vcf.gz > example.vcf
+zgrep -v "^##" VNTR_RNA_DLPFC.vcf.gz | head -n 6 | cut -f1-12 >> example.vcf
+
+bgzip example.vcf
+tabix -p vcf example.vcf.gz
+
+
+
+bcftools view VNTR_RNA_DLPFC.vcf.gz | bgzip > test.vcf.gz
+tabix -p vcf test.vcf.gz
+
+
+library(vcfppR)
+file = "VNTR_RNA_DLPFC.vcf.gz"
+file = "example.vcf.gz"
+br = vcfreader$new(file)
+br$getStatus( "chr1")
+br$getStatus( ".")
+br$getStatus( "")

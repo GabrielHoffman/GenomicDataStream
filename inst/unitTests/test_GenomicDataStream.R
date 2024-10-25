@@ -183,6 +183,7 @@ test_vcfstream = function(){
 
 
 
+
 test_regression = function(){
 	
 	# Test VCF/BCF/BGEN dosage and regression results
@@ -220,7 +221,7 @@ test_regression = function(){
 	###############
 	resList = lapply(files, function(file){
 
-		# cat(file, "\n")
+		cat(file, "\n")
 		# rm(dat, res)
 
 		# test dosages
@@ -232,7 +233,7 @@ test_regression = function(){
 		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
 
 		# test regression
-		res = GenomicDataStream:::fastLM(y, file, "DS")
+		res = GenomicDataStream:::fastLM(y, file, "DS", chunkSize=10000)
 		beta = t(do.call(cbind, lapply(res, function(x) x$coef)))
 		checkEqualsNumeric(res1, beta, silent=TRUE, tol=1e-4)
 		})
