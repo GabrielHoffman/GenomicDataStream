@@ -282,17 +282,32 @@ class bgenstream :
 		//  since the last entry doesn't encode valid information
 		// When phased, the coding is [a1 a2] / [a1 a2]
 		//  so use weights 0/1/0/1
-		vec w_unph = {0,1,2,0}; 
-		vec w_ph = {0,1,0,1}; 
+		// vec w_unph = {0,1,2,0}; 
+		// vec w_ph = {0,1,0,1}; 
+		// compute dosages with weights depend on phasing
+		// w = phased[j] ? w_ph : w_unph;
+		// dsg = C.row_as_mat(j).t() * w;
+		// BUT !!!
+		// in unphased data, they last entry can be NaN
+		//    and NaN * 0 is still NaN
+		// so need to drop the last entry _manually_
 
-		vec w, dsg;
+		vec v, dsg;
+		vec w_unph = {0,1,2}; 
+		vec w_ph = {0,1,0,1}; 
+		mat m;
 
 		// compute dosage from Cube
 		// copy results of each variant to vector<double>
 		for(int j=0; j<chunkSize; j++){
-			// compute dosages with weights depend on phasing
-			w = phased[j] ? w_ph : w_unph;
-			dsg = C.row_as_mat(j).t() * w;
+			if( phased[j] ){
+				dsg = C.row_as_mat(j).t() * w_ph;
+			}else{		
+				// extract columns 0,1,2
+				// skip 3rd
+				m = C.row_as_mat(j).t();		
+				dsg = m.cols(0,2) * w_unph;
+			}
 
 			// replace missing with mean
 			if( param.missingToMean ) nanToMean( dsg );				
