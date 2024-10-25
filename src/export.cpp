@@ -421,6 +421,8 @@ List toList( const vector<ModelFitList> & fitList){
     arma::mat coefMat(nrow,ncoef);
     arma::mat seMat(nrow,ncoef);
     arma::vec dfVec(nrow);
+    vector<string> ID;
+    ID.reserve(nrow);
 
     int k=0;
     for(int i=0; i< fitList.size(); i++){
@@ -428,11 +430,13 @@ List toList( const vector<ModelFitList> & fitList){
             coefMat.row(k) = fitList[i][j].coef.t();
             seMat.row(k) = fitList[i][j].std_err.t();
             dfVec(k) = fitList[i][j].df;
+            ID.push_back(fitList[i][j].ID);
             k++;
         }
     }
 
     List lst = List::create(
+        Named("ID") = wrap(ID),
         Named("coef") = coefMat,
         Named("se") = seMat,
         Named("df") = dfVec
@@ -483,7 +487,7 @@ List fastLM( const arma::colvec& y,
         ModelFitList fitList = linearRegression(y, X_cov, chunk.getData(), info_chunk);
 
         nVariants += info_chunk.size();
-        Rcpp::Rcout << "\rVariants processed: " << nVariants << "      ";
+        // Rcpp::Rcout << "\rVariants processed: " << nVariants << "      ";
 
         // save results to list
         results.push_back(fitList);
