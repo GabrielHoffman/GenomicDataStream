@@ -33,15 +33,7 @@ standardize_test <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
-fastLM_eigen <- function(y, file, field, region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE) {
-    .Call('_GenomicDataStream_fastLM_eigen', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
-}
-
 fastLM <- function(y, file, field, region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE) {
     .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
-}
-
-fastLM2 <- function(y, file, field, region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE) {
-    .Call('_GenomicDataStream_fastLM2', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
 }
 

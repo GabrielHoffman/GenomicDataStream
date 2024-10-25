@@ -127,23 +127,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// fastLM_eigen
-List fastLM_eigen(const Eigen::VectorXd& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean);
-RcppExport SEXP _GenomicDataStream_fastLM_eigen(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastLM_eigen(y, file, field, region, samples, chunkSize, missingToMean));
-    return rcpp_result_gen;
-END_RCPP
-}
 // fastLM
 List fastLM(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean);
 RcppExport SEXP _GenomicDataStream_fastLM(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
@@ -161,23 +144,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// fastLM2
-List fastLM2(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean);
-RcppExport SEXP _GenomicDataStream_fastLM2(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastLM2(y, file, field, region, samples, chunkSize, missingToMean));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_extractVcf", (DL_FUNC) &_GenomicDataStream_extractVcf, 5},
@@ -188,9 +154,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getDosage", (DL_FUNC) &_GenomicDataStream_getDosage, 6},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
-    {"_GenomicDataStream_fastLM_eigen", (DL_FUNC) &_GenomicDataStream_fastLM_eigen, 7},
     {"_GenomicDataStream_fastLM", (DL_FUNC) &_GenomicDataStream_fastLM, 7},
-    {"_GenomicDataStream_fastLM2", (DL_FUNC) &_GenomicDataStream_fastLM2, 7},
     {NULL, NULL, 0}
 };
 
