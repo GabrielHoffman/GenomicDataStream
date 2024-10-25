@@ -11,6 +11,9 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
+#include <RcppClock.h>
+//[[Rcpp::depends(RcppClock)]
+
 
 #ifndef DISABLE_EIGEN
 #include <RcppEigen.h>
@@ -546,10 +549,12 @@ List fastLM( const arma::colvec& y,
     // store dosage from chunk
     // n samples and p features
     VariantInfo info_chunk;
-    List lst;
+    List lst, lst_store;
     arma::mat X_cov(y.n_elem, 1, fill::ones);
 
     int nVariants = 0;
+
+    Rcpp::Clock clock;
 
     while( gdsStream->getNextChunk( chunk ) ){
 
@@ -558,17 +563,176 @@ List fastLM( const arma::colvec& y,
 
         // Linear regression with the jth feature
         // used as a covariate in the jth model
+
+        clock.tick("linearRegression");
         List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+        clock.tock("linearRegression");
 
         nVariants += info_chunk.size();
         Rcpp::Rcout << "nVariants: " << nVariants << endl;
 
         // save results to list
-        append(lst, lst_local);
+        clock.tick("append");
+        // append(lst, lst_local);
+        lst_store.push_back(lst_local);
+        clock.tock("append");
     }
 
-    return lst;
+    clock.stop("info");
+
+    return lst_store;
 }
+
+
+
+struct ModelFit {
+    vec coef;
+    vec std_err;
+    double df;
+    string ID;
+    ModelFit( const vec &coef, const vec &std_err, const double &df) : 
+        coef(coef), std_err(std_err), df(df) {}
+};
+
+
+// adapted from https://github.com/RcppCore/RcppArmadillo/blob/master/src/fastLm.cpp
+ModelFit lm2(const arma::mat& X, const arma::colvec& y) {
+    int n = X.n_rows, k = X.n_cols;
+
+    arma::colvec coef = solve(X, y);     // fit model y ~ X
+    arma::colvec res  = y - X*coef;            // residuals
+    double s2 = dot(res, res) / (n - k); // std.errors of coefficients
+    arma::colvec std_err = arma::sqrt(s2 * diagvec(inv(trans(X)*X)));
+
+    return ModelFit( coef, std_err, n-k);
+}
+
+
+
+vector<ModelFit> linearRegression2(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const VariantInfo &info){
+
+    // create design matrix with jth feature in the last column
+    // X = cbind(X_cov, X_features[,0])
+    int n_covs = X_cov.n_cols;
+    arma::mat X(X_cov);
+    X.insert_cols(n_covs, X_features.col(0));
+
+    vector<ModelFit> fitList;
+    fitList.reserve(X_features.n_cols);
+
+    for(int j=0; j<X_features.n_cols; j++){
+        // Create design matrix with intercept as first column
+        X.col(n_covs) = X_features.col(j);
+
+        // linear regression        
+        ModelFit fit = lm2(X, y);
+        fit.ID = info.ID[j];
+
+        // save result to list
+        fitList.push_back( fit );
+    }    
+
+    return fitList;
+}
+
+typedef vector<vector<ModelFit> > ModelFitList;
+
+DataFrame toDataFrame( const ModelFitList & fitList){
+
+
+    int ncoef = fitList[0][0].coef.n_elem;
+    int nrow = 0;
+    for(int i=0; i< fitList.size(); i++){
+        nrow += fitList[i].size();
+    }
+
+    arma::mat coefMat(nrow,ncoef);
+    arma::mat seMat(nrow,ncoef);
+    arma::vec dfVec(nrow);
+
+    int k=0;
+    for(int i=0; i< fitList.size(); i++){
+        for(int j=0; j< fitList[i].size(); j++){
+            coefMat.row(k) = fitList[i][j].coef.t();
+            seMat.row(k) = fitList[i][j].std_err.t();
+            dfVec(k) = fitList[i][j].df;
+            k++;
+        }
+    }
+
+
+    DataFrame df = DataFrame::create(
+        Named("coef") = coefMat,
+        Named("se") = seMat,
+        Named("df") = dfVec
+      );
+
+    return df;
+}
+
+
+
+// [[Rcpp::export]]
+DataFrame fastLM2( const arma::colvec& y, 
+                const std::string &file,
+                const std::string &field,
+                const std::string &region = "",
+                const std::string &samples = "-",
+                const int &chunkSize = 4,
+                const bool &missingToMean = false){
+
+    Param param(file, region, samples, chunkSize, missingToMean);
+
+    param.setField(field);
+
+    // Initialise GenomicDataStream with file
+    unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
+
+    if( gdsStream->n_samples() != y.size() ){
+        Rcpp::stop("Data stream and y must have same number of samples");
+    }
+
+    DataChunk<arma::mat, VariantInfo> chunk;
+
+    // store dosage from chunk
+    // n samples and p features
+    VariantInfo info_chunk;
+    ModelFitList results;
+    arma::mat X_cov(y.n_elem, 1, fill::ones);
+
+    int nVariants = 0;
+
+    Rcpp::Clock clock;
+
+    while( gdsStream->getNextChunk( chunk ) ){
+
+        // get variant information
+        info_chunk = chunk.getInfo();
+
+        // Linear regression with the jth feature
+        // used as a covariate in the jth model
+
+        clock.tick("linearRegression");
+        vector<ModelFit> fitList = linearRegression2(y, X_cov, chunk.getData(), info_chunk);
+        clock.tock("linearRegression");
+
+        nVariants += info_chunk.size();
+        Rcpp::Rcout << "nVariants: " << nVariants << endl;
+
+        // save results to list
+        clock.tick("append");
+        // append(lst, lst_local);
+        results.push_back(fitList);
+        clock.tock("append");
+    }
+
+    clock.stop("info");
+
+    return toDataFrame( results );
+}
+
+
+
 
 
 

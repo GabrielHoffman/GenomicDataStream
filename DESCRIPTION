@@ -21,6 +21,7 @@ LinkingTo:
 	Rcpp,
 	RcppArmadillo,
 	RcppEigen,
+	RcppClock,
 	beachmat,
 	Rhtslib  (>= 3.0.0),
 	BH,

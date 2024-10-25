@@ -41,3 +41,7 @@ fastLM <- function(y, file, field, region = "", samples = "-", chunkSize = 4L, m
     .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
 }
 
+fastLM2 <- function(y, file, field, region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE) {
+    .Call('_GenomicDataStream_fastLM2', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
+}
+
