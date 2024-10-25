@@ -558,13 +558,12 @@ List fastLM( const arma::colvec& y,
 
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        // List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+        List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
 
         nVariants += info_chunk.size();
-        Rcpp::Rcout << "nVariants: " << nVariants << endl;
 
         // save results to list
-        // append(lst, lst_local);
+        append(lst, lst_local);
     }
 
     return lst;

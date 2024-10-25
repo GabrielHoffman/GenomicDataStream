@@ -224,7 +224,7 @@ test_regression = function(){
 		# rm(dat, res)
 
 		# test dosages
-		dat = GenomicDataStream:::getDosage(file, "DS", chunkSize=100)
+		dat = GenomicDataStream:::getDosage(file, "DS", chunkSize=10000)
 
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
@@ -232,7 +232,7 @@ test_regression = function(){
 		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
 
 		# test regression
-		res = GenomicDataStream:::fastLM(y, file, "DS", ".")
+		res = GenomicDataStream:::fastLM(y, file, "DS")
 		beta = t(do.call(cbind, lapply(res, function(x) x$coef)))
 		checkEqualsNumeric(res1, beta, silent=TRUE, tol=1e-4)
 		})
