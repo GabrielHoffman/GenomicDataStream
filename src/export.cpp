@@ -340,15 +340,49 @@ void standardize_test( arma::mat &X, const bool &center = true, const bool &scal
 List lm(const arma::mat& X, const arma::colvec& y) {
     int n = X.n_rows, k = X.n_cols;
 
-    arma::colvec coef = arma::solve(X, y);     // fit model y ~ X
+    arma::colvec coef = solve(X, y);     // fit model y ~ X
     arma::colvec res  = y - X*coef;            // residuals
-    double s2 = arma::dot(res, res) / (n - k); // std.errors of coefficients
-    arma::colvec std_err = arma::sqrt(s2 * arma::diagvec(arma::pinv(arma::trans(X)*X)));
+    double s2 = dot(res, res) / (n - k); // std.errors of coefficients
+    arma::colvec std_err = arma::sqrt(s2 * diagvec(inv(trans(X)*X)));
 
     return Rcpp::List::create(Rcpp::Named("coefficients") = coef,
                               Rcpp::Named("stderr")       = std_err,
                               Rcpp::Named("df.residual")  = n - k);
 }
+
+// adapted from https://github.com/RcppCore/RcppEigen/blob/a0f0564c335316d19b054713642dd5c8bd5084c8/src/fastLm.cpp#L116
+List lm(const Eigen::Map<Eigen::MatrixXd> &X, const Eigen::Map<Eigen::VectorXd> &y) {
+    
+    Eigen::Index m_p(X.cols());
+    Eigen::MatrixXd I_p = Eigen::MatrixXd::Identity(m_p, m_p);
+    Eigen::HouseholderQR<Eigen::MatrixXd> QR(X);
+    Eigen::VectorXd m_coef      = QR.solve(y);
+    // Eigen::VectorXd m_fitted    = X * m_coef;
+    Eigen::VectorXd m_se        = QR.matrixQR().topRows(m_p).
+        triangularView<Eigen::Upper>().solve(I_p).rowwise().norm();
+
+    return Rcpp::List::create(Rcpp::Named("coefficients") = wrap(m_coef),
+                              Rcpp::Named("stderr")       = wrap(m_se),
+                              Rcpp::Named("df.residual")  = X.rows() - X.cols());
+}
+
+List lm(const Eigen::MatrixXd &X, const Eigen::VectorXd &y) {
+    
+
+    Eigen::Index m_p(X.cols());
+    Eigen::MatrixXd I_p = Eigen::MatrixXd::Identity(m_p, m_p);
+    Eigen::HouseholderQR<Eigen::MatrixXd> QR(X);
+    Eigen::VectorXd m_coef      = QR.solve(y);
+    // Eigen::VectorXd m_fitted    = X * m_coef;
+    Eigen::VectorXd m_se        = QR.matrixQR().topRows(m_p).
+        triangularView<Eigen::Upper>().solve(I_p).rowwise().norm();
+
+    return Rcpp::List::create(Rcpp::Named("coefficients") = wrap(m_coef),
+                              Rcpp::Named("stderr")       = wrap(m_se),
+                              Rcpp::Named("df.residual")  = X.rows() - X.cols());
+}
+
+
 
 List linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const VariantInfo &info){
 
@@ -375,6 +409,57 @@ List linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::ma
 }
 
 
+List linearRegression(const Eigen::Map<Eigen::VectorXd> &y, const Eigen::Map<Eigen::MatrixXd> &X_cov, const Eigen::Map<Eigen::MatrixXd> &X_features, const VariantInfo &info){
+
+    // create design matrix with jth feature in the last column
+    // X = cbind(X_cov, X_features[,0])
+    int n_covs = X_cov.cols();
+    Eigen::MatrixXd X(X_cov);
+    X.conservativeResize(Eigen::NoChange, n_covs+1);
+    X.col(n_covs) = X_features.col(0);
+
+    List lst;
+
+    for(int j=0; j<X_features.cols(); j++){
+        // Create design matrix with intercept as first column
+        X.col(n_covs) = X_features.col(j);
+
+        // linear regression
+        List fit = lm(X, y);
+
+        // save result to list
+        lst.push_back( fit, info.ID[j] );
+    }    
+
+    return lst;
+}
+
+List linearRegression(const Eigen::VectorXd &y, const Eigen::MatrixXd &X_cov, const Eigen::MatrixXd &X_features, const VariantInfo &info){
+
+    // create design matrix with jth feature in the last column
+    // X = cbind(X_cov, X_features[,0])
+    int n_covs = X_cov.cols();
+    Eigen::MatrixXd X(X_cov);
+    X.conservativeResize(Eigen::NoChange, n_covs+1);
+    X.col(n_covs) = X_features.col(0);
+
+    List lst;
+
+    for(int j=0; j<X_features.cols(); j++){
+        // Create design matrix with intercept as first column
+        X.col(n_covs) = X_features.col(j);
+
+        // linear regression
+        List fit = lm(X, y);
+
+        // save result to list
+        lst.push_back( fit, info.ID[j] );
+    }    
+
+    return lst;
+}
+
+
 void append(List &lst, const List &lst2){
     CharacterVector ch = lst2.names();
     // append entries to List
@@ -385,14 +470,66 @@ void append(List &lst, const List &lst2){
 
 
 // [[Rcpp::export]]
+List fastLM_eigen( 
+                const Eigen::VectorXd& y, 
+                const std::string &file,
+                const std::string &field,
+                const std::string &region = "",
+                const std::string &samples = "-",
+                const int &chunkSize = 4,
+                const bool &missingToMean = false){
+
+    Param param(file, region, samples, chunkSize, missingToMean);
+
+    param.setField(field);
+
+    // Initialise GenomicDataStream with file
+    unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
+
+    if( gdsStream->n_samples() != y.size() ){
+        Rcpp::stop("Data stream and y must have same number of samples");
+    }
+
+    // DataChunk<arma::mat, VariantInfo> chunk;
+    DataChunk<Eigen::MatrixXd, VariantInfo> chunk;
+
+    // store dosage from chunk
+    // n samples and p features
+    VariantInfo info_chunk;
+    List lst;
+    Eigen::MatrixXd X_cov = Eigen::MatrixXd::Ones(y.size(),1);
+
+    int nVariants = 0;
+
+    while( gdsStream->getNextChunk( chunk ) ){
+
+        // get variant information
+        info_chunk = chunk.getInfo();
+
+        // Linear regression with the jth feature
+        // used as a covariate in the jth model
+        List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+
+        nVariants += info_chunk.size();
+        Rcpp::Rcout << "nVariants: " << nVariants << endl;
+
+        // save results to list
+        append(lst, lst_local);
+    }
+
+    return lst;
+}
+
+
+// [[Rcpp::export]]
 List fastLM( const arma::colvec& y, 
                 const std::string &file,
                 const std::string &field,
                 const std::string &region = "",
                 const std::string &samples = "-",
+                const int &chunkSize = 4,
                 const bool &missingToMean = false){
 
-    int chunkSize = 4;
     Param param(file, region, samples, chunkSize, missingToMean);
 
     param.setField(field);
@@ -408,25 +545,26 @@ List fastLM( const arma::colvec& y,
 
     // store dosage from chunk
     // n samples and p features
-    arma::mat X_chunk;
     VariantInfo info_chunk;
     List lst;
-    arma::mat X_cov(60, 1, fill::ones);
+    arma::mat X_cov(y.n_elem, 1, fill::ones);
+
+    int nVariants = 0;
 
     while( gdsStream->getNextChunk( chunk ) ){
-
-        // get data from chunk
-        X_chunk = chunk.getData();
 
         // get variant information
         info_chunk = chunk.getInfo();
 
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        List lst_local = linearRegression(y, X_cov, X_chunk, info_chunk);
+        // List lst_local = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+
+        nVariants += info_chunk.size();
+        Rcpp::Rcout << "nVariants: " << nVariants << endl;
 
         // save results to list
-        append(lst, lst_local);
+        // append(lst, lst_local);
     }
 
     return lst;
