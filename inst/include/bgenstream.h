@@ -273,6 +273,8 @@ class bgenstream :
 
 		// use probs to create Cube 
 		cube C(probs.data(), chunkSize, number_of_samples, max_entries_per_sample, true, true);
+
+		C.print();
 	
 		// weight alleles by dosage
 		// With max_entries_per_sample = 4, the unphased coding is 
