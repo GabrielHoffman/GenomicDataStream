@@ -20,6 +20,16 @@
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
 
+
+#ifdef _OPENMP
+    // [[Rcpp::plugins(openmp)]]
+    #include <omp.h>
+#else
+    #define omp_get_num_threads() 0
+    #define omp_get_thread_num() 0
+#endif
+
+
 #include <GenomicDataStream.h>
 
 using namespace std;
@@ -291,7 +301,7 @@ List extractVcf_chunks(
 // [[Rcpp::export]]
 Rcpp::List getDosage( 
             const std::string &file,
-            const std::string &field,
+            const std::string &field = "",
             const std::string &region = "",
             const std::string &samples = "-",
             const int &chunkSize = std::numeric_limits<int>::max(),
@@ -362,6 +372,7 @@ struct ModelFit {
     vec std_err;
     double df;
     string ID;
+    ModelFit() {}
     ModelFit( const vec &coef, const vec &std_err, const double &df) : 
         coef(coef), std_err(std_err), df(df) {}
 };
@@ -383,26 +394,38 @@ ModelFit lm(const arma::mat& X, const arma::colvec& y) {
 
 vector<ModelFit> linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const VariantInfo &info){
 
-    // create design matrix with jth feature in the last column
-    // X = cbind(X_cov, X_features[,0])
     int n_covs = X_cov.n_cols;
-    arma::mat X(X_cov);
-    X.insert_cols(n_covs, X_features.col(0));
 
-    vector<ModelFit> fitList;
-    fitList.reserve(X_features.n_cols);
+    vector<ModelFit> fitList(X_features.n_cols, ModelFit());
 
-    for(int j=0; j<X_features.n_cols; j++){
-        // Create design matrix with intercept as first column
-        X.col(n_covs) = X_features.col(j);
+    #ifdef _OPENMP 
+        // set threads
+        omp_set_num_threads(nthreads);
+        // disable nested parallelism
+        omp_set_max_active_levels(1);
+    #endif
 
-        // linear regression        
-        ModelFit fit = lm(X, y);
-        fit.ID = info.ID[j];
+    #pragma omp parallel
+    {
+        // create design matrix with jth feature in the last column
+        // X = cbind(X_cov, X_features[,0])
+        arma::mat X(X_cov);
+        X.insert_cols(n_covs, X_features.col(0));
 
-        // save result to list
-        fitList.push_back( fit );
-    }    
+        // iterate through responses 
+        #pragma omp for         
+        for(int j=0; j<X_features.n_cols; j++){
+            // Create design matrix with intercept as first column
+            X.col(n_covs) = X_features.col(j);
+
+            // linear regression        
+            ModelFit fit = lm(X, y);
+            fit.ID = info.ID[j];
+
+            // save result to list
+            fitList.at(j) =  fit;
+        }  
+    }  
 
     return fitList;
 }
@@ -410,7 +433,6 @@ vector<ModelFit> linearRegression(const arma::vec &y, const arma::mat &X_cov, co
 typedef vector<ModelFit> ModelFitList;
 
 List toList( const vector<ModelFitList> & fitList){
-
 
     int ncoef = fitList[0][0].coef.n_elem;
     int nrow = 0;
@@ -450,7 +472,7 @@ List toList( const vector<ModelFitList> & fitList){
 // [[Rcpp::export]]
 List fastLM( const arma::colvec& y, 
                 const std::string &file,
-                const std::string &field,
+                const std::string &field = "",
                 const std::string &region = "",
                 const std::string &samples = "-",
                 const int &chunkSize = 4,
