@@ -392,7 +392,7 @@ ModelFit lm(const arma::mat& X, const arma::colvec& y) {
 
 
 
-vector<ModelFit> linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const VariantInfo &info){
+vector<ModelFit> linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const VariantInfo &info, const int &nthreads = 1){
 
     int n_covs = X_cov.n_cols;
 
@@ -476,7 +476,8 @@ List fastLM( const arma::colvec& y,
                 const std::string &region = "",
                 const std::string &samples = "-",
                 const int &chunkSize = 4,
-                const bool &missingToMean = false){
+                const bool &missingToMean = false, 
+                const int &nthreads = 1){
 
     Param param(file, region, samples, chunkSize, missingToMean);
 
@@ -506,7 +507,7 @@ List fastLM( const arma::colvec& y,
 
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        ModelFitList fitList = linearRegression(y, X_cov, chunk.getData(), info_chunk);
+        ModelFitList fitList = linearRegression(y, X_cov, chunk.getData(), info_chunk, nthreads);
 
         nVariants += info_chunk.size();
         // Rcpp::Rcout << "\rVariants processed: " << nVariants << "      ";
