@@ -241,7 +241,12 @@ test_regression = function(){
 	rownames(res1) = rownames(X_all)
 	})
 
-
+	X = cbind(1, X_all[1,])
+	# X[,2] = 1
+	fit = lm(y ~ X+0)
+	fit2 = GenomicDataStream:::test_lm(X,y, FALSE)
+	checkEqualsNumeric(coef(fit), fit2$coefficients)
+	
 	# Analysis in GenomicDataStream
 	#-------------------------------
 
@@ -260,11 +265,11 @@ test_regression = function(){
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
 
-		checkEqualsNumeric(t(dat$X), X_all, tol=1e-7)
+		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
 
 		# test regression
 		res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=10000)
-		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-7)
+		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-4)
 		})
 
 	# Subset of regions

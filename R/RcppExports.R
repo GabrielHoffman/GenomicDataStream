@@ -33,6 +33,10 @@ standardize_test <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
+test_lm <- function(X, y) {
+    .Call('_GenomicDataStream_test_lm', PACKAGE = 'GenomicDataStream', X, y)
+}
+
 fastLM <- function(y, file, field = "", region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE, nthreads = 1L) {
     .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean, nthreads)
 }

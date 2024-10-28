@@ -127,6 +127,18 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test_lm
+List test_lm(const arma::mat& X, const arma::colvec& y);
+RcppExport SEXP _GenomicDataStream_test_lm(SEXP XSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(test_lm(X, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // fastLM
 List fastLM(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean, const int& nthreads);
 RcppExport SEXP _GenomicDataStream_fastLM(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP, SEXP nthreadsSEXP) {
@@ -155,6 +167,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getDosage", (DL_FUNC) &_GenomicDataStream_getDosage, 6},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
+    {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
     {"_GenomicDataStream_fastLM", (DL_FUNC) &_GenomicDataStream_fastLM, 8},
     {NULL, NULL, 0}
 };
