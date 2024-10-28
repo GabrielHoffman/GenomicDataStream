@@ -184,6 +184,34 @@ test_vcfstream = function(){
 
 
 
+test = function(){
+
+	# # DEBUG BGEN support on minerva
+	# library(GenomicDataStream)
+	# library(rbgen)
+
+	# # devtools::reload("~/build2/GenomicDataStream")
+
+
+
+	# file = "/hpc/users/hoffmg01/.Rlib/R_433/GenomicDataStream/extdata/test_noph_v1.3_16bits.bgen"
+	# samp = c("I1,I2,I3")
+	# dat = GenomicDataStream:::getDosage(file, field = '', chunkSize=8, samples=samp)
+
+	# # , samples=c("sample_001","sample_002")
+	# rng = data.frame( chromosome = '1', start = 0, end = 12000 )
+	# res = bgen.load( file, ranges = rng)
+
+	# samp = c("I1,I2,I3")
+	# dat = GenomicDataStream:::getDosage(file, field = '', chunkSize=10, samples=samp)
+
+
+
+}
+
+
+
+
 test_regression = function(){
 	
 	# Test VCF/BCF/BGEN dosage and regression results
@@ -201,6 +229,7 @@ test_regression = function(){
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 	# VariantAnnotation
+	system.time({
 	vcf <- suppressWarnings(readVcf(file))
 	X_all = geno(vcf)[["DS"]]
 	y = seq(ncol(X_all))
@@ -210,6 +239,7 @@ test_regression = function(){
 	})
 	res1 = do.call(rbind, res1)
 	rownames(res1) = rownames(X_all)
+	})
 
 
 	# Analysis in GenomicDataStream
@@ -230,12 +260,11 @@ test_regression = function(){
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
 
-		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
+		checkEqualsNumeric(t(dat$X), X_all, tol=1e-7)
 
 		# test regression
-		res = GenomicDataStream:::fastLM(y, file, "DS", chunkSize=10000)
-		beta = t(do.call(cbind, lapply(res, function(x) x$coef)))
-		checkEqualsNumeric(res1, beta, silent=TRUE, tol=1e-4)
+		res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=10000)
+		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-7)
 		})
 
 	# Subset of regions
@@ -249,12 +278,11 @@ test_regression = function(){
 
 		# test dosages
 		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100)
-		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,], tol=1e-4)
+		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,], tol=1e-7)
 
 		# test regression
 		res = GenomicDataStream:::fastLM(y, file, "DS", region=reg)
-		beta = t(do.call(cbind, lapply(res, function(x) x$coef)))
-		checkEqualsNumeric(res1[dat$info$ID,], beta, silent=TRUE, tol=1e-4)
+		checkEqualsNumeric(res1[dat$info$ID,], res$coef, silent=TRUE, tol=1e-7)
 		})
 
 
@@ -272,7 +300,7 @@ test_regression = function(){
 
 		# test dosages
 		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100, samples=ids)
-		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-4)
+		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-7)
 		})
 
 
@@ -291,12 +319,11 @@ test_regression = function(){
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
 
-		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
+		checkEqualsNumeric(t(dat$X), X_all, tol=1e-7)
 
 		# test regression
 		res = GenomicDataStream:::fastLM(y, file, "DS", ".")
-		beta = t(do.call(cbind, lapply(res, function(x) x$coef)))
-		checkEqualsNumeric(res1, beta, silent=TRUE, tol=1e-4)
+		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-7)
 		})
 
 }

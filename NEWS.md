@@ -5,6 +5,7 @@
  - Add support for BGEN 1.x with phased or unphased biallelic variants
  - test data in `inst/extdata/`
  - extensive testing for multiple file formats
+  - Fix BGEN issue with NaN for unphased data
 
 
 # GenomicDataStream 0.0.1

@@ -1,8 +1,19 @@
 \doxysection{src/export.cpp File Reference}
 \hypertarget{export_8cpp}{}\label{export_8cpp}\index{src/export.cpp@{src/export.cpp}}
 {\ttfamily \#include $<$Rcpp\+Armadillo.\+h$>$}\newline
+{\ttfamily \#include $<$Rcpp\+Clock.\+h$>$}\newline
 {\ttfamily \#include $<$Rcpp\+Eigen.\+h$>$}\newline
 {\ttfamily \#include $<$Genomic\+Data\+Stream.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_model_fit}{Model\+Fit}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef vector$<$ \mbox{\hyperlink{struct_model_fit}{Model\+Fit}} $>$ \mbox{\hyperlink{export_8cpp_adc39be6a32d02a4af0c01f51ec1b114f}{Model\+Fit\+List}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -24,23 +35,28 @@ arma\+::vec \mbox{\hyperlink{export_8cpp_a7fee884670a74f3630ba041bcf13a0e9}{col\
 \item 
 void \mbox{\hyperlink{export_8cpp_a7948cb70a34ad29b874afa09a0fd2558}{standardize\+\_\+test}} (arma\+::mat \&X, const bool \&center=true, const bool \&scale=true)
 \item 
-List \mbox{\hyperlink{export_8cpp_a1a510dc58cc491453ca222f63a754a73}{lm}} (const arma\+::mat \&X, const arma\+::colvec \&y)
+List \mbox{\hyperlink{export_8cpp_a81980d2aec2262a1676f31d48de289db}{lm}} (const Eigen\+::\+Matrix\+Xd \&X, const Eigen\+::\+Vector\+Xd \&y)
 \item 
-List \mbox{\hyperlink{export_8cpp_af49b4212a1550a79b853b3e13c90ecd1}{linear\+Regression}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+cov, const arma\+::mat \&X\+\_\+features, const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&info)
+\mbox{\hyperlink{struct_model_fit}{Model\+Fit}} \mbox{\hyperlink{export_8cpp_a591e42d82ad123eaa62982541620d858}{lm}} (const arma\+::mat \&X, const arma\+::colvec \&y)
 \item 
-void \mbox{\hyperlink{export_8cpp_aa169b4bc2def138b9d9f1b7eb0843747}{append}} (List \&lst, const List \&lst2)
+vector$<$ \mbox{\hyperlink{struct_model_fit}{Model\+Fit}} $>$ \mbox{\hyperlink{export_8cpp_a4197b280fbcb1f145e5032873235505f}{linear\+Regression}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+cov, const arma\+::mat \&X\+\_\+features, const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&info)
 \item 
-List \mbox{\hyperlink{export_8cpp_ab61798755e9c0d0cb8648f6ad25b4ca1}{fast\+LM}} (const arma\+::colvec \&y, const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const bool \&missing\+To\+Mean=false)
+List \mbox{\hyperlink{export_8cpp_aac56d2316140a7223baf05bd840197e1}{to\+List}} (const vector$<$ \mbox{\hyperlink{export_8cpp_adc39be6a32d02a4af0c01f51ec1b114f}{Model\+Fit\+List}} $>$ \&fit\+List)
+\item 
+List \mbox{\hyperlink{export_8cpp_a528684c0b82988a932e2c3f569ced009}{fast\+LM}} (const arma\+::colvec \&y, const std\+::string \&file, const std\+::string \&field, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const int \&chunk\+Size=4, const bool \&missing\+To\+Mean=false)
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Function Documentation}
-\Hypertarget{export_8cpp_aa169b4bc2def138b9d9f1b7eb0843747}\index{export.cpp@{export.cpp}!append@{append}}
-\index{append@{append}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{append()}{append()}}
-{\footnotesize\ttfamily \label{export_8cpp_aa169b4bc2def138b9d9f1b7eb0843747} 
-void append (\begin{DoxyParamCaption}\item[{List \&}]{lst}{, }\item[{const List \&}]{lst2}{}\end{DoxyParamCaption})}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{export_8cpp_adc39be6a32d02a4af0c01f51ec1b114f}\index{export.cpp@{export.cpp}!ModelFitList@{ModelFitList}}
+\index{ModelFitList@{ModelFitList}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{ModelFitList}{ModelFitList}}
+{\footnotesize\ttfamily \label{export_8cpp_adc39be6a32d02a4af0c01f51ec1b114f} 
+typedef vector$<$\mbox{\hyperlink{struct_model_fit}{Model\+Fit}}$>$ \mbox{\hyperlink{export_8cpp_adc39be6a32d02a4af0c01f51ec1b114f}{Model\+Fit\+List}}}
 
+
+
+\doxysubsection{Function Documentation}
 \Hypertarget{export_8cpp_a7fee884670a74f3630ba041bcf13a0e9}\index{export.cpp@{export.cpp}!colSums\_test@{colSums\_test}}
 \index{colSums\_test@{colSums\_test}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{colSums\_test()}{colSums\_test()}}
@@ -77,11 +93,11 @@ List extract\+Vcf\+\_\+\+NM (\begin{DoxyParamCaption}\item[{const std\+::string 
 {\footnotesize\ttfamily \label{export_8cpp_add8bc8889fbfeaccc7a5d946b75b7816} 
 List extract\+Vcf\+\_\+vector (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_ab61798755e9c0d0cb8648f6ad25b4ca1}\index{export.cpp@{export.cpp}!fastLM@{fastLM}}
+\Hypertarget{export_8cpp_a528684c0b82988a932e2c3f569ced009}\index{export.cpp@{export.cpp}!fastLM@{fastLM}}
 \index{fastLM@{fastLM}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastLM()}{fastLM()}}
-{\footnotesize\ttfamily \label{export_8cpp_ab61798755e9c0d0cb8648f6ad25b4ca1} 
-List fast\+LM (\begin{DoxyParamCaption}\item[{const arma\+::colvec \&}]{y}{, }\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a528684c0b82988a932e2c3f569ced009} 
+List fast\+LM (\begin{DoxyParamCaption}\item[{const arma\+::colvec \&}]{y}{, }\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily 4}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a1930783f5731b40372ed400d81283748}\index{export.cpp@{export.cpp}!getDosage@{getDosage}}
 \index{getDosage@{getDosage}!export.cpp@{export.cpp}}
@@ -89,17 +105,23 @@ List fast\+LM (\begin{DoxyParamCaption}\item[{const arma\+::colvec \&}]{y}{, }\i
 {\footnotesize\ttfamily \label{export_8cpp_a1930783f5731b40372ed400d81283748} 
 Rcpp\+::\+List get\+Dosage (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily std\+:\+:numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_af49b4212a1550a79b853b3e13c90ecd1}\index{export.cpp@{export.cpp}!linearRegression@{linearRegression}}
+\Hypertarget{export_8cpp_a4197b280fbcb1f145e5032873235505f}\index{export.cpp@{export.cpp}!linearRegression@{linearRegression}}
 \index{linearRegression@{linearRegression}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{linearRegression()}{linearRegression()}}
-{\footnotesize\ttfamily \label{export_8cpp_af49b4212a1550a79b853b3e13c90ecd1} 
-List linear\+Regression (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X\+\_\+cov}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&}]{info}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a4197b280fbcb1f145e5032873235505f} 
+vector$<$ \mbox{\hyperlink{struct_model_fit}{Model\+Fit}} $>$ linear\+Regression (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X\+\_\+cov}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&}]{info}{}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a1a510dc58cc491453ca222f63a754a73}\index{export.cpp@{export.cpp}!lm@{lm}}
+\Hypertarget{export_8cpp_a591e42d82ad123eaa62982541620d858}\index{export.cpp@{export.cpp}!lm@{lm}}
 \index{lm@{lm}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{lm()}{lm()}}
-{\footnotesize\ttfamily \label{export_8cpp_a1a510dc58cc491453ca222f63a754a73} 
-List lm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::colvec \&}]{y}{}\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{lm()}{lm()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{export_8cpp_a591e42d82ad123eaa62982541620d858} 
+\mbox{\hyperlink{struct_model_fit}{Model\+Fit}} lm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::colvec \&}]{y}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a81980d2aec2262a1676f31d48de289db}\index{export.cpp@{export.cpp}!lm@{lm}}
+\index{lm@{lm}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{lm()}{lm()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{export_8cpp_a81980d2aec2262a1676f31d48de289db} 
+List lm (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xd \&}]{X}{, }\item[{const Eigen\+::\+Vector\+Xd \&}]{y}{}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a7948cb70a34ad29b874afa09a0fd2558}\index{export.cpp@{export.cpp}!standardize\_test@{standardize\_test}}
 \index{standardize\_test@{standardize\_test}!export.cpp@{export.cpp}}
@@ -112,4 +134,10 @@ void standardize\+\_\+test (\begin{DoxyParamCaption}\item[{arma\+::mat \&}]{X}{,
 \doxysubsubsection{\texorpdfstring{toDF()}{toDF()}}
 {\footnotesize\ttfamily \label{export_8cpp_a92c4b4101778c8258e06efc528ccc97e} 
 Data\+Frame to\+DF (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&}]{v\+Info}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_aac56d2316140a7223baf05bd840197e1}\index{export.cpp@{export.cpp}!toList@{toList}}
+\index{toList@{toList}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{toList()}{toList()}}
+{\footnotesize\ttfamily \label{export_8cpp_aac56d2316140a7223baf05bd840197e1} 
+List to\+List (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{export_8cpp_adc39be6a32d02a4af0c01f51ec1b114f}{Model\+Fit\+List}} $>$ \&}]{fit\+List}{}\end{DoxyParamCaption})}
 

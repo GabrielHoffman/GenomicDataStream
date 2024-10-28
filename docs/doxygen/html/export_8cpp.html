@@ -120,14 +120,27 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">export.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;RcppArmadillo.h&gt;</code><br />
+<code>#include &lt;RcppClock.h&gt;</code><br />
 <code>#include &lt;RcppEigen.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="_genomic_data_stream_8h_source.html">GenomicDataStream.h</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_model_fit.html">ModelFit</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:adc39be6a32d02a4af0c01f51ec1b114f" id="r_adc39be6a32d02a4af0c01f51ec1b114f"><td class="memItemLeft" align="right" valign="top">typedef vector&lt; <a class="el" href="struct_model_fit.html">ModelFit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a></td></tr>
+<tr class="separator:adc39be6a32d02a4af0c01f51ec1b114f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a92c4b4101778c8258e06efc528ccc97e" id="r_a92c4b4101778c8258e06efc528ccc97e"><td class="memItemLeft" align="right" valign="top">DataFrame&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92c4b4101778c8258e06efc528ccc97e">toDF</a> (const <a class="el" href="classgds_1_1_variant_info.html">VariantInfo</a> &amp;vInfo)</td></tr>
@@ -148,37 +161,33 @@ Functions</h2></td></tr>
 <tr class="separator:a7fee884670a74f3630ba041bcf13a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7948cb70a34ad29b874afa09a0fd2558" id="r_a7948cb70a34ad29b874afa09a0fd2558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7948cb70a34ad29b874afa09a0fd2558">standardize_test</a> (arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true)</td></tr>
 <tr class="separator:a7948cb70a34ad29b874afa09a0fd2558"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a510dc58cc491453ca222f63a754a73" id="r_a1a510dc58cc491453ca222f63a754a73"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a510dc58cc491453ca222f63a754a73">lm</a> (const arma::mat &amp;X, const arma::colvec &amp;y)</td></tr>
-<tr class="separator:a1a510dc58cc491453ca222f63a754a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af49b4212a1550a79b853b3e13c90ecd1" id="r_af49b4212a1550a79b853b3e13c90ecd1"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af49b4212a1550a79b853b3e13c90ecd1">linearRegression</a> (const arma::vec &amp;y, const arma::mat &amp;X_cov, const arma::mat &amp;X_features, const <a class="el" href="classgds_1_1_variant_info.html">VariantInfo</a> &amp;info)</td></tr>
-<tr class="separator:af49b4212a1550a79b853b3e13c90ecd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa169b4bc2def138b9d9f1b7eb0843747" id="r_aa169b4bc2def138b9d9f1b7eb0843747"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa169b4bc2def138b9d9f1b7eb0843747">append</a> (List &amp;lst, const List &amp;lst2)</td></tr>
-<tr class="separator:aa169b4bc2def138b9d9f1b7eb0843747"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab61798755e9c0d0cb8648f6ad25b4ca1" id="r_ab61798755e9c0d0cb8648f6ad25b4ca1"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab61798755e9c0d0cb8648f6ad25b4ca1">fastLM</a> (const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
-<tr class="separator:ab61798755e9c0d0cb8648f6ad25b4ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81980d2aec2262a1676f31d48de289db" id="r_a81980d2aec2262a1676f31d48de289db"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81980d2aec2262a1676f31d48de289db">lm</a> (const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;y)</td></tr>
+<tr class="separator:a81980d2aec2262a1676f31d48de289db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a591e42d82ad123eaa62982541620d858" id="r_a591e42d82ad123eaa62982541620d858"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_model_fit.html">ModelFit</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a591e42d82ad123eaa62982541620d858">lm</a> (const arma::mat &amp;X, const arma::colvec &amp;y)</td></tr>
+<tr class="separator:a591e42d82ad123eaa62982541620d858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4197b280fbcb1f145e5032873235505f" id="r_a4197b280fbcb1f145e5032873235505f"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_model_fit.html">ModelFit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4197b280fbcb1f145e5032873235505f">linearRegression</a> (const arma::vec &amp;y, const arma::mat &amp;X_cov, const arma::mat &amp;X_features, const <a class="el" href="classgds_1_1_variant_info.html">VariantInfo</a> &amp;info)</td></tr>
+<tr class="separator:a4197b280fbcb1f145e5032873235505f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac56d2316140a7223baf05bd840197e1" id="r_aac56d2316140a7223baf05bd840197e1"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac56d2316140a7223baf05bd840197e1">toList</a> (const vector&lt; <a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a> &gt; &amp;fitList)</td></tr>
+<tr class="separator:aac56d2316140a7223baf05bd840197e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528684c0b82988a932e2c3f569ced009" id="r_a528684c0b82988a932e2c3f569ced009"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a528684c0b82988a932e2c3f569ced009">fastLM</a> (const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=4, const bool &amp;missingToMean=false)</td></tr>
+<tr class="separator:a528684c0b82988a932e2c3f569ced009"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="aa169b4bc2def138b9d9f1b7eb0843747" name="aa169b4bc2def138b9d9f1b7eb0843747"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa169b4bc2def138b9d9f1b7eb0843747">&#9670;&#160;</a></span>append()</h2>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="adc39be6a32d02a4af0c01f51ec1b114f" name="adc39be6a32d02a4af0c01f51ec1b114f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc39be6a32d02a4af0c01f51ec1b114f">&#9670;&#160;</a></span>ModelFitList</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void append </td>
-          <td>(</td>
-          <td class="paramtype">List &amp;</td>          <td class="paramname"><span class="paramname"><em>lst</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const List &amp;</td>          <td class="paramname"><span class="paramname"><em>lst2</em></span>&#160;)</td>
+          <td class="memname">typedef vector&lt;<a class="el" href="struct_model_fit.html">ModelFit</a>&gt; <a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a7fee884670a74f3630ba041bcf13a0e9" name="a7fee884670a74f3630ba041bcf13a0e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7fee884670a74f3630ba041bcf13a0e9">&#9670;&#160;</a></span>colSums_test()</h2>
 
@@ -376,8 +385,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab61798755e9c0d0cb8648f6ad25b4ca1" name="ab61798755e9c0d0cb8648f6ad25b4ca1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab61798755e9c0d0cb8648f6ad25b4ca1">&#9670;&#160;</a></span>fastLM()</h2>
+<a id="a528684c0b82988a932e2c3f569ced009" name="a528684c0b82988a932e2c3f569ced009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a528684c0b82988a932e2c3f569ced009">&#9670;&#160;</a></span>fastLM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,6 +415,11 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>samples</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;-&quot;</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">4</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -458,14 +472,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af49b4212a1550a79b853b3e13c90ecd1" name="af49b4212a1550a79b853b3e13c90ecd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af49b4212a1550a79b853b3e13c90ecd1">&#9670;&#160;</a></span>linearRegression()</h2>
+<a id="a4197b280fbcb1f145e5032873235505f" name="a4197b280fbcb1f145e5032873235505f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4197b280fbcb1f145e5032873235505f">&#9670;&#160;</a></span>linearRegression()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">List linearRegression </td>
+          <td class="memname">vector&lt; <a class="el" href="struct_model_fit.html">ModelFit</a> &gt; linearRegression </td>
           <td>(</td>
           <td class="paramtype">const arma::vec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
         </tr>
@@ -489,14 +503,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1a510dc58cc491453ca222f63a754a73" name="a1a510dc58cc491453ca222f63a754a73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a510dc58cc491453ca222f63a754a73">&#9670;&#160;</a></span>lm()</h2>
+<a id="a591e42d82ad123eaa62982541620d858" name="a591e42d82ad123eaa62982541620d858"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a591e42d82ad123eaa62982541620d858">&#9670;&#160;</a></span>lm() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">List lm </td>
+          <td class="memname"><a class="el" href="struct_model_fit.html">ModelFit</a> lm </td>
           <td>(</td>
           <td class="paramtype">const arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
         </tr>
@@ -504,6 +518,27 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const arma::colvec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81980d2aec2262a1676f31d48de289db" name="a81980d2aec2262a1676f31d48de289db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81980d2aec2262a1676f31d48de289db">&#9670;&#160;</a></span>lm() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List lm </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixXd &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -546,6 +581,23 @@ Functions</h2></td></tr>
           <td class="memname">DataFrame toDF </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgds_1_1_variant_info.html">VariantInfo</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>vInfo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac56d2316140a7223baf05bd840197e1" name="aac56d2316140a7223baf05bd840197e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac56d2316140a7223baf05bd840197e1">&#9670;&#160;</a></span>toList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List toList </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; <a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>fitList</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

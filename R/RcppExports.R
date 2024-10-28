@@ -21,7 +21,7 @@ extractVcf_chunks <- function(file, field, region = "", samples = "-", missingTo
     .Call('_GenomicDataStream_extractVcf_chunks', PACKAGE = 'GenomicDataStream', file, field, region, samples, missingToMean)
 }
 
-getDosage <- function(file, field, region = "", samples = "-", chunkSize, missingToMean = FALSE) {
+getDosage <- function(file, field = "", region = "", samples = "-", chunkSize, missingToMean = FALSE) {
     .Call('_GenomicDataStream_getDosage', PACKAGE = 'GenomicDataStream', file, field, region, samples, chunkSize, missingToMean)
 }
 
@@ -33,7 +33,7 @@ standardize_test <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
-fastLM <- function(y, file, field, region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE) {
-    .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean)
+fastLM <- function(y, file, field = "", region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE, nthreads = 1L) {
+    .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean, nthreads)
 }
 

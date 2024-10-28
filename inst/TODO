@@ -1,15 +1,8 @@
 
-Bugs
-1) NA's depend on chunkSize.  Sometimes works
-dat = GenomicDataStream:::getDosage(file, "DS", chunkSize=10000)
-
-2) On minerva: region not found when empty
-
-gcc version?
-
 
 
 Oct 24, 2024
+Write linearRegression with OpenMP
 DelayedStream doesn't work yet
 Stream from disk while subsetting rows and columns
 
@@ -29,9 +22,9 @@ file = "/sc/arion/projects/CommonMind/christian/CMC-VNTR/files/VNTR_RNA_DLPFC.vc
 
 file = "./VNTR_RNA_DLPFC.vcf.gz"
 
-system.time(res <- GenomicDataStream:::fastLM(y, file, "DS", region="."))
+system.time(res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=1000))
 
-system.time(res <- GenomicDataStream:::fastLM_eigen(y, file, "DS"))
+system.time(res <- GenomicDataStream:::fastLM_eigen(y, file, "DS", chunkSize=1000))
 
 // Old
 - Run with lucida
@@ -43,6 +36,7 @@ system.time(res <- GenomicDataStream:::fastLM_eigen(y, file, "DS"))
 - Use same file for VCF, BCF, BGEN
 	and confirm same results
 	- convert with plink2
+- Overlaping genome regions are NOT checked
 
 Other formats
 	- plink bed/bim/fam

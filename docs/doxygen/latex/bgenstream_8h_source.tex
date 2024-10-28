@@ -268,40 +268,46 @@
 \DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ the\ last\ entry\ doesn't\ encode\ valid\ information}}
 \DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ When\ phased,\ the\ coding\ is\ [a1\ a2]\ /\ [a1\ a2]}}
 \DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ so\ use\ weights\ 0/1/0/1}}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ vec\ w\_unph\ =\ \{0,1,2,0\};\ }
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ vec\ w\_ph\ =\ \{0,1,0,1\};\ }
-\DoxyCodeLine{00285\ }
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ vec\ w,\ dsg;}
-\DoxyCodeLine{00287\ }
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosage\ from\ Cube}}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ results\ of\ each\ variant\ to\ vector<double>}}
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<chunkSize;\ j++)\{}
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosages\ with\ weights\ depend\ on\ phasing}}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ phased[j]\ ?\ w\_ph\ :\ w\_unph;}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ dsg\ =\ C.row\_as\_mat(j).t()\ *\ w;}
-\DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ replace\ missing\ with\ mean}}
-\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}\ )\ nanToMean(\ dsg\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vec\ w\_unph\ =\ \{0,1,2,0\};\ }}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vec\ w\_ph\ =\ \{0,1,0,1\};\ }}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosages\ with\ weights\ depend\ on\ phasing}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ w\ =\ phased[j]\ ?\ w\_ph\ :\ w\_unph;}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dsg\ =\ C.row\_as\_mat(j).t()\ *\ w;}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BUT\ !!!}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ unphased\ data,\ they\ last\ entry\ can\ be\ NaN}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ and\ NaN\ *\ 0\ is\ still\ NaN}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ need\ to\ drop\ the\ last\ entry\ \_manually\_}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ vec\ v,\ dsg;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ vec\ w\_unph\ =\ \{0,1,2\};\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ vec\ w\_ph\ =\ \{0,1,0,1\};\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ mat\ m;}
 \DoxyCodeLine{00297\ }
-\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ vector\ in\ matDosage}}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(matDosage.data()\ +\ number\_of\_samples*j,\ dsg.memptr(),\ number\_of\_samples*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00301\ }
-\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00303\ \ \ \ \ \}}
-\DoxyCodeLine{00304\ \};}
-\DoxyCodeLine{00305\ }
-\DoxyCodeLine{00306\ }
-\DoxyCodeLine{00307\ \textcolor{comment}{//\ Using\ Tmp\ matrix}}
-\DoxyCodeLine{00308\ \textcolor{comment}{//\ mat\ M(number\_of\_samples,\ chunkSize);}}
-\DoxyCodeLine{00309\ \textcolor{comment}{//\ for(int\ j=0;\ j<chunkSize;\ j++)\{}}
-\DoxyCodeLine{00310\ \textcolor{comment}{//\ \ M.col(j)\ =\ C.row\_as\_mat(j).t()\ *\ dsg;}}
-\DoxyCodeLine{00311\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00312\ \textcolor{comment}{//\ chunk\ =\ DataChunk<arma::mat,\ VariantInfo>(\ M,\ *vInfo\ );}}
-\DoxyCodeLine{00313\ }
-\DoxyCodeLine{00314\ }
-\DoxyCodeLine{00315\ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosage\ from\ Cube}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ results\ of\ each\ variant\ to\ vector<double>}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<chunkSize;\ j++)\{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ phased[j]\ )\{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dsg\ =\ C.row\_as\_mat(j).t()\ *\ w\_ph;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{\ \ \ \ \ \ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ extract\ columns\ 0,1,2}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ skip\ 3rd}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ C.row\_as\_mat(j).t();\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dsg\ =\ m.cols(0,2)\ *\ w\_unph;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ replace\ missing\ with\ mean}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}\ )\ nanToMean(\ dsg\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ vector\ in\ matDosage}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(matDosage.data()\ +\ number\_of\_samples*j,\ dsg.memptr(),\ number\_of\_samples*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00316\ }
-\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00318\ \ \ \ \ \}}
+\DoxyCodeLine{00319\ \};}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

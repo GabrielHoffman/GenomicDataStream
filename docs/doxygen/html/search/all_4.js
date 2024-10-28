@@ -5,5 +5,6 @@ var searchData=
   ['chunksize_2',['chunkSize',['../structgds_1_1_param.html#ae82660852c54b3b6ac70d7aea6a37824',1,'gds::Param']]],
   ['clear_3',['clear',['../classgds_1_1_variant_info.html#a304659a38460f4dc8d9dbb509f3fe8c2',1,'gds::VariantInfo']]],
   ['code_20with_20c_2017_4',['Example code with C++17',['../index.html#autotoc_md0',1,'']]],
-  ['colsums_5ftest_5',['colSums_test',['../export_8cpp.html#a7fee884670a74f3630ba041bcf13a0e9',1,'colSums_test(const arma::mat &amp;X):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a7fee884670a74f3630ba041bcf13a0e9',1,'colSums_test(const arma::mat &amp;X):&#160;export.cpp']]]
+  ['coef_5',['coef',['../struct_model_fit.html#a222def6e4c187aa4217d8220fcacfc5b',1,'ModelFit']]],
+  ['colsums_5ftest_6',['colSums_test',['../export_8cpp.html#a7fee884670a74f3630ba041bcf13a0e9',1,'colSums_test(const arma::mat &amp;X):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a7fee884670a74f3630ba041bcf13a0e9',1,'colSums_test(const arma::mat &amp;X):&#160;export.cpp']]]
 ];
