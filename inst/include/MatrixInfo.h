@@ -12,63 +12,30 @@
 #ifndef DISABLE_DELAYED_STREAM
 
 #include <vector>
+#include <algorithm>
 #include <Rcpp.h>
+#include "DataInfo.h"
 
 using namespace std;
 
 namespace gds {
 
-
-class MatrixInfo {
-
+class MatrixInfo :
+    public DataInfo {
     public:
     MatrixInfo() {}
+    MatrixInfo(const vector<string> &ID) :
+        DataInfo(ID) {}
 
-    MatrixInfo(const Rcpp::CharacterVector &rownames, const Rcpp::CharacterVector &colnames) :
-        rownames(rownames), colnames(colnames) {}
+    void setRowNames( const vector<string> &rn, const int &start, const int &end){
 
-    MatrixInfo( const Rcpp::RObject &mat){
-        Rcpp::List lst;
-        if( mat.hasAttribute("dimnames") ){
-            lst = mat.attr("dimnames");
-        }else if( mat.hasAttribute("Dimnames") ){
-            lst = mat.attr("Dimnames");
+        ID.clear();
+        for(int i=start; i<end; i++){
+            ID.push_back(rn[i]);
         }
-        rownames = lst[0];
-        colnames = lst[1];
     }
-
-    /** Accessor
-     */
-    Rcpp::CharacterVector get_rownames() const { 
-        return rownames;
-    }
-
-    /** Accessor
-    */
-    Rcpp::CharacterVector get_colnames() const{ 
-        return colnames;
-    }
-
-    private:
-    Rcpp::CharacterVector rownames, colnames;
 };
 
-
-// /** For Rcpp::NumericMatrix with MatrixInfo, set the row and col names
-//  */ 
-// static void setRowColNames( Rcpp::NumericMatrix &M, const MatrixInfo &info){
-//     Rcpp::rownames(M) = info.get_rownames();
-//     Rcpp::colnames(M) = info.get_colnames();
-// }
-
-
-
-// /** For all other datatypes, do nothing
-//  */ 
-// template<typename matType, typename infoType >
-// static void setRowColNames( matType &M, const infoType &info){
-// } 
 
 
 

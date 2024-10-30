@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,19 +94,22 @@
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>unique_ptr<span class="op">&lt;</span>GenomicDataStream<span class="op">&gt;</span> gdsStream <span class="op">=</span> createFileView<span class="op">(</span> param <span class="op">);</span></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">// declare DataChunk storing an Armadillo matrix for each chunk</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">,</span> VariantInfo<span class="op">&gt;</span> chunk<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">&gt;</span> chunk<span class="op">;</span></span>
 <span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">// Store meta-data about each variant</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>VariantInfo <span class="op">*</span>info<span class="op">;</span></span>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="co">// chunk.getData();</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    <span class="co">// chunk.getInfo();</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    <span class="co">// chunk.getData();</span></span>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>    info <span class="op">=</span> chunk<span class="op">.</span>getInfo<span class="op">&lt;</span>VariantInfo<span class="op">&gt;();</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

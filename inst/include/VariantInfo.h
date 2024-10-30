@@ -10,6 +10,7 @@
 #define VARIANT_INFO_H
 
 #include <vector>
+#include "DataInfo.h"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ namespace gds {
 /** Store variant information and sample names
  * 
  */
-class VariantInfo {
+class VariantInfo : 
+    public DataInfo {
 
     public:
 
@@ -43,12 +45,6 @@ class VariantInfo {
         ID.push_back( id );
         A1.push_back( ref );
         A2.push_back( alt );
-    }
-
-    /** number of variants
-     */ 
-    int size() const {
-        return CHROM.size();
     }
 
     /** append variants in a new VariantInfo to the end of the current object
@@ -99,7 +95,7 @@ class VariantInfo {
     vector<string> sampleNames;
     vector<string> CHROM;
     vector<int64_t> POS;
-    vector<string> ID, A1, A2;
+    vector<string> A1, A2;
 };
 
 }

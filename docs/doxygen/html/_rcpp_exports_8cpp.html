@@ -151,6 +151,10 @@ Functions</h2></td></tr>
 <tr class="separator:aeaeb4e6f70905ea9c36f33eaaabd8138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6099d630be364f2dc400c630a6c2cdb" id="r_aa6099d630be364f2dc400c630a6c2cdb"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6099d630be364f2dc400c630a6c2cdb">_GenomicDataStream_extractVcf_chunks</a> (SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP missingToMeanSEXP)</td></tr>
 <tr class="separator:aa6099d630be364f2dc400c630a6c2cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72211ec7362a8dff38f4950b0a268077" id="r_a72211ec7362a8dff38f4950b0a268077"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72211ec7362a8dff38f4950b0a268077">getDA</a> (const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize)</td></tr>
+<tr class="separator:a72211ec7362a8dff38f4950b0a268077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80f840301ce2bc415074772f35d07b48" id="r_a80f840301ce2bc415074772f35d07b48"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80f840301ce2bc415074772f35d07b48">_GenomicDataStream_getDA</a> (SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP)</td></tr>
+<tr class="separator:a80f840301ce2bc415074772f35d07b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd288cca1a23850c0f3a6a62e9d89400" id="r_abd288cca1a23850c0f3a6a62e9d89400"><td class="memItemLeft" align="right" valign="top">Rcpp::List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd288cca1a23850c0f3a6a62e9d89400">getDosage</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region, const std::string &amp;samples, const int &amp;chunkSize, const bool &amp;missingToMean)</td></tr>
 <tr class="separator:abd288cca1a23850c0f3a6a62e9d89400"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6aafd7b3886c2b35de2458973ada4bee" id="r_a6aafd7b3886c2b35de2458973ada4bee"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6aafd7b3886c2b35de2458973ada4bee">_GenomicDataStream_getDosage</a> (SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP)</td></tr>
@@ -163,10 +167,18 @@ Functions</h2></td></tr>
 <tr class="separator:a62357b90027c8c7431e79c4955b63428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9acd48d49a2c3ab68ca5ad31d82b611c" id="r_a9acd48d49a2c3ab68ca5ad31d82b611c"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9acd48d49a2c3ab68ca5ad31d82b611c">_GenomicDataStream_standardize_test</a> (SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP)</td></tr>
 <tr class="separator:a9acd48d49a2c3ab68ca5ad31d82b611c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9d10c5c149a3e6bcc283c490cdd428f" id="r_ab9d10c5c149a3e6bcc283c490cdd428f"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9d10c5c149a3e6bcc283c490cdd428f">fastLM</a> (const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region, const std::string &amp;samples, const int &amp;chunkSize, const bool &amp;missingToMean)</td></tr>
-<tr class="separator:ab9d10c5c149a3e6bcc283c490cdd428f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16ee220ba5f09bd1bfc0799cc38c675d" id="r_a16ee220ba5f09bd1bfc0799cc38c675d"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16ee220ba5f09bd1bfc0799cc38c675d">_GenomicDataStream_fastLM</a> (SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP)</td></tr>
-<tr class="separator:a16ee220ba5f09bd1bfc0799cc38c675d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683a5203dc913dec98c9a88bda392781" id="r_a683a5203dc913dec98c9a88bda392781"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a683a5203dc913dec98c9a88bda392781">test_lm</a> (const arma::mat &amp;X, const arma::colvec &amp;y)</td></tr>
+<tr class="separator:a683a5203dc913dec98c9a88bda392781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae825b45616ecbc15475c0b1c50184405" id="r_ae825b45616ecbc15475c0b1c50184405"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae825b45616ecbc15475c0b1c50184405">_GenomicDataStream_test_lm</a> (SEXP XSEXP, SEXP ySEXP)</td></tr>
+<tr class="separator:ae825b45616ecbc15475c0b1c50184405"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366fd0e2db7f3f2e06995b5ef75a9bc8" id="r_a366fd0e2db7f3f2e06995b5ef75a9bc8"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a366fd0e2db7f3f2e06995b5ef75a9bc8">fastLM</a> (const arma::colvec &amp;y, const std::string &amp;file, const std::string &amp;field, const std::string &amp;region, const std::string &amp;samples, const int &amp;chunkSize, const bool &amp;missingToMean, const int &amp;nthreads, const bool &amp;verbose)</td></tr>
+<tr class="separator:a366fd0e2db7f3f2e06995b5ef75a9bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6912042d84b73ebcf74e6f56f70c293e" id="r_a6912042d84b73ebcf74e6f56f70c293e"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6912042d84b73ebcf74e6f56f70c293e">_GenomicDataStream_fastLM</a> (SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP)</td></tr>
+<tr class="separator:a6912042d84b73ebcf74e6f56f70c293e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a080411eaa392e77551d05806fe2ea713" id="r_a080411eaa392e77551d05806fe2ea713"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a080411eaa392e77551d05806fe2ea713">regrExprResponse</a> (const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize, const int &amp;nthreads, const bool &amp;verbose)</td></tr>
+<tr class="separator:a080411eaa392e77551d05806fe2ea713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a439bc12f46a111c80aaf57181b403b1b" id="r_a439bc12f46a111c80aaf57181b403b1b"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a439bc12f46a111c80aaf57181b403b1b">_GenomicDataStream_regrExprResponse</a> (SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP)</td></tr>
+<tr class="separator:a439bc12f46a111c80aaf57181b403b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28813cc54257bc2fa1103e5290158da5" id="r_a28813cc54257bc2fa1103e5290158da5"><td class="memItemLeft" align="right" valign="top">RcppExport void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28813cc54257bc2fa1103e5290158da5">R_init_GenomicDataStream</a> (DllInfo *dll)</td></tr>
 <tr class="separator:a28813cc54257bc2fa1103e5290158da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -368,8 +380,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a16ee220ba5f09bd1bfc0799cc38c675d" name="a16ee220ba5f09bd1bfc0799cc38c675d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16ee220ba5f09bd1bfc0799cc38c675d">&#9670;&#160;</a></span>_GenomicDataStream_fastLM()</h2>
+<a id="a6912042d84b73ebcf74e6f56f70c293e" name="a6912042d84b73ebcf74e6f56f70c293e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6912042d84b73ebcf74e6f56f70c293e">&#9670;&#160;</a></span>_GenomicDataStream_fastLM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -407,7 +419,43 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>missingToMeanSEXP</em></span>&#160;)</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>missingToMeanSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>nthreadsSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>verboseSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a80f840301ce2bc415074772f35d07b48" name="a80f840301ce2bc415074772f35d07b48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f840301ce2bc415074772f35d07b48">&#9670;&#160;</a></span>_GenomicDataStream_getDA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_getDA </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>matSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>rowNamesSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>chunkSizeSEXP</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -455,6 +503,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a439bc12f46a111c80aaf57181b403b1b" name="a439bc12f46a111c80aaf57181b403b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a439bc12f46a111c80aaf57181b403b1b">&#9670;&#160;</a></span>_GenomicDataStream_regrExprResponse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_regrExprResponse </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>matSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>rowNamesSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>chunkSizeSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>nthreadsSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>verboseSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9acd48d49a2c3ab68ca5ad31d82b611c" name="a9acd48d49a2c3ab68ca5ad31d82b611c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9acd48d49a2c3ab68ca5ad31d82b611c">&#9670;&#160;</a></span>_GenomicDataStream_standardize_test()</h2>
 
@@ -475,6 +559,27 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>scaleSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae825b45616ecbc15475c0b1c50184405" name="ae825b45616ecbc15475c0b1c50184405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae825b45616ecbc15475c0b1c50184405">&#9670;&#160;</a></span>_GenomicDataStream_test_lm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_test_lm </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>ySEXP</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -678,8 +783,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab9d10c5c149a3e6bcc283c490cdd428f" name="ab9d10c5c149a3e6bcc283c490cdd428f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9d10c5c149a3e6bcc283c490cdd428f">&#9670;&#160;</a></span>fastLM()</h2>
+<a id="a366fd0e2db7f3f2e06995b5ef75a9bc8" name="a366fd0e2db7f3f2e06995b5ef75a9bc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a366fd0e2db7f3f2e06995b5ef75a9bc8">&#9670;&#160;</a></span>fastLM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -717,7 +822,43 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span>&#160;)</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72211ec7362a8dff38f4950b0a268077" name="a72211ec7362a8dff38f4950b0a268077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72211ec7362a8dff38f4950b0a268077">&#9670;&#160;</a></span>getDA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List getDA </td>
+          <td>(</td>
+          <td class="paramtype">const RObject &amp;</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rowNames</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -782,6 +923,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a080411eaa392e77551d05806fe2ea713" name="a080411eaa392e77551d05806fe2ea713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a080411eaa392e77551d05806fe2ea713">&#9670;&#160;</a></span>regrExprResponse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List regrExprResponse </td>
+          <td>(</td>
+          <td class="paramtype">const RObject &amp;</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rowNames</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a62357b90027c8c7431e79c4955b63428" name="a62357b90027c8c7431e79c4955b63428"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62357b90027c8c7431e79c4955b63428">&#9670;&#160;</a></span>standardize_test()</h2>
 
@@ -802,6 +979,27 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a683a5203dc913dec98c9a88bda392781" name="a683a5203dc913dec98c9a88bda392781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a683a5203dc913dec98c9a88bda392781">&#9670;&#160;</a></span>test_lm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List test_lm </td>
+          <td>(</td>
+          <td class="paramtype">const arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const arma::colvec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

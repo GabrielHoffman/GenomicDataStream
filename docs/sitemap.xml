@@ -3,6 +3,8 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/articles/GenomicDataStream-Doxygen.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/articles/index.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/authors.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_data_info_8h.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_data_info_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h.html</loc></url>
@@ -41,6 +43,8 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classes.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_chunk-members.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_chunk.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_info-members.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_info.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_delayed_stream-members.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_delayed_stream.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_data_stream-members.html</loc></url>
@@ -86,6 +90,7 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/struct_model_fit.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/structgds_1_1_param-members.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/structgds_1_1_param.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/test_8cpp.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/utils_8h.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/utils_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/doxygen/html/vcfstream_8h.html</loc></url>

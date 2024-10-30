@@ -1,5 +1,11 @@
 
 
+# GenomicDataStream 0.0.3
+ - Oct 29, 2024
+ - `DelayedStream` fixed
+ - add genetic `Datainfo`
+
+
 # GenomicDataStream 0.0.2
  - Oct 24, 2024
  - Add support for BGEN 1.x with phased or unphased biallelic variants

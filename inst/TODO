@@ -1,4 +1,9 @@
 
+Oct 29
+	tatami parallel for DelayedMatrix
+	test with zellkonverter
+	sparse matrix
+
 
 
 Oct 24, 2024
@@ -16,15 +21,6 @@ Other formats
 	- plink bed/bim/fam
 	- plink2 pgen/pvar/psam
 	- Seurat?
-
-
-file = "/sc/arion/projects/CommonMind/christian/CMC-VNTR/files/VNTR_RNA_DLPFC.vcf.gz"
-
-file = "./VNTR_RNA_DLPFC.vcf.gz"
-
-system.time(res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=1000))
-
-system.time(res <- GenomicDataStream:::fastLM_eigen(y, file, "DS", chunkSize=1000))
 
 // Old
 - Run with lucida

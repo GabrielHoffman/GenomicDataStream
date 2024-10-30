@@ -136,82 +136,50 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef DISABLE_DELAYED_STREAM</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Rcpp.h&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">using namespace </span>std;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;Rcpp.h&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_data_info_8h.html">DataInfo.h</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegds.html">gds</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">using namespace </span>std;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="classgds_1_1_matrix_info.html">MatrixInfo</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">   25</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">MatrixInfo</a>() {}</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegds.html">gds</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classgds_1_1_matrix_info.html">MatrixInfo</a> :</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span> <a class="code hl_class" href="classgds_1_1_data_info.html">DataInfo</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">   26</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">MatrixInfo</a>() {}</div>
 <div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe">   27</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe">MatrixInfo</a>(<span class="keyword">const</span> Rcpp::CharacterVector &amp;rownames, <span class="keyword">const</span> Rcpp::CharacterVector &amp;colnames) :</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        rownames(rownames), colnames(colnames) {}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068">   27</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068">MatrixInfo</a>(<span class="keyword">const</span> vector&lt;string&gt; &amp;<a class="code hl_variable" href="classgds_1_1_data_info.html#af287eddfa72a86e2771d6bdb1453e8ba">ID</a>) :</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_class" href="classgds_1_1_data_info.html">DataInfo</a>(<a class="code hl_variable" href="classgds_1_1_data_info.html#af287eddfa72a86e2771d6bdb1453e8ba">ID</a>) {}</div>
 </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561">   30</a></span>    <a class="code hl_function" href="classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561">MatrixInfo</a>( <span class="keyword">const</span> Rcpp::RObject &amp;mat){</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        Rcpp::List lst;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span>( mat.hasAttribute(<span class="stringliteral">&quot;dimnames&quot;</span>) ){</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            lst = mat.attr(<span class="stringliteral">&quot;dimnames&quot;</span>);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( mat.hasAttribute(<span class="stringliteral">&quot;Dimnames&quot;</span>) ){</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            lst = mat.attr(<span class="stringliteral">&quot;Dimnames&quot;</span>);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        rownames = lst[0];</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        colnames = lst[1];</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#ae9531c5a2a3601465e47a504aa980b3e">   30</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classgds_1_1_matrix_info.html#ae9531c5a2a3601465e47a504aa980b3e">setRowNames</a>( <span class="keyword">const</span> vector&lt;string&gt; &amp;rn, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;start, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;end){</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_variable" href="classgds_1_1_data_info.html#af287eddfa72a86e2771d6bdb1453e8ba">ID</a>.clear();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=start; i&lt;end; i++){</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <a class="code hl_variable" href="classgds_1_1_data_info.html#af287eddfa72a86e2771d6bdb1453e8ba">ID</a>.push_back(rn[i]);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
 </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#abf9fcb8dab49b53a536e947283f37811">   43</a></span>    Rcpp::CharacterVector <a class="code hl_function" href="classgds_1_1_matrix_info.html#abf9fcb8dab49b53a536e947283f37811">get_rownames</a>()<span class="keyword"> const </span>{ </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> rownames;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
-</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classgds_1_1_matrix_info.html#a6bb606f23fc4707540fdefd790ea9389">   49</a></span>    Rcpp::CharacterVector <a class="code hl_function" href="classgds_1_1_matrix_info.html#a6bb606f23fc4707540fdefd790ea9389">get_colnames</a>()<span class="keyword"> const</span>{ </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> colnames;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    Rcpp::CharacterVector rownames, colnames;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">// /** For Rcpp::NumericMatrix with MatrixInfo, set the row and col names</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">//  */ </span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">// static void setRowColNames( Rcpp::NumericMatrix &amp;M, const MatrixInfo &amp;info){</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//     Rcpp::rownames(M) = info.get_rownames();</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//     Rcpp::colnames(M) = info.get_colnames();</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">// /** For all other datatypes, do nothing</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//  */ </span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">// template&lt;typename matType, typename infoType &gt;</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">// static void setRowColNames( matType &amp;M, const infoType &amp;info){</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// } </span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassgds_1_1_matrix_info_html"><div class="ttname"><a href="classgds_1_1_matrix_info.html">gds::MatrixInfo</a></div><div class="ttdef"><b>Definition</b> MatrixInfo.h:22</div></div>
-<div class="ttc" id="aclassgds_1_1_matrix_info_html_a4cbb33dd36a7ff13602b481c8fdb9dd4"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo()</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:25</div></div>
-<div class="ttc" id="aclassgds_1_1_matrix_info_html_a6bb606f23fc4707540fdefd790ea9389"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a6bb606f23fc4707540fdefd790ea9389">gds::MatrixInfo::get_colnames</a></div><div class="ttdeci">Rcpp::CharacterVector get_colnames() const</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:49</div></div>
-<div class="ttc" id="aclassgds_1_1_matrix_info_html_a9b987aec12c4627d22f5ba81d5e82ebe"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a9b987aec12c4627d22f5ba81d5e82ebe">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const Rcpp::CharacterVector &amp;rownames, const Rcpp::CharacterVector &amp;colnames)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:27</div></div>
-<div class="ttc" id="aclassgds_1_1_matrix_info_html_ab275659b6aa03cf3d5fcf1397f1f5561"><div class="ttname"><a href="classgds_1_1_matrix_info.html#ab275659b6aa03cf3d5fcf1397f1f5561">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const Rcpp::RObject &amp;mat)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:30</div></div>
-<div class="ttc" id="aclassgds_1_1_matrix_info_html_abf9fcb8dab49b53a536e947283f37811"><div class="ttname"><a href="classgds_1_1_matrix_info.html#abf9fcb8dab49b53a536e947283f37811">gds::MatrixInfo::get_rownames</a></div><div class="ttdeci">Rcpp::CharacterVector get_rownames() const</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:43</div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a_data_info_8h_html"><div class="ttname"><a href="_data_info_8h.html">DataInfo.h</a></div></div>
+<div class="ttc" id="aclassgds_1_1_data_info_html"><div class="ttname"><a href="classgds_1_1_data_info.html">gds::DataInfo</a></div><div class="ttdef"><b>Definition</b> DataInfo.h:19</div></div>
+<div class="ttc" id="aclassgds_1_1_data_info_html_af287eddfa72a86e2771d6bdb1453e8ba"><div class="ttname"><a href="classgds_1_1_data_info.html#af287eddfa72a86e2771d6bdb1453e8ba">gds::DataInfo::ID</a></div><div class="ttdeci">vector&lt; string &gt; ID</div><div class="ttdef"><b>Definition</b> DataInfo.h:40</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html"><div class="ttname"><a href="classgds_1_1_matrix_info.html">gds::MatrixInfo</a></div><div class="ttdef"><b>Definition</b> MatrixInfo.h:24</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_a4cbb33dd36a7ff13602b481c8fdb9dd4"><div class="ttname"><a href="classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo()</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:26</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_ac8265e9eae5a2045eb024ae9cf672068"><div class="ttname"><a href="classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068">gds::MatrixInfo::MatrixInfo</a></div><div class="ttdeci">MatrixInfo(const vector&lt; string &gt; &amp;ID)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:27</div></div>
+<div class="ttc" id="aclassgds_1_1_matrix_info_html_ae9531c5a2a3601465e47a504aa980b3e"><div class="ttname"><a href="classgds_1_1_matrix_info.html#ae9531c5a2a3601465e47a504aa980b3e">gds::MatrixInfo::setRowNames</a></div><div class="ttdeci">void setRowNames(const vector&lt; string &gt; &amp;rn, const int &amp;start, const int &amp;end)</div><div class="ttdef"><b>Definition</b> MatrixInfo.h:30</div></div>
 <div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

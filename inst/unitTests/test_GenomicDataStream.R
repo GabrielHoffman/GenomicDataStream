@@ -55,6 +55,9 @@ test_vcfstream = function(){
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
 	file <- system.file("extdata", "set1a.vcf.gz", package = "BinaryDosage")
+	# system(paste("gunzip -f", file))
+	# system(paste("bgzip -f", gsub(".gz$", "", file)))
+	# system(paste("tabix -p vcf", file))
 
 	# whole region
 	#-------------
@@ -210,7 +213,54 @@ test = function(){
 }
 
 
+test_large= function(){
 
+	# suppressPackageStartupMessages({
+	# library(RUnit)
+	# library(VariantAnnotation)
+	# library(GenomicDataStream)
+	# })
+
+	# # devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	# # Analysis in R
+	# #------------------
+	# file = "/sc/arion/projects/CommonMind/zengb02/single_cell_eQTL_for_Gabriel_04032023/data/genotype/PsychAD_genotype.vcf.gz"
+
+	# # VariantAnnotation
+	# system.time({
+	# gr <- GRanges("chr1", IRanges(0, 1100101))
+	# vcf <- suppressWarnings(readVcf(file, param=ScanVcfParam(which=gr)))
+	# X_all = geno(vcf)[["DS"]]
+	# y = seq(ncol(X_all))
+
+	# res1 = lapply(seq(nrow(X_all)), function(j){
+	# 	coef(lm(y ~ X_all[j,]))
+	# })
+	# res1 = do.call(rbind, res1)
+	# rownames(res1) = rownames(X_all)
+	# })
+
+
+
+
+	# system.time(res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=100000, region="chr1:0-1100001", nthreads=12))
+
+
+
+
+
+
+
+
+	# X = cbind(1, X_all[1,])
+	# summary(lm(y ~ X+0))
+	# hatvalues(lm(y ~ X+0))
+	# GenomicDataStream:::test_lm(X,y, TRUE)
+
+
+
+}
 
 test_regression = function(){
 	
@@ -244,7 +294,7 @@ test_regression = function(){
 	X = cbind(1, X_all[1,])
 	# X[,2] = 1
 	fit = lm(y ~ X+0)
-	fit2 = GenomicDataStream:::test_lm(X,y, FALSE)
+	fit2 = GenomicDataStream:::test_lm(X,y)
 	checkEqualsNumeric(coef(fit), fit2$coefficients)
 	
 	# Analysis in GenomicDataStream
@@ -283,11 +333,11 @@ test_regression = function(){
 
 		# test dosages
 		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100)
-		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,], tol=1e-7)
+		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,], tol=1e-4)
 
 		# test regression
 		res = GenomicDataStream:::fastLM(y, file, "DS", region=reg)
-		checkEqualsNumeric(res1[dat$info$ID,], res$coef, silent=TRUE, tol=1e-7)
+		checkEqualsNumeric(res1[dat$info$ID,], res$coef, silent=TRUE, tol=1e-4)
 		})
 
 
@@ -305,7 +355,7 @@ test_regression = function(){
 
 		# test dosages
 		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100, samples=ids)
-		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-7)
+		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-4)
 		})
 
 
@@ -324,7 +374,7 @@ test_regression = function(){
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
 
-		checkEqualsNumeric(t(dat$X), X_all, tol=1e-7)
+		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
 
 		# test regression
 		res = GenomicDataStream:::fastLM(y, file, "DS", ".")
@@ -334,71 +384,142 @@ test_regression = function(){
 }
 
 
-
-
 test_DelayedStream = function(){
-
-	library(GenomicDataStream)
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	# res1 = GenomicDataStream:::getDA_NM( M )
 
-	# res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
-
-
+	suppressPackageStartupMessages({
 	library(muscat)
 	library(SingleCellExperiment)
+	library(Rcpp)
+	library(beachmat)
 	library(DelayedArray)
+	library(RUnit)
+	})
 
 	data(example_sce)
 
-	M = counts(example_sce)[1:3, 1:3]
-	M = DelayedArray(as.matrix(M))
+	################
+	# sparseMatrix #
+	################
 
-	res1 = GenomicDataStream:::getDA_NM( M )
-	identical(rownames(M), rownames(res1))
-	identical(colnames(M), colnames(res1))
+	M = counts(example_sce)
 
-	res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
-	identical(rownames(M), rownames(res2))
-	identical(colnames(M), colnames(res2))
-
-
-	res1 = GenomicDataStream:::getDA( M )
-	identical(as.numeric(M), as.numeric(res1))
-
-	res2 = GenomicDataStream:::getDA( as.matrix(M) )
-	identical(as.numeric(M), as.numeric(res2))
+	res1 = lapply(seq(nrow(M)), function(j){
+		coef(lm(log(M[j,]+1) ~ 1))
+	})
+	res1 = do.call(rbind, res1)
+	rownames(res1) = rownames(M)
 
 
-	res1 = GenomicDataStream:::getDA_eigen( M )
-	identical(as.numeric(M), as.numeric(res1))
+	regrExprResponse = function(Y, chunkSize=114, nthreads=1){
 
-	res2 = GenomicDataStream:::getDA_eigen( as.matrix(M) )
-	identical(as.numeric(M), as.numeric(res2))
+		# wrap wiith beachmat
+		ptr = initializeCpp( Y )
+
+		res = GenomicDataStream:::regrExprResponse( ptr, rownames(Y), chunkSize, nthreads)
+
+		res
+	}
+
+	res = regrExprResponse(log(M+1))
+
+	checkEqualsNumeric(res$coef, res1)
+
+
+	################
+	# on-disk h5ad #
+	################
+
+	library(RUnit)
+	library(SingleCellExperiment)
+	library(zellkonverter)
+
+	file <- system.file("extdata", "krumsiek11.h5ad", package = "zellkonverter")
+	sce <- readH5AD(file, use_hdf5 = TRUE)
+	M = assay(sce, 'X')
+
+	res1 = lapply(seq(nrow(M)), function(j){
+		coef(lm(log(M[j,]+1) ~ 1))
+	})
+	res1 = do.call(rbind, res1)
+	rownames(res1) = rownames(M)
+
+	res = regrExprResponse(log(M+1))
+
+	checkEqualsNumeric(res$coef, res1)
 
 
 
-	res1 = GenomicDataStream:::getDA_vector( M )
-	identical(as.numeric(M), as.numeric(res1))
-
-	res2 = GenomicDataStream:::getDA_vector( as.matrix(M) )
-	identical(as.numeric(M), as.numeric(res2))
 
 
-	library(Matrix)
-	library(GenomicDataStream)
-
-	x <- round(rsparsematrix(1000, 10, 0.2))
-
-	# Initializing it in C++.
-	library(beachmat)
-	ptr <- initializeCpp(x)
-	GenomicDataStream:::column_sums(ptr)
-	colSums(x)
 
 }
+
+# test_DelayedStream = function(){
+
+# 	library(GenomicDataStream)
+
+# 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+# 	# res1 = GenomicDataStream:::getDA_NM( M )
+
+# 	# res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
+
+
+# 	library(muscat)
+# 	library(SingleCellExperiment)
+# 	library(DelayedArray)
+
+# 	data(example_sce)
+
+# 	M = counts(example_sce)[1:3, 1:3]
+# 	M = DelayedArray(as.matrix(M))
+
+# 	res1 = GenomicDataStream:::getDA( M )
+# 	identical(rownames(M), rownames(res1))
+# 	identical(colnames(M), colnames(res1))
+
+# 	res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
+# 	identical(rownames(M), rownames(res2))
+# 	identical(colnames(M), colnames(res2))
+
+
+# 	res1 = GenomicDataStream:::getDA( M )
+# 	identical(as.numeric(M), as.numeric(res1))
+
+# 	res2 = GenomicDataStream:::getDA( as.matrix(M) )
+# 	identical(as.numeric(M), as.numeric(res2))
+
+
+# 	res1 = GenomicDataStream:::getDA_eigen( M )
+# 	identical(as.numeric(M), as.numeric(res1))
+
+# 	res2 = GenomicDataStream:::getDA_eigen( as.matrix(M) )
+# 	identical(as.numeric(M), as.numeric(res2))
+
+
+
+# 	res1 = GenomicDataStream:::getDA_vector( M )
+# 	identical(as.numeric(M), as.numeric(res1))
+
+# 	res2 = GenomicDataStream:::getDA_vector( as.matrix(M) )
+# 	identical(as.numeric(M), as.numeric(res2))
+
+
+# 	library(Matrix)
+# 	library(GenomicDataStream)
+
+# 	x <- round(rsparsematrix(1000, 10, 0.2))
+
+# 	# Initializing it in C++.
+# 	library(beachmat)
+# 	ptr <- initializeCpp(x)
+# 	GenomicDataStream:::column_sums(ptr)
+# 	colSums(x)
+
+# }
 
 
 

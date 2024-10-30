@@ -42,7 +42,10 @@ param.setField( field );
 unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
 // declare DataChunk storing an Armadillo matrix for each chunk
-DataChunk<arma::mat, VariantInfo> chunk;
+DataChunk<arma::mat> chunk;
+
+// Store meta-data about each variant
+VariantInfo *info;
 
 // loop through chunks
 while( gdsStream->getNextChunk( chunk ) ){
@@ -51,7 +54,7 @@ while( gdsStream->getNextChunk( chunk ) ){
     // chunk.getData();
 
     // get variant information
-    // chunk.getInfo();
+    info = chunk.getInfo<VariantInfo>();
 
     // Do analysis with variants in this chunk
 }

@@ -30,7 +30,7 @@ namespace gds {
 
 /** Store the data matrix and info for a data chunk
  */ 
-template<typename matType, typename infoType >
+template<typename matType>
 class DataChunk {
 	public:
     DataChunk() : data() {}
@@ -38,7 +38,7 @@ class DataChunk {
     DataChunk( matType data) :
 	    data(data) {} 
 
-    DataChunk( matType data, infoType info) :
+    DataChunk( matType data, DataInfo *info) :
 		data(data), info(info) {}
 
     /** Accessor
@@ -47,11 +47,14 @@ class DataChunk {
 
 	/** Accessor
      */   
-	infoType getInfo() const { return info;}    
+	template<typename infoType>
+	infoType * getInfo() { 
+		return static_cast<infoType *>( info );
+	}    
 
-	private:
+	// private:
 	matType data;
-	infoType info;
+	DataInfo *info;
 };
 
 
@@ -123,6 +126,7 @@ struct Param {
 
 /** Virtual class inheritited by vcfstream, bgenstream, DelayedStream
  */ 
+
 class GenomicDataStream {
 	public: 
 
@@ -142,36 +146,38 @@ class GenomicDataStream {
 
 	/** Get next chunk of _features_ as arma::mat
 	 */ 
-	virtual bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk) = 0;
+	virtual bool getNextChunk( DataChunk<arma::mat> & chunk) = 0;
 
 	/** Get next chunk of _features_ as arma::sp_mat
 	 */ 
-	virtual bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk) = 0;
+	virtual bool getNextChunk( DataChunk<arma::sp_mat> & chunk) = 0;
 
 	#ifndef DISABLE_EIGEN
 	/** Get next chunk of _features_ as Eigen::MatrixXd
 	 */ 
-	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk) = 0;
+	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) = 0;
 
 	/** Get next chunk of _features_ as SparseMatrix<double>
 	 */ 
-	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk) = 0;
+	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) = 0;
 	#endif
 
 	#ifndef DISABLE_RCPP
 	/** Get next chunk of _features_ as Rcpp::NumericMatrix
 	 */ 
-	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk)  = 0;
+	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk)  = 0;
 	#endif
 
 	/** Get next chunk of _features_ as vector<double>
 	 * 
 	 */ 
-	virtual bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk) = 0;
+	virtual bool getNextChunk( DataChunk<vector<double> > & chunk) = 0;
 
 	protected:
 	Param param;
 };
+
+
 
 
 

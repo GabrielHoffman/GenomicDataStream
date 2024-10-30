@@ -120,7 +120,7 @@ class vcfstream :
 		return reader->nsamples;
 	}
 
-	bool getNextChunk( DataChunk<arma::mat, VariantInfo> & chunk) override {
+	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -129,12 +129,12 @@ class vcfstream :
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
 
-	    chunk = DataChunk<arma::mat, VariantInfo>( M, *vInfo );
+	    chunk = DataChunk<arma::mat>( M, vInfo );
 
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<arma::sp_mat, VariantInfo> & chunk) override {
+	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -142,59 +142,59 @@ class vcfstream :
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), false, true);
 
 		// create sparse matrix from dense matrix
-	    chunk = DataChunk<arma::sp_mat, VariantInfo>( arma::sp_mat(M), *vInfo );
+	    chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), vInfo );
 
 		return ret;
 	}
 
 	#ifndef DISABLE_EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd, VariantInfo> & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
-		chunk = DataChunk<Eigen::MatrixXd, VariantInfo>( M, *vInfo );
+		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
 
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, VariantInfo> & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
-		chunk = DataChunk<Eigen::SparseMatrix<double>, VariantInfo>( M.sparseView(), *vInfo );
+		chunk = DataChunk<Eigen::SparseMatrix<double> >( M.sparseView(), vInfo );
 
 		return ret;
 	}
 	#endif
 
 	#ifndef DISABLE_RCPP
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, VariantInfo> & chunk) override {
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
 		Rcpp::NumericMatrix M(reader->nsamples, vInfo->size(), matDosage.data()); 
-		colnames(M) = Rcpp::wrap( vInfo->ID );
+		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
 	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
 
-		chunk = DataChunk<Rcpp::NumericMatrix, VariantInfo>( M, *vInfo );
+		chunk = DataChunk<Rcpp::NumericMatrix>( M, vInfo );
 
 		return ret;
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<vector<double>, VariantInfo> & chunk) override {
+	bool getNextChunk( DataChunk<vector<double>> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		chunk = DataChunk<vector<double>, VariantInfo>( matDosage, *vInfo );
+		chunk = DataChunk<vector<double>>( matDosage, vInfo );
 
 		return ret;
 	}

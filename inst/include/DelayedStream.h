@@ -17,7 +17,9 @@
 #endif 
 
 #include <vector>
-#include "beachmat3/beachmat.h"
+#include <span>
+
+#include <Rtatami.h>
 
 #include "GenomicDataStream_virtual.h"
 #include "MatrixInfo.h"
@@ -27,11 +29,6 @@ using namespace std;
 
 namespace gds {
 
-// Handle sparse input and outputs
-// Handle chunk size, workLarge.reserve(), workLarge.clear()
-
-// returns all zeros
-// res2 = GenomicDataStream:::getDA( as.matrix(M) )
 
 /** Reads an Robject
  * 
@@ -40,25 +37,27 @@ class DelayedStream :
 	public GenomicDataStream {
 	public:
 
-	DelayedStream( RObject mat) : GenomicDataStream() {
+	DelayedStream( Rcpp::RObject robj, const vector<string> &rowNames, const int &chunkSize) 
+		: GenomicDataStream(), rowNames(rowNames), chunkSize(chunkSize) {
 
-		Rcpp::Rcout << "read_lin_block" << std::endl;
-		auto a = beachmat::read_lin_block(mat);
-		Rcpp::Rcout << "end" << std::endl;
+		parsed = new Rtatami::BoundNumericPointer(robj);
 
+		// set current position in matrix to zero
+		pos = 0;
 
-		// Get pointer to data matrix
-		ptr = beachmat::read_lin_block(mat);
+		// set size of intermediate variables
+		const auto& ptr = (*parsed)->ptr;
+		NC = ptr->ncol();
+		NR = ptr->nrow();
 
-		NCout = ptr->get_nrow();
-		NRout = ptr->get_ncol();
+		if( ptr->nrow() != rowNames.size()){			
+			throw runtime_error("DelayedStream: rowNames and nrows must be same size");
+		}
 
-		// set size of workspace
-		// buffer stores one row
-		// buffer.reserve( ptr->get_ncol() );
+		output.reserve(NC*chunkSize);
+		buffer.reserve(NC);
 
-		// get row and col names
-		mInfo = new MatrixInfo( mat );
+		mInfo = new MatrixInfo();
 	}
 
 
@@ -66,162 +65,142 @@ class DelayedStream :
 	 */ 
 	~DelayedStream(){
 		if( mInfo != nullptr) delete mInfo;
+		if( parsed != nullptr) delete parsed;
 	}
 
 	/** Get number of columns in data matrix
 	 */ 
-	int n_cols(){
-		return ptr->get_ncol();
+	int n_samples() override {
+		return NC;
 	}
 
-	bool getNextChunk( DataChunk<arma::mat, MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
 
-		// Update workLarge chunk
+		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
-		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
-		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
-		arma::mat M(workLarge.data(), NRout, NCout, copy_aux_mem, true);
+	    arma::mat M(output.data(), NC, chunkSize, false, true);
 
-		chunk = DataChunk<arma::mat, MatrixInfo>( M, *mInfo );
+		chunk = DataChunk<arma::mat>( M, mInfo );
 
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<arma::sp_mat, MatrixInfo> & chunk){
 
-		// Update workLarge chunk
+	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
+
+		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
-		/// FILL IN
+		arma::mat M(output.data(), NC, chunkSize, false, true);
+
+		// create sparse matrix from dense matrix
+	    chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), mInfo);
 
 		return ret;
 	}
 
 	#ifndef DISABLE_EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd, MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) override {
 
-		// Update workLarge chunk
+		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
-		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(workLarge.data(), NRout, NCout);
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output.data(), NC, chunkSize);
 
-		chunk = DataChunk<Eigen::MatrixXd, MatrixInfo>( M, *mInfo );
+		chunk = DataChunk<Eigen::MatrixXd>( M, mInfo );
 
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double>, MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) override {
 
-		// Update workLarge chunk
+		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output.data(), NC, chunkSize);
 
-		/// FILL IN
+		chunk = DataChunk<Eigen::SparseMatrix<double> >( M.sparseView(), mInfo );
 
 		return ret;
 	}
 	#endif
 
 	#ifndef DISABLE_RCPP
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix, MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk) override {
 
-		// Update workLarge chunk
+		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
+		Rcpp::NumericMatrix M(NC, chunkSize, output.data()); 
+		colnames(M) = Rcpp::wrap( mInfo->getFeatureNames() );
+	    // rownames(M) = Rcpp::wrap( mInfo->sampleNames );  
 
-	    Rcpp::Rcout << "NumericMatrix" << std::endl;
-	    Rcpp::Rcout << NRout << " " << NCout << std::endl;
-	    Rcpp::Rcout << workLarge.size() << std::endl;
-
-		Rcpp::NumericMatrix M(NRout, NCout, workLarge.data()); 
-		Rcpp::rownames(M) = mInfo->get_rownames();
-   		Rcpp::colnames(M) = mInfo->get_colnames();
-
-	    Rcpp::Rcout << "DataChunk" << std::endl;
-
-		chunk = DataChunk<Rcpp::NumericMatrix, MatrixInfo>( M, *mInfo );
-	    Rcpp::Rcout << "return" << std::endl;
+		chunk = DataChunk<Rcpp::NumericMatrix>( M, mInfo );
 
 		return ret;
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<vector<double>, MatrixInfo> & chunk){
+	bool getNextChunk( DataChunk<vector<double> > & chunk) override {
 
-		// Update workLarge chunk
+		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
-		chunk = DataChunk<vector<double>, MatrixInfo>( workLarge, *mInfo );
+		chunk = DataChunk<vector<double>>( output, mInfo );
 
 		return ret;
 	}
 
+
 	private:
-	std::unique_ptr<beachmat::lin_matrix> ptr;
- 
-	// vector<double> buffer; 
-	vector<double> workLarge;
-	bool endOfFile = false;
+	Rtatami::BoundNumericPointer *parsed = nullptr;	
+	vector<double> buffer; 
+	vector<double> output; 
 	MatrixInfo *mInfo = nullptr;
-	int NRout, NCout;
-
-	// tatami support
-	/*bool getNextChunk_helper(){
-
-		Rcpp::Rcout << "BoundNumericPointer" << std::endl;
-
-		Rtatami::BoundNumericPointer parsed(mat);
-		Rcpp::Rcout << "success" << std::endl;
-	    auto ptr = parsed->ptr;
-	    NROW = ptr->nrow();
-    	NCOL = ptr->ncol();
-
-    	buffer.reserve(NCOL);
-
-		auto wrk = ptr->dense_column();
-
-		for (int j = 0; j < NCOL; j++) {
-			auto extracted = wrk->fetch(j, buffer.data());
-
-	 		// insert into the larger work
-	        workLarge.insert(workLarge.end(), buffer.begin(), buffer.end());
-		}
-	    endOfFile = true;
-
-	    return ! endOfFile;
-	}*/
-
+	int NR, NC;
+	int chunkSize;
+	int pos;
+	vector<string> rowNames;
+	bool continueIterating = true;
 
 	// original code based on stand-alone beachmat
 	bool getNextChunk_helper(){
 
+		// if end of file reached, return false
+		if( ! continueIterating ) return continueIterating;
 
-	    vector<double> buffer(ptr->get_ncol());
+		// // get pointer to data
+		const auto& ptr = (*parsed)->ptr;
 
-		 // for each column j
-		size_t j = 0;
-	    for (j = 0; j < ptr->get_nrow(); j++) {
+		// // get workspace as dense row
+		auto wrk = ptr->dense_row();
 
+		// if remaning rows is less than chunkSize, 
+		// 	then set chunkSize to stop at end
+		chunkSize = min(chunkSize, NR - pos);
 
-	        // pointer to column i
-	        auto rp = ptr->get_row(j, buffer.data());
-	 
-	        for (int k =0; k<ptr->get_ncol(); k++){
-	        	Rcpp::Rcout << rp[k] << ' ' << buffer[k] << std::endl;
-	        }
+		// loop through rows
+		for (int i = 0; i < chunkSize; i++) {
+			// get data for row pos + i
+		    auto extracted = wrk->fetch(pos + i, buffer.data());
 
-	 		// insert into the larger work
-	        workLarge.insert(workLarge.end(), buffer.begin(), buffer.end());
-	    }
-	    endOfFile = true;
+		    // copy data into output vector in column i
+		    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
+		}
 
-	    Rcpp::Rcout << "end helper" << std::endl;
+		// get feature names		
+		mInfo->setRowNames(rowNames, pos, pos+chunkSize);
 
-	    return ! endOfFile;
+		// increment current position
+		pos += chunkSize;
+
+		// if current position is less than number of rows
+		// 	return true to continue and get text chunk
+		continueIterating = (pos < NR);
+
+	    return true;
 	}
-
-
 };
 
 
