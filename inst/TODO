@@ -1,8 +1,47 @@
 
+
+
+pgenlibr should save libPLINK2.a to usrlib like Rhtslib does
+
+GenomicDataStream interface to pgenlibr does not support pvar.zst
+ since two version of zstd are used
+
+ remove zstd-1.1.0 from bgen 
+ and just use new version from pgenlibr
+
+
+
+Oct 30
+
+	stack multiple BGEN/PGEN/VCF/BCF together
+
+	new file with RPgenReader object to src/
+	https://github.com/chrchang/plink-ng/blob/e09688186ae55efe568eaa6d3f22c2236d1e760c/2.0/pgenlibr/src/pgenlibr.cpp
+
+	search bgen/pgen by variant ID too
+
+	fit into GenomicDataStream interface
+
+	export C++ code to R with
+	//' @export
+	// [[Rcpp::export]
+
+
+# https://rstudio.github.io/r-manuals/r-exts/Creating-R-packages.html
+install.libs.R
+
+
 Oct 29
 	tatami parallel for DelayedMatrix
-	test with zellkonverter
-	sparse matrix
+	sparse matrix for variants and DelayedArray
+
+
+
+
+https://yosuketanigawa.com/posts/2020/09/PLINK2
+
+devtools::install_github('GabrielHoffman/plink-ng', subdir='2.0/pgenlibr');
+
 
 
 

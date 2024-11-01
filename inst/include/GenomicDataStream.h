@@ -93,6 +93,7 @@ Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
  */
 
 
+// #include "pgenstream.h"
 #include "bgenstream.h"
 #include "vcfstream.h"
 #include "DelayedStream.h"

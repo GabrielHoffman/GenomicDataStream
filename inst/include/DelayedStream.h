@@ -158,11 +158,11 @@ class DelayedStream :
 	vector<double> buffer; 
 	vector<double> output; 
 	MatrixInfo *mInfo = nullptr;
+	vector<string> rowNames;
+	bool continueIterating = true;
 	int NR, NC;
 	int chunkSize;
 	int pos;
-	vector<string> rowNames;
-	bool continueIterating = true;
 
 	// original code based on stand-alone beachmat
 	bool getNextChunk_helper(){

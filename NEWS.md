@@ -1,5 +1,10 @@
 
 
+# GenomicDataStream 0.0.4
+ - Oct 31, 2024
+ - towards support for `pgenlibr`
+
+
 # GenomicDataStream 0.0.3
  - Oct 29, 2024
  - `DelayedStream` fixed
