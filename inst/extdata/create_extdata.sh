@@ -30,6 +30,11 @@ bcftools index test.bcf
 bcftools convert test_noph.vcf.gz -o test_noph.bcf
 bcftools index test_noph.bcf
 
+# PGEN
+#./plink2 --vcf test.vcf.gz dosage=GP-force --make-pgen vzs --out test
+plink2 --vcf test.vcf.gz dosage=GP-force --make-pgen --out test
+
+
 # BGEN with phased data
 # reference allele first
 ./plink2 --vcf test.vcf.gz dosage=GP-force --export bgen-1.1 ref-first --out test_v1.1
