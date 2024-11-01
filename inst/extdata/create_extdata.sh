@@ -33,6 +33,7 @@ bcftools index test_noph.bcf
 # PGEN
 #./plink2 --vcf test.vcf.gz dosage=GP-force --make-pgen vzs --out test
 plink2 --vcf test.vcf.gz dosage=GP-force --make-pgen --out test
+plink2 --vcf test.vcf.gz dosage=GP-force --make-bed --out test
 
 
 # BGEN with phased data
