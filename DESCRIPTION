@@ -37,3 +37,6 @@ SystemRequirements:
 RoxygenNote: 7.3.2
 RdMacros: Rdpack
 VignetteBuilder: knitr
+Remotes:
+	GabrielHoffman/plink-ng/2.0/pgenlibr
+
