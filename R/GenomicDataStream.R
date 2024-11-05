@@ -13,16 +13,16 @@ NULL
 setClass("GenomicDataStream", slots=list(ptr="externalptr", file="character", field = "character", region="character", samples="character", chunkSize="integer", missingToMean="logical", featuresRead="integer", streamType="character", nsamples="integer"))
 
 #' @export
-GenomicDataStream = function( file, field = "", region = "", samples="-", chunkSize = 1000, missingToMean = FALSE){
+GenomicDataStream <- function( file, field = "", region = "", samples="-", chunkSize = 1000, missingToMean = FALSE){
 
-	chunkSize = as.integer(chunkSize)
-	samples = paste(samples, collapse=',')
+	chunkSize <- as.integer(chunkSize)
+	samples <- paste(samples, collapse=',')
 
 	# Create GenomicDataStream and return external pointer
-	ptr = create_xptr( file, field, region, samples, chunkSize, missingToMean)
+	ptr <- create_xptr( file, field, region, samples, chunkSize, missingToMean)
 
 	# get additional information about data
-	info = getInfo( ptr )
+	info <- getInfo( ptr )
 
 	# return object
 	new( "GenomicDataStream", ptr = ptr, 
@@ -38,15 +38,15 @@ GenomicDataStream = function( file, field = "", region = "", samples="-", chunkS
 
 
 #' @export
-hasReachedEnd = function( x ){
+atEndOfStream <- function( x ){
 
 	stopifnot( is(x, "GenomicDataStream") )
 
-	hasReachedEnd_rcpp(x@ptr)
+	atEndOfStream_rcpp(x@ptr)
 }
 
 #' @export
-featuresRead = function( x ){
+featuresRead <- function( x ){
 
 	stopifnot( is(x, "GenomicDataStream") )
 
@@ -54,11 +54,11 @@ featuresRead = function( x ){
 }
 
 #' @export
-getNextChunk = function( x ){
+getNextChunk <- function( x ){
 
 	stopifnot( is(x, "GenomicDataStream") )
 
-	regetNextChunk_rcpp(x@ptr)
+	getNextChunk_rcpp(x@ptr)
 }
 
 
@@ -78,26 +78,17 @@ setMethod(
   "show", "GenomicDataStream",
   function(object) {
     cat("\t\t", class(object), "\n\n")
-    cat("  file:", basename(object@file), "\n")
-    cat("  stream type:", object@streamType, "\n")
-    cat("  field:", object@field, "\n")
-    cat("  region:", object@region, "\n")
-
-    # if( object@samples == "-"){
-    # 	cat("samples: -\n")
-    # }else{
-    # 	ids = strsplit(object@samples, ',')[[1]]
-	#     coolcat("samples(%d): %s\n", ids)
-	# }
-	cat("  samples:", obj@nsamples, "\n") 
-
+    cat("  file:         ", basename(object@file), "\n")
+    cat("  stream type:  ", object@streamType, "\n")
+    cat("  field:        ", object@field, "\n")
+    cat("  region:       ", object@region, "\n")
+	cat("  samples:      ", obj@nsamples, "\n") 
     cat("  missingToMean:", object@missingToMean, "\n") 
-    cat("  chunkSize:", object@chunkSize, "\n")
+    cat("  chunkSize:    ", object@chunkSize, "\n")
     cat("  features read:", featuresRead(object), "\n") 
-    cat("  reached end:", hasReachedEnd(object), "\n")  
+    cat("  end of stream:", atEndOfStream(object), "\n")  
   }
 )
-
 
 
 #' Print object
