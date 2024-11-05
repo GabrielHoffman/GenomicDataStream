@@ -143,14 +143,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// hasReachedEnd_rcpp
-bool hasReachedEnd_rcpp(SEXP x);
-RcppExport SEXP _GenomicDataStream_hasReachedEnd_rcpp(SEXP xSEXP) {
+// atEndOfStream_rcpp
+bool atEndOfStream_rcpp(SEXP x);
+RcppExport SEXP _GenomicDataStream_atEndOfStream_rcpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(hasReachedEnd_rcpp(x));
+    rcpp_result_gen = Rcpp::wrap(atEndOfStream_rcpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -197,52 +197,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const bool& >::type scale(scaleSEXP);
     standardize_test(X, center, scale);
     return R_NilValue;
-END_RCPP
-}
-// test_lm
-List test_lm(const arma::mat& X, const arma::colvec& y);
-RcppExport SEXP _GenomicDataStream_test_lm(SEXP XSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(test_lm(X, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fastLM
-List fastLM(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean, const int& nthreads, const bool& verbose);
-RcppExport SEXP _GenomicDataStream_fastLM(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastLM(y, file, field, region, samples, chunkSize, missingToMean, nthreads, verbose));
-    return rcpp_result_gen;
-END_RCPP
-}
-// regrExprResponse
-List regrExprResponse(const RObject& mat, const vector<string>& rowNames, const int& chunkSize, const int& nthreads, const bool& verbose);
-RcppExport SEXP _GenomicDataStream_regrExprResponse(SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const RObject& >::type mat(matSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type rowNames(rowNamesSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(regrExprResponse(mat, rowNames, chunkSize, nthreads, verbose));
-    return rcpp_result_gen;
 END_RCPP
 }
 // NewPvar
@@ -515,6 +469,52 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test_lm
+List test_lm(const arma::mat& X, const arma::colvec& y);
+RcppExport SEXP _GenomicDataStream_test_lm(SEXP XSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(test_lm(X, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fastLM
+List fastLM(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean, const int& nthreads, const bool& verbose);
+RcppExport SEXP _GenomicDataStream_fastLM(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
+    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastLM(y, file, field, region, samples, chunkSize, missingToMean, nthreads, verbose));
+    return rcpp_result_gen;
+END_RCPP
+}
+// regrExprResponse
+List regrExprResponse(const RObject& mat, const vector<string>& rowNames, const int& chunkSize, const int& nthreads, const bool& verbose);
+RcppExport SEXP _GenomicDataStream_regrExprResponse(SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RObject& >::type mat(matSEXP);
+    Rcpp::traits::input_parameter< const vector<string>& >::type rowNames(rowNamesSEXP);
+    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(regrExprResponse(mat, rowNames, chunkSize, nthreads, verbose));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_extractVcf", (DL_FUNC) &_GenomicDataStream_extractVcf, 5},
@@ -526,14 +526,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getDosage", (DL_FUNC) &_GenomicDataStream_getDosage, 6},
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 6},
     {"_GenomicDataStream_getInfo", (DL_FUNC) &_GenomicDataStream_getInfo, 1},
-    {"_GenomicDataStream_hasReachedEnd_rcpp", (DL_FUNC) &_GenomicDataStream_hasReachedEnd_rcpp, 1},
+    {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
-    {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
-    {"_GenomicDataStream_fastLM", (DL_FUNC) &_GenomicDataStream_fastLM, 9},
-    {"_GenomicDataStream_regrExprResponse", (DL_FUNC) &_GenomicDataStream_regrExprResponse, 5},
     {"_GenomicDataStream_NewPvar", (DL_FUNC) &_GenomicDataStream_NewPvar, 1},
     {"_GenomicDataStream_GetVariantId", (DL_FUNC) &_GenomicDataStream_GetVariantId, 2},
     {"_GenomicDataStream_GetVariantsById", (DL_FUNC) &_GenomicDataStream_GetVariantsById, 2},
@@ -557,6 +554,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_ReadList", (DL_FUNC) &_GenomicDataStream_ReadList, 3},
     {"_GenomicDataStream_VariantScores", (DL_FUNC) &_GenomicDataStream_VariantScores, 3},
     {"_GenomicDataStream_ClosePgen", (DL_FUNC) &_GenomicDataStream_ClosePgen, 1},
+    {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
+    {"_GenomicDataStream_fastLM", (DL_FUNC) &_GenomicDataStream_fastLM, 9},
+    {"_GenomicDataStream_regrExprResponse", (DL_FUNC) &_GenomicDataStream_regrExprResponse, 5},
     {NULL, NULL, 0}
 };
 

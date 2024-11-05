@@ -14,11 +14,13 @@ Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/cours
 <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications.
 
 
-The `GenomicDataStream` C++ interface separates:
+The `GenomicDataStream` interface separate:
  
 1. data source 
 2. streaming chunks of features into a data matrix
-3. downstream analysis  
+3. downstream analysis 
+
+`GenomicDataStream` provides interfaces at both the C++ and R levels.  The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.
 </div> 
 
 ### See header-only C++ library [documentation](doxygen/html/index.html)
@@ -65,6 +67,33 @@ while( gdsStream->getNextChunk( chunk ) ){
     // Do analysis with variants in this chunk
 }
 ```
+
+
+### Example code with R
+```R
+library(GenomicDataStream)
+
+# VCF file
+file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+# initialize 
+gdsObj = GenomicDataStream(file, "DS", chunkSize=5)
+
+# loop until break
+while( 1 ){
+
+    # get data chunk
+    # data$X matrix with features as columns
+    # data$info information about each feature as rows
+    dat = getNextChunk(obj)
+
+    # check if end of stream 
+    if( atEndOfStream(obj) ) break
+    
+    # do analysis on this chunk of data
+}
+```
+
 
 ## Supported formats
 #### Genetic data 

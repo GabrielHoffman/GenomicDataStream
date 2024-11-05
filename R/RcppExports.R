@@ -37,8 +37,8 @@ getInfo <- function(x) {
     .Call('_GenomicDataStream_getInfo', PACKAGE = 'GenomicDataStream', x)
 }
 
-hasReachedEnd_rcpp <- function(x) {
-    .Call('_GenomicDataStream_hasReachedEnd_rcpp', PACKAGE = 'GenomicDataStream', x)
+atEndOfStream_rcpp <- function(x) {
+    .Call('_GenomicDataStream_atEndOfStream_rcpp', PACKAGE = 'GenomicDataStream', x)
 }
 
 featuresRead_rcpp <- function(x) {
@@ -55,18 +55,6 @@ colSums_test <- function(X) {
 
 standardize_test <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
-}
-
-test_lm <- function(X, y) {
-    .Call('_GenomicDataStream_test_lm', PACKAGE = 'GenomicDataStream', X, y)
-}
-
-fastLM <- function(y, file, field = "", region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE, nthreads = 1L, verbose = TRUE) {
-    .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean, nthreads, verbose)
-}
-
-regrExprResponse <- function(mat, rowNames, chunkSize, nthreads, verbose = TRUE) {
-    .Call('_GenomicDataStream_regrExprResponse', PACKAGE = 'GenomicDataStream', mat, rowNames, chunkSize, nthreads, verbose)
 }
 
 #' Loads variant IDs and allele codes from a .pvar or .bim file (which can be
@@ -360,5 +348,17 @@ VariantScores <- function(pgen, weights, variant_subset = NULL) {
 #' @export
 ClosePgen <- function(pgen) {
     invisible(.Call('_GenomicDataStream_ClosePgen', PACKAGE = 'GenomicDataStream', pgen))
+}
+
+test_lm <- function(X, y) {
+    .Call('_GenomicDataStream_test_lm', PACKAGE = 'GenomicDataStream', X, y)
+}
+
+fastLM <- function(y, file, field = "", region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE, nthreads = 1L, verbose = TRUE) {
+    .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean, nthreads, verbose)
+}
+
+regrExprResponse <- function(mat, rowNames, chunkSize, nthreads, verbose = TRUE) {
+    .Call('_GenomicDataStream_regrExprResponse', PACKAGE = 'GenomicDataStream', mat, rowNames, chunkSize, nthreads, verbose)
 }
 

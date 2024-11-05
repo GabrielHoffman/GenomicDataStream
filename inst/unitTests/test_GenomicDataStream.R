@@ -274,25 +274,79 @@ test_xptr = function(){
 	})
 
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	# file <- system.file("extdata", "test_v1.3_16bits.bgen", package = "GenomicDataStream")
+
 
 	ptr = GenomicDataStream:::create_xptr(file, "DS", chunkSize=2)
 
-	res = GenomicDataStream:::use_xptr(ptr)
-
-
+	res = GenomicDataStream:::getNextChunk_rcpp(ptr)
 
 
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
-	
-	obj = GenomicDataStream(file, "DS", chunkSize=2)
-	obj
+	# initialize 
+	gdsObj = GenomicDataStream(file, "DS", chunkSize=5)
 
-	while( ! hasReachedEnd(obj) ){
+	# loop until break
+	while( 1 ){
 
-		res = getNextChunk(obj)
+		# get data chunk
+		# data$X matrix with features as columns
+		# data$info information about each feature as rows
+		dat = getNextChunk(obj)
 
+		if( atEndOfStream(obj) ) break
+		print(res$info)
 	}
+
+
+		
+
+
+}
+
+test_chunks = function(){
+
+	# For each file type, create dosage matrix combined across chunks
+
+	suppressPackageStartupMessages({
+	library(RUnit)
+	library(VariantAnnotation)
+	library(GenomicDataStream)
+	})
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	# Analysis in R
+	#------------------
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+	# VariantAnnotation
+	vcf <- suppressWarnings(readVcf(file))
+	X_all = geno(vcf)[["DS"]]
+
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE)
+
+	# test for each file type
+	for( file in files){
+		X_cat = c()
+
+		# initialize
+		obj = GenomicDataStream(file, "DS", chunkSize=2)
+
+		# loop thru chunks
+		while( 1 ){
+
+			dat = getNextChunk(obj)
+
+			if( atEndOfStream(obj) ) break
+			
+			X_cat = cbind(X_cat, dat$X)
+		}
+
+		checkEqualsNumeric(t(X_cat), X_all, tol=1e-4) 
+	}
+
 
 }
 
@@ -349,10 +403,10 @@ test_regression = function(){
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
 
-		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
+		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4) 
 
 		# test regression
-		res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=10000)
+		res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=4)
 		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-4)
 		})
 
