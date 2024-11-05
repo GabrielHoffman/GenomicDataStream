@@ -32,7 +32,6 @@ GenomicDataStream = function( file, field = "", region = "", samples="-", chunkS
 								samples = samples,
 								chunkSize = chunkSize,
 								missingToMean = missingToMean,
-								featuresRead = 0L,
 								streamType = info$streamType,
 								nsamples = info$nsamples)
 }
@@ -59,7 +58,7 @@ getNextChunk = function( x ){
 
 	stopifnot( is(x, "GenomicDataStream") )
 
-	getNextChunk_rcpp(x@ptr)
+	regetNextChunk_rcpp(x@ptr)
 }
 
 
@@ -94,7 +93,7 @@ setMethod(
 
     cat("  missingToMean:", object@missingToMean, "\n") 
     cat("  chunkSize:", object@chunkSize, "\n")
-    cat("  features read:", object@featuresRead, "\n") 
+    cat("  features read:", featuresRead(object), "\n") 
     cat("  reached end:", hasReachedEnd(object), "\n")  
   }
 )
