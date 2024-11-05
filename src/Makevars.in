@@ -33,7 +33,7 @@ C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c)
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) 
 CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp)
 CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
-OBJECTS = RcppExports.o export.o pgenlibr.o $(CXX_OBJECTS) $(C_OBJECTS)
+OBJECTS = RcppExports.o export.o regression.o pgenlibr.o $(CXX_OBJECTS) $(C_OBJECTS)
 
 .PHONY: all 
 all: $(SHLIB)
