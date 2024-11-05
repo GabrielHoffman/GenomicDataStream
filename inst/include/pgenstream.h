@@ -51,7 +51,7 @@ class pgenstream :
 
 	/** Get number of columns in data matrix
 	 */ 
-	int n_samples(){
+	int n_samples() override {
 		return number_of_samples;
 	}
 
@@ -61,7 +61,7 @@ class pgenstream :
 		return toString( param.fileType);
 	}
 
-	virtual bool getNextChunk( DataChunk<arma::mat> & chunk){
+	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -73,7 +73,7 @@ class pgenstream :
 		return ret;
 	}
 
-	virtual bool getNextChunk( DataChunk<arma::sp_mat> & chunk){
+	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -86,7 +86,7 @@ class pgenstream :
 	}
 
 	#ifndef DISABLE_EIGEN
-	virtual bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk){
+	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -99,7 +99,7 @@ class pgenstream :
 	}
 
 
-	virtual bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk){
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -113,7 +113,7 @@ class pgenstream :
 	#endif
 
 	#ifndef DISABLE_RCPP
-	virtual bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk){
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -128,7 +128,7 @@ class pgenstream :
 	}
 	#endif
 
-	virtual bool getNextChunk( DataChunk<vector<double> > & chunk){
+	bool getNextChunk( DataChunk<vector<double> > & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
@@ -145,7 +145,7 @@ class pgenstream :
 
 	bool getNextChunk_helper(){	
 
-		
+		return true;
 	}
 };
 
