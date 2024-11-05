@@ -120,6 +120,12 @@ class vcfstream :
 		return reader->nsamples;
 	}
 
+	/** get FileType of param.file
+	 */ 
+	string getStreamType() override {
+		return toString( param.fileType);
+	}
+
 	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['param_0',['Param',['../structgds_1_1_param.html#a53694d9da67ec6e0e5a5e4993858f915',1,'gds::Param::Param()'],['../structgds_1_1_param.html#a2c6b37ea87807ebdb47ad85d2d7f947d',1,'gds::Param::Param(const string &amp;file, string regionString=&quot;&quot;, const string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false, const int &amp;initCapacity=200, const bool &amp;permuteFeatureOrder=false, const int &amp;rndSeed=12345)']]]
+  ['matrixinfo_0',['MatrixInfo',['../classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4',1,'gds::MatrixInfo::MatrixInfo()'],['../classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068',1,'gds::MatrixInfo::MatrixInfo(const vector&lt; string &gt; &amp;ID)']]],
+  ['modelfit_1',['ModelFit',['../struct_model_fit.html#a9749852053f0a7bd55c5388bdaa319dd',1,'ModelFit::ModelFit()'],['../struct_model_fit.html#a5946c5d473e9e763960b07da50acd710',1,'ModelFit::ModelFit(const vec &amp;coef, const vec &amp;se, const double &amp;df)']]]
 ];

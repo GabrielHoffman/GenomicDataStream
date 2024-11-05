@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['test_2ecpp_0',['test.cpp',['../test_8cpp.html',1,'']]],
-  ['test_5flm_1',['test_lm',['../export_8cpp.html#a683a5203dc913dec98c9a88bda392781',1,'test_lm(const arma::mat &amp;X, const arma::colvec &amp;y):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a683a5203dc913dec98c9a88bda392781',1,'test_lm(const arma::mat &amp;X, const arma::colvec &amp;y):&#160;export.cpp']]],
-  ['todf_2',['toDF',['../export_8cpp.html#aa1981e8b88c965893de02742beb5a0a9',1,'export.cpp']]],
-  ['tolist_3',['toList',['../export_8cpp.html#aac56d2316140a7223baf05bd840197e1',1,'export.cpp']]]
+  ['samplenames_0',['sampleNames',['../classgds_1_1_variant_info.html#ad77368d79bf9efcaf87fd004c7a41efa',1,'gds::VariantInfo']]],
+  ['samples_1',['samples',['../structgds_1_1_param.html#a73e7ac933fc1c6305261e9179eac9732',1,'gds::Param']]],
+  ['scalable_20interface_20between_20data_20and_20analysis_20underneath_20r_2',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
+  ['se_3',['se',['../struct_model_fit.html#a6c7a0573820d54c130289d73d5cc856a',1,'ModelFit']]],
+  ['setfield_4',['setField',['../structgds_1_1_param.html#a0bedb8b7bc80339cdedb98066dbd157d',1,'gds::Param']]],
+  ['setrownames_5',['setRowNames',['../classgds_1_1_matrix_info.html#ae9531c5a2a3601465e47a504aa980b3e',1,'gds::MatrixInfo']]],
+  ['size_6',['size',['../classgds_1_1_data_info.html#af8d39001b9a18c530c6d60f5caf32789',1,'gds::DataInfo::size()'],['../classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3',1,'gds::GenomicRanges::size()']]],
+  ['standardize_5ftest_7',['standardize_test',['../export_8cpp.html#a7948cb70a34ad29b874afa09a0fd2558',1,'standardize_test(arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a62357b90027c8c7431e79c4955b63428',1,'standardize_test(arma::mat &amp;X, const bool &amp;center, const bool &amp;scale):&#160;export.cpp']]]
 ];

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['underneath_20r_0',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
-  ['utils_2eh_1',['utils.h',['../utils_8h.html',1,'']]]
+  ['test_2ecpp_0',['test.cpp',['../test_8cpp.html',1,'']]],
+  ['test_5flm_1',['test_lm',['../export_8cpp.html#a683a5203dc913dec98c9a88bda392781',1,'test_lm(const arma::mat &amp;X, const arma::colvec &amp;y):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a683a5203dc913dec98c9a88bda392781',1,'test_lm(const arma::mat &amp;X, const arma::colvec &amp;y):&#160;export.cpp']]],
+  ['todf_2',['toDF',['../export_8cpp.html#aa1981e8b88c965893de02742beb5a0a9',1,'export.cpp']]],
+  ['tolist_3',['toList',['../export_8cpp.html#aac56d2316140a7223baf05bd840197e1',1,'export.cpp']]]
 ];

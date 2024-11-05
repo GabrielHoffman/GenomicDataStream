@@ -5,8 +5,7 @@ RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
     'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
 PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-    'cat(system.file("libs", package = "pgenlibr", mustWork = TRUE), "/libPLINK2.a", sep="")')
-
+     'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
 
 PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -D SQLITE_ENABLE_COLUMN_METADATA \
@@ -22,8 +21,8 @@ PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)  $(RHTSLIB_LIBS) $(PLINK2_LIBS) 
 
 # From pgenlibr
-PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DIGNORE_BUNDLED_ZSTD -DIGNORE_BUNDLED_LIBDEFLATE  -I/opt/homebrew/opt/zstd/include -I/opt/homebrew/Cellar/libdeflate/1.21/include  
-# PKG_LIBS += -L. -L/opt/homebrew/opt/zstd/lib -lzstd -L/opt/homebrew/Cellar/libdeflate/1.21/lib -ldeflate -lpthread
+PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DIGNORE_BUNDLED_ZSTD -DIGNORE_BUNDLED_LIBDEFLATE  -I/opt/homebrew/opt/zstd/include -I/opt/homebrew/Cellar/libdeflate/1.22/include  
+# PKG_LIBS += -L. -L/opt/homebrew/opt/zstd/lib -lzstd -L/opt/homebrew/Cellar/libdeflate/1.22/lib -ldeflate -lpthread
 
 CXX_STD=CXX17
 

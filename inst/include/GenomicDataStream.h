@@ -93,7 +93,7 @@ Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
  */
 
 
-// #include "pgenstream.h"
+#include "pgenstream.h"
 #include "bgenstream.h"
 #include "vcfstream.h"
 #include "DelayedStream.h"
@@ -110,7 +110,7 @@ static unique_ptr<GenomicDataStream> createFileView( const Param & param ){
 
     // Define reader for VCF/VCFGZ/BCF or BGEN
     // depending on file extension
-    switch( getFileType(param.file) ){
+    switch( param.fileType ){
         case VCF:
         case VCFGZ:
         case BCF:
@@ -118,6 +118,36 @@ static unique_ptr<GenomicDataStream> createFileView( const Param & param ){
             break;
         case BGEN:
             gdsStream = make_unique<bgenstream>( param );
+            break;
+        case PGEN:
+            gdsStream = make_unique<pgenstream>( param );
+            break;
+        case OTHER:
+            throw runtime_error("Invalid file extension: " + param.file);
+            break;
+    }  
+
+    return gdsStream; 
+}
+
+
+static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param ){
+
+    shared_ptr<GenomicDataStream> gdsStream;
+
+    // Define reader for VCF/VCFGZ/BCF or BGEN
+    // depending on file extension
+    switch( param.fileType ){
+        case VCF:
+        case VCFGZ:
+        case BCF:
+            gdsStream = make_shared<vcfstream>( param );
+            break;
+        case BGEN:
+            gdsStream = make_shared<bgenstream>( param );
+            break;
+        case PGEN:
+            gdsStream = make_unique<pgenstream>( param );
             break;
         case OTHER:
             throw runtime_error("Invalid file extension: " + param.file);

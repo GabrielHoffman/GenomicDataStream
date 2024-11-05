@@ -29,6 +29,26 @@ getDosage <- function(file, field = "", region = "", samples = "-", chunkSize, m
     .Call('_GenomicDataStream_getDosage', PACKAGE = 'GenomicDataStream', file, field, region, samples, chunkSize, missingToMean)
 }
 
+create_xptr <- function(file, field = "", region = "", samples = "-", chunkSize, missingToMean = FALSE) {
+    .Call('_GenomicDataStream_create_xptr', PACKAGE = 'GenomicDataStream', file, field, region, samples, chunkSize, missingToMean)
+}
+
+getInfo <- function(x) {
+    .Call('_GenomicDataStream_getInfo', PACKAGE = 'GenomicDataStream', x)
+}
+
+hasReachedEnd_rcpp <- function(x) {
+    .Call('_GenomicDataStream_hasReachedEnd_rcpp', PACKAGE = 'GenomicDataStream', x)
+}
+
+featuresRead_rcpp <- function(x) {
+    .Call('_GenomicDataStream_featuresRead_rcpp', PACKAGE = 'GenomicDataStream', x)
+}
+
+getNextChunk_rcpp <- function(x) {
+    .Call('_GenomicDataStream_getNextChunk_rcpp', PACKAGE = 'GenomicDataStream', x)
+}
+
 colSums_test <- function(X) {
     .Call('_GenomicDataStream_colSums_test', PACKAGE = 'GenomicDataStream', X)
 }

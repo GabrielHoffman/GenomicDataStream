@@ -262,6 +262,40 @@ test_large= function(){
 
 }
 
+
+test_xptr = function(){
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	q()
+	R
+	suppressPackageStartupMessages({
+	library(GenomicDataStream)
+	})
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+	ptr = GenomicDataStream:::create_xptr(file, "DS", chunkSize=2)
+
+	res = GenomicDataStream:::use_xptr(ptr)
+
+
+
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+	
+	obj = GenomicDataStream(file, "DS", chunkSize=2)
+	obj
+
+	while( ! hasReachedEnd(obj) ){
+
+		res = getNextChunk(obj)
+
+	}
+
+}
+
 test_regression = function(){
 	
 	# Test VCF/BCF/BGEN dosage and regression results

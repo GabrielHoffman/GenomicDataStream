@@ -203,8 +203,26 @@ typedef enum {
     VCFGZ,
     BCF,
     BGEN,
+    PGEN,
     OTHER
 } FileType;
+
+/** return string from enum FileType
+ */ 
+static string toString( FileType x){
+
+    switch(x){
+        case VCF:   return "vcf";
+        case VCFGZ:   return "vcf.gz";
+        case BCF:   return "bcf";
+        case BGEN:   return "bgen";
+        case PGEN:   return "pgen";
+        case OTHER:   return "other";
+        default:   return "other";
+    }
+}
+
+
 
 /** Use regex to get file type from file name
  */ 
@@ -220,6 +238,8 @@ static FileType getFileType( const string &file ){
         ft = BCF;
     }else if( regex_search( file, regex("\\.bgen$")) ){
         ft = BGEN;
+    }if( regex_search( file, regex("\\.pgen$")) ){
+        ft = PGEN;
     }
 
     return ft;

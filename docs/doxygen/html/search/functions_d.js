@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['setfield_0',['setField',['../structgds_1_1_param.html#a0bedb8b7bc80339cdedb98066dbd157d',1,'gds::Param']]],
-  ['setrownames_1',['setRowNames',['../classgds_1_1_matrix_info.html#ae9531c5a2a3601465e47a504aa980b3e',1,'gds::MatrixInfo']]],
-  ['size_2',['size',['../classgds_1_1_data_info.html#af8d39001b9a18c530c6d60f5caf32789',1,'gds::DataInfo::size()'],['../classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3',1,'gds::GenomicRanges::size()']]],
-  ['standardize_5ftest_3',['standardize_test',['../export_8cpp.html#a7948cb70a34ad29b874afa09a0fd2558',1,'standardize_test(arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a62357b90027c8c7431e79c4955b63428',1,'standardize_test(arma::mat &amp;X, const bool &amp;center, const bool &amp;scale):&#160;export.cpp']]]
+  ['param_0',['Param',['../structgds_1_1_param.html#a53694d9da67ec6e0e5a5e4993858f915',1,'gds::Param::Param()'],['../structgds_1_1_param.html#a2c6b37ea87807ebdb47ad85d2d7f947d',1,'gds::Param::Param(const string &amp;file, string regionString=&quot;&quot;, const string &amp;samples=&quot;-&quot;, const int &amp;chunkSize=numeric_limits&lt; int &gt;::max(), const bool &amp;missingToMean=false, const int &amp;initCapacity=200, const bool &amp;permuteFeatureOrder=false, const int &amp;rndSeed=12345)']]],
+  ['pgenstream_1',['pgenstream',['../classgds_1_1pgenstream.html#af76c1bf0dc513cccf2e93bc8cdc9545f',1,'gds::pgenstream::pgenstream()'],['../classgds_1_1pgenstream.html#a9d1c5a49e0367506c6d4872913f67d33',1,'gds::pgenstream::pgenstream(const Param &amp;param)']]]
 ];

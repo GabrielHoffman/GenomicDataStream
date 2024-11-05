@@ -93,7 +93,8 @@ struct Param {
 		samples(samples), 
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
-		initCapacity(initCapacity) {
+		initCapacity(initCapacity),
+		fileType(getFileType(file)) {
 
 		// regionString is string of chr:start-end delim by "\t,\n"
 		// remove spaces, then split based on delim
@@ -121,6 +122,7 @@ struct Param {
 	int chunkSize;
 	bool missingToMean;
 	int initCapacity;
+	FileType fileType;
 };
 
 
@@ -143,6 +145,10 @@ class GenomicDataStream {
 	/** Get number of columns in data matrix
 	 */ 
 	virtual int n_samples() = 0;
+
+	/** get FileType of param.file
+	 */ 
+	virtual string getStreamType() = 0;
 
 	/** Get next chunk of _features_ as arma::mat
 	 */ 

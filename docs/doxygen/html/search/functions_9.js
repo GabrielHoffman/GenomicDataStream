@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['matrixinfo_0',['MatrixInfo',['../classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4',1,'gds::MatrixInfo::MatrixInfo()'],['../classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068',1,'gds::MatrixInfo::MatrixInfo(const vector&lt; string &gt; &amp;ID)']]],
-  ['modelfit_1',['ModelFit',['../struct_model_fit.html#a9749852053f0a7bd55c5388bdaa319dd',1,'ModelFit::ModelFit()'],['../struct_model_fit.html#a5946c5d473e9e763960b07da50acd710',1,'ModelFit::ModelFit(const vec &amp;coef, const vec &amp;se, const double &amp;df)']]]
+  ['intallelecodebuf_0',['IntAlleleCodeBuf',['../pgenlibr_8cpp.html#a1ed080fc7429c135db45caf276db34a2',1,'IntAlleleCodeBuf(List pgen):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#a1ed080fc7429c135db45caf276db34a2',1,'IntAlleleCodeBuf(List pgen):&#160;pgenlibr.cpp']]],
+  ['intbuf_1',['IntBuf',['../pgenlibr_8cpp.html#a3bacf2c3f66c3176cbbc11ca821d1656',1,'IntBuf(List pgen):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#a3bacf2c3f66c3176cbbc11ca821d1656',1,'IntBuf(List pgen):&#160;pgenlibr.cpp']]]
 ];

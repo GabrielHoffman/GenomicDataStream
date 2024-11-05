@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['n_5fsamples_0',['n_samples',['../classgds_1_1bgenstream.html#a6bf542e3fa9458c45a97e30bb4692ef9',1,'gds::bgenstream::n_samples()'],['../classgds_1_1_delayed_stream.html#afaca9837fce72787b03e08d2d5fc5b77',1,'gds::DelayedStream::n_samples()'],['../classgds_1_1_genomic_data_stream.html#a8bfa63dae08a7972722b03b56395e927',1,'gds::GenomicDataStream::n_samples()'],['../classgds_1_1vcfstream.html#af7fb7318a9d4eb5451399738bce56fe8',1,'gds::vcfstream::n_samples()']]]
+  ['linearregression_0',['linearRegression',['../export_8cpp.html#a81dd588a77948884baeabf9f9b3c037d',1,'export.cpp']]],
+  ['linearregressionresponses_1',['linearRegressionResponses',['../export_8cpp.html#aba6ec951469d13255c5d4df8adfe3870',1,'export.cpp']]],
+  ['lm_2',['lm',['../export_8cpp.html#a591e42d82ad123eaa62982541620d858',1,'export.cpp']]]
 ];

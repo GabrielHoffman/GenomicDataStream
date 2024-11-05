@@ -23,6 +23,7 @@
 
 #include "GenomicDataStream_virtual.h"
 #include "MatrixInfo.h"
+#include "utils.h"
 
 using namespace Rcpp;
 using namespace std;
@@ -72,6 +73,12 @@ class DelayedStream :
 	 */ 
 	int n_samples() override {
 		return NC;
+	}
+
+	/** get FileType of param.file
+	 */ 
+	string getStreamType() override {
+		return "DelayedStream";
 	}
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk) override {

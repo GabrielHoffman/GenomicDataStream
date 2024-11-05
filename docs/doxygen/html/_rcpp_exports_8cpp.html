@@ -179,10 +179,187 @@ Functions</h2></td></tr>
 <tr class="separator:a080411eaa392e77551d05806fe2ea713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a439bc12f46a111c80aaf57181b403b1b" id="r_a439bc12f46a111c80aaf57181b403b1b"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a439bc12f46a111c80aaf57181b403b1b">_GenomicDataStream_regrExprResponse</a> (SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP)</td></tr>
 <tr class="separator:a439bc12f46a111c80aaf57181b403b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae973985ddcd632f18cd1edb33461fc10" id="r_ae973985ddcd632f18cd1edb33461fc10"><td class="memItemLeft" align="right" valign="top">SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae973985ddcd632f18cd1edb33461fc10">NewPvar</a> (String filename)</td></tr>
+<tr class="separator:ae973985ddcd632f18cd1edb33461fc10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5c02e8a1ca6b676cd6a17eda7b4384" id="r_a4a5c02e8a1ca6b676cd6a17eda7b4384"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a5c02e8a1ca6b676cd6a17eda7b4384">_GenomicDataStream_NewPvar</a> (SEXP filenameSEXP)</td></tr>
+<tr class="separator:a4a5c02e8a1ca6b676cd6a17eda7b4384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca007bf6eafe1ed93f2d240f6166396" id="r_a4ca007bf6eafe1ed93f2d240f6166396"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ca007bf6eafe1ed93f2d240f6166396">GetVariantId</a> (List pvar, int variant_num)</td></tr>
+<tr class="separator:a4ca007bf6eafe1ed93f2d240f6166396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8efe159619178929307b1d43efbcc330" id="r_a8efe159619178929307b1d43efbcc330"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8efe159619178929307b1d43efbcc330">_GenomicDataStream_GetVariantId</a> (SEXP pvarSEXP, SEXP variant_numSEXP)</td></tr>
+<tr class="separator:a8efe159619178929307b1d43efbcc330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d4d85c66857372eb7f06acdeae3a773" id="r_a2d4d85c66857372eb7f06acdeae3a773"><td class="memItemLeft" align="right" valign="top">IntegerVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d4d85c66857372eb7f06acdeae3a773">GetVariantsById</a> (List pvar, String id)</td></tr>
+<tr class="separator:a2d4d85c66857372eb7f06acdeae3a773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7553cdd44463f7b853513d5213f13ff" id="r_ae7553cdd44463f7b853513d5213f13ff"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7553cdd44463f7b853513d5213f13ff">_GenomicDataStream_GetVariantsById</a> (SEXP pvarSEXP, SEXP idSEXP)</td></tr>
+<tr class="separator:ae7553cdd44463f7b853513d5213f13ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11c5d18e57469bb6b934c31b88cf5093" id="r_a11c5d18e57469bb6b934c31b88cf5093"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11c5d18e57469bb6b934c31b88cf5093">GetAlleleCode</a> (List pvar, int variant_num, int allele_num)</td></tr>
+<tr class="separator:a11c5d18e57469bb6b934c31b88cf5093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83dd49a02f13ebd02488442f54bb13b7" id="r_a83dd49a02f13ebd02488442f54bb13b7"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83dd49a02f13ebd02488442f54bb13b7">_GenomicDataStream_GetAlleleCode</a> (SEXP pvarSEXP, SEXP variant_numSEXP, SEXP allele_numSEXP)</td></tr>
+<tr class="separator:a83dd49a02f13ebd02488442f54bb13b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a6d664b011543775a608ce93a8d6f9" id="r_aa8a6d664b011543775a608ce93a8d6f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8a6d664b011543775a608ce93a8d6f9">ClosePvar</a> (List pvar)</td></tr>
+<tr class="separator:aa8a6d664b011543775a608ce93a8d6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176fb24b8bd06b2a60ef1bb2c0b72227" id="r_a176fb24b8bd06b2a60ef1bb2c0b72227"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a176fb24b8bd06b2a60ef1bb2c0b72227">_GenomicDataStream_ClosePvar</a> (SEXP pvarSEXP)</td></tr>
+<tr class="separator:a176fb24b8bd06b2a60ef1bb2c0b72227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f163e270ed4c692690699b5f75b9448" id="r_a8f163e270ed4c692690699b5f75b9448"><td class="memItemLeft" align="right" valign="top">SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f163e270ed4c692690699b5f75b9448">NewPgen</a> (String filename, Nullable&lt; List &gt; pvar, Nullable&lt; int &gt; raw_sample_ct, Nullable&lt; IntegerVector &gt; sample_subset)</td></tr>
+<tr class="separator:a8f163e270ed4c692690699b5f75b9448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8258349507565aba0005e9d7a2630f53" id="r_a8258349507565aba0005e9d7a2630f53"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8258349507565aba0005e9d7a2630f53">_GenomicDataStream_NewPgen</a> (SEXP filenameSEXP, SEXP pvarSEXP, SEXP raw_sample_ctSEXP, SEXP sample_subsetSEXP)</td></tr>
+<tr class="separator:a8258349507565aba0005e9d7a2630f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd994e15962a697c8ed0364fe02cbcd" id="r_a0dd994e15962a697c8ed0364fe02cbcd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0dd994e15962a697c8ed0364fe02cbcd">GetRawSampleCt</a> (List pgen)</td></tr>
+<tr class="separator:a0dd994e15962a697c8ed0364fe02cbcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2f00c92d0cb34265e7ad83ef61763e8" id="r_ac2f00c92d0cb34265e7ad83ef61763e8"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2f00c92d0cb34265e7ad83ef61763e8">_GenomicDataStream_GetRawSampleCt</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:ac2f00c92d0cb34265e7ad83ef61763e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f8e2a72f7314795b38632967f205eef" id="r_a9f8e2a72f7314795b38632967f205eef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f8e2a72f7314795b38632967f205eef">GetVariantCt</a> (List pvar_or_pgen)</td></tr>
+<tr class="separator:a9f8e2a72f7314795b38632967f205eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae647a8c5df3b5e16a1a020e1c88b1356" id="r_ae647a8c5df3b5e16a1a020e1c88b1356"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae647a8c5df3b5e16a1a020e1c88b1356">_GenomicDataStream_GetVariantCt</a> (SEXP pvar_or_pgenSEXP)</td></tr>
+<tr class="separator:ae647a8c5df3b5e16a1a020e1c88b1356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac53856ba8da2bacf4f87d6feb69c86f7" id="r_ac53856ba8da2bacf4f87d6feb69c86f7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac53856ba8da2bacf4f87d6feb69c86f7">GetAlleleCt</a> (List pvar_or_pgen, int variant_num)</td></tr>
+<tr class="separator:ac53856ba8da2bacf4f87d6feb69c86f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd3f9cd90766979d744069f8c87d68cd" id="r_abd3f9cd90766979d744069f8c87d68cd"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3f9cd90766979d744069f8c87d68cd">_GenomicDataStream_GetAlleleCt</a> (SEXP pvar_or_pgenSEXP, SEXP variant_numSEXP)</td></tr>
+<tr class="separator:abd3f9cd90766979d744069f8c87d68cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1e55ab13cde779162b36d5e871d260" id="r_adb1e55ab13cde779162b36d5e871d260"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb1e55ab13cde779162b36d5e871d260">GetMaxAlleleCt</a> (List pvar_or_pgen)</td></tr>
+<tr class="separator:adb1e55ab13cde779162b36d5e871d260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949e00e02a1bc6e6923d26f713496136" id="r_a949e00e02a1bc6e6923d26f713496136"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a949e00e02a1bc6e6923d26f713496136">_GenomicDataStream_GetMaxAlleleCt</a> (SEXP pvar_or_pgenSEXP)</td></tr>
+<tr class="separator:a949e00e02a1bc6e6923d26f713496136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe558f5175949057de836fda50a956fa" id="r_afe558f5175949057de836fda50a956fa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe558f5175949057de836fda50a956fa">HardcallPhasePresent</a> (List pgen)</td></tr>
+<tr class="separator:afe558f5175949057de836fda50a956fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fcd8ad6e59cae8d292cc16233e7c0aa" id="r_a2fcd8ad6e59cae8d292cc16233e7c0aa"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fcd8ad6e59cae8d292cc16233e7c0aa">_GenomicDataStream_HardcallPhasePresent</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:a2fcd8ad6e59cae8d292cc16233e7c0aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25c5e794a485a548de1ba44a34ded49" id="r_aa25c5e794a485a548de1ba44a34ded49"><td class="memItemLeft" align="right" valign="top">NumericVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa25c5e794a485a548de1ba44a34ded49">Buf</a> (List pgen)</td></tr>
+<tr class="separator:aa25c5e794a485a548de1ba44a34ded49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbae34ae4cbd956419e115e44c67f795" id="r_acbae34ae4cbd956419e115e44c67f795"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbae34ae4cbd956419e115e44c67f795">_GenomicDataStream_Buf</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:acbae34ae4cbd956419e115e44c67f795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa27dde76694ad504f9c1c3eb6a610870" id="r_aa27dde76694ad504f9c1c3eb6a610870"><td class="memItemLeft" align="right" valign="top">NumericVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa27dde76694ad504f9c1c3eb6a610870">AlleleCodeBuf</a> (List pgen)</td></tr>
+<tr class="separator:aa27dde76694ad504f9c1c3eb6a610870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43877929d7282691b19b1534b0e950e0" id="r_a43877929d7282691b19b1534b0e950e0"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43877929d7282691b19b1534b0e950e0">_GenomicDataStream_AlleleCodeBuf</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:a43877929d7282691b19b1534b0e950e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bacf2c3f66c3176cbbc11ca821d1656" id="r_a3bacf2c3f66c3176cbbc11ca821d1656"><td class="memItemLeft" align="right" valign="top">IntegerVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bacf2c3f66c3176cbbc11ca821d1656">IntBuf</a> (List pgen)</td></tr>
+<tr class="separator:a3bacf2c3f66c3176cbbc11ca821d1656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870fb6f5bfc91548a5c5cb884f4b8117" id="r_a870fb6f5bfc91548a5c5cb884f4b8117"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a870fb6f5bfc91548a5c5cb884f4b8117">_GenomicDataStream_IntBuf</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:a870fb6f5bfc91548a5c5cb884f4b8117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed080fc7429c135db45caf276db34a2" id="r_a1ed080fc7429c135db45caf276db34a2"><td class="memItemLeft" align="right" valign="top">IntegerVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ed080fc7429c135db45caf276db34a2">IntAlleleCodeBuf</a> (List pgen)</td></tr>
+<tr class="separator:a1ed080fc7429c135db45caf276db34a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af34a826a2062fc440aa280acddad4d5f" id="r_af34a826a2062fc440aa280acddad4d5f"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af34a826a2062fc440aa280acddad4d5f">_GenomicDataStream_IntAlleleCodeBuf</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:af34a826a2062fc440aa280acddad4d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1447e00336259492e99fefe23f48776b" id="r_a1447e00336259492e99fefe23f48776b"><td class="memItemLeft" align="right" valign="top">LogicalVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1447e00336259492e99fefe23f48776b">BoolBuf</a> (List pgen)</td></tr>
+<tr class="separator:a1447e00336259492e99fefe23f48776b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9465e7c41fdb73bc721da2860489f2d0" id="r_a9465e7c41fdb73bc721da2860489f2d0"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9465e7c41fdb73bc721da2860489f2d0">_GenomicDataStream_BoolBuf</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:a9465e7c41fdb73bc721da2860489f2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04eb529a6718f9a3bc18081d84b59a0d" id="r_a04eb529a6718f9a3bc18081d84b59a0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04eb529a6718f9a3bc18081d84b59a0d">ReadHardcalls</a> (List pgen, SEXP buf, int variant_num, int allele_num)</td></tr>
+<tr class="separator:a04eb529a6718f9a3bc18081d84b59a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60352e4a6c12496b9620d9a6bb491302" id="r_a60352e4a6c12496b9620d9a6bb491302"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60352e4a6c12496b9620d9a6bb491302">_GenomicDataStream_ReadHardcalls</a> (SEXP pgenSEXP, SEXP bufSEXP, SEXP variant_numSEXP, SEXP allele_numSEXP)</td></tr>
+<tr class="separator:a60352e4a6c12496b9620d9a6bb491302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c30a0bb33aa54b2198c6216b1ea7a9" id="r_ac3c30a0bb33aa54b2198c6216b1ea7a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3c30a0bb33aa54b2198c6216b1ea7a9">Read</a> (List pgen, NumericVector buf, int variant_num, int allele_num)</td></tr>
+<tr class="separator:ac3c30a0bb33aa54b2198c6216b1ea7a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83e25ca6d7942f36eedafc39bce6d034" id="r_a83e25ca6d7942f36eedafc39bce6d034"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83e25ca6d7942f36eedafc39bce6d034">_GenomicDataStream_Read</a> (SEXP pgenSEXP, SEXP bufSEXP, SEXP variant_numSEXP, SEXP allele_numSEXP)</td></tr>
+<tr class="separator:a83e25ca6d7942f36eedafc39bce6d034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02fa236004794456640d3c4eb2073243" id="r_a02fa236004794456640d3c4eb2073243"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02fa236004794456640d3c4eb2073243">ReadAlleles</a> (List pgen, SEXP acbuf, int variant_num, Nullable&lt; LogicalVector &gt; phasepresent_buf)</td></tr>
+<tr class="separator:a02fa236004794456640d3c4eb2073243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0ad18a5fd7a92daa6978e009663a645" id="r_af0ad18a5fd7a92daa6978e009663a645"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0ad18a5fd7a92daa6978e009663a645">_GenomicDataStream_ReadAlleles</a> (SEXP pgenSEXP, SEXP acbufSEXP, SEXP variant_numSEXP, SEXP phasepresent_bufSEXP)</td></tr>
+<tr class="separator:af0ad18a5fd7a92daa6978e009663a645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20861f2f2702544d2708cd59a6eea8ed" id="r_a20861f2f2702544d2708cd59a6eea8ed"><td class="memItemLeft" align="right" valign="top">IntegerMatrix&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20861f2f2702544d2708cd59a6eea8ed">ReadIntList</a> (List pgen, IntegerVector variant_subset)</td></tr>
+<tr class="separator:a20861f2f2702544d2708cd59a6eea8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade1b8120dceaca9bb0389302b8ba528d" id="r_ade1b8120dceaca9bb0389302b8ba528d"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade1b8120dceaca9bb0389302b8ba528d">_GenomicDataStream_ReadIntList</a> (SEXP pgenSEXP, SEXP variant_subsetSEXP)</td></tr>
+<tr class="separator:ade1b8120dceaca9bb0389302b8ba528d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf4daeca1a99ba902ba934ed92790b4" id="r_afcf4daeca1a99ba902ba934ed92790b4"><td class="memItemLeft" align="right" valign="top">NumericMatrix&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcf4daeca1a99ba902ba934ed92790b4">ReadList</a> (List pgen, IntegerVector variant_subset, bool meanimpute)</td></tr>
+<tr class="separator:afcf4daeca1a99ba902ba934ed92790b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadbd3155385d4bff3aec9f7d4707b258" id="r_aadbd3155385d4bff3aec9f7d4707b258"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadbd3155385d4bff3aec9f7d4707b258">_GenomicDataStream_ReadList</a> (SEXP pgenSEXP, SEXP variant_subsetSEXP, SEXP meanimputeSEXP)</td></tr>
+<tr class="separator:aadbd3155385d4bff3aec9f7d4707b258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac17c9804c915eeafd8687187c25a764a" id="r_ac17c9804c915eeafd8687187c25a764a"><td class="memItemLeft" align="right" valign="top">NumericVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac17c9804c915eeafd8687187c25a764a">VariantScores</a> (List pgen, NumericVector weights, Nullable&lt; IntegerVector &gt; variant_subset)</td></tr>
+<tr class="separator:ac17c9804c915eeafd8687187c25a764a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae04aef332e4e9a3191c194b863da39cb" id="r_ae04aef332e4e9a3191c194b863da39cb"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae04aef332e4e9a3191c194b863da39cb">_GenomicDataStream_VariantScores</a> (SEXP pgenSEXP, SEXP weightsSEXP, SEXP variant_subsetSEXP)</td></tr>
+<tr class="separator:ae04aef332e4e9a3191c194b863da39cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09c511f0acea5053ebce9df6c08b1fbb" id="r_a09c511f0acea5053ebce9df6c08b1fbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09c511f0acea5053ebce9df6c08b1fbb">ClosePgen</a> (List pgen)</td></tr>
+<tr class="separator:a09c511f0acea5053ebce9df6c08b1fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfbbbc20608c2856fc9045e8ac448735" id="r_acfbbbc20608c2856fc9045e8ac448735"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfbbbc20608c2856fc9045e8ac448735">_GenomicDataStream_ClosePgen</a> (SEXP pgenSEXP)</td></tr>
+<tr class="separator:acfbbbc20608c2856fc9045e8ac448735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28813cc54257bc2fa1103e5290158da5" id="r_a28813cc54257bc2fa1103e5290158da5"><td class="memItemLeft" align="right" valign="top">RcppExport void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28813cc54257bc2fa1103e5290158da5">R_init_GenomicDataStream</a> (DllInfo *dll)</td></tr>
 <tr class="separator:a28813cc54257bc2fa1103e5290158da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a43877929d7282691b19b1534b0e950e0" name="a43877929d7282691b19b1534b0e950e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43877929d7282691b19b1534b0e950e0">&#9670;&#160;</a></span>_GenomicDataStream_AlleleCodeBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_AlleleCodeBuf </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9465e7c41fdb73bc721da2860489f2d0" name="a9465e7c41fdb73bc721da2860489f2d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9465e7c41fdb73bc721da2860489f2d0">&#9670;&#160;</a></span>_GenomicDataStream_BoolBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_BoolBuf </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acbae34ae4cbd956419e115e44c67f795" name="acbae34ae4cbd956419e115e44c67f795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbae34ae4cbd956419e115e44c67f795">&#9670;&#160;</a></span>_GenomicDataStream_Buf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_Buf </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acfbbbc20608c2856fc9045e8ac448735" name="acfbbbc20608c2856fc9045e8ac448735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfbbbc20608c2856fc9045e8ac448735">&#9670;&#160;</a></span>_GenomicDataStream_ClosePgen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_ClosePgen </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a176fb24b8bd06b2a60ef1bb2c0b72227" name="a176fb24b8bd06b2a60ef1bb2c0b72227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176fb24b8bd06b2a60ef1bb2c0b72227">&#9670;&#160;</a></span>_GenomicDataStream_ClosePvar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_ClosePvar </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvarSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af04246609af79292f8dd4f5a9c8c4353" name="af04246609af79292f8dd4f5a9c8c4353"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af04246609af79292f8dd4f5a9c8c4353">&#9670;&#160;</a></span>_GenomicDataStream_colSums_test()</h2>
 
@@ -436,6 +613,53 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a83dd49a02f13ebd02488442f54bb13b7" name="a83dd49a02f13ebd02488442f54bb13b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83dd49a02f13ebd02488442f54bb13b7">&#9670;&#160;</a></span>_GenomicDataStream_GetAlleleCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetAlleleCode </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvarSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_numSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>allele_numSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd3f9cd90766979d744069f8c87d68cd" name="abd3f9cd90766979d744069f8c87d68cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd3f9cd90766979d744069f8c87d68cd">&#9670;&#160;</a></span>_GenomicDataStream_GetAlleleCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetAlleleCt </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvar_or_pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_numSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a80f840301ce2bc415074772f35d07b48" name="a80f840301ce2bc415074772f35d07b48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80f840301ce2bc415074772f35d07b48">&#9670;&#160;</a></span>_GenomicDataStream_getDA()</h2>
 
@@ -497,6 +721,338 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>missingToMeanSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a949e00e02a1bc6e6923d26f713496136" name="a949e00e02a1bc6e6923d26f713496136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949e00e02a1bc6e6923d26f713496136">&#9670;&#160;</a></span>_GenomicDataStream_GetMaxAlleleCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetMaxAlleleCt </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvar_or_pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2f00c92d0cb34265e7ad83ef61763e8" name="ac2f00c92d0cb34265e7ad83ef61763e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2f00c92d0cb34265e7ad83ef61763e8">&#9670;&#160;</a></span>_GenomicDataStream_GetRawSampleCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetRawSampleCt </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae647a8c5df3b5e16a1a020e1c88b1356" name="ae647a8c5df3b5e16a1a020e1c88b1356"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae647a8c5df3b5e16a1a020e1c88b1356">&#9670;&#160;</a></span>_GenomicDataStream_GetVariantCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetVariantCt </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvar_or_pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8efe159619178929307b1d43efbcc330" name="a8efe159619178929307b1d43efbcc330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8efe159619178929307b1d43efbcc330">&#9670;&#160;</a></span>_GenomicDataStream_GetVariantId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetVariantId </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvarSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_numSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7553cdd44463f7b853513d5213f13ff" name="ae7553cdd44463f7b853513d5213f13ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7553cdd44463f7b853513d5213f13ff">&#9670;&#160;</a></span>_GenomicDataStream_GetVariantsById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_GetVariantsById </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvarSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>idSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fcd8ad6e59cae8d292cc16233e7c0aa" name="a2fcd8ad6e59cae8d292cc16233e7c0aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fcd8ad6e59cae8d292cc16233e7c0aa">&#9670;&#160;</a></span>_GenomicDataStream_HardcallPhasePresent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_HardcallPhasePresent </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af34a826a2062fc440aa280acddad4d5f" name="af34a826a2062fc440aa280acddad4d5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af34a826a2062fc440aa280acddad4d5f">&#9670;&#160;</a></span>_GenomicDataStream_IntAlleleCodeBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_IntAlleleCodeBuf </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a870fb6f5bfc91548a5c5cb884f4b8117" name="a870fb6f5bfc91548a5c5cb884f4b8117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870fb6f5bfc91548a5c5cb884f4b8117">&#9670;&#160;</a></span>_GenomicDataStream_IntBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_IntBuf </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8258349507565aba0005e9d7a2630f53" name="a8258349507565aba0005e9d7a2630f53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8258349507565aba0005e9d7a2630f53">&#9670;&#160;</a></span>_GenomicDataStream_NewPgen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_NewPgen </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>filenameSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pvarSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>raw_sample_ctSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>sample_subsetSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a5c02e8a1ca6b676cd6a17eda7b4384" name="a4a5c02e8a1ca6b676cd6a17eda7b4384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5c02e8a1ca6b676cd6a17eda7b4384">&#9670;&#160;</a></span>_GenomicDataStream_NewPvar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_NewPvar </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>filenameSEXP</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83e25ca6d7942f36eedafc39bce6d034" name="a83e25ca6d7942f36eedafc39bce6d034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83e25ca6d7942f36eedafc39bce6d034">&#9670;&#160;</a></span>_GenomicDataStream_Read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_Read </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>bufSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_numSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>allele_numSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0ad18a5fd7a92daa6978e009663a645" name="af0ad18a5fd7a92daa6978e009663a645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0ad18a5fd7a92daa6978e009663a645">&#9670;&#160;</a></span>_GenomicDataStream_ReadAlleles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_ReadAlleles </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>acbufSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_numSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>phasepresent_bufSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60352e4a6c12496b9620d9a6bb491302" name="a60352e4a6c12496b9620d9a6bb491302"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60352e4a6c12496b9620d9a6bb491302">&#9670;&#160;</a></span>_GenomicDataStream_ReadHardcalls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_ReadHardcalls </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>bufSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_numSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>allele_numSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade1b8120dceaca9bb0389302b8ba528d" name="ade1b8120dceaca9bb0389302b8ba528d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1b8120dceaca9bb0389302b8ba528d">&#9670;&#160;</a></span>_GenomicDataStream_ReadIntList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_ReadIntList </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_subsetSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadbd3155385d4bff3aec9f7d4707b258" name="aadbd3155385d4bff3aec9f7d4707b258"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbd3155385d4bff3aec9f7d4707b258">&#9670;&#160;</a></span>_GenomicDataStream_ReadList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_ReadList </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_subsetSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>meanimputeSEXP</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -580,6 +1136,117 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>ySEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae04aef332e4e9a3191c194b863da39cb" name="ae04aef332e4e9a3191c194b863da39cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae04aef332e4e9a3191c194b863da39cb">&#9670;&#160;</a></span>_GenomicDataStream_VariantScores()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_VariantScores </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>pgenSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>weightsSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>variant_subsetSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa27dde76694ad504f9c1c3eb6a610870" name="aa27dde76694ad504f9c1c3eb6a610870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa27dde76694ad504f9c1c3eb6a610870">&#9670;&#160;</a></span>AlleleCodeBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NumericVector AlleleCodeBuf </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1447e00336259492e99fefe23f48776b" name="a1447e00336259492e99fefe23f48776b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1447e00336259492e99fefe23f48776b">&#9670;&#160;</a></span>BoolBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LogicalVector BoolBuf </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa25c5e794a485a548de1ba44a34ded49" name="aa25c5e794a485a548de1ba44a34ded49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25c5e794a485a548de1ba44a34ded49">&#9670;&#160;</a></span>Buf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NumericVector Buf </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09c511f0acea5053ebce9df6c08b1fbb" name="a09c511f0acea5053ebce9df6c08b1fbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09c511f0acea5053ebce9df6c08b1fbb">&#9670;&#160;</a></span>ClosePgen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClosePgen </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8a6d664b011543775a608ce93a8d6f9" name="aa8a6d664b011543775a608ce93a8d6f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a6d664b011543775a608ce93a8d6f9">&#9670;&#160;</a></span>ClosePvar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClosePvar </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -839,6 +1506,53 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a11c5d18e57469bb6b934c31b88cf5093" name="a11c5d18e57469bb6b934c31b88cf5093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11c5d18e57469bb6b934c31b88cf5093">&#9670;&#160;</a></span>GetAlleleCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String GetAlleleCode </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>variant_num</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>allele_num</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac53856ba8da2bacf4f87d6feb69c86f7" name="ac53856ba8da2bacf4f87d6feb69c86f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac53856ba8da2bacf4f87d6feb69c86f7">&#9670;&#160;</a></span>GetAlleleCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GetAlleleCt </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar_or_pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>variant_num</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a72211ec7362a8dff38f4950b0a268077" name="a72211ec7362a8dff38f4950b0a268077"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72211ec7362a8dff38f4950b0a268077">&#9670;&#160;</a></span>getDA()</h2>
 
@@ -906,6 +1620,198 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="adb1e55ab13cde779162b36d5e871d260" name="adb1e55ab13cde779162b36d5e871d260"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb1e55ab13cde779162b36d5e871d260">&#9670;&#160;</a></span>GetMaxAlleleCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GetMaxAlleleCt </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar_or_pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0dd994e15962a697c8ed0364fe02cbcd" name="a0dd994e15962a697c8ed0364fe02cbcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dd994e15962a697c8ed0364fe02cbcd">&#9670;&#160;</a></span>GetRawSampleCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GetRawSampleCt </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f8e2a72f7314795b38632967f205eef" name="a9f8e2a72f7314795b38632967f205eef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f8e2a72f7314795b38632967f205eef">&#9670;&#160;</a></span>GetVariantCt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GetVariantCt </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar_or_pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ca007bf6eafe1ed93f2d240f6166396" name="a4ca007bf6eafe1ed93f2d240f6166396"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca007bf6eafe1ed93f2d240f6166396">&#9670;&#160;</a></span>GetVariantId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String GetVariantId </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>variant_num</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d4d85c66857372eb7f06acdeae3a773" name="a2d4d85c66857372eb7f06acdeae3a773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d4d85c66857372eb7f06acdeae3a773">&#9670;&#160;</a></span>GetVariantsById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IntegerVector GetVariantsById </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pvar</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>id</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe558f5175949057de836fda50a956fa" name="afe558f5175949057de836fda50a956fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe558f5175949057de836fda50a956fa">&#9670;&#160;</a></span>HardcallPhasePresent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool HardcallPhasePresent </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ed080fc7429c135db45caf276db34a2" name="a1ed080fc7429c135db45caf276db34a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ed080fc7429c135db45caf276db34a2">&#9670;&#160;</a></span>IntAlleleCodeBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IntegerVector IntAlleleCodeBuf </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3bacf2c3f66c3176cbbc11ca821d1656" name="a3bacf2c3f66c3176cbbc11ca821d1656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bacf2c3f66c3176cbbc11ca821d1656">&#9670;&#160;</a></span>IntBuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IntegerVector IntBuf </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f163e270ed4c692690699b5f75b9448" name="a8f163e270ed4c692690699b5f75b9448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f163e270ed4c692690699b5f75b9448">&#9670;&#160;</a></span>NewPgen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SEXP NewPgen </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Nullable&lt; List &gt;</td>          <td class="paramname"><span class="paramname"><em>pvar</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Nullable&lt; int &gt;</td>          <td class="paramname"><span class="paramname"><em>raw_sample_ct</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Nullable&lt; IntegerVector &gt;</td>          <td class="paramname"><span class="paramname"><em>sample_subset</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae973985ddcd632f18cd1edb33461fc10" name="ae973985ddcd632f18cd1edb33461fc10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae973985ddcd632f18cd1edb33461fc10">&#9670;&#160;</a></span>NewPvar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SEXP NewPvar </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a28813cc54257bc2fa1103e5290158da5" name="a28813cc54257bc2fa1103e5290158da5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a28813cc54257bc2fa1103e5290158da5">&#9670;&#160;</a></span>R_init_GenomicDataStream()</h2>
 
@@ -917,6 +1823,146 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">DllInfo *</td>          <td class="paramname"><span class="paramname"><em>dll</em></span></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3c30a0bb33aa54b2198c6216b1ea7a9" name="ac3c30a0bb33aa54b2198c6216b1ea7a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3c30a0bb33aa54b2198c6216b1ea7a9">&#9670;&#160;</a></span>Read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Read </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NumericVector</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>variant_num</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>allele_num</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02fa236004794456640d3c4eb2073243" name="a02fa236004794456640d3c4eb2073243"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02fa236004794456640d3c4eb2073243">&#9670;&#160;</a></span>ReadAlleles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ReadAlleles </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>acbuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>variant_num</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Nullable&lt; LogicalVector &gt;</td>          <td class="paramname"><span class="paramname"><em>phasepresent_buf</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04eb529a6718f9a3bc18081d84b59a0d" name="a04eb529a6718f9a3bc18081d84b59a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04eb529a6718f9a3bc18081d84b59a0d">&#9670;&#160;</a></span>ReadHardcalls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ReadHardcalls </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>variant_num</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>allele_num</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20861f2f2702544d2708cd59a6eea8ed" name="a20861f2f2702544d2708cd59a6eea8ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20861f2f2702544d2708cd59a6eea8ed">&#9670;&#160;</a></span>ReadIntList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IntegerMatrix ReadIntList </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntegerVector</td>          <td class="paramname"><span class="paramname"><em>variant_subset</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcf4daeca1a99ba902ba934ed92790b4" name="afcf4daeca1a99ba902ba934ed92790b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcf4daeca1a99ba902ba934ed92790b4">&#9670;&#160;</a></span>ReadList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NumericMatrix ReadList </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntegerVector</td>          <td class="paramname"><span class="paramname"><em>variant_subset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>meanimpute</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1000,6 +2046,32 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const arma::colvec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac17c9804c915eeafd8687187c25a764a" name="ac17c9804c915eeafd8687187c25a764a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac17c9804c915eeafd8687187c25a764a">&#9670;&#160;</a></span>VariantScores()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NumericVector VariantScores </td>
+          <td>(</td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>pgen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NumericVector</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Nullable&lt; IntegerVector &gt;</td>          <td class="paramname"><span class="paramname"><em>variant_subset</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -268,10 +268,80 @@ Rcpp::List getDosage(
 }
 
 
+// [[Rcpp::export]]
+typedef struct BoundDataStream {
+	BoundDataStream(const Param &param){
+		ptr = createFileView_shared( param );
+	}
+
+	shared_ptr<gds::GenomicDataStream> ptr;
+	bool reachedEnd = false;
+	long featuresRead = 0;
+} BoundDataStream;
+
+// [[Rcpp::export]]
+SEXP create_xptr( 
+			const std::string &file,
+			const std::string &field = "",
+			const std::string &region = "",
+			const std::string &samples = "-",
+			const int &chunkSize = std::numeric_limits<int>::max(),
+			const bool &missingToMean = false){
+
+	Param param( file, region, samples, chunkSize, missingToMean);
+	param.setField(field);
+
+	Rcpp::XPtr<BoundDataStream> z( new BoundDataStream(param), true);
+
+	return z;
+}
 
 
+// [[Rcpp::export]]
+List getInfo(SEXP x){
+
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	return List::create(Named("streamType") = ptr->ptr->getStreamType(),
+						Named("nsamples") = ptr->ptr->n_samples());
+}
 
 
+// [[Rcpp::export]]
+bool hasReachedEnd_rcpp( SEXP x){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+	return ptr->reachedEnd;
+}
+
+// [[Rcpp::export]]
+long featuresRead_rcpp( SEXP x){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+	return ptr->featuresRead;
+}
+
+// [[Rcpp::export]]
+List getNextChunk_rcpp( SEXP x){ 
+
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	DataChunk<arma::mat> chunk;
+
+	ptr->reachedEnd = ! ptr->ptr->getNextChunk( chunk );
+
+	// Convert genotype values for return
+	// set colnames as variant IDs
+	// set rownames as sample IDs
+	VariantInfo *info = chunk.getInfo<VariantInfo>();
+	NumericMatrix X = wrap( chunk.getData() );
+	colnames(X) = wrap( info->getFeatureNames() );
+	rownames(X) = wrap( info->sampleNames );	
+
+	ptr->featuresRead += info->size();
+
+	// return genotype data and variant info
+	return List::create(	Named("X") = X,
+							Named("info") = toDF(info) );
+}
 
 
 

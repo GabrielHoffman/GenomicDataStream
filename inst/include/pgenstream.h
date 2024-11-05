@@ -55,6 +55,12 @@ class pgenstream :
 		return number_of_samples;
 	}
 
+	/** get FileType of param.file
+	 */ 
+	string getStreamType() override {
+		return toString( param.fileType);
+	}
+
 	virtual bool getNextChunk( DataChunk<arma::mat> & chunk){
 
 		// Update matDosage and vInfo for the chunk
