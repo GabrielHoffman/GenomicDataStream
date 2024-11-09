@@ -1,6 +1,7 @@
 ^vignettes/Makefile$
 ^inst/doxygen$
 \.o$
+\.a$
 \.so$
 \.tmp$
 ^docs$

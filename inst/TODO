@@ -1,4 +1,4 @@
-
+Is VariantInfo *info ever freed?
 
 
 pgenlibr should save libPLINK2.a to usrlib like Rhtslib does

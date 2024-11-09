@@ -6,7 +6,6 @@
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
-
 #ifndef BGEN_STREAM_H_
 #define BGEN_STREAM_H_
 

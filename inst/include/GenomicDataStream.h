@@ -93,11 +93,16 @@ Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
  */
 
 
+#ifndef GENOMIC_DATA_STREAM_H_
+#define GENOMIC_DATA_STREAM_H_
+
 #include "pgenstream.h"
 #include "bgenstream.h"
 #include "vcfstream.h"
 #include "DelayedStream.h"
 #include "utils.h"
+#include "MatrixInfo.h"
+#include "VariantInfo.h"
 
 namespace gds {
 
@@ -130,7 +135,9 @@ static unique_ptr<GenomicDataStream> createFileView( const Param & param ){
     return gdsStream; 
 }
 
-
+/** Create a reader for VCF/VCFGZ/BCF and BGEN that instantiates either vcfstream or bgenstream based on the file extension in param.
+ * @param param class of Param type
+ */ 
 static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param ){
 
     shared_ptr<GenomicDataStream> gdsStream;
@@ -157,5 +164,18 @@ static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param 
     return gdsStream; 
 }
 
+/* Defines type for interface with Rcpp */
+typedef struct BoundDataStream {
+    BoundDataStream(const Param &param){
+        ptr = createFileView_shared( param );
+    }
+
+    shared_ptr<gds::GenomicDataStream> ptr;
+    bool atEndOfStream = false;
+    long featuresRead = 0;
+} BoundDataStream;
+
 
 }
+
+#endif

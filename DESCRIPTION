@@ -18,6 +18,7 @@ Suggests:
 Depends:
     R (>= 4.3.0),
     Rcpp,
+    methods,
     Rdpack
 LinkingTo:
 	Rcpp,
@@ -29,7 +30,8 @@ LinkingTo:
 	Rhtslib  (>= 3.0.0),
 	BH,
 	vcfppR (>= 0.6.0),
-	pgenlibr
+	pgenlibr,
+	fastlmm
 Encoding: UTF-8
 SystemRequirements: 
     GNU make,

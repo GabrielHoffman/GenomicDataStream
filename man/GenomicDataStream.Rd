@@ -3,6 +3,58 @@
 \name{GenomicDataStream}
 \alias{GenomicDataStream}
 \title{GenomicDataStream}
+\usage{
+GenomicDataStream(
+  file,
+  field = "",
+  region = "",
+  samples = "-",
+  chunkSize = 1000,
+  missingToMean = FALSE,
+  initialize = FALSE
+)
+}
+\arguments{
+\item{file}{file in VCF/BCF/BGEN/PGEN format with index}
+
+\item{field}{field of VCF/BCF to read}
+
+\item{region}{target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants}
+
+\item{samples}{string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples}
+
+\item{chunkSize}{number of variants to return per chunk}
+
+\item{missingToMean}{if true, set missing values to the mean dosage value. if false, set to \code{NaN}}
+
+\item{initialize}{default \code{FALSE}.  If \code{TRUE}, file info is read from path, otherwise store path until \code{GenomicDataStream} is initialized later}
+}
+\value{
+object of class \code{GenomicDataStream}
+}
 \description{
 Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries
+
+Interface to GenomicDataStream C++ code
+}
+\examples{
+file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+# initialize 
+obj = GenomicDataStream(file, "DS", chunkSize=5, initialize = TRUE)
+
+obj
+
+# loop until break
+while( 1 ){
+
+	# get data chunk
+	# data$X matrix with features as columns
+	# data$info information about each feature as rows
+	dat = getNextChunk(obj)
+
+	if( atEndOfStream(obj) ) break
+		
+	print(dat$info)
+}
 }

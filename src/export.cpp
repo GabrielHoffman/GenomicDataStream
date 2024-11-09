@@ -268,16 +268,6 @@ Rcpp::List getDosage(
 }
 
 
-// [[Rcpp::export]]
-typedef struct BoundDataStream {
-	BoundDataStream(const Param &param){
-		ptr = createFileView_shared( param );
-	}
-
-	shared_ptr<gds::GenomicDataStream> ptr;
-	bool atEndOfStream = false;
-	long featuresRead = 0;
-} BoundDataStream;
 
 // [[Rcpp::export]]
 SEXP create_xptr( 

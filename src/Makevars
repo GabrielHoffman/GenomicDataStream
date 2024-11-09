@@ -1,13 +1,14 @@
 
 RHTSLIB_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-    'Rhtslib::pkgconfig("PKG_LIBS")') 
+	'Rhtslib::pkgconfig("PKG_LIBS")') 
 RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-    'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
+	'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
 PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-     'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
 
 PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
+-D NDEBUG  \
 -D SQLITE_ENABLE_COLUMN_METADATA \
 -D SQLITE_ENABLE_STAT4 \
 -D SQLITE_MAX_EXPR_DEPTH=10000 \
@@ -26,7 +27,7 @@ PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DIGNORE_BUNDLED_ZSTD -DIGNORE_
 
 CXX_STD=CXX17
 
-PKG_CFLAGS=-DSQLITE_WITHOUT_ZONEMALLOC
+PKG_CFLAGS=-DSQLITE_WITHOUT_ZONEMALLOC -D NDEBUG
 
 
 C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c)
@@ -37,6 +38,7 @@ OBJECTS = RcppExports.o export.o regression.o pgenlibr.o $(CXX_OBJECTS) $(C_OBJE
 
 .PHONY: all 
 all: $(SHLIB)
-$(SHLIB): ${OBJECTS} Makevars
+$(SHLIB): ${OBJECTS} Makevars #libBGEN.a
 
-
+libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
+	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)

@@ -354,11 +354,11 @@ test_lm <- function(X, y) {
     .Call('_GenomicDataStream_test_lm', PACKAGE = 'GenomicDataStream', X, y)
 }
 
-fastLM <- function(y, file, field = "", region = "", samples = "-", chunkSize = 4L, missingToMean = FALSE, nthreads = 1L, verbose = TRUE) {
-    .Call('_GenomicDataStream_fastLM', PACKAGE = 'GenomicDataStream', y, file, field, region, samples, chunkSize, missingToMean, nthreads, verbose)
+lmFitFeatures_export <- function(y, X_design, gds, weights, detail = 0L, preprojection = TRUE, nthreads = 1L, verbose = TRUE) {
+    .Call('_GenomicDataStream_lmFitFeatures_export', PACKAGE = 'GenomicDataStream', y, X_design, gds, weights, detail, preprojection, nthreads, verbose)
 }
 
-regrExprResponse <- function(mat, rowNames, chunkSize, nthreads, verbose = TRUE) {
-    .Call('_GenomicDataStream_regrExprResponse', PACKAGE = 'GenomicDataStream', mat, rowNames, chunkSize, nthreads, verbose)
+lmFitResponses_export <- function(mat, rowNames, chunkSize, nthreads, verbose = TRUE) {
+    .Call('_GenomicDataStream_lmFitResponses_export', PACKAGE = 'GenomicDataStream', mat, rowNames, chunkSize, nthreads, verbose)
 }
 

@@ -29,85 +29,41 @@
 
 
 #include <GenomicDataStream.h>
+#include <fastlmmLib.h>
+#include <exportToR.h>
 
 using namespace std;
 using namespace vcfpp;
 using namespace Rcpp;
 using namespace arma;
 using namespace gds;
-
-
-struct ModelFit {
-	vec coef;
-	vec se;
-	double df;
-	string ID;
-    ModelFit() {}
-	ModelFit( const vec &coef, const vec &se, const double &df) : 
-		coef(coef), se(se), df(df) {}
-};
-
-
+using namespace fastlmmLib;
 
 typedef vector<ModelFit> ModelFitList;
 
-List toList( const vector<ModelFitList> & fitList){
+// Concatenate then run toList() on combined vector
+const List toList( const vector<ModelFitList> & fitList){
 
-    int ncoef = fitList[0][0].coef.n_elem;
-    int nrow = 0;
-    for(int i=0; i< fitList.size(); i++){
-        nrow += fitList[i].size();
+	// count number of models
+	int nmodels = 0;
+    for(int k=0; k < fitList.size(); k++){
+        nmodels += fitList[k].size();
     }
 
-    arma::mat coefMat(nrow,ncoef);
-    arma::mat seMat(nrow,ncoef);
-    arma::vec dfVec(nrow);
-    vector<string> ID;
-    ID.reserve(nrow);
+    // allocate memory
+	vector<ModelFit> fitListCombined;
+	fitListCombined.reserve( nmodels );
 
-    int k=0;
-    for(int i=0; i< fitList.size(); i++){
-        for(int j=0; j< fitList[i].size(); j++){
-            coefMat.row(k) = fitList[i][j].coef.t();
-            seMat.row(k) = fitList[i][j].se.t();
-            dfVec(k) = fitList[i][j].df;
-            ID.push_back(fitList[i][j].ID);
-            k++;
-        }
+ 	for(int k=0; k < fitList.size(); k++){
+        fitListCombined.insert( fitListCombined.end(), 
+        						fitList[k].begin(),
+        						fitList[k].end());
     }
 
-    List lst = List::create(
-        Named("ID") = wrap(ID),
-        Named("coef") = coefMat,
-        Named("se") = seMat,
-        Named("df") = dfVec
-      );
-
-    return lst;
+    return toList( fitListCombined );
 }
 
 
-
-
-/** Linear regression 
- * 
- * @param X design matrix
- * @param y response vector
- * 
-/ adapted from https://github.com/RcppCore/RcppArmadillo/blob/master/src/fastLm.cpp
-/ https://genomicsclass.github.io/book/pages/qr_and_regression.html
-*/
-ModelFit lm(const arma::mat& X, const arma::colvec& y) {
-
-	int n = X.n_rows, k = X.n_cols;
-
-    vec beta = solve(X, y);     // fit model y ~ X
-    vec res  = y - X*beta;            // residuals
-    double s2 = dot(res, res) / (n - k); // std.errors of coefficients
-    vec se = sqrt(s2 * diagvec(pinv(trans(X)*X)));
-
-	return ModelFit( beta, se, n-k);
-}
 
 // [[Rcpp::export]]
 List test_lm(const arma::mat& X, const arma::colvec& y) {
@@ -118,87 +74,28 @@ List test_lm(const arma::mat& X, const arma::colvec& y) {
 							  Rcpp::Named("se")			 = fit.se);
 }	
 
-vector<ModelFit> linearRegression(const arma::vec &y, const arma::mat &X_cov, const arma::mat &X_features, const DataInfo *info, const int &nthreads = 1){
-
-	int n_covs = X_cov.n_cols;
-
-	vector<ModelFit> fitList(X_features.n_cols, ModelFit());
-
-	#ifdef _OPENMP 
-		// set threads
-		omp_set_num_threads(nthreads);
-		// disable nested parallelism
-		omp_set_max_active_levels(1);
-	#endif
-
-	#pragma omp parallel
-	{
-		// create design matrix with jth feature in the last column
-		// X = cbind(X_cov, X_features[,0])
-		arma::mat X(X_cov);
-		X.insert_cols(n_covs, X_features.col(0));
-
-		// iterate through responses 
-		#pragma omp for		 
-		for(int j=0; j<X_features.n_cols; j++){
-			// Create design matrix with intercept as first column
-			X.col(n_covs) = X_features.col(j);
-
-			// linear regression		
-			ModelFit fit = lm(X, y);
-			fit.ID = info->getFeatureName(j);
-
-			// save result to list
-			fitList.at(j) =  fit;
-		}  
-	}  
-
-	return fitList;
-}
 
 
-vector<ModelFit> linearRegressionResponses(const arma::mat &Y, const arma::mat &X, const DataInfo *info, const int &nthreads = 1){
-
-    int n_covs = X.n_cols;
-
-    vector<ModelFit> fitList(Y.n_cols, ModelFit());
-
-    #ifdef _OPENMP 
-        // set threads
-        omp_set_num_threads(nthreads);
-        // disable nested parallelism
-        omp_set_max_active_levels(1);
-    #endif
-
-    #pragma omp parallel
-    {
-        // iterate through responses 
-        #pragma omp for      
-        for(int j=0; j<Y.n_cols; j++){
-
-            // linear regression        
-            ModelFit fit = lm(X, Y.col(j));
-            fit.ID = info->getFeatureName(j);
-
-            // save result to list
-            fitList.at(j) =  fit;
-        }  
-    }  
-
-    return fitList;
-}
 
 // [[Rcpp::export]]
-List fastLM( const arma::colvec& y, 
-				const std::string &file,
-				const std::string &field = "",
-				const std::string &region = "",
-				const std::string &samples = "-",
-				const int &chunkSize = 4,
-				const bool &missingToMean = false, 
-				const int &nthreads = 1,
-                const bool &verbose = true){
+List lmFitFeatures_export( const arma::colvec& y, 
+					const arma::mat &X_design,
+					List gds, 					
+					const arma::vec &weights,
+					const int &detail = 0,
+					const bool &preprojection=true, 
+					const int &nthreads=1,
+					const bool &verbose = true	){
 
+	// Get parameters from R::GenomicDataStream
+	string file = gds["file"];
+	string field = gds["field"];
+	string region = gds["region"];
+	string samples = gds["samples"];
+	int chunkSize = gds["chunkSize"];
+	bool missingToMean = gds["missingToMean"];
+
+	// Initialize C++-level GenomicDataStream
 	Param param(file, region, samples, chunkSize, missingToMean);
 	param.setField(field);
 
@@ -215,9 +112,9 @@ List fastLM( const arma::colvec& y,
 	// n samples and p features
 	VariantInfo *info_chunk;
 	vector<ModelFitList> results;
-	arma::mat X_cov(y.n_elem, 1, fill::ones);
 
 	int nModels = 0;
+	ModelDetail md = LOW;
 
 	while( gdsStream->getNextChunk( chunk ) ){
 
@@ -226,9 +123,9 @@ List fastLM( const arma::colvec& y,
 
 		// Linear regression with the jth feature
 		// used as a covariate in the jth model
-		ModelFitList fitList = linearRegression(y, X_cov, chunk.getData(), info_chunk, nthreads);
+		ModelFitList fitList = lmFitFeatures(y, X_design, chunk.getData(), info_chunk->getFeatureNames(), weights, md, preprojection, nthreads);
 
-		nModels += info_chunk->size();
+		nModels += fitList.size();
 
 		if( verbose ) 
             Rcpp::Rcout << "\rModels fit: " << nModels << "	  ";
@@ -242,8 +139,10 @@ List fastLM( const arma::colvec& y,
 }
 
 
+
+
 // [[Rcpp::export]]
-List regrExprResponse(
+List lmFitResponses_export(
                 const RObject &mat, 
                 const vector<string> &rowNames, 
                 const int &chunkSize,
@@ -257,6 +156,7 @@ List regrExprResponse(
     vector<ModelFitList> results;
     arma::mat X_design( ds.n_samples(), 1, fill::ones);
 
+    ModelDetail md = LOW;
     int nModels = 0;
 
     while( ds.getNextChunk( chunk ) ){
@@ -264,11 +164,13 @@ List regrExprResponse(
         // get variant information
         info = chunk.getInfo<MatrixInfo>();
 
+    	arma::mat Weights(chunk.getData().n_rows, chunk.getData().n_cols, fill::ones);
+
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        ModelFitList fitList = linearRegressionResponses(chunk.getData(), X_design, info, nthreads);
+        ModelFitList fitList = lmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), Weights, md, nthreads);
 
-        nModels += info->size();
+        nModels += fitList.size();
 
         if( verbose ) 
             Rcpp::Rcout << "\rModels fit: " << nModels << "   ";

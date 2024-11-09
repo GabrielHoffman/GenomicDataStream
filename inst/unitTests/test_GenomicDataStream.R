@@ -296,7 +296,8 @@ test_xptr = function(){
 		dat = getNextChunk(obj)
 
 		if( atEndOfStream(obj) ) break
-		print(res$info)
+		
+		print(dat$info)
 	}
 
 
@@ -304,6 +305,9 @@ test_xptr = function(){
 
 
 }
+
+
+
 
 test_chunks = function(){
 
@@ -346,6 +350,41 @@ test_chunks = function(){
 
 		checkEqualsNumeric(t(X_cat), X_all, tol=1e-4) 
 	}
+
+
+}
+
+
+test_gds_to_fit = function(){
+
+	# need to deal with ids here
+
+	library(GenomicDataStream)
+
+	y = seq(60)
+	X_design = matrix(1, 60,1)
+	w = rep(1,60)
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+	# initialize 
+	gds = GenomicDataStream(file, "DS", chunkSize=5)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+	res = lmFitFeatures_gds(y, X_design, gds, w)
+
+	# TODO 
+
+		# test regression with GenomicDataStream
+	gds = GenomicDataStream(file, "DS", chunkSize=5)
+	res = lmFitFeatures_gds(y, X_design, gds, w)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+	res = lmFitFeatures_gds(y, X_design, gds, w, preprojection = FALSE)
+
+	res = lmFitFeatures(y, X_design, gds, w, preprojection = FALSE)
+
+
 
 
 }
@@ -406,7 +445,10 @@ test_regression = function(){
 		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4) 
 
 		# test regression
-		res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=4)
+		# res <- GenomicDataStream:::lmFitFeatures(y, file, "DS", chunkSize=4)
+		gds = GenomicDataStream(file, "DS", chunkSize=5)
+		res = lmFitFeatures(y, X_design, gds, w, preprojection=FALSE)
+
 		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-4)
 		})
 
@@ -424,7 +466,9 @@ test_regression = function(){
 		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,], tol=1e-4)
 
 		# test regression
-		res = GenomicDataStream:::fastLM(y, file, "DS", region=reg)
+		# res = GenomicDataStream:::lmFitFeatures(y, file, "DS", region=reg)
+		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=5)
+		res = lmFitFeatures_gds(y, X_design, gds, w, preprojection=FALSE)
 		checkEqualsNumeric(res1[dat$info$ID,], res$coef, silent=TRUE, tol=1e-4)
 		})
 
@@ -465,7 +509,9 @@ test_regression = function(){
 		checkEqualsNumeric(t(dat$X), X_all, tol=1e-4)
 
 		# test regression
-		res = GenomicDataStream:::fastLM(y, file, "DS", ".")
+		# res = GenomicDataStream:::lmFitFeatures(y, file, "DS", ".")
+		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=5)
+		res = lmFitFeatures_gds(y, X_design, gds, w, preprojection=FALSE)
 		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-7)
 		})
 
@@ -506,7 +552,7 @@ test_DelayedStream = function(){
 		# wrap wiith beachmat
 		ptr = initializeCpp( Y )
 
-		res = GenomicDataStream:::regrExprResponse( ptr, rownames(Y), chunkSize, nthreads)
+		res = GenomicDataStream:::lmFitResponses( ptr, rownames(Y), chunkSize, nthreads)
 
 		res
 	}

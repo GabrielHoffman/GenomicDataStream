@@ -3,6 +3,10 @@
  * Changes: Remove dependency on Rcpp
  */
 
+
+#ifndef BGEN_LOAD_H_
+#define BGEN_LOAD_H_
+
 #include <sstream>
 #include <map>
 #include <set>
@@ -272,4 +276,4 @@ static void get_requested_samples(
 	}
 }
 
-
+#endif

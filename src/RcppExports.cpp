@@ -481,28 +481,27 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// fastLM
-List fastLM(const arma::colvec& y, const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean, const int& nthreads, const bool& verbose);
-RcppExport SEXP _GenomicDataStream_fastLM(SEXP ySEXP, SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
+// lmFitFeatures_export
+List lmFitFeatures_export(const arma::colvec& y, const arma::mat& X_design, List gds, const arma::vec& weights, const int& detail, const bool& preprojection, const int& nthreads, const bool& verbose);
+RcppExport SEXP _GenomicDataStream_lmFitFeatures_export(SEXP ySEXP, SEXP X_designSEXP, SEXP gdsSEXP, SEXP weightsSEXP, SEXP detailSEXP, SEXP preprojectionSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
+    Rcpp::traits::input_parameter< List >::type gds(gdsSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const int& >::type detail(detailSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type preprojection(preprojectionSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastLM(y, file, field, region, samples, chunkSize, missingToMean, nthreads, verbose));
+    rcpp_result_gen = Rcpp::wrap(lmFitFeatures_export(y, X_design, gds, weights, detail, preprojection, nthreads, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
-// regrExprResponse
-List regrExprResponse(const RObject& mat, const vector<string>& rowNames, const int& chunkSize, const int& nthreads, const bool& verbose);
-RcppExport SEXP _GenomicDataStream_regrExprResponse(SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
+// lmFitResponses_export
+List lmFitResponses_export(const RObject& mat, const vector<string>& rowNames, const int& chunkSize, const int& nthreads, const bool& verbose);
+RcppExport SEXP _GenomicDataStream_lmFitResponses_export(SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -511,7 +510,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(regrExprResponse(mat, rowNames, chunkSize, nthreads, verbose));
+    rcpp_result_gen = Rcpp::wrap(lmFitResponses_export(mat, rowNames, chunkSize, nthreads, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -555,8 +554,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_VariantScores", (DL_FUNC) &_GenomicDataStream_VariantScores, 3},
     {"_GenomicDataStream_ClosePgen", (DL_FUNC) &_GenomicDataStream_ClosePgen, 1},
     {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
-    {"_GenomicDataStream_fastLM", (DL_FUNC) &_GenomicDataStream_fastLM, 9},
-    {"_GenomicDataStream_regrExprResponse", (DL_FUNC) &_GenomicDataStream_regrExprResponse, 5},
+    {"_GenomicDataStream_lmFitFeatures_export", (DL_FUNC) &_GenomicDataStream_lmFitFeatures_export, 8},
+    {"_GenomicDataStream_lmFitResponses_export", (DL_FUNC) &_GenomicDataStream_lmFitResponses_export, 5},
     {NULL, NULL, 0}
 };
 
