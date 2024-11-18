@@ -322,7 +322,8 @@ List getNextChunk_rcpp( SEXP x){
 	bool isValid = ptr->ptr->getNextChunk( chunk );
 
 	// if not valid
-	if( ! isValid || chunk.info->size() == 0 ){
+	// set atEndOfStream to true and return empty list
+	if( ! isValid ){
 		ptr->atEndOfStream = true;
 		return List::create();
 	}

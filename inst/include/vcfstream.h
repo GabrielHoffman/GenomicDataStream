@@ -145,6 +145,7 @@ class vcfstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// otherwise, set chunk and return ret
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), false, true);
 
 		// create sparse matrix from dense matrix
@@ -331,10 +332,12 @@ class vcfstream :
 								record->ALT() );
 		}
 
-		// After j variants have been inserted, only entries up to j*nsamples are populated
-		//  the rest of the vector is allocated doesn't have valid data.
-		// Therefore, use entires based on .size(), not .capacity()
-		return true;
+		bool ret = true;
+
+		// if chunk is empty, return false
+		if( vInfo->size() == 0) ret = false;
+
+		return ret;
 	}
 };
 

@@ -336,7 +336,7 @@ test_chunks = function(){
 		X_cat = c()
 
 		# initialize
-		obj = GenomicDataStream(file, "DS", chunkSize=2)
+		obj = GenomicDataStream(file, "DS", chunkSize=10, initialize=TRUE)
 
 		# loop thru chunks
 		while( 1 ){
@@ -371,16 +371,16 @@ test_gds_to_fit = function(){
 	gds = GenomicDataStream(file, "DS", chunkSize=5)
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-	res = lmFitFeatures_gds(y, X_design, gds, w)
+	res = lmFitFeatures(y, X_design, gds, w)
 
 	# TODO 
 
 		# test regression with GenomicDataStream
 	gds = GenomicDataStream(file, "DS", chunkSize=5)
-	res = lmFitFeatures_gds(y, X_design, gds, w)
+	res = lmFitFeatures(y, X_design, gds, w)
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-	res = lmFitFeatures_gds(y, X_design, gds, w, preprojection = FALSE)
+	res = lmFitFeatures(y, X_design, gds, w, preprojection = FALSE)
 
 	res = lmFitFeatures(y, X_design, gds, w, preprojection = FALSE)
 
@@ -468,7 +468,7 @@ test_regression = function(){
 		# test regression
 		# res = GenomicDataStream:::lmFitFeatures(y, file, "DS", region=reg)
 		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=5)
-		res = lmFitFeatures_gds(y, X_design, gds, w, preprojection=FALSE)
+		res = lmFitFeatures(y, X_design, gds, w, preprojection=FALSE)
 		checkEqualsNumeric(res1[dat$info$ID,], res$coef, silent=TRUE, tol=1e-4)
 		})
 
@@ -511,7 +511,7 @@ test_regression = function(){
 		# test regression
 		# res = GenomicDataStream:::lmFitFeatures(y, file, "DS", ".")
 		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=5)
-		res = lmFitFeatures_gds(y, X_design, gds, w, preprojection=FALSE)
+		res = lmFitFeatures(y, X_design, gds, w, preprojection=FALSE)
 		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-7)
 		})
 
@@ -559,6 +559,11 @@ test_DelayedStream = function(){
 
 	res = regrExprResponse(log(M+1))
 
+
+	res = lmFitResponses(log(M+1))
+
+
+	
 	checkEqualsNumeric(res$coef, res1)
 
 
