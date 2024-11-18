@@ -1,0 +1,48 @@
+\doxysection{Genomic\+Data\+Stream\+Lib Namespace Reference}
+\hypertarget{namespace_genomic_data_stream_lib}{}\label{namespace_genomic_data_stream_lib}\index{GenomicDataStreamLib@{GenomicDataStreamLib}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream}{bgenstream}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_delayed_stream}{Delayed\+Stream}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{Genomic\+Data\+Stream}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges}{Genomic\+Ranges}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_matrix_info}{Matrix\+Info}}
+\item 
+struct \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}}
+\item 
+class \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream}{vcfstream}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+genfile\+::bgen\+::\+View\+::\+Unique\+Ptr \mbox{\hyperlink{namespace_genomic_data_stream_lib_ac5d28f56d32ebfb2bd96d7d456f87bb0}{construct\+\_\+view}} (const string \&filename, const string \&index\+\_\+filename, const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges}{Genomic\+Ranges}} \&gr, const vector$<$ string $>$ \&rsids=vector$<$ string $>$())
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_genomic_data_stream_lib_ac5d28f56d32ebfb2bd96d7d456f87bb0}\index{GenomicDataStreamLib@{GenomicDataStreamLib}!construct\_view@{construct\_view}}
+\index{construct\_view@{construct\_view}!GenomicDataStreamLib@{GenomicDataStreamLib}}
+\doxysubsubsection{\texorpdfstring{construct\_view()}{construct\_view()}}
+{\footnotesize\ttfamily \label{namespace_genomic_data_stream_lib_ac5d28f56d32ebfb2bd96d7d456f87bb0} 
+genfile\+::bgen\+::\+View\+::\+Unique\+Ptr Genomic\+Data\+Stream\+Lib\+::construct\+\_\+view (\begin{DoxyParamCaption}\item[{const string \&}]{filename}{, }\item[{const string \&}]{index\+\_\+filename}{, }\item[{const \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_ranges}{Genomic\+Ranges}} \&}]{gr}{, }\item[{const vector$<$ string $>$ \&}]{rsids}{ = {\ttfamily vector$<$string$>$()}}\end{DoxyParamCaption})}
+
+Construct view of BGEN file using index to subset variants based on region or variant id 
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to BGEN file \\
+\hline
+{\em index\+\_\+filename} & path to index for BGEN file \\
+\hline
+{\em gr} & {\ttfamily \doxylink{class_genomic_data_stream_lib_1_1_genomic_ranges}{Genomic\+Ranges}} of intervals \\
+\hline
+{\em rsids} & vector$<$string$>$ of variant ids \\
+\hline
+\end{DoxyParams}

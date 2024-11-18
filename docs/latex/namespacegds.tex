@@ -1,0 +1,91 @@
+\doxysection{gds Namespace Reference}
+\hypertarget{namespacegds}{}\label{namespacegds}\index{gds@{gds}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classgds_1_1bgenstream}{bgenstream}}
+\item 
+struct \mbox{\hyperlink{structgds_1_1_bound_data_stream}{Bound\+Data\+Stream}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_data_info}{Data\+Info}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_delayed_stream}{Delayed\+Stream}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_matrix_info}{Matrix\+Info}}
+\item 
+struct \mbox{\hyperlink{structgds_1_1_param}{Param}}
+\item 
+class \mbox{\hyperlink{classgds_1_1pgenstream}{pgenstream}}
+\item 
+class \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}}
+\item 
+class \mbox{\hyperlink{classgds_1_1vcfstream}{vcfstream}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct gds\+::\+Bound\+Data\+Stream \mbox{\hyperlink{namespacegds_ac70f2ea13e13e9f24bdd7a1717666a22}{Bound\+Data\+Stream}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{File\+Type}} \{ \newline
+\mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}
+, \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}
+, \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}
+, \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}
+, \newline
+\mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}
+, \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{namespacegds_ac70f2ea13e13e9f24bdd7a1717666a22}\index{gds@{gds}!BoundDataStream@{BoundDataStream}}
+\index{BoundDataStream@{BoundDataStream}!gds@{gds}}
+\doxysubsubsection{\texorpdfstring{BoundDataStream}{BoundDataStream}}
+{\footnotesize\ttfamily \label{namespacegds_ac70f2ea13e13e9f24bdd7a1717666a22} 
+typedef struct gds\+::\+Bound\+Data\+Stream gds\+::\+Bound\+Data\+Stream}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}\index{gds@{gds}!FileType@{FileType}}
+\index{FileType@{FileType}!gds@{gds}}
+\doxysubsubsection{\texorpdfstring{FileType}{FileType}}
+{\footnotesize\ttfamily \label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+enum \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{gds\+::\+File\+Type}}}
+
+enum to indicate file type for genetics files \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCF@{VCF}!gds@{gds}}\index{gds@{gds}!VCF@{VCF}}}\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}\label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+VCF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCFGZ@{VCFGZ}!gds@{gds}}\index{gds@{gds}!VCFGZ@{VCFGZ}}}\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}\label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+VCFGZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BCF@{BCF}!gds@{gds}}\index{gds@{gds}!BCF@{BCF}}}\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}\label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+BCF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BGEN@{BGEN}!gds@{gds}}\index{gds@{gds}!BGEN@{BGEN}}}\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}\label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+BGEN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PGEN@{PGEN}!gds@{gds}}\index{gds@{gds}!PGEN@{PGEN}}}\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}\label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+PGEN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OTHER@{OTHER}!gds@{gds}}\index{gds@{gds}!OTHER@{OTHER}}}\Hypertarget{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}\label{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361} 
+OTHER&\\
+\hline
+
+\end{DoxyEnumFields}

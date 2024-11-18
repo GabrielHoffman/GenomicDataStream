@@ -18,6 +18,7 @@ Suggests:
 Depends:
     R (>= 4.3.0),
     Rcpp,
+    DelayedArray,
     methods,
     Rdpack
 LinkingTo:

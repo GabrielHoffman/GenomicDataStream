@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>GenomicDataStream: src/regression.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="GDS_logo_55.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GenomicDataStream
+   </div>
+   <div id="projectbrief">A scalable interface between data and analysis</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">regression.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;RcppArmadillo.h&gt;</code><br />
+<code>#include &lt;RcppEigen.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="_genomic_data_stream_8h_source.html">GenomicDataStream.h</a>&gt;</code><br />
+<code>#include &lt;fastlmmLib.h&gt;</code><br />
+<code>#include &lt;exportToR.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a6ee1a17bf79231337da741265d2f6856" id="r_a6ee1a17bf79231337da741265d2f6856"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ee1a17bf79231337da741265d2f6856">ARMA_WARN_LEVEL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a6ee1a17bf79231337da741265d2f6856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4353281743925f182316dba7cda58fee" id="r_a4353281743925f182316dba7cda58fee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4353281743925f182316dba7cda58fee">omp_get_num_threads</a>()</td></tr>
+<tr class="separator:a4353281743925f182316dba7cda58fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a889ec205c635b219999c761b28cc39ba" id="r_a889ec205c635b219999c761b28cc39ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a889ec205c635b219999c761b28cc39ba">omp_get_thread_num</a>()</td></tr>
+<tr class="separator:a889ec205c635b219999c761b28cc39ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:adc39be6a32d02a4af0c01f51ec1b114f" id="r_adc39be6a32d02a4af0c01f51ec1b114f"><td class="memItemLeft" align="right" valign="top">typedef vector&lt; ModelFit &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a></td></tr>
+<tr class="separator:adc39be6a32d02a4af0c01f51ec1b114f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a448e834c3b70e40f36ac6fb63fb317b4" id="r_a448e834c3b70e40f36ac6fb63fb317b4"><td class="memItemLeft" align="right" valign="top">const List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a448e834c3b70e40f36ac6fb63fb317b4">toList</a> (const vector&lt; <a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a> &gt; &amp;fitList)</td></tr>
+<tr class="separator:a448e834c3b70e40f36ac6fb63fb317b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683a5203dc913dec98c9a88bda392781" id="r_a683a5203dc913dec98c9a88bda392781"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a683a5203dc913dec98c9a88bda392781">test_lm</a> (const arma::mat &amp;X, const arma::colvec &amp;y)</td></tr>
+<tr class="separator:a683a5203dc913dec98c9a88bda392781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f38362da242df5aabb1a27f9a7cf81" id="r_a72f38362da242df5aabb1a27f9a7cf81"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72f38362da242df5aabb1a27f9a7cf81">lmFitFeatures_export</a> (const arma::colvec &amp;y, const arma::mat &amp;X_design, List gds, const arma::vec &amp;weights, const int &amp;detail=0, const bool &amp;preprojection=true, const int &amp;nthreads=1, const bool &amp;verbose=true)</td></tr>
+<tr class="separator:a72f38362da242df5aabb1a27f9a7cf81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ea6aa4a8186e4248ede67becf86b5c5" id="r_a2ea6aa4a8186e4248ede67becf86b5c5"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ea6aa4a8186e4248ede67becf86b5c5">lmFitResponses_export</a> (const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize, const int &amp;nthreads, const bool &amp;verbose=true)</td></tr>
+<tr class="separator:a2ea6aa4a8186e4248ede67becf86b5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a6ee1a17bf79231337da741265d2f6856" name="a6ee1a17bf79231337da741265d2f6856"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee1a17bf79231337da741265d2f6856">&#9670;&#160;</a></span>ARMA_WARN_LEVEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARMA_WARN_LEVEL&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4353281743925f182316dba7cda58fee" name="a4353281743925f182316dba7cda58fee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4353281743925f182316dba7cda58fee">&#9670;&#160;</a></span>omp_get_num_threads</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define omp_get_num_threads</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">0</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a889ec205c635b219999c761b28cc39ba" name="a889ec205c635b219999c761b28cc39ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a889ec205c635b219999c761b28cc39ba">&#9670;&#160;</a></span>omp_get_thread_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define omp_get_thread_num</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">0</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="adc39be6a32d02a4af0c01f51ec1b114f" name="adc39be6a32d02a4af0c01f51ec1b114f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc39be6a32d02a4af0c01f51ec1b114f">&#9670;&#160;</a></span>ModelFitList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef vector&lt;ModelFit&gt; <a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a72f38362da242df5aabb1a27f9a7cf81" name="a72f38362da242df5aabb1a27f9a7cf81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f38362da242df5aabb1a27f9a7cf81">&#9670;&#160;</a></span>lmFitFeatures_export()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List lmFitFeatures_export </td>
+          <td>(</td>
+          <td class="paramtype">const arma::colvec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X_design</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List</td>          <td class="paramname"><span class="paramname"><em>gds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const arma::vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>detail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>preprojection</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ea6aa4a8186e4248ede67becf86b5c5" name="a2ea6aa4a8186e4248ede67becf86b5c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea6aa4a8186e4248ede67becf86b5c5">&#9670;&#160;</a></span>lmFitResponses_export()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List lmFitResponses_export </td>
+          <td>(</td>
+          <td class="paramtype">const RObject &amp;</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rowNames</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a683a5203dc913dec98c9a88bda392781" name="a683a5203dc913dec98c9a88bda392781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a683a5203dc913dec98c9a88bda392781">&#9670;&#160;</a></span>test_lm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List test_lm </td>
+          <td>(</td>
+          <td class="paramtype">const arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const arma::colvec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a448e834c3b70e40f36ac6fb63fb317b4" name="a448e834c3b70e40f36ac6fb63fb317b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a448e834c3b70e40f36ac6fb63fb317b4">&#9670;&#160;</a></span>toList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const List toList </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; <a class="el" href="#adc39be6a32d02a4af0c01f51ec1b114f">ModelFitList</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>fitList</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

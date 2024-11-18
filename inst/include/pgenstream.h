@@ -27,7 +27,7 @@ using namespace arma;
 
 namespace gds {
 
-/** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
+/** pgenstream reads a PGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
 */
 class pgenstream : 
@@ -40,13 +40,32 @@ class pgenstream :
 	*/
 	pgenstream(const Param & param) : GenomicDataStream(param) {
 		
+		// pg = new RPgenReader();
+
+  		// pg->Load(param.file, pvar, raw_sample_ct, sample_subset);
+
+  		// // void RPgenReader::ReadList(NumericMatrix buf, IntegerVector variant_subset, bool meanimpute) 
+
+  		// NumericMatrix dsg;
+
+  		// // Change
+  		// // RPgenReader::ReadList() to take vector<> instead of R types
+  		// // Does this handle imputed data? or just int?
+  		// // convert GenomicRanges to idx
+  		// pg->ReadList( dsg, idx, param.missingToMean);
 	
+
+
 	}
 
 	/** destructor
 	 */ 
 	~pgenstream(){
 		if( vInfo != nullptr) delete vInfo;
+		// if( pg != nullptr){
+		// 	pg->Close();
+		// 	delete pg;
+		// }
 	}
 
 	/** Get number of columns in data matrix
@@ -142,8 +161,14 @@ class pgenstream :
 	size_t number_of_samples = 0;
 	vector<double> matDosage;
 	VariantInfo *vInfo = nullptr;
+	// RPgenReader *pg = nullptr;
+
 
 	bool getNextChunk_helper(){	
+
+
+  		// pg->ReadList( matDosage, idx, param.missingToMean);
+	
 
 		return true;
 	}

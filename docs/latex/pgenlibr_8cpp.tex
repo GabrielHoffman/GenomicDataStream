@@ -1,0 +1,195 @@
+\doxysection{src/pgenlibr.cpp File Reference}
+\hypertarget{pgenlibr_8cpp}{}\label{pgenlibr_8cpp}\index{src/pgenlibr.cpp@{src/pgenlibr.cpp}}
+{\ttfamily \#include "{}pgenstream.\+h"{}}\newline
+{\ttfamily \#include "{}pgen/\+RPgen\+Reader.\+h"{}}\newline
+{\ttfamily \#include "{}pgen/pvar.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+SEXP \mbox{\hyperlink{pgenlibr_8cpp_ae973985ddcd632f18cd1edb33461fc10}{New\+Pvar}} (String filename)
+\item 
+String \mbox{\hyperlink{pgenlibr_8cpp_a4ca007bf6eafe1ed93f2d240f6166396}{Get\+Variant\+Id}} (List pvar, int variant\+\_\+num)
+\item 
+Integer\+Vector \mbox{\hyperlink{pgenlibr_8cpp_a2d4d85c66857372eb7f06acdeae3a773}{Get\+Variants\+By\+Id}} (List pvar, String id)
+\item 
+String \mbox{\hyperlink{pgenlibr_8cpp_a11c5d18e57469bb6b934c31b88cf5093}{Get\+Allele\+Code}} (List pvar, int variant\+\_\+num, int allele\+\_\+num)
+\item 
+void \mbox{\hyperlink{pgenlibr_8cpp_aa8a6d664b011543775a608ce93a8d6f9}{Close\+Pvar}} (List pvar)
+\item 
+SEXP \mbox{\hyperlink{pgenlibr_8cpp_a30294d9326c6fec49aaa93181f981d3e}{New\+Pgen}} (String filename, Nullable$<$ List $>$ pvar=R\+\_\+\+Nil\+Value, Nullable$<$ int $>$ raw\+\_\+sample\+\_\+ct=R\+\_\+\+Nil\+Value, Nullable$<$ Integer\+Vector $>$ sample\+\_\+subset=R\+\_\+\+Nil\+Value)
+\item 
+int \mbox{\hyperlink{pgenlibr_8cpp_a0dd994e15962a697c8ed0364fe02cbcd}{Get\+Raw\+Sample\+Ct}} (List pgen)
+\item 
+int \mbox{\hyperlink{pgenlibr_8cpp_a9f8e2a72f7314795b38632967f205eef}{Get\+Variant\+Ct}} (List pvar\+\_\+or\+\_\+pgen)
+\item 
+int \mbox{\hyperlink{pgenlibr_8cpp_ac53856ba8da2bacf4f87d6feb69c86f7}{Get\+Allele\+Ct}} (List pvar\+\_\+or\+\_\+pgen, int variant\+\_\+num)
+\item 
+int \mbox{\hyperlink{pgenlibr_8cpp_adb1e55ab13cde779162b36d5e871d260}{Get\+Max\+Allele\+Ct}} (List pvar\+\_\+or\+\_\+pgen)
+\item 
+bool \mbox{\hyperlink{pgenlibr_8cpp_afe558f5175949057de836fda50a956fa}{Hardcall\+Phase\+Present}} (List pgen)
+\item 
+Numeric\+Vector \mbox{\hyperlink{pgenlibr_8cpp_aa25c5e794a485a548de1ba44a34ded49}{Buf}} (List pgen)
+\item 
+Numeric\+Vector \mbox{\hyperlink{pgenlibr_8cpp_aa27dde76694ad504f9c1c3eb6a610870}{Allele\+Code\+Buf}} (List pgen)
+\item 
+Integer\+Vector \mbox{\hyperlink{pgenlibr_8cpp_a3bacf2c3f66c3176cbbc11ca821d1656}{Int\+Buf}} (List pgen)
+\item 
+Integer\+Vector \mbox{\hyperlink{pgenlibr_8cpp_a1ed080fc7429c135db45caf276db34a2}{Int\+Allele\+Code\+Buf}} (List pgen)
+\item 
+Logical\+Vector \mbox{\hyperlink{pgenlibr_8cpp_a1447e00336259492e99fefe23f48776b}{Bool\+Buf}} (List pgen)
+\item 
+void \mbox{\hyperlink{pgenlibr_8cpp_aa2951f77c8dade1ea135003291bf0b5b}{Read\+Hardcalls}} (List pgen, SEXP buf, int variant\+\_\+num, int allele\+\_\+num=2)
+\item 
+void \mbox{\hyperlink{pgenlibr_8cpp_a3b92259d25144fc1e62885cfb8480d10}{Read}} (List pgen, Numeric\+Vector buf, int variant\+\_\+num, int allele\+\_\+num=2)
+\item 
+void \mbox{\hyperlink{pgenlibr_8cpp_a9b7467bce0299922cfbf88201648403e}{Read\+Alleles}} (List pgen, SEXP acbuf, int variant\+\_\+num, Nullable$<$ Logical\+Vector $>$ phasepresent\+\_\+buf=R\+\_\+\+Nil\+Value)
+\item 
+Integer\+Matrix \mbox{\hyperlink{pgenlibr_8cpp_a20861f2f2702544d2708cd59a6eea8ed}{Read\+Int\+List}} (List pgen, Integer\+Vector variant\+\_\+subset)
+\item 
+Numeric\+Matrix \mbox{\hyperlink{pgenlibr_8cpp_ae8fdebb8c1d9d7756f7cfa643b3d80b1}{Read\+List}} (List pgen, Integer\+Vector variant\+\_\+subset, bool meanimpute=false)
+\item 
+Numeric\+Vector \mbox{\hyperlink{pgenlibr_8cpp_ab1c73119fbd268c81c2397b722ac52a9}{Variant\+Scores}} (List pgen, Numeric\+Vector weights, Nullable$<$ Integer\+Vector $>$ variant\+\_\+subset=R\+\_\+\+Nil\+Value)
+\item 
+void \mbox{\hyperlink{pgenlibr_8cpp_a09c511f0acea5053ebce9df6c08b1fbb}{Close\+Pgen}} (List pgen)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{pgenlibr_8cpp_aa27dde76694ad504f9c1c3eb6a610870}\index{pgenlibr.cpp@{pgenlibr.cpp}!AlleleCodeBuf@{AlleleCodeBuf}}
+\index{AlleleCodeBuf@{AlleleCodeBuf}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{AlleleCodeBuf()}{AlleleCodeBuf()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_aa27dde76694ad504f9c1c3eb6a610870} 
+Numeric\+Vector Allele\+Code\+Buf (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a1447e00336259492e99fefe23f48776b}\index{pgenlibr.cpp@{pgenlibr.cpp}!BoolBuf@{BoolBuf}}
+\index{BoolBuf@{BoolBuf}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{BoolBuf()}{BoolBuf()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a1447e00336259492e99fefe23f48776b} 
+Logical\+Vector Bool\+Buf (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_aa25c5e794a485a548de1ba44a34ded49}\index{pgenlibr.cpp@{pgenlibr.cpp}!Buf@{Buf}}
+\index{Buf@{Buf}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{Buf()}{Buf()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_aa25c5e794a485a548de1ba44a34ded49} 
+Numeric\+Vector Buf (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a09c511f0acea5053ebce9df6c08b1fbb}\index{pgenlibr.cpp@{pgenlibr.cpp}!ClosePgen@{ClosePgen}}
+\index{ClosePgen@{ClosePgen}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{ClosePgen()}{ClosePgen()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a09c511f0acea5053ebce9df6c08b1fbb} 
+void Close\+Pgen (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_aa8a6d664b011543775a608ce93a8d6f9}\index{pgenlibr.cpp@{pgenlibr.cpp}!ClosePvar@{ClosePvar}}
+\index{ClosePvar@{ClosePvar}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{ClosePvar()}{ClosePvar()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_aa8a6d664b011543775a608ce93a8d6f9} 
+void Close\+Pvar (\begin{DoxyParamCaption}\item[{List}]{pvar}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a11c5d18e57469bb6b934c31b88cf5093}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetAlleleCode@{GetAlleleCode}}
+\index{GetAlleleCode@{GetAlleleCode}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetAlleleCode()}{GetAlleleCode()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a11c5d18e57469bb6b934c31b88cf5093} 
+String Get\+Allele\+Code (\begin{DoxyParamCaption}\item[{List}]{pvar}{, }\item[{int}]{variant\+\_\+num}{, }\item[{int}]{allele\+\_\+num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_ac53856ba8da2bacf4f87d6feb69c86f7}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetAlleleCt@{GetAlleleCt}}
+\index{GetAlleleCt@{GetAlleleCt}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetAlleleCt()}{GetAlleleCt()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_ac53856ba8da2bacf4f87d6feb69c86f7} 
+int Get\+Allele\+Ct (\begin{DoxyParamCaption}\item[{List}]{pvar\+\_\+or\+\_\+pgen}{, }\item[{int}]{variant\+\_\+num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_adb1e55ab13cde779162b36d5e871d260}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetMaxAlleleCt@{GetMaxAlleleCt}}
+\index{GetMaxAlleleCt@{GetMaxAlleleCt}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetMaxAlleleCt()}{GetMaxAlleleCt()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_adb1e55ab13cde779162b36d5e871d260} 
+int Get\+Max\+Allele\+Ct (\begin{DoxyParamCaption}\item[{List}]{pvar\+\_\+or\+\_\+pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a0dd994e15962a697c8ed0364fe02cbcd}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetRawSampleCt@{GetRawSampleCt}}
+\index{GetRawSampleCt@{GetRawSampleCt}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetRawSampleCt()}{GetRawSampleCt()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a0dd994e15962a697c8ed0364fe02cbcd} 
+int Get\+Raw\+Sample\+Ct (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a9f8e2a72f7314795b38632967f205eef}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetVariantCt@{GetVariantCt}}
+\index{GetVariantCt@{GetVariantCt}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetVariantCt()}{GetVariantCt()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a9f8e2a72f7314795b38632967f205eef} 
+int Get\+Variant\+Ct (\begin{DoxyParamCaption}\item[{List}]{pvar\+\_\+or\+\_\+pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a4ca007bf6eafe1ed93f2d240f6166396}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetVariantId@{GetVariantId}}
+\index{GetVariantId@{GetVariantId}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetVariantId()}{GetVariantId()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a4ca007bf6eafe1ed93f2d240f6166396} 
+String Get\+Variant\+Id (\begin{DoxyParamCaption}\item[{List}]{pvar}{, }\item[{int}]{variant\+\_\+num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a2d4d85c66857372eb7f06acdeae3a773}\index{pgenlibr.cpp@{pgenlibr.cpp}!GetVariantsById@{GetVariantsById}}
+\index{GetVariantsById@{GetVariantsById}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{GetVariantsById()}{GetVariantsById()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a2d4d85c66857372eb7f06acdeae3a773} 
+Integer\+Vector Get\+Variants\+By\+Id (\begin{DoxyParamCaption}\item[{List}]{pvar}{, }\item[{String}]{id}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_afe558f5175949057de836fda50a956fa}\index{pgenlibr.cpp@{pgenlibr.cpp}!HardcallPhasePresent@{HardcallPhasePresent}}
+\index{HardcallPhasePresent@{HardcallPhasePresent}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{HardcallPhasePresent()}{HardcallPhasePresent()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_afe558f5175949057de836fda50a956fa} 
+bool Hardcall\+Phase\+Present (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a1ed080fc7429c135db45caf276db34a2}\index{pgenlibr.cpp@{pgenlibr.cpp}!IntAlleleCodeBuf@{IntAlleleCodeBuf}}
+\index{IntAlleleCodeBuf@{IntAlleleCodeBuf}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{IntAlleleCodeBuf()}{IntAlleleCodeBuf()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a1ed080fc7429c135db45caf276db34a2} 
+Integer\+Vector Int\+Allele\+Code\+Buf (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a3bacf2c3f66c3176cbbc11ca821d1656}\index{pgenlibr.cpp@{pgenlibr.cpp}!IntBuf@{IntBuf}}
+\index{IntBuf@{IntBuf}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{IntBuf()}{IntBuf()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a3bacf2c3f66c3176cbbc11ca821d1656} 
+Integer\+Vector Int\+Buf (\begin{DoxyParamCaption}\item[{List}]{pgen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a30294d9326c6fec49aaa93181f981d3e}\index{pgenlibr.cpp@{pgenlibr.cpp}!NewPgen@{NewPgen}}
+\index{NewPgen@{NewPgen}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{NewPgen()}{NewPgen()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a30294d9326c6fec49aaa93181f981d3e} 
+SEXP New\+Pgen (\begin{DoxyParamCaption}\item[{String}]{filename}{, }\item[{Nullable$<$ List $>$}]{pvar}{ = {\ttfamily R\+\_\+NilValue}, }\item[{Nullable$<$ int $>$}]{raw\+\_\+sample\+\_\+ct}{ = {\ttfamily R\+\_\+NilValue}, }\item[{Nullable$<$ Integer\+Vector $>$}]{sample\+\_\+subset}{ = {\ttfamily R\+\_\+NilValue}}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_ae973985ddcd632f18cd1edb33461fc10}\index{pgenlibr.cpp@{pgenlibr.cpp}!NewPvar@{NewPvar}}
+\index{NewPvar@{NewPvar}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{NewPvar()}{NewPvar()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_ae973985ddcd632f18cd1edb33461fc10} 
+SEXP New\+Pvar (\begin{DoxyParamCaption}\item[{String}]{filename}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a3b92259d25144fc1e62885cfb8480d10}\index{pgenlibr.cpp@{pgenlibr.cpp}!Read@{Read}}
+\index{Read@{Read}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a3b92259d25144fc1e62885cfb8480d10} 
+void Read (\begin{DoxyParamCaption}\item[{List}]{pgen}{, }\item[{Numeric\+Vector}]{buf}{, }\item[{int}]{variant\+\_\+num}{, }\item[{int}]{allele\+\_\+num}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a9b7467bce0299922cfbf88201648403e}\index{pgenlibr.cpp@{pgenlibr.cpp}!ReadAlleles@{ReadAlleles}}
+\index{ReadAlleles@{ReadAlleles}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{ReadAlleles()}{ReadAlleles()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a9b7467bce0299922cfbf88201648403e} 
+void Read\+Alleles (\begin{DoxyParamCaption}\item[{List}]{pgen}{, }\item[{SEXP}]{acbuf}{, }\item[{int}]{variant\+\_\+num}{, }\item[{Nullable$<$ Logical\+Vector $>$}]{phasepresent\+\_\+buf}{ = {\ttfamily R\+\_\+NilValue}}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_aa2951f77c8dade1ea135003291bf0b5b}\index{pgenlibr.cpp@{pgenlibr.cpp}!ReadHardcalls@{ReadHardcalls}}
+\index{ReadHardcalls@{ReadHardcalls}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{ReadHardcalls()}{ReadHardcalls()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_aa2951f77c8dade1ea135003291bf0b5b} 
+void Read\+Hardcalls (\begin{DoxyParamCaption}\item[{List}]{pgen}{, }\item[{SEXP}]{buf}{, }\item[{int}]{variant\+\_\+num}{, }\item[{int}]{allele\+\_\+num}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_a20861f2f2702544d2708cd59a6eea8ed}\index{pgenlibr.cpp@{pgenlibr.cpp}!ReadIntList@{ReadIntList}}
+\index{ReadIntList@{ReadIntList}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{ReadIntList()}{ReadIntList()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_a20861f2f2702544d2708cd59a6eea8ed} 
+Integer\+Matrix Read\+Int\+List (\begin{DoxyParamCaption}\item[{List}]{pgen}{, }\item[{Integer\+Vector}]{variant\+\_\+subset}{}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_ae8fdebb8c1d9d7756f7cfa643b3d80b1}\index{pgenlibr.cpp@{pgenlibr.cpp}!ReadList@{ReadList}}
+\index{ReadList@{ReadList}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{ReadList()}{ReadList()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_ae8fdebb8c1d9d7756f7cfa643b3d80b1} 
+Numeric\+Matrix Read\+List (\begin{DoxyParamCaption}\item[{List}]{pgen}{, }\item[{Integer\+Vector}]{variant\+\_\+subset}{, }\item[{bool}]{meanimpute}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{pgenlibr_8cpp_ab1c73119fbd268c81c2397b722ac52a9}\index{pgenlibr.cpp@{pgenlibr.cpp}!VariantScores@{VariantScores}}
+\index{VariantScores@{VariantScores}!pgenlibr.cpp@{pgenlibr.cpp}}
+\doxysubsubsection{\texorpdfstring{VariantScores()}{VariantScores()}}
+{\footnotesize\ttfamily \label{pgenlibr_8cpp_ab1c73119fbd268c81c2397b722ac52a9} 
+Numeric\+Vector Variant\+Scores (\begin{DoxyParamCaption}\item[{List}]{pgen}{, }\item[{Numeric\+Vector}]{weights}{, }\item[{Nullable$<$ Integer\+Vector $>$}]{variant\+\_\+subset}{ = {\ttfamily R\+\_\+NilValue}}\end{DoxyParamCaption})}
+

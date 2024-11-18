@@ -57,295 +57,94 @@ standardize_test <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
-#' Loads variant IDs and allele codes from a .pvar or .bim file (which can be
-#' compressed with gzip or Zstd).
-#'
-#' @param filename .pvar/.bim file path.
-#' @return A pvar object, which can be queried for variant IDs and allele
-#' codes.
-#' @export
 NewPvar <- function(filename) {
     .Call('_GenomicDataStream_NewPvar', PACKAGE = 'GenomicDataStream', filename)
 }
 
-#' Convert variant index to variant ID string.
-#'
-#' @param pvar Object returned by NewPvar().
-#' @param variant_num Variant index (1-based).
-#' @return The variant_numth variant ID string.
-#' @export
 GetVariantId <- function(pvar, variant_num) {
     .Call('_GenomicDataStream_GetVariantId', PACKAGE = 'GenomicDataStream', pvar, variant_num)
 }
 
-#' Convert variant ID string to variant index(es).
-#'
-#' @param pvar Object returned by NewPvar().
-#' @param id Variant ID to look up.
-#' @return A list of all (1-based) variant indices with the given variant ID.
-#' @export
 GetVariantsById <- function(pvar, id) {
     .Call('_GenomicDataStream_GetVariantsById', PACKAGE = 'GenomicDataStream', pvar, id)
 }
 
-#' Look up an allele code.
-#'
-#' @param pvar Object returned by NewPvar().
-#' @param variant_num Variant index (1-based).
-#' @param allele_num Allele index (1-based).
-#' @return The allele_numth allele code for the variant_numth variant.
-#' allele_num=1 corresponds to the REF allele, allele_num=2 corresponds to the
-#' first ALT allele, allele_num=3 corresponds to the second ALT allele if it
-#' exists and errors out otherwise, etc.
-#' @export
 GetAlleleCode <- function(pvar, variant_num, allele_num) {
     .Call('_GenomicDataStream_GetAlleleCode', PACKAGE = 'GenomicDataStream', pvar, variant_num, allele_num)
 }
 
-#' Closes a pvar object, releasing memory.
-#'
-#' @param pvar Object returned by NewPvar().
-#' @return No return value, called for side-effect.
-#' @export
 ClosePvar <- function(pvar) {
     invisible(.Call('_GenomicDataStream_ClosePvar', PACKAGE = 'GenomicDataStream', pvar))
 }
 
-#' Opens a .pgen or PLINK 1 .bed file.
-#'
-#' @param filename .pgen/.bed file path.
-#' @param pvar Object (see NewPvar()) corresponding to the .pgen's companion
-#' .pvar; technically optional, but necessary for some functionality.  In
-#' particular, at multiallelic variants, all ALT alleles may be collapsed
-#' together when .pvar information is not available.
-#' @param raw_sample_ct Number of samples in file; required if it's a PLINK 1
-#' .bed file, otherwise optional.
-#' @param sample_subset List of 1-based positions of samples to load;
-#' optional, all samples are loaded if this is not specified.
-#' @return A pgen object, which can be queried for genotype/dosage data.
-#' @export
 NewPgen <- function(filename, pvar = NULL, raw_sample_ct = NULL, sample_subset = NULL) {
     .Call('_GenomicDataStream_NewPgen', PACKAGE = 'GenomicDataStream', filename, pvar, raw_sample_ct, sample_subset)
 }
 
-#' Returns the number of samples in the file.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return Number of samples.
-#' @export
 GetRawSampleCt <- function(pgen) {
     .Call('_GenomicDataStream_GetRawSampleCt', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Returns the number of variants in the file.
-#'
-#' @param pvar_or_pgen Object returned by NewPvar() or NewPgen().
-#' @return Number of variants.
-#' @export
 GetVariantCt <- function(pvar_or_pgen) {
     .Call('_GenomicDataStream_GetVariantCt', PACKAGE = 'GenomicDataStream', pvar_or_pgen)
 }
 
-#' Returns the effective number of alleles for a variant.  Note that if no
-#' pvar was provided to the NewPgen() call, this function may return 2 even at
-#' multiallelic variants, since the .pgen may not store allele-count
-#' information.
-#'
-#' @param pvar_or_pgen Object returned by NewPvar() or NewPgen().
-#' @param variant_num Variant index (1-based).
-#' @return max(2, <number of alleles the variant_numth variant is known to
-#' have>).  Note that if no
-#' @export
 GetAlleleCt <- function(pvar_or_pgen, variant_num) {
     .Call('_GenomicDataStream_GetAlleleCt', PACKAGE = 'GenomicDataStream', pvar_or_pgen, variant_num)
 }
 
-#' Returns the maximum GetAlleleCt() value across all variants in the file.
-#'
-#' @param pvar_or_pgen Object returned by NewPvar() or NewPgen().
-#' @return Maximum GetAlleleCt() value across all variants.
-#' @export
 GetMaxAlleleCt <- function(pvar_or_pgen) {
     .Call('_GenomicDataStream_GetMaxAlleleCt', PACKAGE = 'GenomicDataStream', pvar_or_pgen)
 }
 
-#' Returns whether explicitly phased hardcalls are present.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return TRUE if the file contains at least one phased heterozygous
-#' hardcall, FALSE otherwise.
-#' @export
 HardcallPhasePresent <- function(pgen) {
     .Call('_GenomicDataStream_HardcallPhasePresent', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Returns a numeric buffer that Read() or ReadHardcalls() can load to.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return Numeric vector with appropriate length for Read() and
-#' ReadHardcalls().
-#' @export
 Buf <- function(pgen) {
     .Call('_GenomicDataStream_Buf', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Returns an empty two-row numeric matrix that ReadAlleles() can load to.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return Numeric matrix with two rows, and appropriate number of columns for
-#' ReadAlleles().
-#' @export
 AlleleCodeBuf <- function(pgen) {
     .Call('_GenomicDataStream_AlleleCodeBuf', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Returns an integer buffer that ReadHardcalls() can load to.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return Integer vector with appropriate length for ReadHardcalls().
-#' @export
 IntBuf <- function(pgen) {
     .Call('_GenomicDataStream_IntBuf', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Returns an empty two-row integer matrix that ReadAlleles() can load to.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return Integer matrix with two rows, and appropriate number of columns for
-#' ReadAlleles().
-#' @export
 IntAlleleCodeBuf <- function(pgen) {
     .Call('_GenomicDataStream_IntAlleleCodeBuf', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Returns a bool buffer that ReadAlleles() can load phasing information to.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return Logical vector with appropriate length for ReadAlleles().
-#' @export
 BoolBuf <- function(pgen) {
     .Call('_GenomicDataStream_BoolBuf', PACKAGE = 'GenomicDataStream', pgen)
 }
 
-#' Loads the variant_numth variant, and then fills buf with \{0, 1, 2, NA\}
-#' values indicating the number of copies of the first ALT (or user-specified)
-#' allele each sample has.
-#'
-#' This function treats the data as diploid; you can divide by 2, and then
-#' treat 0.5 as NA, if it's actually haploid.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @param buf Buffer returned by Buf() or IntBuf().
-#' @param variant_num Variant index (1-based).
-#' @param allele_num Allele index; 1 corresponds to REF, 2 to the first ALT
-#' allele, 3 to the second ALT allele if it exists, etc.  Optional, defaults
-#' 2.
-#' @return No return value, called for buf-filling side-effect.
-#' @export
 ReadHardcalls <- function(pgen, buf, variant_num, allele_num = 2L) {
     invisible(.Call('_GenomicDataStream_ReadHardcalls', PACKAGE = 'GenomicDataStream', pgen, buf, variant_num, allele_num))
 }
 
-#' Loads the variant_numth variant, and then fills buf with numeric dosages
-#' in [0, 2] indicating the dosages of the first ALT (or user-specified)
-#' allele for each sample, with missing values represented by NA.
-#'
-#' This function treats the data as diploid; divide by 2 to obtain haploid
-#' dosages.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @param buf Buffer returned by Buf().
-#' @param variant_num Variant index (1-based).
-#' @param allele_num Allele index; 1 corresponds to REF, 2 to the first ALT
-#' allele, 3 to the second ALT allele if it exists, etc.  Optional, defaults
-#' 2.
-#' @return No return value, called for buf-filling side-effect.
-#' @export
 Read <- function(pgen, buf, variant_num, allele_num = 2L) {
     invisible(.Call('_GenomicDataStream_Read', PACKAGE = 'GenomicDataStream', pgen, buf, variant_num, allele_num))
 }
 
-#' Loads the variant_numth variant, and then fills acbuf with integer allele
-#' codes, where each column of the buffer corresponds to a sample.  An allele
-#' code of 0 corresponds to the REF allele, 1 to the first ALT, 2 to the
-#' second ALT, etc.  Missing hardcalls are represented by a pair of NA codes.
-#'
-#' This function treats the data as diploid.  If it's really haploid, you may
-#' want to compare the two rows, and then treat samples where the allele codes
-#' differ as missing values.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @param acbuf Buffer returned by AlleleCodeBuf() or IntAlleleCodeBuf().
-#' @param variant_num Variant index (1-based).
-#' @param phasepresent_buf Buffer returned by BoolBuf().  Optional; if
-#' provided, elements are set to true when the sample has known phase.  Most
-#' of these values will be TRUE even when the raw data is unphased, because
-#' homozygous genotypes always have known phase.  (Missing genotypes are
-#' considered to have unknown phase.)
-#' @return No return value, called for acbuf-filling side-effect.
-#' @export
 ReadAlleles <- function(pgen, acbuf, variant_num, phasepresent_buf = NULL) {
     invisible(.Call('_GenomicDataStream_ReadAlleles', PACKAGE = 'GenomicDataStream', pgen, acbuf, variant_num, phasepresent_buf))
 }
 
-#' Load hardcalls for multiple variants as an integer matrix.
-#'
-#' This function treats the data as diploid; you can divide by 2, and then
-#' treat 0.5 as NA, if it's actually haploid.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @param variant_subset Integer vector containing 1-based indexes of variants
-#' to load.
-#' @return Integer matrix, where rows correspond to samples, columns
-#' correspond to variant_subset, and values are in \{0, 1, 2, NA\} indicating
-#' the number of hardcall ALT allele copies.  For multiallelic variants, all
-#' ALT alleles are combined.
-#' @export
 ReadIntList <- function(pgen, variant_subset) {
     .Call('_GenomicDataStream_ReadIntList', PACKAGE = 'GenomicDataStream', pgen, variant_subset)
 }
 
-#' Load dosages for multiple variants as a numeric matrix.
-#'
-#' This function treats the data as diploid; divide by 2 to obtain haploid
-#' dosages.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @param variant_subset Integer vector containing 1-based indexes of variants
-#' to load.
-#' @param meanimpute Optional; if true, missing values are mean-imputed
-#' instead of being represented by NA.
-#' @return Numeric matrix, where rows correspond to samples, and columns
-#' correspond to variant_subset.  Values are in [0, 2] indicating ALT
-#' allele dosages, or NA for missing dosages.  For multiallelic variants, all
-#' ALT alelles are combined.
-#' @export
 ReadList <- function(pgen, variant_subset, meanimpute = FALSE) {
     .Call('_GenomicDataStream_ReadList', PACKAGE = 'GenomicDataStream', pgen, variant_subset, meanimpute)
 }
 
-#' Compute variant scores.
-#'
-#' This function treats the data as diploid; divide by 2 to obtain scores
-#' based on a haploid dosage matrix.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @param weights Sample weights.
-#' @param variant_subset Integer vector containing 1-based indexes of variants
-#' to include in the dosage matrix.  Optional; by default, all variants are
-#' included.
-#' @return Numeric vector, containing product of sample-weight vector and the
-#' specified subset of the dosage matrix.
-#' @export
 VariantScores <- function(pgen, weights, variant_subset = NULL) {
     .Call('_GenomicDataStream_VariantScores', PACKAGE = 'GenomicDataStream', pgen, weights, variant_subset)
 }
 
-#' Closes a pgen object, releasing resources.
-#'
-#' @param pgen Object returned by NewPgen().
-#' @return No return value, called for side-effect.
-#' @export
 ClosePgen <- function(pgen) {
     invisible(.Call('_GenomicDataStream_ClosePgen', PACKAGE = 'GenomicDataStream', pgen))
 }

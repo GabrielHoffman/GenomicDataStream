@@ -1,0 +1,119 @@
+\doxysection{Genomic\+Data\+Stream\+Lib\+::Param Struct Reference}
+\hypertarget{struct_genomic_data_stream_lib_1_1_param}{}\label{struct_genomic_data_stream_lib_1_1_param}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+
+
+{\ttfamily \#include $<$Genomic\+Data\+Stream.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ab914a966ef2bf6d120f08f128cfe6f70}{Param}} ()
+\item 
+\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ab01a813630a44f7851b93f0472f38523}{Param}} (const string \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}}, const string \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}}, string region\+String="{}"{}, const string \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}="{}-\/"{}, const int \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunk\+Size}}=std\+::numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missing\+To\+Mean}}=false, const int \&\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{init\+Capacity}}=200, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}{file}}
+\item 
+string \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}{field}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}{regions}}
+\item 
+string \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}{samples}}
+\item 
+int \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}{chunk\+Size}}
+\item 
+bool \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}{missing\+To\+Mean}}
+\item 
+int \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}{init\+Capacity}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Store parameters to pass to \doxylink{class_genomic_data_stream_lib_1_1_genomic_data_stream}{Genomic\+Data\+Stream} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_ab914a966ef2bf6d120f08f128cfe6f70}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!Param@{Param}}
+\index{Param@{Param}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{Param()}{Param()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_ab914a966ef2bf6d120f08f128cfe6f70} 
+Genomic\+Data\+Stream\+Lib\+::\+Param\+::\+Param (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_ab01a813630a44f7851b93f0472f38523}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!Param@{Param}}
+\index{Param@{Param}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{Param()}{Param()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_ab01a813630a44f7851b93f0472f38523} 
+Genomic\+Data\+Stream\+Lib\+::\+Param\+::\+Param (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{const string \&}]{field}{, }\item[{string}]{region\+String}{ = {\ttfamily "{}"{}}, }\item[{const string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily std\+:\+:numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}, }\item[{const int \&}]{init\+Capacity}{ = {\ttfamily 200}, }\item[{const bool \&}]{permute\+Feature\+Order}{ = {\ttfamily false}, }\item[{const int \&}]{rnd\+Seed}{ = {\ttfamily 12345}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+constructor 
+\begin{DoxyParams}{Parameters}
+{\em file} & .vcf, .vcf.\+gz or .bcf file with tabix index \\
+\hline
+{\em field} & {\ttfamily "{}\+GT"{}} for genotype strings, {\ttfamily "{}\+DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}\+GT"{}} is the only string type supported \\
+\hline
+{\em region\+String} & target in the format {\ttfamily "{}chr2\+:1-\/12345"{}}. Multiple regions can be separated by one of {\ttfamily ,\textbackslash{}n\textbackslash{}t}, for example {\ttfamily "{}chr2\+:1-\/12345, chr3\+:1000-\/8000"{}}. Setting region to {\ttfamily "{}"{}} includes all variants \\
+\hline
+{\em samples} & string of comma separated sample IDs to extract\+: "{}\+ID1,\+ID2,\+ID3"{} \\
+\hline
+{\em chunk\+Size} & number of variants to return per chunk \\
+\hline
+{\em missing\+To\+Mean} & if true, set missing values to the mean dosage value. if false, set to NaN \\
+\hline
+{\em init\+Capacity} & initial capacity of temporary vector to avoid re-\/alloc on insert. Size is in Mb. \\
+\hline
+{\em permute\+Feature\+Order} & default is {\ttfamily false}. If {\ttfamily true} permute regions in {\ttfamily region\+String} to avoid linkage disequilibrium betweeen nearby regions \\
+\hline
+{\em rnd\+Seed} & random seed for permutation \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!chunkSize@{chunkSize}}
+\index{chunkSize@{chunkSize}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{chunkSize}{chunkSize}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_a79dd1de90ded4117e9ad61cf09d517f3} 
+int Genomic\+Data\+Stream\+Lib\+::\+Param\+::chunk\+Size}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!field@{field}}
+\index{field@{field}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{field}{field}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_a1b9f4af368dec4a8fcac78fadf26f9bc} 
+string Genomic\+Data\+Stream\+Lib\+::\+Param\+::field}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!file@{file}}
+\index{file@{file}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{file}{file}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_a71a2d22e96db8937d19c8686e9cfe3f5} 
+string Genomic\+Data\+Stream\+Lib\+::\+Param\+::file}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!initCapacity@{initCapacity}}
+\index{initCapacity@{initCapacity}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{initCapacity}{initCapacity}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_a896f2cdd6084c0e5c1d25feadea27dd1} 
+int Genomic\+Data\+Stream\+Lib\+::\+Param\+::init\+Capacity}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!missingToMean@{missingToMean}}
+\index{missingToMean@{missingToMean}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{missingToMean}{missingToMean}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_aa734aa0a3658f94686c62e3ad2a55e0c} 
+bool Genomic\+Data\+Stream\+Lib\+::\+Param\+::missing\+To\+Mean}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!regions@{regions}}
+\index{regions@{regions}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{regions}{regions}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_ad0ccf260a76e952e31209fbd10e72c22} 
+vector$<$string$>$ Genomic\+Data\+Stream\+Lib\+::\+Param\+::regions}
+
+\Hypertarget{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63}\index{GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}!samples@{samples}}
+\index{samples@{samples}!GenomicDataStreamLib::Param@{GenomicDataStreamLib::Param}}
+\doxysubsubsection{\texorpdfstring{samples}{samples}}
+{\footnotesize\ttfamily \label{struct_genomic_data_stream_lib_1_1_param_ae655d8a3cedb951ffe1add410d790f63} 
+string Genomic\+Data\+Stream\+Lib\+::\+Param\+::samples}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_genomic_data_stream_8h}{Genomic\+Data\+Stream.\+h}}\end{DoxyCompactItemize}

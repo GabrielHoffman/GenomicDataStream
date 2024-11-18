@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks • GenomicDataStream</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
@@ -13,6 +19,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks">
 <meta name="description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
 <meta property="og:description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
+<meta property="og:image" content="http://DiseaseNeurogenomics.github.io/GenomicDataStream/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -55,13 +62,13 @@
 <p><img src="reference/figures/GenomicDataStream.png"></p>
 <div align="justify">
 <p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can’t be separated for use in other applications.</p>
-<p>The <code>GenomicDataStream</code> C++ interface separates:</p>
+<p>The <code>GenomicDataStream</code> interface separate:</p>
 <ol style="list-style-type: decimal">
 <li>data source</li>
 <li>streaming chunks of features into a data matrix</li>
-<li>downstream analysis<br>
-</li>
+<li>downstream analysis</li>
 </ol>
+<p><code>GenomicDataStream</code> provides interfaces at both the C++ and R levels. The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.</p>
 </div>
 </div>
 <div class="section level3">
@@ -110,6 +117,32 @@
 <span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a></span>
 <span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
 <span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="example-code-with-r">Example code with R<a class="anchor" aria-label="anchor" href="#example-code-with-r"></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># VCF file</span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># initialize </span></span>
+<span><span class="va">gdsObj</span> <span class="op">=</span> <span class="fu"><a href="reference/GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># loop until break</span></span>
+<span><span class="kw">while</span><span class="op">(</span> <span class="fl">1</span> <span class="op">)</span><span class="op">{</span></span>
+<span></span>
+<span>    <span class="co"># get data chunk</span></span>
+<span>    <span class="co"># data$X matrix with features as columns</span></span>
+<span>    <span class="co"># data$info information about each feature as rows</span></span>
+<span>    <span class="va">dat</span> <span class="op">=</span> <span class="fu"><a href="reference/getNextChunk.html">getNextChunk</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># check if end of stream </span></span>
+<span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="reference/atEndOfStream.html">atEndOfStream</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="op">)</span> <span class="kw">break</span></span>
+<span>    </span>
+<span>    <span class="co"># do analysis on this chunk of data</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

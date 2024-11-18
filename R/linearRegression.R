@@ -46,6 +46,7 @@ setMethod(
 
 
 #' @import fastlmm
+#' @importFrom DelayedArray DelayedArray
 #' @export
 #' @rdname lmFitResponses
 #' @aliases lmFitResponses, matrix-method

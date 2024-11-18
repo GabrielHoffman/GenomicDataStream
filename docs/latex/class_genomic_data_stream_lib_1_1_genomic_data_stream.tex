@@ -1,0 +1,115 @@
+\doxysection{Genomic\+Data\+Stream\+Lib\+::Genomic\+Data\+Stream Class Reference}
+\hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream}{}\label{class_genomic_data_stream_lib_1_1_genomic_data_stream}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+
+
+{\ttfamily \#include $<$Genomic\+Data\+Stream.\+h$>$}
+
+Inheritance diagram for Genomic\+Data\+Stream\+Lib\+::Genomic\+Data\+Stream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.377614cm]{class_genomic_data_stream_lib_1_1_genomic_data_stream}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94}{Genomic\+Data\+Stream}} ()
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_abf01ac486fb36aeda7951a5fb5ef5b81}{Genomic\+Data\+Stream}} (const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}})
+\item 
+virtual \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
+\item 
+virtual int \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a3f469c8091d92f51b951f690f01c73bb}{n\+\_\+samples}} ()
+\item 
+virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_ae285cb1e17e043fc88066de26527dfdc}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\item 
+virtual bool \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44}{get\+Next\+Chunk}} (\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&chunk)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}{param}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Virtual class inheritited by vcfstream, bgenstream, \doxylink{class_genomic_data_stream_lib_1_1_delayed_stream}{Delayed\+Stream} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!GenomicDataStream@{GenomicDataStream}}
+\index{GenomicDataStream@{GenomicDataStream}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{GenomicDataStream()}{GenomicDataStream()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_a68600e6a994940b8d78577f9fc99fb94} 
+Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::\+Genomic\+Data\+Stream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_abf01ac486fb36aeda7951a5fb5ef5b81}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!GenomicDataStream@{GenomicDataStream}}
+\index{GenomicDataStream@{GenomicDataStream}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{GenomicDataStream()}{GenomicDataStream()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_abf01ac486fb36aeda7951a5fb5ef5b81} 
+Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::\+Genomic\+Data\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} \&}]{param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor \Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!````~GenomicDataStream@{\texorpdfstring{$\sim$}{\string~}GenomicDataStream}}
+\index{````~GenomicDataStream@{\texorpdfstring{$\sim$}{\string~}GenomicDataStream}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GenomicDataStream()}{\string~GenomicDataStream()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab402bf360ac0ac327bdf8e187a10e4f1} 
+virtual Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+destructor 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_ab4cb044175502769119a71c4e7dff289} 
+virtual bool Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get next chunk of {\itshape features} as arma\+::mat 
+
+Reimplemented in \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_a0c3af4daa0aaed56474c72782a706808}{Genomic\+Data\+Stream\+Lib\+::bgenstream}}, and \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a533b36cada0fc875557493cbc912a1fd}{Genomic\+Data\+Stream\+Lib\+::vcfstream}}.
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_ae285cb1e17e043fc88066de26527dfdc}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_ae285cb1e17e043fc88066de26527dfdc} 
+virtual bool Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get next chunk of {\itshape features} as arma\+::sp\+\_\+mat 
+
+Reimplemented in \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_a4a5a1796de80e4ea02007dd6e753deee}{Genomic\+Data\+Stream\+Lib\+::bgenstream}}, and \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_ad28d9be9964ff6f4b99b8abfc5205b9f}{Genomic\+Data\+Stream\+Lib\+::vcfstream}}.
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!getNextChunk@{getNextChunk}}
+\index{getNextChunk@{getNextChunk}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_a51ec4588e15220fa9536d0a53daefb44} 
+virtual bool Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_genomic_data_stream_lib_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$, \mbox{\hyperlink{class_genomic_data_stream_lib_1_1_variant_info}{Variant\+Info}} $>$ \&}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get next chunk of {\itshape features} as vector$<$double$>$ 
+
+Reimplemented in \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_a9b9570e38408ef91438743d2cc3fe105}{Genomic\+Data\+Stream\+Lib\+::bgenstream}}, and \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_a4d6286b4cc7a16c2d429e306f4401e4d}{Genomic\+Data\+Stream\+Lib\+::vcfstream}}.
+
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_a3f469c8091d92f51b951f690f01c73bb}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!n\_samples@{n\_samples}}
+\index{n\_samples@{n\_samples}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{n\_samples()}{n\_samples()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_a3f469c8091d92f51b951f690f01c73bb} 
+virtual int Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::n\+\_\+samples (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get number of columns in data matrix 
+
+Reimplemented in \mbox{\hyperlink{class_genomic_data_stream_lib_1_1bgenstream_ab0f0a8c026aad89e087393dc36b7aab8}{Genomic\+Data\+Stream\+Lib\+::bgenstream}}, and \mbox{\hyperlink{class_genomic_data_stream_lib_1_1vcfstream_ac775a95fd1c03bf2d879a32f0a12b844}{Genomic\+Data\+Stream\+Lib\+::vcfstream}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224}\index{GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}!param@{param}}
+\index{param@{param}!GenomicDataStreamLib::GenomicDataStream@{GenomicDataStreamLib::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{param}{param}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_lib_1_1_genomic_data_stream_a39716878ac06d74a6550ceab57266224} 
+\mbox{\hyperlink{struct_genomic_data_stream_lib_1_1_param}{Param}} Genomic\+Data\+Stream\+Lib\+::\+Genomic\+Data\+Stream\+::param\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_genomic_data_stream_8h}{Genomic\+Data\+Stream.\+h}}\end{DoxyCompactItemize}

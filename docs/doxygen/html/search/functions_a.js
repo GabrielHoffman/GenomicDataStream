@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['linearregression_0',['linearRegression',['../export_8cpp.html#a81dd588a77948884baeabf9f9b3c037d',1,'export.cpp']]],
-  ['linearregressionresponses_1',['linearRegressionResponses',['../export_8cpp.html#aba6ec951469d13255c5d4df8adfe3870',1,'export.cpp']]],
-  ['lm_2',['lm',['../export_8cpp.html#a591e42d82ad123eaa62982541620d858',1,'export.cpp']]]
+  ['lmfitfeatures_5fexport_0',['lmFitFeatures_export',['../_rcpp_exports_8cpp.html#ac0f7acdb65a92c3e6169bd4c0b169429',1,'lmFitFeatures_export(const arma::colvec &amp;y, const arma::mat &amp;X_design, List gds, const arma::vec &amp;weights, const int &amp;detail, const bool &amp;preprojection, const int &amp;nthreads, const bool &amp;verbose):&#160;regression.cpp'],['../regression_8cpp.html#a72f38362da242df5aabb1a27f9a7cf81',1,'lmFitFeatures_export(const arma::colvec &amp;y, const arma::mat &amp;X_design, List gds, const arma::vec &amp;weights, const int &amp;detail=0, const bool &amp;preprojection=true, const int &amp;nthreads=1, const bool &amp;verbose=true):&#160;regression.cpp']]],
+  ['lmfitresponses_5fexport_1',['lmFitResponses_export',['../_rcpp_exports_8cpp.html#a39b5a40fb657479e268528989a798433',1,'lmFitResponses_export(const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize, const int &amp;nthreads, const bool &amp;verbose):&#160;regression.cpp'],['../regression_8cpp.html#a2ea6aa4a8186e4248ede67becf86b5c5',1,'lmFitResponses_export(const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize, const int &amp;nthreads, const bool &amp;verbose=true):&#160;regression.cpp']]]
 ];
