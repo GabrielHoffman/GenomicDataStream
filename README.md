@@ -26,6 +26,62 @@ The `GenomicDataStream` interface separate:
 ### See header-only C++ library [documentation](doxygen/html/index.html)
  
 
+## Usage
+In general, variants from genetic data are used as covariates in `lmFitFeatures()`, and genes from single cell data are used as responses in `lmFitResponses()`.
+
+
+### Example code with R
+#### Read genotype data into R
+```R
+library(GenomicDataStream)
+
+# VCF file
+file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+# initialize 
+gds = GenomicDataStream(file, "DS", chunkSize=5, initialize=TRUE)
+
+n = 60
+y = rnorm(n)
+design = matrix(1, n, 1)
+
+# loop until break
+while( 1 ){
+
+    # get data chunk
+    # data$X matrix with features as columns
+    # data$info information about each feature as rows
+    dat = getNextChunk(gds)
+
+    # check if end of stream 
+    if( atEndOfStream(gds) ) break
+    
+    # do analysis on this chunk of data
+    fit = lmFitFeatures(y, design, dat$X)
+}
+```
+
+#### Use R to run analysis at C++ level
+```R
+library(GenomicDataStream)
+
+# VCF file
+file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+# create object, but don't read yet 
+gds = GenomicDataStream(file, "DS", chunkSize=5)
+
+n = 60
+y = rnorm(n)
+design = matrix(1, n, 1)
+
+# regression of y ~ design + X[,j]
+#   where X[,j] is the jth variant in the GenomicDataStream
+# data in GenomicDataStream is only accessed at C++ level 
+fit = lmFitFeatures(y, design, gds)
+```
+
+
 ### Example code with C++17
 ```c++
 #include <RcppArmadillo.h>
@@ -69,42 +125,21 @@ while( gdsStream->getNextChunk( chunk ) ){
 ```
 
 
-### Example code with R
-```R
-library(GenomicDataStream)
-
-# VCF file
-file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
-
-# initialize 
-gdsObj = GenomicDataStream(file, "DS", chunkSize=5)
-
-# loop until break
-while( 1 ){
-
-    # get data chunk
-    # data$X matrix with features as columns
-    # data$info information about each feature as rows
-    dat = getNextChunk(obj)
-
-    # check if end of stream 
-    if( atEndOfStream(obj) ) break
-    
-    # do analysis on this chunk of data
-}
-```
-
 
 ## Supported formats
+
 #### Genetic data 
 | Format | Version | Support |
 | -- | --- | --------- |
 | BGEN | 1.1 | biallelic variants
 |BGEN |1.2, 1.3| phased or unphased biallelic variants
+| PGEN | plink2 |
+| BED | plink1 |
 |VCF / BCF | 4.x | biallelic variants with `GT/GP` fields, continuous dosage with `DS` field
 
 #### Single cell data
 Count matrices for single cell data are stored in the H5AD format.  This format, based on [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression.  H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.
+
 
 
 ## Dependencies

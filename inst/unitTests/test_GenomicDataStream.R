@@ -267,8 +267,8 @@ test_xptr = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	q()
-	R
+	# q()
+	# R
 	suppressPackageStartupMessages({
 	library(GenomicDataStream)
 	})
@@ -285,7 +285,7 @@ test_xptr = function(){
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 	# initialize 
-	gdsObj = GenomicDataStream(file, "DS", chunkSize=5)
+	gdsObj = GenomicDataStream(file, "DS", chunkSize=5, initialize=TRUE)
 
 	# loop until break
 	while( 1 ){
@@ -293,9 +293,9 @@ test_xptr = function(){
 		# get data chunk
 		# data$X matrix with features as columns
 		# data$info information about each feature as rows
-		dat = getNextChunk(obj)
+		dat = getNextChunk(gdsObj)
 
-		if( atEndOfStream(obj) ) break
+		if( atEndOfStream(gdsObj) ) break
 		
 		print(dat$info)
 	}
@@ -357,35 +357,79 @@ test_chunks = function(){
 
 test_gds_to_fit = function(){
 
-	# need to deal with ids here
-
 	library(GenomicDataStream)
+	library(RUnit)
 
+	# lmFitFeatures
+	################
+
+	# create response, design and weights 
 	y = seq(60)
 	X_design = matrix(1, 60,1)
 	w = rep(1,60)
+	w = seq(60)
 
+	# VCF file
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
-	# initialize 
-	gds = GenomicDataStream(file, "DS", chunkSize=5)
+	# Read data into R
+	# then run lmFitFeatures()
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat = getNextChunk(gds)
+	X_features = dat$X
 
-	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-	res = lmFitFeatures(y, X_design, gds, w)
+	res1 = fastlmm::lmFitFeatures(y, X_design, X_features, w)
 
-	# TODO 
+	# Data stays at C++ level
+	# then run lmFitFeatures()
+	gds = GenomicDataStream(file, "DS")
 
-		# test regression with GenomicDataStream
-	gds = GenomicDataStream(file, "DS", chunkSize=5)
-	res = lmFitFeatures(y, X_design, gds, w)
+	res2 = lmFitFeatures(y, X_design, gds, w)
 
-	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-	res = lmFitFeatures(y, X_design, gds, w, preprojection = FALSE)
+	sapply(names(res1), function(x){
+	 checkEqualsNumeric(res1[[x]], res2[[x]])
+	 })
 
-	res = lmFitFeatures(y, X_design, gds, w, preprojection = FALSE)
+	# R level
+	vcf <- suppressWarnings(readVcf(file))
+	X_all = geno(vcf)[["DS"]]
+
+	res3 = lapply(seq(nrow(X_all)), function(j){
+		coef(lm(y ~ 0 + X_design + X_all[j,], weights=w / mean(w)))
+	})
+	res3 = do.call(rbind, res3)
+
+	checkEqualsNumeric(res1$coef, res3[,-1], tol=1e-7)
 
 
+	# lmFitResponses
+	################
 
+	n = 100
+	m = 55
+	nc = 2
+	set.seed(1)
+	Y = matrix(rnorm(n*m), m, n)
+	X = matrix(rnorm(n*nc), n,nc)
+	rownames(Y) = seq(m)
+	W = matrix(runif(n*m), m,n) 
+
+	fit1 = lmFitResponses(Y, X, W)
+	fit2 = lmFitResponses(DelayedArray(Y), X, W)
+
+	sapply(names(fit1), function(x){
+	 checkEqualsNumeric(fit1[[x]], fit2[[x]])
+	 })
+
+	res3 = lapply(seq(nrow(Y)), function(j){
+		coef(lm(Y[j,] ~ 0 + X, weights=W[j,]))
+	})
+	res3 = do.call(rbind, res3)
+
+	checkEqualsNumeric(fit1$coef, res3, tol=1e-7)
+
+
+	# trace("lmFitResponses", browser, exit=browser, signature = c("DelayedArray")) 
 
 }
 
@@ -429,11 +473,15 @@ test_regression = function(){
 
 	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE)
 
+	X_design = matrix(1, ncol(X_all))
+	w = y
+	w[] = 1
+
 	# All regions
 	###############
 	resList = lapply(files, function(file){
 
-		cat(file, "\n")
+		# cat(file, "\n")
 		# rm(dat, res)
 
 		# test dosages
@@ -530,6 +578,7 @@ test_DelayedStream = function(){
 	library(beachmat)
 	library(DelayedArray)
 	library(RUnit)
+	library(GenomicDataStream)
 	})
 
 	data(example_sce)
@@ -540,31 +589,64 @@ test_DelayedStream = function(){
 
 	M = counts(example_sce)
 
-	res1 = lapply(seq(nrow(M)), function(j){
-		coef(lm(log(M[j,]+1) ~ 1))
+	Weights = as.matrix(M)
+	Weights[] = 1
+	Weights[] = runif(length(Weights))
+
+	design = matrix(1, ncol(M), 1)
+
+	res0 = lapply(seq(nrow(M)), function(j){
+		w = Weights[j,]
+		w = w / mean(w)
+		coef(lm(log(M[j,]+1) ~ 1, weights=w))
 	})
-	res1 = do.call(rbind, res1)
-	rownames(res1) = rownames(M)
+	res0 = do.call(rbind, res0)
+	rownames(res0) = rownames(M)
 
 
-	regrExprResponse = function(Y, chunkSize=114, nthreads=1){
+	res1 = lmFitResponses(log(M+1), design, Weights)
+	checkEqualsNumeric(res1$coef, res0)
 
-		# wrap wiith beachmat
-		ptr = initializeCpp( Y )
+	res2 = lmFitResponses(log(as.matrix(M)+1), design, Weights)
+	checkEqualsNumeric(res2$coef, res0)
 
-		res = GenomicDataStream:::lmFitResponses( ptr, rownames(Y), chunkSize, nthreads)
-
-		res
-	}
-
-	res = regrExprResponse(log(M+1))
+	res3 = lmFitResponses(log(DelayedArray(M)+1), design, Weights)
+	checkEqualsNumeric(res3$coef, res0)
 
 
-	res = lmFitResponses(log(M+1))
 
+	# geneExpr_row = M
+	# Weights = as.matrix(geneExpr_row)
+	# Weights[] = 1
+
+	# # genes as ROWS
+	# res = lmFitResponses(log(geneExpr_row+1), design, Weights)
+	# checkEqualsNumeric(res$coef, res1)
+
+
+
+	# regrExprResponse = function(Y, chunkSize=114, nthreads=1){
+
+	# 	# wrap wiith beachmat
+	# 	ptr = initializeCpp( Y )
+
+	# 	res = GenomicDataStream:::lmFitResponses_export( ptr, design, rownames(Y), chunkSize, nthreads)
+
+	# 	res
+	# }
+
+	# res = regrExprResponse(log(M+1))
+
+
+	# res = GenomicDataStream::lmFitResponses(log(M+1), design, Weights)
+
+	# 	# trace("lmFitResponses", browser, exit=browser, signature = c("dgeMatrix")) 
 
 	
-	checkEqualsNumeric(res$coef, res1)
+	# checkEqualsNumeric(res$coef, res1)
+
+
+	# res = GenomicDataStream::lmFitResponses(log(m+1), design, Weights)
 
 
 	################
@@ -578,14 +660,21 @@ test_DelayedStream = function(){
 	file <- system.file("extdata", "krumsiek11.h5ad", package = "zellkonverter")
 	sce <- readH5AD(file, use_hdf5 = TRUE)
 	M = assay(sce, 'X')
+	Weights = as.matrix(M)
+	# Weights[] = 1
+	Weights[] = runif(length(Weights))
 
 	res1 = lapply(seq(nrow(M)), function(j){
-		coef(lm(log(M[j,]+1) ~ 1))
+		w = Weights[j,]
+		w = w / mean(w)
+		coef(lm(log(M[j,]+1) ~ 1, weights=w))
 	})
 	res1 = do.call(rbind, res1)
 	rownames(res1) = rownames(M)
 
-	res = regrExprResponse(log(M+1))
+	design = matrix(1, ncol(M), 1)
+
+	res = lmFitResponses(log(M+1), design, Weights)
 
 	checkEqualsNumeric(res$coef, res1)
 

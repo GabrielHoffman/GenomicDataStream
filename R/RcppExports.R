@@ -157,7 +157,7 @@ lmFitFeatures_export <- function(y, X_design, gds, weights, detail = 0L, preproj
     .Call('_GenomicDataStream_lmFitFeatures_export', PACKAGE = 'GenomicDataStream', y, X_design, gds, weights, detail, preprojection, nthreads, verbose)
 }
 
-lmFitResponses_export <- function(mat, rowNames, chunkSize, nthreads, verbose = TRUE) {
-    .Call('_GenomicDataStream_lmFitResponses_export', PACKAGE = 'GenomicDataStream', mat, rowNames, chunkSize, nthreads, verbose)
+lmFitResponses_export <- function(mat, X_design, ids, Weights, chunkSize, detail = 0L, nthreads = 1L, verbose = TRUE) {
+    .Call('_GenomicDataStream_lmFitResponses_export', PACKAGE = 'GenomicDataStream', mat, X_design, ids, Weights, chunkSize, detail, nthreads, verbose)
 }
 

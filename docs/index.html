@@ -6,20 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks • GenomicDataStream</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks">
 <meta name="description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
 <meta property="og:description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
-<meta property="og:image" content="http://DiseaseNeurogenomics.github.io/GenomicDataStream/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -76,6 +69,11 @@
 <a class="anchor" aria-label="anchor" href="#see-header-only-c-library-documentation"></a>
 </h3>
 </div>
+</div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>In general, variants from genetic data are used as covariates in <code><a href="https://rdrr.io/pkg/fastlmm/man/lmFitFeatures.html" class="external-link">lmFitFeatures()</a></code>, and genes from single cell data are used as responses in <code><a href="reference/lmFitResponses.html">lmFitResponses()</a></code>.</p>
 <div class="section level3">
 <h3 id="example-code-with-c17">Example code with C++17<a class="anchor" aria-label="anchor" href="#example-code-with-c17"></a>
 </h3>
@@ -121,6 +119,9 @@
 <div class="section level3">
 <h3 id="example-code-with-r">Example code with R<a class="anchor" aria-label="anchor" href="#example-code-with-r"></a>
 </h3>
+<div class="section level4">
+<h4 id="read-genotype-data-into-r">Read genotype data into R<a class="anchor" aria-label="anchor" href="#read-genotype-data-into-r"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
 <span></span>
@@ -128,7 +129,11 @@
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># initialize </span></span>
-<span><span class="va">gdsObj</span> <span class="op">=</span> <span class="fu"><a href="reference/GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">gds</span> <span class="op">=</span> <span class="fu"><a href="reference/GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize<span class="op">=</span><span class="fl">5</span>, initialize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">60</span></span>
+<span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># loop until break</span></span>
 <span><span class="kw">while</span><span class="op">(</span> <span class="fl">1</span> <span class="op">)</span><span class="op">{</span></span>
@@ -136,13 +141,35 @@
 <span>    <span class="co"># get data chunk</span></span>
 <span>    <span class="co"># data$X matrix with features as columns</span></span>
 <span>    <span class="co"># data$info information about each feature as rows</span></span>
-<span>    <span class="va">dat</span> <span class="op">=</span> <span class="fu"><a href="reference/getNextChunk.html">getNextChunk</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
+<span>    <span class="va">dat</span> <span class="op">=</span> <span class="fu"><a href="reference/getNextChunk.html">getNextChunk</a></span><span class="op">(</span><span class="va">gds</span><span class="op">)</span></span>
 <span></span>
 <span>    <span class="co"># check if end of stream </span></span>
-<span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="reference/atEndOfStream.html">atEndOfStream</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="op">)</span> <span class="kw">break</span></span>
+<span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="reference/atEndOfStream.html">atEndOfStream</a></span><span class="op">(</span><span class="va">gds</span><span class="op">)</span> <span class="op">)</span> <span class="kw">break</span></span>
 <span>    </span>
 <span>    <span class="co"># do analysis on this chunk of data</span></span>
+<span>    <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastlmm/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="use-r-to-run-analysis-at-c-level">Use R to run analysis at C++ level<a class="anchor" aria-label="anchor" href="#use-r-to-run-analysis-at-c-level"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># VCF file</span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># initialize </span></span>
+<span><span class="va">gds</span> <span class="op">=</span> <span class="fu"><a href="reference/GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">60</span></span>
+<span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># regression of y ~ design + X[,j]</span></span>
+<span><span class="co">#   where X[,j] is the jth variant in the GenomicDataStream</span></span>
+<span><span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastlmm/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">gds</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -172,6 +199,16 @@
 <td>BGEN</td>
 <td>1.2, 1.3</td>
 <td>phased or unphased biallelic variants</td>
+</tr>
+<tr>
+<td>PGEN</td>
+<td>plink2</td>
+<td></td>
+</tr>
+<tr>
+<td>BED</td>
+<td>plink1</td>
+<td></td>
 </tr>
 <tr>
 <td>VCF / BCF</td>

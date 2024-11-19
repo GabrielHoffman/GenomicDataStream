@@ -4,7 +4,7 @@
 \alias{initializeStream}
 \title{Initialize GenomicDataStream}
 \usage{
-initializeStream(obj)
+initializeStream(x)
 }
 \arguments{
 \item{x}{\code{GenomicDataStream}}

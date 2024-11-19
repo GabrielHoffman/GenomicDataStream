@@ -139,17 +139,17 @@ isInitialized = function(x){
 #' isInitialized( obj )
 #
 #' @export
-initializeStream = function(obj){
+initializeStream = function(x){
 
-	if( isInitialized(obj)) return( obj)
+	if( isInitialized(x)) return( x)
 
   # Create initialized GenomicDataStream
-	GenomicDataStream(file = obj@file, 
-										field = obj@field, 
-										region = obj@region, 
-										samples = obj@samples, 
-										chunkSize = obj@chunkSize, 
-										missingToMean = obj@missingToMean, 
+	GenomicDataStream(file = x@file, 
+										field = x@field, 
+										region = x@region, 
+										samples = x@samples, 
+										chunkSize = x@chunkSize, 
+										missingToMean = x@missingToMean, 
 										initialize = TRUE)      
   }
 

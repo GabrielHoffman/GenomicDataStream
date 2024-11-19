@@ -1,8 +1,8 @@
 Package: GenomicDataStream
 Type: Package
 Title: Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks
-Version: 0.0.4
-Date: 2024-10-31
+Version: 0.0.5
+Date: 2024-11-19
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
 Description: Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries.  BGEN support based on rbgen_v1.1.5.
 URL: https://github.com/GabrielHoffman/GenomicDataStream
@@ -18,7 +18,8 @@ Suggests:
 Depends:
     R (>= 4.3.0),
     Rcpp,
-    DelayedArray,
+    beachmat,
+    fastlmm,
     methods,
     Rdpack
 LinkingTo:

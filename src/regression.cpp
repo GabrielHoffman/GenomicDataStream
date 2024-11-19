@@ -1,5 +1,5 @@
 /***********************************************************************
- * @file		regerssion.cpp
+ * @file		regression.cpp
  * @author	   	Gabriel Hoffman
  * @email	   	gabriel.hoffman@mssm.edu
  * @brief	   	Expose regression functions to R
@@ -127,8 +127,8 @@ List lmFitFeatures_export( const arma::colvec& y,
 
 		nModels += fitList.size();
 
-		if( verbose ) 
-            Rcpp::Rcout << "\rModels fit: " << nModels << "	  ";
+		// if( verbose ) 
+        //     Rcpp::Rcout << "\rModels fit: " << nModels << "	  ";
 
 		// save results to list
 		results.push_back(fitList);
@@ -144,31 +144,35 @@ List lmFitFeatures_export( const arma::colvec& y,
 // [[Rcpp::export]]
 List lmFitResponses_export(
                 const RObject &mat, 
-                const vector<string> &rowNames, 
+                const arma::mat & X_design,
+                const vector<string> &ids,
+				const arma::mat &Weights,
                 const int &chunkSize,
-                const int &nthreads,
+				const int &detail = 0, 
+                const int &nthreads = 1,
                 const bool &verbose = true ){
 
-    DelayedStream ds( mat, rowNames, chunkSize);
+    DelayedStream ds( mat, ids, chunkSize);
 
     DataChunk<arma::mat> chunk;
     MatrixInfo *info;
     vector<ModelFitList> results;
-    arma::mat X_design( ds.n_samples(), 1, fill::ones);
 
     ModelDetail md = LOW;
     int nModels = 0;
+    arma::mat W;
 
     while( ds.getNextChunk( chunk ) ){
 
         // get variant information
         info = chunk.getInfo<MatrixInfo>();
 
-    	arma::mat Weights(chunk.getData().n_rows, chunk.getData().n_cols, fill::ones);
+        // weights for this chunk
+        W = Weights.rows(nModels, nModels+info->size()-1).t();
 
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        ModelFitList fitList = lmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), Weights, md, nthreads);
+        ModelFitList fitList = lmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), W, md, nthreads);
 
         nModels += fitList.size();
 

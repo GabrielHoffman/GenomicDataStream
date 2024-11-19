@@ -500,17 +500,20 @@ BEGIN_RCPP
 END_RCPP
 }
 // lmFitResponses_export
-List lmFitResponses_export(const RObject& mat, const vector<string>& rowNames, const int& chunkSize, const int& nthreads, const bool& verbose);
-RcppExport SEXP _GenomicDataStream_lmFitResponses_export(SEXP matSEXP, SEXP rowNamesSEXP, SEXP chunkSizeSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
+List lmFitResponses_export(const RObject& mat, const arma::mat& X_design, const vector<string>& ids, const arma::mat& Weights, const int& chunkSize, const int& detail, const int& nthreads, const bool& verbose);
+RcppExport SEXP _GenomicDataStream_lmFitResponses_export(SEXP matSEXP, SEXP X_designSEXP, SEXP idsSEXP, SEXP WeightsSEXP, SEXP chunkSizeSEXP, SEXP detailSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const RObject& >::type mat(matSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type rowNames(rowNamesSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
+    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Weights(WeightsSEXP);
     Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< const int& >::type detail(detailSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(lmFitResponses_export(mat, rowNames, chunkSize, nthreads, verbose));
+    rcpp_result_gen = Rcpp::wrap(lmFitResponses_export(mat, X_design, ids, Weights, chunkSize, detail, nthreads, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -555,7 +558,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_ClosePgen", (DL_FUNC) &_GenomicDataStream_ClosePgen, 1},
     {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
     {"_GenomicDataStream_lmFitFeatures_export", (DL_FUNC) &_GenomicDataStream_lmFitFeatures_export, 8},
-    {"_GenomicDataStream_lmFitResponses_export", (DL_FUNC) &_GenomicDataStream_lmFitResponses_export, 5},
+    {"_GenomicDataStream_lmFitResponses_export", (DL_FUNC) &_GenomicDataStream_lmFitResponses_export, 8},
     {NULL, NULL, 0}
 };
 

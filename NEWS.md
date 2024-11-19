@@ -1,5 +1,11 @@
 
 
+
+# GenomicDataStream 0.0.5
+ - Nov 19, 2024
+ - Improve interface, documentation and integration with `fastlmm`
+
+
 # GenomicDataStream 0.0.4
  - Oct 31, 2024
  - towards support for `pgenlibr`
