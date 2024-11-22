@@ -115,7 +115,7 @@ struct Param {
 		field = field_;
 	}
 
-	string file;
+	string file, fileIdx;
 	string field = "";
 	vector<string> regions;
 	string samples;

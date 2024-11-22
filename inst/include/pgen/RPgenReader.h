@@ -1,6 +1,12 @@
+#ifndef __RPGEN_READER_H__
+#define __RPGEN_READER_H__
+
 #include "pgenlib_ffi_support.h"
 #include "include/pgenlib_read.h"
 #include "pvar.h"  // includes Rcpp
+
+#include <vector>
+using namespace std;
 
 class RPgenReader {
 public:
@@ -728,3 +734,5 @@ void RPgenReader::ReadAllelesPhasedInternal(int variant_idx) {
 RPgenReader::~RPgenReader() {
   Close();
 }
+
+#endif  // __RPGEN_READER_H__

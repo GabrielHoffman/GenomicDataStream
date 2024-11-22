@@ -16,11 +16,16 @@
 
 #include <string>
 
-// #include "include/pgenlib_read.h"
-
 #include "VariantInfo.h"
 #include "GenomicDataStream_virtual.h"
 #include "GenomicRanges.h"
+
+// #include "pgen/RPgenReader.h"
+#include "pgen/pvar.h"
+
+
+// RPgenReader *pg = nullptr;
+// RPvar *pvar = nullptr;
 
 using namespace std;
 using namespace arma;
@@ -40,13 +45,30 @@ class pgenstream :
 	*/
 	pgenstream(const Param & param) : GenomicDataStream(param) {
 		
+		// Read index file (pvar/bim)
+		// pvar = new RPvar();
+        // pvar->Load(param.fileIdx);
+
+
 		// pg = new RPgenReader();
 
-  		// pg->Load(param.file, pvar, raw_sample_ct, sample_subset);
+		// Nullable<List> pv = R_NilValue;
+		// Nullable<int> raw_sample_ct = R_NilValue;
+        // Nullable<IntegerVector> sample_subset = R_NilValue;
 
-  		// // void RPgenReader::ReadList(NumericMatrix buf, IntegerVector variant_subset, bool meanimpute) 
+		// // Read data file (pgen/bed)
+		// pg = new RPgenReader();
+  		// pg->Load(param.file, pv, raw_sample_ct, sample_subset);
 
-  		// NumericMatrix dsg;
+
+  		// // read data into matrix
+  		// NumericMatrix buf;
+  		// IntegerVector varIdx;
+  		// pg->ReadList( buf, varIdx, param.missingToMean);
+
+
+
+
 
   		// // Change
   		// // RPgenReader::ReadList() to take vector<> instead of R types
@@ -65,6 +87,10 @@ class pgenstream :
 		// if( pg != nullptr){
 		// 	pg->Close();
 		// 	delete pg;
+		// }
+		// if( pvar != nullptr){
+		// 	pvar->Close();
+		// 	delete pvar;
 		// }
 	}
 
@@ -162,7 +188,7 @@ class pgenstream :
 	vector<double> matDosage;
 	VariantInfo *vInfo = nullptr;
 	// RPgenReader *pg = nullptr;
-
+	RPvar *pvar = nullptr;
 
 	bool getNextChunk_helper(){	
 

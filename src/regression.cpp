@@ -28,7 +28,7 @@
 #endif
 
 
-#include <GenomicDataStream.h>
+#include "GenomicDataStream.h"
 #include <fastlmmLib.h>
 #include <exportToR.h>
 

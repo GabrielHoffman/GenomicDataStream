@@ -40,21 +40,21 @@ Interface to GenomicDataStream C++ code
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
-# initialize 
-obj = GenomicDataStream(file, "DS", chunkSize=5, initialize = TRUE)
+# initialize
+obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize = TRUE)
 
 obj
 
 # loop until break
-while( 1 ){
+while (1) {
+  # get data chunk
+  # data$X matrix with features as columns
+  # data$info information about each feature as rows
+  dat <- getNextChunk(obj)
 
-	# get data chunk
-	# data$X matrix with features as columns
-	# data$info information about each feature as rows
-	dat = getNextChunk(obj)
+  if (atEndOfStream(obj)) break
 
-	if( atEndOfStream(obj) ) break
-		
-	print(dat$info)
+  print(dat$info)
 }
+#
 }

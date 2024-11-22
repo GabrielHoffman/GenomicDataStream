@@ -18,13 +18,14 @@ If \code{initialized}, return \code{TRUE}, else \code{FALSE}
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
-obj = GenomicDataStream(file, "DS", chunkSize=5)
+obj <- GenomicDataStream(file, "DS", chunkSize = 5)
 
 # by default, GenomicDataStream is not initialized
-isInitialized( obj )
+isInitialized(obj)
 
 # initialize
-obj = initializeStream( obj )
+obj <- initializeStream(obj)
 
-isInitialized( obj )
+isInitialized(obj)
+#
 }

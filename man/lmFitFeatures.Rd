@@ -38,25 +38,26 @@
 Fit series of linear regression models
 }
 \examples{
-# create response, design and weights 
-y = seq(60)
-X_design = matrix(1, 60,1)
-w = rep(1,60)
+# create response, design and weights
+y <- seq(60)
+X_design <- matrix(1, 60, 1)
+w <- rep(1, 60)
 
 # VCF file
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 # Read data into R
 # then run lmFitFeatures()
-gds = GenomicDataStream(file, "DS", initialize=TRUE)
-dat = getNextChunk(gds)
-X_features = dat$X
+gds <- GenomicDataStream(file, "DS", initialize = TRUE)
+dat <- getNextChunk(gds)
+X_features <- dat$X
 
-res1 = lmFitFeatures(y, X_design, X_features, w)
+res1 <- lmFitFeatures(y, X_design, X_features, w)
 
 # Data stays at C++ level
 # then run lmFitFeatures()
-gds = GenomicDataStream(file, "DS")
+gds <- GenomicDataStream(file, "DS")
 
-res2 = lmFitFeatures(y, X_design, gds, w)
+res2 <- lmFitFeatures(y, X_design, gds, w)
+#
 }

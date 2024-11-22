@@ -18,19 +18,18 @@ Detected if end of stream is reaached
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
-# initialize 
-obj = GenomicDataStream(file, "DS", chunkSize=5, initialize = TRUE)
+# initialize
+obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize = TRUE)
 
 # loop until break
-while( 1 ){
+while (1) {
+  # get data chunk
+  # data$X matrix with features as columns
+  # data$info information about each feature as rows
+  dat <- getNextChunk(obj)
 
-	# get data chunk
-	# data$X matrix with features as columns
-	# data$info information about each feature as rows
-	dat = getNextChunk(obj)
+  if (atEndOfStream(obj)) break
 
-	if( atEndOfStream(obj) ) break
-		
-	print(dat$info)
+  print(dat$info)
 }
 }

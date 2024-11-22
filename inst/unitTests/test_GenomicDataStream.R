@@ -1,4 +1,22 @@
 
+test_pgenstream = function(){
+
+	suppressPackageStartupMessages({
+	library(GenomicDataStream)
+	})
+
+	file <- system.file("extdata", "test.pgen", package = "GenomicDataStream")
+
+
+	# initialize 
+	gdsObj = GenomicDataStream(file, "DS", chunkSize=5, initialize=TRUE)
+
+
+}
+
+
+
+
 test_standardize = function(){
 
 	library(GenomicDataStream)

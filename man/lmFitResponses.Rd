@@ -31,18 +31,19 @@ Since the weights vary for each response, each model is computed separately with
 }
 \examples{
 library(DelayedArray)
-n = 100
-m = 5
-nc = 2
+n <- 100
+m <- 5
+nc <- 2
 set.seed(1)
-Y = matrix(rnorm(n*m), m, n)
-Y = DelayedArray(Y)
-X = matrix(rnorm(n*nc), n,nc)
-rownames(Y) = seq(m)
-W = matrix(runif(n*m), m, n) 
+Y <- matrix(rnorm(n * m), m, n)
+Y <- DelayedArray(Y)
+X <- matrix(rnorm(n * nc), n, nc)
+rownames(Y) <- seq(m)
+W <- matrix(runif(n * m), m, n)
 
 # fit regressions with model j using Y[j,] as a response
-fit = lmFitResponses(Y, X, W)
+fit <- lmFitResponses(Y, X, W)
+#
 # examine results
 lapply(fit, head, 2)
 
