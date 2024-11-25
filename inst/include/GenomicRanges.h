@@ -44,7 +44,6 @@ class GenomicRanges {
 		vector<string> regions;
 		boost::split(regions, regionString, boost::is_any_of("\t,\n"));
 		initialize( regions );
-		
 	}
 
 	/** Accessors
@@ -54,6 +53,51 @@ class GenomicRanges {
 	const uint32_t get_end(const int &i) const { return end[i];}
 
 	const int size() const { return end.size();}
+
+
+	/** Evaluate if position is within [start,end] inclusive
+	 */ 
+	const bool isWithin( const uint32_t &start, const uint32_t &end, const uint32_t &position) const {
+
+	    return (position >= start) && (position <= end); 
+	}
+	const bool isWithin( const string &chr, const uint32_t &position) const {
+
+		bool found = false;
+	    for (int i = 0; i < chrom.size(); i++) {
+	        if (chrom[i].compare(chr) == 0 ) {
+	        	if( isWithin( start[i], end[i], position) ){
+	        		found = true;
+	        		break;
+	        	}
+	        }
+	    }
+
+	    return found;
+	}
+
+	/** get indeces of entries in position that are found in Genomic ranges. Currently quadratic time
+	 */
+	const vector<int> getWithinIndeces( vector<string> chr,
+										vector<uint32_t> position){
+
+		vector<int> indeces;
+		for(int i=0; i<chr.size(); i++){
+			if( isWithin( chr[i], position[i]) ){
+				indeces.push_back(i);
+			}
+		}
+
+		return indeces;
+	}
+
+	const vector<int> getWithinIndeces( vector<string> chr,
+										vector<string> position){
+
+		auto &tmp = convert_to_uint32_t( position );
+		return getWithinIndeces(chr, tmp);
+	}
+
 
 	private:
 	vector<string> chrom;
@@ -100,7 +144,22 @@ class GenomicRanges {
 			end.push_back( p1 );
 		}	
 	}
+
+	/** Convert vector<string> to vector<uint32_t>
+	 */ 
+	const vector<uint32_t> convert_to_uint32_t( const vector<string> &v ){
+		vector<uint32_t> output(0, v.size());
+
+		for (auto &s : v) {
+		    stringstream parser(s);
+		    uint32_t x = 0;
+		    parser >> x;
+		    output.push_back(x);
+		}
+		return output;
+	}
 };
+
 
 }
 

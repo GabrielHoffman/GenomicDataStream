@@ -1,10 +1,11 @@
 #ifndef __PVAR_H__
 #define __PVAR_H__
 
-#include "pvar_ffi_support.h"
+#include <pvar_ffi_support.h>
 #include <map>
+#include <string>
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 
 struct classcomp {
@@ -23,7 +24,7 @@ public:
   RPvar& operator=(const RPvar&) = delete;
 #endif
 
-  void Load(String filename);
+  void Load(const std::string &filename);
 
   uint32_t GetVariantCt() const;
 
@@ -53,5 +54,6 @@ private:
 HEADER_INLINE int strcmp_r_c(String r_string, const char* cstr) {
   return strcmp(r_string.get_cstring(), cstr);
 }
+
 
 #endif  // __PVAR_H__

@@ -30,7 +30,6 @@ using namespace std;
 
 namespace gds {
 
-
 /** Reads an Robject
  * 
 */

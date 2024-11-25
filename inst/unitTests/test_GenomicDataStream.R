@@ -1,15 +1,58 @@
 
 test_pgenstream = function(){
 
+	q()
+	R
 	suppressPackageStartupMessages({
 	library(GenomicDataStream)
 	})
 
-	file <- system.file("extdata", "test.pgen", package = "GenomicDataStream")
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
+
+	file <- system.file("extdata", "test.pgen", package = "GenomicDataStream")
+	fileIdx <- system.file("extdata", "test.pvar", package = "GenomicDataStream")
 
 	# initialize 
-	gdsObj = GenomicDataStream(file, "DS", chunkSize=5, initialize=TRUE)
+	gdsObj = GenomicDataStream(file, chunkSize=3, initialize=TRUE)
+
+	dat <- getNextChunk(gdsObj)
+     
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+	gdsObj = GenomicDataStream(file, chunkSize=8, initialize=TRUE)
+	
+	# loop until break
+	while( 1 ){
+
+		# get data chunk
+		# data$X matrix with features as columns
+		# data$info information about each feature as rows
+		dat = getNextChunk(gdsObj)
+
+		if( atEndOfStream(gdsObj) ) break
+		
+		print(dat$info)
+	}
+
+     
+
+
+
+
+	GenomicDataStream:::extractPGEN(file, fileIdx)
+
+
+	library(pgenlibr)
+
+	pv = NewPvar(fileIdx)
+	pg = NewPgen(file, pv)
+
+	ReadList(pg, 1)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	GenomicDataStream:::dt(fileIdx)
+
 
 
 }
@@ -451,10 +494,20 @@ test_gds_to_fit = function(){
 
 }
 
+# q()
+# R
+# library(GenomicDataStream)	
+# file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test.pgen"
+# reg = "1:0-150009903"
+# gds = GenomicDataStream(file, region=reg, chunkSize=50, initialize=TRUE)
+# getNextChunk(gds)$info
+
+# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+# gds = GenomicDataStream(file, region=reg, chunkSize=50, initialize=TRUE)
+
 test_regression = function(){
 	
 	# Test VCF/BCF/BGEN dosage and regression results
-
 	suppressPackageStartupMessages({
 	library(RUnit)
 	library(VariantAnnotation)
@@ -489,7 +542,7 @@ test_regression = function(){
 	# Analysis in GenomicDataStream
 	#-------------------------------
 
-	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE)
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
 
 	X_design = matrix(1, ncol(X_all))
 	w = y
@@ -499,7 +552,7 @@ test_regression = function(){
 	###############
 	resList = lapply(files, function(file){
 
-		# cat(file, "\n")
+		cat(file, "\n")
 		# rm(dat, res)
 
 		# test dosages

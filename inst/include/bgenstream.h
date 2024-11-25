@@ -228,7 +228,8 @@ class bgenstream :
 		vInfo->clear();
 
 		// number of variants in this chunk
-		size_t chunkSize = min(param.chunkSize, n_variants_total - variant_idx_start);
+		int chunkSize = min(param.chunkSize, n_variants_total - variant_idx_start);
+		chunkSize = max(chunkSize, 0);
 
 		// if no variants remain, return false
 		if( chunkSize == 0) return false;

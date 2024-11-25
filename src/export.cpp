@@ -51,6 +51,48 @@ DataFrame toDF( const VariantInfo *vInfo){
 
 
 // [[Rcpp::export]]
+CharacterVector dt( const std::string &file){
+
+	DataTable df(file, "#CHROM");
+
+	vector<string> v = df.getColNames();
+
+
+	vector<string> v2 = df.getCol("CHROM");
+
+	return wrap(v2);
+} 
+
+
+// [[Rcpp::export]]
+void extractPGEN( 
+			const std::string &file,
+			const std::string &fileSamples,
+			const std::string &region = "",
+			const std::string &samples = "-",
+			const bool &missingToMean = false){
+
+	// initialize stream
+	Param param( file, region, samples, std::numeric_limits<int>::max(), missingToMean);
+
+	param.fileSamples = fileSamples;
+
+	pgenstream obj( param );
+
+	// from VCF, get
+	// 1) genotype as arma::mat and 
+	// 2) variant properties as varInfo
+	// auto [X_geno, vInfo] = vcfObj.getNextChunk();
+	// DataChunk<arma::mat> chunk;
+
+	// obj.getNextChunk( chunk );
+	
+	// VariantInfo *info = chunk.getInfo<VariantInfo>();
+	// NumericMatrix X = wrap( chunk.getData() );
+}
+
+
+// [[Rcpp::export]]
 List extractVcf( 
 			const std::string &file,
 			const std::string &field,
@@ -318,7 +360,7 @@ List getNextChunk_rcpp( SEXP x){
 	DataChunk<arma::mat> chunk;
 
 	// get chunk of data, 
-	// returns true is chunk is valid
+	// returns true if chunk is valid
 	bool isValid = ptr->ptr->getNextChunk( chunk );
 
 	// if not valid

@@ -13,6 +13,31 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// dt
+CharacterVector dt(const std::string& file);
+RcppExport SEXP _GenomicDataStream_dt(SEXP fileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
+    rcpp_result_gen = Rcpp::wrap(dt(file));
+    return rcpp_result_gen;
+END_RCPP
+}
+// extractPGEN
+void extractPGEN(const std::string& file, const std::string& fileSamples, const std::string& region, const std::string& samples, const bool& missingToMean);
+RcppExport SEXP _GenomicDataStream_extractPGEN(SEXP fileSEXP, SEXP fileSamplesSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP missingToMeanSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type fileSamples(fileSamplesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
+    extractPGEN(file, fileSamples, region, samples, missingToMean);
+    return R_NilValue;
+END_RCPP
+}
 // extractVcf
 List extractVcf(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const bool& missingToMean);
 RcppExport SEXP _GenomicDataStream_extractVcf(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP missingToMeanSEXP) {
@@ -249,6 +274,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_GenomicDataStream_dt", (DL_FUNC) &_GenomicDataStream_dt, 1},
+    {"_GenomicDataStream_extractPGEN", (DL_FUNC) &_GenomicDataStream_extractPGEN, 5},
     {"_GenomicDataStream_extractVcf", (DL_FUNC) &_GenomicDataStream_extractVcf, 5},
     {"_GenomicDataStream_extractVcf_eigen", (DL_FUNC) &_GenomicDataStream_extractVcf_eigen, 5},
     {"_GenomicDataStream_extractVcf_NM", (DL_FUNC) &_GenomicDataStream_extractVcf_NM, 5},

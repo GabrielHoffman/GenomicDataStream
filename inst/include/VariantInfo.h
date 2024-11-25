@@ -37,14 +37,14 @@ class VariantInfo :
     void addVariant(const string &chr,
                     const int64_t & pos, 
                     const string &id, 
-                    const string &ref, 
-                    const string &alt){
+                    const string &allele1, 
+                    const string &allele2){
 
         CHROM.push_back( chr );
         POS.push_back( pos );
         ID.push_back( id );
-        A1.push_back( ref );
-        A2.push_back( alt );
+        A1.push_back( allele1 );
+        A2.push_back( allele2 );
     }
 
     /** append variants in a new VariantInfo to the end of the current object
