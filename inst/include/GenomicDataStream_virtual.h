@@ -17,6 +17,7 @@
 #include <RcppArmadillo.h>
 #endif 
 
+#include <string>
 #include <filesystem>
 
 #include <boost/algorithm/string.hpp>
@@ -111,11 +112,17 @@ struct Param {
     	}
 	}
 
-	void setField( const string &field_){
+	void setField( const string &field_) {
 		field = field_;
 	}
 
-	string file, fileSamples;
+	/** Custom path to PSAM/FAM file
+	 */
+	void setSamplesFile( const string &file) {
+		fileSamples = file;
+	}
+
+	string file, fileSamples = "";
 	string field = "";
 	vector<string> regions;
 	string samples;
@@ -128,7 +135,6 @@ struct Param {
 
 /** Virtual class inheritited by vcfstream, bgenstream, DelayedStream
  */ 
-
 class GenomicDataStream {
 	public: 
 

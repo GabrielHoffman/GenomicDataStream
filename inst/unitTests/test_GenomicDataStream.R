@@ -1,26 +1,46 @@
 
-test_pgenstream = function(){
-
-	q()
-	R
+test_DataTable = function(){
+	# q()
+	# R
 	suppressPackageStartupMessages({
 	library(GenomicDataStream)
 	})
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
+	file <- system.file("extdata", "test.pvar", package = "GenomicDataStream")
+	GenomicDataStream:::test_DataTable( file, "#CHROM")
+
+
+	file <- system.file("extdata", "test.psam", package = "GenomicDataStream")
+	GenomicDataStream:::test_DataTable( file, "#IID")
+
+
+	file <- system.file("extdata", "test.fam", package = "GenomicDataStream")
+	GenomicDataStream:::test_DataTable( file, "")
+
+
+}
+
+
+
+
+
+test_pgenstream = function(){
+
+	# q()
+	# R
+	suppressPackageStartupMessages({
+	library(GenomicDataStream)
+	})
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
 	file <- system.file("extdata", "test.pgen", package = "GenomicDataStream")
-	fileIdx <- system.file("extdata", "test.pvar", package = "GenomicDataStream")
 
 	# initialize 
 	gdsObj = GenomicDataStream(file, chunkSize=3, initialize=TRUE)
 
-	dat <- getNextChunk(gdsObj)
-     
-	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-	gdsObj = GenomicDataStream(file, chunkSize=8, initialize=TRUE)
-	
 	# loop until break
 	while( 1 ){
 
@@ -35,23 +55,49 @@ test_pgenstream = function(){
 	}
 
      
+	file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
+
+	# initialize 
+	gdsObj = GenomicDataStream(file, chunkSize=3, initialize=TRUE)
+
+	# loop until break
+	while( 1 ){
+
+		# get data chunk
+		# data$X matrix with features as columns
+		# data$info information about each feature as rows
+		dat = getNextChunk(gdsObj)
+
+		if( atEndOfStream(gdsObj) ) break
+		
+		print(dat$info)
+	}
 
 
-
-
-	GenomicDataStream:::extractPGEN(file, fileIdx)
-
-
+	# Test reading plink 1.x BED
 	library(pgenlibr)
+	file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
 
-	pv = NewPvar(fileIdx)
-	pg = NewPgen(file, pv)
+	reg = "1:10001-12000"
+	ids = paste0("I", seq(60))
+	id_sub = sample(ids, 10)
+	ids_str = paste(id_sub, collapse=',')
+	idx = sort(match(id_sub, ids))
 
-	ReadList(pg, 1)
+	gdsObj = GenomicDataStream(file, region=reg, samples=ids_str,chunkSize=3, initialize=TRUE)
+	dat = getNextChunk(gdsObj)
+
+	pg = NewPgen(file, raw_sample_ct=60, sample_subset=idx)
+	X = ReadList(pg, 2:3)
+
+	max(abs(X - dat$X), na.rm=TRUE)
+
+
+
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	GenomicDataStream:::dt(fileIdx)
+	# GenomicDataStream:::dt(fileIdx)
 
 
 
@@ -115,7 +161,8 @@ test_vcfstream = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	file <- system.file("extdata", "set1a.vcf.gz", package = "BinaryDosage")
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	# file <- system.file("extdata", "set1a.vcf.gz", package = "BinaryDosage")
 	# system(paste("gunzip -f", file))
 	# system(paste("bgzip -f", gsub(".gz$", "", file)))
 	# system(paste("tabix -p vcf", file))
@@ -420,6 +467,7 @@ test_gds_to_fit = function(){
 
 	library(GenomicDataStream)
 	library(RUnit)
+	library(DelayedArray)
 
 	# lmFitFeatures
 	################
@@ -503,7 +551,19 @@ test_gds_to_fit = function(){
 # getNextChunk(gds)$info
 
 # devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-# gds = GenomicDataStream(file, region=reg, chunkSize=50, initialize=TRUE)
+# gds = GenomicDataStream(file, region=reg, chunkSize=2, initialize=TRUE)
+
+# getNextChunk(gds)$info
+
+# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+# ids = "I3,I1,I2"
+
+# reg = "0:0-12000,0:14000-15999"
+# gds = GenomicDataStream(file, region=reg, chunkSize=2, samples=ids, initialize=TRUE)
+
+# getNextChunk(gds)
+
 
 test_regression = function(){
 	
@@ -574,7 +634,7 @@ test_regression = function(){
 	# Subset of regions
 	####################
 
-	reg = "1:0-150,1:0-150000"
+	reg = "1:0-150,1:0-15000"
 
 	resList = lapply(files, function(file){
 
@@ -594,20 +654,35 @@ test_regression = function(){
 
 	# Subset of samples
 	####################
-	reg = "1:0-150,1:0-150000"
-	ids = c("I1,I2" )
+	reg = "1:0-11000"
+	ids = rev(paste0("I", seq(60)))
+	ids = sample(ids, 4)
+	ids = paste(ids, collapse=',')
+	
 
 	# version 1.1 does not support sample ids
 	i = grep("v1.1", files)
 
 	resList = lapply(files[-i], function(file){
 
-		# cat(file, "\n")
+		cat(file, "\n")
 
 		# test dosages
 		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100, samples=ids)
 		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-4)
 		})
+
+	cbind(dat$X, t(X_all[dat$info$ID,rownames(dat$X),drop=FALSE]))
+
+ 	# bcf does not work with subsetting samples
+ 	library(vcfppR)
+ 	file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test_noph.bcf"
+ 	res = vcftable(file, region="1:0-11000", samples=ids, format="DS")
+ 	res$DS
+
+ 	file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test_noph.vcf.gz"
+ 	res = vcftable(file, region="1:0-11000", samples=ids, format="DS")
+ 	res$DS
 
 
 	# Use GP field from VCF/BCF

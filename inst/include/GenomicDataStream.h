@@ -125,6 +125,7 @@ static unique_ptr<GenomicDataStream> createFileView( const Param & param ){
             gdsStream = make_unique<bgenstream>( param );
             break;
         case PGEN:
+        case PBED:
             gdsStream = make_unique<pgenstream>( param );
             break;
         case OTHER:
@@ -154,6 +155,7 @@ static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param 
             gdsStream = make_shared<bgenstream>( param );
             break;
         case PGEN:
+        case PBED:
             gdsStream = make_unique<pgenstream>( param );
             break;
         case OTHER:

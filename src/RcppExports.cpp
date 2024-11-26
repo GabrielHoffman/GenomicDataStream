@@ -224,6 +224,18 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test_DataTable
+void test_DataTable(const string& file, const string& headerKey, const char delim);
+RcppExport SEXP _GenomicDataStream_test_DataTable(SEXP fileSEXP, SEXP headerKeySEXP, SEXP delimSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< const string& >::type headerKey(headerKeySEXP);
+    Rcpp::traits::input_parameter< const char >::type delim(delimSEXP);
+    test_DataTable(file, headerKey, delim);
+    return R_NilValue;
+END_RCPP
+}
 // test_lm
 List test_lm(const arma::mat& X, const arma::colvec& y);
 RcppExport SEXP _GenomicDataStream_test_lm(SEXP XSEXP, SEXP ySEXP) {
@@ -290,6 +302,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
+    {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
     {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
     {"_GenomicDataStream_lmFitFeatures_export", (DL_FUNC) &_GenomicDataStream_lmFitFeatures_export, 8},
     {"_GenomicDataStream_lmFitResponses_export", (DL_FUNC) &_GenomicDataStream_lmFitResponses_export, 8},

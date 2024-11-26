@@ -42,6 +42,7 @@ void RPgenReader::Load(const string &filename, RPvar *rp,
     stop(&(errstr_buf[7]));
   }
   const uint32_t raw_variant_ct = _info_ptr->raw_variant_ct;
+  if (rp != nullptr) {
   // if (pvar.isNotNull()) {
     // List pvarl = as<List>(pvar);
     // if (strcmp_r_c(pvarl[0], "pvar")) {
@@ -56,15 +57,15 @@ void RPgenReader::Load(const string &filename, RPvar *rp,
       _info_ptr->allele_idx_offsets = _allele_idx_offsetsp->p;
     }
     _info_ptr->max_allele_ct = rp->GetMaxAlleleCt();
-  // } else {
-  //   if (header_ctrl & 0x30) {
-  //     // no need to zero-initialize this
-  //     _allele_idx_offsetsp = plink2::CreateRefcountedWptr(raw_variant_ct + 1);
-  //     _info_ptr->allele_idx_offsets = _allele_idx_offsetsp->p;
-  //     // _info_ptr->max_allele_ct updated by PgfiInitPhase2() in this case
-  //   }
-  //   _info_ptr->max_allele_ct = 2;
-  // }
+  } else {
+    if (header_ctrl & 0x30) {
+      // no need to zero-initialize this
+      _allele_idx_offsetsp = plink2::CreateRefcountedWptr(raw_variant_ct + 1);
+      _info_ptr->allele_idx_offsets = _allele_idx_offsetsp->p;
+      // _info_ptr->max_allele_ct updated by PgfiInitPhase2() in this case
+    }
+    _info_ptr->max_allele_ct = 2;
+  }
   if ((header_ctrl & 0xc0) == 0xc0) {
     // todo: load this in pvar, to enable consistency check.  we use a
     // (manually implemented) shared_ptr in preparation for this.

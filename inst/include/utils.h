@@ -131,7 +131,6 @@ static size_t removeDuplicates(vector<T>& vec){
 }
 
 
-
 /** Compute sum of each column
  * @param X matrix
  */ 
@@ -204,6 +203,7 @@ typedef enum {
     BCF,
     BGEN,
     PGEN,
+    PBED,
     OTHER
 } FileType;
 
@@ -217,6 +217,7 @@ static string toString( FileType x){
         case BCF:   return "bcf";
         case BGEN:   return "bgen";
         case PGEN:   return "pgen";
+        case PBED:   return "bed";
         case OTHER:   return "other";
         default:   return "other";
     }
@@ -238,11 +239,30 @@ static FileType getFileType( const string &file ){
         ft = BCF;
     }else if( regex_search( file, regex("\\.bgen$")) ){
         ft = BGEN;
-    }if( regex_search( file, regex("\\.pgen$")) ){
+    }else if( regex_search( file, regex("\\.pgen$")) ){
         ft = PGEN;
+    } if( regex_search( file, regex("\\.bed$")) ){
+        ft = PBED;
     }
 
     return ft;
+}
+
+
+
+/** Convert vector<string> to vector<T>
+ */ 
+template<typename T>
+vector<T> cast_elements( const vector<string> &v ){
+    vector<T> output(0, v.size());
+
+    for (auto &s : v) {
+        stringstream parser(s);
+        T x = 0;
+        parser >> x;
+        output.push_back(x);
+    }
+    return output;
 }
 
 

@@ -400,6 +400,12 @@ void standardize_test( arma::mat &X, const bool &center = true, const bool &scal
 	standardize(X, center, scale);
 }
 
+// [[Rcpp::export]]
+void test_DataTable(const string &file, const string &headerKey, const char delim='\t'){
 
+	DataTable dt(file, headerKey, delim);
+
+	dt.print(Rcpp::Rcout, "\t");
+}
 
 

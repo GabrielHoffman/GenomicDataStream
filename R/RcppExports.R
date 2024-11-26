@@ -65,6 +65,10 @@ standardize_test <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
+test_DataTable <- function(file, headerKey, delim = '\t') {
+    invisible(.Call('_GenomicDataStream_test_DataTable', PACKAGE = 'GenomicDataStream', file, headerKey, delim))
+}
+
 test_lm <- function(X, y) {
     .Call('_GenomicDataStream_test_lm', PACKAGE = 'GenomicDataStream', X, y)
 }

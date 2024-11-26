@@ -27,7 +27,7 @@ class GenomicRanges {
 	public:
 	/** Constructor from vectors of chrom, start, end
 	 */ 
-	GenomicRanges( const vector<string> &chrom, const vector<uint32_t> &start, const vector<uint32_t> &end) : 
+	GenomicRanges( const vector<string> &chrom, const vector<size_t> &start, const vector<size_t> &end) : 
 		chrom(chrom), start(start), end(end)
 		{ }
 
@@ -49,19 +49,18 @@ class GenomicRanges {
 	/** Accessors
 	 */
 	const string get_chrom(const int &i) const { return chrom[i];}
-	const uint32_t get_start(const int &i) const { return start[i];}
-	const uint32_t get_end(const int &i) const { return end[i];}
+	const size_t get_start(const int &i) const { return start[i];}
+	const size_t get_end(const int &i) const { return end[i];}
 
 	const int size() const { return end.size();}
 
-
 	/** Evaluate if position is within [start,end] inclusive
 	 */ 
-	const bool isWithin( const uint32_t &start, const uint32_t &end, const uint32_t &position) const {
+	const bool isWithin( const size_t &start, const size_t &end, const size_t &position) const {
 
 	    return (position >= start) && (position <= end); 
 	}
-	const bool isWithin( const string &chr, const uint32_t &position) const {
+	const bool isWithin( const string &chr, const size_t &position) const {
 
 		bool found = false;
 	    for (int i = 0; i < chrom.size(); i++) {
@@ -79,7 +78,7 @@ class GenomicRanges {
 	/** get indeces of entries in position that are found in Genomic ranges. Currently quadratic time
 	 */
 	const vector<int> getWithinIndeces( vector<string> chr,
-										vector<uint32_t> position){
+										vector<size_t> position){
 
 		vector<int> indeces;
 		for(int i=0; i<chr.size(); i++){
@@ -91,18 +90,10 @@ class GenomicRanges {
 		return indeces;
 	}
 
-	const vector<int> getWithinIndeces( vector<string> chr,
-										vector<string> position){
-
-		auto &tmp = convert_to_uint32_t( position );
-		return getWithinIndeces(chr, tmp);
-	}
-
-
 	private:
 	vector<string> chrom;
-	vector<uint32_t> start;
-	vector<uint32_t> end;
+	vector<size_t> start;
+	vector<size_t> end;
 
 	void initialize(vector<string> regions){
 
@@ -123,7 +114,7 @@ class GenomicRanges {
 			boost::split(reg, it, boost::is_any_of(":"));
 			boost::split(pos, reg[1], boost::is_any_of("-"));
 
-			// if only start give, set end to same value
+			// if only start given, set end to same value
 			if( pos.size() == 1 ) pos.push_back( pos[0] );
 
 			// convert strings to long int
@@ -143,20 +134,6 @@ class GenomicRanges {
 			start.push_back( p0 );
 			end.push_back( p1 );
 		}	
-	}
-
-	/** Convert vector<string> to vector<uint32_t>
-	 */ 
-	const vector<uint32_t> convert_to_uint32_t( const vector<string> &v ){
-		vector<uint32_t> output(0, v.size());
-
-		for (auto &s : v) {
-		    stringstream parser(s);
-		    uint32_t x = 0;
-		    parser >> x;
-		    output.push_back(x);
-		}
-		return output;
 	}
 };
 

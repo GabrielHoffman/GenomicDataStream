@@ -27,45 +27,81 @@ class DataTable {
 
 	DataTable(){}
 
-	DataTable(const string &file, const string &headerKey, const char delim = '\t'){
+	/** Read file into DataTable
+		column names are define by line starting with \code{headerKey}
+		lines before this are ignored.
+		Columns of DataTable can then be accessed by name
+		Only string values a supported, elements can be converted afterward
+
+		@param file file path
+		@param headerKey column names are define by line starting with \code{headerKey}
+		@param delim single character delimiter
+	*/
+	DataTable(const string &file, const string &headerKey="", const char delim = '\t'){
 
 		if( ! filesystem::exists( file ) ){
 			throw logic_error("File does not exist: " + file);
 		}
 
-    	ifstream strm( file );
-    	string line, header, value;
+		// open file
+	    ifstream strm( file );
+		string line, header, value;
 
-    	// Loop through lines until header start key is found
-    	bool startHeader = false;
+		// if there is NO headerKey
+		if( headerKey.compare("") == 0){
 
-    	// for each line
-		while (getline(strm, line)) {
+			// read first line, count number of columns
+			// create colNames
+			ifstream strm_tmp( file );
+
+			// get first line
+			getline(strm_tmp, line);
 
 			// for each column
+			int ncols = 1;
 		    stringstream ss(line);
 		    while (getline(ss, header, delim)) {
+				colNames.push_back("col" + to_string(ncols++));
+			}
+			strm_tmp.close();
 
-		    	// if not started yet, and found start yet
-		    	// set startHeader to true
-		    	if( ! startHeader ){
-		    		if( header.compare(headerKey) == 0 ){
-		       			startHeader = true;
-		    			// remove leading # from header key
-		    			header = regex_replace(header, regex("^#"), "");
-		       		}
-		    	}
+		// if there is a headerKey
+		}else{
+	    	// Loop through lines until header start key is found
+	    	bool startHeader = false;
 
-		    	// if start key already found, 
-		    	// push header column
-		    	if( startHeader ){
-            		colNames.push_back(header);
-		       	}
-		    }
+	    	// for each line
+			while (getline(strm, line)) {
 
-		    // if end of line where start key is found
-		    // break
-		    if( startHeader ) break;
+				// for each column
+			    stringstream ss(line);
+			    while (getline(ss, header, delim)) {
+
+			    	// if not started yet, and found start yet
+			    	// set startHeader to true
+			    	if( ! startHeader ){
+			    		if( header.compare(headerKey) == 0 ){
+			       			startHeader = true;
+			    			// remove leading # from header key
+			    			header = regex_replace(header, regex("^#"), "");
+			       		}
+			    	}
+
+			    	// if start key already found, 
+			    	// push header column
+			    	if( startHeader ){
+	            		colNames.push_back(header);
+			       	}
+			    }
+
+			    // if end of line where start key is found
+			    // break
+			    if( startHeader ) break;
+			}
+
+			if( ! startHeader ){
+				throw logic_error("Header key not found: " + headerKey);
+			}
 		}
 
 		// initialize data with column for each header entry
@@ -74,6 +110,8 @@ class DataTable {
 		}
 
 		// Read data rows
+		// data is a vector of columns
+		// each column is a vector of strings
 		int lineIdx = 0;
 		// for each row
 		while (getline(strm, line)) {
@@ -98,16 +136,24 @@ class DataTable {
 
 	~DataTable(){}
 
-	int ncols(){
+	const int ncols() const {
 		return data.size();
 	}	
 
-	int nrows(){
+	const int nrows() const {
 		return data[0].size();
 	}	
 
-	vector<string> getColNames(){
+	const vector<string> getColNames() const {
 		return colNames;
+	}	
+
+	void setColNames(const vector<string> &names) {
+		if( names.size() != colNames.size()){
+			throw logic_error("setColNames: new and old names must have the same number of entries");
+		}
+
+  		colNames.assign( names.begin(), names.end());
 	}	
 
 	const vector<string> getCol(const string &key) const {
@@ -130,6 +176,25 @@ class DataTable {
 
 	const vector<string> operator[](const string &key) const {
 		return getCol( key );
+	}
+
+	/** print DataTable to ostream
+	 */ 
+	void print(ostream& out, const string &delim = "\t") const {
+
+		// print column names
+		for(int i=0; i<colNames.size()-1; i++){
+			out << colNames[i] << delim;
+		}
+		out << colNames[colNames.size()-1] << endl;
+
+		// for each row
+		for(int r=0; r<this->nrows(); r++){
+			for(int i=0; i<data.size()-1; i++){
+				out << data[i][r] << delim;
+			}
+			out << data[data.size()-1][r] << endl;
+		}
 	}
 	
 	protected:
