@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['n_5fsamples_0',['n_samples',['../classgds_1_1bgenstream.html#a228d27dbb4127265cf41510b0cc4edc0',1,'gds::bgenstream::n_samples()'],['../classgds_1_1_delayed_stream.html#afaca9837fce72787b03e08d2d5fc5b77',1,'gds::DelayedStream::n_samples()'],['../classgds_1_1_genomic_data_stream.html#a8bfa63dae08a7972722b03b56395e927',1,'gds::GenomicDataStream::n_samples()'],['../classgds_1_1pgenstream.html#aef5ae327d7694f75dfbe1ccdeeab4230',1,'gds::pgenstream::n_samples()'],['../classgds_1_1vcfstream.html#af7fb7318a9d4eb5451399738bce56fe8',1,'gds::vcfstream::n_samples()']]],
-  ['newpgen_1',['NewPgen',['../pgenlibr_8cpp.html#a30294d9326c6fec49aaa93181f981d3e',1,'NewPgen(String filename, Nullable&lt; List &gt; pvar=R_NilValue, Nullable&lt; int &gt; raw_sample_ct=R_NilValue, Nullable&lt; IntegerVector &gt; sample_subset=R_NilValue):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#a8f163e270ed4c692690699b5f75b9448',1,'NewPgen(String filename, Nullable&lt; List &gt; pvar, Nullable&lt; int &gt; raw_sample_ct, Nullable&lt; IntegerVector &gt; sample_subset):&#160;pgenlibr.cpp']]],
-  ['newpvar_2',['NewPvar',['../pgenlibr_8cpp.html#ae973985ddcd632f18cd1edb33461fc10',1,'NewPvar(String filename):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#ae973985ddcd632f18cd1edb33461fc10',1,'NewPvar(String filename):&#160;pgenlibr.cpp']]],
-  ['notes_3',['Notes',['../index.html#autotoc_md2',1,'']]]
+  ['omp_5fget_5fnum_5fthreads_0',['omp_get_num_threads',['../export_8cpp.html#a4353281743925f182316dba7cda58fee',1,'omp_get_num_threads:&#160;export.cpp'],['../regression_8cpp.html#a4353281743925f182316dba7cda58fee',1,'omp_get_num_threads:&#160;regression.cpp']]],
+  ['omp_5fget_5fthread_5fnum_1',['omp_get_thread_num',['../export_8cpp.html#a889ec205c635b219999c761b28cc39ba',1,'omp_get_thread_num:&#160;export.cpp'],['../regression_8cpp.html#a889ec205c635b219999c761b28cc39ba',1,'omp_get_thread_num:&#160;regression.cpp']]],
+  ['other_2',['OTHER',['../namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd',1,'gds']]]
 ];

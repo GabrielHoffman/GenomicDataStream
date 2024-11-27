@@ -244,65 +244,65 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="keyword">static</span> arma::vec colSums( <span class="keyword">const</span> arma::mat &amp;X){</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="comment">// row vector of 1&#39;s</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    arma::rowvec ONE(X.n_rows, arma::fill::ones);</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="comment">// matrix multiplication to get sums</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    arma::mat tmp = ONE * X;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> arma::conv_to&lt;arma::vec&gt;::from( tmp );</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">static</span> arma::vec colSums( <span class="keyword">const</span> arma::mat &amp;X){</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="comment">// row vector of 1&#39;s</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    arma::rowvec ONE(X.n_rows, arma::fill::ones);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="comment">// matrix multiplication to get sums</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    arma::mat tmp = ONE * X;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">return</span> arma::conv_to&lt;arma::vec&gt;::from( tmp );</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keyword">static</span> <span class="keywordtype">void</span> standardize( arma::mat &amp;X, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;center = <span class="keyword">true</span>, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;scale = <span class="keyword">true</span> ){</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordtype">double</span> sqrt_rdf = sqrt(X.n_rows - 1.0);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="comment">// if center, subtract mean of each column</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment">// if scale, divide by sd of each column</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="comment">// Note, norm() does not center the column</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">//   this give results consistent with base::scale()</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="comment">//   when scale is FALSE</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> j=0; j&lt;X.n_cols; j++){</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">if</span>( center ) X.col(j) -= mean(X.col(j));</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">if</span>( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>}</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keyword">static</span> <span class="keywordtype">void</span> standardize( arma::mat &amp;X, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;center = <span class="keyword">true</span>, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;scale = <span class="keyword">true</span> ){</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordtype">double</span> sqrt_rdf = sqrt(X.n_rows - 1.0);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="comment">// if center, subtract mean of each column</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="comment">// if scale, divide by sd of each column</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment">// Note, norm() does not center the column</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="comment">//   this give results consistent with base::scale()</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">//   when scale is FALSE</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> j=0; j&lt;X.n_cols; j++){</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">if</span>( center ) X.col(j) -= mean(X.col(j));</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">if</span>( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword">static</span> <span class="keywordtype">bool</span> isOnlyDigits(<span class="keyword">const</span> std::string&amp; s){</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordtype">int</span> n = count_if(s.begin(), s.end(),</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                         [](<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c){ return isdigit(c); } </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                        );</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">return</span>( n == s.size());</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">static</span> <span class="keywordtype">bool</span> isOnlyDigits(<span class="keyword">const</span> std::string&amp; s){</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordtype">int</span> n = count_if(s.begin(), s.end(),</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                         [](<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c){ return isdigit(c); } </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                        );</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">return</span>( n == s.size());</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keyword">static</span> <span class="keywordtype">void</span> nanToMean( arma::vec &amp; v){</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="comment">// get indeces of finite elements</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    arma::uvec idx = arma::find_finite(v);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="comment">// if number of finite elements is less than the total</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordflow">if</span>( idx.n_elem &lt; v.n_elem ){</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="comment">// compute mean from finite elements</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordtype">double</span> mu = arma::mean( v.elem(idx));</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="comment">// replace nan with mu</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        v.replace(arma::datum::nan, mu);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>}</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="keyword">static</span> <span class="keywordtype">void</span> nanToMean( arma::vec &amp; v){</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="comment">// get indeces of finite elements</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    arma::uvec idx = arma::find_finite(v);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="comment">// if number of finite elements is less than the total</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">if</span>( idx.n_elem &lt; v.n_elem ){</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="comment">// compute mean from finite elements</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keywordtype">double</span> mu = arma::mean( v.elem(idx));</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="comment">// replace nan with mu</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        v.replace(arma::datum::nan, mu);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>}</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="foldopen" id="foldopen00201" data-start="{" data-end="};">
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">  201</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">  202</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>,</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">  203</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>,</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">  204</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>,</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">  205</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>,</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">  206</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>,</div>
+<div class="foldopen" id="foldopen00200" data-start="{" data-end="};">
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">  200</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">  201</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>,</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">  202</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>,</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">  203</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>,</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">  204</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>,</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">  205</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>,</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">  206</a></span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>,</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a></div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">  208</a></span>} <a class="code hl_enumeration" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">FileType</a>;</div>
 </div>
@@ -315,45 +315,67 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;bcf&quot;</span>;</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;bgen&quot;</span>;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;pgen&quot;</span>;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;other&quot;</span>;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">default</span>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;other&quot;</span>;</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;bed&quot;</span>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;other&quot;</span>;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">default</span>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;other&quot;</span>;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    }</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>}</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keyword">static</span> <a class="code hl_enumeration" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">FileType</a> getFileType( <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;file ){</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <a class="code hl_enumeration" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">FileType</a> ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.vcf$&quot;</span>)) ){</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.vcf\\.gz$&quot;</span>)) ){</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.bcf$&quot;</span>)) ) {</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.bgen$&quot;</span>)) ){</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>;</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }<span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.pgen$&quot;</span>)) ){</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordflow">return</span> ft;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>}</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keyword">static</span> <a class="code hl_enumeration" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">FileType</a> getFileType( <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;file ){</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <a class="code hl_enumeration" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">FileType</a> ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.vcf$&quot;</span>)) ){</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.vcf\\.gz$&quot;</span>)) ){</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.bcf$&quot;</span>)) ) {</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.bgen$&quot;</span>)) ){</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }<span class="keywordflow">else</span> <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.pgen$&quot;</span>)) ){</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    } <span class="keywordflow">if</span>( regex_search( file, regex(<span class="stringliteral">&quot;\\.bed$&quot;</span>)) ){</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        ft = <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    }</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">return</span> ft;</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>}</div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="namespacegds.html#a48cc834ac88e3e65adee23e4843a842d">  256</a></span>vector&lt;T&gt; <a class="code hl_function" href="namespacegds.html#a48cc834ac88e3e65adee23e4843a842d">cast_elements</a>( <span class="keyword">const</span> vector&lt;string&gt; &amp;v ){</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    vector&lt;T&gt; output(0, v.size());</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;s : v) {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        stringstream parser(s);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        T x = 0;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        parser &gt;&gt; x;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        output.push_back(x);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>}</div>
+</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:32</div></div>
-<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">gds::FileType</a></div><div class="ttdeci">FileType</div><div class="ttdef"><b>Definition</b> utils.h:201</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">gds::FileType</a></div><div class="ttdeci">FileType</div><div class="ttdef"><b>Definition</b> utils.h:200</div></div>
 <div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">gds::OTHER</a></div><div class="ttdeci">@ OTHER</div><div class="ttdef"><b>Definition</b> utils.h:207</div></div>
-<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">gds::BGEN</a></div><div class="ttdeci">@ BGEN</div><div class="ttdef"><b>Definition</b> utils.h:205</div></div>
-<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">gds::BCF</a></div><div class="ttdeci">@ BCF</div><div class="ttdef"><b>Definition</b> utils.h:204</div></div>
-<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">gds::PGEN</a></div><div class="ttdeci">@ PGEN</div><div class="ttdef"><b>Definition</b> utils.h:206</div></div>
-<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">gds::VCFGZ</a></div><div class="ttdeci">@ VCFGZ</div><div class="ttdef"><b>Definition</b> utils.h:203</div></div>
-<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">gds::VCF</a></div><div class="ttdeci">@ VCF</div><div class="ttdef"><b>Definition</b> utils.h:202</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">gds::BGEN</a></div><div class="ttdeci">@ BGEN</div><div class="ttdef"><b>Definition</b> utils.h:204</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">gds::BCF</a></div><div class="ttdeci">@ BCF</div><div class="ttdef"><b>Definition</b> utils.h:203</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">gds::PBED</a></div><div class="ttdeci">@ PBED</div><div class="ttdef"><b>Definition</b> utils.h:206</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">gds::PGEN</a></div><div class="ttdeci">@ PGEN</div><div class="ttdef"><b>Definition</b> utils.h:205</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">gds::VCFGZ</a></div><div class="ttdeci">@ VCFGZ</div><div class="ttdef"><b>Definition</b> utils.h:202</div></div>
+<div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">gds::VCF</a></div><div class="ttdeci">@ VCF</div><div class="ttdef"><b>Definition</b> utils.h:201</div></div>
+<div class="ttc" id="anamespacegds_html_a48cc834ac88e3e65adee23e4843a842d"><div class="ttname"><a href="namespacegds.html#a48cc834ac88e3e65adee23e4843a842d">gds::cast_elements</a></div><div class="ttdeci">vector&lt; T &gt; cast_elements(const vector&lt; string &gt; &amp;v)</div><div class="ttdef"><b>Definition</b> utils.h:256</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

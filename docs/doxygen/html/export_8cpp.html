@@ -143,6 +143,10 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:aa1981e8b88c965893de02742beb5a0a9" id="r_aa1981e8b88c965893de02742beb5a0a9"><td class="memItemLeft" align="right" valign="top">DataFrame&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1981e8b88c965893de02742beb5a0a9">toDF</a> (const <a class="el" href="classgds_1_1_variant_info.html">VariantInfo</a> *vInfo)</td></tr>
 <tr class="separator:aa1981e8b88c965893de02742beb5a0a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac74300383f810d42652fb00f806eff09" id="r_ac74300383f810d42652fb00f806eff09"><td class="memItemLeft" align="right" valign="top">CharacterVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac74300383f810d42652fb00f806eff09">dt</a> (const std::string &amp;file)</td></tr>
+<tr class="separator:ac74300383f810d42652fb00f806eff09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a787b09be27103b8e104d4d74f5e17bac" id="r_a787b09be27103b8e104d4d74f5e17bac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a787b09be27103b8e104d4d74f5e17bac">extractPGEN</a> (const std::string &amp;file, const std::string &amp;fileSamples, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
+<tr class="separator:a787b09be27103b8e104d4d74f5e17bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe3666d76d365548df8bd7997ef992c5" id="r_afe3666d76d365548df8bd7997ef992c5"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe3666d76d365548df8bd7997ef992c5">extractVcf</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
 <tr class="separator:afe3666d76d365548df8bd7997ef992c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48fafdd006867f48d98c7aa3c36f349b" id="r_a48fafdd006867f48d98c7aa3c36f349b"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48fafdd006867f48d98c7aa3c36f349b">extractVcf_eigen</a> (const std::string &amp;file, const std::string &amp;field, const std::string &amp;region=&quot;&quot;, const std::string &amp;samples=&quot;-&quot;, const bool &amp;missingToMean=false)</td></tr>
@@ -173,6 +177,8 @@ Functions</h2></td></tr>
 <tr class="separator:a7fee884670a74f3630ba041bcf13a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7948cb70a34ad29b874afa09a0fd2558" id="r_a7948cb70a34ad29b874afa09a0fd2558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7948cb70a34ad29b874afa09a0fd2558">standardize_test</a> (arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true)</td></tr>
 <tr class="separator:a7948cb70a34ad29b874afa09a0fd2558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b798fd7a4dc07ad7dff5c3d668ae53" id="r_ac3b798fd7a4dc07ad7dff5c3d668ae53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3b798fd7a4dc07ad7dff5c3d668ae53">test_DataTable</a> (const string &amp;file, const string &amp;headerKey, const char delim='\t')</td></tr>
+<tr class="separator:ac3b798fd7a4dc07ad7dff5c3d668ae53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6ee1a17bf79231337da741265d2f6856" name="a6ee1a17bf79231337da741265d2f6856"></a>
@@ -307,6 +313,59 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::numeric_limits&lt;int&gt;::max()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>missingToMean</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac74300383f810d42652fb00f806eff09" name="ac74300383f810d42652fb00f806eff09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac74300383f810d42652fb00f806eff09">&#9670;&#160;</a></span>dt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CharacterVector dt </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a787b09be27103b8e104d4d74f5e17bac" name="a787b09be27103b8e104d4d74f5e17bac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a787b09be27103b8e104d4d74f5e17bac">&#9670;&#160;</a></span>extractPGEN()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void extractPGEN </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileSamples</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>samples</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;-&quot;</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -636,6 +695,32 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>scale</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3b798fd7a4dc07ad7dff5c3d668ae53" name="ac3b798fd7a4dc07ad7dff5c3d668ae53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3b798fd7a4dc07ad7dff5c3d668ae53">&#9670;&#160;</a></span>test_DataTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_DataTable </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>headerKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char</td>          <td class="paramname"><span class="paramname"><em>delim</em></span><span class="paramdefsep"> = </span><span class="paramdefval">'\t'</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

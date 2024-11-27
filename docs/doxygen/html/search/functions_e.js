@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['r_5finit_5fgenomicdatastream_0',['R_init_GenomicDataStream',['../_rcpp_exports_8cpp.html#a28813cc54257bc2fa1103e5290158da5',1,'RcppExports.cpp']]],
-  ['read_1',['Read',['../pgenlibr_8cpp.html#a3b92259d25144fc1e62885cfb8480d10',1,'Read(List pgen, NumericVector buf, int variant_num, int allele_num=2):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#ac3c30a0bb33aa54b2198c6216b1ea7a9',1,'Read(List pgen, NumericVector buf, int variant_num, int allele_num):&#160;pgenlibr.cpp']]],
-  ['readalleles_2',['ReadAlleles',['../pgenlibr_8cpp.html#a9b7467bce0299922cfbf88201648403e',1,'ReadAlleles(List pgen, SEXP acbuf, int variant_num, Nullable&lt; LogicalVector &gt; phasepresent_buf=R_NilValue):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#a02fa236004794456640d3c4eb2073243',1,'ReadAlleles(List pgen, SEXP acbuf, int variant_num, Nullable&lt; LogicalVector &gt; phasepresent_buf):&#160;pgenlibr.cpp']]],
-  ['readhardcalls_3',['ReadHardcalls',['../pgenlibr_8cpp.html#aa2951f77c8dade1ea135003291bf0b5b',1,'ReadHardcalls(List pgen, SEXP buf, int variant_num, int allele_num=2):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#a04eb529a6718f9a3bc18081d84b59a0d',1,'ReadHardcalls(List pgen, SEXP buf, int variant_num, int allele_num):&#160;pgenlibr.cpp']]],
-  ['readintlist_4',['ReadIntList',['../pgenlibr_8cpp.html#a20861f2f2702544d2708cd59a6eea8ed',1,'ReadIntList(List pgen, IntegerVector variant_subset):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#a20861f2f2702544d2708cd59a6eea8ed',1,'ReadIntList(List pgen, IntegerVector variant_subset):&#160;pgenlibr.cpp']]],
-  ['readlist_5',['ReadList',['../pgenlibr_8cpp.html#ae8fdebb8c1d9d7756f7cfa643b3d80b1',1,'ReadList(List pgen, IntegerVector variant_subset, bool meanimpute=false):&#160;pgenlibr.cpp'],['../_rcpp_exports_8cpp.html#afcf4daeca1a99ba902ba934ed92790b4',1,'ReadList(List pgen, IntegerVector variant_subset, bool meanimpute):&#160;pgenlibr.cpp']]]
+  ['setfield_0',['setField',['../structgds_1_1_param.html#a0bedb8b7bc80339cdedb98066dbd157d',1,'gds::Param']]],
+  ['setrownames_1',['setRowNames',['../classgds_1_1_matrix_info.html#ae9531c5a2a3601465e47a504aa980b3e',1,'gds::MatrixInfo']]],
+  ['setsamplesfile_2',['setSamplesFile',['../structgds_1_1_param.html#a8c752be96dffc51b142914a8b2fe2f33',1,'gds::Param']]],
+  ['size_3',['size',['../classgds_1_1_data_info.html#af8d39001b9a18c530c6d60f5caf32789',1,'gds::DataInfo::size()'],['../classgds_1_1_genomic_ranges.html#a7d1b020b0a925df57b1d9b56ddbae8e3',1,'gds::GenomicRanges::size()']]],
+  ['standardize_5ftest_4',['standardize_test',['../export_8cpp.html#a7948cb70a34ad29b874afa09a0fd2558',1,'standardize_test(arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a62357b90027c8c7431e79c4955b63428',1,'standardize_test(arma::mat &amp;X, const bool &amp;center, const bool &amp;scale):&#160;export.cpp']]]
 ];

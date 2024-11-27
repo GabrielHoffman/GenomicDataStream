@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['lmfitfeatures_5fexport_0',['lmFitFeatures_export',['../_rcpp_exports_8cpp.html#ac0f7acdb65a92c3e6169bd4c0b169429',1,'lmFitFeatures_export(const arma::colvec &amp;y, const arma::mat &amp;X_design, List gds, const arma::vec &amp;weights, const int &amp;detail, const bool &amp;preprojection, const int &amp;nthreads, const bool &amp;verbose):&#160;regression.cpp'],['../regression_8cpp.html#a72f38362da242df5aabb1a27f9a7cf81',1,'lmFitFeatures_export(const arma::colvec &amp;y, const arma::mat &amp;X_design, List gds, const arma::vec &amp;weights, const int &amp;detail=0, const bool &amp;preprojection=true, const int &amp;nthreads=1, const bool &amp;verbose=true):&#160;regression.cpp']]],
-  ['lmfitresponses_5fexport_1',['lmFitResponses_export',['../_rcpp_exports_8cpp.html#a39b5a40fb657479e268528989a798433',1,'lmFitResponses_export(const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize, const int &amp;nthreads, const bool &amp;verbose):&#160;regression.cpp'],['../regression_8cpp.html#a2ea6aa4a8186e4248ede67becf86b5c5',1,'lmFitResponses_export(const RObject &amp;mat, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize, const int &amp;nthreads, const bool &amp;verbose=true):&#160;regression.cpp']]]
+  ['matrixinfo_0',['MatrixInfo',['../classgds_1_1_matrix_info.html',1,'gds::MatrixInfo'],['../classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4',1,'gds::MatrixInfo::MatrixInfo()'],['../classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068',1,'gds::MatrixInfo::MatrixInfo(const vector&lt; string &gt; &amp;ID)']]],
+  ['matrixinfo_2eh_1',['MatrixInfo.h',['../_matrix_info_8h.html',1,'']]],
+  ['missingtomean_2',['missingToMean',['../structgds_1_1_param.html#af5eae8c29ee634c69c59e5f76d8df801',1,'gds::Param']]],
+  ['modelfitlist_3',['ModelFitList',['../regression_8cpp.html#adc39be6a32d02a4af0c01f51ec1b114f',1,'regression.cpp']]]
 ];
