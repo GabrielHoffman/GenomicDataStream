@@ -675,14 +675,14 @@ test_regression = function(){
 	cbind(dat$X, t(X_all[dat$info$ID,rownames(dat$X),drop=FALSE]))
 
  	# bcf does not work with subsetting samples
- 	library(vcfppR)
- 	file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test_noph.bcf"
- 	res = vcftable(file, region="1:0-11000", samples=ids, format="DS")
- 	res$DS
+ 	# library(vcfppR)
+ 	# file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test_noph.bcf"
+ 	# res = vcftable(file, region="1:0-11000", samples=ids, format="DS")
+ 	# res$DS
 
- 	file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test_noph.vcf.gz"
- 	res = vcftable(file, region="1:0-11000", samples=ids, format="DS")
- 	res$DS
+ 	# file = "/Users/gabrielhoffman/prog/R-4.4.1/library/GenomicDataStream/extdata/test_noph.vcf.gz"
+ 	# res = vcftable(file, region="1:0-11000", samples=ids, format="DS")
+ 	# res$DS
 
 
 	# Use GP field from VCF/BCF
@@ -706,7 +706,7 @@ test_regression = function(){
 		# res = GenomicDataStream:::lmFitFeatures(y, file, "DS", ".")
 		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=5)
 		res = lmFitFeatures(y, X_design, gds, w, preprojection=FALSE)
-		checkEqualsNumeric(res1, res$coef, silent=TRUE, tol=1e-7)
+		checkEqualsNumeric(res1[rownames(res$coef),], res$coef, silent=TRUE, tol=1e-7)
 		})
 
 }

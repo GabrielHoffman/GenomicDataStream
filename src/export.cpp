@@ -27,8 +27,7 @@
 	#define omp_get_thread_num() 0
 #endif
 
-
-#include <GenomicDataStream.h>
+#include "GenomicDataStream.h"
 
 using namespace std;
 using namespace vcfpp;

@@ -46,5 +46,4 @@ fit <- lmFitResponses(Y, X, W)
 #
 # examine results
 lapply(fit, head, 2)
-
 }

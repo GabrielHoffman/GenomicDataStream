@@ -1,7 +1,5 @@
 #include "pgen/pvar.h"  // includes Rcpp
 
-#include <RcppArmadillo.h>
-
 using namespace std;
 
 RPvar::RPvar() {
@@ -13,11 +11,14 @@ void RPvar::Load(const string &filename) {
   plink2::PglErr reterr = LoadMinimalPvar(filename.c_str(), &_mp, errbuf);
   if (reterr != plink2::kPglRetSuccess) {
     if (reterr == plink2::kPglRetNomem) {
-      stop("Out of memory");
+      // stop("Out of memory");
+      throw logic_error("Out of memory");
     } else if (reterr == plink2::kPglRetReadFail) {
-      stop("File read failure");
+      // stop("File read failure");
+      throw logic_error("File read failure");
     } else {
-      stop(&errbuf[7]);
+      // stop(&errbuf[7]);
+      throw logic_error(&errbuf[7]);
     }
   }
 }
@@ -34,7 +35,8 @@ const char* RPvar::GetVariantId(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    stop(errbuf);
+    // stop(errbuf);
+    throw logic_error(errbuf);
   }
   return _mp.variant_ids[variant_idx];
 }
@@ -53,7 +55,8 @@ uint32_t RPvar::GetAlleleCt(uint32_t variant_idx) const {
   if (variant_idx >= _mp.variant_ct) {
     char errstr_buf[256];
     snprintf(errstr_buf, 256, "variant_num out of range (%d; must be 1..%u)", variant_idx + 1, _mp.variant_ct);
-    stop(errstr_buf);
+    // stop(errstr_buf);
+    throw logic_error(errstr_buf);
   }
   if (!_mp.allele_idx_offsetsp) {
     return 2;
@@ -70,7 +73,8 @@ const char* RPvar::GetAlleleCode(uint32_t variant_idx, uint32_t allele_idx) cons
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    stop(errbuf);
+    // stop(errbuf);
+    throw logic_error(errbuf);
   }
   uintptr_t allele_idx_offset_base = 2 * variant_idx;
   uint32_t allele_ct = 2;
@@ -82,7 +86,8 @@ const char* RPvar::GetAlleleCode(uint32_t variant_idx, uint32_t allele_idx) cons
   if (allele_idx >= allele_ct) {
     char errbuf[256];
     snprintf(errbuf, 256, "allele_num out of range (%d; must be 1..%d)", allele_idx + 1, allele_ct);
-    stop(errbuf);
+    // stop(errbuf);
+    throw logic_error(errbuf);
   }
   return _mp.allele_storage[allele_idx_offset_base + allele_idx];
 }
@@ -107,91 +112,3 @@ RPvar::~RPvar() {
   _nameToIdxs.clear();
   plink2::CleanupMinimalPvar(&_mp);
 }
-
-// //' Loads variant IDs and allele codes from a .pvar or .bim file (which can be
-// //' compressed with gzip or Zstd).
-// //'
-// //' @param filename .pvar/.bim file path.
-// //' @return A pvar object, which can be queried for variant IDs and allele
-// //' codes.
-// //' @export
-// // [[Rcpp::export]]
-// SEXP NewPvar(String filename) {
-//   XPtr<class RPvar> pvar(new RPvar(), true);
-//   pvar->Load(filename);
-//   return List::create(_["class"] = "pvar", _["pvar"] = pvar);
-// }
-
-// //' Convert variant index to variant ID string.
-// //'
-// //' @param pvar Object returned by NewPvar().
-// //' @param variant_num Variant index (1-based).
-// //' @return The variant_numth variant ID string.
-// //' @export
-// // [[Rcpp::export]]
-// String GetVariantId(List pvar, int variant_num) {
-//   if (strcmp_r_c(pvar[0], "pvar")) {
-//     stop("pvar is not a pvar object");
-//   }
-//   XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
-//   String ss(rp->GetVariantId(variant_num - 1));
-//   return ss;
-// }
-
-// //' Convert variant ID string to variant index(es).
-// //'
-// //' @param pvar Object returned by NewPvar().
-// //' @param id Variant ID to look up.
-// //' @return A list of all (1-based) variant indices with the given variant ID.
-// //' @export
-// // [[Rcpp::export]]
-// IntegerVector GetVariantsById(List pvar, String id) {
-//   if (strcmp_r_c(pvar[0], "pvar")) {
-//     stop("pvar is not a pvar object");
-//   }
-//   XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
-//   std::pair<std::multimap<const char*, int, classcomp>::iterator, std::multimap<const char*, int, classcomp>::iterator> equal_range = rp->GetVariantsById(id.get_cstring());
-//   std::multimap<const char*, int, classcomp>::iterator i1 = equal_range.first;
-//   std::multimap<const char*, int, classcomp>::iterator i2 = equal_range.second;
-//   const uint32_t len = std::distance(i1, i2);
-//   IntegerVector iv = IntegerVector(len);
-//   for (uint32_t uii = 0; uii != len; ++uii) {
-//     iv[uii] = i1->second + 1;
-//     ++i1;
-//   }
-//   return iv;
-// }
-
-// //' Look up an allele code.
-// //'
-// //' @param pvar Object returned by NewPvar().
-// //' @param variant_num Variant index (1-based).
-// //' @param allele_num Allele index (1-based).
-// //' @return The allele_numth allele code for the variant_numth variant.
-// //' allele_num=1 corresponds to the REF allele, allele_num=2 corresponds to the
-// //' first ALT allele, allele_num=3 corresponds to the second ALT allele if it
-// //' exists and errors out otherwise, etc.
-// //' @export
-// // [[Rcpp::export]]
-// String GetAlleleCode(List pvar, int variant_num, int allele_num) {
-//   if (strcmp_r_c(pvar[0], "pvar")) {
-//     stop("pvar is not a pvar object");
-//   }
-//   XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
-//   String ss(rp->GetAlleleCode(variant_num - 1, allele_num - 1));
-//   return ss;
-// }
-
-// //' Closes a pvar object, releasing memory.
-// //'
-// //' @param pvar Object returned by NewPvar().
-// //' @return No return value, called for side-effect.
-// //' @export
-// // [[Rcpp::export]]
-// void ClosePvar(List pvar) {
-//   if (strcmp_r_c(pvar[0], "pvar")) {
-//     stop("pvar is not a pvar object");
-//   }
-//   XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
-//   rp->Close();
-// }

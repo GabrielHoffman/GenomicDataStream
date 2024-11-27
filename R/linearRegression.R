@@ -47,7 +47,7 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' gds <- GenomicDataStream(file, "DS")
 #'
 #' res2 <- lmFitFeatures(y, X_design, gds, w)
-#' #
+#
 #' @importMethodsFrom fastlmm lmFitFeatures
 #' @export
 #' @rdname lmFitFeatures
@@ -117,7 +117,7 @@ setMethod(
 #' #
 #' # examine results
 #' lapply(fit, head, 2)
-#'
+#
 #' @importMethodsFrom fastlmm lmFitResponses
 #' @importFrom beachmat initializeCpp
 #' @export

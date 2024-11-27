@@ -59,5 +59,4 @@ res1 <- lmFitFeatures(y, X_design, X_features, w)
 gds <- GenomicDataStream(file, "DS")
 
 res2 <- lmFitFeatures(y, X_design, gds, w)
-#
 }

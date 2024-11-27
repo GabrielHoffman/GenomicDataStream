@@ -31,7 +31,7 @@ using namespace arma;
 
 /*      TODO
 
-1) custom psam file
+done 1) custom psam file
 done 2) plink 1 support
 done 3) empty headerKey
 done 4) GenomicRanges search is quadratic, doesn't use sorting

@@ -5,9 +5,6 @@
 #include <map>
 #include <string>
 
-#include <RcppArmadillo.h>
-using namespace Rcpp;
-
 struct classcomp {
   bool operator() (const char* const& lhs, const char* const& rhs) const {
     return strcmp(lhs, rhs) < 0;
@@ -51,9 +48,9 @@ private:
   std::multimap<const char*, int, classcomp> _nameToIdxs;
 };
 
-HEADER_INLINE int strcmp_r_c(String r_string, const char* cstr) {
-  return strcmp(r_string.get_cstring(), cstr);
-}
+// HEADER_INLINE int strcmp_r_c(Rcpp::String r_string, const char* cstr) {
+//   return strcmp(r_string.get_cstring(), cstr);
+// }
 
 
 #endif  // __PVAR_H__

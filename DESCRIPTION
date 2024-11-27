@@ -12,7 +12,7 @@ Suggests:
     BiocStyle,
     RUnit,
     VariantAnnotation,
-    BinaryDosage,
+    DelayedArray,
     knitr,
     rmarkdown
 Depends:
@@ -31,7 +31,7 @@ LinkingTo:
 	assorthead,
 	Rhtslib  (>= 3.0.0),
 	BH,
-	vcfppR (>= 0.6.0),
+	vcfppR (>= 0.6.1),
 	pgenlibr,
 	fastlmm
 Encoding: UTF-8
@@ -42,5 +42,6 @@ RoxygenNote: 7.3.2
 RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes:
-	GabrielHoffman/plink-ng/2.0/pgenlibr
+	GabrielHoffman/plink-ng/2.0/pgenlibr,
+	Zilong-Li/vcfppR
 
