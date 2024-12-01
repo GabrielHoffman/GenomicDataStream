@@ -1,0 +1,71 @@
+---
+title: "Extending GenomicDataStream"
+subtitle: "File and data types"
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r format(Sys.time())`"
+output:
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    toc_depth: 3
+    fig_width: 5
+#bibliography: library.bib
+vignette: >
+  %\VignetteIndexEntry{Extending GenomicDataStream}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+<!---
+
+
+--->
+
+```{r setup, echo=FALSE, results="hide"}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  cache = TRUE,
+  dev = "png",
+  package.startup.message = FALSE,
+  message = FALSE,
+  error = FALSE,
+  warning = FALSE
+)
+options(width = 100)
+```	
+
+<style>
+body {
+text-align: justify}
+</style>
+
+# Additional file types
+Consider extending the package to support to support a new file of type `X`.  First, create a new class `Xstream` that inherits from `GenomicDataStream` defined [here](../doxygen/html/classgds_1_1_genomic_data_stream.html).  `Xstream` must define a constructor taking `Param` defined [here](../doxygen/html/structgds_1_1_param.html), and implement interfaces for `getNextChunk()` for each data type.
+
+A [`DataChunk`](../doxygen/html/classgds_1_1_data_chunk.html) stores information about each feature and sample in a class inheriting from [`DataInfo`](../doxygen/html/classgds_1_1_data_info.html).  Streams for genotype data store feature information in the [`VariantInfo`](../doxygen/html/classgds_1_1_variant_info.html) class, while `DelayedStream` uses [`MatrixInfo`](../doxygen/html/classgds_1_1_matrix_info.html).  These classes or a custom class can be used to store information for a new file type. 
+
+While nothing else about the underlying data form at is assumed, `GenomicDataStream` designed to chunks of _features_ rather than chunks of _samples_. Features are stored as columns in the matrix returned by R/C++, <ins>independent of the underlying data storage format</ins>.    
+
+
+# Additional matrix types
+First, take a look a currently supported [data types](./GenomicDataStream.html#data-types), and note that each of these types wraps an array of `double` storing data in column-major order.  In fact, the constructors to the dense matrix types for Eigen and Armadillo return objects that point to the original `double` array, without allocating new memory.  So any new data type should have a constructor that takes a `double` array.
+
+The simplest new type to implement would be a `float` version of an existing type.  This could reduce memory usage in downstream analyses and increase speed at the cost of numerical precision.   
+
+
+
+
+
+
+<!-- 
+# Session info
+<details>
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
+<\details> -->
+
+
+<!-- # References -->
+

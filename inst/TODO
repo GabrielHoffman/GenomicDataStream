@@ -1,4 +1,8 @@
 
+Make sure lucida imports GenomicDataStream
+	zstd deprecated 
+	forbidden function calls to exit, abort, stderr
+
 Nov 19,
 	pgenlibr data
 

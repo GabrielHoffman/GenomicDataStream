@@ -1,0 +1,180 @@
+---
+title: "Data as a GenomicDataStream"
+subtitle: "R and C++ code"
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r format(Sys.time())`"
+output:
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    toc_depth: 3
+    fig_width: 5
+#bibliography: library.bib
+vignette: >
+  %\VignetteIndexEntry{Reading data as a GenomicDataStream}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+<!---
+
+
+--->
+
+```{r setup, echo=FALSE, results="hide"}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  cache = TRUE,
+  dev = "png",
+  package.startup.message = FALSE,
+  message = FALSE,
+  error = FALSE,
+  warning = FALSE
+)
+options(width = 100)
+```	
+
+<style>
+body {
+text-align: justify}
+</style>
+
+`GenomicDataStream` designed to chunks of _features_ rather than chunks of _samples_. Features are stored as columns in the matrix returned by R/C++, <ins>independent of the underlying data storage format</ins>.    
+
+# Usage
+In general, variants from genetic data are used as covariates in `lmFitFeatures()`, and genes from single cell data are used as responses in `lmFitResponses()`.
+
+
+### Example code with R
+#### Read genotype data into R
+```R
+library(GenomicDataStream)
+
+# VCF file
+file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+# initialize 
+gds = GenomicDataStream(file, "DS", chunkSize=5, initialize=TRUE)
+
+n = 60
+y = rnorm(n)
+design = matrix(1, n, 1)
+
+# loop until break
+while( 1 ){
+
+    # get data chunk
+    # data$X matrix with features as columns
+    # data$info information about each feature as rows
+    dat = getNextChunk(gds)
+
+    # check if end of stream 
+    if( atEndOfStream(gds) ) break
+    
+    # do analysis on this chunk of data
+    fit = lmFitFeatures(y, design, dat$X)
+}
+```
+
+#### Use R to run analysis at C++ level
+```R
+library(GenomicDataStream)
+
+# VCF file
+file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+# create object, but don't read yet 
+# Read DS field storing dosage
+gds = GenomicDataStream(file, "DS", chunkSize=5)
+
+n = 60
+y = rnorm(n)
+design = matrix(1, n, 1)
+
+# regression of y ~ design + X[,j]
+#   where X[,j] is the jth variant in the GenomicDataStream
+# data in GenomicDataStream is only accessed at C++ level 
+fit = lmFitFeatures(y, design, gds)
+```
+
+
+### Example code with C++17
+```c++
+#include <RcppArmadillo.h>
+#include <GenomicDataStream.h>
+
+// use namespace for GenomicDataStream
+using namespace gds;
+
+// parameters 
+string file = "test.vcf.gz";
+string field = "DS";    // read dosage field
+string region = "";     // no region filter
+string samples = "-";   // no samples filter
+int chunkSize = 4;      // each chunk will read 4 variants
+
+// initialize parameters
+Param param(file, region, samples, chunkSize);
+param.setField( field );
+
+// Initialise GenomicDataStream to read 
+// VCF/BCF and BGEN with same interface
+unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
+
+// declare DataChunk storing an Armadillo matrix for each chunk
+DataChunk<arma::mat> chunk;
+
+// Store meta-data about each variant
+VariantInfo *info;
+
+// loop through chunks
+while( gdsStream->getNextChunk( chunk ) ){
+
+    // get data from chunk
+    // chunk.getData();
+
+    // get variant information
+    info = chunk.getInfo<VariantInfo>();
+
+    // Do analysis with variants in this chunk
+}
+```
+
+Accessing data 
+
+
+# Data types
+At the C++ level data from the `GenomicDataStream` can be accessed as multiple types a according to the templated definition of `DataChunk`.  Above, each `chunk` is a `DataChunk<arma::mat>` so the data is returned as an Armadillo matrix of doubles (i.e. `arma::mat`).
+
+Suppported data types for dense matricies are:
+
+| Library | Namespace | Type 
+| -- | --- | --- 
+Rcpp | `Rcpp` | `NumericMatrix` 
+Armadillo | `arma` | `mat`  
+Eigen | `Eigen` | `MatrixXd`  
+STL | `std` | `vector<double>` 
+
+Importantly, each of these types wraps an array of `double` storing data in column-major order.  The types just provide different interfaces to the underlying array for use in downstream analysis.  In each case, the raw data is read as an `double` array, a constructor is called for the requested data type using the array as the underlying data and an object is returned to the user.  In fact, the constructors to the dense matrix types for Eigen and Armadillo return objects that point to the original `double` array, without allocating new memory.   
+
+`GenomicDataStream` also supports the following sparse matrix types:
+
+| Library | Namespace | Type 
+| -- | --- | --- 
+Armadillo | `arma` | `sp_mat` 
+Eigen | `Eigen` | `SparseMatrix` 
+
+In each case, a constructor is called for the requested data type the converter `double` array to a sparse matrix.
+
+
+# Session info
+<details>
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
+<\details>
+
+
+<!-- # References -->
+

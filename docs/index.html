@@ -31,7 +31,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/GenomicDataStream.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/extensions.html">Extending GenomicDataStream</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -68,109 +75,6 @@
 <h3 id="see-header-only-c-library-documentation">See header-only C++ library <a href="doxygen/html/index.html">documentation</a>
 <a class="anchor" aria-label="anchor" href="#see-header-only-c-library-documentation"></a>
 </h3>
-</div>
-</div>
-<div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
-</h2>
-<p>In general, variants from genetic data are used as covariates in <code><a href="https://rdrr.io/pkg/fastlmm/man/lmFitFeatures.html" class="external-link">lmFitFeatures()</a></code>, and genes from single cell data are used as responses in <code><a href="reference/lmFitResponses.html">lmFitResponses()</a></code>.</p>
-<div class="section level3">
-<h3 id="example-code-with-r">Example code with R<a class="anchor" aria-label="anchor" href="#example-code-with-r"></a>
-</h3>
-<div class="section level4">
-<h4 id="read-genotype-data-into-r">Read genotype data into R<a class="anchor" aria-label="anchor" href="#read-genotype-data-into-r"></a>
-</h4>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># VCF file</span></span>
-<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># initialize </span></span>
-<span><span class="va">gds</span> <span class="op">=</span> <span class="fu"><a href="reference/GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize<span class="op">=</span><span class="fl">5</span>, initialize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">n</span> <span class="op">=</span> <span class="fl">60</span></span>
-<span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># loop until break</span></span>
-<span><span class="kw">while</span><span class="op">(</span> <span class="fl">1</span> <span class="op">)</span><span class="op">{</span></span>
-<span></span>
-<span>    <span class="co"># get data chunk</span></span>
-<span>    <span class="co"># data$X matrix with features as columns</span></span>
-<span>    <span class="co"># data$info information about each feature as rows</span></span>
-<span>    <span class="va">dat</span> <span class="op">=</span> <span class="fu"><a href="reference/getNextChunk.html">getNextChunk</a></span><span class="op">(</span><span class="va">gds</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="co"># check if end of stream </span></span>
-<span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="reference/atEndOfStream.html">atEndOfStream</a></span><span class="op">(</span><span class="va">gds</span><span class="op">)</span> <span class="op">)</span> <span class="kw">break</span></span>
-<span>    </span>
-<span>    <span class="co"># do analysis on this chunk of data</span></span>
-<span>    <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastlmm/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="use-r-to-run-analysis-at-c-level">Use R to run analysis at C++ level<a class="anchor" aria-label="anchor" href="#use-r-to-run-analysis-at-c-level"></a>
-</h4>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># VCF file</span></span>
-<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># create object, but don't read yet </span></span>
-<span><span class="va">gds</span> <span class="op">=</span> <span class="fu"><a href="reference/GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">n</span> <span class="op">=</span> <span class="fl">60</span></span>
-<span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># regression of y ~ design + X[,j]</span></span>
-<span><span class="co">#   where X[,j] is the jth variant in the GenomicDataStream</span></span>
-<span><span class="co"># data in GenomicDataStream is only accessed at C++ level </span></span>
-<span><span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastlmm/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">gds</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="example-code-with-c17">Example code with C++17<a class="anchor" aria-label="anchor" href="#example-code-with-c17"></a>
-</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;GenomicDataStream.h&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">// use namespace for GenomicDataStream</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> gds<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">// parameters </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>string file <span class="op">=</span> <span class="st">"test.vcf.gz"</span><span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>string field <span class="op">=</span> <span class="st">"DS"</span><span class="op">;</span>    <span class="co">// read dosage field</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>string region <span class="op">=</span> <span class="st">""</span><span class="op">;</span>     <span class="co">// no region filter</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>string samples <span class="op">=</span> <span class="st">"-"</span><span class="op">;</span>   <span class="co">// no samples filter</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="dt">int</span> chunkSize <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>      <span class="co">// each chunk will read 4 variants</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">// initialize parameters</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>Param param<span class="op">(</span>file<span class="op">,</span> region<span class="op">,</span> samples<span class="op">,</span> chunkSize<span class="op">);</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>param<span class="op">.</span>setField<span class="op">(</span> field <span class="op">);</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">// Initialise GenomicDataStream to read </span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">// VCF/BCF and BGEN with same interface</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>unique_ptr<span class="op">&lt;</span>GenomicDataStream<span class="op">&gt;</span> gdsStream <span class="op">=</span> createFileView<span class="op">(</span> param <span class="op">);</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">// declare DataChunk storing an Armadillo matrix for each chunk</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">&gt;</span> chunk<span class="op">;</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">// Store meta-data about each variant</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>VariantInfo <span class="op">*</span>info<span class="op">;</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    <span class="co">// chunk.getData();</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>    info <span class="op">=</span> chunk<span class="op">.</span>getInfo<span class="op">&lt;</span>VariantInfo<span class="op">&gt;();</span></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
