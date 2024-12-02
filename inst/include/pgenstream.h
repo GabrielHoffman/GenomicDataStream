@@ -372,7 +372,7 @@ class pgenstream :
 		}else if( regex_search(fileSamples, regex("fam$")) ){
 
 			// Read BIM file with no headerKey
-			dt2 = DataTable( fileIdx );
+			dt2 = DataTable( fileSamples );
 
 			// set column names
 			vector<string> names = {"FID", "IID", "PID", "MID", "SEX", "ALT", "PHENO"};
@@ -383,11 +383,11 @@ class pgenstream :
 		}
 
 		// Sample names from PSAM file
-  		vector<string> SamplesNames = dt2["IID"];
+  	vector<string> SamplesNames = dt2["IID"];
 		n_samples_psam = SamplesNames.size();
 
-  		// indeces of samples to include
-        vector<int> sampleIdx;
+  	// indeces of samples to include
+    vector<int> sampleIdx;
 
 		// Filter samples
 		// If param.samples contains entries 

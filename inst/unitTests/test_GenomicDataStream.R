@@ -1,4 +1,27 @@
 
+
+test = function(){
+
+	library(RUnit)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+	res = GenomicDataStream:::f_test_mat_types( file )
+
+	sapply(res, function(x){
+		checkEqualsNumeric(x, res[[1]])
+		})
+
+
+
+
+}
+
+
+
+
 test_DataTable = function(){
 	# q()
 	# R
@@ -9,15 +32,15 @@ test_DataTable = function(){
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
 	file <- system.file("extdata", "test.pvar", package = "GenomicDataStream")
-	GenomicDataStream:::test_DataTable( file, "#CHROM")
+	res1 = GenomicDataStream:::test_DataTable( file, "#CHROM")
 
 
 	file <- system.file("extdata", "test.psam", package = "GenomicDataStream")
-	GenomicDataStream:::test_DataTable( file, "#IID")
+	res2 = GenomicDataStream:::test_DataTable( file, "#IID")
 
 
 	file <- system.file("extdata", "test.fam", package = "GenomicDataStream")
-	GenomicDataStream:::test_DataTable( file, "")
+	res3 = GenomicDataStream:::test_DataTable( file, "")
 
 
 }
@@ -51,7 +74,7 @@ test_pgenstream = function(){
 
 		if( atEndOfStream(gdsObj) ) break
 		
-		print(dat$info)
+		# print(dat$info)
 	}
 
      
@@ -70,7 +93,7 @@ test_pgenstream = function(){
 
 		if( atEndOfStream(gdsObj) ) break
 		
-		print(dat$info)
+		# print(dat$info)
 	}
 
 
@@ -149,228 +172,6 @@ test_standardize = function(){
 
 
 
-
-test_vcfstream = function(){
-
-	suppressPackageStartupMessages({
-	library(RUnit)
-	library(VariantAnnotation)
-	library(vcfppR)
-	library(GenomicDataStream)
-	})
-
-	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-
-	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
-	# file <- system.file("extdata", "set1a.vcf.gz", package = "BinaryDosage")
-	# system(paste("gunzip -f", file))
-	# system(paste("bgzip -f", gsub(".gz$", "", file)))
-	# system(paste("tabix -p vcf", file))
-
-	# whole region
-	#-------------
-
-	# VariantAnnotation
-	vcf <- suppressWarnings(readVcf(file))
-	X_all = geno(vcf)[["DS"]]
-
-	res = GenomicDataStream:::extractVcf( file, "DS", "." )
-	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
-
-	res = GenomicDataStream:::extractVcf_eigen( file, "DS", "." )
-	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
-
-	res = GenomicDataStream:::extractVcf_NM( file, "DS", "." )
-	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
-
-	res1 = GenomicDataStream:::extractVcf_vector( file, "DS", "." )
-	A = matrix(res1$X, nrow(X_all), ncol(X_all), byrow=TRUE)
-	checkEqualsNumeric(as.numeric(A), as.numeric(X_all), tol=1e-7)
-
-
-	res2 = vcfppR::vcftable(file, ".", format="DS")
-	checkEqualsNumeric(res2$DS, X_all, tol=1e-7)
-
-	res3 = GenomicDataStream:::extractVcf_chunks( file, "DS", "." )
-	checkEqualsNumeric(res$X[,3:4], res3$X, tol=1e-7)
-
-	# range
-	#-------------
-
-	# VariantAnnotation
-	region = "1:11000-13000"
-	gr = GRanges(1, IRanges(11000, 13000))
-	vcf <- suppressWarnings(readVcf(file, "hg19", param=gr))
-	X_all = geno(vcf)[["DS"]]
-
-	res = GenomicDataStream:::extractVcf( file, "DS", region )
-	checkEqualsNumeric(t(res$X), X_all, tol=1e-7)
-
-	res3 = GenomicDataStream:::extractVcf_chunks( file, "DS", region )
-	checkEqualsNumeric(res$X[,3], res3$X, tol=1e-7)
-
-	# subset samples
-	#---------------
-	idx = c(6, 1, 9, 4)
-	sampleIds = paste0(rownames(res$X)[idx], collapse=",")
-	res2 = GenomicDataStream:::extractVcf( file, "DS", region, sampleIds )
-	checkEqualsNumeric(res2$X, res$X[sort(idx),], tol=1e-7)
-
-	res3 = GenomicDataStream:::extractVcf_chunks( file, "DS", region, sampleIds  )
-	checkEqualsNumeric(res$X[sort(idx),3], res3$X, tol=1e-7)
-
-
-	# DP is an integer
-	##################
-	file <- system.file("extdata", "raw.gt.vcf.gz", package="vcfppR")
-    
-    field = "DP"
-	vcf <- suppressWarnings(readVcf(file))
-	X_all = geno(vcf)[[field]]
-	res = GenomicDataStream:::extractVcf( file, field, "." )
-	checkEqualsNumeric(t(res$X), X_all)
-
-	res2 = GenomicDataStream:::extractVcf_chunks( file, field, "." )
-	checkEqualsNumeric(t(res2$X), X_all[3:4,])
-
-	# GT must be converted to integer
-	#################################
-	field = "GT"	
-
-	region = "chr21:5030082-5030105"
-	res = GenomicDataStream:::extractVcf( file, field, region)
-	res2 = GenomicDataStream:::extractVcf_chunks( file, field, region)
-
-	gr = GRanges('chr21', IRanges(5030082, 5030105))
-	# vcf <- suppressWarnings(readVcf(file, "hg19", param=gr))
-	vcf <- suppressWarnings(readVcf(file, "hg19"))
-	X_gt = geno(vcf)[[field]][colnames(res$X),]
-	X_ds = X_gt
-	X_ds[X_gt=="0/0"] = 0
-	X_ds[X_gt=="0/1"] = 1
-	X_ds[X_gt=="1/0"] = 1
-	X_ds[X_gt=="1/1"] = 2
-	X_ds[X_gt=="./."] = NaN
-	X_ds = matrix(as.numeric(X_ds), nrow(X_gt), ncol(X_gt), byrow=FALSE)
-
-	checkEqualsNumeric(t(res$X), X_ds[1:3,])
-		# X_all[1:3, 1:5]
-	# X_all_dosage[1:3, 1:5]
-	# t(res$X)[1:3, 1:5]
-	checkEqualsNumeric(t(res2$X), X_ds[3,])
-
-	# check missingToMean
-	res2 = GenomicDataStream:::extractVcf( file, field, region, missingToMean=TRUE)
-	a = colMeans(res$X, na.rm=T)
-	b = colMeans(res2$X)
-	checkEqualsNumeric(a,b)
-
-	res3 = GenomicDataStream:::extractVcf_chunks( file, field, region, missingToMean=TRUE)
-	a = colMeans(res$X, na.rm=T)
-	b = colMeans(res3$X)
-	checkEqualsNumeric(a[3], b)
-
-	# using multiple chunks
-	reg = "chr21:5030082-5030104,chr21:5030105-5030105"
-	res4 = GenomicDataStream:::extractVcf_chunks( file, field, reg, missingToMean=TRUE)
-	a = colMeans(res$X, na.rm=T)
-	b = colMeans(res4$X)
-	checkEqualsNumeric(a[3], b)
-
-
-
-	# Check errors
-	#-------------
-
-	# res = GenomicDataStream:::extractVcf( file, "GT", "." )
-	# Error: GT is not supported for multi-allelic site
-	# chr21:5030319 chr21:5030319:C:G,T C G,T
-
-	# res = GenomicDataStream:::extractVcf( file, "GT", "343" )
-	# Error: region was not found! make sure the region format is correct
-
-     
-}
-
-
-
-
-test = function(){
-
-	# # DEBUG BGEN support on minerva
-	# library(GenomicDataStream)
-	# library(rbgen)
-
-	# # devtools::reload("~/build2/GenomicDataStream")
-
-
-
-	# file = "/hpc/users/hoffmg01/.Rlib/R_433/GenomicDataStream/extdata/test_noph_v1.3_16bits.bgen"
-	# samp = c("I1,I2,I3")
-	# dat = GenomicDataStream:::getDosage(file, field = '', chunkSize=8, samples=samp)
-
-	# # , samples=c("sample_001","sample_002")
-	# rng = data.frame( chromosome = '1', start = 0, end = 12000 )
-	# res = bgen.load( file, ranges = rng)
-
-	# samp = c("I1,I2,I3")
-	# dat = GenomicDataStream:::getDosage(file, field = '', chunkSize=10, samples=samp)
-
-
-
-}
-
-
-test_large= function(){
-
-	# suppressPackageStartupMessages({
-	# library(RUnit)
-	# library(VariantAnnotation)
-	# library(GenomicDataStream)
-	# })
-
-	# # devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-
-	# # Analysis in R
-	# #------------------
-	# file = "/sc/arion/projects/CommonMind/zengb02/single_cell_eQTL_for_Gabriel_04032023/data/genotype/PsychAD_genotype.vcf.gz"
-
-	# # VariantAnnotation
-	# system.time({
-	# gr <- GRanges("chr1", IRanges(0, 1100101))
-	# vcf <- suppressWarnings(readVcf(file, param=ScanVcfParam(which=gr)))
-	# X_all = geno(vcf)[["DS"]]
-	# y = seq(ncol(X_all))
-
-	# res1 = lapply(seq(nrow(X_all)), function(j){
-	# 	coef(lm(y ~ X_all[j,]))
-	# })
-	# res1 = do.call(rbind, res1)
-	# rownames(res1) = rownames(X_all)
-	# })
-
-
-
-
-	# system.time(res <- GenomicDataStream:::fastLM(y, file, "DS", chunkSize=100000, region="chr1:0-1100001", nthreads=12))
-
-
-
-
-
-
-
-
-	# X = cbind(1, X_all[1,])
-	# summary(lm(y ~ X+0))
-	# hatvalues(lm(y ~ X+0))
-	# GenomicDataStream:::test_lm(X,y, TRUE)
-
-
-
-}
-
-
 test_xptr = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
@@ -407,10 +208,6 @@ test_xptr = function(){
 		
 		print(dat$info)
 	}
-
-
-		
-
 
 }
 
@@ -616,7 +413,8 @@ test_regression = function(){
 		# rm(dat, res)
 
 		# test dosages
-		dat = GenomicDataStream:::getDosage(file, "DS", chunkSize=10000)
+		gds = GenomicDataStream(file, "DS", chunkSize=10000, initialize=TRUE, missingToMean=TRUE)
+	    dat = getNextChunk(gds)
 
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
@@ -641,7 +439,8 @@ test_regression = function(){
 		# cat(file, "\n")
 
 		# test dosages
-		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100)
+		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=10000, initialize=TRUE, missingToMean=TRUE)
+	    dat = getNextChunk(gds)
 		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,], tol=1e-4)
 
 		# test regression
@@ -656,7 +455,7 @@ test_regression = function(){
 	####################
 	reg = "1:0-11000"
 	ids = rev(paste0("I", seq(60)))
-	ids = sample(ids, 4)
+	ids = sample(ids, 40)
 	ids = paste(ids, collapse=',')
 	
 
@@ -668,11 +467,14 @@ test_regression = function(){
 		cat(file, "\n")
 
 		# test dosages
-		dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100, samples=ids)
-		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-4)
+		# dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100, samples=ids)
+
+		gds = GenomicDataStream(file, "DS", region=reg, chunkSize=10000, initialize=TRUE, samples=ids, missingToMean=TRUE)
+	    dat = getNextChunk(gds)
+		checkEqualsNumeric(t(dat$X), X_all[dat$info$ID,rownames(dat$X)], tol=1e-3)
 		})
 
-	cbind(dat$X, t(X_all[dat$info$ID,rownames(dat$X),drop=FALSE]))
+	# cbind(dat$X, t(X_all[dat$info$ID,rownames(dat$X),drop=FALSE]))
 
  	# bcf does not work with subsetting samples
  	# library(vcfppR)
@@ -695,7 +497,8 @@ test_regression = function(){
 		# rm(dat, res)
 
 		# test dosages
-		dat = GenomicDataStream:::getDosage(file, "GP", chunkSize=1000)
+		gds = GenomicDataStream(file, "GP", chunkSize=10000, initialize=TRUE)
+	    dat = getNextChunk(gds)
 
 		# dat$X[1:3, 1:3]
 		# t(X_all[1:3,1:3])
@@ -824,188 +627,6 @@ test_DelayedStream = function(){
 
 	checkEqualsNumeric(res$coef, res1)
 
-
-
-
-
-
 }
-
-# test_DelayedStream = function(){
-
-# 	library(GenomicDataStream)
-
-# 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-
-# 	# res1 = GenomicDataStream:::getDA_NM( M )
-
-# 	# res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
-
-
-# 	library(muscat)
-# 	library(SingleCellExperiment)
-# 	library(DelayedArray)
-
-# 	data(example_sce)
-
-# 	M = counts(example_sce)[1:3, 1:3]
-# 	M = DelayedArray(as.matrix(M))
-
-# 	res1 = GenomicDataStream:::getDA( M )
-# 	identical(rownames(M), rownames(res1))
-# 	identical(colnames(M), colnames(res1))
-
-# 	res2 = GenomicDataStream:::getDA_NM( as.matrix(M) )
-# 	identical(rownames(M), rownames(res2))
-# 	identical(colnames(M), colnames(res2))
-
-
-# 	res1 = GenomicDataStream:::getDA( M )
-# 	identical(as.numeric(M), as.numeric(res1))
-
-# 	res2 = GenomicDataStream:::getDA( as.matrix(M) )
-# 	identical(as.numeric(M), as.numeric(res2))
-
-
-# 	res1 = GenomicDataStream:::getDA_eigen( M )
-# 	identical(as.numeric(M), as.numeric(res1))
-
-# 	res2 = GenomicDataStream:::getDA_eigen( as.matrix(M) )
-# 	identical(as.numeric(M), as.numeric(res2))
-
-
-
-# 	res1 = GenomicDataStream:::getDA_vector( M )
-# 	identical(as.numeric(M), as.numeric(res1))
-
-# 	res2 = GenomicDataStream:::getDA_vector( as.matrix(M) )
-# 	identical(as.numeric(M), as.numeric(res2))
-
-
-# 	library(Matrix)
-# 	library(GenomicDataStream)
-
-# 	x <- round(rsparsematrix(1000, 10, 0.2))
-
-# 	# Initializing it in C++.
-# 	library(beachmat)
-# 	ptr <- initializeCpp(x)
-# 	GenomicDataStream:::column_sums(ptr)
-# 	colSums(x)
-
-# }
-
-
-
-
-
-
-
-
-
-
-
-# test_bgenstream(){
-
-
-
-# 	library(RUnit)
-# 	library(GenomicDataStream)
-
-# 	file = "/Users/gabrielhoffman/workspace/repos/test_bgen/bgen/example/example.8bits.bgen"
-
-# 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-
-# 	# GenomicDataStream:::test_bgen(file)
-
-# 	res = GenomicDataStream:::load( file, sprintf("%s.bgi", file), ranges = data.frame( chromosome = '01', start = 1001, end = 1002 ), rsids = character(0), max_entries_per_sample=3)
-
-
-# 	head( res$variants )
-# 	res$data[1,1:10,1:3]
-
-
-# 	library( rbgen )
-
-# 	## Test we can load data
-# 	D = bgen.load( file, ranges = data.frame( chromosome = '01', start = 0, end = 14444 ), samples=c("sample_001","sample_002"))
-# 	# head( D$variants )
-# 	# c(D$data)
-
-
-# 	# D$data[1,1,,drop=FALSE]
-
-# 	# get dosage
-# 	X = lapply(seq(nrow(D$data)), function(j){
-# 		D$data[j,,] %*% c(0,1,2)
-# 		})
-# 	names(X) = dimnames(D$data)[[1]]
-
-# 	X = do.call(cbind, X)
-# 	colnames(X) = dimnames(D$data)[[1]]
-
-
-# 	regions = "01:0-14444"
-# 	res = GenomicDataStream:::test_bgen( file, "DS", region=regions, samples=c("sample_001,sample_002" ), chunkSize = 1e5)
-
-# 	checkEqualsNumeric(X, res$X)
-
-
-
-# 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream"); rm(res)
-# 	regions = "01:0-14444"
-# 	res = GenomicDataStream:::test_bgen( file, "DS", region=regions, chunkSize = 1e5, missingToMean=FALSE)
-
-# 	res$X[1:2, 1:2]
-
-
-
-
-
-
-# 	regions = "."
-# 	y = rnorm(500)
-
-
-# 	devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream"); rm(res)
-
-
-# 	res = GenomicDataStream:::test_bgen2( y, file, "DS", region=regions, chunkSize=300)
-
-
-
-# 	# Rcpp::sourceCpp(code = "
-# 	# 	#include <RcppArmadillo.h>
-# 	# 	// [[Rcpp::depends(RcppArmadillo, GenomicDataStream)]]
-
-# 	# 	#include <GenomicDataStream.h>
-# 	# 	#include <bgenstream.h>
-
-# 	# 	using namespace std;
-# 	# 	using namespace GenomicDataStreamLib;
-
-# 	# 	// [[Rcpp::export]]
-# 	# 	string f( string file){
-# 	# 		Param param(file, \"DS\");
-# 	# 		bgenstream bgenObj(param);
-# 	# 		return file;
-# 	# 	}")
-
-# 	# f(file)
-
-
-# 	# Rcpp::cppFunction(code = "
-# 	# 	string f( string file){
-			
-# 	# 	#include <GenomicDataStream.h>
-# 	# 		Param param(file, \"DS\");
-
-# 	# 		return file;
-# 	# 	}", depends=c("RcppArmadillo", "GenomicDataStream"))
-
-# 	# f(file)
-
-# }
-
 
 

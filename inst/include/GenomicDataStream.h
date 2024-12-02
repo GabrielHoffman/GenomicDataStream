@@ -96,6 +96,7 @@ Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
 #ifndef GENOMIC_DATA_STREAM_H_
 #define GENOMIC_DATA_STREAM_H_
 
+#include "GenomicDataStream_virtual.h"
 #include "pgenstream.h"
 #include "bgenstream.h"
 #include "vcfstream.h"

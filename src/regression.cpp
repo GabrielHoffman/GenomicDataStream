@@ -29,7 +29,7 @@
 
 
 #include "GenomicDataStream.h"
-#include <fastlmmLib.h>
+#include <linearRegression.h>
 #include <exportToR.h>
 
 using namespace std;
