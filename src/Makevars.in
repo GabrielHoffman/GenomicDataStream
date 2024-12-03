@@ -5,7 +5,7 @@ RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 	'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
 PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))') -ldeflate
 
 PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -D NDEBUG  \
@@ -28,7 +28,6 @@ PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT @ZSTD_COMPILE_FLAG@ @LIBDEFLATE
 CXX_STD=CXX17
 
 PKG_CFLAGS=-DSQLITE_WITHOUT_ZONEMALLOC -D NDEBUG
-
 
 C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c)
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) 
