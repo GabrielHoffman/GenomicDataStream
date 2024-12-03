@@ -1,5 +1,7 @@
 #include "pgen/pvar.h"  // includes Rcpp
 
+#include <stdexcept>
+
 using namespace std;
 
 RPvar::RPvar() {
