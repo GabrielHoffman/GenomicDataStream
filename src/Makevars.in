@@ -4,11 +4,25 @@ RHTSLIB_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 	'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
+
 # PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-# 	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+# 	 'pth = system.file("libs", package = "pgenlibr", mustWork = TRUE); \
+# 	 libs = dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern=".a$"); \
+# 	libs = gsub("^lib(.*).a", "-l\\1", libs); \
+# 	if( length(libs) > 0){ cat("-L", pth, " ", paste(libs, collapse=" "), sep="")}')
+
+
+# PLINK2_LIBS=-L/hpc/users/hoffmg01/.Rlib/R_441_bioc320/pgenlibr/libs -lPGDEFLATE -lPLINK2
 
 PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-	 'cat("-L", system.file("libs", package = "pgenlibr", mustWork = TRUE), sep='', " -lPLINK2 -lPGDEFLATE -lPGZSTD")')
+ 	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+
+
+# /Users/gabrielhoffman/prog/R-4.4.1/library/pgenlibr/libs/pgenlibr.so
+# Full path here works on minerva, not OSX
+
+
+
 
 PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -D NDEBUG  \

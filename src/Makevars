@@ -4,8 +4,25 @@ RHTSLIB_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 	'Rhtslib::pkgconfig("PKG_CPPFLAGS")')
 
+
+# PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
+# 	 'pth = system.file("libs", package = "pgenlibr", mustWork = TRUE); \
+# 	 libs = dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern=".a$"); \
+# 	libs = gsub("^lib(.*).a", "-l\\1", libs); \
+# 	if( length(libs) > 0){ cat("-L", pth, " ", paste(libs, collapse=" "), sep="")}')
+
+
+# PLINK2_LIBS=-L/hpc/users/hoffmg01/.Rlib/R_441_bioc320/pgenlibr/libs -lPGDEFLATE -lPLINK2
+
 PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+ 	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+
+
+# /Users/gabrielhoffman/prog/R-4.4.1/library/pgenlibr/libs/pgenlibr.so
+# Full path here works on minerva, not OSX
+
+
+
 
 PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -D NDEBUG  \
@@ -28,7 +45,6 @@ PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DIGNORE_BUNDLED_ZSTD -DIGNORE_
 CXX_STD=CXX17
 
 PKG_CFLAGS=-DSQLITE_WITHOUT_ZONEMALLOC -D NDEBUG
-
 
 C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c)
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) 

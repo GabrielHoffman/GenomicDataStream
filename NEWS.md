@@ -1,5 +1,8 @@
 
 
+# GenomicDataStream 0.0.6
+ - Dec 3, 2024
+ - add dependency `fastLinReg`
 
 # GenomicDataStream 0.0.5
  - Nov 19, 2024

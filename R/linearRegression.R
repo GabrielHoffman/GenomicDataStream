@@ -48,14 +48,16 @@ as.list.GenomicDataStream <- function(x, ...) {
 #'
 #' res2 <- lmFitFeatures(y, X_design, gds, w)
 #
-#' @importMethodsFrom fastlmm lmFitFeatures
+#' @importMethodsFrom fastLinReg lmFitFeatures
 #' @export
 #' @rdname lmFitFeatures
 #' @aliases lmFitFeatures, GenomicDataStream-method
 setMethod(
   "lmFitFeatures", signature(data = "GenomicDataStream"),
   function(y, design, data, weights, detail = 0, preprojection = TRUE, nthreads = 1, ...) {
-    stopifnot(!isInitialized(data))
+    if( isInitialized(data) ){
+      stop("GenomicDataStream is already initialized")
+    }
 
     if (detail > 3) stop("detail > 3 not defined")
 
@@ -118,7 +120,7 @@ setMethod(
 #' # examine results
 #' lapply(fit, head, 2)
 #
-#' @importMethodsFrom fastlmm lmFitResponses
+#' @importMethodsFrom fastLinReg lmFitResponses
 #' @importFrom beachmat initializeCpp
 #' @export
 #' @rdname lmFitResponses
