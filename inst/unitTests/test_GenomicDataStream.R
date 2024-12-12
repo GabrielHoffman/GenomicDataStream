@@ -630,3 +630,276 @@ test_DelayedStream = function(){
 }
 
 
+test_glmFitFeatures = function(){
+
+
+	# Test VCF/BCF/BGEN dosage and regression results
+	suppressPackageStartupMessages({
+	library(RUnit)
+	library(VariantAnnotation)
+	library(GenomicDataStream)
+	})
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	# Analysis in R
+	#------------------
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+
+	# VariantAnnotation
+	system.time({
+	vcf <- suppressWarnings(readVcf(file))
+	X_all = geno(vcf)[["DS"]]
+	y = seq(ncol(X_all))
+
+	res1 = lapply(seq(nrow(X_all)), function(j){
+		coef(lm(y ~ X_all[j,]))
+	})
+	res1 = do.call(rbind, res1)
+	rownames(res1) = rownames(X_all)
+	})
+
+	X = cbind(1, X_all[1,])
+	# X[,2] = 1
+	fit = lm(y ~ X+0)
+	fit2 = GenomicDataStream:::test_lm(X,y)
+	checkEqualsNumeric(coef(fit), fit2$coefficients)
+	
+	# Analysis in GenomicDataStream
+	#-------------------------------
+
+	X_design = matrix(1, ncol(X_all))
+	w = y
+	w[] = 1
+	w = seq(length(w))
+	offset = log(seq(length(y)))
+
+	# GAUSSIAN
+	##########
+	set.seed(1)
+	y = rnorm(nrow(X_design))
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "gaussian", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "gaussian", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+	# LOGIT
+	#######
+	set.seed(1)
+	y = sample(2, nrow(X_design), replace=TRUE) - 1
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "logit", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "logit", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+	# PROBIT
+	########
+
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "probit", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "probit", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+	# POISSON
+	##########
+
+	set.seed(1)
+	y = rpois(nrow(X_design), 100)
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "poisson", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "poisson", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+	# NB:10
+	#######
+
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "nb:10", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "nb:10", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+	# NB
+	#####
+
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "nb", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "nb", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+
+
+
+}
+
+test_glmFitResponses = function(){
+
+	suppressPackageStartupMessages({
+	library(RUnit)
+	library(GenomicDataStream)
+	library(DelayedArray)
+	library(MASS)
+	})
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	n = 1000
+	m = 100
+	nc = 2
+	set.seed(1)
+	Y = matrix(rnorm(n*m), m, n)
+	colnames(Y) = paste0("s", seq(n))
+	rownames(Y) = paste0("r", seq(m))
+
+	X = cbind(1, matrix(rnorm(n*nc), n,nc))
+	colnames(X) = paste0("V", seq(nc+1))
+	W = matrix(runif(n*m), ,n)	
+
+	isSame = function(res1, res2){
+		sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})	
+	}
+
+	# GAUSSIAN
+	res0 = lmFitResponses(Y, X, detail=4)
+	res1 = fastLinReg::glmFitResponses(Y, X, "gaussian", detail=4)
+	res2 = GenomicDataStream::glmFitResponses(Y, X, "gaussian", detail=4)
+	isSame(res1, res2)
+
+	# PROBIT
+	for(i in seq(nrow(Y))){
+		Y[i,] = sample(2, n, replace=TRUE) - 1
+	}
+
+	res1 = fastLinReg::glmFitResponses(Y, X, "probit")
+	res2 = GenomicDataStream::glmFitResponses(Y, X, "probit")
+	isSame(res1, res2)
+
+	# LOGIT
+	res1 = fastLinReg::glmFitResponses(Y, X, "logit")
+	res2 = GenomicDataStream::glmFitResponses(Y, X, "logit")
+	isSame(res1, res2)
+
+	# POISSON
+	for(i in seq(nrow(Y))){
+		Y[i,] = rnegbin(n, 5, 3) 
+	}
+	
+	res1 = fastLinReg::glmFitResponses(Y, X, "poisson")
+	res2 = GenomicDataStream::glmFitResponses(Y, X, "poisson")
+	isSame(res1, res2)
+
+	# NB
+	res1 = fastLinReg::glmFitResponses(Y, X, "nb")
+	res2 = GenomicDataStream::glmFitResponses(Y, X, "nb")
+	isSame(res1, res2)
+
+	res1 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "gaussian")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "gaussian")
+	isSame(res1, res2)
+
+
+	# q()
+	# R
+	# suppressPackageStartupMessages({
+	# library(RUnit)
+	# library(GenomicDataStream)
+	# library(DelayedArray)
+	# library(MASS)
+	# }) 
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	n = 1000
+	m = 100
+	nc = 2
+	set.seed(1)
+	Y = matrix(rnorm(n*m), m, n)
+	colnames(Y) = paste0("s", seq(n))
+	rownames(Y) = paste0("r", seq(m))
+	X = cbind(1, matrix(rnorm(n*nc), n,nc))
+	colnames(X) = paste0("V", seq(nc+1))
+
+	res0 = GenomicDataStream::lmFitResponses(DelayedArray(Y), X)
+	res1 = fastLinReg::glmFitResponses(Y, X, "gaussian")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "gaussian")
+	isSame(res0, res1)
+	isSame(res1, res2)
+
+	# PROBIT
+	for(i in seq(nrow(Y))){
+		Y[i,] = sample(2, n, replace=TRUE) - 1
+	}
+	res1 = fastLinReg::glmFitResponses(Y, X, "probit")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "probit")
+	isSame(res1, res2)
+
+	# LOGIT
+	res1 = fastLinReg::glmFitResponses(Y, X, "logit")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "logit")
+	isSame(res1, res2)
+
+	# POISSON
+	for(i in seq(nrow(Y))){
+		Y[i,] = rnegbin(n, 5, 3) 
+	}
+	res1 = fastLinReg::glmFitResponses(Y, X, "poisson")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "poisson")
+	isSame(res1, res2)
+
+	# NB
+	res1 = fastLinReg::glmFitResponses(Y, X, "nb")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "nb")
+	isSame(res1, res2)
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,7 +5,15 @@
 \alias{lmFitResponses,ANY-method}
 \title{Fit series of linear regression models to multiple responses with shared design matrix}
 \usage{
-\S4method{lmFitResponses}{ANY}(Y, design, Weights, detail = 0, nthreads = 1, ...)
+\S4method{lmFitResponses}{ANY}(
+  Y,
+  design,
+  Weights,
+  detail = 1,
+  chunkSize = 1000,
+  nthreads = 1,
+  ...
+)
 }
 \arguments{
 \item{Y}{matrix of responses as __rows__}
@@ -15,6 +23,8 @@
 \item{Weights}{matrix sample-level weights the same dimension as Y}
 
 \item{detail}{level of model detail returned, with LOW = 0, MEDIUM = 1, HIGH = 2. LOW (\code{beta}, \code{se}, \code{sigSq}, \code{rdf}), MEDIUM (\code{vcov}), HIGH (\code{residuals}), MOST (\code{hatvalues})}
+
+\item{chunkSize}{number of features to read per chunk}
 
 \item{nthreads}{number of threads.  Each model is fit in serial, analysis is parallelized across responses.}
 

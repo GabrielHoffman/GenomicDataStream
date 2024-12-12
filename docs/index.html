@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks • GenomicDataStream</title>
+<title>Read genomic data files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in chunks • GenomicDataStream</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read genomic data files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in chunks">
 <meta name="description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
 <meta property="og:description" content="Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries. BGEN support based on rbgen_v1.1.5.">
 </head>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
 </h3>
 <p><img src="reference/figures/GenomicDataStream.png"></p>
 <div align="justify">
-<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can’t be separated for use in other applications.</p>
+<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can’t be separated for use in other applications.</p>
 <p>The <code>GenomicDataStream</code> interface separate:</p>
 <ol style="list-style-type: decimal">
 <li>data source</li>
@@ -108,12 +108,12 @@
 <tr>
 <td>PGEN</td>
 <td>plink2</td>
-<td></td>
+<td>biallelic variants</td>
 </tr>
 <tr>
 <td>BED</td>
 <td>plink1</td>
-<td></td>
+<td>biallelic variants</td>
 </tr>
 <tr>
 <td>VCF / BCF</td>
@@ -153,6 +153,11 @@
 <td><a href="https://github.com/samtools/htslib" class="external-link">htslib</a></td>
 <td><a href="https://doi.org/10.1093/gigascience/giab007" class="external-link">GigaScience</a></td>
 <td>C API for VCF/BCF files</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=pgenlibr" class="external-link">pgenlibr</a></td>
+<td><a href="https://doi.org/10.1186/s13742-015-0047-8" class="external-link">GigaScience</a></td>
+<td>R/C++ API for plink files</td>
 </tr>
 <tr>
 <td><a href="https://bioconductor.org/packages/beachmat/" class="external-link">beatchmat</a></td>
@@ -202,6 +207,8 @@
            Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code> and <code>Eigen</code></p>
 <p><code>-D DISABLE_RCPP</code><br>
            Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code></p>
+<p><code>-D DISABLE_PLINK</code><br>
+           Omit support for <code>PLINK</code> files (PGEN, BED), and remove dependence on <code>pgenlibr</code></p>
 <p><code>GenomicDataStream</code> is written so that core functions are in C++17 with no dependence or R or Rcpp. On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.</p>
 </div>
 

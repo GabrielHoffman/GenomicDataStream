@@ -9,6 +9,5 @@ var searchData=
   ['datatable_2eh_6',['DataTable.h',['../_data_table_8h.html',1,'']]],
   ['delayedstream_7',['DelayedStream',['../classgds_1_1_delayed_stream.html',1,'gds::DelayedStream'],['../classgds_1_1_delayed_stream.html#a8c2cbc77c84dbf62c4dd7e78dc6a0034',1,'gds::DelayedStream::DelayedStream()']]],
   ['delayedstream_2eh_8',['DelayedStream.h',['../_delayed_stream_8h.html',1,'']]],
-  ['dependencies_9',['Dependencies',['../index.html#autotoc_md1',1,'']]],
-  ['dt_10',['dt',['../export_8cpp.html#ac74300383f810d42652fb00f806eff09',1,'dt(const std::string &amp;file):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#ac74300383f810d42652fb00f806eff09',1,'dt(const std::string &amp;file):&#160;export.cpp']]]
+  ['dependencies_9',['Dependencies',['../index.html#autotoc_md2',1,'']]]
 ];

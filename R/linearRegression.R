@@ -51,15 +51,15 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' @importMethodsFrom fastLinReg lmFitFeatures
 #' @export
 #' @rdname lmFitFeatures
-#' @aliases lmFitFeatures, GenomicDataStream-method
+#' @aliases lmFitFeatures,GenomicDataStream-method
 setMethod(
   "lmFitFeatures", signature(data = "GenomicDataStream"),
-  function(y, design, data, weights, detail = 0, preprojection = TRUE, nthreads = 1, ...) {
+  function(y, design, data, weights, detail = 1, preprojection = TRUE, nthreads = 1, ...) {
     if( isInitialized(data) ){
       stop("GenomicDataStream is already initialized")
     }
 
-    if (detail > 3) stop("detail > 3 not defined")
+    if (detail > 4) stop("detail > 4 not defined")
 
     # if weights is not given, set to empty vector
     if (missing(weights)) {
@@ -94,6 +94,7 @@ setMethod(
 #' @param design design matrix
 #' @param Weights matrix sample-level weights the same dimension as Y
 #' @param detail level of model detail returned, with LOW = 0, MEDIUM = 1, HIGH = 2. LOW (\code{beta}, \code{se}, \code{sigSq}, \code{rdf}), MEDIUM (\code{vcov}), HIGH (\code{residuals}), MOST (\code{hatvalues})
+#' @param chunkSize number of features to read per chunk
 #' @param nthreads number of threads.  Each model is fit in serial, analysis is parallelized across responses.
 #' @param ... other args
 #'
@@ -127,8 +128,9 @@ setMethod(
 #' @aliases lmFitResponses,ANY-method
 setMethod(
   "lmFitResponses", signature(Y = "ANY"),
-  function(Y, design, Weights, detail = 0, nthreads = 1, ...) {
-    if (detail > 3) stop("detail > 3 not defined")
+  function(Y, design, Weights, detail = 1, chunkSize = 1000, nthreads = 1, ...) {
+
+    if (detail > 4) stop("detail > 4 not defined")
 
     # if weights is not given, set to empty vector
     if (missing(Weights)) {
@@ -145,8 +147,6 @@ setMethod(
     }
 
     ptr <- initializeCpp(Y)
-
-    chunkSize <- 100
 
     lmFitResponses_export(ptr, design, ids, Weights, chunkSize, detail, nthreads, verbose = TRUE)
   }

@@ -122,14 +122,15 @@ $(function(){ initResizable(false); });
 <div class="textblock"><div class="image">
 <img src="GenomicDataStream.png" alt=""/>
 </div>
- <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications. </div><p> The <code>GenomicDataStream</code> C++ interface separates</p>
+ <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications. </div><h4><a class="anchor" id="autotoc_md0"></a>
+The <code>GenomicDataStream</code> C++ interface separates</h4>
 <ol type="1">
 <li>data source</li>
 <li>streaming chunks of features into a data matrix</li>
 <li>downstream analysis <br  />
 </li>
 </ol>
-<h3><a class="anchor" id="autotoc_md0"></a>
+<h3><a class="anchor" id="autotoc_md1"></a>
 Example code with C++17</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;RcppArmadillo.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="_genomic_data_stream_8h.html">GenomicDataStream.h</a>&gt;</span></div>
@@ -175,7 +176,7 @@ Example code with C++17</h3>
 <div class="ttc" id="aclassgds_1_1_variant_info_html"><div class="ttname"><a href="classgds_1_1_variant_info.html">gds::VariantInfo</a></div><div class="ttdef"><b>Definition</b> VariantInfo.h:23</div></div>
 <div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:32</div></div>
 <div class="ttc" id="astructgds_1_1_param_html"><div class="ttname"><a href="structgds_1_1_param.html">gds::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:68</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
 Dependencies</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -185,19 +186,21 @@ Dependencies</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a href="https://github.com/samtools/htslib">htslib</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.1093/gigascience/giab007">GigaScience</a>   </td><td class="markdownTableBodyNone">C API for VCF/BCF files    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=pgenlibr">pgenlibr</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.1186/s13742-015-0047-8">GigaScience</a>   </td><td class="markdownTableBodyNone">R/C++ API for plink files    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a href="https://bioconductor.org/packages/beachmat/">beatchmat</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.1371/journal.pcbi.1006135">PLoS Comp Biol</a>   </td><td class="markdownTableBodyNone">C++ API for access data owned by R    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=Rcpp">Rcpp</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.18637/jss.v040.i08">J Stat Software</a>   </td><td class="markdownTableBodyNone">API for R/C++ integration    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=RcppEigen">RcppEigen</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.18637/jss.v052.i05">J Stat Software</a>   </td><td class="markdownTableBodyNone">API for Rcpp access to Eigen matrix library    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=RcppArmadillo">RcppArmadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.18637/jss.v040.i08">J Stat Software</a>   </td><td class="markdownTableBodyNone">API for Rcpp access to Armadillo matrix library    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a href="https://eigen.tuxfamily.org">Eigen</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">C++ library for linear algebra with advanced features    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=RcppArmadillo">RcppArmadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.18637/jss.v040.i08">J Stat Software</a>   </td><td class="markdownTableBodyNone">API for Rcpp access to Armadillo matrix library    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a href="https://eigen.tuxfamily.org">Eigen</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">C++ library for linear algebra with advanced features    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a href="https://arma.sourceforge.net">Armadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.21105/joss.00026">J Open Src Soft</a>   </td><td class="markdownTableBodyNone">User-friendly C++ library for linear algebra   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Notes</h2>
 <div style="text-align: justify"> <code>GenomicDataStream</code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>: </div><p><code>-D DISABLE_DELAYED_STREAM</code> <br  />
  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit <code>DelayedStream</code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code> <br  />
@@ -205,7 +208,12 @@ Notes</h2>
 <p><code>-D DISABLE_EIGEN</code> <br  />
  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code> and <code>Eigen</code></p>
 <p><code>-D DISABLE_RCPP</code> <br  />
- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code> </p>
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code></p>
+<p><code>-D DISABLE_PLINK</code> <br  />
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for <code>PLINK</code> files (PGEN, BED), and remove dependence on <code>pgenlibr</code></p>
+<p><br  />
+ <br  />
+ <img src="https://labs.icahn.mssm.edu/msdw/wp-content/uploads/sites/350/2020/03/sinai_logo.jpg" alt="" align="left" width="40px/" class="inline"/> &#160;&#160;Developed by <a href="http://gabrielhoffman.github.io">Gabriel Hoffman</a> at <a href="https://icahn.mssm.edu/research/neurogenomics">Center for Disease Neurogenomics</a> at the <a href="https://icahn.mssm.edu">Icahn School of Medicine at Mount Sinai</a>. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

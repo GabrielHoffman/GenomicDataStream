@@ -2,8 +2,7 @@
 % Please edit documentation in R/linearRegression.R
 \name{lmFitFeatures,ANY,ANY,GenomicDataStream-method}
 \alias{lmFitFeatures,ANY,ANY,GenomicDataStream-method}
-\alias{lmFitFeatures,}
-\alias{GenomicDataStream-method}
+\alias{lmFitFeatures,GenomicDataStream-method}
 \title{Fit series of linear regression models}
 \usage{
 \S4method{lmFitFeatures}{ANY,ANY,GenomicDataStream}(
@@ -11,7 +10,7 @@
   design,
   data,
   weights,
-  detail = 0,
+  detail = 1,
   preprojection = TRUE,
   nthreads = 1,
   ...

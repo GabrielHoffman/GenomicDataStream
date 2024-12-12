@@ -1,5 +1,9 @@
 
 
+# GenomicDataStream 0.0.7
+ - Dec 12, 2024
+ - add `glmFitResponses()` and `glmFitFeatures()`
+
 # GenomicDataStream 0.0.6
  - Dec 3, 2024
  - add dependency `fastLinReg`

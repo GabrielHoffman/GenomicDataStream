@@ -10,6 +10,8 @@
 Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>,
 <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>,
 <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>,
+<a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>,
+<a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>,
 <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>,
 <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications.
 
@@ -35,8 +37,8 @@ The `GenomicDataStream` interface separate:
 | -- | --- | --------- |
 | BGEN | 1.1 | biallelic variants
 |BGEN |1.2, 1.3| phased or unphased biallelic variants
-| PGEN | plink2 |
-| BED | plink1 |
+| PGEN | plink2 | biallelic variants
+| BED | plink1 | biallelic variants
 |VCF / BCF | 4.x | biallelic variants with `GT/GP` fields, continuous dosage with `DS` field
 
 #### Single cell data
@@ -50,6 +52,7 @@ Count matrices for single cell data are stored in the H5AD format.  This format,
 | - | --- | --------- |
 [vcfppR](https://cran.r-project.org/package=vcfppR) | [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae049)  | C++ API for htslib  |
 [htslib](https://github.com/samtools/htslib) | [GigaScience](https://doi.org/10.1093/gigascience/giab007)  | C API for VCF/BCF files |
+[pgenlibr](https://cran.r-project.org/package=pgenlibr) | [GigaScience](https://doi.org/10.1186/s13742-015-0047-8)  | R/C++ API for plink files |
 [beatchmat](https://bioconductor.org/packages/beachmat/) | [PLoS Comp Biol](https://doi.org/10.1371/journal.pcbi.1006135)  | C++ API for access data owned by R |
 [DelayedArray](https://bioconductor.org/packages/DelayedArray/) | | R interface for handling on-disk data formats |
 [Rcpp](https://cran.r-project.org/package=Rcpp)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) |  API for R/C++ integration
@@ -74,6 +77,10 @@ Omit support for Eigen matrix library, and remove dependence on `RcppEigen` and 
  `-D DISABLE_RCPP`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
+
+ `-D DISABLE_PLINK`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Omit support for `PLINK` files (PGEN, BED), and remove dependence on `pgenlibr`
 
 `GenomicDataStream` is written so that core functions are in C++17 with no dependence or R or Rcpp.  On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.
 

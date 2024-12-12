@@ -97,6 +97,10 @@ struct Param {
 		initCapacity(initCapacity),
 		fileType(getFileType(file)) {
 
+		if( chunkSize < 1){					
+			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
+		}
+
 		// regionString is string of chr:start-end delim by "\t,\n"
 		// remove spaces, then split based on delim
 		boost::erase_all(regionString, " ");

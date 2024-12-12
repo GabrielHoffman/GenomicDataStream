@@ -14,8 +14,8 @@ RHTSLIB_CPPFLAGS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 
 # PLINK2_LIBS=-L/hpc/users/hoffmg01/.Rlib/R_441_bioc320/pgenlibr/libs -lPGDEFLATE -lPLINK2
 
-PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
- 	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+# PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
+#  	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
 
 
 # /Users/gabrielhoffman/prog/R-4.4.1/library/pgenlibr/libs/pgenlibr.so
@@ -24,7 +24,7 @@ PLINK2_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 
 
 
-PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
+PKG_CPPFLAGS = -D DISABLE_PLINK $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -D NDEBUG  \
 -D SQLITE_ENABLE_COLUMN_METADATA \
 -D SQLITE_ENABLE_STAT4 \
@@ -39,7 +39,7 @@ PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)  $(RHTSLIB_LIBS) $(PLINK2_LIBS) 
 
 # From pgenlibr
-PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT @ZSTD_COMPILE_FLAG@ @LIBDEFLATE_COMPILE_FLAG@ @SIMDE_COMPILE_FLAG@ @ZSTD_INCLUDE_PATH@ @LIBDEFLATE_INCLUDE_PATH@ @SIMDE_INCLUDE_PATH@ 
+# PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT @ZSTD_COMPILE_FLAG@ @LIBDEFLATE_COMPILE_FLAG@ @SIMDE_COMPILE_FLAG@ @ZSTD_INCLUDE_PATH@ @LIBDEFLATE_INCLUDE_PATH@ @SIMDE_INCLUDE_PATH@ 
 # PKG_LIBS += -L. @ZSTD_LIBS@ @LIBDEFLATE_LIBS@ -lpthread
 
 CXX_STD=CXX17
@@ -48,7 +48,7 @@ PKG_CFLAGS=-DSQLITE_WITHOUT_ZONEMALLOC -D NDEBUG
 
 C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c)
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) 
-CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp) $(wildcard pgen/*.cpp) 
+CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp) #$(wildcard pgen/*.cpp) 
 CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
 OBJECTS = RcppExports.o export.o regression.o $(CXX_OBJECTS) $(C_OBJECTS)
 

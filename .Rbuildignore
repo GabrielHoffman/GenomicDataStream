@@ -1,4 +1,5 @@
 ^vignettes/Makefile$
+vignettes/.*_cache
 ^inst/doxygen$
 \.o$
 \.a$

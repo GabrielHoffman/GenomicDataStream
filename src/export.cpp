@@ -28,6 +28,7 @@
 #endif
 
 #include "GenomicDataStream.h"
+#include "DataTable.h"
 
 using namespace std;
 using namespace vcfpp;

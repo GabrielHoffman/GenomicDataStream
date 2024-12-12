@@ -40,6 +40,10 @@ class DelayedStream :
 	DelayedStream( Rcpp::RObject robj, const vector<string> &rowNames, const int &chunkSize) 
 		: GenomicDataStream(), rowNames(rowNames), chunkSize(chunkSize) {
 
+		if( chunkSize < 1){					
+			throw runtime_error("chunkSize must be positive: " + chunkSize);
+		}
+
 		parsed = new Rtatami::BoundNumericPointer(robj);
 
 		// set current position in matrix to zero
