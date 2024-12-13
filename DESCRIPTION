@@ -26,7 +26,6 @@ LinkingTo:
 	Rcpp,
 	RcppArmadillo,
 	RcppEigen,
-	RcppClock,
 	beachmat (>= 2.21.9),
 	assorthead,
 	Rhtslib  (>= 3.0.0),
@@ -43,6 +42,5 @@ RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes:
 	GabrielHoffman/plink-ng/2.0/pgenlibr,
-	GabrielHoffman/fastLinReg,
 	Zilong-Li/vcfppR
 
