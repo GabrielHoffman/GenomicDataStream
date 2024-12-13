@@ -9,19 +9,19 @@ URL: https://github.com/GabrielHoffman/GenomicDataStream
 BugReports: https://github.com/GabrielHoffman/GenomicDataStream/issues
 License: Artistic-2.0
 Suggests:
-    BiocStyle,
-    RUnit,
-    VariantAnnotation,
-    DelayedArray,
-    knitr,
-    rmarkdown
+	BiocStyle,
+	RUnit,
+	VariantAnnotation,
+	DelayedArray,
+	knitr,
+	rmarkdown
 Depends:
-    R (>= 4.3.0),
-    Rcpp,
-    beachmat,
-    fastLinReg,
-    methods,
-    Rdpack
+	R (>= 4.3.0),
+	Rcpp,
+	beachmat,
+	fastLinReg,
+	methods,
+	Rdpack
 LinkingTo:
 	Rcpp,
 	RcppArmadillo,
@@ -35,8 +35,8 @@ LinkingTo:
 	fastLinReg
 Encoding: UTF-8
 SystemRequirements: 
-    GNU make,
-    C++17
+	GNU make,
+	C++17
 RoxygenNote: 7.3.2
 RdMacros: Rdpack
 VignetteBuilder: knitr
