@@ -41,7 +41,7 @@ class DelayedStream :
 		: GenomicDataStream(), rowNames(rowNames), chunkSize(chunkSize) {
 
 		if( chunkSize < 1){					
-			throw runtime_error("chunkSize must be positive: " + chunkSize);
+			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
 		}
 
 		parsed = new Rtatami::BoundNumericPointer(robj);

@@ -13,6 +13,10 @@
   detail = 1,
   doCoxReid = nrow(design) < 100,
   nthreads = 1,
+  epsilon = 1e-08,
+  maxit = 25,
+  epsilon_nb = 1e-04,
+  maxit_nb = 5,
   chunkSize = 1000,
   ...
 )
@@ -22,7 +26,7 @@
 
 \item{design}{design matrix}
 
-\item{family}{family type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta}
+\item{family}{type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta}
 
 \item{weights}{vector of sample-level weights}
 
@@ -33,6 +37,14 @@
 \item{doCoxReid}{use Cox-Reid adjustment when estimating overdispersion for negative binomial models.  Default TRUE for less than 100 samples}
 
 \item{nthreads}{number of threads.  Each model is fit in serial, analysis is parallelized across responses.}
+
+\item{epsilon}{tolerance for GLM IRLS}
+
+\item{maxit}{max iterations for GLM IRLS}
+
+\item{epsilon_nb}{tolerance for negative binomial}
+
+\item{maxit_nb}{max iterations for negative binomial}
 
 \item{chunkSize}{number of features to read per chunk}
 

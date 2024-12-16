@@ -14,6 +14,10 @@
 #' @param doCoxReid use Cox-Reid adjustment when estimating overdispersion for negative binomial models.  Default TRUE for less than 100 samples
 #' @param shareTheta estimate theta from design matrix, and share across all features instead of re-estimating for each feature
 #' @param nthreads number of threads.  Each model is fit in serial, analysis is parallelized across features
+#' @param epsilon tolerance for GLM IRLS 
+#' @param maxit max iterations for GLM IRLS
+#' @param epsilon_nb tolerance for negative binomial
+#' @param maxit_nb max iterations for negative binomial
 #' @param ... other args
 #'
 #' @examples
@@ -45,7 +49,7 @@
 #' @aliases glmFitFeatures,ANY,ANY,GenomicDataStream-method
 setMethod(
   "glmFitFeatures", signature(data = "GenomicDataStream"),
-  function(y, design, data, family, weights, offset, detail = 1, doCoxReid = length(y) < 100, shareTheta = FALSE, nthreads = 1, ...) {
+  function(y, design, data, family, weights, offset, detail = 1, doCoxReid = length(y) < 100, shareTheta = FALSE, nthreads = 1, epsilon = 1e-8, maxit = 25, epsilon_nb = 1e-4, maxit_nb = 5, ...) {
     if( isInitialized(data) ){
       stop("GenomicDataStream is already initialized")
     }
@@ -66,7 +70,7 @@ setMethod(
       stopifnot(length(y) == length(weights))
     }
 
-    glmFitFeatures_export(y, design, as.list(data), family, weights, offset, detail, doCoxReid, shareTheta, nthreads,...)
+    glmFitFeatures_export(y, design, as.list(data), family, weights, offset, detail, doCoxReid, shareTheta, nthreads, epsilon, maxit, epsilon_nb, maxit_nb,...)
   }
 )
 
@@ -86,12 +90,16 @@ setMethod(
 #'
 #' @param Y matrix of responses as __rows__
 #' @param design design matrix
-#' @param family family type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta  
+#' @param family type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta  
 #' @param weights vector of sample-level weights
 #' @param offset vector of sample-level offset values
 #' @param detail level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, sigSq, rdf), MEDIUM (vcov), HIGH (residuals), MOST (hatvalues)
 #' @param doCoxReid use Cox-Reid adjustment when estimating overdispersion for negative binomial models.  Default TRUE for less than 100 samples
 #' @param nthreads number of threads.  Each model is fit in serial, analysis is parallelized across responses.
+#' @param epsilon tolerance for GLM IRLS 
+#' @param maxit max iterations for GLM IRLS
+#' @param epsilon_nb tolerance for negative binomial
+#' @param maxit_nb max iterations for negative binomial
 #' @param chunkSize number of features to read per chunk
 #' @param ... other args
 #'
@@ -121,7 +129,7 @@ setMethod(
 #' @aliases glmFitResponses,ANY-method
 setMethod(
   "glmFitResponses", signature(Y = "ANY"),
-  function(Y, design, family, weights, offset, detail = 1, doCoxReid = nrow(design) < 100, nthreads = 1, chunkSize = 1000, ...) {
+  function(Y, design, family, weights, offset, detail = 1, doCoxReid = nrow(design) < 100, nthreads = 1, epsilon = 1e-8, maxit = 25, epsilon_nb = 1e-4, maxit_nb = 5, chunkSize = 1000, ...) {
    
     if (detail > 4) stop("detail > 4 not defined")
 
@@ -143,6 +151,6 @@ setMethod(
 
     ptr <- initializeCpp(Y)
 
-    glmFitResponses_export(ptr, design, ids, family, weights, offset, chunkSize, detail, doCoxReid, nthreads)
+    glmFitResponses_export(ptr, design, ids, family, weights, offset, chunkSize, detail, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb)
   }
 )

@@ -15,6 +15,10 @@
   doCoxReid = length(y) < 100,
   shareTheta = FALSE,
   nthreads = 1,
+  epsilon = 1e-08,
+  maxit = 25,
+  epsilon_nb = 1e-04,
+  maxit_nb = 5,
   ...
 )
 }
@@ -38,6 +42,14 @@
 \item{shareTheta}{estimate theta from design matrix, and share across all features instead of re-estimating for each feature}
 
 \item{nthreads}{number of threads.  Each model is fit in serial, analysis is parallelized across features}
+
+\item{epsilon}{tolerance for GLM IRLS}
+
+\item{maxit}{max iterations for GLM IRLS}
+
+\item{epsilon_nb}{tolerance for negative binomial}
+
+\item{maxit_nb}{max iterations for negative binomial}
 
 \item{...}{other args}
 }

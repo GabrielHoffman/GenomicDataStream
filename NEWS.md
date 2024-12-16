@@ -1,4 +1,7 @@
 
+# GenomicDataStream 0.0.8
+ - Dec 16, 2024
+ - bug fixes and convergence criteria
 
 # GenomicDataStream 0.0.7
  - Dec 12, 2024

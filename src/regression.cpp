@@ -214,7 +214,11 @@ List glmFitFeatures_export( const arma::colvec& y,
 							const int detail = 1, 
 							const bool &doCoxReid = true, 
 							const bool &shareTheta = false,
-							const int &nthreads = 1	){
+							const int &nthreads = 1, 
+							const double &epsilon = 1e-8, 
+							const double &maxit = 25, 
+							const double &epsilon_nb = 1e-4, 
+							const double & maxit_nb = 5	){
 
 	// Get parameters from R::GenomicDataStream
 	string file = gds["file"];
@@ -252,7 +256,7 @@ List glmFitFeatures_export( const arma::colvec& y,
 
 		// Linear regression with the jth feature
 		// used as a covariate in the jth model
-		GLMModelFitList fitList = glmFitFeatures(y, X_design, chunk.getData(), info_chunk->getFeatureNames(), family, weights, offset, md, doCoxReid, shareTheta, nthreads);
+		GLMModelFitList fitList = glmFitFeatures(y, X_design, chunk.getData(), info_chunk->getFeatureNames(), family, weights, offset, md, doCoxReid, shareTheta, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
 
 		nModels += fitList.size();
 
@@ -274,7 +278,11 @@ List glmFitResponses_export(
                 const int &chunkSize,
 				const int detail = 1, 
 				const bool &doCoxReid = true, 
-				const int &nthreads = 1){
+				const int &nthreads = 1, 
+                const double &epsilon = 1e-8, 
+                const double &maxit = 25, 
+                const double &epsilon_nb = 1e-4, 
+                const double & maxit_nb = 5){
 
     DelayedStream ds( mat, ids, chunkSize);
 
@@ -292,7 +300,7 @@ List glmFitResponses_export(
 
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        GLMModelFitList fitList = glmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), family, weights, offset, md, doCoxReid, nthreads);
+        GLMModelFitList fitList = glmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), family, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
 
         nModels += fitList.size();
 

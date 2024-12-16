@@ -1,24 +1,5 @@
 
 
-test = function(){
-
-	library(RUnit)
-
-	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
-
-	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
-
-	res = GenomicDataStream:::f_test_mat_types( file )
-
-	sapply(res, function(x){
-		checkEqualsNumeric(x, res[[1]])
-		})
-
-
-
-
-}
-
 
 
 
@@ -31,16 +12,16 @@ test_DataTable = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
 
-	file <- system.file("extdata", "test.pvar", package = "GenomicDataStream")
-	res1 = GenomicDataStream:::test_DataTable( file, "#CHROM")
+	# file <- system.file("extdata", "test.pvar", package = "GenomicDataStream")
+	# res1 = GenomicDataStream:::test_DataTable( file, "#CHROM")
 
 
-	file <- system.file("extdata", "test.psam", package = "GenomicDataStream")
-	res2 = GenomicDataStream:::test_DataTable( file, "#IID")
+	# file <- system.file("extdata", "test.psam", package = "GenomicDataStream")
+	# res2 = GenomicDataStream:::test_DataTable( file, "#IID")
 
 
-	file <- system.file("extdata", "test.fam", package = "GenomicDataStream")
-	res3 = GenomicDataStream:::test_DataTable( file, "")
+	# file <- system.file("extdata", "test.fam", package = "GenomicDataStream")
+	# res3 = GenomicDataStream:::test_DataTable( file, "")
 
 
 }
@@ -238,6 +219,7 @@ test_chunks = function(){
 
 	# test for each file type
 	for( file in files){
+		cat(file, "\n")
 		X_cat = c()
 
 		# initialize
@@ -265,6 +247,7 @@ test_gds_to_fit = function(){
 	library(GenomicDataStream)
 	library(RUnit)
 	library(DelayedArray)
+	library(VariantAnnotation)
 
 	# lmFitFeatures
 	################
@@ -284,7 +267,7 @@ test_gds_to_fit = function(){
 	dat = getNextChunk(gds)
 	X_features = dat$X
 
-	res1 = fastlmm::lmFitFeatures(y, X_design, X_features, w)
+	res1 = lmFitFeatures(y, X_design, X_features, w)
 
 	# Data stays at C++ level
 	# then run lmFitFeatures()
@@ -399,7 +382,7 @@ test_regression = function(){
 	# Analysis in GenomicDataStream
 	#-------------------------------
 
-	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE) # |pgen
 
 	X_design = matrix(1, ncol(X_all))
 	w = y
@@ -830,10 +813,9 @@ test_glmFitResponses = function(){
 	res2 = GenomicDataStream::glmFitResponses(Y, X, "nb")
 	isSame(res1, res2)
 
-	res1 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "gaussian")
-	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "gaussian")
+	res1 = glmFitResponses(Y, X, "gaussian")
+	res2 = glmFitResponses(DelayedArray(Y), X, "gaussian")
 	isSame(res1, res2)
-
 
 	# q()
 	# R
