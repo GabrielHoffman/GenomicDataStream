@@ -2,6 +2,7 @@
 # GenomicDataStream 0.0.9
  - Dec 18, 2024
  - use `fitLinReg` 0.0.5
+ - check BH (== 1.84.0.0) since 1.87.0-1 is not compatible with boost in bgen library
 
 # GenomicDataStream 0.0.8
  - Dec 16, 2024

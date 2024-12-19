@@ -29,7 +29,7 @@ LinkingTo:
 	beachmat (>= 2.21.9),
 	assorthead,
 	Rhtslib  (>= 3.0.0),
-	BH,
+	BH (== 1.84.0.0),
 	vcfppR (>= 0.6.1),
 	pgenlibr,
 	fastLinReg (>= 0.0.5)
