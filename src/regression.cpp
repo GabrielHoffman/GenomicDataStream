@@ -214,6 +214,7 @@ List glmFitFeatures_export( const arma::colvec& y,
 							const int detail = 1, 
 							const bool &doCoxReid = true, 
 							const bool &shareTheta = false,
+							const bool &fastApprox = false,
 							const int &nthreads = 1, 
 							const double &epsilon = 1e-8, 
 							const double &maxit = 25, 
@@ -256,7 +257,7 @@ List glmFitFeatures_export( const arma::colvec& y,
 
 		// Linear regression with the jth feature
 		// used as a covariate in the jth model
-		GLMModelFitList fitList = glmFitFeatures(y, X_design, chunk.getData(), info_chunk->getFeatureNames(), family, weights, offset, md, doCoxReid, shareTheta, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
+		GLMModelFitList fitList = glmFitFeatures(y, X_design, chunk.getData(), info_chunk->getFeatureNames(), family, weights, offset, md, doCoxReid, shareTheta, fastApprox, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
 
 		nModels += fitList.size();
 
@@ -272,7 +273,7 @@ List glmFitResponses_export(
                 const RObject &mat, 
                 const arma::mat & X_design,
                 const vector<string> &ids,
-				const std::string &family, 
+				const vector<string> &family, 
 				const arma::vec &weights, 
 				const arma::vec &offset,
                 const int &chunkSize,
@@ -298,9 +299,14 @@ List glmFitResponses_export(
         // get variant information
         info = chunk.getInfo<MatrixInfo>();
 
+        // family values for this chunk
+        auto start = family.begin() + nModels;
+        auto end = start + info->size();
+        vector<string> fam(start, end);
+
         // Linear regression with the jth feature
         // used as a covariate in the jth model
-        GLMModelFitList fitList = glmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), family, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
+        GLMModelFitList fitList = glmFitResponses(chunk.getData(), X_design, info->getFeatureNames(), fam, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
 
         nModels += fitList.size();
 

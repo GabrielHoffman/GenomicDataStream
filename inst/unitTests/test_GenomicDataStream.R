@@ -677,11 +677,11 @@ test_glmFitFeatures = function(){
 	set.seed(1)
 	y = sample(2, nrow(X_design), replace=TRUE) - 1
 	gds = GenomicDataStream(file, "DS")
-	res1 = glmFitFeatures(y, X_design, gds, "logit", w, offset)
+	res1 = glmFitFeatures(y, X_design, gds, binomial(), w, offset)
 
 	gds = GenomicDataStream(file, "DS", initialize=TRUE)
 	dat <- getNextChunk(gds)
-	res2 = glmFitFeatures(y, X_design, dat$X, "logit", w, offset)
+	res2 = glmFitFeatures(y, X_design, dat$X, binomial(), w, offset)
 
 	sapply(names(res1), function(x){
 		checkEqualsNumeric(res1[[x]], res2[[x]])
@@ -691,11 +691,11 @@ test_glmFitFeatures = function(){
 	########
 
 	gds = GenomicDataStream(file, "DS")
-	res1 = glmFitFeatures(y, X_design, gds, "probit", w, offset)
+	res1 = glmFitFeatures(y, X_design, gds, binomial("probit"), w, offset)
 
 	gds = GenomicDataStream(file, "DS", initialize=TRUE)
 	dat <- getNextChunk(gds)
-	res2 = glmFitFeatures(y, X_design, dat$X, "probit", w, offset)
+	res2 = glmFitFeatures(y, X_design, dat$X, binomial("probit"), w, offset)
 
 	sapply(names(res1), function(x){
 		checkEqualsNumeric(res1[[x]], res2[[x]])
@@ -712,6 +712,20 @@ test_glmFitFeatures = function(){
 	gds = GenomicDataStream(file, "DS", initialize=TRUE)
 	dat <- getNextChunk(gds)
 	res2 = glmFitFeatures(y, X_design, dat$X, "poisson", w, offset)
+
+	sapply(names(res1), function(x){
+		checkEqualsNumeric(res1[[x]], res2[[x]])
+		})
+
+	# Quais-POISSON
+	##########
+
+	gds = GenomicDataStream(file, "DS")
+	res1 = glmFitFeatures(y, X_design, gds, "quasipoisson", w, offset)
+
+	gds = GenomicDataStream(file, "DS", initialize=TRUE)
+	dat <- getNextChunk(gds)
+	res2 = glmFitFeatures(y, X_design, dat$X, "quasipoisson", w, offset)
 
 	sapply(names(res1), function(x){
 		checkEqualsNumeric(res1[[x]], res2[[x]])
@@ -744,11 +758,108 @@ test_glmFitFeatures = function(){
 	sapply(names(res1), function(x){
 		checkEqualsNumeric(res1[[x]], res2[[x]])
 		})
+}
+
+
+test_glmFitFeatures_fastApprox = function(){
+
+if(FALSE){
+
+	# Test VCF/BCF/BGEN dosage and regression results
+	suppressPackageStartupMessages({
+	library(GenomicDataStream)
+	})
+	# fastApprox
+	############
+
+	# fastApprox is to very fast but too liberal.  This makes it a good screening tool.  With rare variants, it is even more liberal.  
+
+	# if true, use pre-projection on the working response from an initial regression fit on only the X_design.  Under the null for X_features, this is a very good approximation and _much_ faster
+
+	# is this a score test?
+
+	# tested with 
+	# counts for nb, poisson, quasipoisson
+	# binary with binomial() and binomial("probit")
+	# fractions with quasibinomial().
+	#    NOTE: binomial is a bad approximation
+
+
+	n = 111
+	nc = 4
+	y = rbeta(n, 10, 2)
+	y = rpois(n, 102)
+	y = sample(2, n, replace=TRUE) -1
+	X_design = cbind(1, matrix(rnorm(n*nc), n, nc))
+
+	w = seq(n)
+	fam = poisson()
+	fam = binomial("probit")
+
+	file = "~/Downloads/MHC_haplotypes_CEU_HapMap3_ref_panel.GRCh38.vcf.gz"
+	region = "chr6:24893949-31980222"
+	gds = GenomicDataStream(file, "GT", region)
+
+	res1 = glmFitFeatures(y, X_design, gds, fam, weights=w)
+	res2 = glmFitFeatures(y, X_design, gds, fam, weights=w, fastApprox=TRUE)
+
+	# works for common variants
+	gds = GenomicDataStream(file, "GT", region, initialize=TRUE, chunkSize=1e5)
+	dat = getNextChunk(gds)
+	include = colVars(dat$X) > 0.1
+	# include[] = TRUE
+	X = dat$X[,include]
+	
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/GenomicDataStream")
+
+	res1 = glmFitFeatures(y, X_design, X, fam, weights=w)
+	res2 = glmFitFeatures(y, X_design, X, fam, weights=w, fastApprox=TRUE)
+
+	par(mfrow=c(1,3))
+	z1 = with(res1, coef[,nc+2])
+	z2 = with(res2, coef )
+	plot(z1, z2)
+	abline(0,1, col="red")
+
+	z1 = with(res1, se[,nc+2])
+	z2 = with(res2,  se)
+	plot(z1, z2)
+	abline(0,1, col="red")
+
+	z1 = with(res1, coef[,nc+2] / se[,nc+2])
+	z2 = with(res2, coef / se)
+	plot(z1, z2)
+	abline(0,1, col="red")
+
+
+
+
+	i = which.max(z1)
+	res2$coef[i,,drop=FALSE]
+	res2$se[i,,drop=FALSE]
+	res2$coef[i,,drop=FALSE] / res2$se[i,,drop=FALSE]
+
+	# exact model
+	coef(summary(glm(y ~ 0 + X_design + X[,i], fam)))
+
+	# approx with working response
+	fit = glm(y ~ 0 + X_design, fam, weights=w)
+	eta = predict(fit, type="link")
+	mu = fam$linkinv(eta)
+	z = eta + (y - mu) / fam$mu.eta(eta)
+	w = fam$mu.eta(eta) / fam$variance(mu)
+	w = w / mean(w)
+	fit2 = lm(z ~ 0 + X_design + X[,i], weights=w)
+	coef(summary(fit2))
+
+	statmod::glm.scoretest(fit, X[,i])
 
 
 
 
 }
+}
+
 
 test_glmFitResponses = function(){
 
@@ -790,13 +901,13 @@ test_glmFitResponses = function(){
 		Y[i,] = sample(2, n, replace=TRUE) - 1
 	}
 
-	res1 = fastLinReg::glmFitResponses(Y, X, "probit")
-	res2 = GenomicDataStream::glmFitResponses(Y, X, "probit")
+	res1 = fastLinReg::glmFitResponses(Y, X, binomial("probit"))
+	res2 = GenomicDataStream::glmFitResponses(Y, X, binomial("probit"))
 	isSame(res1, res2)
 
 	# LOGIT
-	res1 = fastLinReg::glmFitResponses(Y, X, "logit")
-	res2 = GenomicDataStream::glmFitResponses(Y, X, "logit")
+	res1 = fastLinReg::glmFitResponses(Y, X, "binomial")
+	res2 = GenomicDataStream::glmFitResponses(Y, X, "binomial")
 	isSame(res1, res2)
 
 	# POISSON
@@ -841,6 +952,7 @@ test_glmFitResponses = function(){
 	res0 = GenomicDataStream::lmFitResponses(DelayedArray(Y), X)
 	res1 = fastLinReg::glmFitResponses(Y, X, "gaussian")
 	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "gaussian")
+	res0$family = "gaussian/identity"
 	isSame(res0, res1)
 	isSame(res1, res2)
 
@@ -848,13 +960,13 @@ test_glmFitResponses = function(){
 	for(i in seq(nrow(Y))){
 		Y[i,] = sample(2, n, replace=TRUE) - 1
 	}
-	res1 = fastLinReg::glmFitResponses(Y, X, "probit")
-	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "probit")
+	res1 = fastLinReg::glmFitResponses(Y, X, binomial("probit"))
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, binomial("probit"))
 	isSame(res1, res2)
 
 	# LOGIT
-	res1 = fastLinReg::glmFitResponses(Y, X, "logit")
-	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "logit")
+	res1 = fastLinReg::glmFitResponses(Y, X, "binomial")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "binomial")
 	isSame(res1, res2)
 
 	# POISSON
@@ -865,9 +977,26 @@ test_glmFitResponses = function(){
 	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "poisson")
 	isSame(res1, res2)
 
+	res1 = fastLinReg::glmFitResponses(Y, X, "quasipoisson")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "quasipoisson")
+	isSame(res1, res2)
+
 	# NB
 	res1 = fastLinReg::glmFitResponses(Y, X, "nb")
 	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "nb")
+	isSame(res1, res2)
+
+	# NB: fixed
+	res1 = fastLinReg::glmFitResponses(Y, X, "nb:10")
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, "nb:10")
+	isSame(res1, res2)
+
+	# NB: varying
+	# fam is specified for all responses, 
+	# but must be subsetted by chunk for analysis
+	fam = paste0("nb:", seq(nrow(Y)))
+	res1 = fastLinReg::glmFitResponses(Y, X, fam)
+	res2 = GenomicDataStream::glmFitResponses(DelayedArray(Y), X, fam, chunkSize=3)
 	isSame(res1, res2)
 
 

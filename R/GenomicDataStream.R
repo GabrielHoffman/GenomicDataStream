@@ -51,6 +51,8 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", chun
   chunkSize <- as.integer(chunkSize)
   samples <- paste(samples, collapse = ",")
 
+  file = path.expand(file)
+
   if (initialize) {
     # Create GenomicDataStream and return external pointer
     ptr <- create_xptr(file, field, region, samples, chunkSize, missingToMean)

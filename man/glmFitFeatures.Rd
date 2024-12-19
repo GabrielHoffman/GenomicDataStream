@@ -14,6 +14,7 @@
   detail = 1,
   doCoxReid = length(y) < 100,
   shareTheta = FALSE,
+  fastApprox = FALSE,
   nthreads = 1,
   epsilon = 1e-08,
   maxit = 25,
@@ -29,17 +30,19 @@
 
 \item{data}{\code{matrix} or \code{GenomicDataStream} with additional features to be fit one at a time}
 
-\item{family}{family type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta}
+\item{family}{a description of the error distribution and link function to be used in the modelm just like for \code{glm()}.  Also supports negative binomial as string \code{"nb:theta"}, see details below}
 
 \item{weights}{vector of sample-level weights}
 
 \item{offset}{vector of sample-level offset values}
 
-\item{detail}{level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, sigSq, rdf), MEDIUM (vcov), HIGH (residuals), MOST (hatvalues)}
+\item{detail}{level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues)}
 
 \item{doCoxReid}{use Cox-Reid adjustment when estimating overdispersion for negative binomial models.  Default TRUE for less than 100 samples}
 
 \item{shareTheta}{estimate theta from design matrix, and share across all features instead of re-estimating for each feature}
+
+\item{fastApprox}{default false.  if true, use pre-projection on the working response from an initial regression fit on only the design.  Under the null for data, this is a very good approximation and _much_ faster}
 
 \item{nthreads}{number of threads.  Each model is fit in serial, analysis is parallelized across features}
 
@@ -55,6 +58,9 @@
 }
 \description{
 Fit series of generalized linear regression models
+}
+\details{
+Generalized linear models can be fit with \code{family} like in \code{glm()} using \code{gaussian()}, \code{poisson()}, \code{binomial()}, \code{binomial("probit")}, \code{quasibinomial()}, \code{quasipoisson()}, \code{negative.binomial(theta)}, \code{"nb"}, \code{"nb:theta"}. Or array of entries of form \code{"nb:theta"}, where \code{theta} is the parameter for the negative binomial distribution
 }
 \examples{
 # create response, design and weights

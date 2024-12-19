@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,12 @@
 <span>  detail <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  doCoxReid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">100</span>,</span>
 <span>  shareTheta <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  fastApprox <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  nthreads <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  epsilon <span class="op">=</span> <span class="fl">1e-08</span>,</span>
+<span>  maxit <span class="op">=</span> <span class="fl">25</span>,</span>
+<span>  epsilon_nb <span class="op">=</span> <span class="fl">1e-04</span>,</span>
+<span>  maxit_nb <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -77,7 +82,7 @@
 
 
 <dt id="arg-family">family<a class="anchor" aria-label="anchor" href="#arg-family"></a></dt>
-<dd><p>family type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta</p></dd>
+<dd><p>a description of the error distribution and link function to be used in the modelm just like for <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>.  Also supports negative binomial as string <code>"nb:theta"</code>, see details below</p></dd>
 
 
 <dt id="arg-weights">weights<a class="anchor" aria-label="anchor" href="#arg-weights"></a></dt>
@@ -89,7 +94,7 @@
 
 
 <dt id="arg-detail">detail<a class="anchor" aria-label="anchor" href="#arg-detail"></a></dt>
-<dd><p>level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, sigSq, rdf), MEDIUM (vcov), HIGH (residuals), MOST (hatvalues)</p></dd>
+<dd><p>level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues)</p></dd>
 
 
 <dt id="arg-docoxreid">doCoxReid<a class="anchor" aria-label="anchor" href="#arg-docoxreid"></a></dt>
@@ -100,14 +105,38 @@
 <dd><p>estimate theta from design matrix, and share across all features instead of re-estimating for each feature</p></dd>
 
 
+<dt id="arg-fastapprox">fastApprox<a class="anchor" aria-label="anchor" href="#arg-fastapprox"></a></dt>
+<dd><p>default false.  if true, use pre-projection on the working response from an initial regression fit on only the design.  Under the null for data, this is a very good approximation and _much_ faster</p></dd>
+
+
 <dt id="arg-nthreads">nthreads<a class="anchor" aria-label="anchor" href="#arg-nthreads"></a></dt>
 <dd><p>number of threads.  Each model is fit in serial, analysis is parallelized across features</p></dd>
+
+
+<dt id="arg-epsilon">epsilon<a class="anchor" aria-label="anchor" href="#arg-epsilon"></a></dt>
+<dd><p>tolerance for GLM IRLS</p></dd>
+
+
+<dt id="arg-maxit">maxit<a class="anchor" aria-label="anchor" href="#arg-maxit"></a></dt>
+<dd><p>max iterations for GLM IRLS</p></dd>
+
+
+<dt id="arg-epsilon-nb">epsilon_nb<a class="anchor" aria-label="anchor" href="#arg-epsilon-nb"></a></dt>
+<dd><p>tolerance for negative binomial</p></dd>
+
+
+<dt id="arg-maxit-nb">maxit_nb<a class="anchor" aria-label="anchor" href="#arg-maxit-nb"></a></dt>
+<dd><p>max iterations for negative binomial</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other args</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Generalized linear models can be fit with <code>family</code> like in <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code> using <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian()</a></code>, <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">poisson()</a></code>, <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial()</a></code>, <code>binomial("probit")</code>, <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">quasibinomial()</a></code>, <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">quasipoisson()</a></code>, <code>negative.binomial(theta)</code>, <code>"nb"</code>, <code>"nb:theta"</code>. Or array of entries of form <code>"nb:theta"</code>, where <code>theta</code> is the parameter for the negative binomial distribution</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

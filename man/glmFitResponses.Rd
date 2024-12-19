@@ -26,13 +26,13 @@
 
 \item{design}{design matrix}
 
-\item{family}{type of GLM: "gaussian", "logit", "probit", "poisson", "nb:x" where x is a numeric value of theta}
+\item{family}{a description of the error distribution and link function to be used in the modelm just like for \code{glm()}.  Also supports negative binomial as string \code{"nb:theta"}, see details below}
 
 \item{weights}{vector of sample-level weights}
 
 \item{offset}{vector of sample-level offset values}
 
-\item{detail}{level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, sigSq, rdf), MEDIUM (vcov), HIGH (residuals), MOST (hatvalues)}
+\item{detail}{level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues)}
 
 \item{doCoxReid}{use Cox-Reid adjustment when estimating overdispersion for negative binomial models.  Default TRUE for less than 100 samples}
 
@@ -51,10 +51,13 @@
 \item{...}{other args}
 }
 \value{
-List of parameter estimates with entries \code{coef},  \code{se}, \code{sigSq}, \code{rdf} and other depending on \code{detail}
+List of parameter estimates with entries \code{coef},  \code{se}, \code{dispersion}, \code{rdf} and other depending on \code{detail}
 }
 \description{
 Fit regression model \code{Y[j,] ~ X} for each feature j
+}
+\details{
+Generalized linear models can be fit with \code{family} like in \code{glm()} using \code{gaussian()}, \code{poisson()}, \code{binomial()}, \code{binomial("probit")}, \code{quasibinomial()}, \code{quasipoisson()}, \code{negative.binomial(theta)}, \code{"nb"}, \code{"nb:theta"}. Or array of entries of form \code{"nb:theta"}, where \code{theta} is the parameter for the negative binomial distribution
 }
 \examples{
 library(DelayedArray)

@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.0.9
+ - Dec 18, 2024
+ - use `fitLinReg` 0.0.5
+
 # GenomicDataStream 0.0.8
  - Dec 16, 2024
  - bug fixes and convergence criteria
