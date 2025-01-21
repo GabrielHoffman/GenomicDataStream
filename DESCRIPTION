@@ -19,7 +19,6 @@ Depends:
 	R (>= 4.3.0),
 	Rcpp,
 	beachmat,
-	fastLinReg,
 	methods,
 	Rdpack
 LinkingTo:
