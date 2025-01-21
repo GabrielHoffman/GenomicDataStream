@@ -1,7 +1,7 @@
 #ifndef __RPGEN_READER_H__
 #define __RPGEN_READER_H__
 
-#include <pgenlib_ffi_support.h>
+#include <include/pgenlib_ffi_support.h>
 #include <include/pgenlib_read.h>
 #include "pgen/pvar.h"  
 

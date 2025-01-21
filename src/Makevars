@@ -39,8 +39,8 @@ PKG_CPPFLAGS = -D DISABLE_PLINK $(SHLIB_OPENMP_CXXFLAGS) -I. -I${HTSLIB_DIR} $(R
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)  $(RHTSLIB_LIBS) $(PLINK2_LIBS) 
 
 # From pgenlibr
-# PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DIGNORE_BUNDLED_ZSTD -DIGNORE_BUNDLED_LIBDEFLATE  -I/opt/homebrew/opt/zstd/include -I/opt/homebrew/Cellar/libdeflate/1.22/include  
-# PKG_LIBS += -L. -L/opt/homebrew/opt/zstd/lib -lzstd -L/opt/homebrew/Cellar/libdeflate/1.22/lib -ldeflate -lpthread
+# PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DIGNORE_BUNDLED_ZSTD -DIGNORE_BUNDLED_LIBDEFLATE  -I/opt/homebrew/opt/zstd/include -I/opt/homebrew/Cellar/libdeflate/1.23/include  
+# PKG_LIBS += -L. -L/opt/homebrew/opt/zstd/lib -lzstd -L/opt/homebrew/Cellar/libdeflate/1.23/lib -ldeflate -lpthread
 
 CXX_STD=CXX17
 
@@ -50,7 +50,7 @@ C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c)
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) 
 CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp) #$(wildcard pgen/*.cpp) 
 CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
-OBJECTS = RcppExports.o export.o regression.o $(CXX_OBJECTS) $(C_OBJECTS)
+OBJECTS = RcppExports.o export.o $(CXX_OBJECTS) $(C_OBJECTS) #regression.o
 
 .PHONY: all 
 all: $(SHLIB)

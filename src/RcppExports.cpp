@@ -108,102 +108,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// test_lm
-List test_lm(const arma::mat& X, const arma::colvec& y);
-RcppExport SEXP _GenomicDataStream_test_lm(SEXP XSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(test_lm(X, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lmFitFeatures_export
-List lmFitFeatures_export(const arma::colvec& y, const arma::mat& X_design, List gds, const arma::vec& weights, const int& detail, const bool& preprojection, const int& nthreads);
-RcppExport SEXP _GenomicDataStream_lmFitFeatures_export(SEXP ySEXP, SEXP X_designSEXP, SEXP gdsSEXP, SEXP weightsSEXP, SEXP detailSEXP, SEXP preprojectionSEXP, SEXP nthreadsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
-    Rcpp::traits::input_parameter< List >::type gds(gdsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
-    Rcpp::traits::input_parameter< const int& >::type detail(detailSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type preprojection(preprojectionSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(lmFitFeatures_export(y, X_design, gds, weights, detail, preprojection, nthreads));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lmFitResponses_export
-List lmFitResponses_export(const RObject& mat, const arma::mat& X_design, const vector<string>& ids, const arma::mat& Weights, const int& chunkSize, const int& detail, const int& nthreads, const bool& verbose);
-RcppExport SEXP _GenomicDataStream_lmFitResponses_export(SEXP matSEXP, SEXP X_designSEXP, SEXP idsSEXP, SEXP WeightsSEXP, SEXP chunkSizeSEXP, SEXP detailSEXP, SEXP nthreadsSEXP, SEXP verboseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const RObject& >::type mat(matSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Weights(WeightsSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const int& >::type detail(detailSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(lmFitResponses_export(mat, X_design, ids, Weights, chunkSize, detail, nthreads, verbose));
-    return rcpp_result_gen;
-END_RCPP
-}
-// glmFitFeatures_export
-List glmFitFeatures_export(const arma::colvec& y, const arma::mat& X_design, List gds, const std::string& family, const arma::vec& weights, const arma::vec& offset, const int detail, const bool& doCoxReid, const bool& shareTheta, const bool& fastApprox, const int& nthreads, const double& epsilon, const double& maxit, const double& epsilon_nb, const double& maxit_nb);
-RcppExport SEXP _GenomicDataStream_glmFitFeatures_export(SEXP ySEXP, SEXP X_designSEXP, SEXP gdsSEXP, SEXP familySEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP detailSEXP, SEXP doCoxReidSEXP, SEXP shareThetaSEXP, SEXP fastApproxSEXP, SEXP nthreadsSEXP, SEXP epsilonSEXP, SEXP maxitSEXP, SEXP epsilon_nbSEXP, SEXP maxit_nbSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
-    Rcpp::traits::input_parameter< List >::type gds(gdsSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type family(familySEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type offset(offsetSEXP);
-    Rcpp::traits::input_parameter< const int >::type detail(detailSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type doCoxReid(doCoxReidSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type shareTheta(shareThetaSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type fastApprox(fastApproxSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const double& >::type epsilon(epsilonSEXP);
-    Rcpp::traits::input_parameter< const double& >::type maxit(maxitSEXP);
-    Rcpp::traits::input_parameter< const double& >::type epsilon_nb(epsilon_nbSEXP);
-    Rcpp::traits::input_parameter< const double& >::type maxit_nb(maxit_nbSEXP);
-    rcpp_result_gen = Rcpp::wrap(glmFitFeatures_export(y, X_design, gds, family, weights, offset, detail, doCoxReid, shareTheta, fastApprox, nthreads, epsilon, maxit, epsilon_nb, maxit_nb));
-    return rcpp_result_gen;
-END_RCPP
-}
-// glmFitResponses_export
-List glmFitResponses_export(const RObject& mat, const arma::mat& X_design, const vector<string>& ids, const vector<string>& family, const arma::vec& weights, const arma::vec& offset, const int& chunkSize, const int detail, const bool& doCoxReid, const int& nthreads, const double& epsilon, const double& maxit, const double& epsilon_nb, const double& maxit_nb);
-RcppExport SEXP _GenomicDataStream_glmFitResponses_export(SEXP matSEXP, SEXP X_designSEXP, SEXP idsSEXP, SEXP familySEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP chunkSizeSEXP, SEXP detailSEXP, SEXP doCoxReidSEXP, SEXP nthreadsSEXP, SEXP epsilonSEXP, SEXP maxitSEXP, SEXP epsilon_nbSEXP, SEXP maxit_nbSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const RObject& >::type mat(matSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type family(familySEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type offset(offsetSEXP);
-    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
-    Rcpp::traits::input_parameter< const int >::type detail(detailSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type doCoxReid(doCoxReidSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const double& >::type epsilon(epsilonSEXP);
-    Rcpp::traits::input_parameter< const double& >::type maxit(maxitSEXP);
-    Rcpp::traits::input_parameter< const double& >::type epsilon_nb(epsilon_nbSEXP);
-    Rcpp::traits::input_parameter< const double& >::type maxit_nb(maxit_nbSEXP);
-    rcpp_result_gen = Rcpp::wrap(glmFitResponses_export(mat, X_design, ids, family, weights, offset, chunkSize, detail, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 6},
@@ -214,11 +118,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
-    {"_GenomicDataStream_test_lm", (DL_FUNC) &_GenomicDataStream_test_lm, 2},
-    {"_GenomicDataStream_lmFitFeatures_export", (DL_FUNC) &_GenomicDataStream_lmFitFeatures_export, 7},
-    {"_GenomicDataStream_lmFitResponses_export", (DL_FUNC) &_GenomicDataStream_lmFitResponses_export, 8},
-    {"_GenomicDataStream_glmFitFeatures_export", (DL_FUNC) &_GenomicDataStream_glmFitFeatures_export, 15},
-    {"_GenomicDataStream_glmFitResponses_export", (DL_FUNC) &_GenomicDataStream_glmFitResponses_export, 14},
     {NULL, NULL, 0}
 };
 

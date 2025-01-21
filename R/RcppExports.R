@@ -33,23 +33,3 @@ test_DataTable <- function(file, headerKey, delim = '\t') {
     invisible(.Call('_GenomicDataStream_test_DataTable', PACKAGE = 'GenomicDataStream', file, headerKey, delim))
 }
 
-test_lm <- function(X, y) {
-    .Call('_GenomicDataStream_test_lm', PACKAGE = 'GenomicDataStream', X, y)
-}
-
-lmFitFeatures_export <- function(y, X_design, gds, weights, detail = 0L, preprojection = TRUE, nthreads = 1L) {
-    .Call('_GenomicDataStream_lmFitFeatures_export', PACKAGE = 'GenomicDataStream', y, X_design, gds, weights, detail, preprojection, nthreads)
-}
-
-lmFitResponses_export <- function(mat, X_design, ids, Weights, chunkSize, detail = 0L, nthreads = 1L, verbose = TRUE) {
-    .Call('_GenomicDataStream_lmFitResponses_export', PACKAGE = 'GenomicDataStream', mat, X_design, ids, Weights, chunkSize, detail, nthreads, verbose)
-}
-
-glmFitFeatures_export <- function(y, X_design, gds, family, weights, offset, detail = 1L, doCoxReid = TRUE, shareTheta = FALSE, fastApprox = FALSE, nthreads = 1L, epsilon = 1e-8, maxit = 25, epsilon_nb = 1e-4, maxit_nb = 5) {
-    .Call('_GenomicDataStream_glmFitFeatures_export', PACKAGE = 'GenomicDataStream', y, X_design, gds, family, weights, offset, detail, doCoxReid, shareTheta, fastApprox, nthreads, epsilon, maxit, epsilon_nb, maxit_nb)
-}
-
-glmFitResponses_export <- function(mat, X_design, ids, family, weights, offset, chunkSize, detail = 1L, doCoxReid = TRUE, nthreads = 1L, epsilon = 1e-8, maxit = 25, epsilon_nb = 1e-4, maxit_nb = 5) {
-    .Call('_GenomicDataStream_glmFitResponses_export', PACKAGE = 'GenomicDataStream', mat, X_design, ids, family, weights, offset, chunkSize, detail, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb)
-}
-
