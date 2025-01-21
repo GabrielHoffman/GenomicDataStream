@@ -30,7 +30,7 @@ LinkingTo:
 	assorthead,
 	Rhtslib  (>= 3.0.0),
 	BH (== 1.84.0.0),
-	vcfppR (>= 0.6.1),
+	vcfppR (>= 0.7.0),
 	pgenlibr,
 	fastLinReg (>= 0.0.5)
 Encoding: UTF-8
@@ -41,6 +41,6 @@ RoxygenNote: 7.3.2
 RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes:
-	GabrielHoffman/plink-ng/2.0/pgenlibr,
-	Zilong-Li/vcfppR
+	GabrielHoffman/plink-ng/2.0/pgenlibr
+
 
