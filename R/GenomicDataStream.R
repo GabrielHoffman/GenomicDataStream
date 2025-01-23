@@ -8,8 +8,25 @@
 #' @importFrom Rdpack reprompt
 NULL
 
-
+#' Interface to genomic data files
+#'
+#' Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries
+#'
+#' @export
 setClass("GenomicDataStream", slots = list(initialized = "logical", ptr = "externalptr", file = "character", field = "character", region = "character", samples = "character", chunkSize = "integer", missingToMean = "logical", featuresRead = "integer", streamType = "character", nsamples = "integer"))
+
+
+#' @export
+as.list.GenomicDataStream <- function(x, ...) {
+  list(
+    file = x@file,
+    field = x@field,
+    region = x@region,
+    samples = x@samples,
+    chunkSize = x@chunkSize,
+    missingToMean = x@missingToMean
+  )
+}
 
 #' GenomicDataStream to read genotypes / dosages
 #'

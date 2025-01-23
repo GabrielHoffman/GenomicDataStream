@@ -1,44 +1,45 @@
 Package: GenomicDataStream
 Type: Package
-Title: Read genomic data files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in chunks
+Title: Read genomic data files (VCF, BCF, BGEN, PGEN, BED, H5AD) into
+        R/Rcpp in chunks
 Version: 0.0.10
-Date: 2025-01-21
+Date: 2025-01-23
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
 Description: Read genomic data files (VCF, BCF, BGEN, H5AD) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries.  BGEN support based on rbgen_v1.1.5.
 URL: https://github.com/GabrielHoffman/GenomicDataStream
 BugReports: https://github.com/GabrielHoffman/GenomicDataStream/issues
 License: Artistic-2.0
-Suggests:
-	BiocStyle,
-	RUnit,
-	VariantAnnotation,
-	DelayedArray,
-	knitr,
-	rmarkdown
-Depends:
-	R (>= 4.3.0),
-	Rcpp,
-	beachmat,
-	methods,
-	Rdpack
-LinkingTo:
-	Rcpp,
-	RcppArmadillo,
-	RcppEigen,
-	beachmat (>= 2.21.9),
-	assorthead,
-	Rhtslib  (>= 3.0.0),
-	BH (== 1.84.0.0),
-	vcfppR (>= 0.7.0),
-	pgenlibr
+Suggests: 
+        BiocStyle, 
+        RUnit, 
+        VariantAnnotation, 
+        DelayedArray, 
+        knitr,
+        rmarkdown
+Depends: 
+        R (>= 4.3.0), 
+        Rcpp, 
+        beachmat, 
+        methods, 
+        stats,
+        utils,
+        Rdpack
+LinkingTo: 
+        Rcpp, 
+        RcppArmadillo, 
+        RcppEigen, 
+        beachmat (>= 2.21.9),
+        assorthead, 
+        Rhtslib (>= 3.0.0), 
+        BH (== 1.84.0.0), 
+        vcfppR (>= 0.7.0), 
+        pgenlibr (>= 0.4.0)
 Encoding: UTF-8
 SystemRequirements: 
-	GNU make,
-	C++17
+        GNU make, 
+        C++17
 RoxygenNote: 7.3.2
 RdMacros: Rdpack
 VignetteBuilder: knitr
-Remotes:
-	GabrielHoffman/plink-ng/2.0/pgenlibr
-	
-
+Remotes: 
+        chrchang/plink-ng/2.0/pgenlibr

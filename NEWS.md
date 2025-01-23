@@ -1,9 +1,8 @@
 
 # GenomicDataStream 0.0.10
- - Jan 21, 2025
- - handle new `pgenlibr`
- - broader release
-
+ - Jan 23, 2025
+ - handle `pgenlibr` v0.4.0
+ - move regression to separate package
 
 # GenomicDataStream 0.0.9
  - Dec 18, 2024

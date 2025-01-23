@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,8 +62,8 @@
                         <h4 data-toc-skip class="author">Developed by <a href="http://gabrielhoffman.github.io/" class="external-link">Gabriel Hoffman</a>
 </h4>
             
-            <h4 data-toc-skip class="date">Run on 2024-12-18
-22:28:55</h4>
+            <h4 data-toc-skip class="date">Run on 2025-01-23
+15:22:14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/GenomicDataStream/blob/HEAD/vignettes/GenomicDataStream.Rmd" class="external-link"><code>vignettes/GenomicDataStream.Rmd</code></a></small>
       <div class="d-none name"><code>GenomicDataStream.Rmd</code></div>
@@ -87,8 +87,8 @@ the underlying data storage format</ins>.</p>
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>In general, variants from genetic data are used as covariates in
-<code><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitFeatures.html" class="external-link">lmFitFeatures()</a></code>, and genes from single cell data are used
-as responses in <code><a href="../reference/lmFitResponses.html">lmFitResponses()</a></code>.</p>
+<code>lmFitFeatures()</code>, and genes from single cell data are used
+as responses in <code>lmFitResponses()</code>.</p>
 <div class="section level4">
 <h4 id="example-code-with-r">Example code with R<a class="anchor" aria-label="anchor" href="#example-code-with-r"></a>
 </h4>
@@ -120,7 +120,7 @@ as responses in <code><a href="../reference/lmFitResponses.html">lmFitResponses(
 <span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="../reference/atEndOfStream.html">atEndOfStream</a></span><span class="op">(</span><span class="va">gds</span><span class="op">)</span> <span class="op">)</span> <span class="kw">break</span></span>
 <span>    </span>
 <span>    <span class="co"># do analysis on this chunk of data</span></span>
-<span>    <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
+<span>    <span class="va">fit</span> <span class="op">=</span> <span class="fu">lmFitFeatures</span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -143,7 +143,7 @@ as responses in <code><a href="../reference/lmFitResponses.html">lmFitResponses(
 <span><span class="co"># regression of y ~ design + X[,j]</span></span>
 <span><span class="co">#   where X[,j] is the jth variant in the GenomicDataStream</span></span>
 <span><span class="co"># data in GenomicDataStream is only accessed at C++ level </span></span>
-<span><span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">gds</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">fit</span> <span class="op">=</span> <span class="fu">lmFitFeatures</span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">gds</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">

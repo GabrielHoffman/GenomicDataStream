@@ -18,39 +18,11 @@ public:
   RPgenReader& operator=(const RPgenReader&) = delete;
 #endif
 
-  void Load(const string &filename, RPvar *rp, int raw_sample_ct,
+  void Load(const string &filename, RPvar *rp, 
+            int raw_sample_ct,
             const vector<int> &sample_subset_1based);
 
-  // uint32_t GetRawSampleCt() const;
-
-  // uint32_t GetSubsetSize() const;
-
-  // uint32_t GetVariantCt() const;
-
-  // uint32_t GetAlleleCt(uint32_t variant_idx) const;
-
-  // uint32_t GetMaxAlleleCt() const;
-
-  // bool HardcallPhasePresent() const;
-
-  // void ReadIntHardcalls(IntegerVector buf, int variant_idx, int allele_idx);
-
-  // void ReadHardcalls(NumericVector buf, int variant_idx, int allele_idx);
-
-  // void Read(NumericVector buf, int variant_idx, int allele_idx);
-
-  // void ReadAlleles(IntegerMatrix acbuf,
-  //                  Nullable<LogicalVector> phasepresent_buf, int variant_idx);
-
-  // void ReadAllelesNumeric(NumericMatrix acbuf,
-  //                         Nullable<LogicalVector> phasepresent_buf,
-  //                         int variant_idx);
-
-  // void ReadIntList(IntegerMatrix buf, IntegerVector variant_subset);
-
   void ReadList(vector<double> & buf, const vector<int> &variant_subset, bool meanimpute);
-
-  // void FillVariantScores(NumericVector result, NumericVector weights, Nullable<IntegerVector> variant_subset);
 
   void Close();
 
@@ -82,5 +54,6 @@ private:
 
   void ReadAllelesPhasedInternal(int variant_idx);
 };
+
 
 #endif  // __RPGEN_READER_H__

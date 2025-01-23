@@ -1,7 +1,7 @@
 #ifndef __PVAR_H__
 #define __PVAR_H__
 
-#include <include/pvar_ffi_support.h>
+#include "include/pvar_ffi_support.h"
 #include <map>
 #include <string>
 
@@ -21,9 +21,13 @@ public:
   RPvar& operator=(const RPvar&) = delete;
 #endif
 
-  void Load(const std::string &filename);
+  void Load(const std::string filename, bool omit_chrom, bool omit_pos);
 
   uint32_t GetVariantCt() const;
+
+  const char* GetVariantChrom(uint32_t variant_idx) const;
+
+  int32_t GetVariantPos(uint32_t variant_idx) const;
 
   const char* GetVariantId(uint32_t variant_idx) const;
 
@@ -48,9 +52,8 @@ private:
   std::multimap<const char*, int, classcomp> _nameToIdxs;
 };
 
-// HEADER_INLINE int strcmp_r_c(Rcpp::String r_string, const char* cstr) {
+// HEADER_INLINE int strcmp_r_c(String r_string, const char* cstr) {
 //   return strcmp(r_string.get_cstring(), cstr);
 // }
-
 
 #endif  // __PVAR_H__

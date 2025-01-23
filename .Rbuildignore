@@ -1,5 +1,6 @@
 ^vignettes/Makefile$
 vignettes/.*_cache
+^src/Makevars$
 ^inst/doxygen$
 \.o$
 \.a$

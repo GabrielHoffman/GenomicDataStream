@@ -219,6 +219,7 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/html/vcfstream_8h_source.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/index.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/news/index.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/GenomicDataStream-class.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/GenomicDataStream-method.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/GenomicDataStream.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/atEndOfStream.html</loc></url>
@@ -230,7 +231,9 @@
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/initializeStream.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/isInitialized.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/lmFitFeatures,.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/lmFitFeatures,GenomicDataStream-method.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/lmFitFeatures.html</loc></url>
+<url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/lmFitResponses,ANY-method.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/lmFitResponses.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/print-methods.html</loc></url>
 <url><loc>http://DiseaseNeurogenomics.github.io/GenomicDataStream/reference/show-methods.html</loc></url>

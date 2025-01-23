@@ -74,16 +74,16 @@ class pgenstream :
 		if( genoFileType == PGEN ){
 			// Read index file (pvar)
 			pvar = new RPvar();
-	        pvar->Load(fileIdx);
-	    }
+	    pvar->Load(fileIdx, true, true);
+	  }
 
 		// Parse PSAM/FAM file of sample identifiers
 		// evaluate subsetting of samples
-        process_samples();
+    process_samples();
 
 		// Read data file (pgen/bed)
 		pg = new RPgenReader();
-  		pg->Load(param.file, pvar, n_samples_psam, sampleIdx1);
+  	pg->Load(param.file, pvar, n_samples_psam, sampleIdx1);
 
 		// Initialize vector with capacity to store nVariants
 		// Note, this allocates memory but does not change .size()
