@@ -1,7 +1,5 @@
-
-
-
 ## GenomicDataStream 
+
 ### A scalable interface between data and analysis underneath R
 
 ![](man/figures/GenomicDataStream.png)

@@ -131,100 +131,100 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2024 Gabriel Hoffman</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> ***********************************************************************/</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#ifndef GENOMIC_DATA_STREAM_H_</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#define GENOMIC_DATA_STREAM_H_</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#include &quot;<a class="code" href="_genomic_data_stream__virtual_8h.html">GenomicDataStream_virtual.h</a>&quot;</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#include &quot;<a class="code" href="bgenstream_8h.html">bgenstream.h</a>&quot;</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#include &quot;<a class="code" href="vcfstream_8h.html">vcfstream.h</a>&quot;</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#include &quot;<a class="code" href="_delayed_stream_8h.html">DelayedStream.h</a>&quot;</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html">utils.h</a>&quot;</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#include &quot;<a class="code" href="_matrix_info_8h.html">MatrixInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#include &quot;<a class="code" href="_variant_info_8h.html">VariantInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#ifndef DISABLE_PLINK</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#include &quot;<a class="code" href="pgenstream_8h.html">pgenstream.h</a>&quot;</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#endif </span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegds.html">gds</a> {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keyword">static</span> unique_ptr&lt;GenomicDataStream&gt; createFileView( <span class="keyword">const</span> Param &amp; param ){</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    unique_ptr&lt;GenomicDataStream&gt; gdsStream;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">// Define reader for VCF/VCFGZ/BCF or BGEN</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="comment">// depending on file extension</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">switch</span>( param.fileType ){</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>:</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>:</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            gdsStream = make_unique&lt;vcfstream&gt;( param );</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>:</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            gdsStream = make_unique&lt;bgenstream&gt;( param );</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>:</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>:            </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">#ifndef DISABLE_PLINK</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            gdsStream = make_unique&lt;pgenstream&gt;( param );    </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>:</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Invalid file extension: &quot;</span> + param.file);</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }  </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">return</span> gdsStream; </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">static</span> shared_ptr&lt;GenomicDataStream&gt; createFileView_shared( <span class="keyword">const</span> Param &amp; param ){</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    shared_ptr&lt;GenomicDataStream&gt; gdsStream;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="comment">// Define reader for VCF/VCFGZ/BCF or BGEN</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">// depending on file extension</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">switch</span>( param.fileType ){</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>:</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>:</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>:</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            gdsStream = make_shared&lt;vcfstream&gt;( param );</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>:</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            gdsStream = make_shared&lt;bgenstream&gt;( param );</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>:</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>:       </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">#ifndef DISABLE_PLINK</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            gdsStream = make_unique&lt;pgenstream&gt;( param );</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>:</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Invalid file extension: &quot;</span> + param.file);</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    }  </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">return</span> gdsStream; </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">/* Defines type for interface with Rcpp */</span></div>
-<div class="foldopen" id="foldopen00188" data-start="{" data-end="};">
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html">  188</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structgds_1_1_bound_data_stream.html">BoundDataStream</a> {</div>
-<div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#a19ac5d87f8e99d77768a90f956c80228">  189</a></span>    <a class="code hl_function" href="structgds_1_1_bound_data_stream.html#a19ac5d87f8e99d77768a90f956c80228">BoundDataStream</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structgds_1_1_param.html">Param</a> &amp;param){</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">ptr</a> = createFileView_shared( param );</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#ifndef GENOMIC_DATA_STREAM_H_</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#define GENOMIC_DATA_STREAM_H_</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#include &quot;<a class="code" href="_genomic_data_stream__virtual_8h.html">GenomicDataStream_virtual.h</a>&quot;</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#include &quot;<a class="code" href="bgenstream_8h.html">bgenstream.h</a>&quot;</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#include &quot;<a class="code" href="vcfstream_8h.html">vcfstream.h</a>&quot;</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#include &quot;<a class="code" href="_delayed_stream_8h.html">DelayedStream.h</a>&quot;</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html">utils.h</a>&quot;</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#include &quot;<a class="code" href="_matrix_info_8h.html">MatrixInfo.h</a>&quot;</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#include &quot;<a class="code" href="_variant_info_8h.html">VariantInfo.h</a>&quot;</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#ifndef DISABLE_PLINK</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#include &quot;<a class="code" href="pgenstream_8h.html">pgenstream.h</a>&quot;</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#endif </span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegds.html">gds</a> {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keyword">static</span> unique_ptr&lt;GenomicDataStream&gt; createFileView( <span class="keyword">const</span> Param &amp; param ){</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    unique_ptr&lt;GenomicDataStream&gt; gdsStream;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="comment">// Define reader for VCF/VCFGZ/BCF or BGEN</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="comment">// depending on file extension</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">switch</span>( param.fileType ){</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>:</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>:</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>:</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            gdsStream = make_unique&lt;vcfstream&gt;( param );</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>:</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            gdsStream = make_unique&lt;bgenstream&gt;( param );</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>:</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>:            </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">#ifndef DISABLE_PLINK</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            gdsStream = make_unique&lt;pgenstream&gt;( param );    </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>:</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Invalid file extension: &quot;</span> + param.file);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }  </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">return</span> gdsStream; </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="keyword">static</span> shared_ptr&lt;GenomicDataStream&gt; createFileView_shared( <span class="keyword">const</span> Param &amp; param ){</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    shared_ptr&lt;GenomicDataStream&gt; gdsStream;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">// Define reader for VCF/VCFGZ/BCF or BGEN</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="comment">// depending on file extension</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">switch</span>( param.fileType ){</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">VCF</a>:</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c">VCFGZ</a>:</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0">BCF</a>:</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            gdsStream = make_shared&lt;vcfstream&gt;( param );</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251">BGEN</a>:</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            gdsStream = make_shared&lt;bgenstream&gt;( param );</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267">PGEN</a>:</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e">PBED</a>:       </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#ifndef DISABLE_PLINK</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            gdsStream = make_unique&lt;pgenstream&gt;( param );</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd">OTHER</a>:</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Invalid file extension: &quot;</span> + param.file);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }  </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordflow">return</span> gdsStream; </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">/* Defines type for interface with Rcpp */</span></div>
+<div class="foldopen" id="foldopen00189" data-start="{" data-end="};">
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html">  189</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structgds_1_1_bound_data_stream.html">BoundDataStream</a> {</div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#a19ac5d87f8e99d77768a90f956c80228">  190</a></span>    <a class="code hl_function" href="structgds_1_1_bound_data_stream.html#a19ac5d87f8e99d77768a90f956c80228">BoundDataStream</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structgds_1_1_param.html">Param</a> &amp;param){</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">ptr</a> = createFileView_shared( param );</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
 </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">  193</a></span>    shared_ptr&lt;gds::GenomicDataStream&gt; <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">ptr</a>;</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#ac8b1ce64a1cbd38237a7c1681e827efc">  194</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#ac8b1ce64a1cbd38237a7c1681e827efc">atEndOfStream</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#a07ecefe29d25a50bf1b0f980479d6f48">  195</a></span>    <span class="keywordtype">long</span> <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#a07ecefe29d25a50bf1b0f980479d6f48">featuresRead</a> = 0;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="namespacegds.html#ac70f2ea13e13e9f24bdd7a1717666a22">  196</a></span>} <a class="code hl_typedef" href="namespacegds.html#ac70f2ea13e13e9f24bdd7a1717666a22">BoundDataStream</a>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">  194</a></span>    shared_ptr&lt;gds::GenomicDataStream&gt; <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">ptr</a>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#ac8b1ce64a1cbd38237a7c1681e827efc">  195</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#ac8b1ce64a1cbd38237a7c1681e827efc">atEndOfStream</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="structgds_1_1_bound_data_stream.html#a07ecefe29d25a50bf1b0f980479d6f48">  196</a></span>    <span class="keywordtype">long</span> <a class="code hl_variable" href="structgds_1_1_bound_data_stream.html#a07ecefe29d25a50bf1b0f980479d6f48">featuresRead</a> = 0;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="namespacegds.html#ac70f2ea13e13e9f24bdd7a1717666a22">  197</a></span>} <a class="code hl_typedef" href="namespacegds.html#ac70f2ea13e13e9f24bdd7a1717666a22">BoundDataStream</a>;</div>
 </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>}</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>}</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_delayed_stream_8h_html"><div class="ttname"><a href="_delayed_stream_8h.html">DelayedStream.h</a></div></div>
 <div class="ttc" id="a_genomic_data_stream__virtual_8h_html"><div class="ttname"><a href="_genomic_data_stream__virtual_8h.html">GenomicDataStream_virtual.h</a></div></div>
 <div class="ttc" id="a_matrix_info_8h_html"><div class="ttname"><a href="_matrix_info_8h.html">MatrixInfo.h</a></div></div>
@@ -240,11 +240,11 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="anamespacegds_html_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91"><div class="ttname"><a href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91">gds::VCF</a></div><div class="ttdeci">@ VCF</div><div class="ttdef"><b>Definition</b> utils.h:201</div></div>
 <div class="ttc" id="anamespacegds_html_ac70f2ea13e13e9f24bdd7a1717666a22"><div class="ttname"><a href="namespacegds.html#ac70f2ea13e13e9f24bdd7a1717666a22">gds::BoundDataStream</a></div><div class="ttdeci">struct gds::BoundDataStream BoundDataStream</div></div>
 <div class="ttc" id="apgenstream_8h_html"><div class="ttname"><a href="pgenstream_8h.html">pgenstream.h</a></div></div>
-<div class="ttc" id="astructgds_1_1_bound_data_stream_html"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html">gds::BoundDataStream</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:188</div></div>
-<div class="ttc" id="astructgds_1_1_bound_data_stream_html_a07ecefe29d25a50bf1b0f980479d6f48"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#a07ecefe29d25a50bf1b0f980479d6f48">gds::BoundDataStream::featuresRead</a></div><div class="ttdeci">long featuresRead</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:195</div></div>
-<div class="ttc" id="astructgds_1_1_bound_data_stream_html_a19ac5d87f8e99d77768a90f956c80228"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#a19ac5d87f8e99d77768a90f956c80228">gds::BoundDataStream::BoundDataStream</a></div><div class="ttdeci">BoundDataStream(const Param &amp;param)</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:189</div></div>
-<div class="ttc" id="astructgds_1_1_bound_data_stream_html_abf1a91c6f22f65fbd200b618fc8180f9"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">gds::BoundDataStream::ptr</a></div><div class="ttdeci">shared_ptr&lt; gds::GenomicDataStream &gt; ptr</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:193</div></div>
-<div class="ttc" id="astructgds_1_1_bound_data_stream_html_ac8b1ce64a1cbd38237a7c1681e827efc"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#ac8b1ce64a1cbd38237a7c1681e827efc">gds::BoundDataStream::atEndOfStream</a></div><div class="ttdeci">bool atEndOfStream</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:194</div></div>
+<div class="ttc" id="astructgds_1_1_bound_data_stream_html"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html">gds::BoundDataStream</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:189</div></div>
+<div class="ttc" id="astructgds_1_1_bound_data_stream_html_a07ecefe29d25a50bf1b0f980479d6f48"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#a07ecefe29d25a50bf1b0f980479d6f48">gds::BoundDataStream::featuresRead</a></div><div class="ttdeci">long featuresRead</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:196</div></div>
+<div class="ttc" id="astructgds_1_1_bound_data_stream_html_a19ac5d87f8e99d77768a90f956c80228"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#a19ac5d87f8e99d77768a90f956c80228">gds::BoundDataStream::BoundDataStream</a></div><div class="ttdeci">BoundDataStream(const Param &amp;param)</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:190</div></div>
+<div class="ttc" id="astructgds_1_1_bound_data_stream_html_abf1a91c6f22f65fbd200b618fc8180f9"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9">gds::BoundDataStream::ptr</a></div><div class="ttdeci">shared_ptr&lt; gds::GenomicDataStream &gt; ptr</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:194</div></div>
+<div class="ttc" id="astructgds_1_1_bound_data_stream_html_ac8b1ce64a1cbd38237a7c1681e827efc"><div class="ttname"><a href="structgds_1_1_bound_data_stream.html#ac8b1ce64a1cbd38237a7c1681e827efc">gds::BoundDataStream::atEndOfStream</a></div><div class="ttdeci">bool atEndOfStream</div><div class="ttdef"><b>Definition</b> GenomicDataStream.h:195</div></div>
 <div class="ttc" id="astructgds_1_1_param_html"><div class="ttname"><a href="structgds_1_1_param.html">gds::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:68</div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div></div>
 <div class="ttc" id="avcfstream_8h_html"><div class="ttname"><a href="vcfstream_8h.html">vcfstream.h</a></div></div>

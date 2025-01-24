@@ -43,13 +43,13 @@ text-align: justify}
 `GenomicDataStream` designed to chunks of _features_ rather than chunks of _samples_. Features are stored as columns in the matrix returned by R/C++, <ins>independent of the underlying data storage format</ins>.    
 
 # Usage
-In general, variants from genetic data are used as covariates in `lmFitFeatures()`, and genes from single cell data are used as responses in `lmFitResponses()`.
-
+`GenomicDataStreamRegression` implements regression models (linear and GLMs) that stream chucks of features using the `GenomicDataStream` interface.  In general, variants from genetic data are used as covariates in `lmFitFeatures()`, and genes from single cell data are used as responses in `lmFitResponses()`.
 
 ### Example code with R
 #### Read genotype data into R
 ```R
 library(GenomicDataStream)
+library(GenomicDataStreamRegression) 
 
 # VCF file
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
@@ -73,6 +73,7 @@ while( 1 ){
     if( atEndOfStream(gds) ) break
     
     # do analysis on this chunk of data
+    # from GenomicDataStreamRegression
     fit = lmFitFeatures(y, design, dat$X)
 }
 ```
@@ -80,6 +81,7 @@ while( 1 ){
 #### Use R to run analysis at C++ level
 ```R
 library(GenomicDataStream)
+library(GenomicDataStreamRegression) 
 
 # VCF file
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
@@ -95,6 +97,7 @@ design = matrix(1, n, 1)
 # regression of y ~ design + X[,j]
 #   where X[,j] is the jth variant in the GenomicDataStream
 # data in GenomicDataStream is only accessed at C++ level 
+# from GenomicDataStreamRegression
 fit = lmFitFeatures(y, design, gds)
 ```
 
@@ -132,12 +135,13 @@ VariantInfo *info;
 while( gdsStream->getNextChunk( chunk ) ){
 
     // get data from chunk
-    // chunk.getData();
+    arma::mat X = chunk.getData();
 
     // get variant information
     info = chunk.getInfo<VariantInfo>();
 
     // Do analysis with variants in this chunk
+    analysis_function(X, info);
 }
 ```
 

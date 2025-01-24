@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Data as a GenomicDataStream • GenomicDataStream</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -56,14 +62,13 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Data as a GenomicDataStream</h1>
+      <img src="../logo.svg" class="logo" alt=""><h1>Data as a GenomicDataStream</h1>
             <h3 data-toc-skip class="subtitle">R and C++ code</h3>
                         <h4 data-toc-skip class="author">Developed by <a href="http://gabrielhoffman.github.io/" class="external-link">Gabriel Hoffman</a>
 </h4>
             
             <h4 data-toc-skip class="date">Run on 2025-01-23
-15:41:15</h4>
+21:40:31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/GenomicDataStream/blob/HEAD/vignettes/GenomicDataStream.Rmd" class="external-link"><code>vignettes/GenomicDataStream.Rmd</code></a></small>
       <div class="d-none name"><code>GenomicDataStream.Rmd</code></div>
@@ -86,9 +91,12 @@ the underlying data storage format</ins>.</p>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>In general, variants from genetic data are used as covariates in
-<code>lmFitFeatures()</code>, and genes from single cell data are used
-as responses in <code>lmFitResponses()</code>.</p>
+<p><code>GenomicDataStreamRegression</code> implements regression models
+(linear and GLMs) that stream chucks of features using the
+<code>GenomicDataStream</code> interface. In general, variants from
+genetic data are used as covariates in <code><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitFeatures.html" class="external-link">lmFitFeatures()</a></code>, and
+genes from single cell data are used as responses in
+<code><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitResponses.html" class="external-link">lmFitResponses()</a></code>.</p>
 <div class="section level4">
 <h4 id="example-code-with-r">Example code with R<a class="anchor" aria-label="anchor" href="#example-code-with-r"></a>
 </h4>
@@ -97,6 +105,7 @@ as responses in <code>lmFitResponses()</code>.</p>
 </h5>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStreamRegression" class="external-link">GenomicDataStreamRegression</a></span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># VCF file</span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
@@ -120,7 +129,8 @@ as responses in <code>lmFitResponses()</code>.</p>
 <span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="../reference/atEndOfStream.html">atEndOfStream</a></span><span class="op">(</span><span class="va">gds</span><span class="op">)</span> <span class="op">)</span> <span class="kw">break</span></span>
 <span>    </span>
 <span>    <span class="co"># do analysis on this chunk of data</span></span>
-<span>    <span class="va">fit</span> <span class="op">=</span> <span class="fu">lmFitFeatures</span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
+<span>    <span class="co"># from GenomicDataStreamRegression</span></span>
+<span>    <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -128,6 +138,7 @@ as responses in <code>lmFitResponses()</code>.</p>
 </h5>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStreamRegression" class="external-link">GenomicDataStreamRegression</a></span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># VCF file</span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span>
@@ -143,7 +154,8 @@ as responses in <code>lmFitResponses()</code>.</p>
 <span><span class="co"># regression of y ~ design + X[,j]</span></span>
 <span><span class="co">#   where X[,j] is the jth variant in the GenomicDataStream</span></span>
 <span><span class="co"># data in GenomicDataStream is only accessed at C++ level </span></span>
-<span><span class="va">fit</span> <span class="op">=</span> <span class="fu">lmFitFeatures</span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">gds</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># from GenomicDataStreamRegression</span></span>
+<span><span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastLinReg/man/lmFitFeatures.html" class="external-link">lmFitFeatures</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, <span class="va">gds</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -180,13 +192,14 @@ as responses in <code>lmFitResponses()</code>.</p>
 <span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
 <span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a></span>
 <span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    <span class="co">// chunk.getData();</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    arma<span class="op">::</span>mat X <span class="op">=</span> chunk<span class="op">.</span>getData<span class="op">();</span></span>
 <span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a></span>
 <span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
 <span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>    info <span class="op">=</span> chunk<span class="op">.</span>getInfo<span class="op">&lt;</span>VariantInfo<span class="op">&gt;();</span></span>
 <span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a></span>
 <span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>    analysis_function<span class="op">(</span>X<span class="op">,</span> info<span class="op">);</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Accessing data</p>
 </div>
 </div>

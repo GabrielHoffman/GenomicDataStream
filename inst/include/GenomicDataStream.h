@@ -52,12 +52,13 @@ VariantInfo *info;
 while( gdsStream->getNextChunk( chunk ) ){
 
     // get data from chunk
-    // chunk.getData();
+    arma::mat X = chunk.getData();
 
     // get variant information
     info = chunk.getInfo<VariantInfo>();
 
     // Do analysis with variants in this chunk
+    analysis_function(X, info);
 }
 ```
 
