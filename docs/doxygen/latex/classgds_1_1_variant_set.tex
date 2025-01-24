@@ -1,0 +1,47 @@
+\doxysection{gds\+::Variant\+Set Class Reference}
+\hypertarget{classgds_1_1_variant_set}{}\label{classgds_1_1_variant_set}\index{gds::VariantSet@{gds::VariantSet}}
+
+
+{\ttfamily \#include $<$Variant\+Set.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgds_1_1_variant_set_a188f3043d8c3ac90f778767a9f74cdea}{Variant\+Set}} (const vector$<$ string $>$ \&chrom, const vector$<$ size\+\_\+t $>$ \&position)
+\item 
+vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{classgds_1_1_variant_set_a01617ab9fbaf2927b961ea4d2cf698dd}{get\+Indeces}} (const string \&chrom, const size\+\_\+t \&start, const size\+\_\+t \&end)
+\item 
+vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{classgds_1_1_variant_set_afaf143b2873fae16a2799bb7db506f26}{get\+Indeces}} (const \mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \&gr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Store position and ID, sorted by position. Get indeces of variants with a query interval using binary search in O(log(\+N)) time. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classgds_1_1_variant_set_a188f3043d8c3ac90f778767a9f74cdea}\index{gds::VariantSet@{gds::VariantSet}!VariantSet@{VariantSet}}
+\index{VariantSet@{VariantSet}!gds::VariantSet@{gds::VariantSet}}
+\doxysubsubsection{\texorpdfstring{VariantSet()}{VariantSet()}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_a188f3043d8c3ac90f778767a9f74cdea} 
+gds\+::\+Variant\+Set\+::\+Variant\+Set (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{chrom}{, }\item[{const vector$<$ size\+\_\+t $>$ \&}]{position}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classgds_1_1_variant_set_afaf143b2873fae16a2799bb7db506f26}\index{gds::VariantSet@{gds::VariantSet}!getIndeces@{getIndeces}}
+\index{getIndeces@{getIndeces}!gds::VariantSet@{gds::VariantSet}}
+\doxysubsubsection{\texorpdfstring{getIndeces()}{getIndeces()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_afaf143b2873fae16a2799bb7db506f26} 
+vector$<$ size\+\_\+t $>$ gds\+::\+Variant\+Set\+::get\+Indeces (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \&}]{gr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get indeces of variants within set of query intervals. Use binary search for each interval \Hypertarget{classgds_1_1_variant_set_a01617ab9fbaf2927b961ea4d2cf698dd}\index{gds::VariantSet@{gds::VariantSet}!getIndeces@{getIndeces}}
+\index{getIndeces@{getIndeces}!gds::VariantSet@{gds::VariantSet}}
+\doxysubsubsection{\texorpdfstring{getIndeces()}{getIndeces()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_a01617ab9fbaf2927b961ea4d2cf698dd} 
+vector$<$ size\+\_\+t $>$ gds\+::\+Variant\+Set\+::get\+Indeces (\begin{DoxyParamCaption}\item[{const string \&}]{chrom}{, }\item[{const size\+\_\+t \&}]{start}{, }\item[{const size\+\_\+t \&}]{end}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get indeces of variants within the query interval using binary search 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_variant_set_8h}{Variant\+Set.\+h}}\end{DoxyCompactItemize}

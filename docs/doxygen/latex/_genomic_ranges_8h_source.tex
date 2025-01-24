@@ -1,0 +1,135 @@
+\doxysection{Genomic\+Ranges.\+h}
+\hypertarget{_genomic_ranges_8h_source}{}\label{_genomic_ranges_8h_source}\index{inst/include/GenomicRanges.h@{inst/include/GenomicRanges.h}}
+\mbox{\hyperlink{_genomic_ranges_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ GenomicRanges.h.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ Store\ genomic\ ranges\ of\ type\ chrom:start-\/end}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ GENOMIC\_RANGES\_H\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ GENOMIC\_RANGES\_H\_}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a8c133921e557362c59e9637ce62007d5}{GenomicRanges}}(\ \textcolor{keyword}{const}\ vector<string>\ \&chrom,\ \textcolor{keyword}{const}\ vector<size\_t>\ \&start,\ \textcolor{keyword}{const}\ vector<size\_t>\ \&end)\ :\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ chrom(chrom),\ start(start),\ end(end)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a3f29b99ac1d64a87caba95df9c0ae72e}{GenomicRanges}}(\ \textcolor{keyword}{const}\ vector<string>\ \&regions\ )\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ initialize(\ regions\ );}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges_ae2da7152da492b0e3c0cb945629336f1}{GenomicRanges}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&regionString\ )\{}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ vector<string>\ regions;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ boost::split(regions,\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ initialize(\ regions\ );}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a8b1422b3f04aa00d939d1c701bb3ef9b}{get\_chrom}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chrom[i];\}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a3aa318f5f2fa56de895275963ad0a8c4}{get\_start}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ start[i];\}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a4486f09aacfeaa8f977ddbf3fc266ece}{get\_end}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end[i];\}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a7d1b020b0a925df57b1d9b56ddbae8e3}{size}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end.size();\}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a2d8bfc2cc7726cb6447f98f2c8572895}{isWithin}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \&start,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \&end,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \&position)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (position\ >=\ start)\ \&\&\ (position\ <=\ end);\ }
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a6d4c6fccf2e56885d72f067c1f6cc765}{isWithin}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&chr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \&position)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ found\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ chrom.size();\ i++)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (chrom[i].compare(chr)\ ==\ 0\ )\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a2d8bfc2cc7726cb6447f98f2c8572895}{isWithin}}(\ start[i],\ end[i],\ position)\ )\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ found;}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{const}\ vector<int>\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a9f3b7674e0aa28c257632ed31be533d9}{getWithinIndeces}}(\ vector<string>\ chr,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vector<size\_t>\ position)\{}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<chr.size();\ i++)\{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a2d8bfc2cc7726cb6447f98f2c8572895}{isWithin}}(\ chr[i],\ position[i])\ )\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indeces.push\_back(i);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00094\ \ \ \ \ vector<string>\ chrom;}
+\DoxyCodeLine{00095\ \ \ \ \ vector<size\_t>\ start;}
+\DoxyCodeLine{00096\ \ \ \ \ vector<size\_t>\ end;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ initialize(vector<string>\ regions)\{}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ only\ entry\ is\ "{}."{}\ or\ "{}"{},\ }}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ don't\ add\ any\ regions\ and\ return\ early}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ regions.size()\ ==\ 1\ \&\&\ regions[0].compare(\textcolor{stringliteral}{"{}."{}})\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ regions.size()\ ==\ 1\ \&\&\ regions[0].compare(\textcolor{stringliteral}{"{}"{}})\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Remove\ duplicate\ entries,\ but\ preserve\ element\ order.\ }}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ removeDuplicates(\ regions\ );}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ vector<string>\ reg,\ pos;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ p0,\ p1;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \&\ it\ :\ regions)\{}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ parse}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(reg,\ it,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}:"{}}));}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(pos,\ reg[1],\ boost::is\_any\_of(\textcolor{stringliteral}{"{}-\/"{}}));}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ only\ start\ given,\ set\ end\ to\ same\ value}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pos.size()\ ==\ 1\ )\ pos.push\_back(\ pos[0]\ );}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ strings\ to\ long\ int}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ p0\ =\ atol(pos[0].c\_str());}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ p1\ =\ atol(pos[1].c\_str());}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ region}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ (reg.size()\ !=\ 2)\ ||\ (pos.size()\ >\ 2)\ ||\ (p1\ <\ p0)\ ||\ (p0<0)\ ||\ (p1<0))\{\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !isOnlyDigits(pos[0])\ ||\ !isOnlyDigits(pos[1]))\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ regions}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ chrom.push\_back(\ reg[0]\ );}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ start.push\_back(\ p0\ );}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ end.push\_back(\ p1\ );}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

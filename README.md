@@ -26,6 +26,17 @@ The `GenomicDataStream` interface separate:
 ### See header-only C++ library [documentation](doxygen/html/index.html)
  
 
+## Install
+```r
+# install latest version of pgenlibr
+devtools::install_github("chrchang/plink-ng", subdir = "2.0/pgenlibr")
+
+# install latest version of GenomicDataStream
+devtools::install_github("GabrielHoffman/GenomicDataStream")
+
+# currently, works with BH v1.84.0.0
+# it will not work with a more recent version
+```
 
 
 ## Supported formats

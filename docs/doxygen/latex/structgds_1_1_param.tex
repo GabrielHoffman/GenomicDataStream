@@ -1,0 +1,152 @@
+\doxysection{gds\+::Param Struct Reference}
+\hypertarget{structgds_1_1_param}{}\label{structgds_1_1_param}\index{gds::Param@{gds::Param}}
+
+
+{\ttfamily \#include $<$Genomic\+Data\+Stream\+\_\+virtual.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}{Param}} ()
+\item 
+\mbox{\hyperlink{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}{Param}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}, string region\+String="{}"{}, const string \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}="{}-\/"{}, const int \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunk\+Size}}=numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missing\+To\+Mean}}=false, const int \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}=200, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
+\item 
+void \mbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{set\+Field}} (const string \&field\+\_\+)
+\item 
+void \mbox{\hyperlink{structgds_1_1_param_a8c752be96dffc51b142914a8b2fe2f33}{set\+Samples\+File}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}
+\item 
+string \mbox{\hyperlink{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82}{file\+Samples}} = "{}"{}
+\item 
+string \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}} = "{}"{}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}
+\item 
+string \mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}
+\item 
+int \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunk\+Size}}
+\item 
+bool \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missing\+To\+Mean}}
+\item 
+int \mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}
+\item 
+\mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{File\+Type}} \mbox{\hyperlink{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}{file\+Type}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Store parameters to pass to \doxylink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}\index{gds::Param@{gds::Param}!Param@{Param}}
+\index{Param@{Param}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{Param()}{Param()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915} 
+gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}\index{gds::Param@{gds::Param}!Param@{Param}}
+\index{Param@{Param}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{Param()}{Param()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d} 
+gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string}]{region\+String}{ = {\ttfamily "{}"{}}, }\item[{const string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}, }\item[{const int \&}]{init\+Capacity}{ = {\ttfamily 200}, }\item[{const bool \&}]{permute\+Feature\+Order}{ = {\ttfamily false}, }\item[{const int \&}]{rnd\+Seed}{ = {\ttfamily 12345}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+constructor 
+\begin{DoxyParams}{Parameters}
+{\em file} & .vcf, .vcf.\+gz or .bcf file with tabix index \\
+\hline
+{\em region\+String} & target in the format {\ttfamily "{}chr2\+:1-\/12345"{}}. Multiple regions can be separated by one of {\ttfamily ,\textbackslash{}n\textbackslash{}t}, for example {\ttfamily "{}chr2\+:1-\/12345, chr3\+:1000-\/8000"{}}. Setting region to {\ttfamily "{}"{}} includes all variants \\
+\hline
+{\em samples} & string of comma separated sample IDs to extract\+: "{}\+ID1,\+ID2,\+ID3"{} \\
+\hline
+{\em chunk\+Size} & number of variants to return per chunk \\
+\hline
+{\em missing\+To\+Mean} & if true, set missing values to the mean dosage value. if false, set to NaN \\
+\hline
+{\em init\+Capacity} & initial capacity of temporary vector to avoid re-\/alloc on insert. Size is in Mb. \\
+\hline
+{\em permute\+Feature\+Order} & default is {\ttfamily false}. If {\ttfamily true} permute regions in {\ttfamily region\+String} to avoid linkage disequilibrium betweeen nearby regions \\
+\hline
+{\em rnd\+Seed} & random seed for permutation\\
+\hline
+\end{DoxyParams}
+Note that field must be set separately for VCF/\+BCF\+: field\+: {\ttfamily "{}\+GT"{}} for genotype strings, {\ttfamily "{}\+DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}\+GT"{}} is the only string type supported 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}\index{gds::Param@{gds::Param}!setField@{setField}}
+\index{setField@{setField}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{setField()}{setField()}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d} 
+void gds\+::\+Param\+::set\+Field (\begin{DoxyParamCaption}\item[{const string \&}]{field\+\_\+}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{structgds_1_1_param_a8c752be96dffc51b142914a8b2fe2f33}\index{gds::Param@{gds::Param}!setSamplesFile@{setSamplesFile}}
+\index{setSamplesFile@{setSamplesFile}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{setSamplesFile()}{setSamplesFile()}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a8c752be96dffc51b142914a8b2fe2f33} 
+void gds\+::\+Param\+::set\+Samples\+File (\begin{DoxyParamCaption}\item[{const string \&}]{file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Custom path to PSAM/\+FAM file 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}\index{gds::Param@{gds::Param}!chunkSize@{chunkSize}}
+\index{chunkSize@{chunkSize}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{chunkSize}{chunkSize}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824} 
+int gds\+::\+Param\+::chunk\+Size}
+
+\Hypertarget{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}\index{gds::Param@{gds::Param}!field@{field}}
+\index{field@{field}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{field}{field}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6} 
+string gds\+::\+Param\+::field = "{}"{}}
+
+\Hypertarget{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}\index{gds::Param@{gds::Param}!file@{file}}
+\index{file@{file}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{file}{file}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5} 
+string gds\+::\+Param\+::file}
+
+\Hypertarget{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82}\index{gds::Param@{gds::Param}!fileSamples@{fileSamples}}
+\index{fileSamples@{fileSamples}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{fileSamples}{fileSamples}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82} 
+string gds\+::\+Param\+::file\+Samples = "{}"{}}
+
+\Hypertarget{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}\index{gds::Param@{gds::Param}!fileType@{fileType}}
+\index{fileType@{fileType}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{fileType}{fileType}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff} 
+\mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{File\+Type}} gds\+::\+Param\+::file\+Type}
+
+\Hypertarget{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}\index{gds::Param@{gds::Param}!initCapacity@{initCapacity}}
+\index{initCapacity@{initCapacity}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{initCapacity}{initCapacity}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26} 
+int gds\+::\+Param\+::init\+Capacity}
+
+\Hypertarget{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}\index{gds::Param@{gds::Param}!missingToMean@{missingToMean}}
+\index{missingToMean@{missingToMean}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{missingToMean}{missingToMean}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801} 
+bool gds\+::\+Param\+::missing\+To\+Mean}
+
+\Hypertarget{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}\index{gds::Param@{gds::Param}!regions@{regions}}
+\index{regions@{regions}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{regions}{regions}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b} 
+vector$<$string$>$ gds\+::\+Param\+::regions}
+
+\Hypertarget{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}\index{gds::Param@{gds::Param}!samples@{samples}}
+\index{samples@{samples}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{samples}{samples}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732} 
+string gds\+::\+Param\+::samples}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_genomic_data_stream__virtual_8h}{Genomic\+Data\+Stream\+\_\+virtual.\+h}}\end{DoxyCompactItemize}
