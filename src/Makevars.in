@@ -18,7 +18,7 @@ PKG_CPPFLAGS = -I. -I${HTSLIB_DIR} $(RHTSLIB_CPPFLAGS) \
 -I ../inst/include/zstd-1.1.0/lib/decompress  
 
 PLINK2_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
- 	 'cat(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE))')
+ 	 'cat(rev(dir(system.file("libs", package = "pgenlibr", mustWork = TRUE), pattern="libPLINK2|libPGDEFLATE|libPGZSTD", full.names=TRUE)))')
 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)  $(RHTSLIB_LIBS) $(PLINK2_LIBS) 
 
