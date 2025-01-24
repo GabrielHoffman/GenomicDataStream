@@ -57,7 +57,7 @@ SEXP create_xptr(
 			const std::string &field = "",
 			const std::string &region = "",
 			const std::string &samples = "-",
-			const int &chunkSize = std::numeric_limits<int>::max(),
+			const int &chunkSize = 100000,
 			const bool &missingToMean = false){
 
 	Param param( file, region, samples, chunkSize, missingToMean);

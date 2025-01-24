@@ -12,14 +12,12 @@ License: Artistic-2.0
 Suggests: 
         BiocStyle, 
         RUnit, 
-        VariantAnnotation, 
         DelayedArray, 
         knitr,
         rmarkdown
 Depends: 
         R (>= 4.3.0), 
         Rcpp, 
-        beachmat, 
         methods, 
         stats,
         utils,

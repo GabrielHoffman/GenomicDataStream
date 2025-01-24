@@ -1,8 +1,9 @@
 
 # GenomicDataStream 0.0.10
  - Jan 23, 2025
- - handle `pgenlibr` v0.4.0
+ - update to `pgenlibr` v0.4.0
  - move regression to separate package
+ - remove `src/zstd-1.1.0`
 
 # GenomicDataStream 0.0.9
  - Dec 18, 2024
