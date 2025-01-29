@@ -39,5 +39,5 @@ RoxygenNote: 7.3.2
 RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes: 
-        chrchang/plink-ng/2.0/pgenlibr
+        chrchang/plink-ng/2.0/pgenlibr,
         GabrielHoffman/vcfppR
