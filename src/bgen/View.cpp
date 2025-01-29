@@ -167,7 +167,6 @@ namespace genfile {
 		void View::setup( std::string const& filename ) {
 			m_file_metadata.filename = filename ;
 			m_file_metadata.last_write_time = boost::filesystem::last_write_time( filename ) ;
-
 			// Open the stream
 			m_stream.reset(
 				new std::ifstream( filename.c_str(), std::ifstream::binary )

@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.0.13
+ - Jan 29, 2025
+ - remove dependency on `Rhtslib`
+
 # GenomicDataStream 0.0.10
  - Jan 23, 2025
  - update to `pgenlibr` v0.4.0
