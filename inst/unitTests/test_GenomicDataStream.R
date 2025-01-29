@@ -178,7 +178,7 @@ test_xptr = function(){
 
 		if( atEndOfStream(gdsObj) ) break
 		
-		print(dat$info)
+		# print(dat$info)
 	}
 
 }
@@ -210,7 +210,7 @@ test_chunks = function(){
 
 	# test for each file type
 	for( file in files){
-		cat(file, "\n")
+		# cat(file, "\n")
 		X_cat = c()
 
 		# initialize
@@ -303,7 +303,7 @@ test_regression = function(){
 	###############
 	resList = lapply(files, function(file){
 
-		cat(file, "\n")
+		# cat(file, "\n")
 		# rm(dat, res)
 
 		# test dosages
@@ -345,7 +345,7 @@ test_regression = function(){
 
 	resList = lapply(files[-i], function(file){
 
-		cat(file, "\n")
+		# cat(file, "\n")
 
 		# test dosages
 		# dat = GenomicDataStream:::getDosage(file, "DS", region=reg, chunkSize=100, samples=ids)
