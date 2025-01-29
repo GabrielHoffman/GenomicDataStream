@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   extensions: extensions.html
   GenomicDataStream: GenomicDataStream.html
-last_built: 2025-01-24T14:39Z
+last_built: 2025-01-29T20:02Z
 urls:
   reference: http://gabrielhoffman.github.io/GenomicDataStream/reference
   article: http://gabrielhoffman.github.io/GenomicDataStream/articles
