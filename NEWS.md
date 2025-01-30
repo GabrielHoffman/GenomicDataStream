@@ -2,6 +2,7 @@
 # GenomicDataStream 0.0.14
  - Jan 30, 2025
  - update `Makevars.in`
+ - get BH v1.84 from `eddelbuettel/bh@852b468`
 
 # GenomicDataStream 0.0.13
  - Jan 29, 2025
