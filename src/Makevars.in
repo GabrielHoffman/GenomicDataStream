@@ -31,7 +31,7 @@ PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT @ZSTD_COMPILE_FLAG@ @LIBDEFLATE
 PLINK2_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
  	 'loc = system.file("libs", package = "pgenlibr", mustWork = TRUE); files = c(dir(loc, pattern="libPLINK2.a", full.names=TRUE), dir(loc, pattern="libPGZSTD.a", full.names=TRUE),dir(loc, pattern="libPGDEFLATE.a", full.names=TRUE));cat(files)')
 
-PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB) $(PLINK2_LIBS)
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB) $(PLINK2_LIBS) @ZSTD_LIBS@ @LIBDEFLATE_LIBS@
 
 CXX_STD=CXX17
 
