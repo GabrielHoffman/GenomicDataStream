@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.0.14
+ - Jan 30, 2025
+ - update `Makevars.in`
+
 # GenomicDataStream 0.0.13
  - Jan 29, 2025
  - remove dependency on `Rhtslib`

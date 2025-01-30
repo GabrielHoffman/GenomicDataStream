@@ -1,32 +1,37 @@
-
+# HTS
 # link against libhts.a from vcfppR
 HTSLIB = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
  	 'loc = system.file("libs", package = "vcfppR", mustWork = TRUE); files = dir(loc, pattern="libhts.a", full.names=TRUE); cat(files)')
 HTSLIB += -lcurl -lbz2 -llzma -lz
-
 
 HTS_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
  	 'cat(system.file("include/", package = "vcfppR", mustWork = TRUE))')
 
 HTSLIB_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -I$(HTS_INCL)
 
-# $(SHLIB_OPENMP_CXXFLAGS)
-PKG_CPPFLAGS = -I. $(HTSLIB_CPPFLAGS) \
--D NDEBUG  \
--D SQLITE_ENABLE_COLUMN_METADATA \
--D SQLITE_ENABLE_STAT4 \
--D SQLITE_MAX_EXPR_DEPTH=10000 \
--D SQLITE_USE_URI=1 \
--I ../inst/include/ \
+INCL = -I ../inst/include/ \
+-I$(HTS_INCL) \
+-I. \
 -I ../inst/include/zstd-1.1.0/lib  \
 -I ../inst/include/zstd-1.1.0/lib/common  \
 -I ../inst/include/zstd-1.1.0/lib/compress  \
 -I ../inst/include/zstd-1.1.0/lib/decompress  
 
+PKG_CPPFLAGS = $(INCL) $(HTSLIB_CPPFLAGS) \
+-D NDEBUG  \
+-D SQLITE_ENABLE_COLUMN_METADATA \
+-D SQLITE_ENABLE_STAT4 \
+-D SQLITE_MAX_EXPR_DEPTH=10000 \
+-D SQLITE_USE_URI=1 
+
+# import variables from config
+PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT @ZSTD_COMPILE_FLAG@ @LIBDEFLATE_COMPILE_FLAG@ @SIMDE_COMPILE_FLAG@ @ZSTD_INCLUDE_PATH@ @LIBDEFLATE_INCLUDE_PATH@ @SIMDE_INCLUDE_PATH@
+
+# Plink2 libs 
 PLINK2_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
  	 'loc = system.file("libs", package = "pgenlibr", mustWork = TRUE); files = c(dir(loc, pattern="libPLINK2.a", full.names=TRUE), dir(loc, pattern="libPGZSTD.a", full.names=TRUE),dir(loc, pattern="libPGDEFLATE.a", full.names=TRUE));cat(files)')
 
-PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB) $(PLINK2_LIBS) 
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB) $(PLINK2_LIBS) @ZSTD_LIBS@ @LIBDEFLATE_LIBS@
 
 CXX_STD=CXX17
 
