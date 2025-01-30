@@ -28,7 +28,7 @@ LinkingTo:
         RcppEigen, 
         beachmat (>= 2.21.9),
         assorthead,  
-        BH (== 1.84.0.0), 
+        BH (== 1.84.0-0.1), 
         vcfppR (>= 0.7.2), 
         pgenlibr (>= 0.4.1)
 Encoding: UTF-8
@@ -40,4 +40,6 @@ RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes: 
         chrchang/plink-ng/2.0/pgenlibr,
-        Zilong-Li/vcfppR
+        Zilong-Li/vcfppR,
+        eddelbuettel/bh@852b468
+
