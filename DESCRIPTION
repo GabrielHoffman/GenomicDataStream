@@ -40,4 +40,4 @@ RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes: 
         chrchang/plink-ng/2.0/pgenlibr,
-        GabrielHoffman/vcfppR
+        Zilong-Li/vcfppR
