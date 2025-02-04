@@ -54,35 +54,9 @@ class vcfstream :
  		// initialize
 		reader = new BcfReader( param.file );
 
-		validRegions.reserve(param.regions.size());
-		validRegions.clear();
+		// Set genomic regions regions
+		setRegions( param.regions );
 
-		// check status of each region
-		// retain only valid, non-empty regions in validRegions
-		for(const string& region : param.regions){
-
-			switch( reader->getStatus( region ) ){
-				case 1: // region is vaild and not empty
-				validRegions.push_back(region);	
-				break;
-
-				case 0: // the region is valid but empty.
-				break;
-
-				case -1: // there is no index file found.
-				throw runtime_error("Could not retrieve index file");
-				break;
-
-				case -2: // the region is not valid
-				throw runtime_error("region was not found: " + region );
-				break;
-			}
-		}
-
-		// initialize iterator
-		itReg = validRegions.begin();
-
-		reader->setRegion( *itReg );
 		reader->setSamples( param.samples );
 
 		// Initialize record with info in header
@@ -112,6 +86,41 @@ class vcfstream :
 		if( reader != nullptr) delete reader;
 		if( record != nullptr) delete record;
 		if( vInfo != nullptr) delete vInfo;
+	}
+
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+
+		validRegions.reserve(regions.size());
+		validRegions.clear();
+
+		// check status of each region
+		// retain only valid, non-empty regions in validRegions
+		for(const string& region : regions){
+
+			switch( reader->getStatus( region ) ){
+				case 1: // region is vaild and not empty
+				validRegions.push_back(region);	
+				break;
+
+				case 0: // the region is valid but empty.
+				break;
+
+				case -1: // there is no index file found.
+				throw runtime_error("Could not retrieve index file");
+				break;
+
+				case -2: // the region is not valid
+				throw runtime_error("region was not found: " + region );
+				break;
+			}
+		}
+
+		// initialize iterator
+		itReg = validRegions.begin();
+
+		reader->setRegion( *itReg );
 	}
 
 	/** Get number of columns in data matrix

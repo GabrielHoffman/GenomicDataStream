@@ -151,6 +151,10 @@ class GenomicDataStream {
 	/** destructor
 	 */
 	virtual ~GenomicDataStream() {};
+
+	/** setter
+	 */
+	virtual void setRegions(const vector<string> &regions) = 0; 
 	
 	/** Get number of columns in data matrix
 	 */ 

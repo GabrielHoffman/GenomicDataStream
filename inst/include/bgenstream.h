@@ -67,6 +67,36 @@ static genfile::bgen::View::UniquePtr construct_view(
 	return view ;
 }
 
+
+/** Construct view of BGEN file using index to subset variants
+ * based on region or variant id
+ * @param filename path to BGEN file
+ */ 
+static genfile::bgen::View::UniquePtr construct_view(
+	const string & filename) {
+
+	if( ! filesystem::exists( filename ) ){
+		throw runtime_error("File does not exist: " + filename);
+	}
+
+	View::UniquePtr view = genfile::bgen::View::create( filename ) ;
+
+	return view ;
+}
+
+static IndexQuery::UniquePtr construct_query(const string &index_filename){
+
+	if( ! filesystem::exists( index_filename ) ){
+		throw runtime_error("File does not exist: " + index_filename);
+	}
+
+	IndexQuery::UniquePtr query = IndexQuery::create( index_filename ) ;
+	return query;
+}
+
+
+
+
 /** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
 */
@@ -79,15 +109,14 @@ class bgenstream :
 	/** constructor
 	*/
 	bgenstream(const Param & param) : GenomicDataStream(param) {
-		
-		// Initialize genomic regions
-		GenomicRanges gr( param.regions );
 
-		// Initialize view and filter variants
-		view = construct_view( param.file, param.file + ".bgi", gr ) ;
+		// Initialize view from just bgen file
+		view = construct_view( param.file ) ;
 
-		// number of variants after filtering 
-		n_variants_total = view->number_of_variants() ;
+		queryGlobal = construct_query( param.file + ".bgi" );
+
+		// apply region filters
+		setRegions( param.regions );
 
 		// Filter samples
 		if( param.samples.compare("-") == 0 ){
@@ -118,6 +147,28 @@ class bgenstream :
 	 */ 
 	~bgenstream(){
 		if( vInfo != nullptr) delete vInfo;
+	}
+
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+		
+		GenomicRanges gr( regions );
+
+		auto query = queryGlobal;
+
+		if( gr.size() > 0){	
+			for( int i = 0; i < gr.size(); i++ ) {
+				query->include_range( 
+					IndexQuery::GenomicRange( gr.get_chrom(i) , gr.get_start(i), gr.get_end(i) ) ) ;
+			}
+			// query->include_rsids( rsids ) ;
+			query->initialise() ;
+			view->set_query( query ) ;
+		}
+
+		// number of variants after filtering 
+		n_variants_total = view->number_of_variants() ;
 	}
 
 	/** Get number of columns in data matrix
@@ -210,6 +261,7 @@ class bgenstream :
 
 	private:
 	View::UniquePtr view = nullptr; 
+	IndexQuery::UniquePtr queryGlobal = nullptr;
 	size_t number_of_samples = 0;
 	vector<string> sampleNames;
 	map<size_t, size_t> requestedSamplesByIndexInDataIndex;

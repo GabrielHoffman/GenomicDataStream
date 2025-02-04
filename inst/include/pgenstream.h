@@ -107,6 +107,35 @@ class pgenstream :
 		}
 	}
 
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+		// Initialize genomic regions
+		// from delimited string
+		GenomicRanges gr( regions );
+
+		// if not empty
+		if( gr.size() != 0){
+			// get indeces of entries in .pvar located 
+			// within regions
+			// Search is linear time for each interval
+			// varIdx = gr.getWithinIndeces( dt["CHROM"], cast_elements<size_t>(dt["POS"]) );
+
+			// Search is log time for each interval
+			VariantSet vs(dt["CHROM"], cast_elements<size_t>(dt["POS"]));
+			varIdx = vs.getIndeces( gr );
+
+		}else{
+			// else
+			// set entries to seq(0, dt.nrows()-1)
+			varIdx.resize(dt.nrows());
+			iota(begin(varIdx), end(varIdx), 0); 
+		}
+
+		// total number of requested variants
+		n_requested_variants = varIdx.size();
+	}
+
 	/** Get number of columns in data matrix
 	 */ 
 	int n_samples() override {
@@ -283,12 +312,12 @@ class pgenstream :
 	void process_variants(){
 
 		// if file is PGEN
-    	if( genoFileType == PGEN ){
+    if( genoFileType == PGEN ){
 			// Name of .pvar file based on replacing .pgen$
 			fileIdx = regex_replace(param.file, regex("pgen$"), "pvar");
 
 			// Read .pvar file into DataTable
-			// column names are define by line starting with "#CHROM"
+			// column names are defined by line starting with "#CHROM"
 			// lines before this are ignored
 			dt = DataTable( fileIdx, "#CHROM" );
 
@@ -315,31 +344,9 @@ class pgenstream :
 		for(int i=0; i<dt["ID"].size(); i++){
 			map_dt_id.emplace(dt["ID"][i], i); 
 		}
-
-		// Initialize genomic regions
-		// from delimited string
-		GenomicRanges gr( param.regions );
-
-		// if not empty
-		if( gr.size() != 0){
-			// get indeces of entries in .pvar located 
-			// within param.regions
-			// Search is linear time for each interval
-			// varIdx = gr.getWithinIndeces( dt["CHROM"], cast_elements<size_t>(dt["POS"]) );
-
-			// Search is log time for each interval
-			VariantSet vs(dt["CHROM"], cast_elements<size_t>(dt["POS"]));
-			varIdx = vs.getIndeces( gr );
-
-		}else{
-			// else
-			// set entries to seq(0, dt.nrows()-1)
-			varIdx.resize(dt.nrows());
-			iota(begin(varIdx), end(varIdx), 0); 
-		}
-
-		// total number of requested variants
-		n_requested_variants = varIdx.size();
+	
+		// Set genomic regions regions
+		setRegions( param.regions );
 	}
 
 	void process_samples(){

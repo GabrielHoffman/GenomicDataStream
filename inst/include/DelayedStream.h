@@ -64,12 +64,17 @@ class DelayedStream :
 		mInfo = new MatrixInfo();
 	}
 
-
 	/** destructor
 	 */ 
 	~DelayedStream(){
 		if( mInfo != nullptr) delete mInfo;
 		if( parsed != nullptr) delete parsed;
+	}
+
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+		throw runtime_error("DelayedStream: setRegions() not implemented");
 	}
 
 	/** Get number of columns in data matrix
@@ -95,7 +100,6 @@ class DelayedStream :
 
 		return ret;
 	}
-
 
 	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
 
