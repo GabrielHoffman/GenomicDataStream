@@ -138,8 +138,7 @@ class bgenstream :
 		bool ret = getNextChunk_helper();
 
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
-
-	    chunk = DataChunk<arma::mat>( M, vInfo );
+	    chunk = DataChunk<arma::mat>( M, vInfo );		
 
 		return ret;
 	}

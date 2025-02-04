@@ -2,7 +2,7 @@
 % Please edit documentation in R/GenomicDataStream.R
 \name{featuresRead}
 \alias{featuresRead}
-\title{Get number of features read from enomicDataStream}
+\title{Get number of features read from GenomicDataStream}
 \usage{
 featuresRead(x)
 }
@@ -13,7 +13,7 @@ featuresRead(x)
 total number of features read from the stream
 }
 \description{
-Get number of total features read from enomicDataStream
+Get number of total features read from GenomicDataStream
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")

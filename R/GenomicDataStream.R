@@ -205,9 +205,9 @@ atEndOfStream <- function(x) {
   atEndOfStream_rcpp(x@ptr)
 }
 
-#' Get number of features read from enomicDataStream
+#' Get number of features read from GenomicDataStream
 #'
-#' Get number of total features read from enomicDataStream
+#' Get number of total features read from GenomicDataStream
 #'
 #' @param x \code{GenomicDataStream}
 #'
