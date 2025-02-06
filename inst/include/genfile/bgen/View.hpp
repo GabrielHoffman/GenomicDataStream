@@ -154,6 +154,9 @@ namespace genfile {
 			// Two buffers for processing
 			std::vector< byte_t > m_buffer1 ;
 			std::vector< byte_t > m_buffer2 ;
+
+		public:
+			State get_state(){ return m_state;}
 		} ;
 	}
 }
