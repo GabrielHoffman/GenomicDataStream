@@ -113,7 +113,6 @@ class pgenstream :
 		// Initialize genomic regions
 		// from delimited string
 		GenomicRanges gr( regions );
-
 		// if not empty
 		if( gr.size() != 0){
 			// get indeces of entries in .pvar located 
@@ -124,7 +123,6 @@ class pgenstream :
 			// Search is log time for each interval
 			VariantSet vs(dt["CHROM"], cast_elements<size_t>(dt["POS"]));
 			varIdx = vs.getIndeces( gr );
-
 		}else{
 			// else
 			// set entries to seq(0, dt.nrows()-1)
@@ -134,6 +132,9 @@ class pgenstream :
 
 		// total number of requested variants
 		n_requested_variants = varIdx.size();
+
+		// set current position in varIdx
+		currentIdx = 0;
 	}
 
 	/** Get number of columns in data matrix
@@ -227,7 +228,7 @@ class pgenstream :
 	private:
 	size_t number_of_samples = 0;
 	int n_requested_variants = 0;
-	int currentIdx = 0;
+	int currentIdx;
 	vector<double> matDosage;
 	vector<size_t> varIdx;
 	VariantInfo *vInfo = nullptr;
@@ -267,8 +268,8 @@ class pgenstream :
 		pg->ReadList( matDosage, varIdx_sub1, param.missingToMean);
 
 		// populate vInfo
-  		string id, a1, a2,chrom = "";
-  		int pos = -1;
+		string id, a1, a2,chrom = "";
+		int pos = -1;
 
   		// if PGEN
 		if( genoFileType == PGEN){

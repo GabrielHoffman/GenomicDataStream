@@ -40,6 +40,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// setRegions_rcpp
+SEXP setRegions_rcpp(SEXP x, const string& regionString);
+RcppExport SEXP _GenomicDataStream_setRegions_rcpp(SEXP xSEXP, SEXP regionStringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const string& >::type regionString(regionStringSEXP);
+    rcpp_result_gen = Rcpp::wrap(setRegions_rcpp(x, regionString));
+    return rcpp_result_gen;
+END_RCPP
+}
 // atEndOfStream_rcpp
 bool atEndOfStream_rcpp(SEXP x);
 RcppExport SEXP _GenomicDataStream_atEndOfStream_rcpp(SEXP xSEXP) {
@@ -112,6 +124,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 6},
     {"_GenomicDataStream_getInfo", (DL_FUNC) &_GenomicDataStream_getInfo, 1},
+    {"_GenomicDataStream_setRegions_rcpp", (DL_FUNC) &_GenomicDataStream_setRegions_rcpp, 2},
     {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},

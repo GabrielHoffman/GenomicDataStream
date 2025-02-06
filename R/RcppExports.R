@@ -9,6 +9,10 @@ getInfo <- function(x) {
     .Call('_GenomicDataStream_getInfo', PACKAGE = 'GenomicDataStream', x)
 }
 
+setRegions_rcpp <- function(x, regionString) {
+    .Call('_GenomicDataStream_setRegions_rcpp', PACKAGE = 'GenomicDataStream', x, regionString)
+}
+
 atEndOfStream_rcpp <- function(x) {
     .Call('_GenomicDataStream_atEndOfStream_rcpp', PACKAGE = 'GenomicDataStream', x)
 }

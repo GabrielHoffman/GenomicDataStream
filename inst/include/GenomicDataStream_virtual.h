@@ -20,8 +20,6 @@
 #include <string>
 #include <filesystem>
 
-#include <boost/algorithm/string.hpp>
-
 #include "VariantInfo.h"
 #include "utils.h"
 
@@ -57,8 +55,6 @@ class DataChunk {
 	matType data;
 	DataInfo *info;
 };
-
-
 
 
 
@@ -101,13 +97,8 @@ struct Param {
 			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
 		}
 
-		// regionString is string of chr:start-end delim by "\t,\n"
-		// remove spaces, then split based on delim
-		boost::erase_all(regionString, " ");
-    	boost::split(regions, regionString, boost::is_any_of("\t,\n"));
-
-    	// remove duplicate regions, but preserve order
-    	removeDuplicates( regions );
+		// parse regions
+		regions = splitRegionString( regionString );
 
     	if( permuteFeatureOrder ){
     		// permuate order of region to avoid correlated features

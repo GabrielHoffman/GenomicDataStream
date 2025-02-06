@@ -41,8 +41,7 @@ class GenomicRanges {
 	 */
 	GenomicRanges( const string &regionString ){
 
-		vector<string> regions;
-		boost::split(regions, regionString, boost::is_any_of("\t,\n"));
+		vector<string> regions = splitRegionString( regionString );
 		initialize( regions );
 	}
 

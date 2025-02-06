@@ -1,4 +1,10 @@
 
+# GenomicDataStream 0.0.15
+ - Feb 5, 2025
+ - `GenomicDataStream` can parse genetics file one time, then use `setRegion()` multiple times to query different regions
+  - changes to `vcfstream.h`, `pgenstream.h`, `bgenstream.h` to allow single initialization and multiple queries with `setRegion()` multiple times
+
+
 # GenomicDataStream 0.0.14
  - Jan 30, 2025
  - update `Makevars.in`

@@ -121,6 +121,8 @@ class vcfstream :
 		itReg = validRegions.begin();
 
 		reader->setRegion( *itReg );
+
+		continueIterating = true;
 	}
 
 	/** Get number of columns in data matrix
@@ -231,7 +233,7 @@ class vcfstream :
 	vector<string>::iterator itReg;
 	vector<string> validRegions;
 
-	bool continueIterating = true;
+	bool continueIterating;
 	int fieldType;
 
 	// store genotype values

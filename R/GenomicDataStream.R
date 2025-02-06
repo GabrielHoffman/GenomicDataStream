@@ -172,9 +172,63 @@ initializeStream <- function(x) {
   )
 }
 
-#' Detected if end of stream is reaached
+
+#' Set regions of GenomicDataStream
 #'
-#' Detected if end of stream is reaached
+#' Set regions of GenomicDataStream
+#'
+#' @param x \code{GenomicDataStream}
+#' @param region target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants
+#'
+#' @return \code{GenomicDataStream} with region set
+#'
+#' @description If \code{GenomicDataStream} is already initialized, set new query in C++ backend. Otherwise substitute \code{region} values
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5)
+#'
+#' # by default, GenomicDataStream is not initialized
+#' setRegion(obj, "1:10000-12000")
+#
+#' @export
+setRegion <- function(x, region) {
+  
+  if ( isInitialized(x) ) {
+    ptr <- setRegions_rcpp(x@ptr, region)
+
+    # get additional information about data
+    info <- getInfo(ptr)
+
+    obj <- new("GenomicDataStream",
+        initialized = TRUE,
+        ptr = ptr,
+        file = x@file,
+        field = x@field,
+        region = region,
+        samples = x@samples,
+        chunkSize = x@chunkSize,
+        missingToMean = x@missingToMean,
+        streamType = info$streamType,
+        nsamples = info$nsamples)
+  }else{
+    obj <- new("GenomicDataStream",
+      initialized = FALSE,
+      file = x@file,
+      field = x@field,
+      region = region,
+      samples = x@samples,
+      chunkSize = x@chunkSize,
+      missingToMean = x@missingToMean)
+  }
+
+  obj 
+}
+
+#' Detected if end of stream is reached
+#'
+#' Detected if end of stream is reached
 #'
 #' @param x \code{GenomicDataStream}
 #'

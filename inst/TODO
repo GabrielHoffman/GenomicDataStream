@@ -1,4 +1,8 @@
 
+Feb 5, 2025
+	GenomicDataStream creates external pointers
+	when are destructors called for vcfstream, etc?
+
 Make sure lucida imports GenomicDataStream
 	zstd deprecated 
 	forbidden function calls to exit, abort, stderr

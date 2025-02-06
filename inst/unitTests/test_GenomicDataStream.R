@@ -2,6 +2,43 @@
 
 
 
+test_multiple_GenomicDataStream = function(){
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE)
+
+	for(file in files){
+		# cat(file, "\n")
+		# read full file
+		obj <- GenomicDataStream(file, field = "GT", chunkSize = 30, init=FALSE)
+		dat1 <- getNextChunk(obj)  
+
+		# read subset without re-initializing
+		gds = setRegion(obj, "1:15000-17000")
+		dat2 <- getNextChunk(gds)   
+
+		# equal to first set
+		checkEquals(c(dat2$info), c(dat1$info[6:8,]))
+		checkEquals(dat2$X, dat1$X[,6:8])
+
+		# enpty now
+		checkEquals(length(getNextChunk(gds)), 0)
+
+		# read subset without re-initializing
+		gds = setRegion(obj, "1:11000-14001")
+		dat2 <- getNextChunk(gds) 
+
+		# equal to first set
+		checkEquals(c(dat2$info), c(dat1$info[2:5,]))
+		checkEquals(dat2$X, dat1$X[,2:5])
+
+		# enpty now
+		checkEquals(length(getNextChunk(gds)), 0)
+	}
+}
+
+
+
 
 test_DataTable = function(){
 	# q()
