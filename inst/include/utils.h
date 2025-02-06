@@ -1,6 +1,4 @@
 
-
-
 #include <armadillo>
 
 #include <vector>
@@ -9,10 +7,10 @@
 #include <unordered_set>
 #include <regex>
 
+#include <boost/algorithm/string.hpp>
 
 #ifndef UTILS_H_
 #define UTILS_H_
-
 
 namespace gds {
 
@@ -263,6 +261,27 @@ vector<T> cast_elements( const vector<string> &v ){
         output.push_back(x);
     }
     return output;
+}
+
+
+/** regionString is string of chr:start-end delim by "\t,\n"
+ remove spaces, then split based on delim
+ remove duplicate regions, but preserve order
+ Note: regionString is copy by value, since boost::erase_all overwrites
+ */
+static vector<string> splitRegionString( string regionString){
+
+    vector<string> regions;
+
+    // regionString is string of chr:start-end delim by "\t,\n"
+    // remove spaces, then split based on delim
+    boost::erase_all(regionString, " ");
+    boost::split(regions, regionString, boost::is_any_of("\t,\n"));
+
+    // remove duplicate regions, but preserve order
+    removeDuplicates( regions );
+
+    return regions;
 }
 
 
