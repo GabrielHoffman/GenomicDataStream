@@ -11,6 +11,7 @@
 
 #include <vector>
 #include "DataInfo.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -60,16 +61,26 @@ class VariantInfo :
     		vInfo.POS.end());
 
     	ID.insert(ID.end(),
-                        vInfo.ID.begin(),
-                        vInfo.ID.end());
+            vInfo.ID.begin(),
+            vInfo.ID.end());
 
     	A1.insert(A1.end(),
-                        vInfo.A1.begin(),
-                        vInfo.A1.end());
+            vInfo.A1.begin(),
+            vInfo.A1.end());
 
     	A2.insert(A2.end(),
-                        vInfo.A2.begin(),
-                        vInfo.A2.end());
+            vInfo.A2.begin(),
+            vInfo.A2.end());
+    }
+
+    /** Retain only variants with indeces stored in idx
+     */ 
+    void retainVariants( const vector<unsigned int> &idx){
+        CHROM = subset_vector( CHROM, idx );
+        POS = subset_vector( POS, idx );
+        ID = subset_vector( ID, idx );
+        A1 = subset_vector( A1, idx );
+        A2 = subset_vector( A2, idx );
     }
 
     /** Clear vectors storing variant information, but leave sampleNames
@@ -81,15 +92,6 @@ class VariantInfo :
         A1.clear();
         A2.clear();
     }
-
-    /** Add information about statistical test for each variant.
-     * NOT COMPLETE
-     * @param testResults stores results from analysis with fastlmmBatchDesign
-     */ 
-    // void cbind( const vector<fastlmm_result> & testResults){
-        
-    //     // place-holder
-    // }
 
     // private:
     vector<string> sampleNames;

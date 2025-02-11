@@ -1,16 +1,17 @@
 
 
-
-
 test_multiple_GenomicDataStream = function(){
 
+	library(GenomicDataStream)
+	library(RUnit)
+
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
-	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE)
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
 
 	for(file in files){
 		# cat(file, "\n")
 		# read full file
-		obj <- GenomicDataStream(file, field = "GT", chunkSize = 30, init=FALSE)
+		obj <- GenomicDataStream(file, field = "GT", chunkSize = 30, init=TRUE)
 		dat1 <- getNextChunk(obj)  
 
 		# read subset without re-initializing
@@ -34,6 +35,33 @@ test_multiple_GenomicDataStream = function(){
 
 		# enpty now
 		checkEquals(length(getNextChunk(gds)), 0)
+	}
+}
+
+
+test_minVariance_filter = function(){
+
+	library(GenomicDataStream)
+	library(RUnit)
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+	MAF = .3
+	minVar = 2*MAF*(1-MAF)
+
+	for(file in files){
+		# cat(file, "\n")				
+
+		gds1 <- GenomicDataStream(file, "GT", init=TRUE)
+		dat1 <- getNextChunk(gds1)
+		i = (apply(dat1$X, 2, var) >= minVar)
+		which(i)
+
+		gds2 <- GenomicDataStream(file, "GT", init=TRUE, MAF=MAF)
+		dat2 <- getNextChunk(gds2)
+
+		checkEquals(dat1$X[,i], dat2$X)
+		checkEquals(c(dat1$info[i,]), c(dat2$info))
 	}
 }
 

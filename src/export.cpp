@@ -57,10 +57,11 @@ SEXP create_xptr(
 			const std::string &field = "",
 			const std::string &region = "",
 			const std::string &samples = "-",
-			const int &chunkSize = 100000,
+			const double &minVariance = 0,
+			const int &chunkSize = 10000,
 			const bool &missingToMean = false){
 
-	Param param( file, region, samples, chunkSize, missingToMean);
+	Param param( file, region, samples, minVariance, chunkSize, missingToMean);
 	param.setField(field);
  
  	// calls constructor for GenomicDataStream

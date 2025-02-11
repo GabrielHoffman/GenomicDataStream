@@ -72,6 +72,7 @@ struct Param {
 	 * @param chunkSize number of variants to return per chunk
 	 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
 	 * @param initCapacity initial capacity of temporary vector to avoid re-alloc on insert.  Size is in Mb.
+	 * @param minVariance features with variance >= minVariance are retained
 	 * @param permuteFeatureOrder default is `false`. If `true` permute regions in `regionString` to avoid linkage disequilibrium betweeen nearby regions 
 	 * @param rndSeed random seed for permutation
 	 * 
@@ -81,6 +82,7 @@ struct Param {
 	Param( 	const string &file,
 			string regionString = "",
 			const string &samples = "-",
+			const double minVariance = 0,
 			const int &chunkSize = numeric_limits<int>::max(),
 			const bool &missingToMean = false,
 			const int &initCapacity = 200,
@@ -91,10 +93,15 @@ struct Param {
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
 		initCapacity(initCapacity),
+		minVariance(minVariance),
 		fileType(getFileType(file)) {
 
 		if( chunkSize < 1){					
 			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
+		}
+
+		if( minVariance < 0){
+			throw runtime_error("minVariance must be positive");
 		}
 
 		// parse regions
@@ -124,6 +131,7 @@ struct Param {
 	int chunkSize;
 	bool missingToMean;
 	int initCapacity;
+	double minVariance;
 	FileType fileType;
 };
 
@@ -154,6 +162,12 @@ class GenomicDataStream {
 	/** get FileType of param.file
 	 */ 
 	virtual string getStreamType() = 0;
+
+	/** get minVariance stored in Param
+	 */ 
+	double getMinVariance(){
+		return param.minVariance;
+	}
 
 	/** Get next chunk of _features_ as arma::mat
 	 */ 
@@ -188,11 +202,39 @@ class GenomicDataStream {
 	Param param;
 };
 
+/** Given matDosage.data(), number_of_samples, vInfo->size()
+ * set matDosage and vInfo so the first K entries are the valid
+ * features
+*/
+static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, const int &number_of_samples, const double &minVariance = 0){
 
+	if( minVariance > 0 ){
+		// create temp arma matrix
+		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
+		// variance by columns
+		auto colvars = var(M);
 
+		// indeces passing minimum variance cutoff
+		arma::uvec idx = find(colvars >= minVariance);
 
+		// convert uvec to vector<unsigned int>
+		vector<unsigned int> idx2(idx.n_elem);
+	    copy(idx.begin(), idx.end(), idx2.begin());
+
+		// keep only variants specified in idx2
+		vInfo->retainVariants( idx2 );
+
+		// set subset of columns
+		arma::mat M_subset = M.cols(idx);
+
+		// copy M_subset into matDosage
+		memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*sizeof(double));
+	}
 }
 
 
+
+
+} // end namespace
 #endif

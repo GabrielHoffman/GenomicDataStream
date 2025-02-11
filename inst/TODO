@@ -1,7 +1,31 @@
 
+Feb 7, 2025
+	Need test on minerva
+	Compare to QTLtools
+	glmFitFeatures(), etc should return printable object
+	
+
+
+	DONE: need variant filter for SNP and MAF
+	DONE: in lmFitFeatures_export()
+		evaluate MAF
+	DONE: incorporate minVariance into GenomicDataStream
+
+
 Feb 5, 2025
 	GenomicDataStream creates external pointers
 	when are destructors called for vcfstream, etc?
+
+	DONE: GenomicDataStreamRegression see regression.cpp and lucidaQTL
+	use lmFitFeatures_export_initialized to take pre-initialized GDS
+
+	DONE: Modify *lmFitFeatures to accept initialized GenomicDataStream
+
+n = 5000
+p = 5000
+X = Rfast::matrnorm(n,p)
+A = crossprod(X)
+
 
 Make sure lucida imports GenomicDataStream
 	zstd deprecated 

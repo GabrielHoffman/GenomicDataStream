@@ -117,12 +117,18 @@ class vcfstream :
 			}
 		}
 
-		// initialize iterator
-		itReg = validRegions.begin();
+		// initialize to false
+		continueIterating = false;
 
-		reader->setRegion( *itReg );
+		// if valid set is not empty
+		if( validRegions.size() > 0 ){
+			// initialize iterator
+			itReg = validRegions.begin();
 
-		continueIterating = true;
+			reader->setRegion( *itReg );
+
+			continueIterating = true;
+		}
 	}
 
 	/** Get number of columns in data matrix
@@ -142,6 +148,10 @@ class vcfstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
+
 		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
@@ -155,6 +165,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		// otherwise, set chunk and return ret
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), false, true);
@@ -171,6 +185,10 @@ class vcfstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
+
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
@@ -182,6 +200,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
@@ -197,6 +219,10 @@ class vcfstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
+
 		Rcpp::NumericMatrix M(reader->nsamples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
 	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
@@ -211,6 +237,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		chunk = DataChunk<vector<double>>( matDosage, vInfo );
 

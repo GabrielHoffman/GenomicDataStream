@@ -154,6 +154,10 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
 		chunk = DataChunk<arma::mat>( M, vInfo );
@@ -165,6 +169,10 @@ class pgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
@@ -179,6 +187,10 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
@@ -190,6 +202,10 @@ class pgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
@@ -205,6 +221,10 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		Rcpp::NumericMatrix M(number_of_samples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
 		rownames(M) = Rcpp::wrap( vInfo->sampleNames );	
@@ -219,6 +239,10 @@ class pgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		chunk = DataChunk<vector<double> >( matDosage, vInfo );
 

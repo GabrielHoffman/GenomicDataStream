@@ -285,7 +285,24 @@ static vector<string> splitRegionString( string regionString){
 }
 
 
+/** Return subset of x indicated by entries in ind: x[idx] 
+*/
+template<typename T>
+static vector<T> subset_vector(const vector<T> &x, const vector<unsigned int> &idx){
+
+    // initialize x_subset to have size idx.size()
+    vector<T> x_subset;
+    x_subset.reserve(idx.size());
+
+    for(int i=0; i<idx.size(); i++){
+        if( idx[i] > x.size() ){
+            throw std::out_of_range("Index is out of bounds"); 
+        }
+        x_subset.push_back(x[idx[i]]);
+    }
+
+    return x_subset;
 }
 
-
+} // end namespace
 #endif
