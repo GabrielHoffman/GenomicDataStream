@@ -208,7 +208,7 @@ class GenomicDataStream {
 */
 static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, const int &number_of_samples, const double &minVariance = 0){
 
-	if( minVariance > 0 ){
+	if( !isnan(minVariance) ){
 		// create temp arma matrix
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
@@ -216,7 +216,7 @@ static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, c
 		auto colvars = var(M);
 
 		// indeces passing minimum variance cutoff
-		arma::uvec idx = find(colvars >= minVariance);
+		arma::uvec idx = find(colvars > minVariance);
 
 		// convert uvec to vector<unsigned int>
 		vector<unsigned int> idx2(idx.n_elem);

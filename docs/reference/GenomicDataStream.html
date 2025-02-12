@@ -9,7 +9,7 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.16</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,10 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 <span>  field <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  region <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  samples <span class="op">=</span> <span class="st">"-"</span>,</span>
-<span>  chunkSize <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>  missingToMean <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  MAF <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  minVariance <span class="op">=</span> <span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">MAF</span><span class="op">)</span> <span class="op">*</span> <span class="va">MAF</span>,</span>
+<span>  chunkSize <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  missingToMean <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  initialize <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -77,6 +79,14 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 <dd><p>string of comma separated sample IDs to extract: <code>"ID1,ID2,ID3"</code>.  <code>"-"</code> indicates all samples</p></dd>
 
 
+<dt id="arg-maf">MAF<a class="anchor" aria-label="anchor" href="#arg-maf"></a></dt>
+<dd><p>generalized minor allele frequency cutoff keeps variants with variance &gt; \(2(1-f)f\).</p></dd>
+
+
+<dt id="arg-minvariance">minVariance<a class="anchor" aria-label="anchor" href="#arg-minvariance"></a></dt>
+<dd><p>features with variance <code>&gt;= minVariance</code> are retained.  Defaults to \(2(1-f)f\). If <code>NaN</code>, no filtering is applied.</p></dd>
+
+
 <dt id="arg-chunksize">chunkSize<a class="anchor" aria-label="anchor" href="#arg-chunksize"></a></dt>
 <dd><p>number of variants to return per chunk</p></dd>
 
@@ -92,6 +102,10 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>object of class <code>GenomicDataStream</code></p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Consider minor allele frequency (MAF) \(f\) and  Hardy-Weinberg equilibrium, the allelic states have probability \(f^2, 2f(1-f), (1-f)^2\). If the variant has mean \(\mu\) and variance \(\sigma^2\), MAF can be estimated from the mean as \(min(\mu/2, 1 - \mu/2)\) or from the variance as \(p = 1+sqrt(1-2\sigma^2))/2\) and MAF = \(min(p, 1-p)\).  In addition the sample variance of the variant is \(2(1-f)f\).  Therefore, setting a MAF cutoff corresponds to a variance cutoff that can also apply to multi-allelic variants.</p>
     </div>
 
     <div class="section level2">
@@ -110,7 +124,8 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 <span class="r-out co"><span class="r-pr">#&gt;</span>   field:         DS </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   region:         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   samples:       60 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   missingToMean: FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   minVar cutoff: 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   missingToMean: TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chunkSize:     5 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   features read: 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   end of stream: FALSE </span>

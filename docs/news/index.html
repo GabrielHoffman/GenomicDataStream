@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.16</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,29 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.16" id="genomicdatastream-0016">GenomicDataStream 0.0.16<a class="anchor" aria-label="anchor" href="#genomicdatastream-0016"></a></h2>
+<ul><li>Feb 12, 2025</li>
+<li>add <code>MAF</code> / <code>minVariance</code> filter to <code><a href="../reference/GenomicDataStream.html">GenomicDataStream()</a></code> and backend C++ code</li>
+<li>add colnames to <code>coef</code> and <code>se</code>
+</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.15" id="genomicdatastream-0015">GenomicDataStream 0.0.15<a class="anchor" aria-label="anchor" href="#genomicdatastream-0015"></a></h2>
+<ul><li>Feb 5, 2025</li>
+<li>
+<code>GenomicDataStream</code> can parse genetics file one time, then use <code><a href="../reference/setRegion.html">setRegion()</a></code> multiple times to query different regions</li>
+<li>changes to <code>vcfstream.h</code>, <code>pgenstream.h</code>, <code>bgenstream.h</code> to allow single initialization and multiple queries with <code><a href="../reference/setRegion.html">setRegion()</a></code> multiple times</li>
+<li>fix issue with <code>vcfstream::setRegions()</code> failing when empty region was used after a valid region</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.14" id="genomicdatastream-0014">GenomicDataStream 0.0.14<a class="anchor" aria-label="anchor" href="#genomicdatastream-0014"></a></h2>
+<ul><li>Jan 30, 2025</li>
+<li>update <code>Makevars.in</code>
+</li>
+<li>get BH v1.84 from <code>eddelbuettel/bh@852b468</code>
+</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.13" id="genomicdatastream-0013">GenomicDataStream 0.0.13<a class="anchor" aria-label="anchor" href="#genomicdatastream-0013"></a></h2>
 <ul><li>Jan 29, 2025</li>
 <li>remove dependency on <code>Rhtslib</code>
@@ -60,12 +83,6 @@
 <h2 class="pkg-version" data-toc-text="0.0.8" id="genomicdatastream-008">GenomicDataStream 0.0.8<a class="anchor" aria-label="anchor" href="#genomicdatastream-008"></a></h2>
 <ul><li>Dec 16, 2024</li>
 <li>bug fixes and convergence criteria</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.7" id="genomicdatastream-007">GenomicDataStream 0.0.7<a class="anchor" aria-label="anchor" href="#genomicdatastream-007"></a></h2>
-<ul><li>Dec 12, 2024</li>
-<li>add <code><a href="https://rdrr.io/pkg/fastLinReg/man/glmFitResponses.html" class="external-link">glmFitResponses()</a></code> and <code><a href="https://rdrr.io/pkg/fastLinReg/man/glmFitFeatures.html" class="external-link">glmFitFeatures()</a></code>
-</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.6" id="genomicdatastream-006">GenomicDataStream 0.0.6<a class="anchor" aria-label="anchor" href="#genomicdatastream-006"></a></h2>

@@ -48,8 +48,8 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' @param field field of VCF/BCF to read
 #' @param region target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants
 #' @param samples string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples
-#' @param MAF generalized minor allele frequency cutoff keeps variants with variance \eqn{>= 2(1-f)f}.
-#' @param minVariance minimum variance a features must have to be retained.  Defaults to \eqn{>= 2(1-f)f}.
+#' @param MAF generalized minor allele frequency cutoff keeps variants with variance > \eqn{2(1-f)f}.
+#' @param minVariance features with variance \code{>= minVariance} are retained.  Defaults to \eqn{2(1-f)f}. If \code{NaN}, no filtering is applied.
 #' @param chunkSize	number of variants to return per chunk
 #' @param missingToMean	if true, set missing values to the mean dosage value. if false, set to \code{NaN}
 #' @param initialize default \code{FALSE}.  If \code{TRUE}, file info is read from path, otherwise store path until \code{GenomicDataStream} is initialized later
@@ -90,6 +90,13 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
   # check that file exists
   if( ! file.exists(file) ){
     stop("File does not exist")
+  }
+
+  if( MAF < 0 ){
+    stop("MAF must be >= 0")
+  }
+  if( !is.nan(minVariance) & minVariance < 0 ){
+    stop("minVariance must be >= 0")
   }
 
   if (initialize) {

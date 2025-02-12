@@ -54,7 +54,7 @@ test_minVariance_filter = function(){
 
 		gds1 <- GenomicDataStream(file, "GT", init=TRUE)
 		dat1 <- getNextChunk(gds1)
-		i = (apply(dat1$X, 2, var) >= minVar)
+		i = (apply(dat1$X, 2, var) > minVar)
 		which(i)
 
 		gds2 <- GenomicDataStream(file, "GT", init=TRUE, MAF=MAF)
@@ -152,7 +152,8 @@ test_pgenstream = function(){
 	ids_str = paste(id_sub, collapse=',')
 	idx = sort(match(id_sub, ids))
 
-	gdsObj = GenomicDataStream(file, region=reg, samples=ids_str,chunkSize=3, initialize=TRUE)
+	# minVariance = NaN means no filtering
+	gdsObj = GenomicDataStream(file, region=reg, samples=ids_str,chunkSize=3, initialize=TRUE, minVariance=NaN)
 	dat = getNextChunk(gdsObj)
 
 	pg = NewPgen(file, raw_sample_ct=60, sample_subset=idx)

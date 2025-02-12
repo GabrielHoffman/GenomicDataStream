@@ -1,7 +1,8 @@
 
 # GenomicDataStream 0.0.16
- - Feb 11, 2025
+ - Feb 12, 2025
  - add `MAF` / `minVariance` filter to `GenomicDataStream()` and backend C++ code
+ - add colnames to `coef` and `se`
 
 # GenomicDataStream 0.0.15
  - Feb 5, 2025
