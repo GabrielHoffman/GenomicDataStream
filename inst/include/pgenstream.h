@@ -143,6 +143,12 @@ class pgenstream :
 		return number_of_samples;
 	}
 
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		return vInfo->sampleNames;
+	}
+
 	/** get FileType of param.file
 	 */ 
 	string getStreamType() override {
@@ -447,7 +453,7 @@ class pgenstream :
 				}
 				sampleIdx.push_back( map_sn[name] );
 			}
-				sort(sampleIdx.begin(), sampleIdx.end());
+			sort(sampleIdx.begin(), sampleIdx.end());
 
 			// Get the requested sample ID's
 			// sorted according to the PSAM file
@@ -470,7 +476,7 @@ class pgenstream :
 		}
 	}
 
-};
+}; 
 
 }
 

@@ -1,0 +1,488 @@
+\doxysection{zstd.\+h}
+\hypertarget{zstd_8h_source}{}\label{zstd_8h_source}\index{inst/include/zstd.h@{inst/include/zstd.h}}
+\mbox{\hyperlink{zstd_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ ZSTD\_H\_235446}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ ZSTD\_H\_235446}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ defined\ (\_\_cplusplus)}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*======\ \ \ Dependency\ \ \ ======*/}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <stddef.h>}\ \ \ \textcolor{comment}{/*\ size\_t\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{/*======\ \ Export\ for\ Windows\ \ ======*/}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ \&\&\ defined(ZSTD\_DLL\_EXPORT)\ \&\&\ (ZSTD\_DLL\_EXPORT==1)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#\ \ define\ ZSTDLIB\_API\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ define\ ZSTDLIB\_API}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*=======\ \ \ Version\ \ \ =======*/}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ ZSTD\_VERSION\_MAJOR\ \ \ \ 1}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ZSTD\_VERSION\_MINOR\ \ \ \ 1}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ZSTD\_VERSION\_RELEASE\ \ 0}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ZSTD\_LIB\_VERSION\ ZSTD\_VERSION\_MAJOR.ZSTD\_VERSION\_MINOR.ZSTD\_VERSION\_RELEASE}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ZSTD\_QUOTE(str)\ \#str}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ZSTD\_EXPAND\_AND\_QUOTE(str)\ ZSTD\_QUOTE(str)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZSTD\_VERSION\_STRING\ ZSTD\_EXPAND\_AND\_QUOTE(ZSTD\_LIB\_VERSION)}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ZSTD\_VERSION\_NUMBER\ \ (ZSTD\_VERSION\_MAJOR\ *100*100\ +\ ZSTD\_VERSION\_MINOR\ *100\ +\ ZSTD\_VERSION\_RELEASE)}}
+\DoxyCodeLine{00044\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{zstd_8h_af33ac73034a439c4ad51b5825774c9fd}{ZSTD\_versionNumber}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ *************************************}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*\ \ Simple\ API}}
+\DoxyCodeLine{00049\ \textcolor{comment}{***************************************/}}
+\DoxyCodeLine{00055\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e}{ZSTD\_compress}}(\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00065\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a025e133d6213617c1013e46e164eef27}{ZSTD\_decompress}}(\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ compressedSize);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00084\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{zstd_8h_a02de2c934488fdd7386b8ec5e918e2da}{ZSTD\_getDecompressedSize}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*======\ \ Helper\ functions\ \ ======*/}}
+\DoxyCodeLine{00088\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{zstd_8h_aff6231ba48895ad86b1a55981c50e6f4}{ZSTD\_maxCLevel}}(\textcolor{keywordtype}{void});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{zstd_8h_a09a654e8aa96436cd60cd98a65a98cf6}{ZSTD\_compressBound}}(\textcolor{keywordtype}{size\_t}\ srcSize);\ }
+\DoxyCodeLine{00090\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{unsigned}\ \ \ \ \mbox{\hyperlink{zstd_8h_ab0b6c5780ccdf58edfe4833bdd5c8f7b}{ZSTD\_isError}}(\textcolor{keywordtype}{size\_t}\ code);\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{zstd_8h_aab019ed61727fbffec2e4d9b314e526c}{ZSTD\_getErrorName}}(\textcolor{keywordtype}{size\_t}\ code);\ \ \ \ \ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*-\/*************************************}}
+\DoxyCodeLine{00095\ \textcolor{comment}{*\ \ Explicit\ memory\ management}}
+\DoxyCodeLine{00096\ \textcolor{comment}{***************************************/}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }ZSTD\_CCtx\_s\ \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}};}
+\DoxyCodeLine{00099\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ \mbox{\hyperlink{zstd_8h_afeea947d7824a8b8f2a0b8bb54f35ed2}{ZSTD\_createCCtx}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00100\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \mbox{\hyperlink{zstd_8h_a67d77bdcb9e281e3e250bb45b1cd6443}{ZSTD\_freeCCtx}}(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00104\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_aa9bccfbfa483eed9fe8463267c034da5}{ZSTD\_compressCCtx}}(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ ctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,\ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }ZSTD\_DCtx\_s\ \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}};}
+\DoxyCodeLine{00108\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ \mbox{\hyperlink{zstd_8h_a7177832cafaf8eb3695bb22cd1ff0a9d}{ZSTD\_createDCtx}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00109\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \mbox{\hyperlink{zstd_8h_a44f32b56a1be62ca9bcda9a13557b928}{ZSTD\_freeDCtx}}(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00113\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_acfe0db92edb393457c054c37839df4e3}{ZSTD\_decompressDCtx}}(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ ctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{comment}{/*-\/************************}}
+\DoxyCodeLine{00117\ \textcolor{comment}{*\ \ Simple\ dictionary\ API}}
+\DoxyCodeLine{00118\ \textcolor{comment}{***************************/}}
+\DoxyCodeLine{00122\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a6ffb7b5918c6dc3ea230ea0d9490cd20}{ZSTD\_compress\_usingDict}}(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ ctx,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\textcolor{keywordtype}{size\_t}\ dictSize,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00132\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_ab01cb948094c6bd47e35693c3c970ecd}{ZSTD\_decompress\_usingDict}}(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{/*-\/**************************}}
+\DoxyCodeLine{00139\ \textcolor{comment}{*\ \ Fast\ Dictionary\ API}}
+\DoxyCodeLine{00140\ \textcolor{comment}{****************************/}}
+\DoxyCodeLine{00144\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }ZSTD\_CDict\_s\ \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\_CDict}};}
+\DoxyCodeLine{00145\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\_CDict}}*\ \mbox{\hyperlink{zstd_8h_a848a907e9f93968168436c65c7bd16d8}{ZSTD\_createCDict}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize,\ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00146\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{zstd_8h_a723a3a778055d358dd2a0d5320aae57d}{ZSTD\_freeCDict}}(\mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\_CDict}}*\ CDict);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00152\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a59c2facee7fc576a64690980ceb57345}{ZSTD\_compress\_usingCDict}}(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\_CDict}}*\ cdict);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }ZSTD\_DDict\_s\ \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\_DDict}};}
+\DoxyCodeLine{00161\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\_DDict}}*\ \mbox{\hyperlink{zstd_8h_ad69c47a7a8e2b11bf874a40b6b6daa1b}{ZSTD\_createDDict}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00162\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{zstd_8h_a981d36fc0f8d85fbe13202cd85d6d667}{ZSTD\_freeDDict}}(\mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\_DDict}}*\ ddict);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00167\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a15170a52ac838ad6d7d1a7d5d7bb678f}{ZSTD\_decompress\_usingDDict}}(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\_DDict}}*\ ddict);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{comment}{/*-\/**************************}}
+\DoxyCodeLine{00174\ \textcolor{comment}{*\ \ Streaming}}
+\DoxyCodeLine{00175\ \textcolor{comment}{****************************/}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_z_s_t_d__in_buffer__s}{ZSTD\_inBuffer\_s}}\ \{}
+\DoxyCodeLine{00178\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{struct_z_s_t_d__in_buffer__s_a2a838d5f348ddfa781bb14aa5209e9eb}{src}};\ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_z_s_t_d__in_buffer__s_ad4673a0122dbe52fe6b0aa9824a35c29}{size}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_z_s_t_d__in_buffer__s_af25828e77def7d36cb648494649ecaa4}{pos}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00181\ \}\ \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\_inBuffer}};}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_z_s_t_d__out_buffer__s}{ZSTD\_outBuffer\_s}}\ \{}
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordtype}{void}*\ \ \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s_ae17b7e44abe8ffd1f72f448df86f2a23}{dst}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s_a34fb461ecc114951093b978c3aa6899e}{size}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s_a51b01c063d6e338d333a865b88ea243c}{pos}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00187\ \}\ \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\_outBuffer}};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{comment}{/*======\ \ \ streaming\ compression\ \ \ ======*/}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{comment}{/*-\/***********************************************************************}}
+\DoxyCodeLine{00193\ \textcolor{comment}{*\ \ Streaming\ compression\ -\/\ howto}}
+\DoxyCodeLine{00194\ \textcolor{comment}{*}}
+\DoxyCodeLine{00195\ \textcolor{comment}{*\ \ A\ ZSTD\_CStream\ object\ is\ required\ to\ track\ streaming\ operation.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{*\ \ Use\ ZSTD\_createCStream()\ and\ ZSTD\_freeCStream()\ to\ create/release\ resources.}}
+\DoxyCodeLine{00197\ \textcolor{comment}{*\ \ ZSTD\_CStream\ objects\ can\ be\ reused\ multiple\ times\ on\ consecutive\ compression\ operations.}}
+\DoxyCodeLine{00198\ \textcolor{comment}{*}}
+\DoxyCodeLine{00199\ \textcolor{comment}{*\ \ Start\ by\ initializing\ ZSTD\_CStream.}}
+\DoxyCodeLine{00200\ \textcolor{comment}{*\ \ Use\ ZSTD\_initCStream()\ to\ start\ a\ new\ compression\ operation.}}
+\DoxyCodeLine{00201\ \textcolor{comment}{*\ \ Use\ ZSTD\_initCStream\_usingDict()\ for\ a\ compression\ which\ requires\ a\ dictionary.}}
+\DoxyCodeLine{00202\ \textcolor{comment}{*}}
+\DoxyCodeLine{00203\ \textcolor{comment}{*\ \ Use\ ZSTD\_compressStream()\ repetitively\ to\ consume\ input\ stream.}}
+\DoxyCodeLine{00204\ \textcolor{comment}{*\ \ The\ function\ will\ automatically\ update\ both\ \`{}pos`\ fields.}}
+\DoxyCodeLine{00205\ \textcolor{comment}{*\ \ Note\ that\ it\ may\ not\ consume\ the\ entire\ input,\ in\ which\ case\ \`{}pos\ <\ size`,}}
+\DoxyCodeLine{00206\ \textcolor{comment}{*\ \ and\ it's\ up\ to\ the\ caller\ to\ present\ again\ remaining\ data.}}
+\DoxyCodeLine{00207\ \textcolor{comment}{*\ \ @return\ :\ a\ size\ hint,\ preferred\ nb\ of\ bytes\ to\ use\ as\ input\ for\ next\ function\ call}}
+\DoxyCodeLine{00208\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ (it's\ just\ a\ hint,\ to\ help\ latency\ a\ little,\ any\ other\ value\ will\ work\ fine)}}
+\DoxyCodeLine{00209\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ (note\ :\ the\ size\ hint\ is\ guaranteed\ to\ be\ <=\ ZSTD\_CStreamInSize()\ )}}
+\DoxyCodeLine{00210\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ or\ an\ error\ code,\ which\ can\ be\ tested\ using\ ZSTD\_isError().}}
+\DoxyCodeLine{00211\ \textcolor{comment}{*}}
+\DoxyCodeLine{00212\ \textcolor{comment}{*\ \ At\ any\ moment,\ it's\ possible\ to\ flush\ whatever\ data\ remains\ within\ buffer,\ using\ ZSTD\_flushStream().}}
+\DoxyCodeLine{00213\ \textcolor{comment}{*\ \ \`{}output-\/>pos`\ will\ be\ updated.}}
+\DoxyCodeLine{00214\ \textcolor{comment}{*\ \ Note\ some\ content\ might\ still\ be\ left\ within\ internal\ buffer\ if\ \`{}output-\/>size`\ is\ too\ small.}}
+\DoxyCodeLine{00215\ \textcolor{comment}{*\ \ @return\ :\ nb\ of\ bytes\ still\ present\ within\ internal\ buffer\ (0\ if\ it's\ empty)}}
+\DoxyCodeLine{00216\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ or\ an\ error\ code,\ which\ can\ be\ tested\ using\ ZSTD\_isError().}}
+\DoxyCodeLine{00217\ \textcolor{comment}{*}}
+\DoxyCodeLine{00218\ \textcolor{comment}{*\ \ ZSTD\_endStream()\ instructs\ to\ finish\ a\ frame.}}
+\DoxyCodeLine{00219\ \textcolor{comment}{*\ \ It\ will\ perform\ a\ flush\ and\ write\ frame\ epilogue.}}
+\DoxyCodeLine{00220\ \textcolor{comment}{*\ \ The\ epilogue\ is\ required\ for\ decoders\ to\ consider\ a\ frame\ completed.}}
+\DoxyCodeLine{00221\ \textcolor{comment}{*\ \ Similar\ to\ ZSTD\_flushStream(),\ it\ may\ not\ be\ able\ to\ flush\ the\ full\ content\ if\ \`{}output-\/>size`\ is\ too\ small.}}
+\DoxyCodeLine{00222\ \textcolor{comment}{*\ \ In\ which\ case,\ call\ again\ ZSTD\_endStream()\ to\ complete\ the\ flush.}}
+\DoxyCodeLine{00223\ \textcolor{comment}{*\ \ @return\ :\ nb\ of\ bytes\ still\ present\ within\ internal\ buffer\ (0\ if\ it's\ empty)}}
+\DoxyCodeLine{00224\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ or\ an\ error\ code,\ which\ can\ be\ tested\ using\ ZSTD\_isError().}}
+\DoxyCodeLine{00225\ \textcolor{comment}{*}}
+\DoxyCodeLine{00226\ \textcolor{comment}{*\ *******************************************************************/}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }ZSTD\_CStream\_s\ \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}};}
+\DoxyCodeLine{00229\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ \mbox{\hyperlink{zstd_8h_acb531407c79bbb9ae84411d73fde464d}{ZSTD\_createCStream}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00230\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a862b950674b345333db274aaaa1d2ebc}{ZSTD\_freeCStream}}(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a239b9dc342b7825b22b32fded13c6709}{ZSTD\_CStreamInSize}}(\textcolor{keywordtype}{void});\ \ \ \ }
+\DoxyCodeLine{00233\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_af4b399dd4e0ae1027e00381318a7aa48}{ZSTD\_CStreamOutSize}}(\textcolor{keywordtype}{void});\ \ \ }
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a14d2fa5dfea19623406c47514a1f7524}{ZSTD\_initCStream}}(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00236\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a5fb712d64adcef1d7803a0f0eb35ee6e}{ZSTD\_compressStream}}(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\_outBuffer}}*\ output,\ \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\_inBuffer}}*\ input);}
+\DoxyCodeLine{00237\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_aa221a5abd4a173d26a95cbba344de536}{ZSTD\_flushStream}}(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\_outBuffer}}*\ output);}
+\DoxyCodeLine{00238\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_acc3b72d1c78095b05f4f85346709c3de}{ZSTD\_endStream}}(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\_outBuffer}}*\ output);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{comment}{/*======\ \ \ decompression\ \ \ ======*/}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{comment}{/*-\/***************************************************************************}}
+\DoxyCodeLine{00244\ \textcolor{comment}{*\ \ Streaming\ decompression\ howto}}
+\DoxyCodeLine{00245\ \textcolor{comment}{*}}
+\DoxyCodeLine{00246\ \textcolor{comment}{*\ \ A\ ZSTD\_DStream\ object\ is\ required\ to\ track\ streaming\ operations.}}
+\DoxyCodeLine{00247\ \textcolor{comment}{*\ \ Use\ ZSTD\_createDStream()\ and\ ZSTD\_freeDStream()\ to\ create/release\ resources.}}
+\DoxyCodeLine{00248\ \textcolor{comment}{*\ \ ZSTD\_DStream\ objects\ can\ be\ re-\/used\ multiple\ times.}}
+\DoxyCodeLine{00249\ \textcolor{comment}{*}}
+\DoxyCodeLine{00250\ \textcolor{comment}{*\ \ Use\ ZSTD\_initDStream()\ to\ start\ a\ new\ decompression\ operation,}}
+\DoxyCodeLine{00251\ \textcolor{comment}{*\ \ \ or\ ZSTD\_initDStream\_usingDict()\ if\ decompression\ requires\ a\ dictionary.}}
+\DoxyCodeLine{00252\ \textcolor{comment}{*\ \ \ @return\ :\ recommended\ first\ input\ size}}
+\DoxyCodeLine{00253\ \textcolor{comment}{*}}
+\DoxyCodeLine{00254\ \textcolor{comment}{*\ \ Use\ ZSTD\_decompressStream()\ repetitively\ to\ consume\ your\ input.}}
+\DoxyCodeLine{00255\ \textcolor{comment}{*\ \ The\ function\ will\ update\ both\ \`{}pos`\ fields.}}
+\DoxyCodeLine{00256\ \textcolor{comment}{*\ \ If\ \`{}input.pos\ <\ input.size`,\ some\ input\ has\ not\ been\ consumed.}}
+\DoxyCodeLine{00257\ \textcolor{comment}{*\ \ It's\ up\ to\ the\ caller\ to\ present\ again\ remaining\ data.}}
+\DoxyCodeLine{00258\ \textcolor{comment}{*\ \ If\ \`{}output.pos\ <\ output.size`,\ decoder\ has\ flushed\ everything\ it\ could.}}
+\DoxyCodeLine{00259\ \textcolor{comment}{*\ \ @return\ :\ 0\ when\ a\ frame\ is\ completely\ decoded\ and\ fully\ flushed,}}
+\DoxyCodeLine{00260\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ an\ error\ code,\ which\ can\ be\ tested\ using\ ZSTD\_isError(),}}
+\DoxyCodeLine{00261\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ any\ other\ value\ >\ 0,\ which\ means\ there\ is\ still\ some\ work\ to\ do\ to\ complete\ the\ frame.}}
+\DoxyCodeLine{00262\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ The\ return\ value\ is\ a\ suggested\ next\ input\ size\ (just\ an\ hint,\ to\ help\ latency).}}
+\DoxyCodeLine{00263\ \textcolor{comment}{*\ *******************************************************************************/}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }ZSTD\_DStream\_s\ \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}};}
+\DoxyCodeLine{00266\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ \mbox{\hyperlink{zstd_8h_aaeacffa15b9a7cf46cfe77755952a98d}{ZSTD\_createDStream}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00267\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_ad4958857a8d614fe98dde2f79afa7463}{ZSTD\_freeDStream}}(\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds);}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a51471ed5a2986fd5306ba64b04128ed4}{ZSTD\_DStreamInSize}}(\textcolor{keywordtype}{void});\ \ \ \ }
+\DoxyCodeLine{00270\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a45d3207022f408de06042ca0ec9fdf00}{ZSTD\_DStreamOutSize}}(\textcolor{keywordtype}{void});\ \ \ }
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a1da8876c04f27c1b58fdc9436bf74a50}{ZSTD\_initDStream}}(\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds);}
+\DoxyCodeLine{00273\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{zstd_8h_a8daa7ccfc3a4384b7b45bf8f2cc0c152}{ZSTD\_decompressStream}}(\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds,\ \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\_outBuffer}}*\ output,\ \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\_inBuffer}}*\ input);}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#ifdef\ ZSTD\_STATIC\_LINKING\_ONLY}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{comment}{/*\ ====================================================================================}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ *\ The\ definitions\ in\ this\ section\ are\ considered\ experimental.}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ *\ They\ should\ never\ be\ used\ with\ a\ dynamic\ library,\ as\ they\ may\ change\ in\ the\ future.}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ *\ They\ are\ provided\ for\ advanced\ usages.}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ *\ Use\ them\ only\ in\ association\ with\ static\ linking.}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ *\ ====================================================================================\ */}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{comment}{/*-\/-\/-\/\ Constants\ -\/-\/-\/*/}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#define\ ZSTD\_MAGICNUMBER\ \ \ \ \ \ \ \ \ \ \ \ 0xFD2FB528\ \ \ }\textcolor{comment}{/*\ v0.8\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ ZSTD\_MAGIC\_SKIPPABLE\_START\ \ 0x184D2A50U}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ ZSTD\_WINDOWLOG\_MAX\_32\ \ 25}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ ZSTD\_WINDOWLOG\_MAX\_64\ \ 27}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ ZSTD\_WINDOWLOG\_MAX\ \ \ \ ((U32)(MEM\_32bits()\ ?\ ZSTD\_WINDOWLOG\_MAX\_32\ :\ ZSTD\_WINDOWLOG\_MAX\_64))}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ ZSTD\_WINDOWLOG\_MIN\ \ \ \ \ 10}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ ZSTD\_HASHLOG\_MAX\ \ \ \ \ \ \ ZSTD\_WINDOWLOG\_MAX}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ ZSTD\_HASHLOG\_MIN\ \ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#define\ ZSTD\_CHAINLOG\_MAX\ \ \ \ \ (ZSTD\_WINDOWLOG\_MAX+1)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#define\ ZSTD\_CHAINLOG\_MIN\ \ \ \ \ \ ZSTD\_HASHLOG\_MIN}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ ZSTD\_HASHLOG3\_MAX\ \ \ \ \ \ 17}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ ZSTD\_SEARCHLOG\_MAX\ \ \ \ (ZSTD\_WINDOWLOG\_MAX-\/1)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ ZSTD\_SEARCHLOG\_MIN\ \ \ \ \ \ 1}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ ZSTD\_SEARCHLENGTH\_MAX\ \ \ 7\ \ \ }\textcolor{comment}{/*\ only\ for\ ZSTD\_fast,\ other\ strategies\ are\ limited\ to\ 6\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ ZSTD\_SEARCHLENGTH\_MIN\ \ \ 3\ \ \ }\textcolor{comment}{/*\ only\ for\ ZSTD\_btopt,\ other\ strategies\ are\ limited\ to\ 4\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ ZSTD\_TARGETLENGTH\_MIN\ \ \ 4}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ ZSTD\_TARGETLENGTH\_MAX\ 999}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ ZSTD\_FRAMEHEADERSIZE\_MAX\ 18\ \ \ \ }\textcolor{comment}{/*\ for\ static\ allocation\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00307\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_frameHeaderSize\_prefix\ =\ 5;}
+\DoxyCodeLine{00308\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_frameHeaderSize\_min\ =\ 6;}
+\DoxyCodeLine{00309\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_frameHeaderSize\_max\ =\ ZSTD\_FRAMEHEADERSIZE\_MAX;}
+\DoxyCodeLine{00310\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_skippableHeaderSize\ =\ 8;\ \ \textcolor{comment}{/*\ magic\ number\ +\ skippable\ frame\ length\ */}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{comment}{/*-\/-\/-\/\ Types\ -\/-\/-\/*/}}
+\DoxyCodeLine{00314\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ ZSTD\_fast,\ ZSTD\_dfast,\ ZSTD\_greedy,\ ZSTD\_lazy,\ ZSTD\_lazy2,\ ZSTD\_btlazy2,\ ZSTD\_btopt\ \}\ ZSTD\_strategy;\ \ \ \textcolor{comment}{/*\ from\ faster\ to\ stronger\ */}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ windowLog;\ \ \ \ \ \ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ chainLog;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ hashLog;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ searchLog;\ \ \ \ \ \ }
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ searchLength;\ \ \ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ targetLength;\ \ \ }
+\DoxyCodeLine{00323\ \ \ \ \ ZSTD\_strategy\ strategy;}
+\DoxyCodeLine{00324\ \}\ ZSTD\_compressionParameters;}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ contentSizeFlag;\ }
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ checksumFlag;\ \ \ \ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ noDictIDFlag;\ \ \ \ }
+\DoxyCodeLine{00330\ \}\ ZSTD\_frameParameters;}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00333\ \ \ \ \ ZSTD\_compressionParameters\ cParams;}
+\DoxyCodeLine{00334\ \ \ \ \ ZSTD\_frameParameters\ fParams;}
+\DoxyCodeLine{00335\ \}\ ZSTD\_parameters;}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{comment}{/*\ custom\ memory\ allocation\ functions\ */}}
+\DoxyCodeLine{00338\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ (*ZSTD\_allocFunction)\ (\textcolor{keywordtype}{void}*\ opaque,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00339\ \textcolor{keyword}{typedef}\ void\ \ (*ZSTD\_freeFunction)\ (\textcolor{keywordtype}{void}*\ opaque,\ \textcolor{keywordtype}{void}*\ address);}
+\DoxyCodeLine{00340\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{\ ZSTD\_allocFunction\ customAlloc;\ ZSTD\_freeFunction\ customFree;\ \textcolor{keywordtype}{void}*\ opaque;\ \}\ ZSTD\_customMem;}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \textcolor{comment}{/*-\/*************************************}}
+\DoxyCodeLine{00344\ \textcolor{comment}{*\ \ Advanced\ compression\ functions}}
+\DoxyCodeLine{00345\ \textcolor{comment}{***************************************/}}
+\DoxyCodeLine{00349\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_estimateCCtxSize(ZSTD\_compressionParameters\ cParams);}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00353\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ ZSTD\_createCCtx\_advanced(ZSTD\_customMem\ customMem);}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00357\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_sizeof\_CCtx(\textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx);}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00361\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\_CDict}}*\ ZSTD\_createCDict\_advanced(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize,}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZSTD\_parameters\ params,\ ZSTD\_customMem\ customMem);}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00366\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_sizeof\_CDict(\textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\_CDict}}*\ cdict);}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00371\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ ZSTD\_parameters\ ZSTD\_getParams(\textcolor{keywordtype}{int}\ compressionLevel,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ srcSize,\ \textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00376\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ ZSTD\_compressionParameters\ ZSTD\_getCParams(\textcolor{keywordtype}{int}\ compressionLevel,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ srcSize,\ \textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00380\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_checkCParams(ZSTD\_compressionParameters\ params);}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00385\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ ZSTD\_compressionParameters\ ZSTD\_adjustCParams(ZSTD\_compressionParameters\ cPar,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ srcSize,\ \textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00389\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compress\_advanced\ (\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ ctx,}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize,}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\textcolor{keywordtype}{size\_t}\ dictSize,}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZSTD\_parameters\ params);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{comment}{/*-\/-\/-\/\ Advanced\ Decompression\ functions\ -\/-\/-\/*/}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00400\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_estimateDCtxSize(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00404\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ ZSTD\_createDCtx\_advanced(ZSTD\_customMem\ customMem);}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00408\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_sizeof\_DCtx(\textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx);}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00412\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_sizeof\_DDict(\textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\_DDict}}*\ ddict);}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{comment}{/*\ ******************************************************************}}
+\DoxyCodeLine{00416\ \textcolor{comment}{*\ \ Advanced\ Streaming\ functions}}
+\DoxyCodeLine{00417\ \textcolor{comment}{********************************************************************/}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{comment}{/*======\ \ \ compression\ \ \ ======*/}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ ZSTD\_createCStream\_advanced(ZSTD\_customMem\ customMem);}
+\DoxyCodeLine{00422\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_initCStream\_usingDict(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize,\ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00423\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_initCStream\_advanced(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize,}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZSTD\_parameters\ params,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ pledgedSrcSize);\ \ }
+\DoxyCodeLine{00425\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_resetCStream(\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ pledgedSrcSize);\ \ }
+\DoxyCodeLine{00426\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_sizeof\_CStream(\textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\_CStream}}*\ zcs);}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \textcolor{comment}{/*======\ \ \ decompression\ \ \ ======*/}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ ZSTDdsp\_maxWindowSize\ \}\ ZSTD\_DStreamParameter\_e;}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ ZSTD\_createDStream\_advanced(ZSTD\_customMem\ customMem);}
+\DoxyCodeLine{00434\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_initDStream\_usingDict(\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00435\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_setDStreamParameter(\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds,\ ZSTD\_DStreamParameter\_e\ paramType,\ \textcolor{keywordtype}{unsigned}\ paramValue);}
+\DoxyCodeLine{00436\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_resetDStream(\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds);\ \ }
+\DoxyCodeLine{00437\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_sizeof\_DStream(\textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\_DStream}}*\ zds);}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{comment}{/*\ ******************************************************************}}
+\DoxyCodeLine{00441\ \textcolor{comment}{*\ \ Buffer-\/less\ and\ synchronous\ inner\ streaming\ functions}}
+\DoxyCodeLine{00442\ \textcolor{comment}{********************************************************************/}}
+\DoxyCodeLine{00443\ \textcolor{comment}{/*\ This\ is\ an\ advanced\ API,\ giving\ full\ control\ over\ buffer\ management,\ for\ users\ which\ need\ direct\ control\ over\ memory.}}
+\DoxyCodeLine{00444\ \textcolor{comment}{*\ \ But\ it's\ also\ a\ complex\ one,\ with\ many\ restrictions\ (documented\ below).}}
+\DoxyCodeLine{00445\ \textcolor{comment}{*\ \ Prefer\ using\ normal\ streaming\ API\ for\ an\ easier\ experience\ */}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compressBegin(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00448\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compressBegin\_usingDict(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize,\ \textcolor{keywordtype}{int}\ compressionLevel);}
+\DoxyCodeLine{00449\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compressBegin\_advanced(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize,\ ZSTD\_parameters\ params,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ pledgedSrcSize);}
+\DoxyCodeLine{00450\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_copyCCtx(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ preparedCCtx,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ pledgedSrcSize);}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compressContinue(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00453\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compressEnd(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00456\ \textcolor{comment}{\ \ A\ ZSTD\_CCtx\ object\ is\ required\ to\ track\ streaming\ operations.}}
+\DoxyCodeLine{00457\ \textcolor{comment}{\ \ Use\ ZSTD\_createCCtx()\ /\ ZSTD\_freeCCtx()\ to\ manage\ resource.}}
+\DoxyCodeLine{00458\ \textcolor{comment}{\ \ ZSTD\_CCtx\ object\ can\ be\ re-\/used\ multiple\ times\ within\ successive\ compression\ operations.}}
+\DoxyCodeLine{00459\ \textcolor{comment}{}}
+\DoxyCodeLine{00460\ \textcolor{comment}{\ \ Start\ by\ initializing\ a\ context.}}
+\DoxyCodeLine{00461\ \textcolor{comment}{\ \ Use\ ZSTD\_compressBegin(),\ or\ ZSTD\_compressBegin\_usingDict()\ for\ dictionary\ compression,}}
+\DoxyCodeLine{00462\ \textcolor{comment}{\ \ or\ ZSTD\_compressBegin\_advanced(),\ for\ finer\ parameter\ control.}}
+\DoxyCodeLine{00463\ \textcolor{comment}{\ \ It's\ also\ possible\ to\ duplicate\ a\ reference\ context\ which\ has\ already\ been\ initialized,\ using\ ZSTD\_copyCCtx()}}
+\DoxyCodeLine{00464\ \textcolor{comment}{}}
+\DoxyCodeLine{00465\ \textcolor{comment}{\ \ Then,\ consume\ your\ input\ using\ ZSTD\_compressContinue().}}
+\DoxyCodeLine{00466\ \textcolor{comment}{\ \ There\ are\ some\ important\ considerations\ to\ keep\ in\ mind\ when\ using\ this\ advanced\ function\ :}}
+\DoxyCodeLine{00467\ \textcolor{comment}{\ \ -\/\ ZSTD\_compressContinue()\ has\ no\ internal\ buffer.\ It\ uses\ externally\ provided\ buffer\ only.}}
+\DoxyCodeLine{00468\ \textcolor{comment}{\ \ -\/\ Interface\ is\ synchronous\ :\ input\ is\ consumed\ entirely\ and\ produce\ 1+\ (or\ more)\ compressed\ blocks.}}
+\DoxyCodeLine{00469\ \textcolor{comment}{\ \ -\/\ Caller\ must\ ensure\ there\ is\ enough\ space\ in\ \`{}dst`\ to\ store\ compressed\ data\ under\ worst\ case\ scenario.}}
+\DoxyCodeLine{00470\ \textcolor{comment}{\ \ \ \ Worst\ case\ evaluation\ is\ provided\ by\ ZSTD\_compressBound().}}
+\DoxyCodeLine{00471\ \textcolor{comment}{\ \ \ \ ZSTD\_compressContinue()\ doesn't\ guarantee\ recover\ after\ a\ failed\ compression.}}
+\DoxyCodeLine{00472\ \textcolor{comment}{\ \ -\/\ ZSTD\_compressContinue()\ presumes\ prior\ input\ ***is\ still\ accessible\ and\ unmodified***\ (up\ to\ maximum\ distance\ size,\ see\ WindowLog).}}
+\DoxyCodeLine{00473\ \textcolor{comment}{\ \ \ \ It\ remembers\ all\ previous\ contiguous\ blocks,\ plus\ one\ separated\ memory\ segment\ (which\ can\ itself\ consists\ of\ multiple\ contiguous\ blocks)}}
+\DoxyCodeLine{00474\ \textcolor{comment}{\ \ -\/\ ZSTD\_compressContinue()\ detects\ that\ prior\ input\ has\ been\ overwritten\ when\ \`{}src`\ buffer\ overlaps.}}
+\DoxyCodeLine{00475\ \textcolor{comment}{\ \ \ \ In\ which\ case,\ it\ will\ "{}discard"{}\ the\ relevant\ memory\ section\ from\ its\ history.}}
+\DoxyCodeLine{00476\ \textcolor{comment}{}}
+\DoxyCodeLine{00477\ \textcolor{comment}{\ \ Finish\ a\ frame\ with\ ZSTD\_compressEnd(),\ which\ will\ write\ the\ last\ block(s)\ and\ optional\ checksum.}}
+\DoxyCodeLine{00478\ \textcolor{comment}{\ \ It's\ possible\ to\ use\ a\ NULL,0\ src\ content,\ in\ which\ case,\ it\ will\ write\ a\ final\ empty\ block\ to\ end\ the\ frame,}}
+\DoxyCodeLine{00479\ \textcolor{comment}{\ \ Without\ last\ block\ mark,\ frames\ will\ be\ considered\ unfinished\ (broken)\ by\ decoders.}}
+\DoxyCodeLine{00480\ \textcolor{comment}{}}
+\DoxyCodeLine{00481\ \textcolor{comment}{\ \ You\ can\ then\ reuse\ \`{}ZSTD\_CCtx`\ (ZSTD\_compressBegin())\ to\ compress\ some\ new\ frame.}}
+\DoxyCodeLine{00482\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ frameContentSize;}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ windowSize;}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ dictID;}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ checksumFlag;}
+\DoxyCodeLine{00489\ \}\ ZSTD\_frameParams;}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_getFrameParams(ZSTD\_frameParams*\ fparamsPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);\ \ \ }
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_decompressBegin(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx);}
+\DoxyCodeLine{00494\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_decompressBegin\_usingDict(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ dict,\ \textcolor{keywordtype}{size\_t}\ dictSize);}
+\DoxyCodeLine{00495\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{void}\ \ \ ZSTD\_copyDCtx(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ preparedDCtx);}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_nextSrcSizeToDecompress(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx);}
+\DoxyCodeLine{00498\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_decompressContinue(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ ZSTDnit\_frameHeader,\ ZSTDnit\_blockHeader,\ ZSTDnit\_block,\ ZSTDnit\_lastBlock,\ ZSTDnit\_checksum,\ ZSTDnit\_skippableFrame\ \}\ ZSTD\_nextInputType\_e;}
+\DoxyCodeLine{00501\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ ZSTD\_nextInputType\_e\ ZSTD\_nextInputType(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx);}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00504\ \textcolor{comment}{\ \ Buffer-\/less\ streaming\ decompression\ (synchronous\ mode)}}
+\DoxyCodeLine{00505\ \textcolor{comment}{}}
+\DoxyCodeLine{00506\ \textcolor{comment}{\ \ A\ ZSTD\_DCtx\ object\ is\ required\ to\ track\ streaming\ operations.}}
+\DoxyCodeLine{00507\ \textcolor{comment}{\ \ Use\ ZSTD\_createDCtx()\ /\ ZSTD\_freeDCtx()\ to\ manage\ it.}}
+\DoxyCodeLine{00508\ \textcolor{comment}{\ \ A\ ZSTD\_DCtx\ object\ can\ be\ re-\/used\ multiple\ times.}}
+\DoxyCodeLine{00509\ \textcolor{comment}{}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ \ First\ typical\ operation\ is\ to\ retrieve\ frame\ parameters,\ using\ ZSTD\_getFrameParams().}}
+\DoxyCodeLine{00511\ \textcolor{comment}{\ \ It\ fills\ a\ ZSTD\_frameParams\ structure\ which\ provide\ important\ information\ to\ correctly\ decode\ the\ frame,}}
+\DoxyCodeLine{00512\ \textcolor{comment}{\ \ such\ as\ the\ minimum\ rolling\ buffer\ size\ to\ allocate\ to\ decompress\ data\ (`windowSize`),}}
+\DoxyCodeLine{00513\ \textcolor{comment}{\ \ and\ the\ dictionary\ ID\ used.}}
+\DoxyCodeLine{00514\ \textcolor{comment}{\ \ (Note\ :\ content\ size\ is\ optional,\ it\ may\ not\ be\ present.\ 0\ means\ :\ content\ size\ unknown).}}
+\DoxyCodeLine{00515\ \textcolor{comment}{\ \ Note\ that\ these\ values\ could\ be\ wrong,\ either\ because\ of\ data\ malformation,\ or\ because\ an\ attacker\ is\ spoofing\ deliberate\ false\ information.}}
+\DoxyCodeLine{00516\ \textcolor{comment}{\ \ As\ a\ consequence,\ check\ that\ values\ remain\ within\ valid\ application\ range,\ especially\ \`{}windowSize`,\ before\ allocation.}}
+\DoxyCodeLine{00517\ \textcolor{comment}{\ \ Each\ application\ can\ set\ its\ own\ limit,\ depending\ on\ local\ restrictions.\ For\ extended\ interoperability,\ it\ is\ recommended\ to\ support\ at\ least\ 8\ MB.}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ \ Frame\ parameters\ are\ extracted\ from\ the\ beginning\ of\ the\ compressed\ frame.}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ \ Data\ fragment\ must\ be\ large\ enough\ to\ ensure\ successful\ decoding,\ typically\ \`{}ZSTD\_frameHeaderSize\_max`\ bytes.}}
+\DoxyCodeLine{00520\ \textcolor{comment}{\ \ @result\ :\ 0\ :\ successful\ decoding,\ the\ \`{}ZSTD\_frameParams`\ structure\ is\ correctly\ filled.}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ >0\ :\ \`{}srcSize`\ is\ too\ small,\ please\ provide\ at\ least\ @result\ bytes\ on\ next\ attempt.}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ errorCode,\ which\ can\ be\ tested\ using\ ZSTD\_isError().}}
+\DoxyCodeLine{00523\ \textcolor{comment}{}}
+\DoxyCodeLine{00524\ \textcolor{comment}{\ \ Start\ decompression,\ with\ ZSTD\_decompressBegin()\ or\ ZSTD\_decompressBegin\_usingDict().}}
+\DoxyCodeLine{00525\ \textcolor{comment}{\ \ Alternatively,\ you\ can\ copy\ a\ prepared\ context,\ using\ ZSTD\_copyDCtx().}}
+\DoxyCodeLine{00526\ \textcolor{comment}{}}
+\DoxyCodeLine{00527\ \textcolor{comment}{\ \ Then\ use\ ZSTD\_nextSrcSizeToDecompress()\ and\ ZSTD\_decompressContinue()\ alternatively.}}
+\DoxyCodeLine{00528\ \textcolor{comment}{\ \ ZSTD\_nextSrcSizeToDecompress()\ tells\ how\ many\ bytes\ to\ provide\ as\ 'srcSize'\ to\ ZSTD\_decompressContinue().}}
+\DoxyCodeLine{00529\ \textcolor{comment}{\ \ ZSTD\_decompressContinue()\ requires\ this\ \_exact\_\ amount\ of\ bytes,\ or\ it\ will\ fail.}}
+\DoxyCodeLine{00530\ \textcolor{comment}{}}
+\DoxyCodeLine{00531\ \textcolor{comment}{\ \ @result\ of\ ZSTD\_decompressContinue()\ is\ the\ number\ of\ bytes\ regenerated\ within\ 'dst'\ (necessarily\ <=\ dstCapacity).}}
+\DoxyCodeLine{00532\ \textcolor{comment}{\ \ It\ can\ be\ zero,\ which\ is\ not\ an\ error;\ it\ just\ means\ ZSTD\_decompressContinue()\ has\ decoded\ some\ metadata\ item.}}
+\DoxyCodeLine{00533\ \textcolor{comment}{\ \ It\ can\ also\ be\ an\ error\ code,\ which\ can\ be\ tested\ with\ ZSTD\_isError().}}
+\DoxyCodeLine{00534\ \textcolor{comment}{}}
+\DoxyCodeLine{00535\ \textcolor{comment}{\ \ ZSTD\_decompressContinue()\ needs\ previous\ data\ blocks\ during\ decompression,\ up\ to\ \`{}windowSize`.}}
+\DoxyCodeLine{00536\ \textcolor{comment}{\ \ They\ should\ preferably\ be\ located\ contiguously,\ prior\ to\ current\ block.}}
+\DoxyCodeLine{00537\ \textcolor{comment}{\ \ Alternatively,\ a\ round\ buffer\ of\ sufficient\ size\ is\ also\ possible.\ Sufficient\ size\ is\ determined\ by\ frame\ parameters.}}
+\DoxyCodeLine{00538\ \textcolor{comment}{\ \ ZSTD\_decompressContinue()\ is\ very\ sensitive\ to\ contiguity,}}
+\DoxyCodeLine{00539\ \textcolor{comment}{\ \ if\ 2\ blocks\ don't\ follow\ each\ other,\ make\ sure\ that\ either\ the\ compressor\ breaks\ contiguity\ at\ the\ same\ place,}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ \ or\ that\ previous\ contiguous\ segment\ is\ large\ enough\ to\ properly\ handle\ maximum\ back-\/reference.}}
+\DoxyCodeLine{00541\ \textcolor{comment}{}}
+\DoxyCodeLine{00542\ \textcolor{comment}{\ \ A\ frame\ is\ fully\ decoded\ when\ ZSTD\_nextSrcSizeToDecompress()\ returns\ zero.}}
+\DoxyCodeLine{00543\ \textcolor{comment}{\ \ Context\ can\ then\ be\ reset\ to\ start\ a\ new\ decompression.}}
+\DoxyCodeLine{00544\ \textcolor{comment}{}}
+\DoxyCodeLine{00545\ \textcolor{comment}{\ \ Note\ :\ it's\ possible\ to\ know\ if\ next\ input\ to\ present\ is\ a\ header\ or\ a\ block,\ using\ ZSTD\_nextInputType().}}
+\DoxyCodeLine{00546\ \textcolor{comment}{\ \ This\ information\ is\ not\ required\ to\ properly\ decode\ a\ frame.}}
+\DoxyCodeLine{00547\ \textcolor{comment}{}}
+\DoxyCodeLine{00548\ \textcolor{comment}{\ \ ==\ Special\ case\ :\ skippable\ frames\ ==}}
+\DoxyCodeLine{00549\ \textcolor{comment}{}}
+\DoxyCodeLine{00550\ \textcolor{comment}{\ \ Skippable\ frames\ allow\ integration\ of\ user-\/defined\ data\ into\ a\ flow\ of\ concatenated\ frames.}}
+\DoxyCodeLine{00551\ \textcolor{comment}{\ \ Skippable\ frames\ will\ be\ ignored\ (skipped)\ by\ a\ decompressor.\ The\ format\ of\ skippable\ frames\ is\ as\ follows\ :}}
+\DoxyCodeLine{00552\ \textcolor{comment}{\ \ a)\ Skippable\ frame\ ID\ -\/\ 4\ Bytes,\ Little\ endian\ format,\ any\ value\ from\ 0x184D2A50\ to\ 0x184D2A5F}}
+\DoxyCodeLine{00553\ \textcolor{comment}{\ \ b)\ Frame\ Size\ -\/\ 4\ Bytes,\ Little\ endian\ format,\ unsigned\ 32-\/bits}}
+\DoxyCodeLine{00554\ \textcolor{comment}{\ \ c)\ Frame\ Content\ -\/\ any\ content\ (User\ Data)\ of\ length\ equal\ to\ Frame\ Size}}
+\DoxyCodeLine{00555\ \textcolor{comment}{\ \ For\ skippable\ frames\ ZSTD\_decompressContinue()\ always\ returns\ 0.}}
+\DoxyCodeLine{00556\ \textcolor{comment}{\ \ For\ skippable\ frames\ ZSTD\_getFrameParams()\ returns\ fparamsPtr-\/>windowLog==0\ what\ means\ that\ a\ frame\ is\ skippable.}}
+\DoxyCodeLine{00557\ \textcolor{comment}{\ \ It\ also\ returns\ Frame\ Size\ as\ fparamsPtr-\/>frameContentSize.}}
+\DoxyCodeLine{00558\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \textcolor{comment}{/*\ **************************************}}
+\DoxyCodeLine{00562\ \textcolor{comment}{*\ \ Block\ functions}}
+\DoxyCodeLine{00563\ \textcolor{comment}{****************************************/}}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \textcolor{preprocessor}{\#define\ ZSTD\_BLOCKSIZE\_ABSOLUTEMAX\ (128\ *\ 1024)\ \ \ }\textcolor{comment}{/*\ define,\ for\ static\ allocation\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00588\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_getBlockSizeMax(\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx);}
+\DoxyCodeLine{00589\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_compressBlock\ \ (\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\_CCtx}}*\ cctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00590\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_decompressBlock(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,\ \textcolor{keywordtype}{void}*\ dst,\ \textcolor{keywordtype}{size\_t}\ dstCapacity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ src,\ \textcolor{keywordtype}{size\_t}\ srcSize);}
+\DoxyCodeLine{00591\ \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\_API}}\ \textcolor{keywordtype}{size\_t}\ ZSTD\_insertBlock(\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\_DCtx}}*\ dctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ blockStart,\ \textcolor{keywordtype}{size\_t}\ blockSize);\ \ }
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00594\ \textcolor{preprocessor}{\#endif\ \ \ }\textcolor{comment}{/*\ ZSTD\_STATIC\_LINKING\_ONLY\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ \textcolor{preprocessor}{\#if\ defined\ (\_\_cplusplus)}}
+\DoxyCodeLine{00597\ \}}
+\DoxyCodeLine{00598\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZSTD\_H\_235446\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

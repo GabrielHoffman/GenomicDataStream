@@ -83,6 +83,13 @@ class DelayedStream :
 		return NC;
 	}
 
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		throw runtime_error("DelayedStream: getSampleNames() not implemented");
+		return vector<string>(1);
+	}
+
 	/** get FileType of param.file
 	 */ 
 	string getStreamType() override {

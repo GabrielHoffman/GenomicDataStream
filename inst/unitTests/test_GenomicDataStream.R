@@ -1,5 +1,80 @@
 
 
+
+test_sample_order = function(){
+
+	library(GenomicDataStream)
+	library(RUnit)
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+
+	# remove BGEN v1.1, since this doesn't store sample names
+	files = grep("1.1.bgen", files, value=TRUE, invert=TRUE)
+
+	# read full data
+	gds <- GenomicDataStream(file, "GT", initialize = TRUE)
+	dat <- getNextChunk(gds)
+	ids = rownames(dat$X)
+
+	# check sample ordering based on sample query
+	# BGEN: uses order from query
+	# VCF/BCF/PGEN: uses order in file
+	res = c()
+	for(file in files){
+	# 	cat(basename(file), ": ")	
+		ids.rnd = sample(ids, length(ids), replace=FALSE)
+
+		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)
+		dat1 <- getNextChunk(gds1)
+		ids1 = rownames(dat1$X)
+
+		allSame = sum(ids == ids1) == 60
+		res = c(res, allSame)
+	}
+	names(res) = basename(files)
+
+	# BGEN not equal
+	a = all(!res[grep("bgen$", names(res))])
+	checkEquals(a, TRUE)
+
+	# VCF/BCF/PGEN are equal
+	a = all(res[grep("(vcf.gz|bcf|pgen)$", names(res))])
+	checkEquals(a, TRUE)
+
+
+	for(file in files){
+		# cat(basename(file), ": ")	
+		ids.rnd = sample(ids, length(ids), replace=FALSE)
+
+		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)
+		dat1 <- getNextChunk(gds1)
+
+		# reorder using original order
+		ids1 = rownames(dat1$X[ids,])
+
+		checkEquals(ids, ids1)
+	}
+
+	# check that getSampleNames() and getNextChunk()
+	# give same sample order
+	ids.rnd = sample(ids, length(ids), replace=FALSE)
+
+	for(file in files){
+		# cat(basename(file), ": ")	
+
+		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)
+		dat1 <- getNextChunk(gds1)
+
+		checkEquals(getSampleNames(gds1), rownames(dat1$X))
+	}
+
+}
+
+
+
+
+
 test_multiple_GenomicDataStream = function(){
 
 	library(GenomicDataStream)
@@ -7,6 +82,7 @@ test_multiple_GenomicDataStream = function(){
 
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+	files = grep("1.1.bgen", files, value=TRUE, invert=TRUE)
 
 	for(file in files){
 		# cat(file, "\n")

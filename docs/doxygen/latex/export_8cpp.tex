@@ -17,9 +17,13 @@
 \item 
 Data\+Frame \mbox{\hyperlink{export_8cpp_aa1981e8b88c965893de02742beb5a0a9}{to\+DF}} (const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \texorpdfstring{$\ast$}{*}v\+Info)
 \item 
-SEXP \mbox{\hyperlink{export_8cpp_af040a4a9a2c8c3f41268b107f099bb99}{create\+\_\+xptr}} (const std\+::string \&file, const std\+::string \&field="{}"{}, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const int \&chunk\+Size=100000, const bool \&missing\+To\+Mean=false)
+SEXP \mbox{\hyperlink{export_8cpp_a2c88e99c396aa0f6397ce09eb6618884}{create\+\_\+xptr}} (const std\+::string \&file, const std\+::string \&field="{}"{}, const std\+::string \&region="{}"{}, const std\+::string \&samples="{}-\/"{}, const double \&min\+Variance=0, const int \&chunk\+Size=10000, const bool \&missing\+To\+Mean=true)
 \item 
 List \mbox{\hyperlink{export_8cpp_ad2d51f7a6459a04793a72e83a03a7dcd}{get\+Info}} (SEXP x)
+\item 
+SEXP \mbox{\hyperlink{export_8cpp_a2dd3e4034f7abff758612d5c610d7930}{set\+Regions\+\_\+rcpp}} (SEXP x, const string \&region\+String)
+\item 
+Character\+Vector \mbox{\hyperlink{export_8cpp_a0376c7389e2e9c85d965bc6496a10b63}{get\+Sample\+Names\+\_\+rcpp}} (SEXP x)
 \item 
 bool \mbox{\hyperlink{export_8cpp_a72cd0eaac00f6f47aebed59a00ffedf9}{at\+End\+Of\+Stream\+\_\+rcpp}} (SEXP x)
 \item 
@@ -79,11 +83,11 @@ bool at\+End\+Of\+Stream\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\e
 {\footnotesize\ttfamily \label{export_8cpp_a7fee884670a74f3630ba041bcf13a0e9} 
 arma\+::vec col\+Sums\+\_\+test (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{X}{}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_af040a4a9a2c8c3f41268b107f099bb99}\index{export.cpp@{export.cpp}!create\_xptr@{create\_xptr}}
+\Hypertarget{export_8cpp_a2c88e99c396aa0f6397ce09eb6618884}\index{export.cpp@{export.cpp}!create\_xptr@{create\_xptr}}
 \index{create\_xptr@{create\_xptr}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{create\_xptr()}{create\_xptr()}}
-{\footnotesize\ttfamily \label{export_8cpp_af040a4a9a2c8c3f41268b107f099bb99} 
-SEXP create\+\_\+xptr (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily 100000}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a2c88e99c396aa0f6397ce09eb6618884} 
+SEXP create\+\_\+xptr (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file}{, }\item[{const std\+::string \&}]{field}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{region}{ = {\ttfamily "{}"{}}, }\item[{const std\+::string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const double \&}]{min\+Variance}{ = {\ttfamily 0}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily 10000}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a617d48bad593d338039f37d1bc6de5a5}\index{export.cpp@{export.cpp}!featuresRead\_rcpp@{featuresRead\_rcpp}}
 \index{featuresRead\_rcpp@{featuresRead\_rcpp}!export.cpp@{export.cpp}}
@@ -102,6 +106,18 @@ List get\+Info (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption}
 \doxysubsubsection{\texorpdfstring{getNextChunk\_rcpp()}{getNextChunk\_rcpp()}}
 {\footnotesize\ttfamily \label{export_8cpp_ab00a0564a52e574e823c23a2c0be7add} 
 List get\+Next\+Chunk\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a0376c7389e2e9c85d965bc6496a10b63}\index{export.cpp@{export.cpp}!getSampleNames\_rcpp@{getSampleNames\_rcpp}}
+\index{getSampleNames\_rcpp@{getSampleNames\_rcpp}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{getSampleNames\_rcpp()}{getSampleNames\_rcpp()}}
+{\footnotesize\ttfamily \label{export_8cpp_a0376c7389e2e9c85d965bc6496a10b63} 
+Character\+Vector get\+Sample\+Names\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a2dd3e4034f7abff758612d5c610d7930}\index{export.cpp@{export.cpp}!setRegions\_rcpp@{setRegions\_rcpp}}
+\index{setRegions\_rcpp@{setRegions\_rcpp}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{setRegions\_rcpp()}{setRegions\_rcpp()}}
+{\footnotesize\ttfamily \label{export_8cpp_a2dd3e4034f7abff758612d5c610d7930} 
+SEXP set\+Regions\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{const string \&}]{region\+String}{}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a7948cb70a34ad29b874afa09a0fd2558}\index{export.cpp@{export.cpp}!standardize\_test@{standardize\_test}}
 \index{standardize\_test@{standardize\_test}!export.cpp@{export.cpp}}

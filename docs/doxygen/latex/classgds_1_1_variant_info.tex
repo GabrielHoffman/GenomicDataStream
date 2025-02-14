@@ -21,6 +21,8 @@ void \mbox{\hyperlink{classgds_1_1_variant_info_ac99b53f641440828b749a2d9e0245f2
 \item 
 void \mbox{\hyperlink{classgds_1_1_variant_info_ae765f24f900c68bc2ac508919e765c76}{append}} (const \mbox{\hyperlink{classgds_1_1_variant_info}{Variant\+Info}} \&v\+Info)
 \item 
+void \mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}{retain\+Variants}} (const vector$<$ unsigned int $>$ \&idx)
+\item 
 void \mbox{\hyperlink{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2}{clear}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classgds_1_1_data_info}{gds\+::\+Data\+Info}}}
@@ -99,7 +101,13 @@ append variants in a new \doxylink{classgds_1_1_variant_info}{Variant\+Info} to 
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2} 
 void gds\+::\+Variant\+Info\+::clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Clear vectors storing variant information, but leave sample\+Names 
+Clear vectors storing variant information, but leave sample\+Names \Hypertarget{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}\index{gds::VariantInfo@{gds::VariantInfo}!retainVariants@{retainVariants}}
+\index{retainVariants@{retainVariants}!gds::VariantInfo@{gds::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{retainVariants()}{retainVariants()}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5} 
+void gds\+::\+Variant\+Info\+::retain\+Variants (\begin{DoxyParamCaption}\item[{const vector$<$ unsigned int $>$ \&}]{idx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Retain only variants with indeces stored in idx 
 
 \doxysubsection{Member Data Documentation}
 \Hypertarget{classgds_1_1_variant_info_a3072054809e3f672a80e5a342b522f00}\index{gds::VariantInfo@{gds::VariantInfo}!A1@{A1}}
@@ -132,11 +140,6 @@ vector$<$int64\+\_\+t$>$ gds\+::\+Variant\+Info\+::\+POS}
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_ad77368d79bf9efcaf87fd004c7a41efa} 
 vector$<$string$>$ gds\+::\+Variant\+Info\+::sample\+Names}
 
-Add information about statistical test for each variant. NOT COMPLETE 
-\begin{DoxyParams}{Parameters}
-{\em test\+Results} & stores results from analysis with fastlmm\+Batch\+Design \\
-\hline
-\end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

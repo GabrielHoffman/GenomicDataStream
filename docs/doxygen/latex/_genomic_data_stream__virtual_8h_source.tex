@@ -24,139 +24,170 @@
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string>}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <filesystem>}}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <boost/algorithm/string.hpp>}}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}"{}}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{using\ namespace\ }std;}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{using\ namespace\ }std;}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ matType>}
-\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_abb19fd0371ac7f5ae8b5b02ce05f590e}{DataChunk}}()\ :\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}()\ \{\}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_a063e22663967df6d48da634754ef9b69}{DataChunk}}(\ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}})\ :}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}(\mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}})\ \{\}\ }
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_ab313ba1e397da2e87bd190dc727cd599}{DataChunk}}(\ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}},\ \mbox{\hyperlink{classgds_1_1_data_info}{DataInfo}}\ *\mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}})\ :}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}(\mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}),\ \mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}}(\mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}})\ \{\}}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00047\ \ \ \ \ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}};\ \}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ infoType>}
-\DoxyCodeLine{00052\ \ \ \ \ infoType\ *\ \mbox{\hyperlink{classgds_1_1_data_chunk_ac16eb50ec9f3e0cf7d1ab46fb7a59531}{getInfo}}()\ \{\ }
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}infoType\ *\textcolor{keyword}{>}(\ \mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}}\ );}
-\DoxyCodeLine{00054\ \ \ \ \ \}\ \ \ \ }
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ private:}}
-\DoxyCodeLine{00057\ \ \ \ \ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}};}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_info}{DataInfo}}\ *\mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}};}
-\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
+\DoxyCodeLine{00029\ \ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ matType>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_data_chunk_abb19fd0371ac7f5ae8b5b02ce05f590e}{DataChunk}}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_abb19fd0371ac7f5ae8b5b02ce05f590e}{DataChunk}}()\ :\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}()\ \{\}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_a063e22663967df6d48da634754ef9b69}{DataChunk}}(\ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}})\ :}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}(\mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}})\ \{\}\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_ab313ba1e397da2e87bd190dc727cd599}{DataChunk}}(\ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}},\ \mbox{\hyperlink{classgds_1_1_data_info}{DataInfo}}\ *\mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}})\ :}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}(\mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}}),\ \mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}}(\mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}})\ \{\}}
+\DoxyCodeLine{00042\ \ }
+\DoxyCodeLine{00045\ \ \ \ \ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}};\ \}}
+\DoxyCodeLine{00046\ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ infoType>}
+\DoxyCodeLine{00050\ \ \ \ \ infoType\ *\ \mbox{\hyperlink{classgds_1_1_data_chunk_ac16eb50ec9f3e0cf7d1ab46fb7a59531}{getInfo}}()\ \{\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}infoType\ *\textcolor{keyword}{>}(\ \mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}}\ );}
+\DoxyCodeLine{00052\ \ \ \ \ \}\ \ \ \ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ private:}}
+\DoxyCodeLine{00055\ \ \ \ \ matType\ \mbox{\hyperlink{classgds_1_1_data_chunk_ad98671d009e299f2a5e015677431d98b}{data}};}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_info}{DataInfo}}\ *\mbox{\hyperlink{classgds_1_1_data_chunk_a68b425adee5171f29b0dfb84e9e1a076}{info}};}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
 \DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgds_1_1_param}{Param}}\ \{}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}{Param}}()\{\}}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}{Param}}(\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}},}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ regionString\ =\ \textcolor{stringliteral}{"{}"{}},}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}\ =\ \textcolor{stringliteral}{"{}-\/"{}},}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}\ =\ numeric\_limits<int>::max(),}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}\ =\ 200,}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&permuteFeatureOrder\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&rndSeed\ =\ 12345)\ :}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}(\ std::filesystem::absolute(\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}})\ ),\ }
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}(\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}),\ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}(\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}),\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}(\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}),\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}(\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}),}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}{fileType}}(getFileType(\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}))\ \{}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}\ <\ 1)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}chunkSize\ must\ be\ positive:\ "{}}\ +\ to\_string(\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}));}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ regionString\ is\ string\ of\ chr:start-\/end\ delim\ by\ "{}\(\backslash\)t,\(\backslash\)n"{}}}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ spaces,\ then\ split\ based\ on\ delim}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ boost::erase\_all(regionString,\ \textcolor{stringliteral}{"{}\ "{}});}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ boost::split(\mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}},\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ duplicate\ regions,\ but\ preserve\ order}}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ removeDuplicates(\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}\ );}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ permuteFeatureOrder\ )\{}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ permuate\ order\ of\ region\ to\ avoid\ correlated\ features}}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ streaming\ SVD}}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ std::shuffle(\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}.begin(),\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}.end(),\ std::mt19937(rndSeed));}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00117\ \ \ \ \ \}}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{setField}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&field\_)\ \{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}}\ =\ field\_;}
-\DoxyCodeLine{00121\ \ \ \ \ \}}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgds_1_1_param_a8c752be96dffc51b142914a8b2fe2f33}{setSamplesFile}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}})\ \{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82}{fileSamples}}\ =\ \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}};}
-\DoxyCodeLine{00127\ \ \ \ \ \}}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}},\ \mbox{\hyperlink{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82}{fileSamples}}\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}}\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00131\ \ \ \ \ vector<string>\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}};}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}};}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}};}
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}};}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}};}
-\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}}\ \mbox{\hyperlink{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}{fileType}};}
-\DoxyCodeLine{00137\ \};}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00142\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{public}:\ }
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{GenomicDataStream}}()\ \{\}}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5d494b75983473682da572b0afa9d19f}{GenomicDataStream}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}\ )\ :\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}(\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})\ \{\}}
-\DoxyCodeLine{00150\ }
-\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\string~GenomicDataStream}}()\ \{\};}
-\DoxyCodeLine{00154\ \ \ \ \ }
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8bfa63dae08a7972722b03b56395e927}{n\_samples}}()\ =\ 0;}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386fc9c7313412f275ad84}{getStreamType}}()\ =\ 0;}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a753dfdcf7a1c2c1c19185fbae88e5284}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a295092e873af53ccb142b35447d2d9a6}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00170\ }
-\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a42d886bf483760a54617718c9aa2f997}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00175\ }
-\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ae6c87ca8b9592f0d13f0acb8ef25bc7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>\ >\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00180\ }
-\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}}
-\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8ea52bd005ea1c29bf3eea907944c330}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}\ \&\ chunk)\ \ =\ 0;}
-\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00186\ }
-\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aeff00fd9766e1a5b9c9970f9cf831a7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>\ >\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00193\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}};}
-\DoxyCodeLine{00194\ \};}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ }
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \}}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}{Param}}\ \{}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}{Param}}()\{\}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_aed659a27960ae0bd54493197be39a20e}{Param}}(\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}},}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ regionString\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}\ =\ \textcolor{stringliteral}{"{}-\/"{}},}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{minVariance}}\ =\ 0,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}\ =\ numeric\_limits<int>::max(),}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}\ =\ 200,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&permuteFeatureOrder\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&rndSeed\ =\ 12345)\ :}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}(\ std::filesystem::absolute(\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}})\ ),\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}(\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}),\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}(\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}),\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}(\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}}),\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}(\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}}),}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{minVariance}}(\mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{minVariance}}),}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}{fileType}}(getFileType(\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}))\ \{}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}\ <\ 1)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}chunkSize\ must\ be\ positive:\ "{}}\ +\ to\_string(\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}}));}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{minVariance}}\ <\ 0)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}minVariance\ must\ be\ positive"{}});}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ parse\ regions}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}\ =\ splitRegionString(\ regionString\ );}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ permuteFeatureOrder\ )\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ permuate\ order\ of\ region\ to\ avoid\ correlated\ features}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ streaming\ SVD}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ std::shuffle(\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}.begin(),\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}}.end(),\ std::mt19937(rndSeed));}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{setField}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&field\_)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}}\ =\ field\_;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgds_1_1_param_a8c752be96dffc51b142914a8b2fe2f33}{setSamplesFile}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}})\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82}{fileSamples}}\ =\ \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}};}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}},\ \mbox{\hyperlink{structgds_1_1_param_a83c54c3a294a8eb8b22458f6f0780a82}{fileSamples}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structgds_1_1_param_aad1725c672bbad45c1ea52f6c9593da6}{field}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00129\ \ \ \ \ vector<string>\ \mbox{\hyperlink{structgds_1_1_param_a15532b76e72f2f03fd4336e99585eb4b}{regions}};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}};}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunkSize}};}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missingToMean}};}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{initCapacity}};}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{minVariance}};}
+\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}}\ \mbox{\hyperlink{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}{fileType}};}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{GenomicDataStream}}\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{GenomicDataStream}}()\ \{\}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5d494b75983473682da572b0afa9d19f}{GenomicDataStream}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}\ )\ :\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}(\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})\ \{\}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\string~GenomicDataStream}}()\ \{\};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}{setRegions}}(\textcolor{keyword}{const}\ vector<string>\ \&regions)\ =\ 0;\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8bfa63dae08a7972722b03b56395e927}{n\_samples}}()\ =\ 0;}
+\DoxyCodeLine{00161\ \ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{virtual}\ vector<string>\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7a549274b79ac4419360c400d80a048b}{getSampleNames}}()\ =\ 0;}
+\DoxyCodeLine{00165\ \ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386fc9c7313412f275ad84}{getStreamType}}()\ =\ 0;}
+\DoxyCodeLine{00169\ \ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{getMinVariance}}()\{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.minVariance;}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a753dfdcf7a1c2c1c19185fbae88e5284}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00179\ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a295092e873af53ccb142b35447d2d9a6}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a42d886bf483760a54617718c9aa2f997}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00188\ \ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ae6c87ca8b9592f0d13f0acb8ef25bc7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>\ >\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8ea52bd005ea1c29bf3eea907944c330}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}\ \&\ chunk)\ \ =\ 0;}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00199\ \ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aeff00fd9766e1a5b9c9970f9cf831a7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>\ >\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}};}
+\DoxyCodeLine{00207\ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ applyVarianceFilter(vector<double>\ \&matDosage,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *vInfo,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&number\_of\_samples,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&minVariance\ =\ 0)\{}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ if\ minVariance\ is\ NaN,\ don't\ apply\ filter}}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{if}(\ !isnan(minVariance)\ )\{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ temp\ arma\ matrix}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_data_info_af8d39001b9a18c530c6d60f5caf32789}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ variance\ by\ columns}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ colvars\ =\ var(M);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ indeces\ passing\ minimum\ variance\ cutoff}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ arma::uvec\ idx\ =\ find(colvars\ >\ minVariance);}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ uvec\ to\ vector<unsigned\ int>}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ vector<unsigned\ int>\ idx2(idx.n\_elem);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ copy(idx.begin(),\ idx.end(),\ idx2.begin());}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ only\ variants\ specified\ in\ idx2}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}{retainVariants}}(\ idx2\ );}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ subset\ of\ columns}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ arma::mat\ M\_subset\ =\ M.cols(idx);}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ M\_subset\ into\ matDosage}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ memcpy(matDosage.data(),\ M\_subset.memptr(),\ M\_subset.n\_elem*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00238\ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

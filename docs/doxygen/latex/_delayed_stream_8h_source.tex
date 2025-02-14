@@ -34,12 +34,12 @@
 \DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_delayed_stream}{DelayedStream}}\ :\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{GenomicDataStream}}\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_delayed_stream_a8c2cbc77c84dbf62c4dd7e78dc6a0034}{DelayedStream}}\ :\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{GenomicDataStream}}\ \{}
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_delayed_stream_a8c2cbc77c84dbf62c4dd7e78dc6a0034}{DelayedStream}}(\ Rcpp::RObject\ robj,\ \textcolor{keyword}{const}\ vector<string>\ \&rowNames,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&chunkSize)\ }
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{GenomicDataStream}}(),\ rowNames(rowNames),\ chunkSize(chunkSize)\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{GenomicDataStream}}(),\ rowNames(rowNames),\ chunkSize(chunkSize)\ \{}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ chunkSize\ <\ 1)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}chunkSize\ must\ be\ positive:\ "{}}\ +\ to\_string(chunkSize));}
@@ -64,160 +64,167 @@
 \DoxyCodeLine{00063\ }
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ mInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classgds_1_1_matrix_info}{MatrixInfo}}();}
 \DoxyCodeLine{00065\ \ \ \ \ \}}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}{\string~DelayedStream}}()\{}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ mInfo;}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ parsed\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ parsed;}
-\DoxyCodeLine{00073\ \ \ \ \ \}}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77}{n\_samples}}()\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NC;}
-\DoxyCodeLine{00079\ \ \ \ \ \}}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163}{getStreamType}}()\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}DelayedStream"{}};}
-\DoxyCodeLine{00085\ \ \ \ \ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a53e33ac406037006bcf6954e8b6e6704}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ arma::mat\ M(output.data(),\ NC,\ chunkSize,\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}(\ M,\ mInfo\ );}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00066\ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}{\string~DelayedStream}}()\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mInfo\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ mInfo;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ parsed\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ parsed;}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a323477c8f2ecfa8857477cfc1ca4afe3}{setRegions}}(\textcolor{keyword}{const}\ vector<string>\ \&regions)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}DelayedStream:\ setRegions()\ not\ implemented"{}});}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77}{n\_samples}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NC;}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ }
+\DoxyCodeLine{00088\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a6fcf6165222ce8cfb3a38d60c635c3b3}{getSampleNames}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}DelayedStream:\ getSampleNames()\ not\ implemented"{}});}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector<string>(1);}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163}{getStreamType}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}DelayedStream"{}};}
 \DoxyCodeLine{00097\ \ \ \ \ \}}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a7336c2cd39dd994562433e86cb2268c4}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ arma::mat\ M(output.data(),\ NC,\ chunkSize,\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ sparse\ matrix\ from\ dense\ matrix}}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}(\ arma::sp\_mat(M),\ mInfo);}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a53e33ac406037006bcf6954e8b6e6704}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ arma::mat\ M(output.data(),\ NC,\ chunkSize,\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}(\ M,\ mInfo\ );}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a7336c2cd39dd994562433e86cb2268c4}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
 \DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_afb3c8d3143f5a4d820fe339feee047c1}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
 \DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(output.data(),\ NC,\ chunkSize);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ arma::mat\ M(output.data(),\ NC,\ chunkSize,\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ sparse\ matrix\ from\ dense\ matrix}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}(\ arma::sp\_mat(M),\ mInfo);}
 \DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}(\ M,\ mInfo\ );}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00124\ \ \ \ \ \}}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a685f2f5f0ef414e3bd45b372b969cb69}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>\ >\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(output.data(),\ NC,\ chunkSize);}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::SparseMatrix<double>}}\ >(\ M.sparseView(),\ mInfo\ );}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00136\ \ \ \ \ \}}
-\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_afb3c8d3143f5a4d820fe339feee047c1}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(output.data(),\ NC,\ chunkSize);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}(\ M,\ mInfo\ );}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a685f2f5f0ef414e3bd45b372b969cb69}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>\ >\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
 \DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}}
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a7c83e9fe09f0760c4b6f76852e1561cc}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
 \DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ Rcpp::NumericMatrix\ M(NC,\ chunkSize,\ output.data());\ }
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ colnames(M)\ =\ Rcpp::wrap(\ mInfo-\/>\mbox{\hyperlink{classgds_1_1_data_info_a031b58e7bc7ef9cfa8c8ed1e571d71db}{getFeatureNames}}()\ );}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rownames(M)\ =\ Rcpp::wrap(\ mInfo-\/>sampleNames\ );\ \ }}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}(\ M,\ mInfo\ );}
-\DoxyCodeLine{00150\ }
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00152\ \ \ \ \ \}}
-\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_ac1698b24d9f8aca2ef3f0f1adc2dca22}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>\ >\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ M\ =\ Eigen::Map<Eigen::MatrixXd>(output.data(),\ NC,\ chunkSize);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::SparseMatrix<double>}}\ >(\ M.sparseView(),\ mInfo\ );}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_a7c83e9fe09f0760c4b6f76852e1561cc}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ Rcpp::NumericMatrix\ M(NC,\ chunkSize,\ output.data());\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ colnames(M)\ =\ Rcpp::wrap(\ mInfo-\/>getFeatureNames()\ );}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rownames(M)\ =\ Rcpp::wrap(\ mInfo-\/>sampleNames\ );\ \ }}
 \DoxyCodeLine{00159\ }
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<vector<double>}}>(\ output,\ mInfo\ );}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}(\ M,\ mInfo\ );}
 \DoxyCodeLine{00161\ }
 \DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
 \DoxyCodeLine{00163\ \ \ \ \ \}}
-\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
 \DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00167\ \ \ \ \ Rtatami::BoundNumericPointer\ *parsed\ =\ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00168\ \ \ \ \ vector<double>\ buffer;\ }
-\DoxyCodeLine{00169\ \ \ \ \ vector<double>\ output;\ }
-\DoxyCodeLine{00170\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_matrix_info}{MatrixInfo}}\ *mInfo\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00171\ \ \ \ \ vector<string>\ rowNames;}
-\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{bool}\ continueIterating\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{int}\ NR,\ NC;}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{int}\ chunkSize;}
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{int}\ pos;}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_delayed_stream_ac1698b24d9f8aca2ef3f0f1adc2dca22}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>\ >\ \&\ chunk)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ vector<double>\ output}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ getNextChunk\_helper();}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ chunk\ =\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<vector<double>}}>(\ output,\ mInfo\ );}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ }
 \DoxyCodeLine{00176\ }
-\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ original\ code\ based\ on\ stand-\/alone\ beachmat}}
-\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ end\ of\ file\ reached,\ return\ false}}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ continueIterating\ )\ \textcolor{keywordflow}{return}\ continueIterating;}
-\DoxyCodeLine{00182\ }
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ //\ get\ pointer\ to\ data}}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ ptr\ =\ (*parsed)-\/>ptr;}
-\DoxyCodeLine{00185\ }
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ //\ get\ workspace\ as\ dense\ row}}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ wrk\ =\ ptr-\/>dense\_row();}
-\DoxyCodeLine{00188\ }
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ remaning\ rows\ is\ less\ than\ chunkSize,\ }}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ then\ set\ chunkSize\ to\ stop\ at\ end}}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ chunkSize\ =\ min(chunkSize,\ NR\ -\/\ pos);}
-\DoxyCodeLine{00192\ }
-\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ loop\ through\ rows}}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ chunkSize;\ i++)\ \{}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ data\ for\ row\ pos\ +\ i}}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ extracted\ =\ wrk-\/>fetch(pos\ +\ i,\ buffer.data());}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ data\ into\ output\ vector\ in\ column\ i}}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(output.data()\ +\ NC*i,\ extracted,\ NC*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ feature\ names\ \ \ \ \ \ \ \ }}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ mInfo-\/>\mbox{\hyperlink{classgds_1_1_matrix_info_ae9531c5a2a3601465e47a504aa980b3e}{setRowNames}}(rowNames,\ pos,\ pos+chunkSize);}
-\DoxyCodeLine{00204\ }
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ current\ position}}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ pos\ +=\ chunkSize;}
-\DoxyCodeLine{00207\ }
-\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ current\ position\ is\ less\ than\ number\ of\ rows}}
-\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ return\ true\ to\ continue\ and\ get\ text\ chunk}}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ continueIterating\ =\ (pos\ <\ NR);}
-\DoxyCodeLine{00211\ }
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00213\ \ \ \ \ \}}
-\DoxyCodeLine{00214\ \};}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00178\ \ \ \ \ Rtatami::BoundNumericPointer\ *parsed\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00179\ \ \ \ \ vector<double>\ buffer;\ }
+\DoxyCodeLine{00180\ \ \ \ \ vector<double>\ output;\ }
+\DoxyCodeLine{00181\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_matrix_info}{MatrixInfo}}\ *mInfo\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00182\ \ \ \ \ vector<string>\ rowNames;}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{bool}\ continueIterating\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{int}\ NR,\ NC;}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{int}\ chunkSize;}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{int}\ pos;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{//\ original\ code\ based\ on\ stand-\/alone\ beachmat}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{bool}\ getNextChunk\_helper()\{}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ end\ of\ file\ reached,\ return\ false}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ continueIterating\ )\ \textcolor{keywordflow}{return}\ continueIterating;}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ //\ get\ pointer\ to\ data}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ ptr\ =\ (*parsed)-\/>ptr;}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ //\ get\ workspace\ as\ dense\ row}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ wrk\ =\ ptr-\/>dense\_row();}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ remaning\ rows\ is\ less\ than\ chunkSize,\ }}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ then\ set\ chunkSize\ to\ stop\ at\ end}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ chunkSize\ =\ min(chunkSize,\ NR\ -\/\ pos);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ loop\ through\ rows}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ chunkSize;\ i++)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ data\ for\ row\ pos\ +\ i}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ extracted\ =\ wrk-\/>fetch(pos\ +\ i,\ buffer.data());}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ data\ into\ output\ vector\ in\ column\ i}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(output.data()\ +\ NC*i,\ extracted,\ NC*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ feature\ names\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ mInfo-\/>\mbox{\hyperlink{classgds_1_1_matrix_info_ae9531c5a2a3601465e47a504aa980b3e}{setRowNames}}(rowNames,\ pos,\ pos+chunkSize);}
 \DoxyCodeLine{00215\ }
-\DoxyCodeLine{00216\ }
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \}}
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ }
-\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ current\ position}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ pos\ +=\ chunkSize;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ current\ position\ is\ less\ than\ number\ of\ rows}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ return\ true\ to\ continue\ and\ get\ text\ chunk}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ continueIterating\ =\ (pos\ <\ NR);}
 \DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ }
-\DoxyCodeLine{00224\ }
-\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00224\ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \};}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

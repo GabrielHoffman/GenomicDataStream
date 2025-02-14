@@ -53,6 +53,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// getSampleNames_rcpp
+CharacterVector getSampleNames_rcpp(SEXP x);
+RcppExport SEXP _GenomicDataStream_getSampleNames_rcpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(getSampleNames_rcpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // atEndOfStream_rcpp
 bool atEndOfStream_rcpp(SEXP x);
 RcppExport SEXP _GenomicDataStream_atEndOfStream_rcpp(SEXP xSEXP) {
@@ -126,6 +137,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 7},
     {"_GenomicDataStream_getInfo", (DL_FUNC) &_GenomicDataStream_getInfo, 1},
     {"_GenomicDataStream_setRegions_rcpp", (DL_FUNC) &_GenomicDataStream_setRegions_rcpp, 2},
+    {"_GenomicDataStream_getSampleNames_rcpp", (DL_FUNC) &_GenomicDataStream_getSampleNames_rcpp, 1},
     {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},

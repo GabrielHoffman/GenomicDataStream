@@ -19,7 +19,11 @@ Inheritance diagram for gds\+::pgenstream\+:\begin{figure}[H]
 \item 
 \mbox{\hyperlink{classgds_1_1pgenstream_a601985a8bdce3bc6b286d418734ce4ad}{\texorpdfstring{$\sim$}{\string~}pgenstream}} ()
 \item 
+void \mbox{\hyperlink{classgds_1_1pgenstream_ab43788ca0954f7b617aed631748f3179}{set\+Regions}} (const vector$<$ string $>$ \&regions) override
+\item 
 int \mbox{\hyperlink{classgds_1_1pgenstream_aef5ae327d7694f75dfbe1ccdeeab4230}{n\+\_\+samples}} () override
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1pgenstream_a15200068c47f0f0a9f8a5d659c03d850}{get\+Sample\+Names}} () override
 \item 
 string \mbox{\hyperlink{classgds_1_1pgenstream_a782ab9df730a8b2c5c8aec998d8987bb}{get\+Stream\+Type}} () override
 \item 
@@ -43,6 +47,8 @@ bool \mbox{\hyperlink{classgds_1_1pgenstream_a50b4e8fc94ce8fcefba4dc6961fbc7e5}{
 \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5d494b75983473682da572b0afa9d19f}{Genomic\+Data\+Stream}} (const \mbox{\hyperlink{structgds_1_1_param}{Param}} \&\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})
 \item 
 virtual \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
+\item 
+double \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{get\+Min\+Variance}} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds\+::\+Genomic\+Data\+Stream}}}
@@ -137,13 +143,23 @@ Get next chunk of {\itshape features} as vector$<$double$>$
 
 Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aeff00fd9766e1a5b9c9970f9cf831a7a}{gds\+::\+Genomic\+Data\+Stream}}.
 
+\Hypertarget{classgds_1_1pgenstream_a15200068c47f0f0a9f8a5d659c03d850}\index{gds::pgenstream@{gds::pgenstream}!getSampleNames@{getSampleNames}}
+\index{getSampleNames@{getSampleNames}!gds::pgenstream@{gds::pgenstream}}
+\doxysubsubsection{\texorpdfstring{getSampleNames()}{getSampleNames()}}
+{\footnotesize\ttfamily \label{classgds_1_1pgenstream_a15200068c47f0f0a9f8a5d659c03d850} 
+vector$<$ string $>$ gds\+::pgenstream\+::get\+Sample\+Names (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get vector of sample names in order that the genotypes are extracted 
+
+Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7a549274b79ac4419360c400d80a048b}{gds\+::\+Genomic\+Data\+Stream}}.
+
 \Hypertarget{classgds_1_1pgenstream_a782ab9df730a8b2c5c8aec998d8987bb}\index{gds::pgenstream@{gds::pgenstream}!getStreamType@{getStreamType}}
 \index{getStreamType@{getStreamType}!gds::pgenstream@{gds::pgenstream}}
 \doxysubsubsection{\texorpdfstring{getStreamType()}{getStreamType()}}
 {\footnotesize\ttfamily \label{classgds_1_1pgenstream_a782ab9df730a8b2c5c8aec998d8987bb} 
 string gds\+::pgenstream\+::get\+Stream\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-get File\+Type of param.\+file 
+get \doxylink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{File\+Type} of param.\+file 
 
 Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386fc9c7313412f275ad84}{gds\+::\+Genomic\+Data\+Stream}}.
 
@@ -156,6 +172,16 @@ int gds\+::pgenstream\+::n\+\_\+samples (\begin{DoxyParamCaption}{}{}\end{DoxyPa
 Get number of columns in data matrix 
 
 Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8bfa63dae08a7972722b03b56395e927}{gds\+::\+Genomic\+Data\+Stream}}.
+
+\Hypertarget{classgds_1_1pgenstream_ab43788ca0954f7b617aed631748f3179}\index{gds::pgenstream@{gds::pgenstream}!setRegions@{setRegions}}
+\index{setRegions@{setRegions}!gds::pgenstream@{gds::pgenstream}}
+\doxysubsubsection{\texorpdfstring{setRegions()}{setRegions()}}
+{\footnotesize\ttfamily \label{classgds_1_1pgenstream_ab43788ca0954f7b617aed631748f3179} 
+void gds\+::pgenstream\+::set\+Regions (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{regions}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+setter 
+
+Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}{gds\+::\+Genomic\+Data\+Stream}}.
 
 
 

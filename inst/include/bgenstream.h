@@ -179,6 +179,12 @@ class bgenstream :
 		return number_of_samples;
 	}
 
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		return vInfo->sampleNames;
+	}
+
 	/** get FileType of param.file
 	 */ 
 	string getStreamType() override {

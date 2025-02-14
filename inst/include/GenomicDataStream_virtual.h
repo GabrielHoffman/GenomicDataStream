@@ -84,7 +84,7 @@ struct Param {
 			const string &samples = "-",
 			const double minVariance = 0,
 			const int &chunkSize = numeric_limits<int>::max(),
-			const bool &missingToMean = false,
+			const bool &missingToMean = true,
 			const int &initCapacity = 200,
 			const bool &permuteFeatureOrder = false,
 			const int &rndSeed = 12345) :
@@ -159,6 +159,10 @@ class GenomicDataStream {
 	 */ 
 	virtual int n_samples() = 0;
 
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	virtual vector<string> getSampleNames() = 0;
+
 	/** get FileType of param.file
 	 */ 
 	virtual string getStreamType() = 0;
@@ -208,6 +212,7 @@ class GenomicDataStream {
 */
 static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, const int &number_of_samples, const double &minVariance = 0){
 
+	// if minVariance is NaN, don't apply filter
 	if( !isnan(minVariance) ){
 		// create temp arma matrix
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);

@@ -21,14 +21,15 @@
 \DoxyCodeLine{\textcolor{keywordtype}{string}\ field\ =\ \textcolor{stringliteral}{"{}DS"{}};\ \ \ \ \textcolor{comment}{//\ read\ dosage\ field}}
 \DoxyCodeLine{\textcolor{keywordtype}{string}\ region\ =\ \textcolor{stringliteral}{"{}"{}};\ \ \ \ \ \textcolor{comment}{//\ no\ region\ filter}}
 \DoxyCodeLine{\textcolor{keywordtype}{string}\ samples\ =\ \textcolor{stringliteral}{"{}-\/"{}};\ \ \ \textcolor{comment}{//\ no\ samples\ filter}}
+\DoxyCodeLine{\textcolor{keywordtype}{double}\ minVariance\ =\ 0;\ \textcolor{comment}{//\ retain\ features\ with\ var\ >\ minVariance\ }}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ chunkSize\ =\ 4;\ \ \ \ \ \ \textcolor{comment}{//\ each\ chunk\ will\ read\ 4\ variants}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ initialize\ parameters}}
-\DoxyCodeLine{\mbox{\hyperlink{structgds_1_1_param}{Param}}\ param(file,\ region,\ samples,\ chunkSize);}
+\DoxyCodeLine{\mbox{\hyperlink{structgds_1_1_param}{Param}}\ param(file,\ region,\ samples,\ minVariance,\ chunkSize);}
 \DoxyCodeLine{param.setField(\ field\ );}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Initialise\ GenomicDataStream\ to\ read\ }}
-\DoxyCodeLine{\textcolor{comment}{//\ VCF/BCF\ and\ BGEN\ with\ same\ interface}}
+\DoxyCodeLine{\textcolor{comment}{//\ VCF/BCF/BGEN/PGEN\ with\ same\ interface}}
 \DoxyCodeLine{unique\_ptr<GenomicDataStream>\ gdsStream\ =\ createFileView(\ param\ );}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ declare\ DataChunk\ storing\ an\ Armadillo\ matrix\ for\ each\ chunk}}

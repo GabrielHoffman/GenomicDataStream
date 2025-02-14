@@ -59,7 +59,8 @@ gds = GenomicDataStream(file, "DS", chunkSize=5, initialize=TRUE)
 
 n = 60
 y = rnorm(n)
-design = matrix(1, n, 1)
+names(y) = paste0("I", seq(n))
+design = model.matrix(~1, data.frame(y))
 
 # loop until break
 while( 1 ){
@@ -92,7 +93,8 @@ gds = GenomicDataStream(file, "DS", chunkSize=5)
 
 n = 60
 y = rnorm(n)
-design = matrix(1, n, 1)
+names(y) = paste0("I", seq(n))
+design = model.matrix(~1, data.frame(y))
 
 # regression of y ~ design + X[,j]
 #   where X[,j] is the jth variant in the GenomicDataStream
@@ -115,14 +117,15 @@ string file = "test.vcf.gz";
 string field = "DS";    // read dosage field
 string region = "";     // no region filter
 string samples = "-";   // no samples filter
+double minVariance = 0; // retain features with var > minVariance 
 int chunkSize = 4;      // each chunk will read 4 variants
 
 // initialize parameters
-Param param(file, region, samples, chunkSize);
+Param param(file, region, samples, minVariance, chunkSize);
 param.setField( field );
 
 // Initialise GenomicDataStream to read 
-// VCF/BCF and BGEN with same interface
+// VCF/BCF/BGEN/PGEN with same interface
 unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
 // declare DataChunk storing an Armadillo matrix for each chunk

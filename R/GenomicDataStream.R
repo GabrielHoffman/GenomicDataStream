@@ -260,6 +260,40 @@ setRegion <- function(x, region) {
   obj 
 }
 
+
+
+#' Get sample names 
+#'
+#' Get sample names in order that the genotypes are extracted
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return array of string names
+#'
+#' @description BGEN uses sample order from the query, but VCF/BCF/PGEN uses order in file
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", init=TRUE)
+#'
+#' getSampleNames(obj)
+#
+#' @export
+getSampleNames <- function(x) {
+  
+  if ( ! isInitialized(x) ) {
+    stop("Must be initialized first")
+  }
+
+  return( getSampleNames_rcpp( x@ptr ) )
+}
+
+
+
+
+
+
 #' Detected if end of stream is reached
 #'
 #' Detected if end of stream is reached

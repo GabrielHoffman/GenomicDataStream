@@ -67,8 +67,8 @@
                         <h4 data-toc-skip class="author">Developed by <a href="http://gabrielhoffman.github.io/" class="external-link">Gabriel Hoffman</a>
 </h4>
             
-            <h4 data-toc-skip class="date">Run on 2025-02-12
-15:03:35</h4>
+            <h4 data-toc-skip class="date">Run on 2025-02-14
+09:55:14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/GenomicDataStream/blob/HEAD/vignettes/GenomicDataStream.Rmd" class="external-link"><code>vignettes/GenomicDataStream.Rmd</code></a></small>
       <div class="d-none name"><code>GenomicDataStream.Rmd</code></div>
@@ -115,7 +115,8 @@ genes from single cell data are used as responses in
 <span></span>
 <span><span class="va">n</span> <span class="op">=</span> <span class="fl">60</span></span>
 <span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># loop until break</span></span>
 <span><span class="kw">while</span><span class="op">(</span> <span class="fl">1</span> <span class="op">)</span><span class="op">{</span></span>
@@ -149,7 +150,8 @@ genes from single cell data are used as responses in
 <span></span>
 <span><span class="va">n</span> <span class="op">=</span> <span class="fl">60</span></span>
 <span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># regression of y ~ design + X[,j]</span></span>
 <span><span class="co">#   where X[,j] is the jth variant in the GenomicDataStream</span></span>
@@ -172,34 +174,35 @@ genes from single cell data are used as responses in
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>string field <span class="op">=</span> <span class="st">"DS"</span><span class="op">;</span>    <span class="co">// read dosage field</span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>string region <span class="op">=</span> <span class="st">""</span><span class="op">;</span>     <span class="co">// no region filter</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>string samples <span class="op">=</span> <span class="st">"-"</span><span class="op">;</span>   <span class="co">// no samples filter</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="dt">int</span> chunkSize <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>      <span class="co">// each chunk will read 4 variants</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">// initialize parameters</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>Param param<span class="op">(</span>file<span class="op">,</span> region<span class="op">,</span> samples<span class="op">,</span> chunkSize<span class="op">);</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>param<span class="op">.</span>setField<span class="op">(</span> field <span class="op">);</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">// Initialise GenomicDataStream to read </span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">// VCF/BCF and BGEN with same interface</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>unique_ptr<span class="op">&lt;</span>GenomicDataStream<span class="op">&gt;</span> gdsStream <span class="op">=</span> createFileView<span class="op">(</span> param <span class="op">);</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">// declare DataChunk storing an Armadillo matrix for each chunk</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">&gt;</span> chunk<span class="op">;</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">// Store meta-data about each variant</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>VariantInfo <span class="op">*</span>info<span class="op">;</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    arma<span class="op">::</span>mat X <span class="op">=</span> chunk<span class="op">.</span>getData<span class="op">();</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>    info <span class="op">=</span> chunk<span class="op">.</span>getInfo<span class="op">&lt;</span>VariantInfo<span class="op">&gt;();</span></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>    analysis_function<span class="op">(</span>X<span class="op">,</span> info<span class="op">);</span></span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="dt">double</span> minVariance <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// retain features with var &gt; minVariance </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="dt">int</span> chunkSize <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>      <span class="co">// each chunk will read 4 variants</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">// initialize parameters</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>Param param<span class="op">(</span>file<span class="op">,</span> region<span class="op">,</span> samples<span class="op">,</span> minVariance<span class="op">,</span> chunkSize<span class="op">);</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>param<span class="op">.</span>setField<span class="op">(</span> field <span class="op">);</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">// Initialise GenomicDataStream to read </span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">// VCF/BCF/BGEN/PGEN with same interface</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>unique_ptr<span class="op">&lt;</span>GenomicDataStream<span class="op">&gt;</span> gdsStream <span class="op">=</span> createFileView<span class="op">(</span> param <span class="op">);</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">// declare DataChunk storing an Armadillo matrix for each chunk</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>DataChunk<span class="op">&lt;</span>arma<span class="op">::</span>mat<span class="op">&gt;</span> chunk<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">// Store meta-data about each variant</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>VariantInfo <span class="op">*</span>info<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">// loop through chunks</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span> gdsStream<span class="op">-&gt;</span>getNextChunk<span class="op">(</span> chunk <span class="op">)</span> <span class="op">){</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    <span class="co">// get data from chunk</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>    arma<span class="op">::</span>mat X <span class="op">=</span> chunk<span class="op">.</span>getData<span class="op">();</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>    <span class="co">// get variant information</span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>    info <span class="op">=</span> chunk<span class="op">.</span>getInfo<span class="op">&lt;</span>VariantInfo<span class="op">&gt;();</span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>    <span class="co">// Do analysis with variants in this chunk</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a>    analysis_function<span class="op">(</span>X<span class="op">,</span> info<span class="op">);</span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Accessing data</p>
 </div>
 </div>

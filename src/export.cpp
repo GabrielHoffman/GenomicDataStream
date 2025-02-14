@@ -59,7 +59,7 @@ SEXP create_xptr(
 			const std::string &samples = "-",
 			const double &minVariance = 0,
 			const int &chunkSize = 10000,
-			const bool &missingToMean = false){
+			const bool &missingToMean = true){
 
 	Param param( file, region, samples, minVariance, chunkSize, missingToMean);
 	param.setField(field);
@@ -95,6 +95,15 @@ SEXP setRegions_rcpp( SEXP x, const string &regionString){
 	return ptr;
 }
 
+
+// [[Rcpp::export]]
+CharacterVector getSampleNames_rcpp( SEXP x){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	vector<string> IDs = ptr->ptr->getSampleNames();
+
+	return wrap(IDs);
+}
 
 
 // [[Rcpp::export]]

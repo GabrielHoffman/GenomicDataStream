@@ -10,95 +10,97 @@
 \DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
 \DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
 \DoxyCodeLine{00008\ }
-\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifndef\ GENOMIC\_DATA\_STREAM\_H\_}}
-\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ GENOMIC\_DATA\_STREAM\_H\_}}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_genomic_data_stream__virtual_8h}{GenomicDataStream\_virtual.h}}"{}}}
-\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bgenstream_8h}{bgenstream.h}}"{}}}
-\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vcfstream_8h}{vcfstream.h}}"{}}}
-\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_delayed_stream_8h}{DelayedStream.h}}"{}}}
-\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
-\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_matrix_info_8h}{MatrixInfo.h}}"{}}}
-\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}"{}}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_PLINK}}
-\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pgenstream_8h}{pgenstream.h}}"{}}}
-\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif\ }}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00127\ \textcolor{keyword}{static}\ unique\_ptr<GenomicDataStream>\ createFileView(\ \textcolor{keyword}{const}\ Param\ \&\ param\ )\{}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ unique\_ptr<GenomicDataStream>\ gdsStream;}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//\ Define\ reader\ for\ VCF/VCFGZ/BCF\ or\ BGEN}}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ depending\ on\ file\ extension}}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{switch}(\ param.fileType\ )\{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<vcfstream>(\ param\ );}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<bgenstream>(\ param\ );}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}:}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}}:\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_PLINK}}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<pgenstream>(\ param\ );\ \ \ \ }
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Invalid\ file\ extension:\ "{}}\ +\ param.file);}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00151\ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{return}\ gdsStream;\ }
-\DoxyCodeLine{00154\ \}}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00159\ \textcolor{keyword}{static}\ shared\_ptr<GenomicDataStream>\ createFileView\_shared(\ \textcolor{keyword}{const}\ Param\ \&\ param\ )\{}
-\DoxyCodeLine{00160\ }
-\DoxyCodeLine{00161\ \ \ \ \ shared\_ptr<GenomicDataStream>\ gdsStream;}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ Define\ reader\ for\ VCF/VCFGZ/BCF\ or\ BGEN}}
-\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ depending\ on\ file\ extension}}
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{switch}(\ param.fileType\ )\{}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_shared<vcfstream>(\ param\ );}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_shared<bgenstream>(\ param\ );}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}:}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}}:\ \ \ \ \ \ \ }
-\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_PLINK}}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<pgenstream>(\ param\ );}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Invalid\ file\ extension:\ "{}}\ +\ param.file);}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00183\ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{return}\ gdsStream;\ }
-\DoxyCodeLine{00186\ \}}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \textcolor{comment}{/*\ Defines\ type\ for\ interface\ with\ Rcpp\ */}}
-\DoxyCodeLine{00189\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgds_1_1_bound_data_stream}{BoundDataStream}}\ \{}
-\DoxyCodeLine{00190\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_bound_data_stream_a19ac5d87f8e99d77768a90f956c80228}{BoundDataStream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&param)\{}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_bound_data_stream_abf1a91c6f22f65fbd200b618fc8180f9}{ptr}}\ =\ createFileView\_shared(\ param\ );}
-\DoxyCodeLine{00192\ \ \ \ \ \}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \ \ shared\_ptr<gds::GenomicDataStream>\ \mbox{\hyperlink{structgds_1_1_bound_data_stream_abf1a91c6f22f65fbd200b618fc8180f9}{ptr}};}
-\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgds_1_1_bound_data_stream_ac8b1ce64a1cbd38237a7c1681e827efc}{atEndOfStream}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structgds_1_1_bound_data_stream_a07ecefe29d25a50bf1b0f980479d6f48}{featuresRead}}\ =\ 0;}
-\DoxyCodeLine{00197\ \}\ \mbox{\hyperlink{namespacegds_ac70f2ea13e13e9f24bdd7a1717666a22}{BoundDataStream}};}
-\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifndef\ GENOMIC\_DATA\_STREAM\_H\_}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ GENOMIC\_DATA\_STREAM\_H\_}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_genomic_data_stream__virtual_8h}{GenomicDataStream\_virtual.h}}"{}}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bgenstream_8h}{bgenstream.h}}"{}}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vcfstream_8h}{vcfstream.h}}"{}}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_delayed_stream_8h}{DelayedStream.h}}"{}}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_matrix_info_8h}{MatrixInfo.h}}"{}}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variant_info_8h}{VariantInfo.h}}"{}}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_PLINK}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pgenstream_8h}{pgenstream.h}}"{}}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
+\DoxyCodeLine{00124\ \ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{static}\ unique\_ptr<GenomicDataStream>\ createFileView(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&\ param\ )\{}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ unique\_ptr<GenomicDataStream>\ gdsStream;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ Define\ reader\ for\ VCF/VCFGZ/BCF\ or\ BGEN}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{comment}{//\ depending\ on\ file\ extension}}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{switch}(\ param.fileType\ )\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<vcfstream>(\ param\ );}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<bgenstream>(\ param\ );}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}}:\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_PLINK}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<pgenstream>(\ param\ );\ \ \ \ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Invalid\ file\ extension:\ "{}}\ +\ param.file);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00152\ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{return}\ gdsStream;\ }
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ \ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{static}\ shared\_ptr<GenomicDataStream>\ createFileView\_shared(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&\ param\ )\{}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ shared\_ptr<GenomicDataStream>\ gdsStream;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ Define\ reader\ for\ VCF/VCFGZ/BCF\ or\ BGEN}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{comment}{//\ depending\ on\ file\ extension}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{switch}(\ param.fileType\ )\{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_shared<vcfstream>(\ param\ );}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_shared<bgenstream>(\ param\ );}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}}:\ \ \ \ \ \ \ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#ifndef\ DISABLE\_PLINK}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ gdsStream\ =\ make\_unique<pgenstream>(\ param\ );}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Invalid\ file\ extension:\ "{}}\ +\ param.file);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00184\ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{return}\ gdsStream;\ }
+\DoxyCodeLine{00187\ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{comment}{/*\ Defines\ type\ for\ interface\ with\ Rcpp\ */}}
+\DoxyCodeLine{00190\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgds_1_1_bound_data_stream_a19ac5d87f8e99d77768a90f956c80228}{BoundDataStream}}\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_bound_data_stream_a19ac5d87f8e99d77768a90f956c80228}{BoundDataStream}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&param)\{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1_bound_data_stream_abf1a91c6f22f65fbd200b618fc8180f9}{ptr}}\ =\ createFileView\_shared(\ param\ );}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ shared\_ptr<gds::GenomicDataStream>\ \mbox{\hyperlink{structgds_1_1_bound_data_stream_abf1a91c6f22f65fbd200b618fc8180f9}{ptr}};}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgds_1_1_bound_data_stream_ac8b1ce64a1cbd38237a7c1681e827efc}{atEndOfStream}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structgds_1_1_bound_data_stream_a07ecefe29d25a50bf1b0f980479d6f48}{featuresRead}}\ =\ 0;}
+\DoxyCodeLine{00198\ \}\ \mbox{\hyperlink{namespacegds_ac70f2ea13e13e9f24bdd7a1717666a22}{BoundDataStream}};}
 \DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \}}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

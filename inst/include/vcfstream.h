@@ -137,6 +137,12 @@ class vcfstream :
 		return reader->nsamples;
 	}
 
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		return reader->header.getSamples();
+	}
+
 	/** get FileType of param.file
 	 */ 
 	string getStreamType() override {

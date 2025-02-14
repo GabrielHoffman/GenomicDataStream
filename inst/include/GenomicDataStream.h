@@ -32,14 +32,15 @@ string file = "test.vcf.gz";
 string field = "DS";    // read dosage field
 string region = "";     // no region filter
 string samples = "-";   // no samples filter
+double minVariance = 0; // retain features with var > minVariance 
 int chunkSize = 4;      // each chunk will read 4 variants
 
 // initialize parameters
-Param param(file, region, samples, chunkSize);
+Param param(file, region, samples, minVariance, chunkSize);
 param.setField( field );
 
 // Initialise GenomicDataStream to read 
-// VCF/BCF and BGEN with same interface
+// VCF/BCF/BGEN/PGEN with same interface
 unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
 
 // declare DataChunk storing an Armadillo matrix for each chunk
