@@ -1,4 +1,17 @@
 
+# GenomicDataStream 0.0.16
+ - Feb 12, 2025
+ - add `MAF` / `minVariance` filter to `GenomicDataStream()` and backend C++ code
+ - add colnames to `coef` and `se`
+ - add `getSampleNames()`
+
+# GenomicDataStream 0.0.15
+ - Feb 5, 2025
+ - `GenomicDataStream` can parse genetics file one time, then use `setRegion()` multiple times to query different regions
+  - changes to `vcfstream.h`, `pgenstream.h`, `bgenstream.h` to allow single initialization and multiple queries with `setRegion()` multiple times
+ - fix issue with `vcfstream::setRegions()` failing when empty region was used after a valid region
+
+
 # GenomicDataStream 0.0.14
  - Jan 30, 2025
  - update `Makevars.in`
@@ -23,7 +36,7 @@
  - Dec 16, 2024
  - bug fixes and convergence criteria
 
-# GenomicDataStream 0.0.7
+# √ 0.0.7
  - Dec 12, 2024
  - add `glmFitResponses()` and `glmFitFeatures()`
 

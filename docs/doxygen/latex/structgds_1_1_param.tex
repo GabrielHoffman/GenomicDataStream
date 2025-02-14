@@ -9,7 +9,7 @@
 \item 
 \mbox{\hyperlink{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}{Param}} ()
 \item 
-\mbox{\hyperlink{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}{Param}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}, string region\+String="{}"{}, const string \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}="{}-\/"{}, const int \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunk\+Size}}=numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missing\+To\+Mean}}=false, const int \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}=200, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
+\mbox{\hyperlink{structgds_1_1_param_aed659a27960ae0bd54493197be39a20e}{Param}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}}, string region\+String="{}"{}, const string \&\mbox{\hyperlink{structgds_1_1_param_a73e7ac933fc1c6305261e9179eac9732}{samples}}="{}-\/"{}, const double \mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{min\+Variance}}=0, const int \&\mbox{\hyperlink{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}{chunk\+Size}}=numeric\+\_\+limits$<$ int $>$\+::max(), const bool \&\mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{missing\+To\+Mean}}=true, const int \&\mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}=200, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
 \item 
 void \mbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{set\+Field}} (const string \&field\+\_\+)
 \item 
@@ -34,6 +34,8 @@ bool \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{mis
 \item 
 int \mbox{\hyperlink{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26}{init\+Capacity}}
 \item 
+double \mbox{\hyperlink{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}{min\+Variance}}
+\item 
 \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{File\+Type}} \mbox{\hyperlink{structgds_1_1_param_a8772547522722593acf7f4f96cb113ff}{file\+Type}}
 \end{DoxyCompactItemize}
 
@@ -48,11 +50,11 @@ Store parameters to pass to \doxylink{classgds_1_1_genomic_data_stream}{Genomic\
 {\footnotesize\ttfamily \label{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915} 
 gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d}\index{gds::Param@{gds::Param}!Param@{Param}}
+\Hypertarget{structgds_1_1_param_aed659a27960ae0bd54493197be39a20e}\index{gds::Param@{gds::Param}!Param@{Param}}
 \index{Param@{Param}!gds::Param@{gds::Param}}
 \doxysubsubsection{\texorpdfstring{Param()}{Param()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{structgds_1_1_param_a2c6b37ea87807ebdb47ad85d2d7f947d} 
-gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string}]{region\+String}{ = {\ttfamily "{}"{}}, }\item[{const string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily false}, }\item[{const int \&}]{init\+Capacity}{ = {\ttfamily 200}, }\item[{const bool \&}]{permute\+Feature\+Order}{ = {\ttfamily false}, }\item[{const int \&}]{rnd\+Seed}{ = {\ttfamily 12345}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_aed659a27960ae0bd54493197be39a20e} 
+gds\+::\+Param\+::\+Param (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string}]{region\+String}{ = {\ttfamily "{}"{}}, }\item[{const string \&}]{samples}{ = {\ttfamily "{}-\/"{}}, }\item[{const double}]{min\+Variance}{ = {\ttfamily 0}, }\item[{const int \&}]{chunk\+Size}{ = {\ttfamily numeric\+\_\+limits$<$int$>$\+:\+:max()}, }\item[{const bool \&}]{missing\+To\+Mean}{ = {\ttfamily true}, }\item[{const int \&}]{init\+Capacity}{ = {\ttfamily 200}, }\item[{const bool \&}]{permute\+Feature\+Order}{ = {\ttfamily false}, }\item[{const int \&}]{rnd\+Seed}{ = {\ttfamily 12345}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 constructor 
 \begin{DoxyParams}{Parameters}
@@ -67,6 +69,8 @@ constructor
 {\em missing\+To\+Mean} & if true, set missing values to the mean dosage value. if false, set to NaN \\
 \hline
 {\em init\+Capacity} & initial capacity of temporary vector to avoid re-\/alloc on insert. Size is in Mb. \\
+\hline
+{\em min\+Variance} & features with variance \texorpdfstring{$>$}{>}= min\+Variance are retained \\
 \hline
 {\em permute\+Feature\+Order} & default is {\ttfamily false}. If {\ttfamily true} permute regions in {\ttfamily region\+String} to avoid linkage disequilibrium betweeen nearby regions \\
 \hline
@@ -126,6 +130,12 @@ string gds\+::\+Param\+::file\+Samples = "{}"{}}
 \doxysubsubsection{\texorpdfstring{initCapacity}{initCapacity}}
 {\footnotesize\ttfamily \label{structgds_1_1_param_a3cb8f5dccbb7b7e45fc04e290b133c26} 
 int gds\+::\+Param\+::init\+Capacity}
+
+\Hypertarget{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd}\index{gds::Param@{gds::Param}!minVariance@{minVariance}}
+\index{minVariance@{minVariance}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{minVariance}{minVariance}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a90139c51a3a8a7f14e32d7404efa44dd} 
+double gds\+::\+Param\+::min\+Variance}
 
 \Hypertarget{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}\index{gds::Param@{gds::Param}!missingToMean@{missingToMean}}
 \index{missingToMean@{missingToMean}!gds::Param@{gds::Param}}

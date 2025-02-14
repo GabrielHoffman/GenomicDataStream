@@ -2,7 +2,7 @@
 % Please edit documentation in R/GenomicDataStream.R
 \name{atEndOfStream}
 \alias{atEndOfStream}
-\title{Detected if end of stream is reaached}
+\title{Detected if end of stream is reached}
 \usage{
 atEndOfStream(x)
 }
@@ -13,7 +13,7 @@ atEndOfStream(x)
 if end of stream has been reached, return \code{TRUE}.  Else \code{FALSE}
 }
 \description{
-Detected if end of stream is reaached
+Detected if end of stream is reached
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")

@@ -45,6 +45,9 @@ namespace genfile {
 				m_stream->seekg( m_index_query->locate_variant(0).first ) ;
 			}
 			m_file_position = m_stream->tellg() ;
+
+			// set to zero when new query
+			m_variant_i = 0;
 		}
 
 		View::FileMetadata const& View::file_metadata() const {
@@ -115,6 +118,7 @@ namespace genfile {
 				if( m_variant_i == m_index_query->number_of_variants() ) {
 					return false ;
 				}
+				// std::cout << "seekg: " << m_variant_i << std::endl;
 				IndexQuery::FileRange const range = m_index_query->locate_variant( m_variant_i ) ;
 				m_stream->seekg( range.first ) ;
 			}

@@ -29,17 +29,17 @@ using namespace std;
 using namespace arma;
 
 
-/*      TODO
+/*			TODO
 
 done 1) custom psam file
 done 2) plink 1 support
 done 3) empty headerKey
 done 4) GenomicRanges search is quadratic, doesn't use sorting
-  test VariantSet
-  how does distance() work?
+	test VariantSet
+	how does distance() work?
 done 5) subset samples
 done 6) fill in chrom and pos info
-    use hash instead
+		use hash instead
 
 SamplesNames from file, and get raw_sample_ct
 - getNextChunk_helper() logic for chunk size
@@ -52,7 +52,7 @@ SamplesNames from file, and get raw_sample_ct
 
 namespace gds {
 
-/** pgenstream reads a PGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
+/** pgenstream reads a PGEN into an matrix in chunks, storing variants in columns.	Applies filtering for specified samples and genome region. 
  * 
 */
 class pgenstream : 
@@ -74,21 +74,21 @@ class pgenstream :
 		if( genoFileType == PGEN ){
 			// Read index file (pvar)
 			pvar = new RPvar();
-	    pvar->Load(fileIdx, true, true);
-	  }
+			pvar->Load(fileIdx, true, true);
+		}
 
 		// Parse PSAM/FAM file of sample identifiers
 		// evaluate subsetting of samples
-    process_samples();
+		process_samples();
 
 		// Read data file (pgen/bed)
 		pg = new RPgenReader();
-  	pg->Load(param.file, pvar, n_samples_psam, sampleIdx1);
+		pg->Load(param.file, pvar, n_samples_psam, sampleIdx1);
 
 		// Initialize vector with capacity to store nVariants
 		// Note, this allocates memory but does not change .size()
 		// After j variants have been inserted, only entries up to j*nsamples are populated
-		//  the rest of the vector is allocated doesn't have valid data
+		//	the rest of the vector is allocated doesn't have valid data
 		int n = 1e6 * param.initCapacity / (double) (sizeof(double) * number_of_samples);
 		matDosage.reserve( n );
 	}
@@ -107,10 +107,46 @@ class pgenstream :
 		}
 	}
 
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+		// Initialize genomic regions
+		// from delimited string
+		GenomicRanges gr( regions );
+		// if not empty
+		if( gr.size() != 0){
+			// get indeces of entries in .pvar located 
+			// within regions
+			// Search is linear time for each interval
+			// varIdx = gr.getWithinIndeces( dt["CHROM"], cast_elements<size_t>(dt["POS"]) );
+
+			// Search is log time for each interval
+			VariantSet vs(dt["CHROM"], cast_elements<size_t>(dt["POS"]));
+			varIdx = vs.getIndeces( gr );
+		}else{
+			// else
+			// set entries to seq(0, dt.nrows()-1)
+			varIdx.resize(dt.nrows());
+			iota(begin(varIdx), end(varIdx), 0); 
+		}
+
+		// total number of requested variants
+		n_requested_variants = varIdx.size();
+
+		// set current position in varIdx
+		currentIdx = 0;
+	}
+
 	/** Get number of columns in data matrix
 	 */ 
 	int n_samples() override {
 		return number_of_samples;
+	}
+
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		return vInfo->sampleNames;
 	}
 
 	/** get FileType of param.file
@@ -124,9 +160,13 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
-	    chunk = DataChunk<arma::mat>( M, vInfo );
+		chunk = DataChunk<arma::mat>( M, vInfo );
 
 		return ret;
 	}
@@ -136,9 +176,13 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
-	    chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), vInfo );
+		chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), vInfo );
 
 		return ret;
 	}
@@ -148,6 +192,10 @@ class pgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
@@ -160,6 +208,10 @@ class pgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
@@ -175,9 +227,13 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		Rcpp::NumericMatrix M(number_of_samples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
-	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
+		rownames(M) = Rcpp::wrap( vInfo->sampleNames );	
 
 		chunk = DataChunk<Rcpp::NumericMatrix>( M, vInfo );
 
@@ -190,6 +246,10 @@ class pgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		chunk = DataChunk<vector<double> >( matDosage, vInfo );
 
 		return ret;
@@ -198,7 +258,7 @@ class pgenstream :
 	private:
 	size_t number_of_samples = 0;
 	int n_requested_variants = 0;
-	int currentIdx = 0;
+	int currentIdx;
 	vector<double> matDosage;
 	vector<size_t> varIdx;
 	VariantInfo *vInfo = nullptr;
@@ -209,7 +269,7 @@ class pgenstream :
 	unordered_map<string,int> map_dt_id;
 	string fileIdx;
 	int n_samples_psam;
-    vector<int> sampleIdx1;
+	vector<int> sampleIdx1;
 	FileType genoFileType;
 
 	bool getNextChunk_helper2 (){
@@ -238,57 +298,57 @@ class pgenstream :
 		pg->ReadList( matDosage, varIdx_sub1, param.missingToMean);
 
 		// populate vInfo
-  		string id, a1, a2,chrom = "";
-  		int pos = -1;
+		string id, a1, a2,chrom = "";
+		int pos = -1;
 
-  		// if PGEN
+			// if PGEN
 		if( genoFileType == PGEN){
 
-	  		// Get variant info from pvar 
-	  		for(auto i: varIdx_sub){
-	  			id = pvar->GetVariantId(i);
-	  			a1 = pvar->GetAlleleCode(i,0);
-	  			a2 = pvar->GetAlleleCode(i,1);
+				// Get variant info from pvar 
+				for(auto i: varIdx_sub){
+					id = pvar->GetVariantId(i);
+					a1 = pvar->GetAlleleCode(i,0);
+					a2 = pvar->GetAlleleCode(i,1);
 
-	  			// find chrom, pos given id
-			    int idx = map_dt_id[id];
-			    chrom = dt["CHROM"][idx];
-			    pos = atoi(dt["POS"][idx].c_str());
+					// find chrom, pos given id
+					int idx = map_dt_id[id];
+					chrom = dt["CHROM"][idx];
+					pos = atoi(dt["POS"][idx].c_str());
 
-	  			vInfo->addVariant(chrom, pos, id, a1, a2);
-	  		}
-	  	}else{
-	  		// Get variant info from DataTable from BIM
-	  		for(auto i: varIdx_sub){
-	  			chrom = dt["CHROM"][i];
-	  			pos = atoi(dt["POS"][i].c_str());
-	  			id = dt["ID"][i];
-	  			a1 = dt["REF"][i];
-	  			a2 = dt["ALT"][i];
+					vInfo->addVariant(chrom, pos, id, a1, a2);
+				}
+			}else{
+				// Get variant info from DataTable from BIM
+				for(auto i: varIdx_sub){
+					chrom = dt["CHROM"][i];
+					pos = atoi(dt["POS"][i].c_str());
+					id = dt["ID"][i];
+					a1 = dt["REF"][i];
+					a2 = dt["ALT"][i];
 
-	  			vInfo->addVariant(chrom, pos, id, a1, a2);
-	  		}
-	  	}
+					vInfo->addVariant(chrom, pos, id, a1, a2);
+				}
+			}
 
-  		// increment current index
-  		currentIdx += varIdx_sub.size();
+			// increment current index
+			currentIdx += varIdx_sub.size();
 
-  		return true;
+			return true;
 	}
 
 	bool getNextChunk_helper(){return getNextChunk_helper2();}
 
-	/*  Parse PVAR file of variant positions and IDs
+	/*	Parse PVAR file of variant positions and IDs
 	*/
 	void process_variants(){
 
 		// if file is PGEN
-    	if( genoFileType == PGEN ){
+		if( genoFileType == PGEN ){
 			// Name of .pvar file based on replacing .pgen$
 			fileIdx = regex_replace(param.file, regex("pgen$"), "pvar");
 
 			// Read .pvar file into DataTable
-			// column names are define by line starting with "#CHROM"
+			// column names are defined by line starting with "#CHROM"
 			// lines before this are ignored
 			dt = DataTable( fileIdx, "#CHROM" );
 
@@ -315,31 +375,9 @@ class pgenstream :
 		for(int i=0; i<dt["ID"].size(); i++){
 			map_dt_id.emplace(dt["ID"][i], i); 
 		}
-
-		// Initialize genomic regions
-		// from delimited string
-		GenomicRanges gr( param.regions );
-
-		// if not empty
-		if( gr.size() != 0){
-			// get indeces of entries in .pvar located 
-			// within param.regions
-			// Search is linear time for each interval
-			// varIdx = gr.getWithinIndeces( dt["CHROM"], cast_elements<size_t>(dt["POS"]) );
-
-			// Search is log time for each interval
-			VariantSet vs(dt["CHROM"], cast_elements<size_t>(dt["POS"]));
-			varIdx = vs.getIndeces( gr );
-
-		}else{
-			// else
-			// set entries to seq(0, dt.nrows()-1)
-			varIdx.resize(dt.nrows());
-			iota(begin(varIdx), end(varIdx), 0); 
-		}
-
-		// total number of requested variants
-		n_requested_variants = varIdx.size();
+	
+		// Set genomic regions regions
+		setRegions( param.regions );
 	}
 
 	void process_samples(){
@@ -355,7 +393,7 @@ class pgenstream :
 		}else{
 			if( genoFileType == PGEN ){
 				// Name of .psam file based on replacing .pgen$
-		  		fileSamples = regex_replace(param.file, regex("pgen$"), "psam");
+					fileSamples = regex_replace(param.file, regex("pgen$"), "psam");
 			}else if( genoFileType == PBED ){
 				// Name of .fam file based on replacing .pgen$
 				fileSamples = regex_replace(param.file, regex("bed$"), "fam");
@@ -383,11 +421,11 @@ class pgenstream :
 		}
 
 		// Sample names from PSAM file
-  	vector<string> SamplesNames = dt2["IID"];
+		vector<string> SamplesNames = dt2["IID"];
 		n_samples_psam = SamplesNames.size();
 
-  	// indeces of samples to include
-    vector<int> sampleIdx;
+		// indeces of samples to include
+		vector<int> sampleIdx;
 
 		// Filter samples
 		// If param.samples contains entries 
@@ -397,7 +435,7 @@ class pgenstream :
 			vector<string> requestedSamples;
 
 			// split delmited string into vector
-    		boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
+				boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
 
 			// Use unordered_map linking sample id to index
 			// for fast searching
@@ -415,7 +453,7 @@ class pgenstream :
 				}
 				sampleIdx.push_back( map_sn[name] );
 			}
-  			sort(sampleIdx.begin(), sampleIdx.end());
+			sort(sampleIdx.begin(), sampleIdx.end());
 
 			// Get the requested sample ID's
 			// sorted according to the PSAM file
@@ -438,7 +476,7 @@ class pgenstream :
 		}
 	}
 
-};
+}; 
 
 }
 

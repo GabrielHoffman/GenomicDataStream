@@ -34,6 +34,34 @@ namespace gds {
 /** Construct view of BGEN file using index to subset variants
  * based on region or variant id
  * @param filename path to BGEN file
+ */ 
+static genfile::bgen::View::UniquePtr construct_view(
+	const string & filename) {
+
+	if( ! filesystem::exists( filename ) ){
+		throw runtime_error("File does not exist: " + filename);
+	}
+
+	View::UniquePtr view = genfile::bgen::View::create( filename ) ;
+
+	return view ;
+}
+
+static IndexQuery::UniquePtr construct_query(const string &index_filename){
+
+	if( ! filesystem::exists( index_filename ) ){
+		throw runtime_error("File does not exist: " + index_filename);
+	}
+
+	IndexQuery::UniquePtr query = IndexQuery::create( index_filename ) ;
+	return query;
+}
+
+
+
+/** Construct view of BGEN file using index to subset variants
+ * based on region or variant id
+ * @param filename path to BGEN file
  * @param index_filename path to index for BGEN file
  * @param gr `GenomicRanges` of intervals
  * @param rsids vector<string> of variant ids
@@ -41,31 +69,27 @@ namespace gds {
 static genfile::bgen::View::UniquePtr construct_view(
 	const string & filename,
 	const string & index_filename,
-	const GenomicRanges & gr,
-	const vector<string> & rsids = vector<string>()) {
+	const GenomicRanges & gr) {
+	// const vector<string> & rsids = vector<string>()) {
 
-	if( ! filesystem::exists( filename ) ){
-		throw runtime_error("File does not exist: " + filename);
-	}
-	if( ! filesystem::exists( index_filename ) ){
-		throw runtime_error("File does not exist: " + index_filename);
-	}
+	// create view of BGEN file
+	View::UniquePtr view = construct_view( filename );
 
-	using namespace genfile::bgen ;
-
-	View::UniquePtr view = View::create( filename ) ;
-
+	// process region queryies
 	if( gr.size() > 0){		
-		IndexQuery::UniquePtr query = IndexQuery::create( index_filename ) ;
+		IndexQuery::UniquePtr query = construct_query(index_filename);
 		for( int i = 0; i < gr.size(); i++ ) {
 			query->include_range( IndexQuery::GenomicRange( gr.get_chrom(i) , gr.get_start(i), gr.get_end(i) ) ) ;
 		}
-		query->include_rsids( rsids ) ;
+		// query->include_rsids( rsids ) ;
 		query->initialise() ;
 		view->set_query( query ) ;
 	}
+
 	return view ;
 }
+
+
 
 /** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
  * 
@@ -74,20 +98,22 @@ class bgenstream :
 	public GenomicDataStream {
 	public:
 
+	string filenameIdxGlobal;
+
 	bgenstream() {}
 
 	/** constructor
 	*/
 	bgenstream(const Param & param) : GenomicDataStream(param) {
-		
-		// Initialize genomic regions
-		GenomicRanges gr( param.regions );
 
-		// Initialize view and filter variants
-		view = construct_view( param.file, param.file + ".bgi", gr ) ;
+		// Initialize view from just bgen file
+		view = construct_view( param.file ) ;
 
-		// number of variants after filtering 
-		n_variants_total = view->number_of_variants() ;
+		filenameIdxGlobal = param.file + ".bgi";
+		queryGlobal = construct_query( param.file + ".bgi" );
+
+		// apply region filters
+		setRegions( param.regions );
 
 		// Filter samples
 		if( param.samples.compare("-") == 0 ){
@@ -120,10 +146,43 @@ class bgenstream :
 		if( vInfo != nullptr) delete vInfo;
 	}
 
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+		
+		GenomicRanges gr( regions );
+
+		// auto query = queryGlobal;
+
+		auto query = construct_query( filenameIdxGlobal );
+
+		if( gr.size() > 0){	
+			for( int i = 0; i < gr.size(); i++ ) {
+				query->include_range( 
+					IndexQuery::GenomicRange( gr.get_chrom(i) , gr.get_start(i), gr.get_end(i) ) ) ;
+			}
+			// query->include_rsids( rsids ) ;
+			query->initialise() ;
+			view->set_query( query ) ;
+		}
+
+		// number of variants after filtering 
+		n_variants_total = view->number_of_variants() ;
+
+		// set current position of index
+		variant_idx_start = 0;
+	}
+
 	/** Get number of columns in data matrix
 	 */ 
 	int n_samples() override {
 		return number_of_samples;
+	}
+
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		return vInfo->sampleNames;
 	}
 
 	/** get FileType of param.file
@@ -137,6 +196,10 @@ class bgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 	    chunk = DataChunk<arma::mat>( M, vInfo );		
 
@@ -147,6 +210,10 @@ class bgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
@@ -161,6 +228,10 @@ class bgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
@@ -173,6 +244,10 @@ class bgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
@@ -187,6 +262,10 @@ class bgenstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
 
 		Rcpp::NumericMatrix M(number_of_samples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
@@ -203,6 +282,10 @@ class bgenstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
+
 		chunk = DataChunk<vector<double> >( matDosage, vInfo );
 
 		return ret;
@@ -210,6 +293,7 @@ class bgenstream :
 
 	private:
 	View::UniquePtr view = nullptr; 
+	IndexQuery::UniquePtr queryGlobal = nullptr;
 	size_t number_of_samples = 0;
 	vector<string> sampleNames;
 	map<size_t, size_t> requestedSamplesByIndexInDataIndex;
@@ -218,7 +302,7 @@ class bgenstream :
 	vector<double> matDosage;
 	size_t max_entries_per_sample = 4;
 	int n_variants_total;	
-	int variant_idx_start = 0;
+	int variant_idx_start;
 
 	bool getNextChunk_helper(){	
 
@@ -255,7 +339,7 @@ class bgenstream :
 
 			// read variant information
 			view->read_variant( &SNPID, &rsid, &chromosome, &position, &alleles ) ;
-		
+
 			// store variant info
 			vInfo->addVariant(chromosome, position, rsid, alleles[0], alleles[1] );
 

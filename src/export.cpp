@@ -57,12 +57,14 @@ SEXP create_xptr(
 			const std::string &field = "",
 			const std::string &region = "",
 			const std::string &samples = "-",
-			const int &chunkSize = 100000,
-			const bool &missingToMean = false){
+			const double &minVariance = 0,
+			const int &chunkSize = 10000,
+			const bool &missingToMean = true){
 
-	Param param( file, region, samples, chunkSize, missingToMean);
+	Param param( file, region, samples, minVariance, chunkSize, missingToMean);
 	param.setField(field);
  
+ 	// calls constructor for GenomicDataStream
 	Rcpp::XPtr<BoundDataStream> z( new BoundDataStream(param), true);
 
 	return z;
@@ -76,6 +78,31 @@ List getInfo(SEXP x){
 
 	return List::create(Named("streamType") = ptr->ptr->getStreamType(),
 						Named("nsamples") = ptr->ptr->n_samples());
+}
+
+
+// [[Rcpp::export]]
+SEXP setRegions_rcpp( SEXP x, const string &regionString){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	vector<string> regions = splitRegionString( regionString );
+
+	ptr->ptr->setRegions( regions );
+
+	ptr->atEndOfStream = false;
+	ptr->featuresRead = 0;
+
+	return ptr;
+}
+
+
+// [[Rcpp::export]]
+CharacterVector getSampleNames_rcpp( SEXP x){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	vector<string> IDs = ptr->ptr->getSampleNames();
+
+	return wrap(IDs);
 }
 
 

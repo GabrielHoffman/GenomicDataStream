@@ -64,7 +64,6 @@ class DelayedStream :
 		mInfo = new MatrixInfo();
 	}
 
-
 	/** destructor
 	 */ 
 	~DelayedStream(){
@@ -72,10 +71,23 @@ class DelayedStream :
 		if( parsed != nullptr) delete parsed;
 	}
 
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+		throw runtime_error("DelayedStream: setRegions() not implemented");
+	}
+
 	/** Get number of columns in data matrix
 	 */ 
 	int n_samples() override {
 		return NC;
+	}
+
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		throw runtime_error("DelayedStream: getSampleNames() not implemented");
+		return vector<string>(1);
 	}
 
 	/** get FileType of param.file
@@ -95,7 +107,6 @@ class DelayedStream :
 
 		return ret;
 	}
-
 
 	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
 

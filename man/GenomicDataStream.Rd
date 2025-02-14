@@ -9,8 +9,10 @@ GenomicDataStream(
   field = "",
   region = "",
   samples = "-",
-  chunkSize = 1000,
-  missingToMean = FALSE,
+  MAF = 0,
+  minVariance = 2 * (1 - MAF) * MAF,
+  chunkSize = 10000,
+  missingToMean = TRUE,
   initialize = FALSE
 )
 }
@@ -22,6 +24,10 @@ GenomicDataStream(
 \item{region}{target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants}
 
 \item{samples}{string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples}
+
+\item{MAF}{generalized minor allele frequency cutoff keeps variants with variance > \eqn{2(1-f)f}.}
+
+\item{minVariance}{features with variance \code{>= minVariance} are retained.  Defaults to \eqn{2(1-f)f}. If \code{NaN}, no filtering is applied.}
 
 \item{chunkSize}{number of variants to return per chunk}
 
@@ -36,6 +42,9 @@ object of class \code{GenomicDataStream}
 Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries
 
 Interface to GenomicDataStream C++ code
+}
+\details{
+Consider minor allele frequency (MAF) \eqn{f} and  Hardy-Weinberg equilibrium, the allelic states have probability \eqn{f^2, 2f(1-f), (1-f)^2}. If the variant has mean \eqn{\mu} and variance \eqn{\sigma^2}, MAF can be estimated from the mean as \eqn{min(\mu/2, 1 - \mu/2)} or from the variance as \eqn{p = 1+sqrt(1-2\sigma^2))/2} and MAF = \eqn{min(p, 1-p)}.  In addition the sample variance of the variant is \eqn{2(1-f)f}.  Therefore, setting a MAF cutoff corresponds to a variance cutoff that can also apply to multi-allelic variants.
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")

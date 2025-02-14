@@ -1,6 +1,147 @@
 
 
 
+test_sample_order = function(){
+
+	library(GenomicDataStream)
+	library(RUnit)
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+
+	# remove BGEN v1.1, since this doesn't store sample names
+	files = grep("1.1.bgen", files, value=TRUE, invert=TRUE)
+
+	# read full data
+	gds <- GenomicDataStream(file, "GT", initialize = TRUE)
+	dat <- getNextChunk(gds)
+	ids = rownames(dat$X)
+
+	# check sample ordering based on sample query
+	# BGEN: uses order from query
+	# VCF/BCF/PGEN: uses order in file
+	res = c()
+	for(file in files){
+	# 	cat(basename(file), ": ")	
+		ids.rnd = sample(ids, length(ids), replace=FALSE)
+
+		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)
+		dat1 <- getNextChunk(gds1)
+		ids1 = rownames(dat1$X)
+
+		allSame = sum(ids == ids1) == 60
+		res = c(res, allSame)
+	}
+	names(res) = basename(files)
+
+	# BGEN not equal
+	a = all(!res[grep("bgen$", names(res))])
+	checkEquals(a, TRUE)
+
+	# VCF/BCF/PGEN are equal
+	a = all(res[grep("(vcf.gz|bcf|pgen)$", names(res))])
+	checkEquals(a, TRUE)
+
+
+	for(file in files){
+		# cat(basename(file), ": ")	
+		ids.rnd = sample(ids, length(ids), replace=FALSE)
+
+		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)
+		dat1 <- getNextChunk(gds1)
+
+		# reorder using original order
+		ids1 = rownames(dat1$X[ids,])
+
+		checkEquals(ids, ids1)
+	}
+
+	# check that getSampleNames() and getNextChunk()
+	# give same sample order
+	ids.rnd = sample(ids, length(ids), replace=FALSE)
+
+	for(file in files){
+		# cat(basename(file), ": ")	
+
+		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)
+		dat1 <- getNextChunk(gds1)
+
+		checkEquals(getSampleNames(gds1), rownames(dat1$X))
+	}
+
+}
+
+
+
+
+
+test_multiple_GenomicDataStream = function(){
+
+	library(GenomicDataStream)
+	library(RUnit)
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+	files = grep("1.1.bgen", files, value=TRUE, invert=TRUE)
+
+	for(file in files){
+		# cat(file, "\n")
+		# read full file
+		obj <- GenomicDataStream(file, field = "GT", chunkSize = 30, init=TRUE)
+		dat1 <- getNextChunk(obj)  
+
+		# read subset without re-initializing
+		gds = setRegion(obj, "1:15000-17000")
+		dat2 <- getNextChunk(gds)   
+
+		# equal to first set
+		checkEquals(c(dat2$info), c(dat1$info[6:8,]))
+		checkEquals(dat2$X, dat1$X[,6:8])
+
+		# enpty now
+		checkEquals(length(getNextChunk(gds)), 0)
+
+		# read subset without re-initializing
+		gds = setRegion(obj, "1:11000-14001")
+		dat2 <- getNextChunk(gds) 
+
+		# equal to first set
+		checkEquals(c(dat2$info), c(dat1$info[2:5,]))
+		checkEquals(dat2$X, dat1$X[,2:5])
+
+		# enpty now
+		checkEquals(length(getNextChunk(gds)), 0)
+	}
+}
+
+
+test_minVariance_filter = function(){
+
+	library(GenomicDataStream)
+	library(RUnit)
+
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
+	MAF = .3
+	minVar = 2*MAF*(1-MAF)
+
+	for(file in files){
+		# cat(file, "\n")				
+
+		gds1 <- GenomicDataStream(file, "GT", init=TRUE)
+		dat1 <- getNextChunk(gds1)
+		i = (apply(dat1$X, 2, var) > minVar)
+		which(i)
+
+		gds2 <- GenomicDataStream(file, "GT", init=TRUE, MAF=MAF)
+		dat2 <- getNextChunk(gds2)
+
+		checkEquals(dat1$X[,i], dat2$X)
+		checkEquals(c(dat1$info[i,]), c(dat2$info))
+	}
+}
+
+
 
 
 test_DataTable = function(){
@@ -87,7 +228,8 @@ test_pgenstream = function(){
 	ids_str = paste(id_sub, collapse=',')
 	idx = sort(match(id_sub, ids))
 
-	gdsObj = GenomicDataStream(file, region=reg, samples=ids_str,chunkSize=3, initialize=TRUE)
+	# minVariance = NaN means no filtering
+	gdsObj = GenomicDataStream(file, region=reg, samples=ids_str,chunkSize=3, initialize=TRUE, minVariance=NaN)
 	dat = getNextChunk(gdsObj)
 
 	pg = NewPgen(file, raw_sample_ct=60, sample_subset=idx)

@@ -54,35 +54,9 @@ class vcfstream :
  		// initialize
 		reader = new BcfReader( param.file );
 
-		validRegions.reserve(param.regions.size());
-		validRegions.clear();
+		// Set genomic regions regions
+		setRegions( param.regions );
 
-		// check status of each region
-		// retain only valid, non-empty regions in validRegions
-		for(const string& region : param.regions){
-
-			switch( reader->getStatus( region ) ){
-				case 1: // region is vaild and not empty
-				validRegions.push_back(region);	
-				break;
-
-				case 0: // the region is valid but empty.
-				break;
-
-				case -1: // there is no index file found.
-				throw runtime_error("Could not retrieve index file");
-				break;
-
-				case -2: // the region is not valid
-				throw runtime_error("region was not found: " + region );
-				break;
-			}
-		}
-
-		// initialize iterator
-		itReg = validRegions.begin();
-
-		reader->setRegion( *itReg );
 		reader->setSamples( param.samples );
 
 		// Initialize record with info in header
@@ -114,10 +88,59 @@ class vcfstream :
 		if( vInfo != nullptr) delete vInfo;
 	}
 
+	/** setter
+	 */
+	void setRegions(const vector<string> &regions) override {
+
+		validRegions.reserve(regions.size());
+		validRegions.clear();
+
+		// check status of each region
+		// retain only valid, non-empty regions in validRegions
+		for(const string& region : regions){
+
+			switch( reader->getStatus( region ) ){
+				case 1: // region is vaild and not empty
+				validRegions.push_back(region);	
+				break;
+
+				case 0: // the region is valid but empty.
+				break;
+
+				case -1: // there is no index file found.
+				throw runtime_error("Could not retrieve index file");
+				break;
+
+				case -2: // the region is not valid
+				throw runtime_error("region was not found: " + region );
+				break;
+			}
+		}
+
+		// initialize to false
+		continueIterating = false;
+
+		// if valid set is not empty
+		if( validRegions.size() > 0 ){
+			// initialize iterator
+			itReg = validRegions.begin();
+
+			reader->setRegion( *itReg );
+
+			continueIterating = true;
+		}
+	}
+
 	/** Get number of columns in data matrix
 	 */ 
 	int n_samples() override {
 		return reader->nsamples;
+	}
+
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	vector<string> getSampleNames() override {
+		return reader->header.getSamples();
 	}
 
 	/** get FileType of param.file
@@ -130,6 +153,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
@@ -144,6 +171,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		// otherwise, set chunk and return ret
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), false, true);
@@ -160,6 +191,10 @@ class vcfstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
+
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
@@ -171,6 +206,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
@@ -186,6 +225,10 @@ class vcfstream :
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
+
 		Rcpp::NumericMatrix M(reader->nsamples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
 	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
@@ -200,6 +243,10 @@ class vcfstream :
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
+
+		// keep features with variance >= minVariance
+		// modifies matDosage and vInfo directly
+		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
 
 		chunk = DataChunk<vector<double>>( matDosage, vInfo );
 
@@ -222,7 +269,7 @@ class vcfstream :
 	vector<string>::iterator itReg;
 	vector<string> validRegions;
 
-	bool continueIterating = true;
+	bool continueIterating;
 	int fieldType;
 
 	// store genotype values

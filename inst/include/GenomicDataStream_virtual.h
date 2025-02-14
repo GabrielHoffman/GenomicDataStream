@@ -20,8 +20,6 @@
 #include <string>
 #include <filesystem>
 
-#include <boost/algorithm/string.hpp>
-
 #include "VariantInfo.h"
 #include "utils.h"
 
@@ -60,8 +58,6 @@ class DataChunk {
 
 
 
-
-
 /** Store parameters to pass to GenomicDataStream
  * 
  */
@@ -76,6 +72,7 @@ struct Param {
 	 * @param chunkSize number of variants to return per chunk
 	 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
 	 * @param initCapacity initial capacity of temporary vector to avoid re-alloc on insert.  Size is in Mb.
+	 * @param minVariance features with variance >= minVariance are retained
 	 * @param permuteFeatureOrder default is `false`. If `true` permute regions in `regionString` to avoid linkage disequilibrium betweeen nearby regions 
 	 * @param rndSeed random seed for permutation
 	 * 
@@ -85,8 +82,9 @@ struct Param {
 	Param( 	const string &file,
 			string regionString = "",
 			const string &samples = "-",
+			const double minVariance = 0,
 			const int &chunkSize = numeric_limits<int>::max(),
-			const bool &missingToMean = false,
+			const bool &missingToMean = true,
 			const int &initCapacity = 200,
 			const bool &permuteFeatureOrder = false,
 			const int &rndSeed = 12345) :
@@ -95,19 +93,19 @@ struct Param {
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
 		initCapacity(initCapacity),
+		minVariance(minVariance),
 		fileType(getFileType(file)) {
 
 		if( chunkSize < 1){					
 			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
 		}
 
-		// regionString is string of chr:start-end delim by "\t,\n"
-		// remove spaces, then split based on delim
-		boost::erase_all(regionString, " ");
-    	boost::split(regions, regionString, boost::is_any_of("\t,\n"));
+		if( minVariance < 0){
+			throw runtime_error("minVariance must be positive");
+		}
 
-    	// remove duplicate regions, but preserve order
-    	removeDuplicates( regions );
+		// parse regions
+		regions = splitRegionString( regionString );
 
     	if( permuteFeatureOrder ){
     		// permuate order of region to avoid correlated features
@@ -133,6 +131,7 @@ struct Param {
 	int chunkSize;
 	bool missingToMean;
 	int initCapacity;
+	double minVariance;
 	FileType fileType;
 };
 
@@ -151,14 +150,28 @@ class GenomicDataStream {
 	/** destructor
 	 */
 	virtual ~GenomicDataStream() {};
+
+	/** setter
+	 */
+	virtual void setRegions(const vector<string> &regions) = 0; 
 	
 	/** Get number of columns in data matrix
 	 */ 
 	virtual int n_samples() = 0;
 
+	/** Get vector of sample names in order that the genotypes are extracted
+	 */ 
+	virtual vector<string> getSampleNames() = 0;
+
 	/** get FileType of param.file
 	 */ 
 	virtual string getStreamType() = 0;
+
+	/** get minVariance stored in Param
+	 */ 
+	double getMinVariance(){
+		return param.minVariance;
+	}
 
 	/** Get next chunk of _features_ as arma::mat
 	 */ 
@@ -193,11 +206,40 @@ class GenomicDataStream {
 	Param param;
 };
 
+/** Given matDosage.data(), number_of_samples, vInfo->size()
+ * set matDosage and vInfo so the first K entries are the valid
+ * features
+*/
+static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, const int &number_of_samples, const double &minVariance = 0){
 
+	// if minVariance is NaN, don't apply filter
+	if( !isnan(minVariance) ){
+		// create temp arma matrix
+		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
+		// variance by columns
+		auto colvars = var(M);
 
+		// indeces passing minimum variance cutoff
+		arma::uvec idx = find(colvars > minVariance);
 
+		// convert uvec to vector<unsigned int>
+		vector<unsigned int> idx2(idx.n_elem);
+	    copy(idx.begin(), idx.end(), idx2.begin());
+
+		// keep only variants specified in idx2
+		vInfo->retainVariants( idx2 );
+
+		// set subset of columns
+		arma::mat M_subset = M.cols(idx);
+
+		// copy M_subset into matDosage
+		memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*sizeof(double));
+	}
 }
 
 
+
+
+} // end namespace
 #endif

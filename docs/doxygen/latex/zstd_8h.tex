@@ -1,0 +1,475 @@
+\doxysection{inst/include/zstd.h File Reference}
+\hypertarget{zstd_8h}{}\label{zstd_8h}\index{inst/include/zstd.h@{inst/include/zstd.h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_z_s_t_d__in_buffer__s}{ZSTD\+\_\+in\+Buffer\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s}{ZSTD\+\_\+out\+Buffer\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}}
+\item 
+\#define \mbox{\hyperlink{zstd_8h_aa4a867002655c8077460a47e5960e4bc}{ZSTD\+\_\+\+VERSION\+\_\+\+MAJOR}}~1
+\item 
+\#define \mbox{\hyperlink{zstd_8h_ad96b66eabc8a315ce4c2b6c34b29746f}{ZSTD\+\_\+\+VERSION\+\_\+\+MINOR}}~1
+\item 
+\#define \mbox{\hyperlink{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23}{ZSTD\+\_\+\+VERSION\+\_\+\+RELEASE}}~0
+\item 
+\#define \mbox{\hyperlink{zstd_8h_a48024c26f41157f9f013bda534ad41e6}{ZSTD\+\_\+\+LIB\+\_\+\+VERSION}}~\mbox{\hyperlink{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23}{ZSTD\+\_\+\+VERSION\+\_\+\+MAJOR.\+ZSTD\+\_\+\+VERSION\+\_\+\+MINOR.\+ZSTD\+\_\+\+VERSION\+\_\+\+RELEASE}}
+\item 
+\#define \mbox{\hyperlink{zstd_8h_adbbadef2056cbbc1b4d24523c2c6cb5b}{ZSTD\+\_\+\+QUOTE}}(str)
+\item 
+\#define \mbox{\hyperlink{zstd_8h_a5f28056060ce509b3c9c7c6551a6ac28}{ZSTD\+\_\+\+EXPAND\+\_\+\+AND\+\_\+\+QUOTE}}(str)
+\item 
+\#define \mbox{\hyperlink{zstd_8h_a930937e5d86408c3c866db9af7edd8b8}{ZSTD\+\_\+\+VERSION\+\_\+\+STRING}}~\mbox{\hyperlink{zstd_8h_a5f28056060ce509b3c9c7c6551a6ac28}{ZSTD\+\_\+\+EXPAND\+\_\+\+AND\+\_\+\+QUOTE}}(\mbox{\hyperlink{zstd_8h_a48024c26f41157f9f013bda534ad41e6}{ZSTD\+\_\+\+LIB\+\_\+\+VERSION}})
+\item 
+\#define \mbox{\hyperlink{zstd_8h_a50ac5656bb6539eae98593afd3493132}{ZSTD\+\_\+\+VERSION\+\_\+\+NUMBER}}~(\mbox{\hyperlink{zstd_8h_aa4a867002655c8077460a47e5960e4bc}{ZSTD\+\_\+\+VERSION\+\_\+\+MAJOR}} \texorpdfstring{$\ast$}{*}100\texorpdfstring{$\ast$}{*}100 + \mbox{\hyperlink{zstd_8h_ad96b66eabc8a315ce4c2b6c34b29746f}{ZSTD\+\_\+\+VERSION\+\_\+\+MINOR}} \texorpdfstring{$\ast$}{*}100 + \mbox{\hyperlink{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23}{ZSTD\+\_\+\+VERSION\+\_\+\+RELEASE}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct ZSTD\+\_\+\+CCtx\+\_\+s \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}}
+\item 
+typedef struct ZSTD\+\_\+\+DCtx\+\_\+s \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}}
+\item 
+typedef struct ZSTD\+\_\+\+CDict\+\_\+s \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}}
+\item 
+typedef struct ZSTD\+\_\+\+DDict\+\_\+s \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}}
+\item 
+typedef struct \mbox{\hyperlink{struct_z_s_t_d__in_buffer__s}{ZSTD\+\_\+in\+Buffer\+\_\+s}} \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\+\_\+in\+Buffer}}
+\item 
+typedef struct \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s}{ZSTD\+\_\+out\+Buffer\+\_\+s}} \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}}
+\item 
+typedef struct ZSTD\+\_\+\+CStream\+\_\+s \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}}
+\item 
+typedef struct ZSTD\+\_\+\+DStream\+\_\+s \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} unsigned \mbox{\hyperlink{zstd_8h_af33ac73034a439c4ad51b5825774c9fd}{ZSTD\+\_\+version\+Number}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e}{ZSTD\+\_\+compress}} (void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size, int compression\+Level)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a025e133d6213617c1013e46e164eef27}{ZSTD\+\_\+decompress}} (void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t compressed\+Size)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} unsigned long long \mbox{\hyperlink{zstd_8h_a02de2c934488fdd7386b8ec5e918e2da}{ZSTD\+\_\+get\+Decompressed\+Size}} (const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} int \mbox{\hyperlink{zstd_8h_aff6231ba48895ad86b1a55981c50e6f4}{ZSTD\+\_\+max\+CLevel}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a09a654e8aa96436cd60cd98a65a98cf6}{ZSTD\+\_\+compress\+Bound}} (size\+\_\+t src\+Size)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} unsigned \mbox{\hyperlink{zstd_8h_ab0b6c5780ccdf58edfe4833bdd5c8f7b}{ZSTD\+\_\+is\+Error}} (size\+\_\+t code)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_aab019ed61727fbffec2e4d9b314e526c}{ZSTD\+\_\+get\+Error\+Name}} (size\+\_\+t code)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_afeea947d7824a8b8f2a0b8bb54f35ed2}{ZSTD\+\_\+create\+CCtx}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a67d77bdcb9e281e3e250bb45b1cd6443}{ZSTD\+\_\+free\+CCtx}} (\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}cctx)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_aa9bccfbfa483eed9fe8463267c034da5}{ZSTD\+\_\+compress\+CCtx}} (\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size, int compression\+Level)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_a7177832cafaf8eb3695bb22cd1ff0a9d}{ZSTD\+\_\+create\+DCtx}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a44f32b56a1be62ca9bcda9a13557b928}{ZSTD\+\_\+free\+DCtx}} (\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}dctx)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_acfe0db92edb393457c054c37839df4e3}{ZSTD\+\_\+decompress\+DCtx}} (\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a6ffb7b5918c6dc3ea230ea0d9490cd20}{ZSTD\+\_\+compress\+\_\+using\+Dict}} (\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size, const void \texorpdfstring{$\ast$}{*}dict, size\+\_\+t dict\+Size, int compression\+Level)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_ab01cb948094c6bd47e35693c3c970ecd}{ZSTD\+\_\+decompress\+\_\+using\+Dict}} (\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}dctx, void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size, const void \texorpdfstring{$\ast$}{*}dict, size\+\_\+t dict\+Size)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_a848a907e9f93968168436c65c7bd16d8}{ZSTD\+\_\+create\+CDict}} (const void \texorpdfstring{$\ast$}{*}dict, size\+\_\+t dict\+Size, int compression\+Level)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a723a3a778055d358dd2a0d5320aae57d}{ZSTD\+\_\+free\+CDict}} (\mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}} \texorpdfstring{$\ast$}{*}CDict)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a59c2facee7fc576a64690980ceb57345}{ZSTD\+\_\+compress\+\_\+using\+CDict}} (\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}cctx, void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size, const \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}} \texorpdfstring{$\ast$}{*}cdict)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_ad69c47a7a8e2b11bf874a40b6b6daa1b}{ZSTD\+\_\+create\+DDict}} (const void \texorpdfstring{$\ast$}{*}dict, size\+\_\+t dict\+Size)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a981d36fc0f8d85fbe13202cd85d6d667}{ZSTD\+\_\+free\+DDict}} (\mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}} \texorpdfstring{$\ast$}{*}ddict)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a15170a52ac838ad6d7d1a7d5d7bb678f}{ZSTD\+\_\+decompress\+\_\+using\+DDict}} (\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}dctx, void \texorpdfstring{$\ast$}{*}dst, size\+\_\+t dst\+Capacity, const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t src\+Size, const \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}} \texorpdfstring{$\ast$}{*}ddict)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_acb531407c79bbb9ae84411d73fde464d}{ZSTD\+\_\+create\+CStream}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a862b950674b345333db274aaaa1d2ebc}{ZSTD\+\_\+free\+CStream}} (\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}zcs)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a239b9dc342b7825b22b32fded13c6709}{ZSTD\+\_\+\+CStream\+In\+Size}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_af4b399dd4e0ae1027e00381318a7aa48}{ZSTD\+\_\+\+CStream\+Out\+Size}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a14d2fa5dfea19623406c47514a1f7524}{ZSTD\+\_\+init\+CStream}} (\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}zcs, int compression\+Level)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a5fb712d64adcef1d7803a0f0eb35ee6e}{ZSTD\+\_\+compress\+Stream}} (\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}zcs, \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}output, \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\+\_\+in\+Buffer}} \texorpdfstring{$\ast$}{*}input)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_aa221a5abd4a173d26a95cbba344de536}{ZSTD\+\_\+flush\+Stream}} (\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}zcs, \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}output)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_acc3b72d1c78095b05f4f85346709c3de}{ZSTD\+\_\+end\+Stream}} (\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}zcs, \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}output)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{zstd_8h_aaeacffa15b9a7cf46cfe77755952a98d}{ZSTD\+\_\+create\+DStream}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_ad4958857a8d614fe98dde2f79afa7463}{ZSTD\+\_\+free\+DStream}} (\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*}zds)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a51471ed5a2986fd5306ba64b04128ed4}{ZSTD\+\_\+\+DStream\+In\+Size}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a45d3207022f408de06042ca0ec9fdf00}{ZSTD\+\_\+\+DStream\+Out\+Size}} (void)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a1da8876c04f27c1b58fdc9436bf74a50}{ZSTD\+\_\+init\+DStream}} (\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*}zds)
+\item 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t \mbox{\hyperlink{zstd_8h_a8daa7ccfc3a4384b7b45bf8f2cc0c152}{ZSTD\+\_\+decompress\+Stream}} (\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*}zds, \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}output, \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\+\_\+in\+Buffer}} \texorpdfstring{$\ast$}{*}input)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{zstd_8h_a5f28056060ce509b3c9c7c6551a6ac28}\index{zstd.h@{zstd.h}!ZSTD\_EXPAND\_AND\_QUOTE@{ZSTD\_EXPAND\_AND\_QUOTE}}
+\index{ZSTD\_EXPAND\_AND\_QUOTE@{ZSTD\_EXPAND\_AND\_QUOTE}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_EXPAND\_AND\_QUOTE}{ZSTD\_EXPAND\_AND\_QUOTE}}
+{\footnotesize\ttfamily \label{zstd_8h_a5f28056060ce509b3c9c7c6551a6ac28} 
+\#define ZSTD\+\_\+\+EXPAND\+\_\+\+AND\+\_\+\+QUOTE(\begin{DoxyParamCaption}\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{zstd_8h_adbbadef2056cbbc1b4d24523c2c6cb5b}{ZSTD\_QUOTE}}(str)}
+
+\end{DoxyCode}
+\Hypertarget{zstd_8h_a48024c26f41157f9f013bda534ad41e6}\index{zstd.h@{zstd.h}!ZSTD\_LIB\_VERSION@{ZSTD\_LIB\_VERSION}}
+\index{ZSTD\_LIB\_VERSION@{ZSTD\_LIB\_VERSION}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_LIB\_VERSION}{ZSTD\_LIB\_VERSION}}
+{\footnotesize\ttfamily \label{zstd_8h_a48024c26f41157f9f013bda534ad41e6} 
+\#define ZSTD\+\_\+\+LIB\+\_\+\+VERSION~\mbox{\hyperlink{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23}{ZSTD\+\_\+\+VERSION\+\_\+\+MAJOR.\+ZSTD\+\_\+\+VERSION\+\_\+\+MINOR.\+ZSTD\+\_\+\+VERSION\+\_\+\+RELEASE}}}
+
+\Hypertarget{zstd_8h_adbbadef2056cbbc1b4d24523c2c6cb5b}\index{zstd.h@{zstd.h}!ZSTD\_QUOTE@{ZSTD\_QUOTE}}
+\index{ZSTD\_QUOTE@{ZSTD\_QUOTE}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_QUOTE}{ZSTD\_QUOTE}}
+{\footnotesize\ttfamily \label{zstd_8h_adbbadef2056cbbc1b4d24523c2c6cb5b} 
+\#define ZSTD\+\_\+\+QUOTE(\begin{DoxyParamCaption}\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#str}}
+
+\end{DoxyCode}
+\Hypertarget{zstd_8h_aa4a867002655c8077460a47e5960e4bc}\index{zstd.h@{zstd.h}!ZSTD\_VERSION\_MAJOR@{ZSTD\_VERSION\_MAJOR}}
+\index{ZSTD\_VERSION\_MAJOR@{ZSTD\_VERSION\_MAJOR}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_VERSION\_MAJOR}{ZSTD\_VERSION\_MAJOR}}
+{\footnotesize\ttfamily \label{zstd_8h_aa4a867002655c8077460a47e5960e4bc} 
+\#define ZSTD\+\_\+\+VERSION\+\_\+\+MAJOR~1}
+
+\Hypertarget{zstd_8h_ad96b66eabc8a315ce4c2b6c34b29746f}\index{zstd.h@{zstd.h}!ZSTD\_VERSION\_MINOR@{ZSTD\_VERSION\_MINOR}}
+\index{ZSTD\_VERSION\_MINOR@{ZSTD\_VERSION\_MINOR}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_VERSION\_MINOR}{ZSTD\_VERSION\_MINOR}}
+{\footnotesize\ttfamily \label{zstd_8h_ad96b66eabc8a315ce4c2b6c34b29746f} 
+\#define ZSTD\+\_\+\+VERSION\+\_\+\+MINOR~1}
+
+\Hypertarget{zstd_8h_a50ac5656bb6539eae98593afd3493132}\index{zstd.h@{zstd.h}!ZSTD\_VERSION\_NUMBER@{ZSTD\_VERSION\_NUMBER}}
+\index{ZSTD\_VERSION\_NUMBER@{ZSTD\_VERSION\_NUMBER}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_VERSION\_NUMBER}{ZSTD\_VERSION\_NUMBER}}
+{\footnotesize\ttfamily \label{zstd_8h_a50ac5656bb6539eae98593afd3493132} 
+\#define ZSTD\+\_\+\+VERSION\+\_\+\+NUMBER~(\mbox{\hyperlink{zstd_8h_aa4a867002655c8077460a47e5960e4bc}{ZSTD\+\_\+\+VERSION\+\_\+\+MAJOR}} \texorpdfstring{$\ast$}{*}100\texorpdfstring{$\ast$}{*}100 + \mbox{\hyperlink{zstd_8h_ad96b66eabc8a315ce4c2b6c34b29746f}{ZSTD\+\_\+\+VERSION\+\_\+\+MINOR}} \texorpdfstring{$\ast$}{*}100 + \mbox{\hyperlink{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23}{ZSTD\+\_\+\+VERSION\+\_\+\+RELEASE}})}
+
+\Hypertarget{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23}\index{zstd.h@{zstd.h}!ZSTD\_VERSION\_RELEASE@{ZSTD\_VERSION\_RELEASE}}
+\index{ZSTD\_VERSION\_RELEASE@{ZSTD\_VERSION\_RELEASE}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_VERSION\_RELEASE}{ZSTD\_VERSION\_RELEASE}}
+{\footnotesize\ttfamily \label{zstd_8h_a82ca36516a6cfafe730e00f6e5cc3f23} 
+\#define ZSTD\+\_\+\+VERSION\+\_\+\+RELEASE~0}
+
+\Hypertarget{zstd_8h_a930937e5d86408c3c866db9af7edd8b8}\index{zstd.h@{zstd.h}!ZSTD\_VERSION\_STRING@{ZSTD\_VERSION\_STRING}}
+\index{ZSTD\_VERSION\_STRING@{ZSTD\_VERSION\_STRING}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_VERSION\_STRING}{ZSTD\_VERSION\_STRING}}
+{\footnotesize\ttfamily \label{zstd_8h_a930937e5d86408c3c866db9af7edd8b8} 
+\#define ZSTD\+\_\+\+VERSION\+\_\+\+STRING~\mbox{\hyperlink{zstd_8h_a5f28056060ce509b3c9c7c6551a6ac28}{ZSTD\+\_\+\+EXPAND\+\_\+\+AND\+\_\+\+QUOTE}}(\mbox{\hyperlink{zstd_8h_a48024c26f41157f9f013bda534ad41e6}{ZSTD\+\_\+\+LIB\+\_\+\+VERSION}})}
+
+\Hypertarget{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}\index{zstd.h@{zstd.h}!ZSTDLIB\_API@{ZSTDLIB\_API}}
+\index{ZSTDLIB\_API@{ZSTDLIB\_API}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTDLIB\_API}{ZSTDLIB\_API}}
+{\footnotesize\ttfamily \label{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49} 
+\#define ZSTDLIB\+\_\+\+API}
+
+Copyright (c) 2016-\/present, Yann Collet, Facebook, Inc. All rights reserved.
+
+This source code is licensed under the BSD-\/style license found in the LICENSE file in the root directory of this source tree. An additional grant of patent rights can be found in the PATENTS file in the same directory.
+
+ZSTD\+\_\+\+DLL\+\_\+\+EXPORT \+: Enable exporting of functions when building a Windows DLL 
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}\index{zstd.h@{zstd.h}!ZSTD\_CCtx@{ZSTD\_CCtx}}
+\index{ZSTD\_CCtx@{ZSTD\_CCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_CCtx}{ZSTD\_CCtx}}
+{\footnotesize\ttfamily \label{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d} 
+typedef struct ZSTD\+\_\+\+CCtx\+\_\+s \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}}}
+
+Compression context \Hypertarget{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}\index{zstd.h@{zstd.h}!ZSTD\_CDict@{ZSTD\_CDict}}
+\index{ZSTD\_CDict@{ZSTD\_CDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_CDict}{ZSTD\_CDict}}
+{\footnotesize\ttfamily \label{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2} 
+typedef struct ZSTD\+\_\+\+CDict\+\_\+s \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}}}
+
+\doxylink{zstd_8h_a848a907e9f93968168436c65c7bd16d8}{ZSTD\+\_\+create\+CDict()} \+: Create a digested dictionary, ready to start compression operation without startup delay. {\ttfamily dict} can be released after \doxylink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict} creation \Hypertarget{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}\index{zstd.h@{zstd.h}!ZSTD\_CStream@{ZSTD\_CStream}}
+\index{ZSTD\_CStream@{ZSTD\_CStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_CStream}{ZSTD\_CStream}}
+{\footnotesize\ttfamily \label{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e} 
+typedef struct ZSTD\+\_\+\+CStream\+\_\+s \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}}}
+
+\Hypertarget{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}\index{zstd.h@{zstd.h}!ZSTD\_DCtx@{ZSTD\_DCtx}}
+\index{ZSTD\_DCtx@{ZSTD\_DCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_DCtx}{ZSTD\_DCtx}}
+{\footnotesize\ttfamily \label{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4} 
+typedef struct ZSTD\+\_\+\+DCtx\+\_\+s \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}}}
+
+Decompression context \Hypertarget{zstd_8h_af34d948830a0684f90121d51d663f9aa}\index{zstd.h@{zstd.h}!ZSTD\_DDict@{ZSTD\_DDict}}
+\index{ZSTD\_DDict@{ZSTD\_DDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_DDict}{ZSTD\_DDict}}
+{\footnotesize\ttfamily \label{zstd_8h_af34d948830a0684f90121d51d663f9aa} 
+typedef struct ZSTD\+\_\+\+DDict\+\_\+s \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}}}
+
+\doxylink{zstd_8h_ad69c47a7a8e2b11bf874a40b6b6daa1b}{ZSTD\+\_\+create\+DDict()} \+: Create a digested dictionary, ready to start decompression operation without startup delay. {\ttfamily dict} can be released after creation \Hypertarget{zstd_8h_a64ad2a80907fa271525c80215bbe2135}\index{zstd.h@{zstd.h}!ZSTD\_DStream@{ZSTD\_DStream}}
+\index{ZSTD\_DStream@{ZSTD\_DStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_DStream}{ZSTD\_DStream}}
+{\footnotesize\ttfamily \label{zstd_8h_a64ad2a80907fa271525c80215bbe2135} 
+typedef struct ZSTD\+\_\+\+DStream\+\_\+s \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}}}
+
+\Hypertarget{zstd_8h_a1c5398613e678b0373333df2c455cc4d}\index{zstd.h@{zstd.h}!ZSTD\_inBuffer@{ZSTD\_inBuffer}}
+\index{ZSTD\_inBuffer@{ZSTD\_inBuffer}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_inBuffer}{ZSTD\_inBuffer}}
+{\footnotesize\ttfamily \label{zstd_8h_a1c5398613e678b0373333df2c455cc4d} 
+typedef struct \mbox{\hyperlink{struct_z_s_t_d__in_buffer__s}{ZSTD\+\_\+in\+Buffer\+\_\+s}} \mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\+\_\+in\+Buffer}}}
+
+\Hypertarget{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}\index{zstd.h@{zstd.h}!ZSTD\_outBuffer@{ZSTD\_outBuffer}}
+\index{ZSTD\_outBuffer@{ZSTD\_outBuffer}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_outBuffer}{ZSTD\_outBuffer}}
+{\footnotesize\ttfamily \label{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657} 
+typedef struct \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s}{ZSTD\+\_\+out\+Buffer\+\_\+s}} \mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e}\index{zstd.h@{zstd.h}!ZSTD\_compress@{ZSTD\_compress}}
+\index{ZSTD\_compress@{ZSTD\_compress}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_compress()}{ZSTD\_compress()}}
+{\footnotesize\ttfamily \label{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+compress (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{, }\item[{int}]{compression\+Level}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e}{ZSTD\+\_\+compress()} \+: Compresses {\ttfamily src} content as a single zstd compressed frame into already allocated {\ttfamily dst}. Hint \+: compression runs faster if {\ttfamily dst\+Capacity} \texorpdfstring{$>$}{>}= {\ttfamily ZSTD\+\_\+compress\+Bound(src\+Size)}. \begin{DoxyReturn}{Returns}
+\+: compressed size written into {\ttfamily dst} (\texorpdfstring{$<$}{<}= \`{}dst\+Capacity), or an error code if it fails (which can be tested using \doxylink{zstd_8h_ab0b6c5780ccdf58edfe4833bdd5c8f7b}{ZSTD\+\_\+is\+Error()}) 
+\end{DoxyReturn}
+\Hypertarget{zstd_8h_a59c2facee7fc576a64690980ceb57345}\index{zstd.h@{zstd.h}!ZSTD\_compress\_usingCDict@{ZSTD\_compress\_usingCDict}}
+\index{ZSTD\_compress\_usingCDict@{ZSTD\_compress\_usingCDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_compress\_usingCDict()}{ZSTD\_compress\_usingCDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_a59c2facee7fc576a64690980ceb57345} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+compress\+\_\+using\+CDict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}}]{cctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{, }\item[{const \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}} \texorpdfstring{$\ast$}{*}}]{cdict}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_a59c2facee7fc576a64690980ceb57345}{ZSTD\+\_\+compress\+\_\+using\+CDict()} \+: Compression using a digested Dictionary. Faster startup than \doxylink{zstd_8h_a6ffb7b5918c6dc3ea230ea0d9490cd20}{ZSTD\+\_\+compress\+\_\+using\+Dict()}, recommended when same dictionary is used multiple times. Note that compression level is decided during dictionary creation \Hypertarget{zstd_8h_a6ffb7b5918c6dc3ea230ea0d9490cd20}\index{zstd.h@{zstd.h}!ZSTD\_compress\_usingDict@{ZSTD\_compress\_usingDict}}
+\index{ZSTD\_compress\_usingDict@{ZSTD\_compress\_usingDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_compress\_usingDict()}{ZSTD\_compress\_usingDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_a6ffb7b5918c6dc3ea230ea0d9490cd20} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+compress\+\_\+using\+Dict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{dict}{, }\item[{size\+\_\+t}]{dict\+Size}{, }\item[{int}]{compression\+Level}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_a6ffb7b5918c6dc3ea230ea0d9490cd20}{ZSTD\+\_\+compress\+\_\+using\+Dict()} \+: Compression using a predefined Dictionary (see dict\+Builder/zdict.\+h). Note \+: This function load the dictionary, resulting in significant startup delay. \Hypertarget{zstd_8h_a09a654e8aa96436cd60cd98a65a98cf6}\index{zstd.h@{zstd.h}!ZSTD\_compressBound@{ZSTD\_compressBound}}
+\index{ZSTD\_compressBound@{ZSTD\_compressBound}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_compressBound()}{ZSTD\_compressBound()}}
+{\footnotesize\ttfamily \label{zstd_8h_a09a654e8aa96436cd60cd98a65a98cf6} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+compress\+Bound (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{src\+Size}{}\end{DoxyParamCaption})}
+
+maximum compressed size in worst case scenario \Hypertarget{zstd_8h_aa9bccfbfa483eed9fe8463267c034da5}\index{zstd.h@{zstd.h}!ZSTD\_compressCCtx@{ZSTD\_compressCCtx}}
+\index{ZSTD\_compressCCtx@{ZSTD\_compressCCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_compressCCtx()}{ZSTD\_compressCCtx()}}
+{\footnotesize\ttfamily \label{zstd_8h_aa9bccfbfa483eed9fe8463267c034da5} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+compress\+CCtx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{, }\item[{int}]{compression\+Level}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_aa9bccfbfa483eed9fe8463267c034da5}{ZSTD\+\_\+compress\+CCtx()} \+: Same as \doxylink{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e}{ZSTD\+\_\+compress()}, requires an allocated \doxylink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx} (see \doxylink{zstd_8h_afeea947d7824a8b8f2a0b8bb54f35ed2}{ZSTD\+\_\+create\+CCtx()}) \Hypertarget{zstd_8h_a5fb712d64adcef1d7803a0f0eb35ee6e}\index{zstd.h@{zstd.h}!ZSTD\_compressStream@{ZSTD\_compressStream}}
+\index{ZSTD\_compressStream@{ZSTD\_compressStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_compressStream()}{ZSTD\_compressStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_a5fb712d64adcef1d7803a0f0eb35ee6e} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+compress\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}}]{zcs}{, }\item[{\mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}}]{output}{, }\item[{\mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\+\_\+in\+Buffer}} \texorpdfstring{$\ast$}{*}}]{input}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_afeea947d7824a8b8f2a0b8bb54f35ed2}\index{zstd.h@{zstd.h}!ZSTD\_createCCtx@{ZSTD\_createCCtx}}
+\index{ZSTD\_createCCtx@{ZSTD\_createCCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_createCCtx()}{ZSTD\_createCCtx()}}
+{\footnotesize\ttfamily \label{zstd_8h_afeea947d7824a8b8f2a0b8bb54f35ed2} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*} ZSTD\+\_\+create\+CCtx (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a848a907e9f93968168436c65c7bd16d8}\index{zstd.h@{zstd.h}!ZSTD\_createCDict@{ZSTD\_createCDict}}
+\index{ZSTD\_createCDict@{ZSTD\_createCDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_createCDict()}{ZSTD\_createCDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_a848a907e9f93968168436c65c7bd16d8} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}} \texorpdfstring{$\ast$}{*} ZSTD\+\_\+create\+CDict (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{dict}{, }\item[{size\+\_\+t}]{dict\+Size}{, }\item[{int}]{compression\+Level}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_acb531407c79bbb9ae84411d73fde464d}\index{zstd.h@{zstd.h}!ZSTD\_createCStream@{ZSTD\_createCStream}}
+\index{ZSTD\_createCStream@{ZSTD\_createCStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_createCStream()}{ZSTD\_createCStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_acb531407c79bbb9ae84411d73fde464d} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*} ZSTD\+\_\+create\+CStream (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a7177832cafaf8eb3695bb22cd1ff0a9d}\index{zstd.h@{zstd.h}!ZSTD\_createDCtx@{ZSTD\_createDCtx}}
+\index{ZSTD\_createDCtx@{ZSTD\_createDCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_createDCtx()}{ZSTD\_createDCtx()}}
+{\footnotesize\ttfamily \label{zstd_8h_a7177832cafaf8eb3695bb22cd1ff0a9d} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*} ZSTD\+\_\+create\+DCtx (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_ad69c47a7a8e2b11bf874a40b6b6daa1b}\index{zstd.h@{zstd.h}!ZSTD\_createDDict@{ZSTD\_createDDict}}
+\index{ZSTD\_createDDict@{ZSTD\_createDDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_createDDict()}{ZSTD\_createDDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_ad69c47a7a8e2b11bf874a40b6b6daa1b} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}} \texorpdfstring{$\ast$}{*} ZSTD\+\_\+create\+DDict (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{dict}{, }\item[{size\+\_\+t}]{dict\+Size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_aaeacffa15b9a7cf46cfe77755952a98d}\index{zstd.h@{zstd.h}!ZSTD\_createDStream@{ZSTD\_createDStream}}
+\index{ZSTD\_createDStream@{ZSTD\_createDStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_createDStream()}{ZSTD\_createDStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_aaeacffa15b9a7cf46cfe77755952a98d} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} \mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*} ZSTD\+\_\+create\+DStream (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a239b9dc342b7825b22b32fded13c6709}\index{zstd.h@{zstd.h}!ZSTD\_CStreamInSize@{ZSTD\_CStreamInSize}}
+\index{ZSTD\_CStreamInSize@{ZSTD\_CStreamInSize}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_CStreamInSize()}{ZSTD\_CStreamInSize()}}
+{\footnotesize\ttfamily \label{zstd_8h_a239b9dc342b7825b22b32fded13c6709} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+\+CStream\+In\+Size (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+recommended size for input buffer \Hypertarget{zstd_8h_af4b399dd4e0ae1027e00381318a7aa48}\index{zstd.h@{zstd.h}!ZSTD\_CStreamOutSize@{ZSTD\_CStreamOutSize}}
+\index{ZSTD\_CStreamOutSize@{ZSTD\_CStreamOutSize}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_CStreamOutSize()}{ZSTD\_CStreamOutSize()}}
+{\footnotesize\ttfamily \label{zstd_8h_af4b399dd4e0ae1027e00381318a7aa48} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+\+CStream\+Out\+Size (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+recommended size for output buffer. Guarantee to successfully flush at least one complete compressed block in all circumstances. \Hypertarget{zstd_8h_a025e133d6213617c1013e46e164eef27}\index{zstd.h@{zstd.h}!ZSTD\_decompress@{ZSTD\_decompress}}
+\index{ZSTD\_decompress@{ZSTD\_decompress}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_decompress()}{ZSTD\_decompress()}}
+{\footnotesize\ttfamily \label{zstd_8h_a025e133d6213617c1013e46e164eef27} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+decompress (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{compressed\+Size}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_a025e133d6213617c1013e46e164eef27}{ZSTD\+\_\+decompress()} \+: {\ttfamily compressed\+Size} \+: must be the {\itshape exact} size of a single compressed frame. {\ttfamily dst\+Capacity} is an upper bound of original\+Size. If user cannot imply a maximum upper bound, it\textquotesingle{}s better to use streaming mode to decompress data. \begin{DoxyReturn}{Returns}
+\+: the number of bytes decompressed into {\ttfamily dst} (\texorpdfstring{$<$}{<}= {\ttfamily dst\+Capacity}), or an error\+Code if it fails (which can be tested using \doxylink{zstd_8h_ab0b6c5780ccdf58edfe4833bdd5c8f7b}{ZSTD\+\_\+is\+Error()}) 
+\end{DoxyReturn}
+\Hypertarget{zstd_8h_a15170a52ac838ad6d7d1a7d5d7bb678f}\index{zstd.h@{zstd.h}!ZSTD\_decompress\_usingDDict@{ZSTD\_decompress\_usingDDict}}
+\index{ZSTD\_decompress\_usingDDict@{ZSTD\_decompress\_usingDDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_decompress\_usingDDict()}{ZSTD\_decompress\_usingDDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_a15170a52ac838ad6d7d1a7d5d7bb678f} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+decompress\+\_\+using\+DDict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}}]{dctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{, }\item[{const \mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}} \texorpdfstring{$\ast$}{*}}]{ddict}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_a15170a52ac838ad6d7d1a7d5d7bb678f}{ZSTD\+\_\+decompress\+\_\+using\+DDict()} \+: Decompression using a digested Dictionary Faster startup than \doxylink{zstd_8h_ab01cb948094c6bd47e35693c3c970ecd}{ZSTD\+\_\+decompress\+\_\+using\+Dict()}, recommended when same dictionary is used multiple times. \Hypertarget{zstd_8h_ab01cb948094c6bd47e35693c3c970ecd}\index{zstd.h@{zstd.h}!ZSTD\_decompress\_usingDict@{ZSTD\_decompress\_usingDict}}
+\index{ZSTD\_decompress\_usingDict@{ZSTD\_decompress\_usingDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_decompress\_usingDict()}{ZSTD\_decompress\_usingDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_ab01cb948094c6bd47e35693c3c970ecd} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+decompress\+\_\+using\+Dict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}}]{dctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{dict}{, }\item[{size\+\_\+t}]{dict\+Size}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_ab01cb948094c6bd47e35693c3c970ecd}{ZSTD\+\_\+decompress\+\_\+using\+Dict()} \+: Decompression using a predefined Dictionary (see dict\+Builder/zdict.\+h). Dictionary must be identical to the one used during compression. Note \+: This function load the dictionary, resulting in significant startup delay \Hypertarget{zstd_8h_acfe0db92edb393457c054c37839df4e3}\index{zstd.h@{zstd.h}!ZSTD\_decompressDCtx@{ZSTD\_decompressDCtx}}
+\index{ZSTD\_decompressDCtx@{ZSTD\_decompressDCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_decompressDCtx()}{ZSTD\_decompressDCtx()}}
+{\footnotesize\ttfamily \label{zstd_8h_acfe0db92edb393457c054c37839df4e3} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+decompress\+DCtx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{size\+\_\+t}]{dst\+Capacity}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_acfe0db92edb393457c054c37839df4e3}{ZSTD\+\_\+decompress\+DCtx()} \+: Same as \doxylink{zstd_8h_a025e133d6213617c1013e46e164eef27}{ZSTD\+\_\+decompress()}, requires an allocated \doxylink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx} (see \doxylink{zstd_8h_a7177832cafaf8eb3695bb22cd1ff0a9d}{ZSTD\+\_\+create\+DCtx()}) \Hypertarget{zstd_8h_a8daa7ccfc3a4384b7b45bf8f2cc0c152}\index{zstd.h@{zstd.h}!ZSTD\_decompressStream@{ZSTD\_decompressStream}}
+\index{ZSTD\_decompressStream@{ZSTD\_decompressStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_decompressStream()}{ZSTD\_decompressStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_a8daa7ccfc3a4384b7b45bf8f2cc0c152} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+decompress\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*}}]{zds}{, }\item[{\mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}}]{output}{, }\item[{\mbox{\hyperlink{zstd_8h_a1c5398613e678b0373333df2c455cc4d}{ZSTD\+\_\+in\+Buffer}} \texorpdfstring{$\ast$}{*}}]{input}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a51471ed5a2986fd5306ba64b04128ed4}\index{zstd.h@{zstd.h}!ZSTD\_DStreamInSize@{ZSTD\_DStreamInSize}}
+\index{ZSTD\_DStreamInSize@{ZSTD\_DStreamInSize}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_DStreamInSize()}{ZSTD\_DStreamInSize()}}
+{\footnotesize\ttfamily \label{zstd_8h_a51471ed5a2986fd5306ba64b04128ed4} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+\+DStream\+In\+Size (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+recommended size for input buffer \Hypertarget{zstd_8h_a45d3207022f408de06042ca0ec9fdf00}\index{zstd.h@{zstd.h}!ZSTD\_DStreamOutSize@{ZSTD\_DStreamOutSize}}
+\index{ZSTD\_DStreamOutSize@{ZSTD\_DStreamOutSize}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_DStreamOutSize()}{ZSTD\_DStreamOutSize()}}
+{\footnotesize\ttfamily \label{zstd_8h_a45d3207022f408de06042ca0ec9fdf00} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+\+DStream\+Out\+Size (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+recommended size for output buffer. Guarantee to successfully flush at least one complete block in all circumstances. \Hypertarget{zstd_8h_acc3b72d1c78095b05f4f85346709c3de}\index{zstd.h@{zstd.h}!ZSTD\_endStream@{ZSTD\_endStream}}
+\index{ZSTD\_endStream@{ZSTD\_endStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_endStream()}{ZSTD\_endStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_acc3b72d1c78095b05f4f85346709c3de} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+end\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}}]{zcs}{, }\item[{\mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}}]{output}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_aa221a5abd4a173d26a95cbba344de536}\index{zstd.h@{zstd.h}!ZSTD\_flushStream@{ZSTD\_flushStream}}
+\index{ZSTD\_flushStream@{ZSTD\_flushStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_flushStream()}{ZSTD\_flushStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_aa221a5abd4a173d26a95cbba344de536} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+flush\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}}]{zcs}{, }\item[{\mbox{\hyperlink{zstd_8h_a88ef076a7b8c7ce6256040a1a033e657}{ZSTD\+\_\+out\+Buffer}} \texorpdfstring{$\ast$}{*}}]{output}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a67d77bdcb9e281e3e250bb45b1cd6443}\index{zstd.h@{zstd.h}!ZSTD\_freeCCtx@{ZSTD\_freeCCtx}}
+\index{ZSTD\_freeCCtx@{ZSTD\_freeCCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_freeCCtx()}{ZSTD\_freeCCtx()}}
+{\footnotesize\ttfamily \label{zstd_8h_a67d77bdcb9e281e3e250bb45b1cd6443} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+free\+CCtx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ccc575a7e1f1afd01e76c0fa98d957d}{ZSTD\+\_\+\+CCtx}} \texorpdfstring{$\ast$}{*}}]{cctx}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a723a3a778055d358dd2a0d5320aae57d}\index{zstd.h@{zstd.h}!ZSTD\_freeCDict@{ZSTD\_freeCDict}}
+\index{ZSTD\_freeCDict@{ZSTD\_freeCDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_freeCDict()}{ZSTD\_freeCDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_a723a3a778055d358dd2a0d5320aae57d} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+free\+CDict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a8f0f8ee84f4ef0190e41b73fd863d8d2}{ZSTD\+\_\+\+CDict}} \texorpdfstring{$\ast$}{*}}]{CDict}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a862b950674b345333db274aaaa1d2ebc}\index{zstd.h@{zstd.h}!ZSTD\_freeCStream@{ZSTD\_freeCStream}}
+\index{ZSTD\_freeCStream@{ZSTD\_freeCStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_freeCStream()}{ZSTD\_freeCStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_a862b950674b345333db274aaaa1d2ebc} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+free\+CStream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}}]{zcs}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a44f32b56a1be62ca9bcda9a13557b928}\index{zstd.h@{zstd.h}!ZSTD\_freeDCtx@{ZSTD\_freeDCtx}}
+\index{ZSTD\_freeDCtx@{ZSTD\_freeDCtx}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_freeDCtx()}{ZSTD\_freeDCtx()}}
+{\footnotesize\ttfamily \label{zstd_8h_a44f32b56a1be62ca9bcda9a13557b928} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+free\+DCtx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a9ce4435ca683f0e7cb2b90ca9eb1fce4}{ZSTD\+\_\+\+DCtx}} \texorpdfstring{$\ast$}{*}}]{dctx}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a981d36fc0f8d85fbe13202cd85d6d667}\index{zstd.h@{zstd.h}!ZSTD\_freeDDict@{ZSTD\_freeDDict}}
+\index{ZSTD\_freeDDict@{ZSTD\_freeDDict}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_freeDDict()}{ZSTD\_freeDDict()}}
+{\footnotesize\ttfamily \label{zstd_8h_a981d36fc0f8d85fbe13202cd85d6d667} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+free\+DDict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_af34d948830a0684f90121d51d663f9aa}{ZSTD\+\_\+\+DDict}} \texorpdfstring{$\ast$}{*}}]{ddict}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_ad4958857a8d614fe98dde2f79afa7463}\index{zstd.h@{zstd.h}!ZSTD\_freeDStream@{ZSTD\_freeDStream}}
+\index{ZSTD\_freeDStream@{ZSTD\_freeDStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_freeDStream()}{ZSTD\_freeDStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_ad4958857a8d614fe98dde2f79afa7463} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+free\+DStream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*}}]{zds}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a02de2c934488fdd7386b8ec5e918e2da}\index{zstd.h@{zstd.h}!ZSTD\_getDecompressedSize@{ZSTD\_getDecompressedSize}}
+\index{ZSTD\_getDecompressedSize@{ZSTD\_getDecompressedSize}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_getDecompressedSize()}{ZSTD\_getDecompressedSize()}}
+{\footnotesize\ttfamily \label{zstd_8h_a02de2c934488fdd7386b8ec5e918e2da} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} unsigned long long ZSTD\+\_\+get\+Decompressed\+Size (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{src}{, }\item[{size\+\_\+t}]{src\+Size}{}\end{DoxyParamCaption})}
+
+\doxylink{zstd_8h_a02de2c934488fdd7386b8ec5e918e2da}{ZSTD\+\_\+get\+Decompressed\+Size()} \+: \textquotesingle{}src\textquotesingle{} is the start of a zstd compressed frame. \begin{DoxyReturn}{Returns}
+\+: content size to be decompressed, as a 64-\/bits value {\itshape if known}, 0 otherwise. note 1 \+: decompressed size is an optional field, that may not be present, especially in streaming mode. When {\ttfamily return==0}, data to decompress could be any size. In which case, it\textquotesingle{}s necessary to use streaming mode to decompress data. Optionally, application can still use \doxylink{zstd_8h_a025e133d6213617c1013e46e164eef27}{ZSTD\+\_\+decompress()} while relying on implied limits. (For example, data may be necessarily cut into blocks \texorpdfstring{$<$}{<}= 16 KB). note 2 \+: decompressed size is always present when compression is done with \doxylink{zstd_8h_a1bcc8367f7dac16415183f54cd1aff5e}{ZSTD\+\_\+compress()} note 3 \+: decompressed size can be very large (64-\/bits value), potentially larger than what local system can handle as a single memory segment. In which case, it\textquotesingle{}s necessary to use streaming mode to decompress data. note 4 \+: If source is untrusted, decompressed size could be wrong or intentionally modified. Always ensure result fits within application\textquotesingle{}s authorized limits. Each application can set its own limits. note 5 \+: when {\ttfamily return==0}, if precise failure cause is needed, use ZSTD\+\_\+get\+Frame\+Params() to know more. 
+\end{DoxyReturn}
+\Hypertarget{zstd_8h_aab019ed61727fbffec2e4d9b314e526c}\index{zstd.h@{zstd.h}!ZSTD\_getErrorName@{ZSTD\_getErrorName}}
+\index{ZSTD\_getErrorName@{ZSTD\_getErrorName}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_getErrorName()}{ZSTD\_getErrorName()}}
+{\footnotesize\ttfamily \label{zstd_8h_aab019ed61727fbffec2e4d9b314e526c} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} const char \texorpdfstring{$\ast$}{*} ZSTD\+\_\+get\+Error\+Name (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{code}{}\end{DoxyParamCaption})}
+
+provides readable string from an error code \Hypertarget{zstd_8h_a14d2fa5dfea19623406c47514a1f7524}\index{zstd.h@{zstd.h}!ZSTD\_initCStream@{ZSTD\_initCStream}}
+\index{ZSTD\_initCStream@{ZSTD\_initCStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_initCStream()}{ZSTD\_initCStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_a14d2fa5dfea19623406c47514a1f7524} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+init\+CStream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_afa360cccb4372ba3f93fdcd367c21a0e}{ZSTD\+\_\+\+CStream}} \texorpdfstring{$\ast$}{*}}]{zcs}{, }\item[{int}]{compression\+Level}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_a1da8876c04f27c1b58fdc9436bf74a50}\index{zstd.h@{zstd.h}!ZSTD\_initDStream@{ZSTD\_initDStream}}
+\index{ZSTD\_initDStream@{ZSTD\_initDStream}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_initDStream()}{ZSTD\_initDStream()}}
+{\footnotesize\ttfamily \label{zstd_8h_a1da8876c04f27c1b58fdc9436bf74a50} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} size\+\_\+t ZSTD\+\_\+init\+DStream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{zstd_8h_a64ad2a80907fa271525c80215bbe2135}{ZSTD\+\_\+\+DStream}} \texorpdfstring{$\ast$}{*}}]{zds}{}\end{DoxyParamCaption})}
+
+\Hypertarget{zstd_8h_ab0b6c5780ccdf58edfe4833bdd5c8f7b}\index{zstd.h@{zstd.h}!ZSTD\_isError@{ZSTD\_isError}}
+\index{ZSTD\_isError@{ZSTD\_isError}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_isError()}{ZSTD\_isError()}}
+{\footnotesize\ttfamily \label{zstd_8h_ab0b6c5780ccdf58edfe4833bdd5c8f7b} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} unsigned ZSTD\+\_\+is\+Error (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{code}{}\end{DoxyParamCaption})}
+
+tells if a {\ttfamily size\+\_\+t} function result is an error code \Hypertarget{zstd_8h_aff6231ba48895ad86b1a55981c50e6f4}\index{zstd.h@{zstd.h}!ZSTD\_maxCLevel@{ZSTD\_maxCLevel}}
+\index{ZSTD\_maxCLevel@{ZSTD\_maxCLevel}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_maxCLevel()}{ZSTD\_maxCLevel()}}
+{\footnotesize\ttfamily \label{zstd_8h_aff6231ba48895ad86b1a55981c50e6f4} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} int ZSTD\+\_\+max\+CLevel (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+maximum compression level available \Hypertarget{zstd_8h_af33ac73034a439c4ad51b5825774c9fd}\index{zstd.h@{zstd.h}!ZSTD\_versionNumber@{ZSTD\_versionNumber}}
+\index{ZSTD\_versionNumber@{ZSTD\_versionNumber}!zstd.h@{zstd.h}}
+\doxysubsubsection{\texorpdfstring{ZSTD\_versionNumber()}{ZSTD\_versionNumber()}}
+{\footnotesize\ttfamily \label{zstd_8h_af33ac73034a439c4ad51b5825774c9fd} 
+\mbox{\hyperlink{zstd_8h_a9dbac0fbe1cd466cb2b82c5401e2ec49}{ZSTDLIB\+\_\+\+API}} unsigned ZSTD\+\_\+version\+Number (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+

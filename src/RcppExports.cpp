@@ -14,8 +14,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // create_xptr
-SEXP create_xptr(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const int& chunkSize, const bool& missingToMean);
-RcppExport SEXP _GenomicDataStream_create_xptr(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
+SEXP create_xptr(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const double& minVariance, const int& chunkSize, const bool& missingToMean);
+RcppExport SEXP _GenomicDataStream_create_xptr(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP minVarianceSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,9 +23,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::string& >::type field(fieldSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type region(regionSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type samples(samplesSEXP);
+    Rcpp::traits::input_parameter< const double& >::type minVariance(minVarianceSEXP);
     Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
     Rcpp::traits::input_parameter< const bool& >::type missingToMean(missingToMeanSEXP);
-    rcpp_result_gen = Rcpp::wrap(create_xptr(file, field, region, samples, chunkSize, missingToMean));
+    rcpp_result_gen = Rcpp::wrap(create_xptr(file, field, region, samples, minVariance, chunkSize, missingToMean));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -37,6 +38,29 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(getInfo(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// setRegions_rcpp
+SEXP setRegions_rcpp(SEXP x, const string& regionString);
+RcppExport SEXP _GenomicDataStream_setRegions_rcpp(SEXP xSEXP, SEXP regionStringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const string& >::type regionString(regionStringSEXP);
+    rcpp_result_gen = Rcpp::wrap(setRegions_rcpp(x, regionString));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getSampleNames_rcpp
+CharacterVector getSampleNames_rcpp(SEXP x);
+RcppExport SEXP _GenomicDataStream_getSampleNames_rcpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(getSampleNames_rcpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -110,8 +134,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 6},
+    {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 7},
     {"_GenomicDataStream_getInfo", (DL_FUNC) &_GenomicDataStream_getInfo, 1},
+    {"_GenomicDataStream_setRegions_rcpp", (DL_FUNC) &_GenomicDataStream_setRegions_rcpp, 2},
+    {"_GenomicDataStream_getSampleNames_rcpp", (DL_FUNC) &_GenomicDataStream_getSampleNames_rcpp, 1},
     {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
