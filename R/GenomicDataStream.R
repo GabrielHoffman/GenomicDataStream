@@ -289,7 +289,29 @@ getSampleNames <- function(x) {
   return( getSampleNames_rcpp( x@ptr ) )
 }
 
-
+#' Get rownames
+#'
+#' Get rownames (i.e. sample names) in order that the genotypes are extracted
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return array of string names
+#'
+#' @description BGEN uses sample order from the query, but VCF/BCF/PGEN uses order in file
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", init=TRUE)
+#'
+#' rownames(obj)
+#
+#' @export
+setMethod(
+  "rownames", signature(x = "GenomicDataStream"),
+  function(x){
+  getSampleNames(x)
+})
 
 
 
