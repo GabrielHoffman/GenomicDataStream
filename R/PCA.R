@@ -13,6 +13,10 @@
 #'
 #' @param s       integer, optional; \cr
 #'                oversampling parameter (by default \eqn{s=10}).
+#' 
+#' @param B       integer, optional; \cr
+#'                number of windows (by default \eqn{s=64}).
+#' 
 #' @return \code{winSVD} returns a list containing the following three components:
 #'\describe{
 #'\item{d}{  array_like; \cr
@@ -51,6 +55,7 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
   if(p < log2(B)+1) {
     warning("reset p as log2(B)+1, which is ", log2(B)+1)
   }
+  
   p <- max(c(p, log2(B)+1))
   if(nrow(A) < ncol(A)) A <- t(A) ## make it tall 
   N <- ncol(A)
@@ -67,7 +72,7 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
   block <- sample(1:B, M,  replace = T)
   for(i in 1:p) {
     j <- 0
-    if (2^i >= B) {
+    if (2^(i-1) >= B) {
       H1 <-  0  ## N x L
       H2 <-  0  ## N x L
     }
@@ -79,13 +84,14 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
       G[block==b,] <- Gb
       if(j <= band / 2) {
         H1 <- H1 + t(Ab)%*%Gb
-      } else if (j <= band) {
+      } else {
         H2 <- H2 + t(Ab)%*%Gb
       }
-
-      if((b-1)%%2^(i-1) != 2^(i-1)-1 & b!=B)
-        next
-      
+      ## use the first quarter band of succesive iteration (H1)
+      ## for extra power iteration updates with the last used band (H2)
+      adj <-  i>1 & b == 2^(i-2) & 2^(i-1) < B
+      if (b < band & !adj ) next
+      if (!(j == band || j == band / 2 || adj)) next
       H <- H1 + H2
       QR<-qr(H)
       OmegaOld <- Omega
@@ -97,8 +103,7 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
       if (j == band) {
         H1 <- 0
         j <- 0
-      }
-      if (j == band / 2) {
+      } else {
         H2 <- 0
       }
     }
@@ -115,31 +120,8 @@ getUSV <- function(H,G,k){
   Rtilt<-  qr.R(r1)
   Rhat <-  qr.R(r2)
   R <- Rhat%*%Rtilt
-  ## R.T * B = H.T
-  ## B <- t(MASS::ginv(R)) %*% t(H)
   B = qr.solve(t(R), t(H))
   d <- svd(B, nu = k, nv = k)
   list(d = d$d[1:k], u = G %*% d$u, v = d$v)
 }
 
-## for stream version we need to know
-## 1. the dimension of data
-## 2. how to normalize the data
-streamPCA_prepare <- function(gds, center = TRUE, scale = TRUE) {
-  res <- list(M = 0, N = 0, C = NULL, S = NULL)
-  # loop until break
-  while (1) {
-    # get data chunk
-    # data$X matrix with features as columns
-    # data$info information about each feature as rows
-    dat <- getNextChunk(obj)
-    if(res$M > 0) stopifnot(res$N == nrow(dat$X))
-    res$M <- res$M + ncol(dat$X)
-    res$N <- nrow(dat$X)
-    avg <- colMeans(dat$X)
-    res$C <- c(res$C, avg)
-    res$S <- c(res$S, 1.0/(avg*(1.0-avg))) # for genetic data
-    if (atEndOfStream(obj)) break
-  }
-  res
-}

@@ -18,6 +18,9 @@ number of additional power iterations (by default \eqn{p=7}).}
 
 \item{s}{integer, optional; \cr
 oversampling parameter (by default \eqn{s=10}).}
+
+\item{B}{integer, optional; \cr
+number of windows (by default \eqn{s=64}).}
 }
 \value{
 \code{winSVD} returns a list containing the following three components:
