@@ -77,21 +77,24 @@ winSVDstream <- function(gds, meta, k, p = 7, s = 10, B = 64) {
 ## for stream version we need to know
 ## 1. the dimension of data
 ## 2. how to normalize the data
-preparePCAstream <- function(gds, center = TRUE, scale = TRUE) {
+#' @export
+PCAstream_prepare <- function(gds, center = TRUE, scale = TRUE) {
+  stopifnot(is(gds, "GenomicDataStream"))
   res <- list(M = 0, N = 0, mean = NULL, scale = NULL)
   # loop until break
   while (1) {
     # get data chunk
     # data$X matrix with features as columns
     # data$info information about each feature as rows
-    dat <- getNextChunk(obj)
+    dat <- getNextChunk(gds)
+    if (atEndOfStream(gds)) break
     if(res$M > 0) stopifnot(res$N == nrow(dat$X))
     res$M <- res$M + ncol(dat$X)
     res$N <- nrow(dat$X)
-    avg <- colMeans(dat$X)
-    res$mean <- c(res$mean, avg)
-    res$scale <- c(res$scale, 1.0/(avg*(1.0-avg))) # for genetic data
-    if (atEndOfStream(obj)) break
+    res$mean <- c(res$mean, colMeans(dat$X))
+    scale <- apply(dat$X, 2, sd)
+    scale[scale <= 0] <- 1 ## in case of any fixed SNP
+    res$scale <- c(res$scale, 1.0 / scale) ## multiply this is faster
   }
   class(res) <- "metadata"
   res

@@ -2,6 +2,7 @@
 
 S3method(as.list,GenomicDataStream)
 export(GenomicDataStream)
+export(PCAstream_prepare)
 export(atEndOfStream)
 export(featuresRead)
 export(getNextChunk)
