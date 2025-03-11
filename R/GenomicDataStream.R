@@ -204,6 +204,21 @@ initializeStream <- function(x) {
   )
 }
 
+#' @export
+reinitializeStream <- function (x) {
+
+  # Create initialized GenomicDataStream
+  GenomicDataStream(
+    file = x@file,
+    field = x@field,
+    region = x@region,
+    samples = x@samples,
+    minVariance = x@minVariance,
+    chunkSize = x@chunkSize,
+    missingToMean = x@missingToMean,
+    initialize = TRUE
+  )
+}
 
 #' Set regions of GenomicDataStream
 #'
@@ -465,3 +480,49 @@ setMethod(
 setMethod("print", "GenomicDataStream", function(x, ...) {
   show(x)
 })
+
+
+#' Get location of each feature
+#'
+#' Get location of each feature in GenomicDataStream
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return  get data chunk as \code{list} with entries \code{X} storing a matrix with features as columns, and \code{info} storing information about each feature as rows
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' # initialize
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize = TRUE)
+#'
+#' getVariantLocations(obj)
+#' 
+#' @export
+getVariantLocations = function(x){
+
+  # pass R CMD check
+  CHROM <- POS <- NULL
+
+  x <- reinitializeStream(x)
+
+  lst <- list()
+  i <- 1
+
+  # loop until break
+  while (1) {
+    # get data chunk
+    # data$X matrix with features as columns
+    # data$info information about each feature as rows
+    dat <- getNextChunk(x)
+
+    if (atEndOfStream(x)) break
+
+    lst[[i]] <- dat$info
+    i <- i + 1
+  }
+  lst <- do.call(rbind, lst)
+
+  # locations as BED coordinations
+  with(lst, paste0(CHROM, ":", POS, "-", POS))
+}

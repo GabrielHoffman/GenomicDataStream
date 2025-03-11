@@ -19,6 +19,7 @@ Depends:
         Rcpp, 
         methods, 
         stats,
+        progress,
         utils,
         Rdpack
 LinkingTo: 
