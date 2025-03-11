@@ -78,9 +78,9 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, quiet = FALSE) {
   
   L <- k + s
   Omega <- matrix(rnorm(N*L),nrow=N,ncol=L) # N x L
-  H <-  0  ## N x L
-  H1 <-  0  ## N x L
-  H2 <-  0  ## N x L
+  H <- matrix(0,ncol=L,nrow=N) ## N x L
+  H1 <- matrix(0,ncol=L,nrow=N) ## N x L
+  H2 <- matrix(0,ncol=L,nrow=N) ## N x L
   G <- matrix(NA,ncol=L,nrow=M) ## M x L
   switch <- TRUE
   ## how many times we call getNextChunk
@@ -98,8 +98,8 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, quiet = FALSE) {
   for(i in seq(p)) {
     j <- 0
     if (2^(i-1) >= B) {
-      H1 <-  0  ## N x L
-      H2 <-  0  ## N x L
+      H1[] <-  0  ## N x L
+      H2[] <-  0  ## N x L
     }
 
     gds <- reinitializeStream(gds)
@@ -142,10 +142,10 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, quiet = FALSE) {
         Omega[,swiched] <- -Omega[,swiched]
       }
       if (j == band) {
-        H1 <- 0
+        H1[] <- 0
         j <- 0
       } else {
-        H2 <- 0
+        H2[] <- 0
       }
     }
     band <- min(B,round(band * 2))

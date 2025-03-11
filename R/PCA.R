@@ -62,9 +62,9 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
   M <- nrow(A)
   L <- k + s
   Omega <- matrix(stats::rnorm(N*L),nrow=N,ncol=L) # N x L
-  H <-  0  ## N x L
-  H1 <-  0  ## N x L
-  H2 <-  0  ## N x L
+  H <- matrix(0,ncol=L,nrow=N) ## N x L
+  H1 <- matrix(0,ncol=L,nrow=N) ## N x L
+  H2 <- matrix(0,ncol=L,nrow=N) ## N x L
   G <- matrix(NA,ncol=L,nrow=M) ## M x L
   switch <- TRUE
   band <- 2
@@ -73,8 +73,8 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
   for(i in 1:p) {
     j <- 0
     if (2^(i-1) >= B) {
-      H1 <-  0  ## N x L
-      H2 <-  0  ## N x L
+      H1[] <-  0  ## N x L
+      H2[] <-  0  ## N x L
     }
     for(b in 1:B) {
       j <- j + 1
@@ -101,10 +101,10 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
         Omega[,swiched] <- -Omega[,swiched]
       }
       if (j == band) {
-        H1 <- 0
+        H1[] <- 0
         j <- 0
       } else {
-        H2 <- 0
+        H2[] <- 0
       }
     }
     band <- min(B,round(band * 2))
