@@ -15,9 +15,9 @@ winSVDstream <- function(gds, meta, k, p = 7, s = 10, B = 64) {
   
   L <- k + s
   Omega <- matrix(stats::rnorm(N*L),nrow=N,ncol=L) # N x L
-  H <-  0  ## N x L
-  H1 <-  0  ## N x L
-  H2 <-  0  ## N x L
+  H <-  matrix(0, ncol = L,  nrow = N)  ## N x L
+  H1 <-  matrix(0, ncol = L,  nrow = N)  ## N x L
+  H2 <-  matrix(0, ncol = L,  nrow = N)  ## N x L
   G <- matrix(NA,ncol=L,nrow=M) ## M x L
   switch <- TRUE
   nchunks <- ceiling(M / cs) ## how many times we call getNextChunk
@@ -28,8 +28,8 @@ winSVDstream <- function(gds, meta, k, p = 7, s = 10, B = 64) {
   for(i in 1:p) {
     j <- 0
     if (2^(i-1) >= B) {
-      H1 <-  0  ## N x L
-      H2 <-  0  ## N x L
+      H1[] <-  0  ## N x L
+      H2[] <-  0  ## N x L
     }
     
     for(b in 1:B) {
@@ -62,10 +62,10 @@ winSVDstream <- function(gds, meta, k, p = 7, s = 10, B = 64) {
         Omega[,swiched] <- -Omega[,swiched]
       }
       if (j == band) {
-        H1 <- 0
+        H1[] <- 0
         j <- 0
       } else {
-        H2 <- 0
+        H2[] <- 0
       }
     }
     band <- min(B,round(band * 2))
@@ -77,6 +77,9 @@ winSVDstream <- function(gds, meta, k, p = 7, s = 10, B = 64) {
 ## for stream version we need to know
 ## 1. the dimension of data
 ## 2. how to normalize the data
+#' @note For genetic data, we scale data with 1/sqrt(2f(1-f)) where f is the allel frequency.
+#' For scRNA-seq data, we scale data with log1p/CPMED.
+#' For other cases, if scale is TRUE, we use sd, otherwise we only apply centering.
 #' @export
 PCAstream_prepare <- function(gds, center = TRUE, scale = TRUE) {
   stopifnot(is(gds, "GenomicDataStream"))
