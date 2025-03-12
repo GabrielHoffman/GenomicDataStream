@@ -86,6 +86,7 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, quiet = FALSE) {
   H1 <-  0  ## N x L
   H2 <-  0  ## N x L
   G <- matrix(NA, nrow=M, ncol=L) ## M x L
+
   switch <- TRUE
 
   ## each bucket has the index of blocks
@@ -104,8 +105,8 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, quiet = FALSE) {
   for(i in seq(p)) {
     j <- 0
     if (2^(i-1) >= B) {
-      H1 <-  0  ## N x L
-      H2 <-  0  ## N x L
+      H1[] <-  0  ## N x L
+      H2[] <-  0  ## N x L
     }
 
     gds <- reinitializeStream(gds)
@@ -152,10 +153,10 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, quiet = FALSE) {
         Omega[,swiched] <- -Omega[,swiched]
       }
       if (j == band) {
-        H1 <- 0
+        H1[] <- 0
         j <- 0
       } else {
-        H2 <- 0
+        H2[] <- 0
       }
     }
     band <- min(B,round(band * 2))
