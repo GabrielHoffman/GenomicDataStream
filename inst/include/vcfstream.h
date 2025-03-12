@@ -98,7 +98,7 @@ class vcfstream :
 		// check status of each region
 		// retain only valid, non-empty regions in validRegions
 		for(const string& region : regions){
-			// validRegions.push_back(region);	
+			
 			switch( reader->getStatus( region ) ){
 				case 1: // region is vaild and not empty
 				validRegions.push_back(region);	

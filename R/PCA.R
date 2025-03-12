@@ -1,4 +1,4 @@
-#' @title window-based Randomized SVD
+#' @title Window-based Randomized SVD
 #' 
 #' @description winSVD implements the window-based Randomized SVD proposed by Li et al. 2024
 #' 
@@ -113,6 +113,7 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
   getUSV(H, G, k)
 }
 
+
 getUSV <- function(H,G,k){
   r1 <- qr(G)
   Q <- qr.Q(r1)
@@ -124,4 +125,5 @@ getUSV <- function(H,G,k){
   d <- svd(B, nu = k, nv = k)
   list(d = d$d[1:k], u = G %*% d$u, v = d$v)
 }
+
 

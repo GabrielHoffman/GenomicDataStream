@@ -10,3 +10,5 @@ vignettes/.*_cache
 ^.git$
 lucida
 _pkgdown.yml
+Rprof.out
+pkgdown

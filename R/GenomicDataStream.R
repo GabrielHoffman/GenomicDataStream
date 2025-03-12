@@ -204,6 +204,28 @@ initializeStream <- function(x) {
   )
 }
 
+
+#' Renitialize GenomicDataStream
+#'
+#' Read file info from path to initialise stream
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return initialized \code{GenomicDataStream}
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5)
+#'
+#' # by default, GenomicDataStream is not initialized
+#' isInitialized(obj)
+#'
+#' # initialize
+#' obj <- initializeStream(obj)
+#'
+#' reinitializeStream(obj)
+#' #
 #' @export
 reinitializeStream <- function (x) {
 
@@ -488,7 +510,7 @@ setMethod("print", "GenomicDataStream", function(x, ...) {
 #'
 #' @param x \code{GenomicDataStream}
 #'
-#' @return  get data chunk as \code{list} with entries \code{X} storing a matrix with features as columns, and \code{info} storing information about each feature as rows
+#' @return get data chunk as \code{list} with entries \code{X} storing a matrix with features as columns, and \code{info} storing information about each feature as rows
 #'
 #' @examples
 #' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
@@ -526,3 +548,36 @@ getVariantLocations = function(x){
   # locations as BED coordinations
   with(lst, paste0(CHROM, ":", POS, "-", POS))
 }
+
+
+#' Get chunk sizes
+#' 
+#' Get array of chunk sizes
+#' 
+#' @param x \code{GenomicDataStream}
+#' 
+#' @return array of chunk sizes
+#' 
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' # initialize
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize = TRUE)
+#'
+#' countChunks(obj)
+#' 
+#' @export
+countChunks = function(x){
+  counts <- c()
+
+  # count number of variants
+  x <- reinitializeStream(x)
+  while(1){
+    dat <- getNextChunk(x)
+    counts <- append(counts, ncol(dat$X))
+    if (atEndOfStream(x)) break
+  }
+  counts
+}
+
+

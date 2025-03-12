@@ -108,15 +108,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// standardize_test
-void standardize_test(arma::mat& X, const bool& center, const bool& scale);
-RcppExport SEXP _GenomicDataStream_standardize_test(SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
+// standardize_in_place
+void standardize_in_place(arma::mat& X, const bool& center, const bool& scale);
+RcppExport SEXP _GenomicDataStream_standardize_in_place(SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
     Rcpp::traits::input_parameter< const bool& >::type center(centerSEXP);
     Rcpp::traits::input_parameter< const bool& >::type scale(scaleSEXP);
-    standardize_test(X, center, scale);
+    standardize_in_place(X, center, scale);
     return R_NilValue;
 END_RCPP
 }
@@ -142,7 +142,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
-    {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
+    {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
     {NULL, NULL, 0}
 };
