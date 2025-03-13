@@ -2,7 +2,7 @@
 % Please edit documentation in R/GenomicDataStream.R
 \name{reinitializeStream}
 \alias{reinitializeStream}
-\title{Renitialize GenomicDataStream}
+\title{Reinitialize GenomicDataStream}
 \usage{
 reinitializeStream(x)
 }

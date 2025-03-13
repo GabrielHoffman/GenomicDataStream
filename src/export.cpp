@@ -97,6 +97,16 @@ SEXP setRegions_rcpp( SEXP x, const string &regionString){
 
 
 // [[Rcpp::export]]
+SEXP setChunkSize_rcpp( SEXP x, const double &chunkSize){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	ptr->ptr->setChunkSize( chunkSize );
+
+	return ptr;
+}
+
+
+// [[Rcpp::export]]
 CharacterVector getSampleNames_rcpp( SEXP x){
 	Rcpp::XPtr<BoundDataStream> ptr(x);
 

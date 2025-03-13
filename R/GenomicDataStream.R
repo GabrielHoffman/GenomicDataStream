@@ -205,7 +205,7 @@ initializeStream <- function(x) {
 }
 
 
-#' Renitialize GenomicDataStream
+#' Reinitialize GenomicDataStream
 #'
 #' Read file info from path to initialise stream
 #'
@@ -241,6 +241,62 @@ reinitializeStream <- function (x) {
     initialize = TRUE
   )
 }
+
+
+#' Set Chunk Size
+#'
+#' Set chunk size for existing \code{GenomicDataStream}
+#'
+#' @param x \code{GenomicDataStream}
+#' @param chunkSize positive integer
+#'
+#' @return none
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize=TRUE)
+#'
+#' chunkSize(obj, 200)
+#' 
+#' @export
+setChunkSize <- function (x, chunkSize) {
+
+  chunkSize <- as.integer(chunkSize)
+  
+  if ( isInitialized(x) ) {
+    ptr <- setChunkSize_rcpp(x@ptr, chunkSize)
+
+    # get additional information about data
+    info <- getInfo(ptr)
+
+    obj <- new("GenomicDataStream",
+        initialized = TRUE,
+        ptr = ptr,
+        file = x@file,
+        field = x@field,
+        region = x@region,
+        samples = x@samples,
+        minVariance = x@minVariance,
+        chunkSize = chunkSize,
+        missingToMean = x@missingToMean,
+        streamType = info$streamType,
+        nsamples = info$nsamples)
+  }else{
+    obj <- new("GenomicDataStream",
+      initialized = FALSE,
+      file = x@file,
+      field = x@field,
+      region = x@region,
+      samples = x@samples,
+      minVariance = x@minVariance,
+      chunkSize = chunkSize,
+      missingToMean = x@missingToMean)
+  }
+
+  obj 
+}
+
 
 #' Set regions of GenomicDataStream
 #'

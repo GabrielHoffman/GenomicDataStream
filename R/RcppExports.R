@@ -13,6 +13,10 @@ setRegions_rcpp <- function(x, regionString) {
     .Call('_GenomicDataStream_setRegions_rcpp', PACKAGE = 'GenomicDataStream', x, regionString)
 }
 
+setChunkSize_rcpp <- function(x, chunkSize) {
+    .Call('_GenomicDataStream_setChunkSize_rcpp', PACKAGE = 'GenomicDataStream', x, chunkSize)
+}
+
 getSampleNames_rcpp <- function(x) {
     .Call('_GenomicDataStream_getSampleNames_rcpp', PACKAGE = 'GenomicDataStream', x)
 }
