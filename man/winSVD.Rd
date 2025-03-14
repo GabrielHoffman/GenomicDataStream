@@ -4,7 +4,7 @@
 \alias{winSVD}
 \title{Window-based Randomized SVD}
 \usage{
-winSVD(A, k, p = 7, s = 10, B = 64)
+winSVD(A, k, p = 7, s = 10, B = 64, perm = 1)
 }
 \arguments{
 \item{A}{array_like; \cr

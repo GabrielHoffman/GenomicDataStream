@@ -50,7 +50,7 @@
 #' res <- winSVD(mat, k = 10)
 #' str(res)
 #' @export
-winSVD <- function(A, k, p = 7, s = 10, B = 64) {
+winSVD <- function(A, k, p = 7, s = 10, B = 64, perm = 1) {
   stopifnot(B %% 2 == 0)
   if(p < log2(B)+1) {
     warning("reset p as log2(B)+1, which is ", log2(B)+1)
@@ -68,9 +68,25 @@ winSVD <- function(A, k, p = 7, s = 10, B = 64) {
   G <- matrix(NA,ncol=L,nrow=M) ## M x L
   switch <- TRUE
   band <- 2
-  # block for use
+
+  
+  ## how we sample blocks so that it's permuted enough
+  ## strategy 1, in default, we do random sampling
   block <- sample(1:B, M,  replace = T)
-  for(i in 1:p) {
+  ## strategy 2, we divide M sites into B buckets, say we have B number of file handler open
+  ## then we read m number of sites randomly from each buckets so that m*b == bandsize (band )
+  if(perm == 2) {
+    stopifnot(M > B^2)
+    b <- split_into_buckets(seq(M), B)
+    # determine bucket index using modulo 
+    block <- as.vector(unlist(sapply(b, function(x) (seq(x) - 1 ) %% B + 1)))
+    which(block == 1) 
+    
+  }
+
+  
+
+  for(i in 1:(p+1)) {
     j <- 0
     if (2^(i-1) >= B) {
       H1[] <-  0  ## N x L
