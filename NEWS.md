@@ -1,7 +1,12 @@
 
+
+# GenomicDataStream 0.0.18
+ - April 4, 2025
+ - bug fix in `main`
+
 # GenomicDataStream 0.0.17
- - Mardh 12, 2025
- - add `winSVDstream()``
+ - March 12, 2025
+ - add `winSVDstream()`
 
 # GenomicDataStream 0.0.16
  - Feb 12, 2025

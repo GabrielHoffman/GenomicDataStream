@@ -257,7 +257,7 @@ reinitializeStream <- function (x) {
 #'
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize=TRUE)
 #'
-#' chunkSize(obj, 200)
+#' setChunkSize(obj, 200)
 #' 
 #' @export
 setChunkSize <- function (x, chunkSize) {
