@@ -97,6 +97,16 @@ SEXP setRegions_rcpp( SEXP x, const string &regionString){
 
 
 // [[Rcpp::export]]
+SEXP setChunkSize_rcpp( SEXP x, const double &chunkSize){
+	Rcpp::XPtr<BoundDataStream> ptr(x);
+
+	ptr->ptr->setChunkSize( chunkSize );
+
+	return ptr;
+}
+
+
+// [[Rcpp::export]]
 CharacterVector getSampleNames_rcpp( SEXP x){
 	Rcpp::XPtr<BoundDataStream> ptr(x);
 
@@ -161,8 +171,19 @@ arma::vec colSums_test( const arma::mat &X){
 	return colSums(X);
 }
 
+//' Standardize matrix columns in place
+//'
+//' Standardize mean and variance of matrix columns in place
+//' 
+//' @param X matrix
+//' @param center boolean, TRUE indices center columns
+//' @param scale boolean, TRUE indices scale columns
+//' 
+//' @return none, matrix is stanardized in place
+//' 
+//' @export
 // [[Rcpp::export]]
-void standardize_test( arma::mat &X, const bool &center = true, const bool &scale = true ){
+void standardize_in_place( arma::mat &X, const bool &center = true, const bool &scale = true ){
 
 	standardize(X, center, scale);
 }

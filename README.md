@@ -14,7 +14,7 @@ Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/cours
 <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications.
 
 
-The `GenomicDataStream` interface separate:
+The `GenomicDataStream` interface separates:
  
 1. data source 
 2. streaming chunks of features into a data matrix

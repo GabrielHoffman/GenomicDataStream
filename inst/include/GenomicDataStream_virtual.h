@@ -173,6 +173,10 @@ class GenomicDataStream {
 		return param.minVariance;
 	}
 
+	void setChunkSize( const int &chunkSize) {
+		param.chunkSize = chunkSize;
+	}
+
 	/** Get next chunk of _features_ as arma::mat
 	 */ 
 	virtual bool getNextChunk( DataChunk<arma::mat> & chunk) = 0;

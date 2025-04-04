@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.0.17
+ - Mardh 12, 2025
+ - add `winSVDstream()``
+
 # GenomicDataStream 0.0.16
  - Feb 12, 2025
  - add `MAF` / `minVariance` filter to `GenomicDataStream()` and backend C++ code

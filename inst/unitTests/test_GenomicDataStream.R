@@ -1,5 +1,15 @@
 
+test_setChunkSize = function(){
+	library(GenomicDataStream)
+	library(RUnit)
 
+	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")	
+	gds <- GenomicDataStream(file, "GT", initialize = TRUE)
+
+	gds = setChunkSize(gds, 4)
+	dat = getNextChunk(gds)
+	checkEquals(ncol(dat$X), 4)
+}
 
 test_sample_order = function(){
 

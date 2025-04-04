@@ -3,7 +3,19 @@ Feb 7, 2025
 	Need test on minerva
 	Compare to QTLtools
 	glmFitFeatures(), etc should return printable object
-	
+
+	Code profiling
+		with 1 thread, regression takes 50% of the time
+			but with more threads file reading is the bottleneck
+			most time is spend in libhts
+		Where to pallelize file reading
+			R or C++ level?
+		compare to QTLTools	
+		GenomicDataStream (vcfpp) extracts samples in the order 
+			of the VCF file, not the order of the arguments
+			So need to sort responses
+			GenomicDataStream needs to return variable of sample names in file order
+
 
 
 	DONE: need variant filter for SNP and MAF

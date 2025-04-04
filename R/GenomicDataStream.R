@@ -205,6 +205,99 @@ initializeStream <- function(x) {
 }
 
 
+#' Reinitialize GenomicDataStream
+#'
+#' Read file info from path to initialise stream
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return initialized \code{GenomicDataStream}
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5)
+#'
+#' # by default, GenomicDataStream is not initialized
+#' isInitialized(obj)
+#'
+#' # initialize
+#' obj <- initializeStream(obj)
+#'
+#' reinitializeStream(obj)
+#' #
+#' @export
+reinitializeStream <- function (x) {
+
+  # Create initialized GenomicDataStream
+  GenomicDataStream(
+    file = x@file,
+    field = x@field,
+    region = x@region,
+    samples = x@samples,
+    minVariance = x@minVariance,
+    chunkSize = x@chunkSize,
+    missingToMean = x@missingToMean,
+    initialize = TRUE
+  )
+}
+
+
+#' Set Chunk Size
+#'
+#' Set chunk size for existing \code{GenomicDataStream}
+#'
+#' @param x \code{GenomicDataStream}
+#' @param chunkSize positive integer
+#'
+#' @return none
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize=TRUE)
+#'
+#' chunkSize(obj, 200)
+#' 
+#' @export
+setChunkSize <- function (x, chunkSize) {
+
+  chunkSize <- as.integer(chunkSize)
+  
+  if ( isInitialized(x) ) {
+    ptr <- setChunkSize_rcpp(x@ptr, chunkSize)
+
+    # get additional information about data
+    info <- getInfo(ptr)
+
+    obj <- new("GenomicDataStream",
+        initialized = TRUE,
+        ptr = ptr,
+        file = x@file,
+        field = x@field,
+        region = x@region,
+        samples = x@samples,
+        minVariance = x@minVariance,
+        chunkSize = chunkSize,
+        missingToMean = x@missingToMean,
+        streamType = info$streamType,
+        nsamples = info$nsamples)
+  }else{
+    obj <- new("GenomicDataStream",
+      initialized = FALSE,
+      file = x@file,
+      field = x@field,
+      region = x@region,
+      samples = x@samples,
+      minVariance = x@minVariance,
+      chunkSize = chunkSize,
+      missingToMean = x@missingToMean)
+  }
+
+  obj 
+}
+
+
 #' Set regions of GenomicDataStream
 #'
 #' Set regions of GenomicDataStream
@@ -289,7 +382,29 @@ getSampleNames <- function(x) {
   return( getSampleNames_rcpp( x@ptr ) )
 }
 
-
+#' Get rownames
+#'
+#' Get rownames (i.e. sample names) in order that the genotypes are extracted
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return array of string names
+#'
+#' @description BGEN uses sample order from the query, but VCF/BCF/PGEN uses order in file
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' obj <- GenomicDataStream(file, "DS", init=TRUE)
+#'
+#' rownames(obj)
+#
+#' @export
+setMethod(
+  "rownames", signature(x = "GenomicDataStream"),
+  function(x){
+  getSampleNames(x)
+})
 
 
 
@@ -443,3 +558,82 @@ setMethod(
 setMethod("print", "GenomicDataStream", function(x, ...) {
   show(x)
 })
+
+
+#' Get location of each feature
+#'
+#' Get location of each feature in GenomicDataStream
+#'
+#' @param x \code{GenomicDataStream}
+#'
+#' @return get data chunk as \code{list} with entries \code{X} storing a matrix with features as columns, and \code{info} storing information about each feature as rows
+#'
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' # initialize
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize = TRUE)
+#'
+#' getVariantLocations(obj)
+#' 
+#' @export
+getVariantLocations = function(x){
+
+  # pass R CMD check
+  CHROM <- POS <- NULL
+
+  x <- reinitializeStream(x)
+
+  lst <- list()
+  i <- 1
+
+  # loop until break
+  while (1) {
+    # get data chunk
+    # data$X matrix with features as columns
+    # data$info information about each feature as rows
+    dat <- getNextChunk(x)
+
+    if (atEndOfStream(x)) break
+
+    lst[[i]] <- dat$info
+    i <- i + 1
+  }
+  lst <- do.call(rbind, lst)
+
+  # locations as BED coordinations
+  with(lst, paste0(CHROM, ":", POS, "-", POS))
+}
+
+
+#' Get chunk sizes
+#' 
+#' Get array of chunk sizes
+#' 
+#' @param x \code{GenomicDataStream}
+#' 
+#' @return array of chunk sizes
+#' 
+#' @examples
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#'
+#' # initialize
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize = TRUE)
+#'
+#' countChunks(obj)
+#' 
+#' @export
+countChunks = function(x){
+  counts <- c()
+
+  # count number of variants
+  x <- reinitializeStream(x)
+  while(1){
+    dat <- getNextChunk(x)
+    counts <- append(counts, ncol(dat$X))
+    if (atEndOfStream(x)) break
+  }
+  counts
+}
+
+

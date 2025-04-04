@@ -53,6 +53,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// setChunkSize_rcpp
+SEXP setChunkSize_rcpp(SEXP x, const double& chunkSize);
+RcppExport SEXP _GenomicDataStream_setChunkSize_rcpp(SEXP xSEXP, SEXP chunkSizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const double& >::type chunkSize(chunkSizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(setChunkSize_rcpp(x, chunkSize));
+    return rcpp_result_gen;
+END_RCPP
+}
 // getSampleNames_rcpp
 CharacterVector getSampleNames_rcpp(SEXP x);
 RcppExport SEXP _GenomicDataStream_getSampleNames_rcpp(SEXP xSEXP) {
@@ -108,15 +120,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// standardize_test
-void standardize_test(arma::mat& X, const bool& center, const bool& scale);
-RcppExport SEXP _GenomicDataStream_standardize_test(SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
+// standardize_in_place
+void standardize_in_place(arma::mat& X, const bool& center, const bool& scale);
+RcppExport SEXP _GenomicDataStream_standardize_in_place(SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
     Rcpp::traits::input_parameter< const bool& >::type center(centerSEXP);
     Rcpp::traits::input_parameter< const bool& >::type scale(scaleSEXP);
-    standardize_test(X, center, scale);
+    standardize_in_place(X, center, scale);
     return R_NilValue;
 END_RCPP
 }
@@ -137,12 +149,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 7},
     {"_GenomicDataStream_getInfo", (DL_FUNC) &_GenomicDataStream_getInfo, 1},
     {"_GenomicDataStream_setRegions_rcpp", (DL_FUNC) &_GenomicDataStream_setRegions_rcpp, 2},
+    {"_GenomicDataStream_setChunkSize_rcpp", (DL_FUNC) &_GenomicDataStream_setChunkSize_rcpp, 2},
     {"_GenomicDataStream_getSampleNames_rcpp", (DL_FUNC) &_GenomicDataStream_getSampleNames_rcpp, 1},
     {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
-    {"_GenomicDataStream_standardize_test", (DL_FUNC) &_GenomicDataStream_standardize_test, 3},
+    {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
     {NULL, NULL, 0}
 };

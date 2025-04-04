@@ -13,6 +13,10 @@ setRegions_rcpp <- function(x, regionString) {
     .Call('_GenomicDataStream_setRegions_rcpp', PACKAGE = 'GenomicDataStream', x, regionString)
 }
 
+setChunkSize_rcpp <- function(x, chunkSize) {
+    .Call('_GenomicDataStream_setChunkSize_rcpp', PACKAGE = 'GenomicDataStream', x, chunkSize)
+}
+
 getSampleNames_rcpp <- function(x) {
     .Call('_GenomicDataStream_getSampleNames_rcpp', PACKAGE = 'GenomicDataStream', x)
 }
@@ -33,8 +37,19 @@ colSums_test <- function(X) {
     .Call('_GenomicDataStream_colSums_test', PACKAGE = 'GenomicDataStream', X)
 }
 
-standardize_test <- function(X, center = TRUE, scale = TRUE) {
-    invisible(.Call('_GenomicDataStream_standardize_test', PACKAGE = 'GenomicDataStream', X, center, scale))
+#' Standardize matrix columns in place
+#'
+#' Standardize mean and variance of matrix columns in place
+#' 
+#' @param X matrix
+#' @param center boolean, TRUE indices center columns
+#' @param scale boolean, TRUE indices scale columns
+#' 
+#' @return none, matrix is stanardized in place
+#' 
+#' @export
+standardize_in_place <- function(X, center = TRUE, scale = TRUE) {
+    invisible(.Call('_GenomicDataStream_standardize_in_place', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
 test_DataTable <- function(file, headerKey, delim = '\t') {
