@@ -1,5 +1,9 @@
 
 
+# GenomicDataStream 0.0.19
+ - April 4, 2025
+ - use `GabrielHoffman/vcfppR` in `DESCRIPTION`
+
 # GenomicDataStream 0.0.18
  - April 4, 2025
  - bug fix in `main`
