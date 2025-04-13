@@ -273,22 +273,22 @@ test_standardize = function(){
 
 	# TRUE TRUE
 	X_res = X + 0.0
-	GenomicDataStream:::standardize_test(X_res)
+	GenomicDataStream::standardize_in_place(X_res)
 	checkEqualsNumeric(scale(X), X_res)
 
 	# TRUE FALSE
 	X_res = X + 0.0
-	GenomicDataStream:::standardize_test(X_res, TRUE, FALSE)
+	GenomicDataStream::standardize_in_place(X_res, TRUE, FALSE)
 	checkEqualsNumeric(scale(X, TRUE, FALSE), X_res)
 
 	# FALSE TRUE
 	X_res = X + 0.0
-	GenomicDataStream:::standardize_test(X_res, FALSE, TRUE)
+	GenomicDataStream::standardize_in_place(X_res, FALSE, TRUE)
 	checkEqualsNumeric(scale(X, FALSE, TRUE), X_res)
 
 	# FALSE FALSE
 	X_res = X + 0.0
-	GenomicDataStream:::standardize_test(X_res, FALSE, FALSE)
+	GenomicDataStream::standardize_in_place(X_res, FALSE, FALSE)
 	checkEqualsNumeric(scale(X, FALSE, FALSE), X_res)
 
 }
