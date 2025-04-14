@@ -4,7 +4,7 @@
 \alias{winSVDstream}
 \title{Window-based Randomized SVD}
 \usage{
-winSVDstream(gds, k, p = 7, s = 10, B = 64, quiet = FALSE)
+winSVDstream(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FALSE)
 }
 \arguments{
 \item{gds}{\code{GenomicDataStream}}
