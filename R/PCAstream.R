@@ -8,7 +8,7 @@
 #'                specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.
 #'
 #' @param p       integer, optional; \cr
-#'                number of additional power iterations (by default \eqn{p=7}).
+#'                number of additional power iterations (by default \eqn{p=8}).
 #'
 #' @param s       integer, optional; \cr
 #'                oversampling parameter (by default \eqn{s=10}).
@@ -59,7 +59,7 @@
 #' @importFrom methods slot
 #' @importFrom progress progress_bar
 #' @export
-winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FALSE) {
+winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FALSE) {
 
   stopifnot(is(gds, "GenomicDataStream"))  
   chunkSizes <- summaryChunks(gds)
@@ -87,7 +87,7 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FA
     cat("T: ", length(idx_per_thread), "\n")
   }
 
-  L <- min(k + s, M)
+  L <- min(k + s, M/2)
   Omega <- matrix(rnorm(N*L), nrow=N, ncol=L) # N x L
   H <- matrix(0,ncol=L,nrow=N) ## N x L
   H1 <- matrix(0,ncol=L,nrow=N) ## N x L
@@ -114,31 +114,42 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FA
     }
 
     ss <- initializeMultiStream(gds, idx_per_thread, chunkSizes)
-
+    ## nloops <- nrow(idx_per_thread[[1]]) 
+    nloops <- sum(complete.cases(idx_per_thread[[1]])) ## the minimum number of loops
+    extra_thread <- NULL
+    if(length(ss) > threads || threads == 1) extra_thread <- idx_per_thread[[length(idx_per_thread)]]
     bi <- 1
+
     for(b in seq(B)) {
 
       if (!quiet) pb$tick()
 
       j <- j + 1
-      nloops <- nrow(idx_per_thread[[1]]) ## the minimum number of loops
       
       for(n in seq(nloops)) {
         Ab <- getChunksParallel(ss[1:threads], threads)
-        idx <- unlist(sapply(idx_per_thread[1:threads], function(x) x[n, b]))
+        ## idx <- unlist(sapply(idx_per_thread[1:threads], function(x) x[n, b]))
+        if(!is.null(extra_thread ) && n <= nrow(extra_thread) && ncol(extra_thread) >= b && !is.na(extra_thread[n,b])) {
+          if(threads > 1) {
+            dat <- getNextChunk(ss[[length(ss)]])
+            standardize_in_place( dat$X )
+            Ab <- cbind( Ab, dat$X )
+          }
 
-        if(length(ss) > threads && n <= nrow(idx_per_thread[[threads+1]]) && !is.na(idx_per_thread[[threads+1]][n,b])) {
-          dat <- getNextChunk(ss[[length(ss)]])
-          standardize_in_place( dat$X )
-          Ab <- cbind( Ab, dat$X )
-          idx <- c(idx,  idx_per_thread[[threads+1]][n,b])
+          # in case nloops can be smaller than nrow of extra_thread
+          if(n == nloops && nloops < nrow(extra_thread)) {
+            for(n in seq(nloops+1, nrow(extra_thread))) {
+              if(is.na(extra_thread[n,b])) break
+              dat <- getNextChunk(ss[[length(ss)]])
+              standardize_in_place( dat$X )
+              Ab <- cbind( Ab, dat$X )
+            }
+          }
         }
 
         bj <- bi + ncol(Ab) - 1
-        if(bj > M) {
-          print(Ab)
-          print(c(i, bi, bj, ncol(Ab)))
-        }
+        ## print(c(bi, bj, ncol(Ab), n, b))
+        stopifnot(bj < M + 1)
         Gb <- crossprod(Ab, Omega)
         G[seq(bi,bj),] <- Gb
         bi <- bj + 1
@@ -170,7 +181,7 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FA
         H2[] <- 0
       }
     }
-    stopifnot(bj != M)
+    stopifnot(bj == M)
     band <- min(B,round(band * 2))
   }
 
@@ -183,35 +194,19 @@ winSVDstream <- function(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FA
   getUSV_t(H, G, k)
 }
 
-getUSV_t <- function(H,G,k){
+getUSV_t <- function(H, G, k){
   r1 <- qr(G)
   Q <- qr.Q(r1)
   r2 <- qr(Q)
   Rtilt<-  qr.R(r1)
   Rhat <-  qr.R(r2)
   R <- Rhat %*% Rtilt
-  B <- qr.solve(t(R), t(H))
-  dcmp <- svd(B, nu = k, nv = k)
-  list(d = dcmp$d[1:k], u = dcmp$v, v = G %*% dcmp$u)
+  B = qr.solve(t(R), t(H))
+  d <- svd(B, nu = k, nv = k)
+
+  list(d = d$d[1:k], u = d$v, v = G %*% d$u)
 }
 
-split_into_buckets <- function(sequence, B) {
-  n <- length(sequence)
-  remainder <- n %% B
-  base_size <- floor(n / B)
-
-  if( base_size == 0 ){
-    txt = paste0("length of sequence (", n, ") must be larger than B (", B, ")")
-    stop(txt)
-  }
-  
-  # Generate bucket indices
-  bucket_indices <- rep(seq(B), c(rep(base_size + 1, remainder), rep(base_size, B - remainder)))
-  bucket_indices <- sort(bucket_indices)
-  
-  # Split the sequence
-  split(sequence, bucket_indices)
-}
 
 #' Get array of chunk sizes
 #' 
@@ -225,12 +220,12 @@ split_into_buckets <- function(sequence, B) {
 #' @export
 summaryChunks <- function(x){
   counts <- c()
-  chunks <- data.frame(matrix(ncol=3,nrow=0), stringsAsFactors = F)
+  chunks <- data.frame(matrix(ncol=4,nrow=0), stringsAsFactors = F)
   # count number of variants
   x <- reinitializeStream(x)
   while(1){
     dat <- getNextChunk(x)
-    chunks = rbind(chunks, list(dat$info[1,1], dat$info[1, 2], dat$info[nrow(dat$info),2]+1, ncol(dat$X)))
+    chunks = rbind(chunks, list(dat$info[1,1], dat$info[1, 2], dat$info[nrow(dat$info),2], ncol(dat$X)))
     if (atEndOfStream(x)) break
   }
 
@@ -241,9 +236,10 @@ summaryChunks <- function(x){
 
 getChunksParallel <- function(gds, ncores) {
   r <- parallel::mclapply(gds, function(x) {
+    if (atEndOfStream(x)) return(NULL)
     dat <- getNextChunk(x)
     standardize_in_place( dat$X )
-    dat$X
+    return(dat$X)
   }, mc.cores = ncores)
   do.call(cbind, r)
 }
@@ -266,43 +262,58 @@ initializeMultiStream <- function(x, idx_per_thread, chunks) {
 }
 
 
-## regions <- summaryChunks(obj)
-## B <- 64
-## M <- 6410
-## T <- 16
-
 ## make a matrix : threads x (nloops x bucket)
 splitPermuteChunksByThreads <- function(chunks, threads = 16, B = 64) {
-  M <- nrow(chunks)
-  idx <- c(rep(1:B, times = M/B), 1:(M %% B))
-  chunks_per_window <- split(seq(M), idx)
-  T <- threads
 
-  ## w <- chunks_per_window[[1]]
-  ## idx <- c(rep(1:T, each = length(w)/T), sample(1:T,length(w) %% T))
-  ## chunks_per_thread <- split(w, idx)
+  M <- nrow(chunks)
+
+  idx <- rep(1:B, times = ceiling(M/B))
+  ## chunks_per_window <- split(seq(M), idx[seq(M)])
+  chunks_per_window <- split(c(seq(M), rep(NA, length(idx)-M)), idx)
+
   ret <- lapply(1:B, function(b) {
     w <- chunks_per_window[[b]]
-    nloops <- length(w)/T
-    ## remain <- sample(1:T,length(w) %% T)
-    ## idx <- c(rep(1:T, each = nloops), remain)
-    idx <- rep(1:T, each = nloops)
+    nloops <- floor(length(w)/threads)
+    idx <- rep(1:threads, each = nloops)
     chunks_per_thread <- split(w[1:length(idx)], idx)
-    chunks_per_thread[[T+1]] <- w[(length(idx)+1):length(w)]
     chunks_per_thread
   })
 
 
-  idx_per_thread <- lapply(1:T, function(t) unlist(sapply(ret, function(x) x[[t]])))
+  idx_per_thread <- lapply(seq(threads), function(t) unlist(sapply(ret, function(x) x[[t]])))
+  ## idx_per_thread <- lapply(seq(threads), function(t) (sapply(ret, function(x) x[[t]])))
 
-  remain <- unlist(sapply(ret, function(x) x[[T+1]] ) )
-  if(length(remain)>0) {
-    remain <- split_into_buckets(remain, B)
-    remain_idx <- t(do.call(rbind, lapply(remain, function(x) {
-      length(x) <- max(lengths(remain))  # Set lengths to maximum length
+  remain <- setdiff(seq(M), as.vector(unlist(ret)))
+
+  if(length(remain) > 0) {
+    if(length(remain)<B) stop("the chunks does not fit")
+    idx <- rep(1:B, times = ceiling(length(remain)/B))
+    remain_idx <- split(remain, idx[seq(remain)] )
+    remain_idx <- (do.call(cbind, lapply(remain_idx, function(x) {
+      length(x) <- max(lengths(remain_idx))  # Set lengths to maximum length
       x
     })))
+
+    if(ncol(remain_idx) == B && nrow(remain_idx) > 1) {
+      # the last chunk may have less variants than specified chunkSize
+      # we want to read it at the final window, otherwise the actual chunksize may not match input chunkSize
+      i <- tail(which(!is.na(remain_idx[,B])), 1) ## last non na index
+
+      last <- remain_idx[i,B]
+      remain_idx[which(remain_idx == M)] <- last
+      remain_idx[i, B] <- M
+    }
+
     idx_per_thread <- c(idx_per_thread, list(remain_idx))
+  }
+
+  if(threads == 1) {
+    a <- idx_per_thread[[1]]
+    i <- tail(which(!is.na(a[,B])), 1) ## last non na index
+    last <- a[i,B]
+    a[which(a == M)] <- last
+    a[i, B] <- M
+    idx_per_thread[[1]] <- a
   }
 
   idx_per_thread

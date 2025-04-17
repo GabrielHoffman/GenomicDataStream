@@ -147,10 +147,11 @@ static arma::vec colSums( const arma::mat &X){
 /** Center and scale columns of matrix
  * @param X matrix with features as columns
  * @param center center columns
- * @param center scale columns by sd
+ * @param scale scale columns by sd
+ * @param vartol do not scale if var is lower than this
  * 
  */
-static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true ){
+static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true, const double vartol = 1e-9 ){
     
     double sqrt_rdf = sqrt(X.n_rows - 1.0);
 
@@ -161,7 +162,7 @@ static void standardize( arma::mat &X, const bool &center = true, const bool &sc
     //   when scale is FALSE
     for(size_t j=0; j<X.n_cols; j++){
         if( center ) X.col(j) -= mean(X.col(j));
-        if( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;
+        if( scale && norm(X.col(j)) > vartol )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;
     }
 }
 

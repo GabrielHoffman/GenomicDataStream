@@ -4,7 +4,7 @@
 \alias{winSVDstream}
 \title{Window-based Randomized SVD}
 \usage{
-winSVDstream(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FALSE)
+winSVDstream(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FALSE)
 }
 \arguments{
 \item{gds}{\code{GenomicDataStream}}
@@ -13,7 +13,7 @@ winSVDstream(gds, k, p = 7, s = 10, B = 64, threads = 16, quiet = FALSE)
 specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.}
 
 \item{p}{integer, optional; \cr
-number of additional power iterations (by default \eqn{p=7}).}
+number of additional power iterations (by default \eqn{p=8}).}
 
 \item{s}{integer, optional; \cr
 oversampling parameter (by default \eqn{s=10}).}
