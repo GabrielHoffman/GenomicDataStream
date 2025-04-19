@@ -79,11 +79,11 @@ winSVDstream <- function(gds, k, p = 8, s = 20, B = 64, threads = 4, quiet = FAL
   idx_per_thread <- splitPermuteChunksByThreads(chunks, threads, B)
 
   if( ! quiet ){
-    cat("p: ", p, "\t")
-    cat("nchunks: ", nrow(chunks), "\t")
-    cat("B: ", B, "\t")
-    cat("M: ", M, "\t")
-    cat("N: ", N, "\t")
+    cat("p: ", p, ",")
+    cat("nchunks: ", nrow(chunks), ",")
+    cat("B: ", B, ",")
+    cat("M: ", M, ",")
+    cat("N: ", N, ",")
     cat("T: ", length(idx_per_thread), "\n")
   }
 
@@ -102,8 +102,13 @@ winSVDstream <- function(gds, k, p = 8, s = 20, B = 64, threads = 4, quiet = FAL
       format = "  svd [:bar] :percent eta: :eta",
       total = p*B, clear = FALSE, width = 60)
   }
+  
+  nloops <- sum(complete.cases(idx_per_thread[[1]])) ## the minimum number of loops
+  extra_thread <- NULL
+  if(length(idx_per_thread) > threads || threads == 1) extra_thread <- idx_per_thread[[length(idx_per_thread)]]
 
   ids <- c() ## SNP ids
+  ord <- rep(list(vector("list", nloops)), B)  ## permuted order
   
   for(i in seq(p)) {
     j <- 0
@@ -113,9 +118,6 @@ winSVDstream <- function(gds, k, p = 8, s = 20, B = 64, threads = 4, quiet = FAL
     }
 
 
-    nloops <- sum(complete.cases(idx_per_thread[[1]])) ## the minimum number of loops
-    extra_thread <- NULL
-    if(length(idx_per_thread) > threads || threads == 1) extra_thread <- idx_per_thread[[length(idx_per_thread)]]
     bi <- 1
 
     for(b in seq(B)) {
@@ -150,6 +152,8 @@ winSVDstream <- function(gds, k, p = 8, s = 20, B = 64, threads = 4, quiet = FAL
         }
 
         if(i == p) ids <- c(ids, colnames(Ab)) ## store ids in the last epoch
+        if(i == 1) ord[[b]][[n]] <- sample(ncol(Ab))
+        Ab <- Ab[,ord[[b]][[n]]]
         
         bj <- bi + ncol(Ab) - 1
         ## print(c(bi, bj, ncol(Ab), n, b))
