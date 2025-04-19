@@ -63,6 +63,8 @@ winSVDstream <- function(gds, k, p = 8, s = 20, B = 64, threads = 4, quiet = FAL
 
   stopifnot(is(gds, "GenomicDataStream"))  
   chunks <- summaryChunks(gds)
+  chunks <- chunks[sample(nrow(chunks)),]  # permute chunks
+
   N <- slot(gds, "nsamples")
   M <- sum(chunks$counts)
 
