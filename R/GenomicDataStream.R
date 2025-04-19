@@ -227,13 +227,14 @@ initializeStream <- function(x) {
 #' reinitializeStream(obj)
 #' #
 #' @export
-reinitializeStream <- function (x) {
+reinitializeStream <- function (x, region = NULL) {
+  if(is.null(region)) region <- x@region
 
   # Create initialized GenomicDataStream
   GenomicDataStream(
     file = x@file,
     field = x@field,
-    region = x@region,
+    region = region,
     samples = x@samples,
     minVariance = x@minVariance,
     chunkSize = x@chunkSize,

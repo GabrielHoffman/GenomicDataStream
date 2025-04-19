@@ -4,7 +4,7 @@
 \alias{reinitializeStream}
 \title{Reinitialize GenomicDataStream}
 \usage{
-reinitializeStream(x)
+reinitializeStream(x, region = NULL)
 }
 \arguments{
 \item{x}{\code{GenomicDataStream}}

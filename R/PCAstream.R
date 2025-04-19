@@ -11,7 +11,7 @@
 #'                number of additional power iterations (by default \eqn{p=8}).
 #'
 #' @param s       integer, optional; \cr
-#'                oversampling parameter (by default \eqn{s=10}).
+#'                oversampling parameter (by default \eqn{s=20}).
 #' 
 #' @param B       integer, optional; \cr
 #'                number of windows (by default \eqn{B=64}).
@@ -59,28 +59,28 @@
 #' @importFrom methods slot
 #' @importFrom progress progress_bar
 #' @export
-winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FALSE) {
+winSVDstream <- function(gds, k, p = 8, s = 20, B = 64, threads = 4, quiet = FALSE) {
 
   stopifnot(is(gds, "GenomicDataStream"))  
-  chunkSizes <- summaryChunks(gds)
+  chunks <- summaryChunks(gds)
   N <- slot(gds, "nsamples")
-  M <- sum(chunkSizes$counts)
+  M <- sum(chunks$counts)
 
   # M must be large enough, otherwise winSVD is not suggested
   stopifnot(M > B^2)
   # B must be a even
   stopifnot(B %% 2 == 0)
   # nchunks must be larger than B * threads
-  stopifnot(nrow(chunkSizes) > B * threads)
+  stopifnot(nrow(chunks) > B * threads)
 
   p <- max(c(p, log2(B)+1))  
   
   ## each bucket has the index of permuted blocks for each thread
-  idx_per_thread <- splitPermuteChunksByThreads(chunkSizes, threads, B)
+  idx_per_thread <- splitPermuteChunksByThreads(chunks, threads, B)
 
   if( ! quiet ){
     cat("p: ", p, "\t")
-    cat("nchunks: ", nrow(chunkSizes), "\t")
+    cat("nchunks: ", nrow(chunks), "\t")
     cat("B: ", B, "\t")
     cat("M: ", M, "\t")
     cat("N: ", N, "\t")
@@ -97,15 +97,14 @@ winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FAL
   switch <- TRUE
   band <- 2  ## initial number of buckets as a band
 
-  # indeces were chunks are placed in R
-  ## idx = c(1, 1 + cumsum(chunkSizes))
-
   if (!quiet) {
     pb <- progress_bar$new(
       format = "  svd [:bar] :percent eta: :eta",
       total = p*B, clear = FALSE, width = 60)
   }
 
+  ids <- c() ## SNP ids
+  
   for(i in seq(p)) {
     j <- 0
     if (2^(i-1) >= B) {
@@ -113,11 +112,10 @@ winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FAL
       H2[] <-  0  ## N x L
     }
 
-    ss <- initializeMultiStream(gds, idx_per_thread, chunkSizes)
-    ## nloops <- nrow(idx_per_thread[[1]]) 
+
     nloops <- sum(complete.cases(idx_per_thread[[1]])) ## the minimum number of loops
     extra_thread <- NULL
-    if(length(ss) > threads || threads == 1) extra_thread <- idx_per_thread[[length(idx_per_thread)]]
+    if(length(idx_per_thread) > threads || threads == 1) extra_thread <- idx_per_thread[[length(idx_per_thread)]]
     bi <- 1
 
     for(b in seq(B)) {
@@ -127,11 +125,15 @@ winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FAL
       j <- j + 1
       
       for(n in seq(nloops)) {
-        Ab <- getChunksParallel(ss[1:threads], threads)
-        ## idx <- unlist(sapply(idx_per_thread[1:threads], function(x) x[n, b]))
+        #TODO: permute the order of columns of Ab
+        Ab <- getChunksParallel(gds, idx_per_thread[seq(threads)], chunks, n, b)
+
         if(!is.null(extra_thread ) && n <= nrow(extra_thread) && ncol(extra_thread) >= b && !is.na(extra_thread[n,b])) {
+          regions <- chunks[as.vector(na.omit(extra_thread[n:nrow(extra_thread),b])),"region"]
+          regions <- paste(regions, collapse = ",")
+          ss <- reinitializeStream(gds, region = regions)
           if(threads > 1) {
-            dat <- getNextChunk(ss[[length(ss)]])
+            dat <- getNextChunk(ss)
             standardize_in_place( dat$X )
             Ab <- cbind( Ab, dat$X )
           }
@@ -140,13 +142,15 @@ winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FAL
           if(n == nloops && nloops < nrow(extra_thread)) {
             for(n in seq(nloops+1, nrow(extra_thread))) {
               if(is.na(extra_thread[n,b])) break
-              dat <- getNextChunk(ss[[length(ss)]])
+              dat <- getNextChunk(ss)
               standardize_in_place( dat$X )
               Ab <- cbind( Ab, dat$X )
             }
           }
         }
 
+        if(i == p) ids <- c(ids, colnames(Ab)) ## store ids in the last epoch
+        
         bj <- bi + ncol(Ab) - 1
         ## print(c(bi, bj, ncol(Ab), n, b))
         stopifnot(bj < M + 1)
@@ -181,6 +185,7 @@ winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FAL
         H2[] <- 0
       }
     }
+
     stopifnot(bj == M)
     band <- min(B,round(band * 2))
   }
@@ -191,7 +196,9 @@ winSVDstream <- function(gds, k, p = 8, s = 10, B = 64, threads = 1, quiet = FAL
   }
 
   # last step
-  getUSV_t(H, G, k)
+  ret <- getUSV_t(H, G, k)
+  rownames(ret$v) <- ids
+  return(ret)
 }
 
 getUSV_t <- function(H, G, k){
@@ -219,36 +226,24 @@ getUSV_t <- function(H, G, k){
 #' 
 #' @export
 summaryChunks <- function(x){
-  counts <- c()
-  chunks <- data.frame(matrix(ncol=4,nrow=0), stringsAsFactors = F)
+  chunks <- data.frame(matrix(ncol=2,nrow=0))
+  colnames(chunks) <- c("region", "counts")
   # count number of variants
   x <- reinitializeStream(x)
   while(1){
     dat <- getNextChunk(x)
-    chunks = rbind(chunks, list(dat$info[1,1], dat$info[1, 2], dat$info[nrow(dat$info),2], ncol(dat$X)))
     if (atEndOfStream(x)) break
+    chunks = rbind(chunks, data.frame(region = paste0(dat$info[1,1], ":", dat$info[1, 2], "-", dat$info[nrow(dat$info),2]), counts = ncol(dat$X)))
   }
 
-  colnames(chunks) <- c("chrom", "start", "end", "counts")
-  chunks$region <- paste0(chunks$chrom, ":", chunks$start, "-", chunks$end)
-  chunks[,c("region", "counts")]
+  chunks
 }
 
-getChunksParallel <- function(gds, ncores) {
-  r <- parallel::mclapply(gds, function(x) {
-    if (atEndOfStream(x)) return(NULL)
-    dat <- getNextChunk(x)
-    standardize_in_place( dat$X )
-    return(dat$X)
-  }, mc.cores = ncores)
-  do.call(cbind, r)
-}
-
-initializeMultiStream <- function(x, idx_per_thread, chunks) {
-  lapply(idx_per_thread, function(idx) {
-    idx <- as.vector(idx)
-    region <- paste(chunks[idx[!is.na(idx)], "region"], collapse = ",")
-    GenomicDataStream(
+getChunksParallel <- function(x, idx_per_thread, chunks, n, b) {
+  res <- parallel::mclapply(idx_per_thread, function(idx) {
+    if(is.na(idx[n,b])) return(NULL)
+    region <- chunks[idx[n, b], "region"]
+    gds <- GenomicDataStream(
       file = x@file,
       field = x@field,
       region = region,
@@ -258,7 +253,13 @@ initializeMultiStream <- function(x, idx_per_thread, chunks) {
       missingToMean = x@missingToMean,
       initialize = TRUE
     )
-  })
+    if (atEndOfStream(gds)) return(NULL)
+    dat <- getNextChunk(gds)
+    standardize_in_place( dat$X )
+    return(dat$X)
+  }, mc.cores = length(idx_per_thread))
+
+  do.call(cbind, res)
 }
 
 
@@ -268,7 +269,6 @@ splitPermuteChunksByThreads <- function(chunks, threads = 16, B = 64) {
   M <- nrow(chunks)
 
   idx <- rep(1:B, times = ceiling(M/B))
-  ## chunks_per_window <- split(seq(M), idx[seq(M)])
   chunks_per_window <- split(c(seq(M), rep(NA, length(idx)-M)), idx)
 
   ret <- lapply(1:B, function(b) {
@@ -281,14 +281,14 @@ splitPermuteChunksByThreads <- function(chunks, threads = 16, B = 64) {
 
 
   idx_per_thread <- lapply(seq(threads), function(t) unlist(sapply(ret, function(x) x[[t]])))
-  ## idx_per_thread <- lapply(seq(threads), function(t) (sapply(ret, function(x) x[[t]])))
 
   remain <- setdiff(seq(M), as.vector(unlist(ret)))
 
   if(length(remain) > 0) {
-    if(length(remain)<B) stop("the chunks does not fit")
     idx <- rep(1:B, times = ceiling(length(remain)/B))
-    remain_idx <- split(remain, idx[seq(remain)] )
+
+    remain_idx <- split(c(remain, rep(NA, length(idx)-length(remain))), idx)
+
     remain_idx <- (do.call(cbind, lapply(remain_idx, function(x) {
       length(x) <- max(lengths(remain_idx))  # Set lengths to maximum length
       x
