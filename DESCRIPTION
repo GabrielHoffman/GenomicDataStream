@@ -19,15 +19,14 @@ Depends:
         Rcpp, 
         methods, 
         stats,
-        utils,
-        Rdpack
+        utils
 LinkingTo: 
         Rcpp, 
         RcppArmadillo, 
         RcppEigen, 
         beachmat (>= 2.21.9),
         assorthead,  
-        BH,
+        BH (>= 1.87.0),
         vcfppR (>= 0.7.4), 
         pgenlibr (>= 0.4.1)
 Encoding: UTF-8
@@ -35,7 +34,6 @@ SystemRequirements:
         GNU make, 
         C++17
 RoxygenNote: 7.3.2
-RdMacros: Rdpack
 VignetteBuilder: knitr
 Remotes: 
         chrchang/plink-ng/2.0/pgenlibr,
