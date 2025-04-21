@@ -27,7 +27,7 @@ LinkingTo:
         RcppEigen, 
         beachmat (>= 2.21.9),
         assorthead,  
-        BH (>= 1.87.0.0), 
+        BH 
         vcfppR (>= 0.7.4), 
         pgenlibr (>= 0.4.1)
 Encoding: UTF-8
