@@ -29,6 +29,7 @@
 
 #include "GenomicDataStream.h"
 #include "DataTable.h"
+#include "ParallelGenomicChunks.h"
 
 using namespace std;
 using namespace vcfpp;
@@ -197,3 +198,7 @@ void test_DataTable(const string &file, const string &headerKey, const char deli
 }
 
 
+// [[Rcpp::export]]
+int test_get_chunks_parallel_vcf(const string &file, const string &region) {
+ return get_chunks_parallel_vcf(file, region);
+}
