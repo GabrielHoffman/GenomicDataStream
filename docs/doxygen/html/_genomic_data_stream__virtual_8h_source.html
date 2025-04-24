@@ -276,60 +276,66 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>
 </div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a753dfdcf7a1c2c1c19185fbae88e5284">  178</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a753dfdcf7a1c2c1c19185fbae88e5284">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;arma::mat&gt;</a> &amp; chunk) = 0;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a295092e873af53ccb142b35447d2d9a6">  182</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a295092e873af53ccb142b35447d2d9a6">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;arma::sp_mat&gt;</a> &amp; chunk) = 0;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">    #ifndef DISABLE_EIGEN</span><span class="preprocessor"> </span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a42d886bf483760a54617718c9aa2f997">  187</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a42d886bf483760a54617718c9aa2f997">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;Eigen::MatrixXd&gt;</a> &amp; chunk) = 0;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#ae6c87ca8b9592f0d13f0acb8ef25bc7a">  191</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#ae6c87ca8b9592f0d13f0acb8ef25bc7a">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt;Eigen::SparseMatrix&lt;double&gt; &gt; &amp; chunk) = 0;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">    #ifndef DISABLE_RCPP</span><span class="preprocessor"> </span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a8ea52bd005ea1c29bf3eea907944c330">  197</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a8ea52bd005ea1c29bf3eea907944c330">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;Rcpp::NumericMatrix&gt;</a> &amp; chunk)  = 0;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#aeff00fd9766e1a5b9c9970f9cf831a7a">  203</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#aeff00fd9766e1a5b9c9970f9cf831a7a">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt;vector&lt;double&gt; &gt; &amp; chunk) = 0;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">  206</a></span>    <a class="code hl_struct" href="structgds_1_1_param.html">Param</a> <a class="code hl_variable" href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">param</a>;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>};</div>
+<div class="foldopen" id="foldopen00176" data-start="{" data-end="}">
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#aa7184d3bdd2211562669bcba991513fa">  176</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#aa7184d3bdd2211562669bcba991513fa">setChunkSize</a>( <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;chunkSize) {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <a class="code hl_variable" href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">param</a>.chunkSize = chunkSize;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
 </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="keyword">static</span> <span class="keywordtype">void</span> applyVarianceFilter(vector&lt;double&gt; &amp;matDosage, <a class="code hl_class" href="classgds_1_1_variant_info.html">VariantInfo</a> *vInfo, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;number_of_samples, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;minVariance = 0){</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">// if minVariance is NaN, don&#39;t apply filter</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">if</span>( !isnan(minVariance) ){</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="comment">// create temp arma matrix</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        arma::mat M(matDosage.data(), number_of_samples, vInfo-&gt;<a class="code hl_function" href="classgds_1_1_data_info.html#af8d39001b9a18c530c6d60f5caf32789">size</a>(), <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="comment">// variance by columns</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keyword">auto</span> colvars = var(M);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="comment">// indeces passing minimum variance cutoff</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        arma::uvec idx = find(colvars &gt; minVariance);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="comment">// convert uvec to vector&lt;unsigned int&gt;</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        vector&lt;unsigned int&gt; idx2(idx.n_elem);</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        copy(idx.begin(), idx.end(), idx2.begin());</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a753dfdcf7a1c2c1c19185fbae88e5284">  182</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a753dfdcf7a1c2c1c19185fbae88e5284">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;arma::mat&gt;</a> &amp; chunk) = 0;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a295092e873af53ccb142b35447d2d9a6">  186</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a295092e873af53ccb142b35447d2d9a6">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;arma::sp_mat&gt;</a> &amp; chunk) = 0;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">    #ifndef DISABLE_EIGEN</span><span class="preprocessor"> </span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a42d886bf483760a54617718c9aa2f997">  191</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a42d886bf483760a54617718c9aa2f997">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;Eigen::MatrixXd&gt;</a> &amp; chunk) = 0;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#ae6c87ca8b9592f0d13f0acb8ef25bc7a">  195</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#ae6c87ca8b9592f0d13f0acb8ef25bc7a">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt;Eigen::SparseMatrix&lt;double&gt; &gt; &amp; chunk) = 0;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">    #ifndef DISABLE_RCPP</span><span class="preprocessor"> </span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a8ea52bd005ea1c29bf3eea907944c330">  201</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#a8ea52bd005ea1c29bf3eea907944c330">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk&lt;Rcpp::NumericMatrix&gt;</a> &amp; chunk)  = 0;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#aeff00fd9766e1a5b9c9970f9cf831a7a">  207</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classgds_1_1_genomic_data_stream.html#aeff00fd9766e1a5b9c9970f9cf831a7a">getNextChunk</a>( <a class="code hl_class" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt;vector&lt;double&gt; &gt; &amp; chunk) = 0;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">  210</a></span>    <a class="code hl_struct" href="structgds_1_1_param.html">Param</a> <a class="code hl_variable" href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">param</a>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>};</div>
+</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keyword">static</span> <span class="keywordtype">void</span> applyVarianceFilter(vector&lt;double&gt; &amp;matDosage, <a class="code hl_class" href="classgds_1_1_variant_info.html">VariantInfo</a> *vInfo, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;number_of_samples, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;minVariance = 0){</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="comment">// if minVariance is NaN, don&#39;t apply filter</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">if</span>( !isnan(minVariance) ){</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="comment">// create temp arma matrix</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        arma::mat M(matDosage.data(), number_of_samples, vInfo-&gt;<a class="code hl_function" href="classgds_1_1_data_info.html#af8d39001b9a18c530c6d60f5caf32789">size</a>(), <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="comment">// variance by columns</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keyword">auto</span> colvars = var(M);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <span class="comment">// indeces passing minimum variance cutoff</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        arma::uvec idx = find(colvars &gt; minVariance);</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="comment">// keep only variants specified in idx2</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        vInfo-&gt;<a class="code hl_function" href="classgds_1_1_variant_info.html#a95aa9d6aa717eed7ab7f921ff93311d5">retainVariants</a>( idx2 );</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="comment">// set subset of columns</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        arma::mat M_subset = M.cols(idx);</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="comment">// copy M_subset into matDosage</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*<span class="keyword">sizeof</span>(<span class="keywordtype">double</span>));</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>}</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>} <span class="comment">// end namespace</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="comment">// convert uvec to vector&lt;unsigned int&gt;</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        vector&lt;unsigned int&gt; idx2(idx.n_elem);</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        copy(idx.begin(), idx.end(), idx2.begin());</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="comment">// keep only variants specified in idx2</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        vInfo-&gt;<a class="code hl_function" href="classgds_1_1_variant_info.html#a95aa9d6aa717eed7ab7f921ff93311d5">retainVariants</a>( idx2 );</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="comment">// set subset of columns</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        arma::mat M_subset = M.cols(idx);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="comment">// copy M_subset into matDosage</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*<span class="keyword">sizeof</span>(<span class="keywordtype">double</span>));</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>} <span class="comment">// end namespace</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_variant_info_8h_html"><div class="ttname"><a href="_variant_info_8h.html">VariantInfo.h</a></div></div>
 <div class="ttc" id="aclassgds_1_1_data_chunk_html"><div class="ttname"><a href="classgds_1_1_data_chunk.html">gds::DataChunk</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:33</div></div>
 <div class="ttc" id="aclassgds_1_1_data_chunk_html_a063e22663967df6d48da634754ef9b69"><div class="ttname"><a href="classgds_1_1_data_chunk.html#a063e22663967df6d48da634754ef9b69">gds::DataChunk::DataChunk</a></div><div class="ttdeci">DataChunk(matType data)</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:37</div></div>
@@ -347,11 +353,12 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a5abd183e6738fa4ccc6609c0b7f63cc8"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a5abd183e6738fa4ccc6609c0b7f63cc8">gds::GenomicDataStream::setRegions</a></div><div class="ttdeci">virtual void setRegions(const vector&lt; string &gt; &amp;regions)=0</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a5cf33d3baa9ce882db43fea4cc5d1ed6"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a5cf33d3baa9ce882db43fea4cc5d1ed6">gds::GenomicDataStream::~GenomicDataStream</a></div><div class="ttdeci">virtual ~GenomicDataStream()</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:152</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a5d494b75983473682da572b0afa9d19f"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a5d494b75983473682da572b0afa9d19f">gds::GenomicDataStream::GenomicDataStream</a></div><div class="ttdeci">GenomicDataStream(const Param &amp;param)</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:148</div></div>
-<div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a707058d3851890ff8da01e5485de164a"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">gds::GenomicDataStream::param</a></div><div class="ttdeci">Param param</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:206</div></div>
+<div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a707058d3851890ff8da01e5485de164a"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a707058d3851890ff8da01e5485de164a">gds::GenomicDataStream::param</a></div><div class="ttdeci">Param param</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:210</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a753dfdcf7a1c2c1c19185fbae88e5284"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a753dfdcf7a1c2c1c19185fbae88e5284">gds::GenomicDataStream::getNextChunk</a></div><div class="ttdeci">virtual bool getNextChunk(DataChunk&lt; arma::mat &gt; &amp;chunk)=0</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a7a549274b79ac4419360c400d80a048b"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a7a549274b79ac4419360c400d80a048b">gds::GenomicDataStream::getSampleNames</a></div><div class="ttdeci">virtual vector&lt; string &gt; getSampleNames()=0</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a8bfa63dae08a7972722b03b56395e927"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a8bfa63dae08a7972722b03b56395e927">gds::GenomicDataStream::n_samples</a></div><div class="ttdeci">virtual int n_samples()=0</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_a8ea52bd005ea1c29bf3eea907944c330"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#a8ea52bd005ea1c29bf3eea907944c330">gds::GenomicDataStream::getNextChunk</a></div><div class="ttdeci">virtual bool getNextChunk(DataChunk&lt; Rcpp::NumericMatrix &gt; &amp;chunk)=0</div></div>
+<div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_aa7184d3bdd2211562669bcba991513fa"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#aa7184d3bdd2211562669bcba991513fa">gds::GenomicDataStream::setChunkSize</a></div><div class="ttdeci">void setChunkSize(const int &amp;chunkSize)</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:176</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_ad98c4f80648627ad9f1b99ff628771ad"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#ad98c4f80648627ad9f1b99ff628771ad">gds::GenomicDataStream::GenomicDataStream</a></div><div class="ttdeci">GenomicDataStream()</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:144</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_ae6c87ca8b9592f0d13f0acb8ef25bc7a"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#ae6c87ca8b9592f0d13f0acb8ef25bc7a">gds::GenomicDataStream::getNextChunk</a></div><div class="ttdeci">virtual bool getNextChunk(DataChunk&lt; Eigen::SparseMatrix&lt; double &gt; &gt; &amp;chunk)=0</div></div>
 <div class="ttc" id="aclassgds_1_1_genomic_data_stream_html_aeff00fd9766e1a5b9c9970f9cf831a7a"><div class="ttname"><a href="classgds_1_1_genomic_data_stream.html#aeff00fd9766e1a5b9c9970f9cf831a7a">gds::GenomicDataStream::getNextChunk</a></div><div class="ttdeci">virtual bool getNextChunk(DataChunk&lt; vector&lt; double &gt; &gt; &amp;chunk)=0</div></div>

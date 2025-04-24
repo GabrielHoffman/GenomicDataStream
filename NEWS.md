@@ -3,6 +3,7 @@
 # GenomicDataStream 0.0.20
  - April 21, 2025
  - Resolve `R CMD check` Notes
+ - refactor for compatibility across ecosystem
 
 # GenomicDataStream 0.0.19
  - April 4, 2025

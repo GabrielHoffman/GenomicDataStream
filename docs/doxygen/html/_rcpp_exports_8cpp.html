@@ -144,6 +144,10 @@ Functions</h2></td></tr>
 <tr class="separator:a2dd3e4034f7abff758612d5c610d7930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40e1625c6639328eebbf4b65940a56b1" id="r_a40e1625c6639328eebbf4b65940a56b1"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40e1625c6639328eebbf4b65940a56b1">_GenomicDataStream_setRegions_rcpp</a> (SEXP xSEXP, SEXP regionStringSEXP)</td></tr>
 <tr class="separator:a40e1625c6639328eebbf4b65940a56b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7285b8d8d4b5ed9b4d3017f2cc6a3050" id="r_a7285b8d8d4b5ed9b4d3017f2cc6a3050"><td class="memItemLeft" align="right" valign="top">SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7285b8d8d4b5ed9b4d3017f2cc6a3050">setChunkSize_rcpp</a> (SEXP x, const double &amp;chunkSize)</td></tr>
+<tr class="separator:a7285b8d8d4b5ed9b4d3017f2cc6a3050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e5903c00864a951046c9320300b46c" id="r_a56e5903c00864a951046c9320300b46c"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56e5903c00864a951046c9320300b46c">_GenomicDataStream_setChunkSize_rcpp</a> (SEXP xSEXP, SEXP chunkSizeSEXP)</td></tr>
+<tr class="separator:a56e5903c00864a951046c9320300b46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0376c7389e2e9c85d965bc6496a10b63" id="r_a0376c7389e2e9c85d965bc6496a10b63"><td class="memItemLeft" align="right" valign="top">CharacterVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0376c7389e2e9c85d965bc6496a10b63">getSampleNames_rcpp</a> (SEXP x)</td></tr>
 <tr class="separator:a0376c7389e2e9c85d965bc6496a10b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe1eaf8736612c3ec7b5182e6664b8a0" id="r_abe1eaf8736612c3ec7b5182e6664b8a0"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe1eaf8736612c3ec7b5182e6664b8a0">_GenomicDataStream_getSampleNames_rcpp</a> (SEXP xSEXP)</td></tr>
@@ -164,10 +168,10 @@ Functions</h2></td></tr>
 <tr class="separator:a7fee884670a74f3630ba041bcf13a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af04246609af79292f8dd4f5a9c8c4353" id="r_af04246609af79292f8dd4f5a9c8c4353"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af04246609af79292f8dd4f5a9c8c4353">_GenomicDataStream_colSums_test</a> (SEXP XSEXP)</td></tr>
 <tr class="separator:af04246609af79292f8dd4f5a9c8c4353"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62357b90027c8c7431e79c4955b63428" id="r_a62357b90027c8c7431e79c4955b63428"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62357b90027c8c7431e79c4955b63428">standardize_test</a> (arma::mat &amp;X, const bool &amp;center, const bool &amp;scale)</td></tr>
-<tr class="separator:a62357b90027c8c7431e79c4955b63428"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9acd48d49a2c3ab68ca5ad31d82b611c" id="r_a9acd48d49a2c3ab68ca5ad31d82b611c"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9acd48d49a2c3ab68ca5ad31d82b611c">_GenomicDataStream_standardize_test</a> (SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP)</td></tr>
-<tr class="separator:a9acd48d49a2c3ab68ca5ad31d82b611c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b112859add0a49e3a3bbe57f94bf03e" id="r_a9b112859add0a49e3a3bbe57f94bf03e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b112859add0a49e3a3bbe57f94bf03e">standardize_in_place</a> (arma::mat &amp;X, const bool &amp;center, const bool &amp;scale)</td></tr>
+<tr class="separator:a9b112859add0a49e3a3bbe57f94bf03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0235a29be19a8ade494d7d005204b74" id="r_ab0235a29be19a8ade494d7d005204b74"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0235a29be19a8ade494d7d005204b74">_GenomicDataStream_standardize_in_place</a> (SEXP XSEXP, SEXP centerSEXP, SEXP scaleSEXP)</td></tr>
+<tr class="separator:ab0235a29be19a8ade494d7d005204b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48157f408b8d03bf40c3501898b25aa8" id="r_a48157f408b8d03bf40c3501898b25aa8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48157f408b8d03bf40c3501898b25aa8">test_DataTable</a> (const string &amp;file, const string &amp;headerKey, const char delim)</td></tr>
 <tr class="separator:a48157f408b8d03bf40c3501898b25aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabb4dcf56b0725ef90cb1895238e302a" id="r_aabb4dcf56b0725ef90cb1895238e302a"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb4dcf56b0725ef90cb1895238e302a">_GenomicDataStream_test_DataTable</a> (SEXP fileSEXP, SEXP headerKeySEXP, SEXP delimSEXP)</td></tr>
@@ -324,6 +328,27 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a56e5903c00864a951046c9320300b46c" name="a56e5903c00864a951046c9320300b46c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e5903c00864a951046c9320300b46c">&#9670;&#160;</a></span>_GenomicDataStream_setChunkSize_rcpp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_setChunkSize_rcpp </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>xSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>chunkSizeSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a40e1625c6639328eebbf4b65940a56b1" name="a40e1625c6639328eebbf4b65940a56b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a40e1625c6639328eebbf4b65940a56b1">&#9670;&#160;</a></span>_GenomicDataStream_setRegions_rcpp()</h2>
 
@@ -345,14 +370,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9acd48d49a2c3ab68ca5ad31d82b611c" name="a9acd48d49a2c3ab68ca5ad31d82b611c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9acd48d49a2c3ab68ca5ad31d82b611c">&#9670;&#160;</a></span>_GenomicDataStream_standardize_test()</h2>
+<a id="ab0235a29be19a8ade494d7d005204b74" name="ab0235a29be19a8ade494d7d005204b74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0235a29be19a8ade494d7d005204b74">&#9670;&#160;</a></span>_GenomicDataStream_standardize_in_place()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RcppExport SEXP _GenomicDataStream_standardize_test </td>
+          <td class="memname">RcppExport SEXP _GenomicDataStream_standardize_in_place </td>
           <td>(</td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span>, </td>
         </tr>
@@ -562,6 +587,27 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7285b8d8d4b5ed9b4d3017f2cc6a3050" name="a7285b8d8d4b5ed9b4d3017f2cc6a3050"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7285b8d8d4b5ed9b4d3017f2cc6a3050">&#9670;&#160;</a></span>setChunkSize_rcpp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SEXP setChunkSize_rcpp </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2dd3e4034f7abff758612d5c610d7930" name="a2dd3e4034f7abff758612d5c610d7930"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2dd3e4034f7abff758612d5c610d7930">&#9670;&#160;</a></span>setRegions_rcpp()</h2>
 
@@ -583,14 +629,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a62357b90027c8c7431e79c4955b63428" name="a62357b90027c8c7431e79c4955b63428"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62357b90027c8c7431e79c4955b63428">&#9670;&#160;</a></span>standardize_test()</h2>
+<a id="a9b112859add0a49e3a3bbe57f94bf03e" name="a9b112859add0a49e3a3bbe57f94bf03e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b112859add0a49e3a3bbe57f94bf03e">&#9670;&#160;</a></span>standardize_in_place()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void standardize_test </td>
+          <td class="memname">void standardize_in_place </td>
           <td>(</td>
           <td class="paramtype">arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
         </tr>

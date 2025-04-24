@@ -29,6 +29,8 @@ virtual string \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386f
 \item 
 double \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{get\+Min\+Variance}} ()
 \item 
+void \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aa7184d3bdd2211562669bcba991513fa}{set\+Chunk\+Size}} (const int \&chunk\+Size)
+\item 
 virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a753dfdcf7a1c2c1c19185fbae88e5284}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat $>$ \&chunk)=0
 \item 
 virtual bool \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a295092e873af53ccb142b35447d2d9a6}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat $>$ \&chunk)=0
@@ -168,6 +170,12 @@ virtual int gds\+::\+Genomic\+Data\+Stream\+::n\+\_\+samples (\begin{DoxyParamCa
 Get number of columns in data matrix 
 
 Implemented in \mbox{\hyperlink{classgds_1_1bgenstream_a228d27dbb4127265cf41510b0cc4edc0}{gds\+::bgenstream}}, \mbox{\hyperlink{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77}{gds\+::\+Delayed\+Stream}}, \mbox{\hyperlink{classgds_1_1pgenstream_aef5ae327d7694f75dfbe1ccdeeab4230}{gds\+::pgenstream}}, and \mbox{\hyperlink{classgds_1_1vcfstream_af7fb7318a9d4eb5451399738bce56fe8}{gds\+::vcfstream}}.
+
+\Hypertarget{classgds_1_1_genomic_data_stream_aa7184d3bdd2211562669bcba991513fa}\index{gds::GenomicDataStream@{gds::GenomicDataStream}!setChunkSize@{setChunkSize}}
+\index{setChunkSize@{setChunkSize}!gds::GenomicDataStream@{gds::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{setChunkSize()}{setChunkSize()}}
+{\footnotesize\ttfamily \label{classgds_1_1_genomic_data_stream_aa7184d3bdd2211562669bcba991513fa} 
+void gds\+::\+Genomic\+Data\+Stream\+::set\+Chunk\+Size (\begin{DoxyParamCaption}\item[{const int \&}]{chunk\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \Hypertarget{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}\index{gds::GenomicDataStream@{gds::GenomicDataStream}!setRegions@{setRegions}}
 \index{setRegions@{setRegions}!gds::GenomicDataStream@{gds::GenomicDataStream}}

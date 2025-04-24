@@ -75,10 +75,10 @@
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ startHeader\ to\ true}}
 \DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ startHeader\ )\{}
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ header.compare(headerKey)\ ==\ 0\ )\{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startHeader\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startHeader\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ leading\ \#\ from\ header\ key}}
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header\ =\ regex\_replace(header,\ regex(\textcolor{stringliteral}{"{}\string^\#"{}}),\ \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ start\ key\ already\ found,\ }}
@@ -132,23 +132,23 @@
 \DoxyCodeLine{00138\ }
 \DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncols()\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data.size();}
-\DoxyCodeLine{00141\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \}\ \ \ \ }
 \DoxyCodeLine{00142\ }
 \DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nrows()\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[0].size();}
-\DoxyCodeLine{00145\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00145\ \ \ \ \ \}\ \ \ \ }
 \DoxyCodeLine{00146\ }
 \DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ getColNames()\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ colNames;}
-\DoxyCodeLine{00149\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \}\ \ \ \ }
 \DoxyCodeLine{00150\ }
 \DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ setColNames(\textcolor{keyword}{const}\ vector<string>\ \&names)\ \{}
 \DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ names.size()\ !=\ colNames.size())\{}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}setColNames:\ new\ and\ old\ names\ must\ have\ the\ same\ number\ of\ entries"{}});}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}setColNames:\ new\ and\ old\ names\ must\ have\ the\ same\ number\ of\ entries"{}});}
 \DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ colNames.assign(\ names.begin(),\ names.end());}
-\DoxyCodeLine{00157\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ colNames.assign(\ names.begin(),\ names.end());}
+\DoxyCodeLine{00157\ \ \ \ \ \}\ \ \ \ }
 \DoxyCodeLine{00158\ }
 \DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ getCol(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&key)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ search\ for\ key\ in\ colNames}}
@@ -156,7 +156,7 @@
 \DoxyCodeLine{00162\ }
 \DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ vector<string>\ ret;}
 \DoxyCodeLine{00164\ \ }
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ found}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ found}}
 \DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ colNames.end())\ \{}
 \DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ index\ key\ was\ found\ at}}
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ distance(colNames.begin(),\ it);}

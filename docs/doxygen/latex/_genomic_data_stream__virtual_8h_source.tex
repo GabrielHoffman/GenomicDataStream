@@ -135,59 +135,63 @@
 \DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{getMinVariance}}()\{}
 \DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.minVariance;}
 \DoxyCodeLine{00174\ \ \ \ \ \}}
-\DoxyCodeLine{00175\ \ }
-\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a753dfdcf7a1c2c1c19185fbae88e5284}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aa7184d3bdd2211562669bcba991513fa}{setChunkSize}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&chunkSize)\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.chunkSize\ =\ chunkSize;}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
 \DoxyCodeLine{00179\ \ }
-\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a295092e873af53ccb142b35447d2d9a6}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00183\ }
-\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}\textcolor{preprocessor}{\ }}
-\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a42d886bf483760a54617718c9aa2f997}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00188\ \ }
-\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ae6c87ca8b9592f0d13f0acb8ef25bc7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>\ >\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}\textcolor{preprocessor}{\ }}
-\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8ea52bd005ea1c29bf3eea907944c330}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}\ \&\ chunk)\ \ =\ 0;}
-\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00199\ \ }
-\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aeff00fd9766e1a5b9c9970f9cf831a7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>\ >\ \&\ chunk)\ =\ 0;}
-\DoxyCodeLine{00204\ }
-\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}};}
-\DoxyCodeLine{00207\ \};}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a753dfdcf7a1c2c1c19185fbae88e5284}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00183\ \ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a295092e873af53ccb142b35447d2d9a6}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::sp\_mat>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_EIGEN}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a42d886bf483760a54617718c9aa2f997}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00192\ \ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ae6c87ca8b9592f0d13f0acb8ef25bc7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<Eigen::SparseMatrix<double>\ >\ \&\ chunk)\ =\ 0;}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ DISABLE\_RCPP}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8ea52bd005ea1c29bf3eea907944c330}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Rcpp::NumericMatrix>}}\ \&\ chunk)\ \ =\ 0;}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00203\ \ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aeff00fd9766e1a5b9c9970f9cf831a7a}{getNextChunk}}(\ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk}}<vector<double>\ >\ \&\ chunk)\ =\ 0;}
 \DoxyCodeLine{00208\ }
-\DoxyCodeLine{00213\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ applyVarianceFilter(vector<double>\ \&matDosage,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *vInfo,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&number\_of\_samples,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&minVariance\ =\ 0)\{}
-\DoxyCodeLine{00214\ }
-\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ if\ minVariance\ is\ NaN,\ don't\ apply\ filter}}
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{if}(\ !isnan(minVariance)\ )\{}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ temp\ arma\ matrix}}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_data_info_af8d39001b9a18c530c6d60f5caf32789}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ variance\ by\ columns}}
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ colvars\ =\ var(M);}
-\DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ indeces\ passing\ minimum\ variance\ cutoff}}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ arma::uvec\ idx\ =\ find(colvars\ >\ minVariance);}
-\DoxyCodeLine{00225\ }
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ uvec\ to\ vector<unsigned\ int>}}
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ vector<unsigned\ int>\ idx2(idx.n\_elem);}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ copy(idx.begin(),\ idx.end(),\ idx2.begin());}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00210\ \ \ \ \ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}};}
+\DoxyCodeLine{00211\ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00217\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ applyVarianceFilter(vector<double>\ \&matDosage,\ \mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *vInfo,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&number\_of\_samples,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&minVariance\ =\ 0)\{}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ if\ minVariance\ is\ NaN,\ don't\ apply\ filter}}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{if}(\ !isnan(minVariance)\ )\{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ temp\ arma\ matrix}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ arma::mat\ M(matDosage.data(),\ number\_of\_samples,\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_data_info_af8d39001b9a18c530c6d60f5caf32789}{size}}(),\ \textcolor{keyword}{false},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ variance\ by\ columns}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ colvars\ =\ var(M);}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ indeces\ passing\ minimum\ variance\ cutoff}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ arma::uvec\ idx\ =\ find(colvars\ >\ minVariance);}
 \DoxyCodeLine{00229\ }
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ only\ variants\ specified\ in\ idx2}}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}{retainVariants}}(\ idx2\ );}
-\DoxyCodeLine{00232\ }
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ subset\ of\ columns}}
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ arma::mat\ M\_subset\ =\ M.cols(idx);}
-\DoxyCodeLine{00235\ }
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ M\_subset\ into\ matDosage}}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ memcpy(matDosage.data(),\ M\_subset.memptr(),\ M\_subset.n\_elem*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
-\DoxyCodeLine{00238\ \ \ \ \ \}}
-\DoxyCodeLine{00239\ \}}
-\DoxyCodeLine{00240\ }
-\DoxyCodeLine{00241\ }
-\DoxyCodeLine{00242\ }
-\DoxyCodeLine{00243\ }
-\DoxyCodeLine{00244\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ uvec\ to\ vector<unsigned\ int>}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ vector<unsigned\ int>\ idx2(idx.n\_elem);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ copy(idx.begin(),\ idx.end(),\ idx2.begin());}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ only\ variants\ specified\ in\ idx2}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}{retainVariants}}(\ idx2\ );}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ subset\ of\ columns}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ arma::mat\ M\_subset\ =\ M.cols(idx);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ M\_subset\ into\ matDosage}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ memcpy(matDosage.data(),\ M\_subset.memptr(),\ M\_subset.n\_elem*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00242\ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}
