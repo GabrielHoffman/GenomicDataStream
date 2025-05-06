@@ -105,7 +105,7 @@ struct Param {
 		}
 
 		// parse regions
-		regions = splitRegionString( regionString );
+        setRegions(regionString);
 
     	if( permuteFeatureOrder ){
     		// permuate order of region to avoid correlated features
@@ -118,7 +118,12 @@ struct Param {
 		field = field_;
 	}
 
-	/** Custom path to PSAM/FAM file
+    /// parse regions
+	void setRegions( const string &regionString) {
+		regions = splitRegionString( regionString );
+	}
+
+    /** Custom path to PSAM/FAM file
 	 */
 	void setSamplesFile( const string &file) {
 		fileSamples = file;

@@ -56,7 +56,8 @@ test_DataTable <- function(file, headerKey, delim = '\t') {
     invisible(.Call('_GenomicDataStream_test_DataTable', PACKAGE = 'GenomicDataStream', file, headerKey, delim))
 }
 
-test_get_chunks_parallel_vcf <- function(file, region) {
-    .Call('_GenomicDataStream_test_get_chunks_parallel_vcf', PACKAGE = 'GenomicDataStream', file, region)
+#' @export
+stream_pcaone <- function(gds, region, m, k, s = 20L, p = 7L, B = 64L, threads = 4L) {
+    .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', gds, region, m, k, s, p, B, threads)
 }
 

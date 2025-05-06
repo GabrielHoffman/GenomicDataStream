@@ -144,15 +144,21 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// test_get_chunks_parallel_vcf
-int test_get_chunks_parallel_vcf(const string& file, const string& region);
-RcppExport SEXP _GenomicDataStream_test_get_chunks_parallel_vcf(SEXP fileSEXP, SEXP regionSEXP) {
+// stream_pcaone
+Rcpp::List stream_pcaone(Rcpp::S4 gds, const string& region, int m, int k, int s, int p, int B, int threads);
+RcppExport SEXP _GenomicDataStream_stream_pcaone(SEXP gdsSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< Rcpp::S4 >::type gds(gdsSEXP);
     Rcpp::traits::input_parameter< const string& >::type region(regionSEXP);
-    rcpp_result_gen = Rcpp::wrap(test_get_chunks_parallel_vcf(file, region));
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type B(BSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_pcaone(gds, region, m, k, s, p, B, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -169,7 +175,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
-    {"_GenomicDataStream_test_get_chunks_parallel_vcf", (DL_FUNC) &_GenomicDataStream_test_get_chunks_parallel_vcf, 2},
+    {"_GenomicDataStream_stream_pcaone", (DL_FUNC) &_GenomicDataStream_stream_pcaone, 8},
     {NULL, NULL, 0}
 };
 
