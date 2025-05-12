@@ -4,7 +4,7 @@
 \alias{PCAstream}
 \title{Window-based Randomized SVD on data streamed from \code{GenomicDataStream}}
 \usage{
-PCAstream(gds, k, p = 7, s = 20, B = 64, threads = 4)
+PCAstream(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE)
 }
 \arguments{
 \item{gds}{\code{GenomicDataStream}}
@@ -22,7 +22,10 @@ oversampling parameter (by default \eqn{s=20}).}
 number of windows (by default \eqn{B=64}).}
 
 \item{threads}{integer, optional; \cr
-number of threads (by default \eqn{threads=4}).}
+number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}}
+
+\item{verbose}{string, optional; \cr
+if \code{TRUE} (default) print details}
 }
 \value{
 \code{PCAstream} returns a list containing the following three components:
@@ -44,7 +47,7 @@ number of threads (by default \eqn{threads=4}).}
 Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
 }
 \details{
-PCAstream implements the window-based Randomized SVD proposed by Li et al. 2024
+PCAstream implements the window-based Randomized SVD proposed by Li et al. (2024)
 }
 \note{
 The singular vectors are not unique and only defined up to sign.
@@ -56,15 +59,14 @@ file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 
-res <- PCAstream(obj, k=2)
+res <- PCAstream(obj, k=2, B=2)
 
 str(res)
 
 }
 \references{
 \itemize{
- \item Z. Li, J Meisner, A Albrechtsen. "Fast and accurate out-of-core PCA framework for large scale biobank data" (2023)
-       \doi{10.1101/gr.277525.122}.
+ \item Li, Z., Meisner, J., & Albrechtsen, A. (2023). Fast and accurate out-of-core PCA framework for large scale biobank data. Genome Research, 33(9), 1599-1608. \doi{10.1101/gr.277525.122}.
 }
 }
 \author{

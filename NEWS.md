@@ -1,5 +1,9 @@
 
 
+# GenomicDataStream 0.0.30
+ - May 21, 2025
+ - Add new `PCAstream()` using `stream_pcaone()` algorithm with C++ code contributed by @Zilong-Li
+
 # GenomicDataStream 0.0.20
  - April 21, 2025
  - Resolve `R CMD check` Notes
