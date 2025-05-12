@@ -1,5 +1,6 @@
 
 #include <armadillo>
+#include <Eigen/Core>
 
 #include <vector>
 #include <random>
@@ -147,10 +148,11 @@ static arma::vec colSums( const arma::mat &X){
 /** Center and scale columns of matrix
  * @param X matrix with features as columns
  * @param center center columns
- * @param center scale columns by sd
+ * @param scale scale columns by sd
+ * @param tol do not scale if standard deviation is lower than this
  * 
  */
-static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true ){
+static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
     double sqrt_rdf = sqrt(X.n_rows - 1.0);
 
@@ -160,11 +162,24 @@ static void standardize( arma::mat &X, const bool &center = true, const bool &sc
     //   this give results consistent with base::scale()
     //   when scale is FALSE
     for(size_t j=0; j<X.n_cols; j++){
-        if( center ) X.col(j) -= mean(X.col(j));
-        if( scale )  X.col(j) /= norm(X.col(j)) / sqrt_rdf;
+      if( center ) X.col(j) -= mean(X.col(j));
+      double sd = norm(X.col(j)) / sqrt_rdf;
+      if( scale && sd > tol )  X.col(j) /= sd;
     }
 }
 
+static void standardize( Eigen::MatrixXd &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
+    
+    double sqrt_rdf = sqrt(X.rows() - 1.0);
+    if(center) X.rowwise() -= X.colwise().mean(); // centering
+    if(scale) {
+      // if X is centered, then we can convert norm to sd
+      for(size_t j=0; j<X.cols(); j++) {
+        double sd = X.col(j).norm()  / sqrt_rdf ; // sd
+        if(sd > tol)  X.col(j) /= sd;
+      }
+    }
+}
 
 /** if string contains only digits, return true.  Else false
  */

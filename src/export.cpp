@@ -8,6 +8,7 @@
 
 
 // DISABLE warning: solve(): system is singular
+#include <string>
 #define ARMA_WARN_LEVEL 1
 
 #include <RcppArmadillo.h>
@@ -29,6 +30,10 @@
 
 #include "GenomicDataStream.h"
 #include "DataTable.h"
+#include "ParallelGenomicChunks.h"
+
+#include "Rand.hpp"
+#include <Rcpp/Benchmark/Timer.h>
 
 using namespace std;
 using namespace vcfpp;
@@ -196,4 +201,107 @@ void test_DataTable(const string &file, const string &headerKey, const char deli
 	dt.print(Rcpp::Rcout, "\t");
 }
 
+//' @export
+// [[Rcpp::export]]
+Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s = 20, int p = 7, int B = 64, int threads = 4) {
+  Timer timer;
+  timer.step("init params");
+  // extract slots
+  int n = gds.slot("nsamples"); // number of samples
+  std::string file = gds.slot("file"); // fille
+  std::string samples = gds.slot("samples"); // samples
+  std::string field = gds.slot("field");  //  field
+  int chunkSize = gds.slot("chunkSize");  //  each chunk will read max chunkSize
+  double minVariance = gds.slot("minVariance");  // retain features with var > minVariance
+  bool missingToMean = gds.slot("missingToMean");  
+  // set region to empty here. we will used the permuted region later
+  gds::Param param(file, "", samples, minVariance, chunkSize, missingToMean);
+  param.setField(field);
 
+  timer.step("init params");
+  auto regions = splitRegionString( region ); // assume regions are permuted
+  const size_t nchunks{regions.size()};
+
+  MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(param, regions, threads);
+  // Eigen::setNbThreads(threads); 
+  std::mutex pcaMutex;
+  timer.step("init MultiGenomicStreamProcessor");
+
+  const int l = k + s;
+  auto randomEngine = std::default_random_engine{};
+  Eigen::MatrixXd Omg = StandardNormalRandom<Eigen::MatrixXd, std::default_random_engine>(n, l, randomEngine);
+  Eigen::MatrixXd Omg2 = Omg;
+  Eigen::MatrixXd H1 = Eigen::MatrixXd::Zero(n, l);
+  Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
+  Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
+  
+  timer.step("init Eigen::MatrixXd for pcaone");
+
+  size_t band = ceil((double)nchunks / B);
+  
+  for (int pi = 0; pi <= p; pi++) {
+    if (std::pow(2, pi) >= B) {
+      // reset H1, H2 to zero
+      H1.setZero();
+      H2.setZero();
+    }
+    band = std::fmin(band * 2, nchunks);
+
+    size_t i{1},  start{0};
+    processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+      auto Ab = chunk.getData();
+      standardize(Ab); // standardize
+      {
+        std::lock_guard<std::mutex> lock(pcaMutex);
+        G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+        if (i <= band / 2)
+          H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+        else
+          H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+        bool adjacent =
+          (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+        if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+          H = H1 + H2;
+          Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+          Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+          flipOmg(Omg2, Omg);
+          if (i == band) {
+            H1.setZero();
+            i = 0;
+          } else {
+            H2.setZero();
+          }
+        }
+        start += Ab.cols();
+        i++;
+      }
+    });
+
+    timer.step("epochs:" + to_string(pi));
+  }
+
+  // get USV
+  {
+    Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
+    R.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
+    G.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(m, l);
+  }
+  {
+    Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
+    Rt.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
+    G.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(m, l);
+  }
+
+  R = Rt * R;
+
+  Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
+  Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
+
+  timer.step("getUSV");
+
+  return Rcpp::List::create(Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
+                            Rcpp::Named("u") = Rcpp::wrap(G * svd.matrixU().leftCols(k)),
+                            Rcpp::Named("v") = Rcpp::wrap(svd.matrixV().leftCols(k)),
+                            Rcpp::Named("timing") = timer
+                            );
+}
