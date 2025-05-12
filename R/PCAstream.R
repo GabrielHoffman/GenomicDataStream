@@ -15,7 +15,9 @@
 #'                number of windows (by default \eqn{B=64}).
 #' 
 #' @param threads integer, optional; \cr
-#'                number of threads (by default \eqn{threads=4}).
+#'                number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
+#' @param verbose  string, optional; \cr
+#'                  if \code{TRUE} (default) print details
 #' 
 #' @return \code{PCAstream} returns a list containing the following three components:
 #'\describe{
@@ -32,7 +34,7 @@
 #'}
 #'}
 #'
-#' @details PCAstream implements the window-based Randomized SVD proposed by Li et al. 2024
+#' @details PCAstream implements the window-based Randomized SVD proposed by Li et al. (2024)
 
 #' @note The singular vectors are not unique and only defined up to sign.
 #' If a left singular vector has its sign changed, changing the sign of the corresponding right vector
@@ -40,8 +42,7 @@
 #'
 #' @references
 #' \itemize{
-#'  \item Z. Li, J Meisner, A Albrechtsen. "Fast and accurate out-of-core PCA framework for large scale biobank data" (2023)
-#'        \doi{10.1101/gr.277525.122}.
+#'  \item Li, Z., Meisner, J., & Albrechtsen, A. (2023). Fast and accurate out-of-core PCA framework for large scale biobank data. Genome Research, 33(9), 1599-1608. \doi{10.1101/gr.277525.122}.
 #' }
 #'
 #' @author Zilong Li \email{zilong.dk@gmail.com}
@@ -51,12 +52,12 @@
 #' 
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 #' 
-#' res <- PCAstream(obj, k=2)
+#' res <- PCAstream(obj, k=2, B=2)
 #' 
 #' str(res)
 #' 
 #' @export
-PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4) {
+PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE) {
 
   stopifnot(is(gds, "GenomicDataStream"))
 
@@ -66,16 +67,42 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4) {
   N <- slot(gds, "nsamples")
   M <- sum(chunks$counts)
 
+  # nchunks must be larger than B * threads
+  # stopifnot(nrow(chunks) > B * threads)
+  threads <- min(threads, floor(nrow(chunks) / B))
+  threads <- max(1, threads)
+
+  # set valid B
+  while( ! (M > B^2) ){
+    B <- B / 2
+  }
+
+  # k must be < min(N,M)
+  k <- min(c(k,N,M))
+
+  if( verbose ){   
+    if( length(N) > 0){ 
+      cat(" # samples:", format(N, big.mark=','), "\n")
+    }
+    cat(" # features:", format(M, big.mark=','), "\n")
+    cat(" # chunks:", format(nrow(chunks), big.mark=','), "\n")
+    cat(" # threads:", threads, "\n")
+    cat(" B:", B, "\n")
+    cat(" k:", k, "\n")
+  }
+
   # M must be large enough, otherwise winSVD is not suggested
-  stopifnot(M > B^2)
+  # stopifnot(M > B^2)
+
   # B must be a even
   stopifnot(B %% 2 == 0)
-  # nchunks must be larger than B * threads
-  stopifnot(nrow(chunks) > B * threads)
+
   p <- max(c(p, log2(B)+1)) 
 
   regions <- chunks[sample(nrow(chunks)),"region"]
   region <- paste(regions, collapse = "," )
+
+  gds <- reinitializeStream(gds)
 
   res <- stream_pcaone(gds, region, m = M, k = k, s = s, p = p, B = B, threads = threads)
   res
