@@ -8,6 +8,8 @@ reinitializeStream(x, region = NULL)
 }
 \arguments{
 \item{x}{\code{GenomicDataStream}}
+
+\item{region}{new set of region, as a string}
 }
 \value{
 initialized \code{GenomicDataStream}

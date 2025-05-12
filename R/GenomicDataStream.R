@@ -209,6 +209,7 @@ initializeStream <- function(x) {
 #' Read file info from path to initialise stream
 #'
 #' @param x \code{GenomicDataStream}
+#' @param region new set of region, as a string
 #'
 #' @return initialized \code{GenomicDataStream}
 #'

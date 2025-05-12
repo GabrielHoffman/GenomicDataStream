@@ -59,9 +59,11 @@ file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 
-res <- PCAstream(obj, k=2, B=2)
+res <- PCAstream(obj, k=5, B=2)
 
-str(res)
+res
+
+plot(res)
 
 }
 \references{

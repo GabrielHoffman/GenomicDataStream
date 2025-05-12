@@ -52,17 +52,23 @@
 #' 
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 #' 
-#' res <- PCAstream(obj, k=2, B=2)
+#' res <- PCAstream(obj, k=5, B=2)
 #' 
-#' str(res)
+#' res
 #' 
+#' plot(res)
+#' 
+#' @importFrom methods slot
 #' @export
 PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE) {
 
   stopifnot(is(gds, "GenomicDataStream"))
 
-  chunks <- summaryChunks(gds)
-  chunks <- chunks[sample(nrow(chunks)),]  # permute chunks
+  # get summary of GenomicDataStream
+  sObj <- summaryChunks(gds)
+
+  # permute chunks
+  chunks <- sObj$chunks[sample(nrow(sObj$chunks)),]  
 
   N <- slot(gds, "nsamples")
   M <- sum(chunks$counts)
@@ -104,12 +110,27 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE
 
   gds <- reinitializeStream(gds)
 
+  # run PCA on GenomicDataStream
   res <- stream_pcaone(gds, region, m = M, k = k, s = s, p = p, B = B, threads = threads)
-  res
+
+  # set row and column names
+  rownames(res$u) <- sObj$sampleIDs
+  rownames(res$v) <- sObj$variantIDs
+
+  colnames(res$u) <- paste0("PC", seq(k))
+  colnames(res$v) <- paste0("PC", seq(k))
+  names(res$d) <- paste0("PC", seq(k))
+
+  # class(res) <- c("PCA", class(res))
+  new("PCA", res)
 }
 
 
-#' Get array of chunk sizes
+#' Get information about chunks
+#' 
+#' Read through stream to get size of each chunk, IDs of variants and samples
+#' 
+#' @param x \code{GenomicDataStream}
 #' 
 #' @examples
 #' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
@@ -120,18 +141,116 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE
 #' 
 #' @export
 summaryChunks <- function(x){
+
   chunks <- data.frame(matrix(ncol=2,nrow=0))
   colnames(chunks) <- c("region", "counts")
+
   # count number of variants
   x <- reinitializeStream(x)
+  sampleIDs <- getSampleNames(x)
+
+  lst <- list()
+  i <- 1
   while(1){
     dat <- getNextChunk(x)
     if (atEndOfStream(x)) break
-    chunks = rbind(chunks, data.frame(region = paste0(dat$info[1,1], ":", dat$info[1, 2], "-", dat$info[nrow(dat$info),2]), counts = ncol(dat$X)))
+    df <- data.frame(region = paste0(dat$info[1,1], ":", dat$info[1, 2], "-", dat$info[nrow(dat$info),2]), counts = ncol(dat$X))
+    lst[[i]] <- list(df = df, variantIDs = dat$info$ID)
+    i <- i + 1
   }
 
-  chunks
+  chunks <- do.call(rbind, lapply(lst, function(x) x$df))
+  variantIDs <- unlist(sapply(lst, function(x) x$variantIDs))
+
+  list( chunks = chunks, 
+        sampleIDs = sampleIDs, 
+        variantIDs = variantIDs)
 }
+
+#' PCA result
+#'
+#' PCA result
+#'
+#' @export
+setClass("PCA", contains="list")
+
+#' Show object
+#'
+#' Show object
+#'
+#' @param object \code{PCA} object
+#'
+#' @rdname show-methods
+#' @importFrom utils head
+#' @aliases show,PCA,PCA-method
+#' @importFrom methods show
+#' @export
+setMethod(
+  "show", "PCA",
+  function(object){ 
+
+    cat("\n       PCA: Computed first", length(object$d), "PCs\n\n")
+
+    k = min(3, length(object$d))
+
+    cat("Samples:\n")
+    cat(" res$u\n")
+    print(head(object$u[,seq(k)], 2))
+    cat("     ...\n\n")
+
+    cat("Loadings:\n")
+    cat(" res$v\n")
+    print(head(object$v[,seq(k)], 2))
+    cat("     ...\n\n")
+
+    cat("Singular values:\n")
+    cat(" res$d\n")
+    cat(head(object$d, 2))
+    cat(" ...\n\n") 
+  }
+)
+
+#' Print object
+#'
+#' Print object
+#'
+#' @param x \code{PCA} object
+#' @param ... other arguments
+#'
+#' @export
+#' @rdname print-methods
+#' @aliases print,PCA,PCA-method
+# print.PCA = function(x, ...) {
+#   show(x)
+# }
+setMethod("print", signature(x = "PCA"), 
+  function(x, ...) {
+    cat("PRINT....\n")
+  show(x)
+})
+
+
+#' Plot PCAstream
+#'
+#' Plot PCAstream
+#'
+#' @param x \code{PCA} object
+#' @param y not used
+#' @param ... other arguments
+#'
+#' @export
+#' @rdname plot-methods
+#' @aliases plot,PCA,PCA-method
+setMethod("plot", signature(x = "PCA"), 
+  function(x, ...) {
+
+  plot(x$d^2, type="b", ..., xlab = "Principal component", ylab = "Eigen-values")  
+})
+
+
+
+
+
 
 
 

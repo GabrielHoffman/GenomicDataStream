@@ -176,21 +176,14 @@ arma::vec colSums_test( const arma::mat &X){
 	return colSums(X);
 }
 
-//' Standardize matrix columns in place
-//'
-//' Standardize mean and variance of matrix columns in place
-//' 
-//' @param X matrix
-//' @param center boolean, TRUE indices center columns
-//' @param scale boolean, TRUE indices scale columns
-//' 
-//' @return none, matrix is standardized in place
-//' 
-//' @export
-// [[Rcpp::export]]
+
+
+// [[Rcpp::export(.standardize_in_place)]]
 void standardize_in_place( arma::mat &X, const bool &center = true, const bool &scale = true ){
 
-	standardize(X, center, scale);
+	if( X.n_rows != 0 && X.n_cols != 0){
+		standardize(X, center, scale);
+	}
 }
 
 // [[Rcpp::export]]
@@ -201,7 +194,6 @@ void test_DataTable(const string &file, const string &headerKey, const char deli
 	dt.print(Rcpp::Rcout, "\t");
 }
 
-//' @export
 // [[Rcpp::export]]
 Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s = 20, int p = 7, int B = 64, int threads = 4) {
   Timer timer;
@@ -299,9 +291,10 @@ Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s
 
   timer.step("getUSV");
 
-  return Rcpp::List::create(Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
-                            Rcpp::Named("u") = Rcpp::wrap(G * svd.matrixU().leftCols(k)),
-                            Rcpp::Named("v") = Rcpp::wrap(svd.matrixV().leftCols(k)),
-                            Rcpp::Named("timing") = timer
-                            );
+  Rcpp::List lst =  Rcpp::List::create(Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
+                            Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
+                            Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
+  lst.attr("timing") = timer;
+
+  return lst;                            
 }

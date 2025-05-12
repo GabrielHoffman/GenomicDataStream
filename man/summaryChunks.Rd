@@ -2,12 +2,15 @@
 % Please edit documentation in R/PCAstream.R
 \name{summaryChunks}
 \alias{summaryChunks}
-\title{Get array of chunk sizes}
+\title{Get information about chunks}
 \usage{
 summaryChunks(x)
 }
+\arguments{
+\item{x}{\code{GenomicDataStream}}
+}
 \description{
-Get array of chunk sizes
+Read through stream to get size of each chunk, IDs of variants and samples
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")

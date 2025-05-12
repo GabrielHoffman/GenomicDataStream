@@ -37,18 +37,7 @@ colSums_test <- function(X) {
     .Call('_GenomicDataStream_colSums_test', PACKAGE = 'GenomicDataStream', X)
 }
 
-#' Standardize matrix columns in place
-#'
-#' Standardize mean and variance of matrix columns in place
-#' 
-#' @param X matrix
-#' @param center boolean, TRUE indices center columns
-#' @param scale boolean, TRUE indices scale columns
-#' 
-#' @return none, matrix is standardized in place
-#' 
-#' @export
-standardize_in_place <- function(X, center = TRUE, scale = TRUE) {
+.standardize_in_place <- function(X, center = TRUE, scale = TRUE) {
     invisible(.Call('_GenomicDataStream_standardize_in_place', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
@@ -56,7 +45,6 @@ test_DataTable <- function(file, headerKey, delim = '\t') {
     invisible(.Call('_GenomicDataStream_test_DataTable', PACKAGE = 'GenomicDataStream', file, headerKey, delim))
 }
 
-#' @export
 stream_pcaone <- function(gds, region, m, k, s = 20L, p = 7L, B = 64L, threads = 4L) {
     .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', gds, region, m, k, s, p, B, threads)
 }
