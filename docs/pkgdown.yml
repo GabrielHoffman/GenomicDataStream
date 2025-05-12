@@ -1,18 +1,11 @@
 pandoc: 3.6.3
-<<<<<<< HEAD
 pkgdown: 2.1.1
-=======
 pkgdown: 2.0.9
->>>>>>> main
 pkgdown_sha: ~
 articles:
   extensions: extensions.html
   GenomicDataStream: GenomicDataStream.html
-<<<<<<< HEAD
 last_built: 2025-03-12T19:26Z
-=======
-last_built: 2025-04-04T19:27Z
->>>>>>> main
 urls:
   reference: http://gabrielhoffman.github.io/GenomicDataStream/reference
   article: http://gabrielhoffman.github.io/GenomicDataStream/articles

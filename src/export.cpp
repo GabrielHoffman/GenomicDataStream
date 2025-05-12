@@ -184,7 +184,7 @@ arma::vec colSums_test( const arma::mat &X){
 //' @param center boolean, TRUE indices center columns
 //' @param scale boolean, TRUE indices scale columns
 //' 
-//' @return none, matrix is stanardized in place
+//' @return none, matrix is standardized in place
 //' 
 //' @export
 // [[Rcpp::export]]

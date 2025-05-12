@@ -14,7 +14,7 @@ standardize_in_place(X, center = TRUE, scale = TRUE)
 \item{scale}{boolean, TRUE indices scale columns}
 }
 \value{
-none, matrix is stanardized in place
+none, matrix is standardized in place
 }
 \description{
 Standardize mean and variance of matrix columns in place

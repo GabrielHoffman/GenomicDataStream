@@ -51,6 +51,10 @@ typedef boost::winapi::DWORD_ err_t;
 #define BOOST_ERROR_ALREADY_EXISTS boost::winapi::ERROR_ALREADY_EXISTS_
 #define BOOST_ERROR_NOT_SUPPORTED boost::winapi::ERROR_NOT_SUPPORTED_
 
+// STATUS_* constants defined in ntstatus.h in some SDKs are defined as DWORDs, and NTSTATUS is LONG.
+// This results in signed/unsigned mismatch warnings emitted by gcc and clang. Consider that a platform bug.
+#define BOOST_NTSTATUS_EQ(x, y) static_cast< boost::winapi::ULONG_ >(x) == static_cast< boost::winapi::ULONG_ >(y)
+
 // Note: Legacy MinGW doesn't have ntstatus.h and doesn't define NTSTATUS error codes other than STATUS_SUCCESS.
 #if !defined(NT_SUCCESS)
 #define NT_SUCCESS(Status) (((boost::winapi::NTSTATUS_)(Status)) >= 0)
@@ -94,6 +98,12 @@ typedef boost::winapi::DWORD_ err_t;
 #if !defined(STATUS_OBJECT_PATH_NOT_FOUND)
 #define STATUS_OBJECT_PATH_NOT_FOUND ((boost::winapi::NTSTATUS_)0xC000003Al)
 #endif
+#if !defined(STATUS_SHARING_VIOLATION)
+#define STATUS_SHARING_VIOLATION ((boost::winapi::NTSTATUS_)0xC0000043l)
+#endif
+#if !defined(STATUS_EAS_NOT_SUPPORTED)
+#define STATUS_EAS_NOT_SUPPORTED ((boost::winapi::NTSTATUS_)0xC000004Fl)
+#endif
 #if !defined(STATUS_NOT_SUPPORTED)
 #define STATUS_NOT_SUPPORTED ((boost::winapi::NTSTATUS_)0xC00000BBl)
 #endif
@@ -117,7 +127,7 @@ typedef boost::winapi::DWORD_ err_t;
 #endif
 
 //! Converts NTSTATUS error codes to Win32 error codes for reporting
-inline boost::winapi::DWORD_ translate_ntstatus(boost::winapi::NTSTATUS_ status)
+inline boost::winapi::DWORD_ translate_ntstatus(boost::winapi::NTSTATUS_ status) noexcept
 {
     // We have to cast to unsigned integral type to avoid signed overflow and narrowing conversion in the constants.
     switch (static_cast< boost::winapi::ULONG_ >(status))
@@ -139,6 +149,10 @@ inline boost::winapi::DWORD_ translate_ntstatus(boost::winapi::NTSTATUS_ status)
     case static_cast< boost::winapi::ULONG_ >(STATUS_OBJECT_NAME_NOT_FOUND):
     case static_cast< boost::winapi::ULONG_ >(STATUS_OBJECT_PATH_NOT_FOUND):
         return boost::winapi::ERROR_FILE_NOT_FOUND_;
+    case static_cast< boost::winapi::ULONG_ >(STATUS_SHARING_VIOLATION):
+        return boost::winapi::ERROR_SHARING_VIOLATION_;
+    case static_cast< boost::winapi::ULONG_ >(STATUS_EAS_NOT_SUPPORTED):
+        return boost::winapi::ERROR_EAS_NOT_SUPPORTED_;
     case static_cast< boost::winapi::ULONG_ >(STATUS_ACCESS_DENIED):
         return boost::winapi::ERROR_ACCESS_DENIED_;
     case static_cast< boost::winapi::ULONG_ >(STATUS_BAD_NETWORK_PATH):
@@ -156,6 +170,14 @@ inline boost::winapi::DWORD_ translate_ntstatus(boost::winapi::NTSTATUS_ status)
     default:
         return boost::winapi::ERROR_NOT_SUPPORTED_;
     }
+}
+
+//! Tests if the NTSTATUS indicates that the file is not found
+inline bool not_found_ntstatus(boost::winapi::NTSTATUS_ status) noexcept
+{
+    return BOOST_NTSTATUS_EQ(status, STATUS_NO_SUCH_FILE) || BOOST_NTSTATUS_EQ(status, STATUS_OBJECT_NAME_NOT_FOUND) ||
+        BOOST_NTSTATUS_EQ(status, STATUS_OBJECT_PATH_NOT_FOUND) || BOOST_NTSTATUS_EQ(status, STATUS_BAD_NETWORK_PATH) ||
+        BOOST_NTSTATUS_EQ(status, STATUS_BAD_NETWORK_NAME);
 }
 
 #endif

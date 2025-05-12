@@ -45,7 +45,7 @@ colSums_test <- function(X) {
 #' @param center boolean, TRUE indices center columns
 #' @param scale boolean, TRUE indices scale columns
 #' 
-#' @return none, matrix is stanardized in place
+#' @return none, matrix is standardized in place
 #' 
 #' @export
 standardize_in_place <- function(X, center = TRUE, scale = TRUE) {

@@ -29377,6 +29377,10 @@ static int afpCheckReservedLock(sqlite3_file *id, int *pResOut){
   return rc;
 }
 
+
+// Replace _random with call to R function
+#include <Rmath.h>
+
 /*
 ** Lock the file with the lock specified by parameter eFileLock - one
 ** of the following:
@@ -29489,7 +29493,10 @@ static int afpLock(sqlite3_file *id, int eFileLock){
     mask = (sizeof(long)==8) ? LARGEST_INT64 : 0x7fffffff;
     /* Now get the read-lock SHARED_LOCK */
     /* note that the quality of the randomness doesn't matter that much */
-    lk = random(); 
+    // Replace _random with call to R function
+    // lk = random();
+    lk = runif(0, pow(2,31)-1);
+
     pInode->sharedByte = (lk & mask)%(SHARED_SIZE - 1);
     lrc1 = afpSetLock(context->dbPath, pFile, 
           SHARED_FIRST+pInode->sharedByte, 1, 1);

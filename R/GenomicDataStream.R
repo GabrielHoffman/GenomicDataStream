@@ -5,7 +5,6 @@
 #' @name GenomicDataStream
 #' @useDynLib GenomicDataStream
 #' @importFrom Rcpp evalCpp
-#' @importFrom Rdpack reprompt
 NULL
 
 #' Interface to genomic data files

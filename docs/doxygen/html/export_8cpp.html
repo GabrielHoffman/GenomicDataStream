@@ -149,6 +149,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad2d51f7a6459a04793a72e83a03a7dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dd3e4034f7abff758612d5c610d7930" id="r_a2dd3e4034f7abff758612d5c610d7930"><td class="memItemLeft" align="right" valign="top">SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dd3e4034f7abff758612d5c610d7930">setRegions_rcpp</a> (SEXP x, const string &amp;regionString)</td></tr>
 <tr class="separator:a2dd3e4034f7abff758612d5c610d7930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7285b8d8d4b5ed9b4d3017f2cc6a3050" id="r_a7285b8d8d4b5ed9b4d3017f2cc6a3050"><td class="memItemLeft" align="right" valign="top">SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7285b8d8d4b5ed9b4d3017f2cc6a3050">setChunkSize_rcpp</a> (SEXP x, const double &amp;chunkSize)</td></tr>
+<tr class="separator:a7285b8d8d4b5ed9b4d3017f2cc6a3050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0376c7389e2e9c85d965bc6496a10b63" id="r_a0376c7389e2e9c85d965bc6496a10b63"><td class="memItemLeft" align="right" valign="top">CharacterVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0376c7389e2e9c85d965bc6496a10b63">getSampleNames_rcpp</a> (SEXP x)</td></tr>
 <tr class="separator:a0376c7389e2e9c85d965bc6496a10b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72cd0eaac00f6f47aebed59a00ffedf9" id="r_a72cd0eaac00f6f47aebed59a00ffedf9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72cd0eaac00f6f47aebed59a00ffedf9">atEndOfStream_rcpp</a> (SEXP x)</td></tr>
@@ -159,8 +161,8 @@ Functions</h2></td></tr>
 <tr class="separator:ab00a0564a52e574e823c23a2c0be7add"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fee884670a74f3630ba041bcf13a0e9" id="r_a7fee884670a74f3630ba041bcf13a0e9"><td class="memItemLeft" align="right" valign="top">arma::vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fee884670a74f3630ba041bcf13a0e9">colSums_test</a> (const arma::mat &amp;X)</td></tr>
 <tr class="separator:a7fee884670a74f3630ba041bcf13a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7948cb70a34ad29b874afa09a0fd2558" id="r_a7948cb70a34ad29b874afa09a0fd2558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7948cb70a34ad29b874afa09a0fd2558">standardize_test</a> (arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true)</td></tr>
-<tr class="separator:a7948cb70a34ad29b874afa09a0fd2558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460652a0b54569d18db86d07ebf1b365" id="r_a460652a0b54569d18db86d07ebf1b365"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a460652a0b54569d18db86d07ebf1b365">standardize_in_place</a> (arma::mat &amp;X, const bool &amp;center=true, const bool &amp;scale=true)</td></tr>
+<tr class="separator:a460652a0b54569d18db86d07ebf1b365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3b798fd7a4dc07ad7dff5c3d668ae53" id="r_ac3b798fd7a4dc07ad7dff5c3d668ae53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3b798fd7a4dc07ad7dff5c3d668ae53">test_DataTable</a> (const string &amp;file, const string &amp;headerKey, const char delim='\t')</td></tr>
 <tr class="separator:ac3b798fd7a4dc07ad7dff5c3d668ae53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -364,6 +366,27 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7285b8d8d4b5ed9b4d3017f2cc6a3050" name="a7285b8d8d4b5ed9b4d3017f2cc6a3050"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7285b8d8d4b5ed9b4d3017f2cc6a3050">&#9670;&#160;</a></span>setChunkSize_rcpp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SEXP setChunkSize_rcpp </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>chunkSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2dd3e4034f7abff758612d5c610d7930" name="a2dd3e4034f7abff758612d5c610d7930"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2dd3e4034f7abff758612d5c610d7930">&#9670;&#160;</a></span>setRegions_rcpp()</h2>
 
@@ -385,14 +408,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7948cb70a34ad29b874afa09a0fd2558" name="a7948cb70a34ad29b874afa09a0fd2558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7948cb70a34ad29b874afa09a0fd2558">&#9670;&#160;</a></span>standardize_test()</h2>
+<a id="a460652a0b54569d18db86d07ebf1b365" name="a460652a0b54569d18db86d07ebf1b365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a460652a0b54569d18db86d07ebf1b365">&#9670;&#160;</a></span>standardize_in_place()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void standardize_test </td>
+          <td class="memname">void standardize_in_place </td>
           <td>(</td>
           <td class="paramtype">arma::mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
         </tr>
