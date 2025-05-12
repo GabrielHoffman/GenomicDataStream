@@ -1,7 +1,7 @@
 /***********************************************************************
- * @file		ParallelGenomicChunks.h
- * @author		Zilong Li
- * @brief		get chunks in parallel for pca stream
+ * @file  ParallelGenomicChunks.h
+ * @author  Zilong Li
+ * @brief   get chunks in parallel for pca stream
  * Copyright (C) 2025. The use of this code is governed by the LICENSE file.
  ***********************************************************************/
 
@@ -50,10 +50,10 @@ private:
     }
 
   private:
-	std::vector<std::string> regions;
-    gds::Param param;
-    std::vector<std::shared_ptr<gds::GenomicDataStream>> readers;
-    std::mutex mutex;
+   gds::Param param;
+	 std::vector<std::string> regions;
+   std::vector<std::shared_ptr<gds::GenomicDataStream>> readers;
+   std::mutex mutex;
   };
 
 public:
