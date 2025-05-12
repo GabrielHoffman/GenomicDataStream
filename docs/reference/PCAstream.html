@@ -60,7 +60,16 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PCAstream</span><span class="op">(</span><span class="va">gds</span>, <span class="va">k</span>, p <span class="op">=</span> <span class="fl">7</span>, s <span class="op">=</span> <span class="fl">20</span>, B <span class="op">=</span> <span class="fl">64</span>, threads <span class="op">=</span> <span class="fl">4</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PCAstream</span><span class="op">(</span></span>
+<span>  <span class="va">gds</span>,</span>
+<span>  <span class="va">k</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
+<span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -91,12 +100,18 @@ number of windows (by default \(B=64\)).</p></dd>
 
 <dt>threads</dt>
 <dd><p>integer, optional; <br>
-number of threads (by default \(threads=4\)).  Set to <code>min(threads, floor(nrow(chunks) / B))</code></p></dd>
+               number of threads (by default \(threads=4\)).  Set to <code>min(threads, floor(nrow(chunks) / B))</code>
+#'</p></dd>
+
+
+<dt>shuffle</dt>
+<dd><p>bool, optional; <br>
+if <code>TRUE</code> (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk</p></dd>
 
 
 <dt>verbose</dt>
 <dd><p>string, optional; <br>
-if <code>TRUE</code> (default) print details</p></dd>
+if <code>TRUE</code> (default is <code>FALSE</code>) print details</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -121,7 +136,7 @@ if <code>TRUE</code> (default) print details</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>PCAstream implements the window-based Randomized SVD proposed by Li et al. (2024)</p>
+    <p>PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2024)</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -147,11 +162,6 @@ gives an equivalent decomposition.</p>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PCAstream</span><span class="op">(</span><span class="va">obj</span>, k<span class="op">=</span><span class="fl">5</span>, B<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  # features: 10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  # chunks: 4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  # threads: 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  B: 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  k: 5 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -176,6 +186,7 @@ gives an equivalent decomposition.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9.8075 9.137978 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>pty<span class="op">=</span><span class="st">"s"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PCAstream-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

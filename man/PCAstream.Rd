@@ -4,7 +4,16 @@
 \alias{PCAstream}
 \title{Window-based Randomized SVD on data streamed from \code{GenomicDataStream}}
 \usage{
-PCAstream(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE)
+PCAstream(
+  gds,
+  k,
+  p = 7,
+  s = 20,
+  B = 64,
+  threads = 4,
+  shuffle = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{gds}{\code{GenomicDataStream}}
@@ -22,10 +31,14 @@ oversampling parameter (by default \eqn{s=20}).}
 number of windows (by default \eqn{B=64}).}
 
 \item{threads}{integer, optional; \cr
-number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}}
+               number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
+#'}
+
+\item{shuffle}{bool, optional; \cr
+if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk}
 
 \item{verbose}{string, optional; \cr
-if \code{TRUE} (default) print details}
+if \code{TRUE} (default is \code{FALSE}) print details}
 }
 \value{
 \code{PCAstream} returns a list containing the following three components:
@@ -47,7 +60,7 @@ if \code{TRUE} (default) print details}
 Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
 }
 \details{
-PCAstream implements the window-based Randomized SVD proposed by Li et al. (2024)
+PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2024)
 }
 \note{
 The singular vectors are not unique and only defined up to sign.
@@ -63,6 +76,7 @@ res <- PCAstream(obj, k=5, B=2)
 
 res
 
+par(pty="s")
 plot(res)
 
 }

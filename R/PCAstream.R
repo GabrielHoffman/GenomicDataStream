@@ -16,8 +16,12 @@
 #' 
 #' @param threads integer, optional; \cr
 #'                number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
+#' #' 
+#' @param shuffle  bool, optional; \cr
+#'                  if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk
+#' 
 #' @param verbose  string, optional; \cr
-#'                  if \code{TRUE} (default) print details
+#'                  if \code{TRUE} (default is \code{FALSE}) print details
 #' 
 #' @return \code{PCAstream} returns a list containing the following three components:
 #'\describe{
@@ -34,7 +38,7 @@
 #'}
 #'}
 #'
-#' @details PCAstream implements the window-based Randomized SVD proposed by Li et al. (2024)
+#' @details PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2024)
 
 #' @note The singular vectors are not unique and only defined up to sign.
 #' If a left singular vector has its sign changed, changing the sign of the corresponding right vector
@@ -56,11 +60,12 @@
 #' 
 #' res
 #' 
+#' par(pty="s")
 #' plot(res)
 #' 
 #' @importFrom methods slot
 #' @export
-PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE) {
+PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
 
   stopifnot(is(gds, "GenomicDataStream"))
 
@@ -68,7 +73,10 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE
   sObj <- summaryChunks(gds)
 
   # permute chunks
-  chunks <- sObj$chunks[sample(nrow(sObj$chunks)),]  
+  chunks <- sObj$chunks
+  if( shuffle ){
+    chunks <- chunks[sample(nrow(chunks)),]  
+  }
 
   N <- slot(gds, "nsamples")
   M <- sum(chunks$counts)
@@ -111,7 +119,14 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, verbose = TRUE
   gds <- reinitializeStream(gds)
 
   # run PCA on GenomicDataStream
-  res <- stream_pcaone(gds, region, m = M, k = k, s = s, p = p, B = B, threads = threads)
+  res <- stream_pcaone(gds, region, 
+                        m = M, 
+                        k = k, 
+                        s = s, 
+                        p = p, 
+                        B = B, 
+                        threads = threads, 
+                        verbose = verbose)
 
   # set row and column names
   rownames(res$u) <- sObj$sampleIDs

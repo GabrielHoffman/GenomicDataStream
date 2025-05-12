@@ -145,8 +145,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // stream_pcaone
-Rcpp::List stream_pcaone(Rcpp::S4 gds, const string& region, int m, int k, int s, int p, int B, int threads);
-RcppExport SEXP _GenomicDataStream_stream_pcaone(SEXP gdsSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP) {
+Rcpp::List stream_pcaone(Rcpp::S4 gds, const string& region, int m, int k, int s, int p, int B, int threads, const bool verbose);
+RcppExport SEXP _GenomicDataStream_stream_pcaone(SEXP gdsSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -158,7 +158,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type B(BSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(stream_pcaone(gds, region, m, k, s, p, B, threads));
+    Rcpp::traits::input_parameter< const bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_pcaone(gds, region, m, k, s, p, B, threads, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -175,7 +176,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
-    {"_GenomicDataStream_stream_pcaone", (DL_FUNC) &_GenomicDataStream_stream_pcaone, 8},
+    {"_GenomicDataStream_stream_pcaone", (DL_FUNC) &_GenomicDataStream_stream_pcaone, 9},
     {NULL, NULL, 0}
 };
 

@@ -195,7 +195,7 @@ void test_DataTable(const string &file, const string &headerKey, const char deli
 }
 
 // [[Rcpp::export]]
-Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s = 20, int p = 7, int B = 64, int threads = 4) {
+Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s = 20, int p = 7, int B = 64, int threads = 4, const bool verbose=true) {
   Timer timer;
   timer.step("init params");
   // extract slots
@@ -232,6 +232,10 @@ Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s
   size_t band = ceil((double)nchunks / B);
   
   for (int pi = 0; pi <= p; pi++) {
+
+  	if( verbose ){
+  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p << "		";
+  	}
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
       H1.setZero();
@@ -273,6 +277,9 @@ Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s
   }
 
   // get USV
+  if( verbose ){
+		Rcpp::Rcout << "\rFinal decompositions" << std::endl;
+	}
   {
     Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
     R.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
@@ -291,9 +298,10 @@ Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s
 
   timer.step("getUSV");
 
-  Rcpp::List lst =  Rcpp::List::create(Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
-                            Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
-                            Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
+  Rcpp::List lst =  Rcpp::List::create(
+  			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
+        Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
+        Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
   lst.attr("timing") = timer;
 
   return lst;                            
