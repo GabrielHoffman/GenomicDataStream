@@ -16,7 +16,7 @@
 #' 
 #' @param threads integer, optional; \cr
 #'                number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
-#' #' 
+#'
 #' @param shuffle  bool, optional; \cr
 #'                  if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk
 #' 

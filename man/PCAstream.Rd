@@ -31,8 +31,7 @@ oversampling parameter (by default \eqn{s=20}).}
 number of windows (by default \eqn{B=64}).}
 
 \item{threads}{integer, optional; \cr
-               number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
-#'}
+number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}}
 
 \item{shuffle}{bool, optional; \cr
 if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk}
