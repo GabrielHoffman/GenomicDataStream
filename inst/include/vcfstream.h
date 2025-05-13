@@ -112,6 +112,7 @@ class vcfstream :
 				break;
 
 				case -2: // the region is not valid
+				Rcpp::Rcout << "region:" + region + ";\n";
 				throw runtime_error("region was not found: " + region );
 				break;
 			}

@@ -44,7 +44,7 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' Interface to GenomicDataStream C++ code
 #'
 #' @param file file in VCF/BCF/BGEN/PGEN format with index
-#' @param field field of VCF/BCF to read
+#' @param field field of VCF/BCF to read.  Ignored for other file types
 #' @param region target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants
 #' @param samples string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples
 #' @param MAF generalized minor allele frequency cutoff keeps variants with variance > \eqn{2(1-f)f}.

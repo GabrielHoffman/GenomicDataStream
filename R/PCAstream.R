@@ -208,18 +208,18 @@ setMethod(
 
     k = min(3, length(object$d))
 
-    cat("Samples:\n")
-    cat(" res$u\n")
+    # cat("Samples:\n")
+    cat(" $u\n")
     print(head(object$u[,seq(k)], 2))
     cat("     ...\n\n")
 
-    cat("Loadings:\n")
-    cat(" res$v\n")
+    # cat("Loadings:\n")
+    cat(" $v\n")
     print(head(object$v[,seq(k)], 2))
     cat("     ...\n\n")
 
-    cat("Singular values:\n")
-    cat(" res$d\n")
+    # cat("Singular values:\n")
+    cat(" $d\n")
     cat(head(object$d, 2))
     cat(" ...\n\n") 
   }
