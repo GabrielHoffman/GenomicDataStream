@@ -19,7 +19,7 @@ GenomicDataStream(
 \arguments{
 \item{file}{file in VCF/BCF/BGEN/PGEN format with index}
 
-\item{field}{field of VCF/BCF to read}
+\item{field}{field of VCF/BCF to read.  Ignored for other file types}
 
 \item{region}{target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants}
 
