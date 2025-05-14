@@ -19,11 +19,13 @@ Depends:
         Rcpp, 
         methods, 
         stats,
+        rcpptimer,
         utils
 LinkingTo: 
         Rcpp, 
         RcppArmadillo, 
         RcppEigen, 
+        rcpptimer,
         beachmat (>= 2.21.9),
         assorthead,  
         BH (>= 1.87.0),

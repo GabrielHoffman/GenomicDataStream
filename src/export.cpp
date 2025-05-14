@@ -20,20 +20,20 @@
 #endif 
 
 
-#ifdef _OPENMP
-	// [[Rcpp::plugins(openmp)]]
-	#include <omp.h>
-#else
-	#define omp_get_num_threads() 0
-	#define omp_get_thread_num() 0
-#endif
+// #ifdef _OPENMP
+// 	// [[Rcpp::plugins(openmp)]]
+// 	#include <omp.h>
+// #else
+// 	#define omp_get_num_threads() 0
+// 	#define omp_get_thread_num() 0
+// #endif
 
 #include "GenomicDataStream.h"
 #include "DataTable.h"
 #include "ParallelGenomicChunks.h"
 
 #include "Rand.hpp"
-#include <Rcpp/Benchmark/Timer.h>
+#include <rcpptimer.h>
 
 using namespace std;
 using namespace vcfpp;
@@ -223,7 +223,7 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
 
   Timer timer;
-  timer.step("init Eigen::MatrixXd for pcaone");
+  // timer.step("init Eigen::MatrixXd for pcaone");
 
   size_t band = ceil((double)nchunks / B);
   
@@ -249,13 +249,18 @@ Rcpp::List stream_pcaone_robj(
     size_t i{1},  start{0};
     // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) 
     size_t b{0};
+      timer.tic("init DelayedStream");
     DelayedStream ds( x, ids, chunkSize);
+      timer.toc("init DelayedStream");
     while( ds.getNextChunk( chunk ) ){
 
+      timer.tic("Read data");
       // read data so columns are features
       auto Ab = chunk.getData();
       // Rcpp::Rcout << "Ab: " << Ab.rows() << " x " << Ab.cols() << std::endl;
       standardize(Ab); // standardize
+      timer.toc("Read data");
+      timer.tic("Linear algebra");
       {
         // std::lock_guard<std::mutex> lock(pcaMutex);
         G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
@@ -279,12 +284,13 @@ Rcpp::List stream_pcaone_robj(
         }
         start += Ab.cols();
         i++;
-      }
+      }      
+      timer.toc("Linear algebra");
       b++;
     }
     // );
 
-    timer.step("epochs:" + to_string(pi));
+    // timer.step("epochs:" + to_string(pi));
   }
 
   // get USV
@@ -307,13 +313,13 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
   Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
 
-  timer.step("getUSV");
+  // timer.step("getUSV");
 
   Rcpp::List lst =  Rcpp::List::create(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
         Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
         Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
-  lst.attr("timing") = timer;
+  // lst.attr("timing") = timer;
 
   return lst;                            
 }
@@ -333,7 +339,7 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
 													int threads = 4,
 												 	const bool verbose=true) {
   Timer timer;
-  timer.step("init params");
+  // timer.step("init params");
   // extract slots
   int n = gds.slot("nsamples"); // number of samples
   std::string file = gds.slot("file"); // fille
@@ -346,14 +352,14 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   gds::Param param(file, "", samples, minVariance, chunkSize, missingToMean);
   param.setField(field);
 
-  timer.step("init params");
+  // timer.step("init params");
   auto regions = splitRegionString( region ); // assume regions are permuted
   const size_t nchunks{regions.size()};
 
   MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(param, regions, threads);
   // Eigen::setNbThreads(threads); 
   std::mutex pcaMutex;
-  timer.step("init MultiGenomicStreamProcessor");
+  // timer.step("init MultiGenomicStreamProcessor");
 
   const int l = k + s;
   auto randomEngine = std::default_random_engine{};
@@ -363,7 +369,7 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
   
-  timer.step("init Eigen::MatrixXd for pcaone");
+  // timer.step("init Eigen::MatrixXd for pcaone");
 
   size_t band = ceil((double)nchunks / B);
   
@@ -409,7 +415,7 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
       }
     });
 
-    timer.step("epochs:" + to_string(pi));
+    // timer.step("epochs:" + to_string(pi));
   }
 
   // get USV
@@ -432,13 +438,13 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
   Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
 
-  timer.step("getUSV");
+  // timer.step("getUSV");
 
   Rcpp::List lst =  Rcpp::List::create(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
         Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
         Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
-  lst.attr("timing") = timer;
+  // lst.attr("timing") = timer;
 
   return lst;                            
 }
