@@ -210,10 +210,11 @@ Rcpp::List stream_pcaone_robj(
 										int threads = 4, 
 										const bool verbose=true) {
 
-	
 	DataChunk<Eigen::MatrixXd> chunk;
 
 	const int l = k + s;
+  
+  Eigen::setNbThreads(8); 
 
   auto randomEngine = std::default_random_engine{};
   Eigen::MatrixXd Omg = StandardNormalRandom<Eigen::MatrixXd, std::default_random_engine>(n, l, randomEngine);
@@ -223,16 +224,7 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
 
   Timer timer;
-  // timer.step("init Eigen::MatrixXd for pcaone");
-
   size_t band = ceil((double)nchunks / B);
-  
-  // Rcpp::Rcout << "n: " << n << std::endl;
-  // Rcpp::Rcout << "chunkSize: " << chunkSize << std::endl;
-  // Rcpp::Rcout << "nchunks: " << nchunks << std::endl;
-  // Rcpp::Rcout << "m: " << m << std::endl;
-  // Rcpp::Rcout << "k: " << k << std::endl;
-  // Rcpp::Rcout << "B: " << B << std::endl;
 
   for (int pi = 0; pi <= p; pi++) {
 
@@ -249,15 +241,12 @@ Rcpp::List stream_pcaone_robj(
     size_t i{1},  start{0};
     // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) 
     size_t b{0};
-      timer.tic("init DelayedStream");
     DelayedStream ds( x, ids, chunkSize);
-      timer.toc("init DelayedStream");
     while( ds.getNextChunk( chunk ) ){
 
       timer.tic("Read data");
       // read data so columns are features
       auto Ab = chunk.getData();
-      // Rcpp::Rcout << "Ab: " << Ab.rows() << " x " << Ab.cols() << std::endl;
       standardize(Ab); // standardize
       timer.toc("Read data");
       timer.tic("Linear algebra");
@@ -289,8 +278,6 @@ Rcpp::List stream_pcaone_robj(
       b++;
     }
     // );
-
-    // timer.step("epochs:" + to_string(pi));
   }
 
   // get USV
@@ -313,8 +300,6 @@ Rcpp::List stream_pcaone_robj(
 
   Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
   Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
-
-  // timer.step("getUSV");
 
   Rcpp::List lst =  Rcpp::List::create(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
@@ -341,7 +326,7 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
 													int threads = 4,
 												 	const bool verbose=true) {
   Timer timer;
-  // timer.step("init params");
+
   // extract slots
   int n = gds.slot("nsamples"); // number of samples
   std::string file = gds.slot("file"); // fille
@@ -354,14 +339,12 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   gds::Param param(file, "", samples, minVariance, chunkSize, missingToMean);
   param.setField(field);
 
-  // timer.step("init params");
   auto regions = splitRegionString( region ); // assume regions are permuted
   const size_t nchunks{regions.size()};
 
   MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(param, regions, threads);
-  // Eigen::setNbThreads(threads); 
+  Eigen::setNbThreads(8); 
   std::mutex pcaMutex;
-  // timer.step("init MultiGenomicStreamProcessor");
 
   const int l = k + s;
   auto randomEngine = std::default_random_engine{};
@@ -371,8 +354,6 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
   
-  // timer.step("init Eigen::MatrixXd for pcaone");
-
   size_t band = ceil((double)nchunks / B);
   
   for (int pi = 0; pi <= p; pi++) {
@@ -416,8 +397,6 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
         i++;
       }
     });
-
-    // timer.step("epochs:" + to_string(pi));
   }
 
   // get USV
@@ -440,13 +419,10 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
   Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
 
-  // timer.step("getUSV");
-
   Rcpp::List lst =  Rcpp::List::create(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
         Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
         Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
-  // lst.attr("timing") = timer;
 
   return lst;                            
 }

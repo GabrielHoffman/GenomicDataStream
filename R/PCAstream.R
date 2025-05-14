@@ -97,8 +97,9 @@ setMethod(
 
   # nchunks must be larger than B * threads
   # stopifnot(nrow(chunks) > B * threads)
-  threads <- min(threads, floor(nrow(chunks) / B))
-  threads <- max(1, threads)
+  # number of parallel chunks
+  n_pll_chunks <- min(threads, floor(nrow(chunks) / B))
+  n_pll_chunks <- max(1, n_pll_chunks)
 
   # set valid B
   while( ! (M > B^2) ){
@@ -114,7 +115,7 @@ setMethod(
     }
     cat(" # features:", format(M, big.mark=','), "\n")
     cat(" # chunks:", format(nrow(chunks), big.mark=','), "\n")
-    cat(" # threads:", threads, "\n")
+    cat(" # threads:", n_pll_chunks, "\n")
     cat(" B:", B, "\n")
     cat(" k:", k, "\n")
   }
@@ -139,7 +140,7 @@ setMethod(
                         s = s, 
                         p = p, 
                         B = B, 
-                        threads = threads, 
+                        threads = n_pll_chunks, 
                         verbose = verbose)
 
   # set row and column names
@@ -153,12 +154,11 @@ setMethod(
   new("PCA", res)
 })
 
-# TODO: See https://github.com/GabrielHoffman/GenomicDataStreamRegression/blob/HEAD/R/glm.R
 #' @export
 #' @importFrom methods slot
 #' @importFrom beachmat initializeCpp
 #' @rdname PCAstream
-#' @aliases PCAstream,GenomicDataStream-method
+#' @aliases PCAstream,ANY-method
 setMethod(
   "PCAstream", signature(x = "ANY"),
   function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
@@ -208,6 +208,21 @@ setMethod(
   names(res$d) <- paste0("PC", seq(k))
 
   new("PCA", res)
+})
+
+
+#' @export
+#' @importFrom methods slot
+#' @importFrom beachmat initializeCpp
+#' @rdname PCAstream
+#' @aliases PCAstream,SingleCellExperiment-method
+setMethod(
+  "PCAstream", signature(x = "SingleCellExperiment"),
+  function(x, k, chunkSize = 100, assay="logcounts", p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+
+  Y <- assay(x, assay)
+    
+  PCAstream(t(Y), ...)
 })
 
 

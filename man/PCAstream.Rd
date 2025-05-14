@@ -4,6 +4,7 @@
 \alias{PCAstream}
 \alias{PCAstream,GenomicDataStream-method}
 \alias{PCAstream,ANY-method}
+\alias{PCAstream,SingleCellExperiment-method}
 \title{Window-based Randomized SVD on data streamed from \code{GenomicDataStream}}
 \usage{
 PCAstream(
@@ -34,6 +35,19 @@ PCAstream(
   x,
   k,
   chunkSize = 1000,
+  p = 7,
+  s = 20,
+  B = 64,
+  threads = 4,
+  shuffle = TRUE,
+  verbose = FALSE
+)
+
+\S4method{PCAstream}{SingleCellExperiment}(
+  x,
+  k,
+  chunkSize = 100,
+  assay = "logcounts",
   p = 7,
   s = 20,
   B = 64,
