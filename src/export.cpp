@@ -297,6 +297,7 @@ Rcpp::List stream_pcaone_robj(
   if( verbose ){
 		Rcpp::Rcout << "\rFinal decompositions" << std::endl;
 	}
+  timer.tic("Linear algebra: final");
   {
     Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
     R.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
@@ -319,7 +320,8 @@ Rcpp::List stream_pcaone_robj(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
         Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
         Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
-  // lst.attr("timing") = timer;
+  
+  timer.toc("Linear algebra: final");
 
   return lst;                            
 }
