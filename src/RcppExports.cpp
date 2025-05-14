@@ -144,6 +144,28 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// stream_pcaone_robj
+Rcpp::List stream_pcaone_robj(const RObject& x, const std::vector<std::string>& ids, const int& n, const int& chunkSize, const int& nchunks, int m, int k, int s, int p, int B, int threads, const bool verbose);
+RcppExport SEXP _GenomicDataStream_stream_pcaone_robj(SEXP xSEXP, SEXP idsSEXP, SEXP nSEXP, SEXP chunkSizeSEXP, SEXP nchunksSEXP, SEXP mSEXP, SEXP kSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RObject& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type ids(idsSEXP);
+    Rcpp::traits::input_parameter< const int& >::type n(nSEXP);
+    Rcpp::traits::input_parameter< const int& >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nchunks(nchunksSEXP);
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type B(BSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< const bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_pcaone_robj(x, ids, n, chunkSize, nchunks, m, k, s, p, B, threads, verbose));
+    return rcpp_result_gen;
+END_RCPP
+}
 // stream_pcaone
 Rcpp::List stream_pcaone(Rcpp::S4 gds, const string& region, int m, int k, int s, int p, int B, int threads, const bool verbose);
 RcppExport SEXP _GenomicDataStream_stream_pcaone(SEXP gdsSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP, SEXP verboseSEXP) {
@@ -176,6 +198,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
+    {"_GenomicDataStream_stream_pcaone_robj", (DL_FUNC) &_GenomicDataStream_stream_pcaone_robj, 12},
     {"_GenomicDataStream_stream_pcaone", (DL_FUNC) &_GenomicDataStream_stream_pcaone, 9},
     {NULL, NULL, 0}
 };

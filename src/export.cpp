@@ -194,8 +194,144 @@ void test_DataTable(const string &file, const string &headerKey, const char deli
 	dt.print(Rcpp::Rcout, "\t");
 }
 
+
 // [[Rcpp::export]]
-Rcpp::List stream_pcaone(Rcpp::S4 gds, const string &region, int m, int k, int s = 20, int p = 7, int B = 64, int threads = 4, const bool verbose=true) {
+Rcpp::List stream_pcaone_robj(
+										const RObject &x, 
+										const std::vector<std::string> &ids, 
+    								const int &n, 
+    								const int &chunkSize,
+    								const int &nchunks,
+										int m, 
+										int k, 
+										int s = 20, 
+										int p = 7, 
+										int B = 64, 
+										int threads = 4, 
+										const bool verbose=true) {
+
+	
+	DataChunk<Eigen::MatrixXd> chunk;
+
+	const int l = k + s;
+
+  auto randomEngine = std::default_random_engine{};
+  Eigen::MatrixXd Omg = StandardNormalRandom<Eigen::MatrixXd, std::default_random_engine>(n, l, randomEngine);
+  Eigen::MatrixXd Omg2 = Omg;
+  Eigen::MatrixXd H1 = Eigen::MatrixXd::Zero(n, l);
+  Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
+  Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
+
+  Timer timer;
+  timer.step("init Eigen::MatrixXd for pcaone");
+
+  size_t band = ceil((double)nchunks / B);
+  
+  // Rcpp::Rcout << "n: " << n << std::endl;
+  // Rcpp::Rcout << "chunkSize: " << chunkSize << std::endl;
+  // Rcpp::Rcout << "nchunks: " << nchunks << std::endl;
+  // Rcpp::Rcout << "m: " << m << std::endl;
+  // Rcpp::Rcout << "k: " << k << std::endl;
+  // Rcpp::Rcout << "B: " << B << std::endl;
+
+  for (int pi = 0; pi <= p; pi++) {
+
+  	if( verbose ){
+  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p << "     ";
+  	}
+    if (std::pow(2, pi) >= B) {
+      // reset H1, H2 to zero
+      H1.setZero();
+      H2.setZero();
+    }
+    band = std::fmin(band * 2, nchunks);
+
+    size_t i{1},  start{0};
+    // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) 
+    size_t b{0};
+    DelayedStream ds( x, ids, chunkSize);
+    while( ds.getNextChunk( chunk ) ){
+
+      // read data so columns are features
+      auto Ab = chunk.getData();
+      // Rcpp::Rcout << "Ab: " << Ab.rows() << " x " << Ab.cols() << std::endl;
+      standardize(Ab); // standardize
+      {
+        // std::lock_guard<std::mutex> lock(pcaMutex);
+        G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+        if (i <= band / 2)
+          H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+        else
+          H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+        bool adjacent =
+          (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+        if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+          H = H1 + H2;
+          Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+          Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+          flipOmg(Omg2, Omg);
+          if (i == band) {
+            H1.setZero();
+            i = 0;
+          } else {
+            H2.setZero();
+          }
+        }
+        start += Ab.cols();
+        i++;
+      }
+      b++;
+    }
+    // );
+
+    timer.step("epochs:" + to_string(pi));
+  }
+
+  // get USV
+  if( verbose ){
+		Rcpp::Rcout << "\rFinal decompositions" << std::endl;
+	}
+  {
+    Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
+    R.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
+    G.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(m, l);
+  }
+  {
+    Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
+    Rt.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
+    G.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(m, l);
+  }
+
+  R = Rt * R;
+
+  Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
+  Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
+
+  timer.step("getUSV");
+
+  Rcpp::List lst =  Rcpp::List::create(
+  			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
+        Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
+        Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
+  lst.attr("timing") = timer;
+
+  return lst;                            
+}
+
+
+
+
+
+// [[Rcpp::export]]
+Rcpp::List stream_pcaone(	Rcpp::S4 gds, 
+													const string &region,
+												 	int m, 
+													int k, 
+													int s = 20, 
+													int p = 7, 
+													int B = 64, 
+													int threads = 4,
+												 	const bool verbose=true) {
   Timer timer;
   timer.step("init params");
   // extract slots

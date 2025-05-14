@@ -1,9 +1,11 @@
 #' Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
 #' 
-#' @param gds  \code{GenomicDataStream}
+#' @param x  \code{GenomicDataStream}
 #'
 #' @param k       integer; \cr
 #'                specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.
+#'
+#' @param ... other argument to control streaming
 #'
 #' @param p       integer, optional; \cr
 #'                number of additional power iterations (by default \eqn{p=7}).
@@ -63,14 +65,26 @@
 #' par(pty="s")
 #' plot(res)
 #' 
-#' @importFrom methods slot
 #' @export
-PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+setGeneric(
+  "PCAstream",
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+    standardGeneric("PCAstream")
+  }
+)
 
-  stopifnot(is(gds, "GenomicDataStream"))
+#' @export
+#' @importFrom methods slot
+#' @rdname PCAstream
+#' @aliases PCAstream,GenomicDataStream-method
+setMethod(
+  "PCAstream", signature(x = "GenomicDataStream"),
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+
+  stopifnot(is(x, "GenomicDataStream"))
 
   # get summary of GenomicDataStream
-  sObj <- summaryChunks(gds)
+  sObj <- summaryChunks(x)
 
   # permute chunks
   chunks <- sObj$chunks
@@ -78,7 +92,7 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE
     chunks <- chunks[sample(nrow(chunks)),]  
   }
 
-  N <- slot(gds, "nsamples")
+  N <- slot(x, "nsamples")
   M <- sum(chunks$counts)
 
   # nchunks must be larger than B * threads
@@ -116,10 +130,10 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE
   regions <- chunks[sample(nrow(chunks)),"region"]
   region <- paste(regions, collapse = "," )
 
-  gds <- reinitializeStream(gds)
+  x <- reinitializeStream(x)
 
   # run PCA on GenomicDataStream
-  res <- stream_pcaone(gds, region, 
+  res <- stream_pcaone(x, region, 
                         m = M, 
                         k = k, 
                         s = s, 
@@ -136,9 +150,67 @@ PCAstream <- function(gds, k, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE
   colnames(res$v) <- paste0("PC", seq(k))
   names(res$d) <- paste0("PC", seq(k))
 
-  # class(res) <- c("PCA", class(res))
   new("PCA", res)
-}
+})
+
+# TODO: See https://github.com/GabrielHoffman/GenomicDataStreamRegression/blob/HEAD/R/glm.R
+#' @export
+#' @importFrom methods slot
+#' @importFrom beachmat initializeCpp
+#' @rdname PCAstream
+#' @aliases PCAstream,GenomicDataStream-method
+setMethod(
+  "PCAstream", signature(x = "ANY"),
+  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+
+  if( is.null(rownames(x))){
+    rownames(x) <- paste0("f_", seq(nrow(x)))
+  }
+
+
+  M <- nrow(x)
+  N <- ncol(x)
+
+  # set valid B
+  while( ! (M > B^2) ){
+    B <- B / 2
+  }
+
+  # k must be < min(N,M)
+  k <- min(c(k,N,M))
+
+   # B must be a even
+  stopifnot(B %% 2 == 0)
+
+  p <- max(c(p, log2(B)+1)) 
+
+  ptr <- initializeCpp(x)
+
+  res <- stream_pcaone_robj(x = ptr, 
+                        ids = rownames(x),
+                        n = N,
+                        chunkSize = chunkSize,
+                        nchunks = ceiling(M/chunkSize), 
+                        m = M, 
+                        k = k, 
+                        s = s, 
+                        p = p, 
+                        B = B, 
+                        threads = threads, 
+                        verbose = verbose)
+
+  # set row and column names
+  rownames(res$u) <- colnames(x)
+  rownames(res$v) <- rownames(x)
+
+  colnames(res$u) <- paste0("PC", seq(k))
+  colnames(res$v) <- paste0("PC", seq(k))
+  names(res$d) <- paste0("PC", seq(k))
+
+  new("PCA", res)
+})
+
+
 
 
 #' Get information about chunks

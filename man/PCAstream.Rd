@@ -2,11 +2,38 @@
 % Please edit documentation in R/PCAstream.R
 \name{PCAstream}
 \alias{PCAstream}
+\alias{PCAstream,GenomicDataStream-method}
+\alias{PCAstream,ANY-method}
 \title{Window-based Randomized SVD on data streamed from \code{GenomicDataStream}}
 \usage{
 PCAstream(
-  gds,
+  x,
   k,
+  ...,
+  p = 7,
+  s = 20,
+  B = 64,
+  threads = 4,
+  shuffle = TRUE,
+  verbose = FALSE
+)
+
+\S4method{PCAstream}{GenomicDataStream}(
+  x,
+  k,
+  ...,
+  p = 7,
+  s = 20,
+  B = 64,
+  threads = 4,
+  shuffle = TRUE,
+  verbose = FALSE
+)
+
+\S4method{PCAstream}{ANY}(
+  x,
+  k,
+  chunkSize = 1000,
   p = 7,
   s = 20,
   B = 64,
@@ -16,10 +43,12 @@ PCAstream(
 )
 }
 \arguments{
-\item{gds}{\code{GenomicDataStream}}
+\item{x}{\code{GenomicDataStream}}
 
 \item{k}{integer; \cr
 specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.}
+
+\item{...}{other argument to control streaming}
 
 \item{p}{integer, optional; \cr
 number of additional power iterations (by default \eqn{p=7}).}
