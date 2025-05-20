@@ -33,6 +33,10 @@ getNextChunk_rcpp <- function(x) {
     .Call('_GenomicDataStream_getNextChunk_rcpp', PACKAGE = 'GenomicDataStream', x)
 }
 
+summarizeChunks_rcpp <- function(x) {
+    .Call('_GenomicDataStream_summarizeChunks_rcpp', PACKAGE = 'GenomicDataStream', x)
+}
+
 colSums_test <- function(X) {
     .Call('_GenomicDataStream_colSums_test', PACKAGE = 'GenomicDataStream', X)
 }
@@ -41,15 +45,15 @@ colSums_test <- function(X) {
     invisible(.Call('_GenomicDataStream_standardize_in_place', PACKAGE = 'GenomicDataStream', X, center, scale))
 }
 
-test_DataTable <- function(file, headerKey, delim = '\t') {
+test_DataTable <- function(file, headerKey, delim = "\t ") {
     invisible(.Call('_GenomicDataStream_test_DataTable', PACKAGE = 'GenomicDataStream', file, headerKey, delim))
 }
 
-stream_pcaone_robj <- function(x, ids, n, chunkSize, nchunks, m, k, s = 20L, p = 7L, B = 64L, threads = 4L, verbose = TRUE) {
-    .Call('_GenomicDataStream_stream_pcaone_robj', PACKAGE = 'GenomicDataStream', x, ids, n, chunkSize, nchunks, m, k, s, p, B, threads, verbose)
+stream_pcaone_robj <- function(x, ids, n, chunkSize, nchunks, m, k, s = 20L, p = 7L, B = 64L, threads = 4L, verbose = TRUE, scaleAndCenter = TRUE) {
+    .Call('_GenomicDataStream_stream_pcaone_robj', PACKAGE = 'GenomicDataStream', x, ids, n, chunkSize, nchunks, m, k, s, p, B, threads, verbose, scaleAndCenter)
 }
 
-stream_pcaone <- function(gds, region, m, k, s = 20L, p = 7L, B = 64L, threads = 4L, verbose = TRUE) {
-    .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', gds, region, m, k, s, p, B, threads, verbose)
+stream_pcaone <- function(gds, region, m, k, s = 20L, p = 7L, B = 64L, threads = 4L, verbose = TRUE, scaleAndCenter = TRUE) {
+    .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', gds, region, m, k, s, p, B, threads, verbose, scaleAndCenter)
 }
 

@@ -1,7 +1,15 @@
 
+# GenomicDataStream 0.0.50
+ - May 19, 2025
+ - Fix issue with buffer overflow when reading plink files
+
+# GenomicDataStream 0.0.40
+ - May 15, 2025
+ - Progress on `PCAstream()`
+ - parsing plink BIM and FAM files supports tab and space delimiters
 
 # GenomicDataStream 0.0.30
- - May 21, 2025
+ - May 12, 2025
  - Add new `PCAstream()` using `stream_pcaone()` algorithm with C++ code contributed by @Zilong-Li
 
 # GenomicDataStream 0.0.20

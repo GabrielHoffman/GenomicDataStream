@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCAstream.R
 \name{plot,PCA,ANY-method}
 \alias{plot,PCA,ANY-method}
-\alias{plot,PCA,PCA-method}
+\alias{plot,PCA-method}
 \title{Plot PCAstream}
 \usage{
 \S4method{plot}{PCA,ANY}(x, y, ...)

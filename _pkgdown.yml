@@ -42,7 +42,7 @@ reference:
   - "getVariantLocations"
   - "isInitialized"
   - "plot,PCA-method"
-  - "print,GenomicDataStream-method"
+  - "print,GenomicDataStream-method"  
   - "rownames,GenomicDataStream-method"
   - "show,GenomicDataStream-method"
   - "summaryChunks"

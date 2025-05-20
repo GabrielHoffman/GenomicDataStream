@@ -1,16 +1,20 @@
-#ifndef __RPGEN_READER_H__
-#define __RPGEN_READER_H__
+/* Adapted from pgenlibr v0.5.0 by Christopher Chang
+https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
+*/
 
-#include <include/pgenlib_ffi_support.h>
-#include <include/pgenlib_read.h>
-#include "pgen/pvar.h"  
+#ifndef __RPgenReader_H_
+#define __RPgenReader_H_
 
-#include <vector>
+#include "include/pgenlib_ffi_support.h"
+#include "include/pgenlib_read.h"
+#include "pgen/pvar.h"  // includes Rcpp
+
 using namespace std;
 
 class RPgenReader {
 public:
-  // imitates Python/pgenlib.pyx
+  // similar to Python/pgenlib.pyx ; has a bit more functionality as of Feb
+  // 2025
   RPgenReader();
 
 #if __cplusplus >= 201103L
@@ -22,7 +26,17 @@ public:
             int raw_sample_ct,
             const vector<int> &sample_subset_1based);
 
-  void ReadList(vector<double> & buf, const vector<int> &variant_subset, bool meanimpute);
+  uint32_t GetRawSampleCt() const;
+
+  uint32_t GetSubsetSize() const;
+
+  uint32_t GetVariantCt() const;
+
+  uint32_t GetAlleleCt(uint32_t variant_idx) const;
+
+  uint32_t GetMaxAlleleCt() const;
+
+  void ReadList( vector<double> &buf, const vector<int> &variant_subset, bool meanimpute);
 
   void Close();
 
@@ -41,6 +55,9 @@ private:
 
   plink2::PgenVariant _pgv;
 
+  uintptr_t* _raregeno_buf;
+  uint32_t* _difflist_sample_ids_buf;
+
   plink2::VecW* _transpose_batch_buf;
   // kPglNypTransposeBatch (= 256) variants at a time, and then transpose
   uintptr_t* _multivar_vmaj_geno_buf;
@@ -52,8 +69,10 @@ private:
 
   void SetSampleSubsetInternal(const vector<int> &sample_subset_1based);
 
+  void ReadMaybeSparseHardcallsInternal(int variant_idx, int max_simple_difflist_len, uint32_t* difflist_common_geno_ptr, uint32_t* difflist_len_ptr);
+
   void ReadAllelesPhasedInternal(int variant_idx);
 };
 
 
-#endif  // __RPGEN_READER_H__
+#endif

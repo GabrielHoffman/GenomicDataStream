@@ -27,5 +27,5 @@ isInitialized(obj)
 obj <- initializeStream(obj)
 
 isInitialized(obj)
-#
+
 }

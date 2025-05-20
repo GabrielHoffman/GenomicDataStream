@@ -76,7 +76,7 @@ as.list.GenomicDataStream <- function(x, ...) {
 #'
 #'   print(dat$info)
 #' }
-#' #
+#' 
 #' @importFrom methods new is
 #' @export
 GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF = 0, minVariance = 2*(1-MAF)*MAF, chunkSize = 10000, missingToMean = TRUE, initialize = FALSE){
@@ -156,7 +156,7 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
 #' obj <- initializeStream(obj)
 #'
 #' isInitialized(obj)
-#' #
+#' 
 #' @export
 isInitialized <- function(x) {
   stopifnot(is(x, "GenomicDataStream"))
@@ -183,7 +183,7 @@ isInitialized <- function(x) {
 #' obj <- initializeStream(obj)
 #'
 #' isInitialized(obj)
-#' #
+#' 
 #' @export
 initializeStream <- function(x) {
   if (isInitialized(x)) {
@@ -225,9 +225,18 @@ initializeStream <- function(x) {
 #' obj <- initializeStream(obj)
 #'
 #' reinitializeStream(obj)
-#' #
+#' 
 #' @export
 reinitializeStream <- function (x, region = NULL) {
+
+  # if( is.null(region) ){
+  #   ret <- initializeStream(x);
+  # }else{
+  #   ret <- setRegion(x, region);
+  # }
+
+  # return(ret);
+
   if(is.null(region)) region <- x@region
 
   # Create initialized GenomicDataStream
@@ -400,7 +409,9 @@ getSampleNames <- function(x) {
 #'
 #' rownames(obj)
 #
-#' @export
+#' @rawNamespace export(rownames)
+#' @rdname rownames
+# @aliases rownames,GenomicDataStream-method
 setMethod(
   "rownames", signature(x = "GenomicDataStream"),
   function(x){
@@ -470,7 +481,6 @@ atEndOfStream <- function(x) {
 #' }
 #'
 #' featuresRead(obj)
-#' @export
 #' @export
 featuresRead <- function(x) {
   stopifnot(is(x, "GenomicDataStream"))

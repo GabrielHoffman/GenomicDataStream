@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.50</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,12 +61,58 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PCAstream</span><span class="op">(</span></span>
-<span>  <span class="va">gds</span>,</span>
+<span>  <span class="va">x</span>,</span>
 <span>  <span class="va">k</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  p <span class="op">=</span> <span class="fl">7</span>,</span>
 <span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  scaleAndCenter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for GenomicDataStream</span></span>
+<span><span class="fu">PCAstream</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">k</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
+<span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  scaleAndCenter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ANY</span></span>
+<span><span class="fu">PCAstream</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">k</span>,</span>
+<span>  chunkSize <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
+<span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  scaleAndCenter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for SummarizedExperiment</span></span>
+<span><span class="fu">PCAstream</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">k</span>,</span>
+<span>  chunkSize <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"logcounts"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
+<span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  scaleAndCenter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -74,13 +120,17 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>gds</dt>
+    <dl><dt>x</dt>
 <dd><p><code>GenomicDataStream</code></p></dd>
 
 
 <dt>k</dt>
 <dd><p>integer; <br>
 specifies the target rank of the low-rank decomposition. \(k\) should satisfy \(k &lt;&lt; min(m,n)\).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>other argument to control streaming</p></dd>
 
 
 <dt>p</dt>
@@ -103,6 +153,11 @@ number of windows (by default \(B=64\)).</p></dd>
 number of threads (by default \(threads=4\)).  Set to <code>min(threads, floor(nrow(chunks) / B))</code></p></dd>
 
 
+<dt>scaleAndCenter</dt>
+<dd><p>bool, optional; <br>
+if <code>TRUE</code>, scale and center features</p></dd>
+
+
 <dt>shuffle</dt>
 <dd><p>bool, optional; <br>
 if <code>TRUE</code> (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk</p></dd>
@@ -111,6 +166,14 @@ if <code>TRUE</code> (default) shuffle genomic regions, the next chunk is not in
 <dt>verbose</dt>
 <dd><p>string, optional; <br>
 if <code>TRUE</code> (default is <code>FALSE</code>) print details</p></dd>
+
+
+<dt>chunkSize</dt>
+<dd><p>number of features to read per chunk in <code>GenomicDataStream</code></p></dd>
+
+
+<dt>assay</dt>
+<dd><p>for <code>SummarizedExperiment</code> which <code>assay</code> to perform PCA on</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -160,34 +223,66 @@ gives an equivalent decomposition.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PCAstream</span><span class="op">(</span><span class="va">obj</span>, k<span class="op">=</span><span class="fl">5</span>, B<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PCAstream</span><span class="op">(</span><span class="va">obj</span>, k<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        PCA: Computed first 5 PCs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Samples:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  res$u</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $u</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           PC1         PC2         PC3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> I1 -0.2195052 -0.02865322 -0.14964592</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> I2 -0.1518758 -0.03797633  0.05390564</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Loadings:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  res$v</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $v</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     PC1        PC2          PC3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:10000:C:A -0.53915361 -0.1405215 -0.007608719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:11000:T:C -0.07770699  0.1640923 -0.288079157</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Singular values:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  res$d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9.8075 9.137978 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>pty<span class="op">=</span><span class="st">"s"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PCAstream-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HelenaLC/muscat" class="external-link">muscat</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SingleCellExperiment</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_sce</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="va">example_sce</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Normalize expression with log2 counts per million</span></span></span>
+<span class="r-in"><span><span class="va">prior.count</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">lib.size</span> <span class="op">&lt;-</span> <span class="fu">colSums2</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">logcounts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="op">+</span> <span class="va">prior.count</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">lib.size</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># PCA on SingleCellExperiment with assay logcounts</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PCAstream</span><span class="op">(</span><span class="va">sce</span>, k<span class="op">=</span><span class="fl">5</span>, assay<span class="op">=</span><span class="st">"logcounts"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PCA: Computed first 5 PCs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $u</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               PC1          PC2        PC3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HES4  -0.01552622 -0.007183186 0.02473355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ISG15  0.07242868 -0.123755619 0.31391629</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $v</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         PC1        PC2          PC3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATCATGCTGCGTAT-1 0.02645793 0.01315682 -0.006795819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GTACGAACTGTCAG-1 0.02738446 0.01994145 -0.007117738</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 987.3837 434.5438 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

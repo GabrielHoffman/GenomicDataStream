@@ -72,12 +72,11 @@ class vcfstream :
 		// initialize varInfo with sample names
 		vInfo = new VariantInfo( reader->SamplesName );
 
-		// Initialize vector with capacity to store nVariants
+		// Initialize vector with capacity to store variants
 		// Note, this allocates memory but does not change .size()
 		// After j variants have been inserted, only entries up to j*nsamples are populated
 		//  the rest of the vector is allocated doesn't have valid data
-		int n = 1e6 * param.initCapacity / (double) (sizeof(double) * reader->nsamples);
-		matDosage.reserve( n );
+		matDosage.reserve( n_samples() * param.chunkSize );
 	}
 
 	/** destructor

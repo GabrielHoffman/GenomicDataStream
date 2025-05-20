@@ -52,3 +52,4 @@ $(SHLIB): ${OBJECTS} Makevars #libBGEN.a
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
+

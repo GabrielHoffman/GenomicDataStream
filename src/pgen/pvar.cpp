@@ -1,6 +1,7 @@
+/* Adapted from pgenlibr v0.5.0 by Christopher Chang
+https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
+*/
 #include "pgen/pvar.h"  // includes Rcpp
-
-#include <stdexcept>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ RPvar::RPvar() {
   PreinitMinimalPvar(&_mp);
 }
 
-void RPvar::Load(const std::string filename, bool omit_chrom, bool omit_pos) {
+void RPvar::Load(String filename, bool omit_chrom, bool omit_pos) {
   plink2::LoadMinimalPvarFlags load_flags = plink2::kfLoadMinimalPvar0;
   if (omit_chrom) {
     load_flags |= plink2::kfLoadMinimalPvarOmitChrom;
@@ -17,16 +18,13 @@ void RPvar::Load(const std::string filename, bool omit_chrom, bool omit_pos) {
     load_flags |= plink2::kfLoadMinimalPvarOmitPos;
   }
   char errbuf[plink2::kPglErrstrBufBlen];
-  plink2::PglErr reterr = LoadMinimalPvarEx(filename.c_str(), load_flags, &_mp, errbuf);
+  plink2::PglErr reterr = LoadMinimalPvarEx(filename.get_cstring(), load_flags, &_mp, errbuf);
   if (reterr != plink2::kPglRetSuccess) {
     if (reterr == plink2::kPglRetNomem) {
-      // stop("Out of memory");
       throw logic_error("Out of memory");
     } else if (reterr == plink2::kPglRetReadFail) {
-      // stop("File read failure");
       throw logic_error("File read failure");
     } else {
-      // stop(&errbuf[7]);
       throw logic_error(&errbuf[7]);
     }
   }
@@ -44,11 +42,9 @@ const char* RPvar::GetVariantChrom(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    // stop(errbuf);
     throw logic_error(errbuf);
   }
   if (_mp.chr_names == nullptr) {
-    // stop("Chromosome information not loaded");
     throw logic_error("Chromosome information not loaded");
   }
   return _mp.chr_names[_mp.chr_idxs[variant_idx]];
@@ -62,11 +58,9 @@ int32_t RPvar::GetVariantPos(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    // stop(errbuf);
     throw logic_error(errbuf);
   }
   if (_mp.variant_bps == nullptr) {
-    // stop("Position information not loaded");
     throw logic_error("Position information not loaded");
   }
   return _mp.variant_bps[variant_idx];
@@ -80,7 +74,6 @@ const char* RPvar::GetVariantId(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    // stop(errbuf);
     throw logic_error(errbuf);
   }
   return _mp.variant_ids[variant_idx];
@@ -100,7 +93,6 @@ uint32_t RPvar::GetAlleleCt(uint32_t variant_idx) const {
   if (variant_idx >= _mp.variant_ct) {
     char errstr_buf[256];
     snprintf(errstr_buf, 256, "variant_num out of range (%d; must be 1..%u)", variant_idx + 1, _mp.variant_ct);
-    // stop(errbuf);
     throw logic_error(errstr_buf);
   }
   if (!_mp.allele_idx_offsetsp) {
@@ -118,7 +110,6 @@ const char* RPvar::GetAlleleCode(uint32_t variant_idx, uint32_t allele_idx) cons
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    // stop(errbuf);
     throw logic_error(errbuf);
   }
   uintptr_t allele_idx_offset_base = 2 * variant_idx;
@@ -131,7 +122,6 @@ const char* RPvar::GetAlleleCode(uint32_t variant_idx, uint32_t allele_idx) cons
   if (allele_idx >= allele_ct) {
     char errbuf[256];
     snprintf(errbuf, 256, "allele_num out of range (%d; must be 1..%d)", allele_idx + 1, allele_ct);
-    // stop(errbuf);
     throw logic_error(errbuf);
   }
   return _mp.allele_storage[allele_idx_offset_base + allele_idx];

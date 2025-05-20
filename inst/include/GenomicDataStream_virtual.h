@@ -42,18 +42,18 @@ class DataChunk {
 
     /** Accessor
      */ 
-	matType getData() const { return data; }
+		matType getData() const { return data; }
 
-	/** Accessor
-     */   
-	template<typename infoType>
-	infoType * getInfo() { 
-		return static_cast<infoType *>( info );
-	}    
+		/** Accessor
+	     */   
+		template<typename infoType>
+		infoType * getInfo() { 
+			return static_cast<infoType *>( info );
+		}    
 
-	// private:
-	matType data;
-	DataInfo *info;
+		// private:
+		matType data;
+		DataInfo *info;
 };
 
 
@@ -71,7 +71,6 @@ struct Param {
 	 * @param samples string of comma separated sample IDs to extract: "ID1,ID2,ID3"
 	 * @param chunkSize number of variants to return per chunk
 	 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
-	 * @param initCapacity initial capacity of temporary vector to avoid re-alloc on insert.  Size is in Mb.
 	 * @param minVariance features with variance >= minVariance are retained
 	 * @param permuteFeatureOrder default is `false`. If `true` permute regions in `regionString` to avoid linkage disequilibrium betweeen nearby regions 
 	 * @param rndSeed random seed for permutation
@@ -80,19 +79,17 @@ struct Param {
 	 * field: `"GT"` for genotype strings, `"DS"` for dosage, or another other field stored as an integer or float.  `"GT"` is the only string type supported
 	*/
 	Param( 	const string &file,
-			string regionString = "",
-			const string &samples = "-",
-			const double minVariance = 0,
-			const int &chunkSize = numeric_limits<int>::max(),
-			const bool &missingToMean = true,
-			const int &initCapacity = 200,
-			const bool &permuteFeatureOrder = false,
-			const int &rndSeed = 12345) :
+		string regionString = "",
+		const string &samples = "-",
+		const double minVariance = 0,
+		const int &chunkSize = 10000,
+		const bool &missingToMean = true,
+		const bool &permuteFeatureOrder = false,
+		const int &rndSeed = 12345) :
 		file( std::filesystem::absolute(file) ), 
 		samples(samples), 
 		chunkSize(chunkSize), 
 		missingToMean(missingToMean), 
-		initCapacity(initCapacity),
 		minVariance(minVariance),
 		fileType(getFileType(file)) {
 
@@ -105,26 +102,26 @@ struct Param {
 		}
 
 		// parse regions
-        setRegions(regionString);
+    setRegions(regionString);
 
-    	if( permuteFeatureOrder ){
-    		// permuate order of region to avoid correlated features
-    		// in streaming SVD
-    		std::shuffle( regions.begin(), regions.end(), std::mt19937(rndSeed));
-    	}
+  	if( permuteFeatureOrder ){
+  		// permuate order of region to avoid correlated features
+  		// in streaming SVD
+  		std::shuffle( regions.begin(), regions.end(), std::mt19937(rndSeed));
+  	}
 	}
 
 	void setField( const string &field_) {
 		field = field_;
 	}
 
-    /// parse regions
+  /// parse regions
 	void setRegions( const string &regionString) {
 		regions = splitRegionString( regionString );
 	}
 
-    /** Custom path to PSAM/FAM file
-	 */
+  /** Custom path to PSAM/FAM file
+ 	*/
 	void setSamplesFile( const string &file) {
 		fileSamples = file;
 	}
@@ -135,7 +132,6 @@ struct Param {
 	string samples;
 	int chunkSize;
 	bool missingToMean;
-	int initCapacity;
 	double minVariance;
 	FileType fileType;
 };
@@ -246,8 +242,6 @@ static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, c
 		memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*sizeof(double));
 	}
 }
-
-
 
 
 } // end namespace

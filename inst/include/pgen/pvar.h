@@ -1,9 +1,15 @@
+/* Adapted from pgenlibr v0.5.0 by Christopher Chang
+https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
+*/
+
 #ifndef __PVAR_H__
 #define __PVAR_H__
 
 #include "include/pvar_ffi_support.h"
 #include <map>
-#include <string>
+
+#include <Rcpp.h>
+using namespace Rcpp;
 
 struct classcomp {
   bool operator() (const char* const& lhs, const char* const& rhs) const {
@@ -21,7 +27,7 @@ public:
   RPvar& operator=(const RPvar&) = delete;
 #endif
 
-  void Load(const std::string filename, bool omit_chrom, bool omit_pos);
+  void Load(String filename, bool omit_chrom, bool omit_pos);
 
   uint32_t GetVariantCt() const;
 
@@ -52,8 +58,8 @@ private:
   std::multimap<const char*, int, classcomp> _nameToIdxs;
 };
 
-// HEADER_INLINE int strcmp_r_c(String r_string, const char* cstr) {
-//   return strcmp(r_string.get_cstring(), cstr);
-// }
+HEADER_INLINE int strcmp_r_c(String r_string, const char* cstr) {
+  return strcmp(r_string.get_cstring(), cstr);
+}
 
 #endif  // __PVAR_H__

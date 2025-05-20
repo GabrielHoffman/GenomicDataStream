@@ -24,13 +24,13 @@ namespace gds {
 /** Store genomic position of variant and its index 
  */ 
 struct point {
-	point(const size_t & position, const size_t & index) :
+	point(const int & position, const size_t & index) :
 		position(position), index(index) {}
 
-	point(const size_t & position) :
+	point(const int & position) :
 		position(position) {}
 
-	size_t position;
+	int position;
 	size_t index;
 };
 
@@ -45,7 +45,7 @@ static bool operator<( const point &a, const point &b){
 class VariantSet {
 
 	public:
-	VariantSet( const vector<string> &chrom, const vector<size_t> &position){
+	VariantSet( const vector<string> &chrom, const vector<int> &position){
 
 		// for each variant
 		// insert (position[i], i) into chromosome hash
@@ -64,7 +64,7 @@ class VariantSet {
 
 	/** Get indeces of variants within the query interval using binary search 
 	*/
-	vector<size_t> getIndeces( const string &chrom, const size_t &start, const size_t &end){
+	vector<int> getIndeces( const string &chrom, const int &start, const int &end){
 
 		auto vBegin = map[chrom].begin();
 		auto vEnd = map[chrom].end();
@@ -75,7 +75,7 @@ class VariantSet {
 		// get iterator to last element in the interval
 		auto it2 = upper_bound(vBegin, vEnd, point(end));  
 
-		vector<size_t> indeces;
+		vector<int> indeces;
 
 		// walk from lower to upper bound
 		// saving index at each step
@@ -89,14 +89,14 @@ class VariantSet {
 
 	/** Get indeces of variants within set of query intervals.  Use  binary search for each interval
 	*/
-	vector<size_t> getIndeces( const GenomicRanges &gr ){
+	vector<int> getIndeces( const GenomicRanges &gr ){
 
-		vector<size_t> indeces;
+		vector<int> indeces;
 
 		// for each genome interval
 		for(int i=0; i<gr.size(); i++){
 			// get indeces of variants within this interval
-			vector<size_t> idx = getIndeces(gr.get_chrom(i), gr.get_start(i), gr.get_end(i));
+			vector<int> idx = getIndeces(gr.get_chrom(i), gr.get_start(i), gr.get_end(i));
 
 			// insert into vector
    			indeces.insert(indeces.end(), idx.begin(), idx.end());

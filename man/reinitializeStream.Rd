@@ -29,5 +29,5 @@ isInitialized(obj)
 obj <- initializeStream(obj)
 
 reinitializeStream(obj)
-#
+
 }

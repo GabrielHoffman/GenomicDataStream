@@ -36,7 +36,7 @@ class VariantInfo :
     /** add information for one variant at a time
      */ 
     void addVariant(const string &chr,
-                    const int64_t & pos, 
+                    const int & pos, 
                     const string &id, 
                     const string &allele1, 
                     const string &allele2){
@@ -96,7 +96,7 @@ class VariantInfo :
     // private:
     vector<string> sampleNames;
     vector<string> CHROM;
-    vector<int64_t> POS;
+    vector<int> POS;
     vector<string> A1, A2;
 };
 

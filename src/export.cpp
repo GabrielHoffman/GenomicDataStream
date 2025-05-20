@@ -81,8 +81,9 @@ List getInfo(SEXP x){
 
 	Rcpp::XPtr<BoundDataStream> ptr(x);
 
-	return List::create(Named("streamType") = ptr->ptr->getStreamType(),
-						Named("nsamples") = ptr->ptr->n_samples());
+	return List::create(
+    Named("streamType") = ptr->ptr->getStreamType(),
+		Named("nsamples")   = ptr->ptr->n_samples());
 }
 
 
@@ -151,13 +152,13 @@ List getNextChunk_rcpp( SEXP x){
 		ptr->atEndOfStream = true;
 		return List::create();
 	}
-
 	// else continue with valid data
 
 	// Convert genotype values for return
 	// set colnames as variant IDs
 	// set rownames as sample IDs
 	VariantInfo *info = chunk.getInfo<VariantInfo>();
+
 	NumericMatrix X = wrap( chunk.getData() );
 	colnames(X) = wrap( info->getFeatureNames() );
 	rownames(X) = wrap( info->sampleNames );	
@@ -168,6 +169,43 @@ List getNextChunk_rcpp( SEXP x){
 	return List::create(	Named("X") = X,
 							Named("info") = toDF(info) );
 }
+
+
+List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
+
+  DataChunk<arma::mat> chunk;
+  VariantInfo *info;
+  vector<string> variantIDs, tmp;
+  vector<int> chunkCounts;
+
+  // loop through chunks
+  while( gds->getNextChunk( chunk ) ){
+
+      // get variant information
+      info = chunk.getInfo<VariantInfo>();
+
+      tmp = info->getFeatureNames();
+      variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());
+
+      chunkCounts.push_back( info->size() );
+  }
+
+  return List::create(
+        Named("chunks") = chunkCounts,
+        Named("sampleIDs") = gds->getSampleNames(),
+        Named("variantIDs") = variantIDs);
+}
+
+
+// [[Rcpp::export]]
+List summarizeChunks_rcpp( SEXP x){ 
+
+  Rcpp::XPtr<BoundDataStream> ptr(x);
+
+  return summarizeChunks( ptr->ptr );
+}
+
+
 
 
 
@@ -187,7 +225,7 @@ void standardize_in_place( arma::mat &X, const bool &center = true, const bool &
 }
 
 // [[Rcpp::export]]
-void test_DataTable(const string &file, const string &headerKey, const char delim='\t'){
+void test_DataTable(const string &file, const string &headerKey, const string &delim="\t "){
 
 	DataTable dt(file, headerKey, delim);
 
@@ -208,12 +246,15 @@ Rcpp::List stream_pcaone_robj(
 										int p = 7, 
 										int B = 64, 
 										int threads = 4, 
-										const bool verbose=true) {
+										const bool verbose=true,
+                    const bool scaleAndCenter = true) {
 
+  Timer timer;
+  timer.tic("Init");
 	DataChunk<Eigen::MatrixXd> chunk;
 
 	const int l = k + s;
-  
+
   Eigen::setNbThreads(8); 
 
   auto randomEngine = std::default_random_engine{};
@@ -223,8 +264,9 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
 
-  Timer timer;
   size_t band = ceil((double)nchunks / B);
+
+  timer.toc("Init");
 
   for (int pi = 0; pi <= p; pi++) {
 
@@ -247,7 +289,7 @@ Rcpp::List stream_pcaone_robj(
       timer.tic("Read data");
       // read data so columns are features
       auto Ab = chunk.getData();
-      standardize(Ab); // standardize
+      if( scaleAndCenter ) standardize(Ab); // standardize
       timer.toc("Read data");
       timer.tic("Linear algebra");
       {
@@ -324,7 +366,8 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
 													int p = 7, 
 													int B = 64, 
 													int threads = 4,
-												 	const bool verbose=true) {
+												 	const bool verbose=true,
+                          const bool scaleAndCenter = true) {
   Timer timer;
 
   // extract slots
@@ -371,7 +414,7 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
     size_t i{1},  start{0};
     processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
       auto Ab = chunk.getData();
-      standardize(Ab); // standardize
+      if( scaleAndCenter ) standardize(Ab); // standardize
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
         G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
@@ -426,3 +469,5 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
 
   return lst;                            
 }
+
+

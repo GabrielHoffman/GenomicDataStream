@@ -75,7 +75,7 @@ static genfile::bgen::View::UniquePtr construct_view(
 	// create view of BGEN file
 	View::UniquePtr view = construct_view( filename );
 
-	// process region queryies
+	// process region queries
 	if( gr.size() > 0){		
 		IndexQuery::UniquePtr query = construct_query(index_filename);
 		for( int i = 0; i < gr.size(); i++ ) {
@@ -124,7 +124,7 @@ class bgenstream :
 			vector<string> requestedSamples;
 
 			// boost::erase_all(param.samples, " ");
-    		boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
+  		boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
 
 			get_requested_samples( *view, requestedSamples, &number_of_samples, &sampleNames, &requestedSamplesByIndexInDataIndex ) ;
 		}
@@ -132,12 +132,10 @@ class bgenstream :
 		vInfo = new VariantInfo( sampleNames );
 
 		// store probabilities
-		int n = 1e6 * param.initCapacity / (double) (sizeof(double) * number_of_samples * max_entries_per_sample);
-		probs.reserve( n );
+		probs.reserve( n_samples() * param.chunkSize * max_entries_per_sample);
 
 		// store dosage
-		n = 1e6 * param.initCapacity / (double) (sizeof(double) * number_of_samples);
-		matDosage.reserve(n);
+		matDosage.reserve( n_samples() * param.chunkSize );
 	}
 
 	/** destructor
@@ -217,7 +215,7 @@ class bgenstream :
 
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
-	    chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), vInfo );
+    chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), vInfo );
 
 		return ret;
 	}

@@ -19,6 +19,9 @@
 #' @param threads integer, optional; \cr
 #'                number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
 #'
+#' @param scaleAndCenter bool, optional; \cr
+#'                if \code{TRUE}, scale and center features
+#'
 #' @param shuffle  bool, optional; \cr
 #'                  if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk
 #' 
@@ -58,7 +61,7 @@
 #' 
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 #' 
-#' res <- PCAstream(obj, k=5, B=2)
+#' res <- PCAstream(obj, k=5)
 #' 
 #' res
 #' 
@@ -68,7 +71,7 @@
 #' @export
 setGeneric(
   "PCAstream",
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
     standardGeneric("PCAstream")
   }
 )
@@ -79,7 +82,7 @@ setGeneric(
 #' @aliases PCAstream,GenomicDataStream-method
 setMethod(
   "PCAstream", signature(x = "GenomicDataStream"),
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
 
   stopifnot(is(x, "GenomicDataStream"))
 
@@ -88,6 +91,11 @@ setMethod(
 
   # permute chunks
   chunks <- sObj$chunks
+
+  if( is.null(chunks) ){
+    stop("Chunks not read from index")
+  }
+
   if( shuffle ){
     chunks <- chunks[sample(nrow(chunks)),]  
   }
@@ -154,6 +162,9 @@ setMethod(
   new("PCA", res)
 })
 
+
+#' @param chunkSize number of features to read per chunk in \code{GenomicDataStream}
+#' 
 #' @export
 #' @importFrom methods slot
 #' @importFrom beachmat initializeCpp
@@ -161,12 +172,11 @@ setMethod(
 #' @aliases PCAstream,ANY-method
 setMethod(
   "PCAstream", signature(x = "ANY"),
-  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
 
   if( is.null(rownames(x))){
     rownames(x) <- paste0("f_", seq(nrow(x)))
   }
-
 
   M <- nrow(x)
   N <- ncol(x)
@@ -211,18 +221,41 @@ setMethod(
 })
 
 
+#' @param chunkSize number of features to read per chunk in \code{GenomicDataStream}
+#' @param assay for \code{SummarizedExperiment} which \code{assay} to perform PCA on
+#' 
+#' @examples
+#' library(muscat)
+#' library(SingleCellExperiment)
+#' library(GenomicDataStream)
+#' 
+#' data(example_sce)
+#' sce <- example_sce
+#' 
+#' # Normalize expression with log2 counts per million
+#' prior.count <- 1
+#' lib.size <- colSums2(counts(sce))
+#' logcounts(sce) <- t(log2(t(counts(sce) + prior.count)) - log2(lib.size) + log2(1e6))
+#' 
+#' # PCA on SingleCellExperiment with assay logcounts
+#' res <- PCAstream(sce, k=5, assay="logcounts")
+#' 
+#' res
+#' 
 #' @export
 #' @importFrom methods slot
 #' @importFrom beachmat initializeCpp
+#' @importFrom SummarizedExperiment assay
+#' @importFrom Matrix t
 #' @rdname PCAstream
-#' @aliases PCAstream,SingleCellExperiment-method
+#' @aliases PCAstream,SummarizedExperiment-method
 setMethod(
-  "PCAstream", signature(x = "SingleCellExperiment"),
-  function(x, k, chunkSize = 100, assay="logcounts", p = 7, s = 20, B = 64, threads = 4, shuffle = TRUE, verbose = FALSE) {
+  "PCAstream", signature(x = "SummarizedExperiment"),
+  function(x, k, chunkSize = 100, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
 
-  Y <- assay(x, assay)
+  Y <- SummarizedExperiment::assay(x, assay)
     
-  PCAstream(t(Y), ...)
+  PCAstream(t(Y), k = k, chunkSize = chunkSize, p = p, s = s, B = B, threads = threads, scaleAndCenter = scaleAndCenter, verbose=verbose, ...)
 })
 
 
@@ -248,7 +281,8 @@ summaryChunks <- function(x){
   colnames(chunks) <- c("region", "counts")
 
   # count number of variants
-  x <- reinitializeStream(x)
+  # x <- reinitializeStream(x)
+  x <- initializeStream(x)
   sampleIDs <- getSampleNames(x)
 
   lst <- list()
@@ -321,13 +355,12 @@ setMethod(
 #'
 #' @export
 #' @rdname print-methods
-#' @aliases print,PCA,PCA-method
+#' @aliases print,PCA-method
 # print.PCA = function(x, ...) {
 #   show(x)
 # }
 setMethod("print", signature(x = "PCA"), 
   function(x, ...) {
-    cat("PRINT....\n")
   show(x)
 })
 
@@ -342,7 +375,7 @@ setMethod("print", signature(x = "PCA"),
 #'
 #' @export
 #' @rdname plot-methods
-#' @aliases plot,PCA,PCA-method
+#' @aliases plot,PCA-method
 setMethod("plot", signature(x = "PCA"), 
   function(x, ...) {
 

@@ -157,7 +157,7 @@ namespace {
 		{
 			assert( result != 0 ) ;
 			assert( sample_indices != 0 ) ;
-			assert( sample_indices->size() == result->size() ) ;
+			// assert( sample_indices->size() == result->size() ) ;
 		}
 
 		void operator()( string const& value ) {

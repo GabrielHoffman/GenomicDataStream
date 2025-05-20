@@ -1,6 +1,6 @@
 /***********************************************************************
  * @file		pgenstream.h
- * @author		Gabriel Hoffman
+ * @author	Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
  * @brief		reads a plink2/PGEN into matrix in chunks, storing variants in columns
  * Copyright (C) 2024 Gabriel Hoffman
@@ -89,8 +89,7 @@ class pgenstream :
 		// Note, this allocates memory but does not change .size()
 		// After j variants have been inserted, only entries up to j*nsamples are populated
 		//	the rest of the vector is allocated doesn't have valid data
-		int n = 1e6 * param.initCapacity / (double) (sizeof(double) * number_of_samples);
-		matDosage.reserve( n );
+		matDosage.reserve( n_samples() * param.chunkSize );		
 	}
 
 	/** destructor
@@ -110,6 +109,7 @@ class pgenstream :
 	/** setter
 	 */
 	void setRegions(const vector<string> &regions) override {
+
 		// Initialize genomic regions
 		// from delimited string
 		GenomicRanges gr( regions );
@@ -121,13 +121,17 @@ class pgenstream :
 			// varIdx = gr.getWithinIndeces( dt["CHROM"], cast_elements<size_t>(dt["POS"]) );
 
 			// Search is log time for each interval
-			VariantSet vs(dt["CHROM"], cast_elements<size_t>(dt["POS"]));
+			VariantSet vs(dt["CHROM"], cast_elements<int>(dt["POS"]));
 			varIdx = vs.getIndeces( gr );
 		}else{
 			// else
 			// set entries to seq(0, dt.nrows()-1)
-			varIdx.resize(dt.nrows());
-			iota(begin(varIdx), end(varIdx), 0); 
+			// varIdx.resize(dt.nrows());
+			// iota(begin(varIdx), end(varIdx), 0); 
+			varIdx.clear();
+			for(int i=0; i<dt.nrows(); i++){
+				varIdx.push_back(i);
+			}
 		}
 
 		// total number of requested variants
@@ -158,14 +162,14 @@ class pgenstream :
 	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
 
 		// Update matDosage and vInfo for the chunk
-		bool ret = getNextChunk_helper();
+		bool ret = getNextChunk_helper();	
 
 		// keep features with variance >= minVariance
 		// modifies matDosage and vInfo directly
 		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
-
+		
 		chunk = DataChunk<arma::mat>( M, vInfo );
 
 		return ret;
@@ -260,7 +264,7 @@ class pgenstream :
 	int n_requested_variants = 0;
 	int currentIdx;
 	vector<double> matDosage;
-	vector<size_t> varIdx;
+	vector<int> varIdx;
 	VariantInfo *vInfo = nullptr;
 	RPgenReader *pg = nullptr;
 	RPvar *pvar = nullptr;
@@ -286,14 +290,22 @@ class pgenstream :
 		if( chunkSize == 0) return false;
 
 		// indeces of variants in chunk
-		vector<int> varIdx_sub = 
-						{varIdx.begin() + currentIdx, 
-						 varIdx.begin() + currentIdx + chunkSize};
+		auto end = min( varIdx.begin() + currentIdx + chunkSize,  varIdx.end());
+		// vector<int> varIdx_sub = {varIdx.begin() + currentIdx, end};
+
+		vector<int> varIdx_sub;
+		// for(auto it = varIdx.begin() + currentIdx; it < end; it++){
+		// 		varIdx_sub.push_back( *it );
+		// } 
+		for(int i = currentIdx; i<currentIdx + chunkSize; i++){
+			varIdx_sub.push_back( varIdx[i] );
+		}
 
 		// read dosage into matDosage using 					
 		// 1-based indeces
+		// vector<int> varIdx_sub1(varIdx_sub);
 		vector<int> varIdx_sub1(varIdx_sub);
-		for(int &i : varIdx_sub1) i++; 
+		for(int &i : varIdx_sub1) i++;
 
 		pg->ReadList( matDosage, varIdx_sub1, param.missingToMean);
 
@@ -301,39 +313,39 @@ class pgenstream :
 		string id, a1, a2,chrom = "";
 		int pos = -1;
 
-			// if PGEN
+		// if PGEN
 		if( genoFileType == PGEN){
 
-				// Get variant info from pvar 
-				for(auto i: varIdx_sub){
-					id = pvar->GetVariantId(i);
-					a1 = pvar->GetAlleleCode(i,0);
-					a2 = pvar->GetAlleleCode(i,1);
+			// Get variant info from pvar 
+			for(auto i: varIdx_sub){
+				id = pvar->GetVariantId(i);
+				a1 = pvar->GetAlleleCode(i,0);
+				a2 = pvar->GetAlleleCode(i,1);
 
-					// find chrom, pos given id
-					int idx = map_dt_id[id];
-					chrom = dt["CHROM"][idx];
-					pos = atoi(dt["POS"][idx].c_str());
+				// find chrom, pos given id
+				int idx = map_dt_id[id];
+				chrom = dt["CHROM"][idx];
+				pos = atoi(dt["POS"][idx].c_str());
 
-					vInfo->addVariant(chrom, pos, id, a1, a2);
-				}
-			}else{
-				// Get variant info from DataTable from BIM
-				for(auto i: varIdx_sub){
-					chrom = dt["CHROM"][i];
-					pos = atoi(dt["POS"][i].c_str());
-					id = dt["ID"][i];
-					a1 = dt["REF"][i];
-					a2 = dt["ALT"][i];
-
-					vInfo->addVariant(chrom, pos, id, a1, a2);
-				}
+				vInfo->addVariant(chrom, pos, id, a1, a2);
 			}
+		}else{
+			// Get variant info from DataTable from BIM
+			for(auto i: varIdx_sub){
+				chrom = dt["CHROM"][i];
+				pos = atoi(dt["POS"][i].c_str());
+				id = dt["ID"][i];
+				a1 = dt["REF"][i];
+				a2 = dt["ALT"][i];
 
-			// increment current index
-			currentIdx += varIdx_sub.size();
+				vInfo->addVariant(chrom, pos, id, a1, a2);
+			}
+		}
 
-			return true;
+		// increment current index
+		currentIdx += varIdx_sub.size();
+
+		return true;
 	}
 
 	bool getNextChunk_helper(){return getNextChunk_helper2();}
@@ -352,8 +364,6 @@ class pgenstream :
 			// lines before this are ignored
 			dt = DataTable( fileIdx, "#CHROM" );
 
-			genoFileType = PGEN;
-
 		// if file is BED
 		}else if( genoFileType == PBED ){
 
@@ -363,9 +373,6 @@ class pgenstream :
 			// Read BIM file with no headerKey
 			dt = DataTable( fileIdx );
 			dt.setColNames({"CHROM", "ID", "CM", "POS", "ALT", "REF"});
-
-			genoFileType = PBED;
-
 		}else{
 			throw logic_error("Not valid genotype file extension: " + param.file);
 		}
@@ -410,10 +417,11 @@ class pgenstream :
 		}else if( regex_search(fileSamples, regex("fam$")) ){
 
 			// Read BIM file with no headerKey
-			dt2 = DataTable( fileSamples );
+			// space delimited entries
+			dt2 = DataTable( fileSamples, "");
 
 			// set column names
-			vector<string> names = {"FID", "IID", "PID", "MID", "SEX", "ALT", "PHENO"};
+			vector<string> names = {"FID", "IID", "PID", "MID", "SEX", "PHENO"}; 
 			vector<string> names_sub(names.begin(), names.begin() + dt.ncols());
 			dt2.setColNames(names_sub);
 		}else{
@@ -435,7 +443,7 @@ class pgenstream :
 			vector<string> requestedSamples;
 
 			// split delmited string into vector
-				boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
+			boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
 
 			// Use unordered_map linking sample id to index
 			// for fast searching
@@ -473,6 +481,10 @@ class pgenstream :
 		}else{
 			vInfo = new VariantInfo( SamplesNames );
 			number_of_samples = SamplesNames.size();
+
+			// set sampleIdx1 to be seq(1, number_of_samples)
+			sampleIdx1.resize(number_of_samples);
+			iota(begin(sampleIdx1), end(sampleIdx1), 1); 
 		}
 	}
 

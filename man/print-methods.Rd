@@ -4,7 +4,6 @@
 \alias{print,GenomicDataStream-method}
 \alias{print,GenomicDataStream,GenomicDataStream-method}
 \alias{print,PCA-method}
-\alias{print,PCA,PCA-method}
 \title{Print object}
 \usage{
 \S4method{print}{GenomicDataStream}(x, ...)

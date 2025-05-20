@@ -4,7 +4,7 @@
 \alias{PCAstream}
 \alias{PCAstream,GenomicDataStream-method}
 \alias{PCAstream,ANY-method}
-\alias{PCAstream,SingleCellExperiment-method}
+\alias{PCAstream,SummarizedExperiment-method}
 \title{Window-based Randomized SVD on data streamed from \code{GenomicDataStream}}
 \usage{
 PCAstream(
@@ -15,6 +15,7 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
+  scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = FALSE
 )
@@ -27,6 +28,7 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
+  scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = FALSE
 )
@@ -39,19 +41,22 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
+  scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = FALSE
 )
 
-\S4method{PCAstream}{SingleCellExperiment}(
+\S4method{PCAstream}{SummarizedExperiment}(
   x,
   k,
   chunkSize = 100,
   assay = "logcounts",
+  ...,
   p = 7,
   s = 20,
   B = 64,
   threads = 4,
+  scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = FALSE
 )
@@ -76,11 +81,18 @@ number of windows (by default \eqn{B=64}).}
 \item{threads}{integer, optional; \cr
 number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}}
 
+\item{scaleAndCenter}{bool, optional; \cr
+if \code{TRUE}, scale and center features}
+
 \item{shuffle}{bool, optional; \cr
 if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk}
 
 \item{verbose}{string, optional; \cr
 if \code{TRUE} (default is \code{FALSE}) print details}
+
+\item{chunkSize}{number of features to read per chunk in \code{GenomicDataStream}}
+
+\item{assay}{for \code{SummarizedExperiment} which \code{assay} to perform PCA on}
 }
 \value{
 \code{PCAstream} returns a list containing the following three components:
@@ -114,12 +126,29 @@ file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 
-res <- PCAstream(obj, k=5, B=2)
+res <- PCAstream(obj, k=5)
 
 res
 
 par(pty="s")
 plot(res)
+
+library(muscat)
+library(SingleCellExperiment)
+library(GenomicDataStream)
+
+data(example_sce)
+sce <- example_sce
+
+# Normalize expression with log2 counts per million
+prior.count <- 1
+lib.size <- colSums2(counts(sce))
+logcounts(sce) <- t(log2(t(counts(sce) + prior.count)) - log2(lib.size) + log2(1e6))
+
+# PCA on SingleCellExperiment with assay logcounts
+res <- PCAstream(sce, k=5, assay="logcounts")
+
+res
 
 }
 \references{
