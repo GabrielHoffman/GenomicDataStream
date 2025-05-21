@@ -32,20 +32,20 @@ namespace gds {
 template<typename matType>
 class DataChunk {
 	public:
-    DataChunk() : data() {}
+		DataChunk() : data() {}
 
-    DataChunk( matType data) :
-	    data(data) {} 
+		DataChunk( matType data) :
+		  data(data) {} 
 
-    DataChunk( matType data, DataInfo *info) :
+		DataChunk( matType data, DataInfo *info) :
 		data(data), info(info) {}
 
-    /** Accessor
-     */ 
+		/** Accessor
+		 */ 
 		matType getData() const { return data; }
 
 		/** Accessor
-	     */   
+		   */   
 		template<typename infoType>
 		infoType * getInfo() { 
 			return static_cast<infoType *>( info );
@@ -230,7 +230,7 @@ static void applyVarianceFilter(vector<double> &matDosage, VariantInfo *vInfo, c
 
 		// convert uvec to vector<unsigned int>
 		vector<unsigned int> idx2(idx.n_elem);
-	    copy(idx.begin(), idx.end(), idx2.begin());
+    copy(idx.begin(), idx.end(), idx2.begin());
 
 		// keep only variants specified in idx2
 		vInfo->retainVariants( idx2 );

@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.0.51
+ - May 21, 2025
+ - Fix bug reading plink files
+
 # GenomicDataStream 0.0.50
  - May 19, 2025
  - Fix issue with buffer overflow when reading plink files

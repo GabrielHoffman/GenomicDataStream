@@ -86,27 +86,29 @@ setMethod(
 
   stopifnot(is(x, "GenomicDataStream"))
 
+  if( verbose ) cat("Read through...\n")
+
   # get summary of GenomicDataStream
   sObj <- summaryChunks(x)
 
   # permute chunks
-  chunks <- sObj$chunks
+  regions <- sObj$regions
 
-  if( is.null(chunks) ){
+  if( is.null(regions) ){
     stop("Chunks not read from index")
   }
 
   if( shuffle ){
-    chunks <- chunks[sample(nrow(chunks)),]  
+    regions <- regions[sample(length(regions))]  
   }
 
   N <- slot(x, "nsamples")
-  M <- sum(chunks$counts)
+  M <- sum(sObj$chunks)
 
   # nchunks must be larger than B * threads
   # stopifnot(nrow(chunks) > B * threads)
   # number of parallel chunks
-  n_pll_chunks <- min(threads, floor(nrow(chunks) / B))
+  n_pll_chunks <- min(threads, floor(length(regions) / B))
   n_pll_chunks <- max(1, n_pll_chunks)
 
   # set valid B
@@ -122,7 +124,7 @@ setMethod(
       cat(" # samples:", format(N, big.mark=','), "\n")
     }
     cat(" # features:", format(M, big.mark=','), "\n")
-    cat(" # chunks:", format(nrow(chunks), big.mark=','), "\n")
+    cat(" # chunks:", format(length(regions), big.mark=','), "\n")
     cat(" # threads:", n_pll_chunks, "\n")
     cat(" B:", B, "\n")
     cat(" k:", k, "\n")
@@ -134,22 +136,20 @@ setMethod(
   # B must be a even
   stopifnot(B %% 2 == 0)
 
-  p <- max(c(p, log2(B)+1)) 
+  # p <- max(c(p, log2(B)+1)) 
 
-  regions <- chunks[sample(nrow(chunks)),"region"]
-  region <- paste(regions, collapse = "," )
-
-  x <- reinitializeStream(x)
+  x <- initializeStream(x)
 
   # run PCA on GenomicDataStream
-  res <- stream_pcaone(x, region, 
-                        m = M, 
-                        k = k, 
-                        s = s, 
-                        p = p, 
-                        B = B, 
-                        threads = n_pll_chunks, 
-                        verbose = verbose)
+  res <- stream_pcaone(x@ptr, 
+                      region = paste(regions, collapse = "," ), 
+                      m = M, 
+                      k = k, 
+                      s = s, 
+                      p = p, 
+                      B = B, 
+                      threads = n_pll_chunks, 
+                      verbose = verbose)
 
   # set row and column names
   rownames(res$u) <- sObj$sampleIDs
@@ -192,7 +192,7 @@ setMethod(
    # B must be a even
   stopifnot(B %% 2 == 0)
 
-  p <- max(c(p, log2(B)+1)) 
+  # p <- max(c(p, log2(B)+1)) 
 
   ptr <- initializeCpp(x)
 
@@ -277,30 +277,32 @@ setMethod(
 #' @export
 summaryChunks <- function(x){
 
-  chunks <- data.frame(matrix(ncol=2,nrow=0))
-  colnames(chunks) <- c("region", "counts")
+  x <- reinitializeStream(x)
+  summarizeChunks_rcpp(x@ptr)
 
-  # count number of variants
+  # chunks <- data.frame(matrix(ncol=2,nrow=0))
+  # colnames(chunks) <- c("region", "counts")
+
+  # # count number of variants
   # x <- reinitializeStream(x)
-  x <- initializeStream(x)
-  sampleIDs <- getSampleNames(x)
+  # sampleIDs <- getSampleNames(x)
 
-  lst <- list()
-  i <- 1
-  while(1){
-    dat <- getNextChunk(x)
-    if (atEndOfStream(x)) break
-    df <- data.frame(region = paste0(dat$info[1,1], ":", dat$info[1, 2], "-", dat$info[nrow(dat$info),2]), counts = ncol(dat$X))
-    lst[[i]] <- list(df = df, variantIDs = dat$info$ID)
-    i <- i + 1
-  }
+  # lst <- list()
+  # i <- 1
+  # while(1){
+  #   dat <- getNextChunk(x)
+  #   if (atEndOfStream(x)) break
+  #   df <- data.frame(region = paste0(dat$info[1,1], ":", dat$info[1, 2], "-", dat$info[nrow(dat$info),2]), counts = ncol(dat$X))
+  #   lst[[i]] <- list(df = df, variantIDs = dat$info$ID)
+  #   i <- i + 1
+  # }
 
-  chunks <- do.call(rbind, lapply(lst, function(x) x$df))
-  variantIDs <- unlist(sapply(lst, function(x) x$variantIDs))
+  # chunks <- do.call(rbind, lapply(lst, function(x) x$df))
+  # variantIDs <- unlist(sapply(lst, function(x) x$variantIDs))
 
-  list( chunks = chunks, 
-        sampleIDs = sampleIDs, 
-        variantIDs = variantIDs)
+  # list( chunks = chunks, 
+  #       sampleIDs = sampleIDs, 
+  #       variantIDs = variantIDs)
 }
 
 #' PCA result

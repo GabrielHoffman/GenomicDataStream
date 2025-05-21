@@ -33,7 +33,9 @@
 #include "ParallelGenomicChunks.h"
 
 #include "Rand.hpp"
-#include <rcpptimer.h>
+
+//[[Rcpp::depends(RcppClock)]]
+#include <RcppClock.h>
 
 using namespace std;
 using namespace vcfpp;
@@ -175,7 +177,7 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
 
   DataChunk<arma::mat> chunk;
   VariantInfo *info;
-  vector<string> variantIDs, tmp;
+  vector<string> variantIDs, regions, tmp;
   vector<int> chunkCounts;
 
   // loop through chunks
@@ -187,10 +189,12 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
       tmp = info->getFeatureNames();
       variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());
 
+      regions.push_back( info->getInterval() );
       chunkCounts.push_back( info->size() );
   }
 
   return List::create(
+        Named("regions") = regions,
         Named("chunks") = chunkCounts,
         Named("sampleIDs") = gds->getSampleNames(),
         Named("variantIDs") = variantIDs);
@@ -204,8 +208,6 @@ List summarizeChunks_rcpp( SEXP x){
 
   return summarizeChunks( ptr->ptr );
 }
-
-
 
 
 
@@ -249,8 +251,6 @@ Rcpp::List stream_pcaone_robj(
 										const bool verbose=true,
                     const bool scaleAndCenter = true) {
 
-  Timer timer;
-  timer.tic("Init");
 	DataChunk<Eigen::MatrixXd> chunk;
 
 	const int l = k + s;
@@ -266,12 +266,10 @@ Rcpp::List stream_pcaone_robj(
 
   size_t band = ceil((double)nchunks / B);
 
-  timer.toc("Init");
-
   for (int pi = 0; pi <= p; pi++) {
 
   	if( verbose ){
-  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p << "     ";
+  		Rcpp::Rcout << "\nEpoch " << pi << " / " << p << "";
   	}
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
@@ -286,12 +284,12 @@ Rcpp::List stream_pcaone_robj(
     DelayedStream ds( x, ids, chunkSize);
     while( ds.getNextChunk( chunk ) ){
 
-      timer.tic("Read data");
       // read data so columns are features
       auto Ab = chunk.getData();
       if( scaleAndCenter ) standardize(Ab); // standardize
-      timer.toc("Read data");
-      timer.tic("Linear algebra");
+      if( verbose ){
+        Rcpp::Rcout << "...";
+      }
       {
         // std::lock_guard<std::mutex> lock(pcaMutex);
         G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
@@ -316,7 +314,6 @@ Rcpp::List stream_pcaone_robj(
         start += Ab.cols();
         i++;
       }      
-      timer.toc("Linear algebra");
       b++;
     }
     // );
@@ -324,9 +321,8 @@ Rcpp::List stream_pcaone_robj(
 
   // get USV
   if( verbose ){
-		Rcpp::Rcout << "\rFinal decompositions" << std::endl;
+		Rcpp::Rcout << "\nFinal decompositions" << std::endl;
 	}
-  timer.tic("Linear algebra: final");
   {
     Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
     R.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
@@ -347,8 +343,6 @@ Rcpp::List stream_pcaone_robj(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
         Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
         Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
-  
-  timer.toc("Linear algebra: final");
 
   return lst;                            
 }
@@ -358,7 +352,7 @@ Rcpp::List stream_pcaone_robj(
 
 
 // [[Rcpp::export]]
-Rcpp::List stream_pcaone(	Rcpp::S4 gds, 
+Rcpp::List stream_pcaone(	SEXP x, 
 													const string &region,
 												 	int m, 
 													int k, 
@@ -368,26 +362,16 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
 													int threads = 4,
 												 	const bool verbose=true,
                           const bool scaleAndCenter = true) {
-  Timer timer;
-
-  // extract slots
-  int n = gds.slot("nsamples"); // number of samples
-  std::string file = gds.slot("file"); // fille
-  std::string samples = gds.slot("samples"); // samples
-  std::string field = gds.slot("field");  //  field
-  int chunkSize = gds.slot("chunkSize");  //  each chunk will read max chunkSize
-  double minVariance = gds.slot("minVariance");  // retain features with var > minVariance
-  bool missingToMean = gds.slot("missingToMean");  
-  // set region to empty here. we will used the permuted region later
-  gds::Param param(file, "", samples, minVariance, chunkSize, missingToMean);
-  param.setField(field);
-
+  
   auto regions = splitRegionString( region ); // assume regions are permuted
   const size_t nchunks{regions.size()};
 
-  MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(param, regions, threads);
   Eigen::setNbThreads(8); 
-  std::mutex pcaMutex;
+
+  Rcpp::XPtr<BoundDataStream> ptr(x);
+
+  DataChunk<Eigen::MatrixXd> chunk;
+  int n = ptr->ptr->n_samples();
 
   const int l = k + s;
   auto randomEngine = std::default_random_engine{};
@@ -402,7 +386,7 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
   for (int pi = 0; pi <= p; pi++) {
 
   	if( verbose ){
-  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p << "		";
+  		Rcpp::Rcout << "\nEpoch " << pi << " / " << p << "";
   	}
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
@@ -411,12 +395,18 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
     }
     band = std::fmin(band * 2, nchunks);
 
-    size_t i{1},  start{0};
-    processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+    ptr->ptr->setRegions( regions );
+
+    size_t i{1},  start{0}, b{0};
+    while( ptr->ptr->getNextChunk( chunk ) ){
       auto Ab = chunk.getData();
-      if( scaleAndCenter ) standardize(Ab); // standardize
-      {
-        std::lock_guard<std::mutex> lock(pcaMutex);
+      if( scaleAndCenter ){
+        standardize(Ab); // standardize
+      }
+      {          
+        if( verbose ){
+          Rcpp::Rcout << "...";
+        }
         G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
         if (i <= band / 2)
           H1.noalias() += Ab * G.middleRows(start, Ab.cols());
@@ -438,13 +428,14 @@ Rcpp::List stream_pcaone(	Rcpp::S4 gds,
         }
         start += Ab.cols();
         i++;
-      }
-    });
+      } 
+      b++;
+    }//);
   }
 
   // get USV
   if( verbose ){
-		Rcpp::Rcout << "\rFinal decompositions" << std::endl;
+		Rcpp::Rcout << "\nFinal decompositions" << std::endl;
 	}
   {
     Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);

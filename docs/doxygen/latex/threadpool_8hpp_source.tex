@@ -1,0 +1,91 @@
+\doxysection{threadpool.\+hpp}
+\hypertarget{threadpool_8hpp_source}{}\label{threadpool_8hpp_source}\index{inst/include/threadpool.hpp@{inst/include/threadpool.hpp}}
+\mbox{\hyperlink{threadpool_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ https://github.com/Zilong-\/Li/phaseless/src/threadpool.hpp}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Zilong\ Li}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2023.\ The\ use\ of\ this\ code\ is\ governed\ by\ the\ LICENSE\ file.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ ******************************************************************************/}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ THREADPOOL\_H\_}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ THREADPOOL\_H\_}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <future>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ inspired\ by\ https://github.com/progschj/ThreadPool/blob/master/ThreadPool.h}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ replace\ std::queue<\ std::function<void()>>\ with\ std::queue<std::packaged\_task<void()>>}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_thread_pool_af2e1d6baca11e5aac55b31419f67fbc9}{ThreadPool}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_thread_pool_af2e1d6baca11e5aac55b31419f67fbc9}{ThreadPool}}(std::size\_t\ nThreads);}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_thread_pool_a44d3d2ab618970605e684efc216655eb}{\string~ThreadPool}}();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class\ }F,\ \textcolor{keyword}{class}...\ A>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \mbox{\hyperlink{class_thread_pool_aee2fe172c3fc2087b23805a6dd6ef4f8}{enqueue}}(F\ \&\&\ callable,\ A\ \&\&...\ arguments);\ \textcolor{comment}{//\ magic\ power\ by\ modern\ C++}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<std::thread>\ workers;\ \textcolor{comment}{//\ keep\ track\ of\ threads}}
+\DoxyCodeLine{00029\ \ \ \ \ std::queue<std::packaged\_task<void()>>\ tasks\_queue;\ \textcolor{comment}{//\ use\ packaged\_task\ instead\ of\ function<void()>}}
+\DoxyCodeLine{00030\ \ \ \ \ std::mutex\ mutex\_queue;}
+\DoxyCodeLine{00031\ \ \ \ \ std::condition\_variable\ condition;\ \textcolor{comment}{//\ synchronization}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ stop;}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_thread_pool_af2e1d6baca11e5aac55b31419f67fbc9}{ThreadPool::ThreadPool}}(std::size\_t\ nThreads)\ :\ stop(false)}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ workers.reserve(nThreads);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ nThreads;\ ++i)}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ workers.emplace\_back(}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::packaged\_task<void()>\ task;\ \textcolor{comment}{//\ pack\ void()\ func\ into\ task}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock<std::mutex>\ lock(mutex\_queue);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ condition.wait(lock,\ [\textcolor{keyword}{this}]\ \{\ \textcolor{keywordflow}{return}\ stop\ ||\ !tasks\_queue.empty();\ \});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(tasks\_queue.empty()\ \&\&\ stop)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task\ =\ std::move(tasks\_queue.front());\ \textcolor{comment}{//\ front\ task\ in\ the\ queue\ moved}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_queue.pop();\ \textcolor{comment}{//\ now\ pop\ out\ the\ moved\ front\ task}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task();\ \textcolor{comment}{//\ packaged\_task\ created}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}<\textcolor{keyword}{class\ }F,\ \textcolor{keyword}{class}...\ A>}
+\DoxyCodeLine{00060\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \mbox{\hyperlink{class_thread_pool_aee2fe172c3fc2087b23805a6dd6ef4f8}{ThreadPool::enqueue}}(F\ \&\&\ callable,\ A\ \&\&...\ arguments)}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{using\ }ReturnType\ =\ std::invoke\_result\_t<F,\ A...>;}
+\DoxyCodeLine{00063\ \ \ \ \ std::packaged\_task<ReturnType()>\ task(std::bind(std::forward<F>(callable),\ std::forward<A>(arguments)...));}
+\DoxyCodeLine{00064\ \ \ \ \ std::future<ReturnType>\ taskGetFuture\ =\ task.get\_future();}
+\DoxyCodeLine{00065\ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ std::unique\_lock<std::mutex>\ lock(mutex\_queue);\ \textcolor{comment}{//\ tasks\_queue\ not\ threading-\/safe.\ locking\ here}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(stop)\ \textcolor{comment}{//\ don't\ allow\ enqueueing\ after\ stopping\ the\ pool}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}enqueue\ on\ stopped\ ThreadPool"{}});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ tasks\_queue.emplace(std::move(task));\ \textcolor{comment}{//\ task\ moved\ into\ queue}}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ condition.notify\_one();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ taskGetFuture;}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_thread_pool_a44d3d2ab618970605e684efc216655eb}{ThreadPool::\string~ThreadPool}}()}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ std::unique\_lock<std::mutex>\ lock(mutex\_queue);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ stop\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ condition.notify\_all();}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{for}(std::thread\ \&\ worker\ :\ workers)\ worker.join();\ \textcolor{comment}{//\ join\ all\ threads}}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ THREADPOOL\_H\_}}
+
+\end{DoxyCode}

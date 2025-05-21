@@ -1,0 +1,38 @@
+\doxysection{Multi\+Genomic\+Stream\+Processor\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_multi_genomic_stream_processor}{}\label{class_multi_genomic_stream_processor}\index{MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Parallel\+Genomic\+Chunks.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_multi_genomic_stream_processor_abd192647f233502eb8f03d9af66731f0}{Multi\+Genomic\+Stream\+Processor}} (const \mbox{\hyperlink{structgds_1_1_param}{gds\+::\+Param}} \&param, const std\+::vector$<$ std\+::string $>$ \&regions, size\+\_\+t num\+Threads)
+\item 
+void \mbox{\hyperlink{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}{process\+Chunk}} (std\+::function$<$ void(const \mbox{\hyperlink{classgds_1_1_data_chunk}{gds\+::\+Data\+Chunk}}$<$ T $>$ \&, size\+\_\+t)$>$ process\+Func)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_multi_genomic_stream_processor_abd192647f233502eb8f03d9af66731f0}\index{MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}!MultiGenomicStreamProcessor@{MultiGenomicStreamProcessor}}
+\index{MultiGenomicStreamProcessor@{MultiGenomicStreamProcessor}!MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{MultiGenomicStreamProcessor()}{MultiGenomicStreamProcessor()}}
+{\footnotesize\ttfamily \label{class_multi_genomic_stream_processor_abd192647f233502eb8f03d9af66731f0} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_multi_genomic_stream_processor}{Multi\+Genomic\+Stream\+Processor}}$<$ T $>$\mbox{\hyperlink{class_multi_genomic_stream_processor}{\+::\+Multi\+Genomic\+Stream\+Processor}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structgds_1_1_param}{gds\+::\+Param}} \&}]{param}{, }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{regions}{, }\item[{size\+\_\+t}]{num\+Threads}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}\index{MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}!processChunk@{processChunk}}
+\index{processChunk@{processChunk}!MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{processChunk()}{processChunk()}}
+{\footnotesize\ttfamily \label{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_multi_genomic_stream_processor}{Multi\+Genomic\+Stream\+Processor}}$<$ T $>$\+::process\+Chunk (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(const \mbox{\hyperlink{classgds_1_1_data_chunk}{gds\+::\+Data\+Chunk}}$<$ T $>$ \&, size\+\_\+t)$>$}]{process\+Func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_parallel_genomic_chunks_8h}{Parallel\+Genomic\+Chunks.\+h}}\end{DoxyCompactItemize}

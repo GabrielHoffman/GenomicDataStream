@@ -24,6 +24,7 @@
 #include "DataTable.h"
 #include "pgen/RPgenReader.h"
 #include "VariantSet.h"
+#include "utils.h"
 
 using namespace std;
 using namespace arma;
@@ -76,6 +77,10 @@ class pgenstream :
 			pvar = new RPvar();
 			pvar->Load(fileIdx, true, true);
 		}
+
+		// if PBED, set missingToMean to TRUE
+		missingToMean = (genoFileType == PBED) ? 
+											true : param.missingToMean;
 
 		// Parse PSAM/FAM file of sample identifiers
 		// evaluate subsetting of samples
@@ -275,6 +280,7 @@ class pgenstream :
 	int n_samples_psam;
 	vector<int> sampleIdx1;
 	FileType genoFileType;
+	bool missingToMean;
 
 	bool getNextChunk_helper2 (){
 
@@ -291,15 +297,7 @@ class pgenstream :
 
 		// indeces of variants in chunk
 		auto end = min( varIdx.begin() + currentIdx + chunkSize,  varIdx.end());
-		// vector<int> varIdx_sub = {varIdx.begin() + currentIdx, end};
-
-		vector<int> varIdx_sub;
-		// for(auto it = varIdx.begin() + currentIdx; it < end; it++){
-		// 		varIdx_sub.push_back( *it );
-		// } 
-		for(int i = currentIdx; i<currentIdx + chunkSize; i++){
-			varIdx_sub.push_back( varIdx[i] );
-		}
+		vector<int> varIdx_sub = {varIdx.begin() + currentIdx, end};
 
 		// read dosage into matDosage using 					
 		// 1-based indeces
@@ -307,40 +305,35 @@ class pgenstream :
 		vector<int> varIdx_sub1(varIdx_sub);
 		for(int &i : varIdx_sub1) i++;
 
-		pg->ReadList( matDosage, varIdx_sub1, param.missingToMean);
-
-		// populate vInfo
-		string id, a1, a2,chrom = "";
-		int pos = -1;
+		pg->ReadList( matDosage, varIdx_sub1, missingToMean);
 
 		// if PGEN
-		if( genoFileType == PGEN){
+		// Are there cases were pvar is needed?
+		// if( genoFileType == PGEN){
 
-			// Get variant info from pvar 
-			for(auto i: varIdx_sub){
-				id = pvar->GetVariantId(i);
-				a1 = pvar->GetAlleleCode(i,0);
-				a2 = pvar->GetAlleleCode(i,1);
+		// 	// Get variant info from pvar 
+		// 	for(auto i: varIdx_sub){
+		// 		id = pvar->GetVariantId(i);
+		// 		a1 = pvar->GetAlleleCode(i,0);
+		// 		a2 = pvar->GetAlleleCode(i,1);
 
-				// find chrom, pos given id
-				int idx = map_dt_id[id];
-				chrom = dt["CHROM"][idx];
-				pos = atoi(dt["POS"][idx].c_str());
+		// 		// find chrom, pos given id
+		// 		int idx = map_dt_id[id];
+		// 		chrom = dt["CHROM"][idx];
+		// 		pos = atoi(dt["POS"][idx].c_str());
 
-				vInfo->addVariant(chrom, pos, id, a1, a2);
-			}
-		}else{
-			// Get variant info from DataTable from BIM
-			for(auto i: varIdx_sub){
-				chrom = dt["CHROM"][i];
-				pos = atoi(dt["POS"][i].c_str());
-				id = dt["ID"][i];
-				a1 = dt["REF"][i];
-				a2 = dt["ALT"][i];
-
-				vInfo->addVariant(chrom, pos, id, a1, a2);
-			}
-		}
+		// 		vInfo->addVariant(chrom, pos, id, a1, a2);
+		// 	}
+		// }
+	
+		// Populate vInfo from DataTable
+		// Looking up column in DataTable is slow
+		// so do it once and process vector
+		vInfo->addVariants(	subset_vector(dt["CHROM"], varIdx_sub),
+												subset_vector(dt["POS"], varIdx_sub), 
+												subset_vector(dt["ID"], varIdx_sub), 
+												subset_vector(dt["REF"], varIdx_sub), 
+												subset_vector(dt["ALT"], varIdx_sub));
 
 		// increment current index
 		currentIdx += varIdx_sub.size();

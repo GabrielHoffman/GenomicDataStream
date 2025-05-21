@@ -1,0 +1,79 @@
+\doxysection{inst/include/\+Rand.hpp File Reference}
+\hypertarget{_rand_8hpp}{}\label{_rand_8hpp}\index{inst/include/Rand.hpp@{inst/include/Rand.hpp}}
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_standard_normal_random_helper}{Standard\+Normal\+Random\+Helper$<$ Matrix\+Type, Scalar\+Type, Random\+Engine\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_01_random_engine_type_01_4}{Standard\+Normal\+Random\+Helper$<$ Matrix\+Type, Real\+Type$<$ Matrix\+Type $>$, Random\+Engine\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_maf542e54d4aedc393a9985dfeb66c7b59}{Standard\+Normal\+Random\+Helper$<$ Matrix\+Type, std\+::complex$<$ Real\+Type$<$ Matrix\+Type $>$ $>$, Random\+Engine\+Type $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Matrix\+Type$>$ }\\using \mbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{Real\+Type}} = typename Eigen\+::\+Num\+Traits$<$typename Matrix\+Type\+::\+Scalar$>$\+::\+Real
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Matrix\+Type, typename Random\+Engine\+Type$>$ }\\Matrix\+Type \mbox{\hyperlink{_rand_8hpp_a08e8992646418067ff91c0df2aa2a416}{Uniform\+Random}} (const Eigen\+::\+Index num\+Rows, const Eigen\+::\+Index num\+Cols, Random\+Engine\+Type \&engine)
+\item 
+{\footnotesize template$<$typename Matrix\+Type, typename Random\+Engine\+Type$>$ }\\Matrix\+Type \mbox{\hyperlink{_rand_8hpp_a6b1edd9fcef408b8f7e08c30e67e9ebc}{Standard\+Normal\+Random}} (const Eigen\+::\+Index num\+Rows, const Eigen\+::\+Index num\+Cols, Random\+Engine\+Type \&engine)
+\item 
+{\footnotesize template$<$typename Matrix\+Type$>$ }\\void \mbox{\hyperlink{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}{flip\+Omg}} (Matrix\+Type \&Omg2, Matrix\+Type \&Omg)
+\item 
+{\footnotesize template$<$typename Matrix\+Type$>$ }\\Eigen\+::\+Matrix$<$ typename Matrix\+Type\+::\+Scalar, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ \mbox{\hyperlink{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f}{center\+\_\+and\+\_\+scale}} (const Matrix\+Type \&matrix, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&center, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&scale, const bool byrow)
+\item 
+{\footnotesize template$<$typename Matrix\+Type$>$ }\\void \mbox{\hyperlink{_rand_8hpp_a3d9b477a5ad1b8bbc1c388a4eda98f20}{center\+\_\+and\+\_\+scale}} (Eigen\+::\+Matrix\+Xd \&mat, const Matrix\+Type \&matrix, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&center, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&scale, const bool byrow, const int start, const int nb)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}\index{Rand.hpp@{Rand.hpp}!RealType@{RealType}}
+\index{RealType@{RealType}!Rand.hpp@{Rand.hpp}}
+\doxysubsubsection{\texorpdfstring{RealType}{RealType}}
+{\footnotesize\ttfamily \label{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51} 
+template$<$typename Matrix\+Type$>$ \\
+using \mbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{Real\+Type}} = typename Eigen\+::\+Num\+Traits$<$typename Matrix\+Type\+::\+Scalar$>$\+::\+Real}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f}\index{Rand.hpp@{Rand.hpp}!center\_and\_scale@{center\_and\_scale}}
+\index{center\_and\_scale@{center\_and\_scale}!Rand.hpp@{Rand.hpp}}
+\doxysubsubsection{\texorpdfstring{center\_and\_scale()}{center\_and\_scale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f} 
+template$<$typename Matrix\+Type$>$ \\
+Eigen\+::\+Matrix$<$ typename Matrix\+Type\+::\+Scalar, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ center\+\_\+and\+\_\+scale (\begin{DoxyParamCaption}\item[{const Matrix\+Type \&}]{matrix}{, }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{center}{, }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{scale}{, }\item[{const bool}]{byrow}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_rand_8hpp_a3d9b477a5ad1b8bbc1c388a4eda98f20}\index{Rand.hpp@{Rand.hpp}!center\_and\_scale@{center\_and\_scale}}
+\index{center\_and\_scale@{center\_and\_scale}!Rand.hpp@{Rand.hpp}}
+\doxysubsubsection{\texorpdfstring{center\_and\_scale()}{center\_and\_scale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{_rand_8hpp_a3d9b477a5ad1b8bbc1c388a4eda98f20} 
+template$<$typename Matrix\+Type$>$ \\
+void center\+\_\+and\+\_\+scale (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{mat}{, }\item[{const Matrix\+Type \&}]{matrix}{, }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{center}{, }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{scale}{, }\item[{const bool}]{byrow}{, }\item[{const int}]{start}{, }\item[{const int}]{nb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}\index{Rand.hpp@{Rand.hpp}!flipOmg@{flipOmg}}
+\index{flipOmg@{flipOmg}!Rand.hpp@{Rand.hpp}}
+\doxysubsubsection{\texorpdfstring{flipOmg()}{flipOmg()}}
+{\footnotesize\ttfamily \label{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0} 
+template$<$typename Matrix\+Type$>$ \\
+void flip\+Omg (\begin{DoxyParamCaption}\item[{Matrix\+Type \&}]{Omg2}{, }\item[{Matrix\+Type \&}]{Omg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_rand_8hpp_a6b1edd9fcef408b8f7e08c30e67e9ebc}\index{Rand.hpp@{Rand.hpp}!StandardNormalRandom@{StandardNormalRandom}}
+\index{StandardNormalRandom@{StandardNormalRandom}!Rand.hpp@{Rand.hpp}}
+\doxysubsubsection{\texorpdfstring{StandardNormalRandom()}{StandardNormalRandom()}}
+{\footnotesize\ttfamily \label{_rand_8hpp_a6b1edd9fcef408b8f7e08c30e67e9ebc} 
+template$<$typename Matrix\+Type, typename Random\+Engine\+Type$>$ \\
+Matrix\+Type Standard\+Normal\+Random (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Index}]{num\+Rows}{, }\item[{const Eigen\+::\+Index}]{num\+Cols}{, }\item[{Random\+Engine\+Type \&}]{engine}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{_rand_8hpp_a08e8992646418067ff91c0df2aa2a416}\index{Rand.hpp@{Rand.hpp}!UniformRandom@{UniformRandom}}
+\index{UniformRandom@{UniformRandom}!Rand.hpp@{Rand.hpp}}
+\doxysubsubsection{\texorpdfstring{UniformRandom()}{UniformRandom()}}
+{\footnotesize\ttfamily \label{_rand_8hpp_a08e8992646418067ff91c0df2aa2a416} 
+template$<$typename Matrix\+Type, typename Random\+Engine\+Type$>$ \\
+Matrix\+Type Uniform\+Random (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Index}]{num\+Rows}{, }\item[{const Eigen\+::\+Index}]{num\+Cols}{, }\item[{Random\+Engine\+Type \&}]{engine}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+

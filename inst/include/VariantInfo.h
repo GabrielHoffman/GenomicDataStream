@@ -48,6 +48,50 @@ class VariantInfo :
         A2.push_back( allele2 );
     }
 
+    /** add information for many variant at a time
+     */ 
+    void addVariants(const vector<string> &chr,
+                    const vector<string> &pos, 
+                    const vector<string> &id, 
+                    const vector<string> &allele1, 
+                    const vector<string> &allele2){
+
+        int len = chr.size();
+
+        if( pos.size() != len || 
+            id.size() != len ||
+            allele1.size() != len || 
+            allele1.size() != len){
+            throw logic_error("All vectors must have same length");
+        }
+
+        CHROM.insert(CHROM.end(), 
+            chr.begin(), 
+            chr.end());
+
+        // convert pos strings to ints
+        vector<int> posInt;
+        for(auto &x: pos){
+          posInt.push_back( stoi(x) );
+        }
+
+        POS.insert(POS.end(), 
+            posInt.begin(), 
+            posInt.end());
+
+        ID.insert(ID.end(),
+            id.begin(),
+            id.end());
+
+        A1.insert(A1.end(),
+            allele1.begin(),
+            allele1.end());
+
+        A2.insert(A2.end(),
+            allele2.begin(),
+            allele2.end());
+    }
+
     /** append variants in a new VariantInfo to the end of the current object
      */ 
     void append( const VariantInfo & vInfo){
@@ -91,6 +135,29 @@ class VariantInfo :
         ID.clear();
         A1.clear();
         A2.clear();
+    }
+
+    /** get genome interval as a string
+     */ 
+    string getInterval(){
+
+      if( POS.size() == 0) return "";
+
+      // start
+      string reg = CHROM[0] + ":" + to_string(POS[0]);
+  
+      // if there is a change in chromosome
+      for(int i=1; i<POS.size(); i++){
+        if( CHROM[i] != CHROM[i-1]){
+          // end interval and start new one
+          reg += "-" + to_string(POS[i-1]);
+          reg += "," + CHROM[i] + ":" + to_string(POS[i]);
+        }
+      }
+
+      reg += "-" + to_string(POS[POS.size() -1]);
+
+      return reg;
     }
 
     // private:

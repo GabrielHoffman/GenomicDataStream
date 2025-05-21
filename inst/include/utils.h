@@ -302,22 +302,33 @@ static vector<string> splitRegionString( string regionString){
 
 /** Return subset of x indicated by entries in ind: x[idx] 
 */
-template<typename T>
-static vector<T> subset_vector(const vector<T> &x, const vector<unsigned int> &idx){
+template<typename T, typename T2>
+static vector<T> subset_vector(const vector<T> &x, const vector<T2> &idx){
 
     // initialize x_subset to have size idx.size()
     vector<T> x_subset;
     x_subset.reserve(idx.size());
 
-    for(int i=0; i<idx.size(); i++){
-        if( idx[i] > x.size() ){
+    for(auto i: idx){
+        if( i > x.size() ){
             throw std::out_of_range("Index is out of bounds"); 
         }
-        x_subset.push_back(x[idx[i]]);
+        x_subset.push_back( x[i] );
     }
 
     return x_subset;
 }
+
+
+template<typename T>
+static void print_vec(const string &title, const vector<T> &x){
+    Rcpp::Rcout << title << "\n";
+    for(auto a: x) Rcpp::Rcout << a << " ";
+    Rcpp::Rcout << endl;
+}
+
+
+
 
 } // end namespace
 #endif

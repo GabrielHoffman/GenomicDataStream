@@ -1,0 +1,41 @@
+\doxysection{ZSTD\+\_\+out\+Buffer\+\_\+s Struct Reference}
+\hypertarget{struct_z_s_t_d__out_buffer__s}{}\label{struct_z_s_t_d__out_buffer__s}\index{ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}}
+
+
+{\ttfamily \#include $<$zstd.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s_ae17b7e44abe8ffd1f72f448df86f2a23}{dst}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s_a34fb461ecc114951093b978c3aa6899e}{size}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct_z_s_t_d__out_buffer__s_a51b01c063d6e338d333a865b88ea243c}{pos}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_z_s_t_d__out_buffer__s_ae17b7e44abe8ffd1f72f448df86f2a23}\index{ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}!dst@{dst}}
+\index{dst@{dst}!ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}}
+\doxysubsubsection{\texorpdfstring{dst}{dst}}
+{\footnotesize\ttfamily \label{struct_z_s_t_d__out_buffer__s_ae17b7e44abe8ffd1f72f448df86f2a23} 
+void\texorpdfstring{$\ast$}{*} ZSTD\+\_\+out\+Buffer\+\_\+s\+::dst}
+
+start of output buffer \Hypertarget{struct_z_s_t_d__out_buffer__s_a51b01c063d6e338d333a865b88ea243c}\index{ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}!pos@{pos}}
+\index{pos@{pos}!ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}}
+\doxysubsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily \label{struct_z_s_t_d__out_buffer__s_a51b01c063d6e338d333a865b88ea243c} 
+size\+\_\+t ZSTD\+\_\+out\+Buffer\+\_\+s\+::pos}
+
+position where writing stopped. Will be updated. Necessarily 0 \texorpdfstring{$<$}{<}= pos \texorpdfstring{$<$}{<}= size \Hypertarget{struct_z_s_t_d__out_buffer__s_a34fb461ecc114951093b978c3aa6899e}\index{ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}!size@{size}}
+\index{size@{size}!ZSTD\_outBuffer\_s@{ZSTD\_outBuffer\_s}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily \label{struct_z_s_t_d__out_buffer__s_a34fb461ecc114951093b978c3aa6899e} 
+size\+\_\+t ZSTD\+\_\+out\+Buffer\+\_\+s\+::size}
+
+size of output buffer 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{zstd_8h}{zstd.\+h}}\end{DoxyCompactItemize}

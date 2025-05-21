@@ -1,0 +1,225 @@
+\doxysection{Data\+Table.\+h}
+\hypertarget{_data_table_8h_source}{}\label{_data_table_8h_source}\index{inst/include/DataTable.h@{inst/include/DataTable.h}}
+\mbox{\hyperlink{_data_table_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*\ @file\ \ \ \ \ \ \ \ DataTable.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ @brief\ \ \ \ \ \ \ Load\ delimited\ data\ table\ from\ file,\ and\ access\ using\ column\ names}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{***********************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ DATA\_TABLE\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ DATA\_TABLE\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <regex>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <boost/tokenizer.hpp>}\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ boost::tokenizer<boost::char\_separator<char>\ >\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}\ \{}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}()\{\}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&headerKey=\textcolor{stringliteral}{"{}"{}},\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)t\ "{}})\{}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ filesystem::exists(\ file\ )\ )\{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}File\ does\ not\ exist:\ "{}}\ +\ file);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ boost::char\_separator<char>\ separators(\ delim.c\_str()\ );}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ open\ file}}
+\DoxyCodeLine{00053\ \ \ \ \ ifstream\ strm(\ file\ );}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{string}\ line,\ header,\ value;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ if\ there\ is\ NO\ headerKey}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{if}(\ headerKey.compare(\textcolor{stringliteral}{"{}"{}})\ ==\ 0)\{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{comment}{//\ read\ first\ line,\ count\ number\ of\ columns}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \textcolor{comment}{//\ create\ colNames}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ ifstream\ strm\_tmp(\ file\ );}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \textcolor{comment}{//\ get\ first\ line}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ getline(strm\_tmp,\ line);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{comment}{//\ process\ each\ token}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ncols\ =\ 1;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ colNames.push\_back(\textcolor{stringliteral}{"{}col"{}}\ +\ to\_string(ncols++));}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ strm\_tmp.close();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ if\ there\ is\ a\ headerKey}}
+\DoxyCodeLine{00078\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \textcolor{comment}{//\ Loop\ through\ lines\ until\ header\ start\ key\ is\ found}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ startHeader\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ line}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(strm,\ line))\ \{}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ process\ each\ token}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ header\ =\ *it;\ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ not\ started\ yet,\ and\ found\ start\ yet}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ startHeader\ to\ true}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ startHeader\ )\{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ header.compare(headerKey)\ ==\ 0\ )\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startHeader\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ leading\ \#\ from\ header\ key}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header\ =\ regex\_replace(header,\ regex(\textcolor{stringliteral}{"{}\string^\#"{}}),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ start\ key\ already\ found,\ }}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ push\ header\ column}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ startHeader\ )\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ colNames.push\_back(header);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ end\ of\ line\ where\ start\ key\ is\ found}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ break}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ startHeader\ )\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ startHeader\ )\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Header\ key\ not\ found:\ "{}}\ +\ headerKey);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ initialize\ data\ with\ column\ for\ each\ header\ entry}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<colNames.size();\ i++)\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ data.push\_back(\ vector<string>()\ );}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ Read\ data\ rows}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ data\ is\ a\ vector\ of\ columns}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ each\ column\ is\ a\ vector\ of\ strings}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{int}\ lineIdx\ =\ 0;}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ for\ each\ row}}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(strm,\ line))\ \{}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ colIndex\ =\ 0;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ >\ data.size()\ )\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ data[colIndex++].push\_back(\ *it\ );}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ !=\ colNames.size())\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Line\ "{}}\ +\ to\_string(lineIdx)\ +\ \textcolor{stringliteral}{"{}\ is\ not\ valid:\ "{}}\ +\ line);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ lineIdx++;}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ strm.close();}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{\string~DataTable}}()\{\}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncols()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{return}\ data.size();}
+\DoxyCodeLine{00154\ \ \ \}\ \ \ \ }
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nrows()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ data[0].size();}
+\DoxyCodeLine{00158\ \ \ \}\ \ \ \ }
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{const}\ vector<string>\ getColNames()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{return}\ colNames;}
+\DoxyCodeLine{00162\ \ \ \}\ \ \ \ }
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{void}\ setColNames(\textcolor{keyword}{const}\ vector<string>\ \&names)\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{if}(\ names.size()\ !=\ colNames.size())\{}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}names:\ "{}\ <<\ names.size()\ <<\ std::endl;}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{comment}{//\ for(auto\ x:\ names)\ Rcpp::Rcout\ <<\ x\ <<\ std::endl;}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}colNames:\ "{}\ <<\ colNames.size()\ <<\ std::endl;}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \textcolor{comment}{//\ for(auto\ x:\ colNames)\ Rcpp::Rcout\ <<\ x\ <<\ std::endl;}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}setColNames:\ new\ and\ old\ names\ must\ have\ the\ same\ number\ of\ entries"{}});}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ colNames.assign(\ names.begin(),\ names.end());}
+\DoxyCodeLine{00176\ \ \ \}\ \ \ \ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vector<string>\ getCol(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&key)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ search\ for\ key\ in\ colNames}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ std::find(colNames.begin(),\ colNames.end(),\ key);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ vector<string>\ ret;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ if\ found}}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ colNames.end())\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \textcolor{comment}{//\ get\ index\ key\ was\ found\ at}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ distance(colNames.begin(),\ it);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ ret\ =\ data[index];}
+\DoxyCodeLine{00189\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Column\ not\ found:\ "{}}\ +\ key);}
+\DoxyCodeLine{00191\ \ \ \ \ \}\ }
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00194\ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{const}\ vector<string>\ operator[](\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&key)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{return}\ getCol(\ key\ );}
+\DoxyCodeLine{00198\ \ \ \}}
+\DoxyCodeLine{00199\ \ }
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{void}\ print(ostream\&\ out,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ num\ =\ 0)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{int}\ nrows\ =\ num;}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{if}(\ nrows\ ==\ 0)\{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ nrows\ =\ this-\/>nrows();}
+\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{comment}{//\ print\ column\ names}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<colNames.size()-\/1;\ i++)\{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ out\ <<\ colNames[i]\ <<\ delim;}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ \ \ \ \ out\ <<\ colNames[colNames.size()-\/1]\ <<\ endl;}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ for\ each\ row}}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ r=0;\ r<nrows;\ r++)\{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<data.size()-\/1;\ i++)\{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ out\ <<\ data[i][r]\ <<\ delim;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ out\ <<\ data[data.size()-\/1][r]\ <<\ endl;}
+\DoxyCodeLine{00221\ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \}}
+\DoxyCodeLine{00223\ \ \ }
+\DoxyCodeLine{00224\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00225\ \ \ vector<string>\ colNames;\ }
+\DoxyCodeLine{00226\ \ \ vector<vector<string>\ >\ data;}
+\DoxyCodeLine{00227\ \};}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

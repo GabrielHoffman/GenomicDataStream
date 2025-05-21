@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>GenomicDataStream: inst/include/Rand.hpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GenomicDataStream
+   </div>
+   <div id="projectbrief">A scalable interface between data and analysis</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_920884c6b3b2f0be94e27d51660adee5.html">inst</a></li><li class="navelem"><a class="el" href="dir_2b5d1a398a9eec011391d543f21db223.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Rand.hpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
+</div>
+<p><a href="_rand_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_standard_normal_random_helper.html">StandardNormalRandomHelper&lt; MatrixType, ScalarType, RandomEngineType &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_01_random_engine_type_01_4.html">StandardNormalRandomHelper&lt; MatrixType, RealType&lt; MatrixType &gt;, RandomEngineType &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_maf542e54d4aedc393a9985dfeb66c7b59.html">StandardNormalRandomHelper&lt; MatrixType, std::complex&lt; RealType&lt; MatrixType &gt; &gt;, RandomEngineType &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a52faefe9cb535d4ecba2275067f10a51" id="r_a52faefe9cb535d4ecba2275067f10a51"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType&gt; </td></tr>
+<tr class="memitem:a52faefe9cb535d4ecba2275067f10a51"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a52faefe9cb535d4ecba2275067f10a51">RealType</a> = typename Eigen::NumTraits&lt;typename MatrixType::Scalar&gt;::Real</td></tr>
+<tr class="separator:a52faefe9cb535d4ecba2275067f10a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a08e8992646418067ff91c0df2aa2a416" id="r_a08e8992646418067ff91c0df2aa2a416"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType, typename RandomEngineType&gt; </td></tr>
+<tr class="memitem:a08e8992646418067ff91c0df2aa2a416"><td class="memTemplItemLeft" align="right" valign="top">MatrixType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a08e8992646418067ff91c0df2aa2a416">UniformRandom</a> (const Eigen::Index numRows, const Eigen::Index numCols, RandomEngineType &amp;engine)</td></tr>
+<tr class="separator:a08e8992646418067ff91c0df2aa2a416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b1edd9fcef408b8f7e08c30e67e9ebc" id="r_a6b1edd9fcef408b8f7e08c30e67e9ebc"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType, typename RandomEngineType&gt; </td></tr>
+<tr class="memitem:a6b1edd9fcef408b8f7e08c30e67e9ebc"><td class="memTemplItemLeft" align="right" valign="top">MatrixType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a6b1edd9fcef408b8f7e08c30e67e9ebc">StandardNormalRandom</a> (const Eigen::Index numRows, const Eigen::Index numCols, RandomEngineType &amp;engine)</td></tr>
+<tr class="separator:a6b1edd9fcef408b8f7e08c30e67e9ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b2e8519194e452761f9f4afd19860f0" id="r_a1b2e8519194e452761f9f4afd19860f0"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType&gt; </td></tr>
+<tr class="memitem:a1b2e8519194e452761f9f4afd19860f0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1b2e8519194e452761f9f4afd19860f0">flipOmg</a> (MatrixType &amp;Omg2, MatrixType &amp;Omg)</td></tr>
+<tr class="separator:a1b2e8519194e452761f9f4afd19860f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a0ded3a5d21fca7fb7274696a85c54f" id="r_a0a0ded3a5d21fca7fb7274696a85c54f"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType&gt; </td></tr>
+<tr class="memitem:a0a0ded3a5d21fca7fb7274696a85c54f"><td class="memTemplItemLeft" align="right" valign="top">Eigen::Matrix&lt; typename MatrixType::Scalar, Eigen::Dynamic, Eigen::Dynamic &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a0a0ded3a5d21fca7fb7274696a85c54f">center_and_scale</a> (const MatrixType &amp;matrix, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;center, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;scale, const bool byrow)</td></tr>
+<tr class="separator:a0a0ded3a5d21fca7fb7274696a85c54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d9b477a5ad1b8bbc1c388a4eda98f20" id="r_a3d9b477a5ad1b8bbc1c388a4eda98f20"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType&gt; </td></tr>
+<tr class="memitem:a3d9b477a5ad1b8bbc1c388a4eda98f20"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3d9b477a5ad1b8bbc1c388a4eda98f20">center_and_scale</a> (Eigen::MatrixXd &amp;mat, const MatrixType &amp;matrix, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;center, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;scale, const bool byrow, const int start, const int nb)</td></tr>
+<tr class="separator:a3d9b477a5ad1b8bbc1c388a4eda98f20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a52faefe9cb535d4ecba2275067f10a51" name="a52faefe9cb535d4ecba2275067f10a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52faefe9cb535d4ecba2275067f10a51">&#9670;&#160;</a></span>RealType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a52faefe9cb535d4ecba2275067f10a51">RealType</a> = typename Eigen::NumTraits&lt;typename MatrixType::Scalar&gt;::Real</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a0a0ded3a5d21fca7fb7274696a85c54f" name="a0a0ded3a5d21fca7fb7274696a85c54f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a0ded3a5d21fca7fb7274696a85c54f">&#9670;&#160;</a></span>center_and_scale() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Matrix&lt; typename MatrixType::Scalar, Eigen::Dynamic, Eigen::Dynamic &gt; center_and_scale </td>
+          <td>(</td>
+          <td class="paramtype">const MatrixType &amp;</td>          <td class="paramname"><span class="paramname"><em>matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>byrow</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d9b477a5ad1b8bbc1c388a4eda98f20" name="a3d9b477a5ad1b8bbc1c388a4eda98f20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d9b477a5ad1b8bbc1c388a4eda98f20">&#9670;&#160;</a></span>center_and_scale() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void center_and_scale </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::MatrixXd &amp;</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MatrixType &amp;</td>          <td class="paramname"><span class="paramname"><em>matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>byrow</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>nb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b2e8519194e452761f9f4afd19860f0" name="a1b2e8519194e452761f9f4afd19860f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b2e8519194e452761f9f4afd19860f0">&#9670;&#160;</a></span>flipOmg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void flipOmg </td>
+          <td>(</td>
+          <td class="paramtype">MatrixType &amp;</td>          <td class="paramname"><span class="paramname"><em>Omg2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MatrixType &amp;</td>          <td class="paramname"><span class="paramname"><em>Omg</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6b1edd9fcef408b8f7e08c30e67e9ebc" name="a6b1edd9fcef408b8f7e08c30e67e9ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b1edd9fcef408b8f7e08c30e67e9ebc">&#9670;&#160;</a></span>StandardNormalRandom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType, typename RandomEngineType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MatrixType StandardNormalRandom </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Index</td>          <td class="paramname"><span class="paramname"><em>numRows</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Index</td>          <td class="paramname"><span class="paramname"><em>numCols</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RandomEngineType &amp;</td>          <td class="paramname"><span class="paramname"><em>engine</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08e8992646418067ff91c0df2aa2a416" name="a08e8992646418067ff91c0df2aa2a416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08e8992646418067ff91c0df2aa2a416">&#9670;&#160;</a></span>UniformRandom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType, typename RandomEngineType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MatrixType UniformRandom </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Index</td>          <td class="paramname"><span class="paramname"><em>numRows</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Index</td>          <td class="paramname"><span class="paramname"><em>numCols</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RandomEngineType &amp;</td>          <td class="paramname"><span class="paramname"><em>engine</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

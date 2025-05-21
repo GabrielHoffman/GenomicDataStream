@@ -175,13 +175,13 @@ class DataTable {
     colNames.assign( names.begin(), names.end());
   }    
 
-  const vector<string> getCol(const string &key) const {
+  inline const vector<string> getCol(const string &key) const {
     // search for key in colNames
     auto it = std::find(colNames.begin(), colNames.end(), key);
 
     vector<string> ret;
 
-     // if found
+    // if found
     if (it != colNames.end()) {
       // get index key was found at
       int index = distance(colNames.begin(), it);
@@ -199,7 +199,12 @@ class DataTable {
 
   /** print DataTable to ostream
    */ 
-  void print(ostream& out, const string &delim = "\t") const {
+  void print(ostream& out, const string &delim = "\t", const int num = 0) const {
+
+    int nrows = num;
+    if( nrows == 0){
+      nrows = this->nrows();
+    }
 
     // print column names
     for(int i=0; i<colNames.size()-1; i++){
@@ -208,7 +213,7 @@ class DataTable {
     out << colNames[colNames.size()-1] << endl;
 
     // for each row
-    for(int r=0; r<this->nrows(); r++){
+    for(int r=0; r<nrows; r++){
       for(int i=0; i<data.size()-1; i++){
         out << data[i][r] << delim;
       }
