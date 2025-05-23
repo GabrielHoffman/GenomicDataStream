@@ -78,6 +78,7 @@
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">k</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  algorithm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"serial"</span>, <span class="st">"parallel"</span><span class="op">)</span>,</span>
 <span>  p <span class="op">=</span> <span class="fl">7</span>,</span>
 <span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
@@ -168,6 +169,10 @@ if <code>TRUE</code> (default) shuffle genomic regions, the next chunk is not in
 if <code>TRUE</code> (default is <code>FALSE</code>) print details</p></dd>
 
 
+<dt>algorithm</dt>
+<dd><p>if <code>"serial"</code> read <code>GenomicDataStream</code> with a single thread</p></dd>
+
+
 <dt>chunkSize</dt>
 <dd><p>number of features to read per chunk in <code>GenomicDataStream</code></p></dd>
 
@@ -198,7 +203,7 @@ if <code>TRUE</code> (default is <code>FALSE</code>) print details</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2024)</p>
+    <p>PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023)</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>

@@ -177,7 +177,7 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
 
   DataChunk<arma::mat> chunk;
   VariantInfo *info;
-  vector<string> variantIDs, regions, tmp;
+  vector<string> variantIDs, intervals, tmp, regions;
   vector<int> chunkCounts;
 
   // loop through chunks
@@ -189,15 +189,19 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
       tmp = info->getFeatureNames();
       variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());
 
-      regions.push_back( info->getInterval() );
+      tmp = info->getRegions();
+      regions.insert(regions.end(), tmp.begin(), tmp.end());
+
+      intervals.push_back( info->getInterval() );
       chunkCounts.push_back( info->size() );
   }
 
   return List::create(
-        Named("regions") = regions,
+        Named("intervals") = intervals,
         Named("chunks") = chunkCounts,
         Named("sampleIDs") = gds->getSampleNames(),
-        Named("variantIDs") = variantIDs);
+        Named("variantIDs") = variantIDs,
+        Named("regions") = regions);
 }
 
 
@@ -356,6 +360,8 @@ Rcpp::List stream_pcaone(	SEXP x,
 													const string &region,
 												 	int m, 
 													int k, 
+                          int nchunks,
+                          bool shuffleRegions = true,
 													int s = 20, 
 													int p = 7, 
 													int B = 64, 
@@ -363,15 +369,15 @@ Rcpp::List stream_pcaone(	SEXP x,
 												 	const bool verbose=true,
                           const bool scaleAndCenter = true) {
   
-  auto regions = splitRegionString( region ); // assume regions are permuted
-  const size_t nchunks{regions.size()};
+  auto regions = splitRegionString( region ); 
 
-  Eigen::setNbThreads(8); 
+  Eigen::setNbThreads(threads); 
 
   Rcpp::XPtr<BoundDataStream> ptr(x);
+  shared_ptr<GenomicDataStream> gds = ptr->ptr;
 
   DataChunk<Eigen::MatrixXd> chunk;
-  int n = ptr->ptr->n_samples();
+  int n = gds->n_samples();
 
   const int l = k + s;
   auto randomEngine = std::default_random_engine{};
@@ -381,12 +387,12 @@ Rcpp::List stream_pcaone(	SEXP x,
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
   
-  size_t band = ceil((double)nchunks / B);
-  
+  size_t band = ceil((double) nchunks / B);
+
   for (int pi = 0; pi <= p; pi++) {
 
   	if( verbose ){
-  		Rcpp::Rcout << "\nEpoch " << pi << " / " << p << "";
+  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", ";
   	}
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
@@ -395,42 +401,45 @@ Rcpp::List stream_pcaone(	SEXP x,
     }
     band = std::fmin(band * 2, nchunks);
 
-    ptr->ptr->setRegions( regions );
+    // shuffle order of regions
+    if( shuffleRegions ){
+      shuffle(begin(regions), end(regions), randomEngine);
+    }
+    gds->setRegions( regions );
 
-    size_t i{1},  start{0}, b{0};
-    while( ptr->ptr->getNextChunk( chunk ) ){
-      auto Ab = chunk.getData();
-      if( scaleAndCenter ){
-        standardize(Ab); // standardize
+    size_t i{1}, start{0}, b{0};
+    while( gds->getNextChunk( chunk ) ){
+      if( verbose ){        
+      Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << b << "\t\t";
       }
-      {          
-        if( verbose ){
-          Rcpp::Rcout << "...";
+      // Rcpp::Rcout << chunk.getInfo<VariantInfo>()->getFeatureName(0) <<endl;
+
+      auto Ab = chunk.getData();
+      if( scaleAndCenter ) standardize(Ab);      
+        
+      G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+      if (i <= band / 2)
+        H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+      else
+        H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+      bool adjacent =
+        (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+      if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+        H = H1 + H2;
+        Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+        Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+        flipOmg(Omg2, Omg);
+        if (i == band) {
+          H1.setZero();
+          i = 0;
+        } else {
+          H2.setZero();
         }
-        G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
-        if (i <= band / 2)
-          H1.noalias() += Ab * G.middleRows(start, Ab.cols());
-        else
-          H2.noalias() += Ab * G.middleRows(start, Ab.cols());
-        bool adjacent =
-          (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
-        if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
-          H = H1 + H2;
-          Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
-          Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
-          flipOmg(Omg2, Omg);
-          if (i == band) {
-            H1.setZero();
-            i = 0;
-          } else {
-            H2.setZero();
-          }
-        }
-        start += Ab.cols();
-        i++;
-      } 
+      }
+      start += Ab.cols();
+      i++;      
       b++;
-    }//);
+    }
   }
 
   // get USV
@@ -462,3 +471,104 @@ Rcpp::List stream_pcaone(	SEXP x,
 }
 
 
+
+
+// [[Rcpp::export]]
+Rcpp::List stream_pcaone_orig(Rcpp::S4 gds, const string &region, int m, int k, int nchunks, int s = 20, int p = 7, int B = 64, int threads = 4) {
+
+  // extract slots
+  int n = gds.slot("nsamples"); // number of samples
+  std::string file = gds.slot("file"); // fille
+  std::string samples = gds.slot("samples"); // samples
+  std::string field = gds.slot("field");  //  field
+  int chunkSize = gds.slot("chunkSize");  //  each chunk will read max chunkSize
+  double minVariance = gds.slot("minVariance");  // retain features with var > minVariance
+  bool missingToMean = gds.slot("missingToMean");  
+  // set region to empty here. we will used the permuted region later
+  gds::Param param(file, "", samples, minVariance, chunkSize, missingToMean);
+  param.setField(field);
+
+
+  auto regions = splitRegionString( region ); // assume regions are permuted
+  // const size_t nchunks{regions.size()};
+
+  MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(param, regions, threads);
+  // Eigen::setNbThreads(threads); 
+  std::mutex pcaMutex;  
+
+  const int l = k + s;
+  auto randomEngine = std::default_random_engine{};
+  Eigen::MatrixXd Omg = StandardNormalRandom<Eigen::MatrixXd, std::default_random_engine>(n, l, randomEngine);
+  Eigen::MatrixXd Omg2 = Omg;
+  Eigen::MatrixXd H1 = Eigen::MatrixXd::Zero(n, l);
+  Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
+  Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
+  
+  size_t band = ceil((double)nchunks / B);
+  
+  for (int pi = 0; pi <= p; pi++) {
+
+    Rcpp::Rcout << "\nEpoch " << pi << " / " << p << "";
+
+    if (std::pow(2, pi) >= B) {
+      // reset H1, H2 to zero
+      H1.setZero();
+      H2.setZero();
+    }
+    band = std::fmin(band * 2, nchunks);
+
+    size_t i{1},  start{0};
+    processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+      auto Ab = chunk.getData();
+      standardize(Ab); // standardize
+      {
+        std::lock_guard<std::mutex> lock(pcaMutex);
+        G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+        if (i <= band / 2)
+          H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+        else
+          H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+        bool adjacent =
+          (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+        if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+          H = H1 + H2;
+          Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+          Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+          flipOmg(Omg2, Omg);
+          if (i == band) {
+            H1.setZero();
+            i = 0;
+          } else {
+            H2.setZero();
+          }
+        }
+        start += Ab.cols();
+        i++;
+      }
+    });
+  }
+
+  // get USV
+  {
+    Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
+    R.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
+    G.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(m, l);
+  }
+  {
+    Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
+    Rt.noalias() = Eigen::MatrixXd::Identity(l, m) * qr.matrixQR().triangularView<Eigen::Upper>();
+    G.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(m, l);
+  }
+
+  R = Rt * R;
+
+  Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
+  Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
+
+  Rcpp::List lst =  Rcpp::List::create(
+    Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
+    Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
+    Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
+
+  return lst;                            
+}

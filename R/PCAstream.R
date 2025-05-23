@@ -43,7 +43,7 @@
 #'}
 #'}
 #'
-#' @details PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2024)
+#' @details PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023)
 
 #' @note The singular vectors are not unique and only defined up to sign.
 #' If a left singular vector has its sign changed, changing the sign of the corresponding right vector
@@ -76,14 +76,17 @@ setGeneric(
   }
 )
 
+#' @param algorithm if \code{"serial"} read \code{GenomicDataStream} with a single thread
+#'
 #' @export
 #' @importFrom methods slot
 #' @rdname PCAstream
 #' @aliases PCAstream,GenomicDataStream-method
 setMethod(
   "PCAstream", signature(x = "GenomicDataStream"),
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
+  function(x, k,..., algorithm=c("serial", "parallel"), p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
 
+  algorithm <- match.arg(algorithm)
   stopifnot(is(x, "GenomicDataStream"))
 
   if( verbose ) cat("Read through...\n")
@@ -98,12 +101,13 @@ setMethod(
     stop("Chunks not read from index")
   }
 
-  if( shuffle ){
-    regions <- regions[sample(length(regions))]  
-  }
+  # if( shuffle ){
+  #   regions <- regions[sample(length(regions))]  
+  # }
 
   N <- slot(x, "nsamples")
   M <- sum(sObj$chunks)
+  nchunks <- length(sObj$chunks)
 
   # nchunks must be larger than B * threads
   # stopifnot(nrow(chunks) > B * threads)
@@ -124,7 +128,7 @@ setMethod(
       cat(" # samples:", format(N, big.mark=','), "\n")
     }
     cat(" # features:", format(M, big.mark=','), "\n")
-    cat(" # chunks:", format(length(regions), big.mark=','), "\n")
+    cat(" # chunks:", format(nchunks, big.mark=','), "\n")
     cat(" # threads:", n_pll_chunks, "\n")
     cat(" B:", B, "\n")
     cat(" k:", k, "\n")
@@ -136,20 +140,34 @@ setMethod(
   # B must be a even
   stopifnot(B %% 2 == 0)
 
-  # p <- max(c(p, log2(B)+1)) 
+  p <- max(c(p, log2(B)+1)) 
 
   x <- initializeStream(x)
 
-  # run PCA on GenomicDataStream
-  res <- stream_pcaone(x@ptr, 
+  if( algorithm == "serial" ){
+    # run PCA on GenomicDataStream
+    res <- stream_pcaone(x@ptr, 
                       region = paste(regions, collapse = "," ), 
                       m = M, 
                       k = k, 
+                      nchunks = nchunks,
+                      shuffleRegions = shuffle, 
                       s = s, 
                       p = p, 
                       B = B, 
                       threads = n_pll_chunks, 
                       verbose = verbose)
+  }else{
+    res <- stream_pcaone_orig(x, 
+                      region = paste(regions, collapse = "," ), 
+                      m = M, 
+                      k = k, 
+                      nchunks = nchunks, 
+                      s = s, 
+                      p = p, 
+                      B = B, 
+                      threads = n_pll_chunks)
+  }
 
   # set row and column names
   rownames(res$u) <- sObj$sampleIDs
@@ -279,30 +297,6 @@ summaryChunks <- function(x){
 
   x <- reinitializeStream(x)
   summarizeChunks_rcpp(x@ptr)
-
-  # chunks <- data.frame(matrix(ncol=2,nrow=0))
-  # colnames(chunks) <- c("region", "counts")
-
-  # # count number of variants
-  # x <- reinitializeStream(x)
-  # sampleIDs <- getSampleNames(x)
-
-  # lst <- list()
-  # i <- 1
-  # while(1){
-  #   dat <- getNextChunk(x)
-  #   if (atEndOfStream(x)) break
-  #   df <- data.frame(region = paste0(dat$info[1,1], ":", dat$info[1, 2], "-", dat$info[nrow(dat$info),2]), counts = ncol(dat$X))
-  #   lst[[i]] <- list(df = df, variantIDs = dat$info$ID)
-  #   i <- i + 1
-  # }
-
-  # chunks <- do.call(rbind, lapply(lst, function(x) x$df))
-  # variantIDs <- unlist(sapply(lst, function(x) x$variantIDs))
-
-  # list( chunks = chunks, 
-  #       sampleIDs = sampleIDs, 
-  #       variantIDs = variantIDs)
 }
 
 #' PCA result
@@ -383,6 +377,105 @@ setMethod("plot", signature(x = "PCA"),
 
   plot(x$d^2, type="b", ..., xlab = "Principal component", ylab = "Eigen-values")  
 })
+
+
+
+
+#' Evaluate performance of PC estimates
+#' 
+#' Evaluate performance of PC estimates compared to true PC values
+#'
+#' @param U true eigen values
+#' @param U_est estimated eigen-values
+#' @param k number of PCs to evaluate
+#' @param metric evaluate the accuracy of the estimated PCs compared to the true PCs using mean explained variance (\code{"MEV"}) or minimum of sum of squared errors (\code{"minSSE"})
+#'
+#' @return performance metric
+#' 
+#' @details See performance metrics described by Li, et al. (2023)
+#'
+#' @references
+#' \itemize{
+#'  \item Li, Z., Meisner, J., & Albrechtsen, A. (2023). Fast and accurate out-of-core PCA framework for large scale biobank data. Genome Research, 33(9), 1599-1608. \doi{10.1101/gr.277525.122}.
+#' }
+
+#' @examples
+#' hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
+#'  X <- hilbert(9)[, 1:6]
+#' k = 4
+#' 
+#' dcmp <- svd( scale(X), k, k)
+#' res <- PCAstream( t(X), k=k)
+#' 
+#' perfMetric(dcmp$u, res$u, "MEV")
+#' 
+#' perfMetric(dcmp$u, res$u, "minSSE")
+#
+#' @export
+perfMetric = function(U, U_est, k = ncol(U_est), metric = c("MEV", "minSSE")){
+
+  metric = match.arg( metric )
+  stopifnot(is.numeric(k))
+
+  # Modify signs of principal components
+  # so diagonal are always positive
+  U <- normPC(U[,seq(k),drop=FALSE])
+  U_est <- normPC(U_est[,seq(k),drop=FALSE])
+
+  if( metric == "MEV" ){
+    values = sapply(seq(ncol(U_est)), function(j){
+      sum(crossprod(U_est, U[,j]))
+    })
+    score = mean(values)
+  }else{
+
+    sse = matrix(NA, ncol(U_est), ncol(U_est))
+    for(i in seq(ncol(U_est))){
+      for(j in seq(ncol(U_est))){
+        sse[i,j] = sum((U[,j] - U_est[,i])^2)
+      }
+    }
+    score = sum(apply(sse, 1, min))
+  }
+
+  score
+}
+
+
+# Like standard sign function, except sign(x) giving 0 is reset to give 1
+sign0 <- function(x) {
+  # use standard sign function
+  res <- sign(x)
+
+  # get entries that equal 0 and set them to 1
+  i <- which(res == 0)
+  if (length(i) > 0) {
+    res[i] <- 1
+  }
+
+  res
+}
+
+#' Normalize principal components
+#'
+#' Modify signs of principal components so diagonal are always positive
+#'
+#' @param U matrix of principal components
+#'
+#' @return matrix of principal components with positive diagonal values
+#' @examples
+#' hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
+#'  X <- hilbert(9)[, 1:6]
+#' k = 4
+#' 
+#' dcmp <- svd( scale(X), k, k)
+#' 
+#' normPC( dcmp$u ) 
+#
+#' @export
+normPC = function(U){
+  sweep(U, 2, sign0(diag(U)), "*")
+}
 
 
 

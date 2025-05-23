@@ -139,7 +139,7 @@ class VariantInfo :
 
     /** get genome interval as a string
      */ 
-    string getInterval(){
+    string getInterval() const {
 
       if( POS.size() == 0) return "";
 
@@ -158,6 +158,21 @@ class VariantInfo :
       reg += "-" + to_string(POS[POS.size() -1]);
 
       return reg;
+    }
+
+
+    /** get genomic regions as vector
+     */ 
+    vector<string> getRegions() const {
+
+        vector<string> regions;
+        regions.reserve(POS.size());
+
+        for(int i=0; i<POS.size(); i++){
+            regions.push_back( CHROM[i] + ":" + to_string(POS[i]) );
+        }
+
+        return regions;
     }
 
     // private:

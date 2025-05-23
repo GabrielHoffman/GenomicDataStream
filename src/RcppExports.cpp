@@ -179,8 +179,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // stream_pcaone
-Rcpp::List stream_pcaone(SEXP x, const string& region, int m, int k, int s, int p, int B, int threads, const bool verbose, const bool scaleAndCenter);
-RcppExport SEXP _GenomicDataStream_stream_pcaone(SEXP xSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP, SEXP verboseSEXP, SEXP scaleAndCenterSEXP) {
+Rcpp::List stream_pcaone(SEXP x, const string& region, int m, int k, int nchunks, bool shuffleRegions, int s, int p, int B, int threads, const bool verbose, const bool scaleAndCenter);
+RcppExport SEXP _GenomicDataStream_stream_pcaone(SEXP xSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP nchunksSEXP, SEXP shuffleRegionsSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP, SEXP verboseSEXP, SEXP scaleAndCenterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -188,13 +188,34 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const string& >::type region(regionSEXP);
     Rcpp::traits::input_parameter< int >::type m(mSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type nchunks(nchunksSEXP);
+    Rcpp::traits::input_parameter< bool >::type shuffleRegions(shuffleRegionsSEXP);
     Rcpp::traits::input_parameter< int >::type s(sSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type B(BSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
     Rcpp::traits::input_parameter< const bool >::type verbose(verboseSEXP);
     Rcpp::traits::input_parameter< const bool >::type scaleAndCenter(scaleAndCenterSEXP);
-    rcpp_result_gen = Rcpp::wrap(stream_pcaone(x, region, m, k, s, p, B, threads, verbose, scaleAndCenter));
+    rcpp_result_gen = Rcpp::wrap(stream_pcaone(x, region, m, k, nchunks, shuffleRegions, s, p, B, threads, verbose, scaleAndCenter));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stream_pcaone_orig
+Rcpp::List stream_pcaone_orig(Rcpp::S4 gds, const string& region, int m, int k, int nchunks, int s, int p, int B, int threads);
+RcppExport SEXP _GenomicDataStream_stream_pcaone_orig(SEXP gdsSEXP, SEXP regionSEXP, SEXP mSEXP, SEXP kSEXP, SEXP nchunksSEXP, SEXP sSEXP, SEXP pSEXP, SEXP BSEXP, SEXP threadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::S4 >::type gds(gdsSEXP);
+    Rcpp::traits::input_parameter< const string& >::type region(regionSEXP);
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type nchunks(nchunksSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type B(BSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_pcaone_orig(gds, region, m, k, nchunks, s, p, B, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -213,7 +234,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},
     {"_GenomicDataStream_stream_pcaone_robj", (DL_FUNC) &_GenomicDataStream_stream_pcaone_robj, 13},
-    {"_GenomicDataStream_stream_pcaone", (DL_FUNC) &_GenomicDataStream_stream_pcaone, 10},
+    {"_GenomicDataStream_stream_pcaone", (DL_FUNC) &_GenomicDataStream_stream_pcaone, 12},
+    {"_GenomicDataStream_stream_pcaone_orig", (DL_FUNC) &_GenomicDataStream_stream_pcaone_orig, 9},
     {NULL, NULL, 0}
 };
 

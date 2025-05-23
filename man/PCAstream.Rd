@@ -24,6 +24,7 @@ PCAstream(
   x,
   k,
   ...,
+  algorithm = c("serial", "parallel"),
   p = 7,
   s = 20,
   B = 64,
@@ -90,6 +91,8 @@ if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD wi
 \item{verbose}{string, optional; \cr
 if \code{TRUE} (default is \code{FALSE}) print details}
 
+\item{algorithm}{if \code{"serial"} read \code{GenomicDataStream} with a single thread}
+
 \item{chunkSize}{number of features to read per chunk in \code{GenomicDataStream}}
 
 \item{assay}{for \code{SummarizedExperiment} which \code{assay} to perform PCA on}
@@ -114,7 +117,7 @@ if \code{TRUE} (default is \code{FALSE}) print details}
 Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
 }
 \details{
-PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2024)
+PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023)
 }
 \note{
 The singular vectors are not unique and only defined up to sign.

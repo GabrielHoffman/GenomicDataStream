@@ -117,7 +117,7 @@ class DataTable {
 
     // initialize data with column for each header entry
     for(int i=0; i<colNames.size(); i++){
-        data.push_back( vector<string>() );
+      data.push_back( vector<string>() );
     }
 
     // Read data rows
@@ -127,21 +127,21 @@ class DataTable {
     // for each row
     while (getline(strm, line)) {
 
-        int colIndex = 0;
+      int colIndex = 0;
 
-        // tokenize line
-        tokenizer tokens(line, separators);
+      // tokenize line
+      tokenizer tokens(line, separators);
 
-        for (auto it = tokens.begin(); it != tokens.end(); ++it){            
-            if( colIndex > data.size() ) break;
-            data[colIndex++].push_back( *it );
-        }
+      for(auto it = tokens.begin(); it != tokens.end(); ++it){            
+        if( colIndex > data.size() ) break;
+        data[colIndex++].push_back( *it );
+      }
 
-        if( colIndex != colNames.size()){
-            throw logic_error("Line " + to_string(lineIdx) + " is not valid: " + line);
-        }
+      if( colIndex != colNames.size()){
+        throw logic_error("Line " + to_string(lineIdx) + " is not valid: " + line);
+      }
 
-        lineIdx++;
+      lineIdx++;
     }
 
     strm.close();

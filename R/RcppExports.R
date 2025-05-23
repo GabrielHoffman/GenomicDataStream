@@ -53,7 +53,11 @@ stream_pcaone_robj <- function(x, ids, n, chunkSize, nchunks, m, k, s = 20L, p =
     .Call('_GenomicDataStream_stream_pcaone_robj', PACKAGE = 'GenomicDataStream', x, ids, n, chunkSize, nchunks, m, k, s, p, B, threads, verbose, scaleAndCenter)
 }
 
-stream_pcaone <- function(x, region, m, k, s = 20L, p = 7L, B = 64L, threads = 4L, verbose = TRUE, scaleAndCenter = TRUE) {
-    .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', x, region, m, k, s, p, B, threads, verbose, scaleAndCenter)
+stream_pcaone <- function(x, region, m, k, nchunks, shuffleRegions = TRUE, s = 20L, p = 7L, B = 64L, threads = 4L, verbose = TRUE, scaleAndCenter = TRUE) {
+    .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', x, region, m, k, nchunks, shuffleRegions, s, p, B, threads, verbose, scaleAndCenter)
+}
+
+stream_pcaone_orig <- function(gds, region, m, k, nchunks, s = 20L, p = 7L, B = 64L, threads = 4L) {
+    .Call('_GenomicDataStream_stream_pcaone_orig', PACKAGE = 'GenomicDataStream', gds, region, m, k, nchunks, s, p, B, threads)
 }
 

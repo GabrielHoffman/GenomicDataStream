@@ -274,8 +274,6 @@ class pgenstream :
 	RPgenReader *pg = nullptr;
 	RPvar *pvar = nullptr;
 	DataTable dt;
-	// unordered_map linking ID to index
-	unordered_map<string,int> map_dt_id;
 	string fileIdx;
 	int n_samples_psam;
 	vector<int> sampleIdx1;
@@ -307,25 +305,6 @@ class pgenstream :
 
 		pg->ReadList( matDosage, varIdx_sub1, missingToMean);
 
-		// if PGEN
-		// Are there cases were pvar is needed?
-		// if( genoFileType == PGEN){
-
-		// 	// Get variant info from pvar 
-		// 	for(auto i: varIdx_sub){
-		// 		id = pvar->GetVariantId(i);
-		// 		a1 = pvar->GetAlleleCode(i,0);
-		// 		a2 = pvar->GetAlleleCode(i,1);
-
-		// 		// find chrom, pos given id
-		// 		int idx = map_dt_id[id];
-		// 		chrom = dt["CHROM"][idx];
-		// 		pos = atoi(dt["POS"][idx].c_str());
-
-		// 		vInfo->addVariant(chrom, pos, id, a1, a2);
-		// 	}
-		// }
-	
 		// Populate vInfo from DataTable
 		// Looking up column in DataTable is slow
 		// so do it once and process vector
@@ -364,16 +343,11 @@ class pgenstream :
 			fileIdx = regex_replace(param.file, regex("bed$"), "bim");
 
 			// Read BIM file with no headerKey
+
 			dt = DataTable( fileIdx );
 			dt.setColNames({"CHROM", "ID", "CM", "POS", "ALT", "REF"});
 		}else{
 			throw logic_error("Not valid genotype file extension: " + param.file);
-		}
-
-		// populate unordered_map linking ID to index
-		// to allow fast search
-		for(int i=0; i<dt["ID"].size(); i++){
-			map_dt_id.emplace(dt["ID"][i], i); 
 		}
 	
 		// Set genomic regions regions

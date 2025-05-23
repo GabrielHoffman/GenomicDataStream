@@ -50,6 +50,8 @@ reference:
 - title: Other functions
   contents:
   - "standardize_in_place"
+  - "normPC"
+  - "perfMetric"
 
 
 
