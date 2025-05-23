@@ -101,10 +101,6 @@ setMethod(
     stop("Chunks not read from index")
   }
 
-  # if( shuffle ){
-  #   regions <- regions[sample(length(regions))]  
-  # }
-
   N <- slot(x, "nsamples")
   M <- sum(sObj$chunks)
   nchunks <- length(sObj$chunks)

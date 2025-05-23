@@ -412,9 +412,9 @@ Rcpp::List stream_pcaone(	SEXP x,
       if( verbose ){        
       Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << b << "\t\t";
       }
-      // Rcpp::Rcout << chunk.getInfo<VariantInfo>()->getFeatureName(0) <<endl;
-
       auto Ab = chunk.getData();
+      // Rcpp::Rcout << Ab.block(0, 0, 2, 2) << endl;
+
       if( scaleAndCenter ) standardize(Ab);      
         
       G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
