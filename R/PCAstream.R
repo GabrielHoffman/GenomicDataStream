@@ -17,8 +17,11 @@
 #'                number of windows (by default \eqn{B=64}).
 #' 
 #' @param threads integer, optional; \cr
-#'                number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}
+#'                number of threads (by default \eqn{threads=4}) to read data
 #'
+#' @param threads2 integer, optional; \cr
+#'                number of threads (by default \eqn{threads=1}), used for linear algebra opertions
+#' 
 #' @param scaleAndCenter bool, optional; \cr
 #'                if \code{TRUE}, scale and center features
 #'
@@ -26,7 +29,7 @@
 #'                  if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk
 #' 
 #' @param verbose  string, optional; \cr
-#'                  if \code{TRUE} (default is \code{FALSE}) print details
+#'                  if \code{TRUE} (default), print details
 #' 
 #' @return \code{PCAstream} returns a list containing the following three components:
 #'\describe{
@@ -43,11 +46,15 @@
 #'}
 #'}
 #'
-#' @details PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023)
+#' @details PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023).
+#' 
+#' If \code{scaleAndCenter}, the data matrix is scaled each feature has amean of zero and a cross-product of 1. In this case the sum of squares of all eigen values equals the number of features (i.e \code{sum(d^2) = p}).   
+#'
+#' Computational time is spent on two steps.  1) Reading and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}  
 
-#' @note The singular vectors are not unique and only defined up to sign.
-#' If a left singular vector has its sign changed, changing the sign of the corresponding right vector
-#' gives an equivalent decomposition.
+# 2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}  
+#'
+#' @note The singular vectors are not unique and only defined up to sign. If a left singular vector has its sign changed, changing the sign of the corresponding right vector gives an equivalent decomposition.
 #'
 #' @references
 #' \itemize{
@@ -61,7 +68,7 @@
 #' 
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 #' 
-#' res <- PCAstream(obj, k=5)
+#' res <- PCAstream(obj, k=5, threads=1)
 #' 
 #' res
 #' 
@@ -71,12 +78,11 @@
 #' @export
 setGeneric(
   "PCAstream",
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
     standardGeneric("PCAstream")
   }
 )
 
-#' @param algorithm if \code{"serial"} read \code{GenomicDataStream} with a single thread
 #'
 #' @export
 #' @importFrom methods slot
@@ -84,10 +90,10 @@ setGeneric(
 #' @aliases PCAstream,GenomicDataStream-method
 setMethod(
   "PCAstream", signature(x = "GenomicDataStream"),
-  function(x, k,..., algorithm=c("serial", "parallel"), p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
 
-  algorithm <- match.arg(algorithm)
   stopifnot(is(x, "GenomicDataStream"))
+  stopifnot(k >= 2)
 
   if( verbose ) cat("Read through...\n")
 
@@ -96,6 +102,9 @@ setMethod(
 
   # permute chunks
   regions <- sObj$regions
+  if( shuffle ){
+    regions <- sample(regions, length(regions))
+  }
 
   if( is.null(regions) ){
     stop("Chunks not read from index")
@@ -103,18 +112,22 @@ setMethod(
 
   N <- slot(x, "nsamples")
   M <- sum(sObj$chunks)
-  nchunks <- length(sObj$chunks)
+  s <- min(s, M-k-1)
 
-  # nchunks must be larger than B * threads
-  # stopifnot(nrow(chunks) > B * threads)
-  # number of parallel chunks
-  n_pll_chunks <- min(threads, floor(length(regions) / B))
-  n_pll_chunks <- max(1, n_pll_chunks)
+  # B must be a even
+  stopifnot(B %% 2 == 0)
 
   # set valid B
   while( ! (M > B^2) ){
     B <- B / 2
   }
+
+  x <- setChunkSize(x, ceiling( M / B ))
+  nchunks <- B
+
+  # number of parallel chunks
+  n_pll_chunks <- max(1, log2(B))
+  n_pll_chunks <- min(n_pll_chunks, threads)
 
   # k must be < min(N,M)
   k <- min(c(k,N,M))
@@ -130,48 +143,36 @@ setMethod(
     cat(" k:", k, "\n")
   }
 
-  # M must be large enough, otherwise winSVD is not suggested
-  # stopifnot(M > B^2)
-
-  # B must be a even
-  stopifnot(B %% 2 == 0)
-
   p <- max(c(p, log2(B)+1)) 
 
   x <- initializeStream(x)
 
-  if( algorithm == "serial" ){
-    # run PCA on GenomicDataStream
-    res <- stream_pcaone(x@ptr, 
-                      region = paste(regions, collapse = "," ), 
-                      m = M, 
-                      k = k, 
-                      nchunks = nchunks,
-                      shuffleRegions = shuffle, 
-                      s = s, 
-                      p = p, 
-                      B = B, 
-                      threads = n_pll_chunks, 
-                      verbose = verbose)
-  }else{
-    res <- stream_pcaone_orig(x, 
-                      region = paste(regions, collapse = "," ), 
-                      m = M, 
-                      k = k, 
-                      nchunks = nchunks, 
-                      s = s, 
-                      p = p, 
-                      B = B, 
-                      threads = n_pll_chunks)
-  }
+  # run PCA on GenomicDataStream
+  res <- stream_pcaone(x@ptr, 
+          region = paste(regions, collapse = "," ), 
+          m = M, 
+          k = k, 
+          nchunks = nchunks,
+          s = s, 
+          p = p, 
+          B = B, 
+          threads = n_pll_chunks, 
+          threads_eigen = threads2,
+          verbose = verbose)
 
   # set row and column names
+  # Since variant order can be shuffled
+  # res$VariantIds contains the order seen by PCA
   rownames(res$u) <- sObj$sampleIDs
-  rownames(res$v) <- sObj$variantIDs
+  rownames(res$v) <- res$featureIds
+  res$v <- res$v[sObj$variantIDs,,drop=FALSE]
+  res$featureIds <- NULL
 
   colnames(res$u) <- paste0("PC", seq(k))
   colnames(res$v) <- paste0("PC", seq(k))
   names(res$d) <- paste0("PC", seq(k))
+  res$p = M
+  res$n = N
 
   new("PCA", res)
 })
@@ -186,7 +187,7 @@ setMethod(
 #' @aliases PCAstream,ANY-method
 setMethod(
   "PCAstream", signature(x = "ANY"),
-  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
+  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
 
   if( is.null(rownames(x))){
     rownames(x) <- paste0("f_", seq(nrow(x)))
@@ -195,18 +196,18 @@ setMethod(
   M <- nrow(x)
   N <- ncol(x)
 
-  # set valid B
-  while( ! (M > B^2) ){
-    B <- B / 2
-  }
-
   # k must be < min(N,M)
   k <- min(c(k,N,M))
 
    # B must be a even
   stopifnot(B %% 2 == 0)
 
-  # p <- max(c(p, log2(B)+1)) 
+  # set valid B
+  while( ! (M > B^2) ){
+    B <- B / 2
+  }
+
+  p <- max(c(p, log2(B)+1)) 
 
   ptr <- initializeCpp(x)
 
@@ -265,7 +266,7 @@ setMethod(
 #' @aliases PCAstream,SummarizedExperiment-method
 setMethod(
   "PCAstream", signature(x = "SummarizedExperiment"),
-  function(x, k, chunkSize = 100, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
+  function(x, k, chunkSize = 100, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
 
   Y <- SummarizedExperiment::assay(x, assay)
     
@@ -291,7 +292,7 @@ setMethod(
 #' @export
 summaryChunks <- function(x){
 
-  x <- reinitializeStream(x)
+  x <- initializeStream(x)
   summarizeChunks_rcpp(x@ptr)
 }
 
@@ -362,16 +363,17 @@ setMethod("print", signature(x = "PCA"),
 #' Plot PCAstream
 #'
 #' @param x \code{PCA} object
-#' @param y not used
+# @param y not used
+#' @param main title
 #' @param ... other arguments
 #'
 #' @export
 #' @rdname plot-methods
 #' @aliases plot,PCA-method
 setMethod("plot", signature(x = "PCA"), 
-  function(x, ...) {
+  function(x, ..., main="scree plot") {
 
-  plot(x$d^2, type="b", ..., xlab = "Principal component", ylab = "Eigen-values")  
+  plot(x$d^2 / x$p, type="b", ..., xlab = "Principal component", ylab = "Fraction of total variance", main=main)  
 })
 
 
@@ -403,15 +405,16 @@ setMethod("plot", signature(x = "PCA"),
 #' dcmp <- svd( scale(X), k, k)
 #' res <- PCAstream( t(X), k=k)
 #' 
-#' perfMetric(dcmp$u, res$u, "MEV")
+#' perfMetric(dcmp$u, res$u, metric = "MEV")
 #' 
-#' perfMetric(dcmp$u, res$u, "minSSE")
+#' perfMetric(dcmp$u, res$u, metric = "minSSE")
 #
 #' @export
 perfMetric = function(U, U_est, k = ncol(U_est), metric = c("MEV", "minSSE")){
 
   metric = match.arg( metric )
   stopifnot(is.numeric(k))
+  stopifnot(k > 0)
 
   # Modify signs of principal components
   # so diagonal are always positive

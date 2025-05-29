@@ -125,7 +125,7 @@ test_multiple_GenomicDataStream = function(){
 }
 
 
-test_minVariance_filter = function(){
+test_MAF_filter = function(){
 
 	library(GenomicDataStream)
 	library(RUnit)
@@ -133,14 +133,14 @@ test_minVariance_filter = function(){
 	file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
 	MAF = .3
-	minVar = 2*MAF*(1-MAF)
 
 	for(file in files){
 		# cat(file, "\n")				
 
 		gds1 <- GenomicDataStream(file, "GT", init=TRUE)
 		dat1 <- getNextChunk(gds1)
-		i = (apply(dat1$X, 2, var) > minVar)
+		af = colSums(dat1$X) / (2*nrow(dat1$X))
+		i = pmin(af, 1-af) > MAF
 		which(i)
 
 		gds2 <- GenomicDataStream(file, "GT", init=TRUE, MAF=MAF)
@@ -358,7 +358,7 @@ test_chunks = function(){
 	vcf <- suppressWarnings(readVcf(file))
 	X_all = geno(vcf)[["DS"]]
 
-	files = list.files(dirname(file), "(vcf.gz|bcf|bgen)$", full.names=TRUE)
+	files = list.files(dirname(file), "(vcf.gz|bcf|bgen|pgen)$", full.names=TRUE)
 
 	# test for each file type
 	for( file in files){

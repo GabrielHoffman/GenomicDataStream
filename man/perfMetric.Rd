@@ -32,9 +32,9 @@ k = 4
 dcmp <- svd( scale(X), k, k)
 res <- PCAstream( t(X), k=k)
 
-perfMetric(dcmp$u, res$u, "MEV")
+perfMetric(dcmp$u, res$u, metric = "MEV")
 
-perfMetric(dcmp$u, res$u, "minSSE")
+perfMetric(dcmp$u, res$u, metric = "minSSE")
 }
 \references{
 \itemize{

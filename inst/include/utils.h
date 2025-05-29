@@ -22,44 +22,44 @@ namespace gds {
 
 template<typename T>
 static vector<double> GP_to_dosage( const vector<T> &v, const bool &missingToMean) {
-    vector<double> res( v.size() / 3.0);
-    vector<int> missing;
+  vector<double> res( v.size() / 3.0);
+  vector<int> missing;
 
-    // initialize
-    int runningSum = 0, nValid = 0;
-    double value;
+  // initialize
+  int runningSum = 0, nValid = 0;
+  double value;
 
-    // for each entry in result
-    // use two adjacent values
-    for(int i=0; i<res.size(); i++){
-        // compute dosage from genotype probabilties
-        value = v[3*i]*0 + v[3*i+1]*1 + v[3*i+2]*2;
+  // for each entry in result
+  // use two adjacent values
+  for(int i=0; i<res.size(); i++){
+    // compute dosage from genotype probabilties
+    value = v[3*i]*0 + v[3*i+1]*1 + v[3*i+2]*2;
 
-        // -9 is the missing value, so -18 is diploid
-        if( value == -18){ 
-            // if missing, set to NaN
-            value = std::numeric_limits<double>::quiet_NaN();
-            missing.push_back(i);
-        }else{
-            // for computing mean
-            runningSum += value;
-            nValid++;
-        }
-
-        // set dosage value
-        res[i] = value;
+    // -9 is the missing value, so -18 is diploid
+    if( value == -18){ 
+      // if missing, set to NaN
+      value = std::numeric_limits<double>::quiet_NaN();
+      missing.push_back(i);
+    }else{
+      // for computing mean
+      runningSum += value;
+      nValid++;
     }
 
-    // mean excluding NaNs
-    double mu = runningSum / (double) nValid;
+    // set dosage value
+    res[i] = value;
+  }
 
-    // if missing values should be set to mean
-    if( missingToMean ){
-        // for each entry with a missing value, set to mean
-        for(const int& i : missing) res[i] = mu;
-    }
+  // mean excluding NaNs
+  double mu = runningSum / (double) nValid;
 
-    return res;
+  // if missing values should be set to mean
+  if( missingToMean ){
+    // for each entry with a missing value, set to mean
+    for(const int& i : missing) res[i] = mu;
+  }
+
+  return res;
 }
 
 /** Compute dosage values from vector of GT stored as int.  Sum adjacent values to get dosage
@@ -68,44 +68,44 @@ static vector<double> GP_to_dosage( const vector<T> &v, const bool &missingToMea
 */
 static vector<double> intToDosage( const vector<int> &v, const bool &missingToMean) {
 
-    // store and return result
-    vector<double> res( v.size() / 2.0);
-    vector<int> missing;
+  // store and return result
+  vector<double> res( v.size() / 2.0);
+  vector<int> missing;
 
-    // initialize
-    int runningSum = 0, nValid = 0;
-    double value;
+  // initialize
+  int runningSum = 0, nValid = 0;
+  double value;
 
-    // for each entry in result
-    // use two adjacent values
-    for(int i=0; i<res.size(); i++){
-        value = v[2*i] + v[2*i+1];
+  // for each entry in result
+  // use two adjacent values
+  for(int i=0; i<res.size(); i++){
+    value = v[2*i] + v[2*i+1];
 
-        // -9 is the missing value, so -18 is diploid
-        if( value == -18){ 
-            // if missing, set to NaN
-            value = std::numeric_limits<double>::quiet_NaN();
-            missing.push_back(i);
-        }else{
-            // for computing mean
-            runningSum += value;
-            nValid++;
-        }
-
-        // set dosage value
-        res[i] = value;
+    // -9 is the missing value, so -18 is diploid
+    if( value == -18){ 
+      // if missing, set to NaN
+      value = std::numeric_limits<double>::quiet_NaN();
+      missing.push_back(i);
+    }else{
+      // for computing mean
+      runningSum += value;
+      nValid++;
     }
 
-    // mean excluding NaNs
-    double mu = runningSum / (double) nValid;
+    // set dosage value
+    res[i] = value;
+  }
 
-    // if missing values should be set to mean
-    if( missingToMean ){
-        // for each entry with a missing value, set to mean
-        for(const int& i : missing) res[i] = mu;
-    }
+  // mean excluding NaNs
+  double mu = runningSum / (double) nValid;
 
-    return res;
+  // if missing values should be set to mean
+  if( missingToMean ){
+    // for each entry with a missing value, set to mean
+    for(const int& i : missing) res[i] = mu;
+  }
+
+  return res;
 }
 
 /** Remove duplicate entries, but preserve element order.  Based on https://stackoverflow.com/questions/12200486/how-to-remove-duplicates-from-unsorted-stdvector-while-keeping-the-original-or
@@ -135,13 +135,13 @@ static size_t removeDuplicates(vector<T>& vec){
  */ 
 static arma::vec colSums( const arma::mat &X){
 
-    // row vector of 1's
-    arma::rowvec ONE(X.n_rows, arma::fill::ones);
+  // row vector of 1's
+  arma::rowvec ONE(X.n_rows, arma::fill::ones);
 
-    // matrix multiplication to get sums
-    arma::mat tmp = ONE * X;
+  // matrix multiplication to get sums
+  arma::mat tmp = ONE * X;
 
-    return arma::conv_to<arma::vec>::from( tmp );
+  return arma::conv_to<arma::vec>::from( tmp );
 }
 
 
@@ -154,40 +154,40 @@ static arma::vec colSums( const arma::mat &X){
  */
 static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
-    double sqrt_rdf = sqrt(X.n_rows - 1.0);
+  double sqrt_rdf = sqrt(X.n_rows - 1.0);
 
-    // if center, subtract mean of each column
-    // if scale, divide by sd of each column
-    // Note, norm() does not center the column
-    //   this give results consistent with base::scale()
-    //   when scale is FALSE
-    for(size_t j=0; j<X.n_cols; j++){
-      if( center ) X.col(j) -= mean(X.col(j));
-      double sd = norm(X.col(j)) / sqrt_rdf;
-      if( scale && sd > tol )  X.col(j) /= sd;
-    }
+  // if center, subtract mean of each column
+  // if scale, divide by sd of each column
+  // Note, norm() does not center the column
+  //   this give results consistent with base::scale()
+  //   when scale is FALSE
+  for(size_t j=0; j<X.n_cols; j++){
+    if( center ) X.col(j) -= mean(X.col(j));
+    double sd = norm(X.col(j)) / sqrt_rdf;
+    if( scale && sd > tol )  X.col(j) /= sd;
+  }
 }
 
 static void standardize( Eigen::MatrixXd &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
-    double sqrt_rdf = sqrt(X.rows() - 1.0);
-    if(center) X.rowwise() -= X.colwise().mean(); // centering
-    if(scale) {
-      // if X is centered, then we can convert norm to sd
-      for(size_t j=0; j<X.cols(); j++) {
-        double sd = X.col(j).norm()  / sqrt_rdf ; // sd
-        if(sd > tol)  X.col(j) /= sd;
-      }
+  double sqrt_rdf = sqrt(X.rows() - 1.0);
+  if(center) X.rowwise() -= X.colwise().mean(); // centering
+  if(scale) {
+    // if X is centered, then we can convert norm to sd
+    for(size_t j=0; j<X.cols(); j++) {
+      double sd = X.col(j).norm()  / sqrt_rdf ; // sd
+      if(sd > tol)  X.col(j) /= sd;
     }
+  }
 }
 
 /** if string contains only digits, return true.  Else false
  */
 static bool isOnlyDigits(const std::string& s){
-    int n = count_if(s.begin(), s.end(),
-                         [](unsigned char c){ return isdigit(c); } 
-                        );
-    return( n == s.size());
+  int n = count_if(s.begin(), s.end(),
+                       [](unsigned char c){ return isdigit(c); } 
+                      );
+  return( n == s.size());
 }
 
 
@@ -195,45 +195,45 @@ static bool isOnlyDigits(const std::string& s){
  */ 
 static void nanToMean( arma::vec & v){
     // get indeces of finite elements
-    arma::uvec idx = arma::find_finite(v);
+  arma::uvec idx = arma::find_finite(v);
 
-    // if number of finite elements is less than the total
-    if( idx.n_elem < v.n_elem ){
-        // compute mean from finite elements
-        double mu = arma::mean( v.elem(idx));
+  // if number of finite elements is less than the total
+  if( idx.n_elem < v.n_elem ){
+    // compute mean from finite elements
+    double mu = arma::mean( v.elem(idx));
 
-        // replace nan with mu
-        v.replace(arma::datum::nan, mu);
-    }
+    // replace nan with mu
+    v.replace(arma::datum::nan, mu);
+  }
 }
 
 
 /** enum to indicate file type for genetics files
  */ 
 typedef enum {
-    VCF,
-    VCFGZ,
-    BCF,
-    BGEN,
-    PGEN,
-    PBED,
-    OTHER
+  VCF,
+  VCFGZ,
+  BCF,
+  BGEN,
+  PGEN,
+  PBED,
+  OTHER
 } FileType;
 
 /** return string from enum FileType
  */ 
 static string toString( FileType x){
 
-    switch(x){
-        case VCF:   return "vcf";
-        case VCFGZ:   return "vcf.gz";
-        case BCF:   return "bcf";
-        case BGEN:   return "bgen";
-        case PGEN:   return "pgen";
-        case PBED:   return "bed";
-        case OTHER:   return "other";
-        default:   return "other";
-    }
+  switch(x){
+    case VCF:   return "vcf";
+    case VCFGZ: return "vcf.gz";
+    case BCF:   return "bcf";
+    case BGEN:  return "bgen";
+    case PGEN:  return "pgen";
+    case PBED:  return "bed";
+    case OTHER: return "other";
+    default:    return "other";
+  }
 }
 
 
@@ -242,23 +242,23 @@ static string toString( FileType x){
  */ 
 static FileType getFileType( const string &file ){
 
-    FileType ft = OTHER;
+  FileType ft = OTHER;
 
-    if( regex_search( file, regex("\\.vcf$")) ){
-        ft = VCF;
-    }else if( regex_search( file, regex("\\.vcf\\.gz$")) ){
-        ft = VCFGZ;
-    }else if( regex_search( file, regex("\\.bcf$")) ) {
-        ft = BCF;
-    }else if( regex_search( file, regex("\\.bgen$")) ){
-        ft = BGEN;
-    }else if( regex_search( file, regex("\\.pgen$")) ){
-        ft = PGEN;
-    } if( regex_search( file, regex("\\.bed$")) ){
-        ft = PBED;
-    }
+  if( regex_search( file, regex("\\.vcf$")) ){
+    ft = VCF;
+  }else if( regex_search( file, regex("\\.vcf\\.gz$")) ){
+    ft = VCFGZ;
+  }else if( regex_search( file, regex("\\.bcf$")) ) {
+    ft = BCF;
+  }else if( regex_search( file, regex("\\.bgen$")) ){
+    ft = BGEN;
+  }else if( regex_search( file, regex("\\.pgen$")) ){
+    ft = PGEN;
+  } if( regex_search( file, regex("\\.bed$")) ){
+    ft = PBED;
+  }
 
-    return ft;
+  return ft;
 }
 
 
@@ -267,15 +267,15 @@ static FileType getFileType( const string &file ){
  */ 
 template<typename T>
 vector<T> cast_elements( const vector<string> &v ){
-    vector<T> output(0, v.size());
+  vector<T> output(0, v.size());
 
-    for (auto &s : v) {
-        stringstream parser(s);
-        T x = 0;
-        parser >> x;
-        output.push_back(x);
-    }
-    return output;
+  for (auto &s : v) {
+    stringstream parser(s);
+    T x = 0;
+    parser >> x;
+    output.push_back(x);
+  }
+  return output;
 }
 
 
@@ -286,17 +286,17 @@ vector<T> cast_elements( const vector<string> &v ){
  */
 static vector<string> splitRegionString( string regionString){
 
-    vector<string> regions;
+  vector<string> regions;
 
-    // regionString is string of chr:start-end delim by "\t,\n"
-    // remove spaces, then split based on delim
-    boost::erase_all(regionString, " ");
-    boost::split(regions, regionString, boost::is_any_of("\t,\n"));
+  // regionString is string of chr:start-end delim by "\t,\n"
+  // remove spaces, then split based on delim
+  boost::erase_all(regionString, " ");
+  boost::split(regions, regionString, boost::is_any_of("\t,\n"));
 
-    // remove duplicate regions, but preserve order
-    removeDuplicates( regions );
+  // remove duplicate regions, but preserve order
+  removeDuplicates( regions );
 
-    return regions;
+  return regions;
 }
 
 
@@ -305,30 +305,50 @@ static vector<string> splitRegionString( string regionString){
 template<typename T, typename T2>
 static vector<T> subset_vector(const vector<T> &x, const vector<T2> &idx){
 
-    // initialize x_subset to have size idx.size()
-    vector<T> x_subset;
-    x_subset.reserve(idx.size());
+  // initialize x_subset to have size idx.size()
+  vector<T> x_subset;
+  x_subset.reserve(idx.size());
 
-    for(auto i: idx){
-        if( i > x.size() ){
-            throw std::out_of_range("Index is out of bounds"); 
-        }
-        x_subset.push_back( x[i] );
-    }
+  for(auto i: idx){
+      if( i > x.size() ){
+          throw std::out_of_range("Index is out of bounds"); 
+      }
+      x_subset.push_back( x[i] );
+  }
 
-    return x_subset;
+  return x_subset;
 }
 
 
 template<typename T>
 static void print_vec(const string &title, const vector<T> &x){
-    Rcpp::Rcout << title << "\n";
-    for(auto a: x) Rcpp::Rcout << a << " ";
-    Rcpp::Rcout << endl;
+  Rcpp::Rcout << title << "\n";
+  for(auto a: x) Rcpp::Rcout << a << " ";
+  Rcpp::Rcout << endl;
 }
 
 
+/** Split vector into k chunks
+ */ 
+template<typename T>
+std::vector<std::vector<T>> chunk_vector(const std::vector<T>& vec, int k) {
+  std::vector<std::vector<T> > result;
+  int size = vec.size();
+  int chunk_size = size / k;
+  int remainder = size % k;
 
+  int start = 0;
+  for (int i = 0; i < k; ++i) {
+    int current_chunk_size = chunk_size;
+    if (i < remainder) {
+        current_chunk_size++;
+    }
+    std::vector<T> chunk(vec.begin() + start, vec.begin() + start + current_chunk_size);
+    result.push_back(chunk);
+    start += current_chunk_size;
+  }
+  return result;
+}
 
 } // end namespace
 #endif

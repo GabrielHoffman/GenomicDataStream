@@ -24,6 +24,7 @@ setClass("GenomicDataStream", slots = list(
   featuresRead = "integer", 
   streamType = "character", 
   nsamples = "integer", 
+  MAF = "numeric", 
   minVariance = "numeric"))
 
 
@@ -47,8 +48,8 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' @param field field of VCF/BCF to read.  Ignored for other file types
 #' @param region target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants
 #' @param samples string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples
-#' @param MAF generalized minor allele frequency cutoff keeps variants with variance > \eqn{2(1-f)f}.
-#' @param minVariance features with variance \code{>= minVariance} are retained.  Defaults to \eqn{2(1-f)f}. If \code{NaN}, no filtering is applied.
+#' @param MAF minor allele frequency filter applied to variants with max value <= 2
+#' @param minVariance minimum variance filter applied to variants with max value < 2
 #' @param chunkSize	number of variants to return per chunk
 #' @param missingToMean	if true, set missing values to the mean dosage value. if false, set to \code{NaN}
 #' @param initialize default \code{FALSE}.  If \code{TRUE}, file info is read from path, otherwise store path until \code{GenomicDataStream} is initialized later
@@ -79,7 +80,7 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' 
 #' @importFrom methods new is
 #' @export
-GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF = 0, minVariance = 2*(1-MAF)*MAF, chunkSize = 10000, missingToMean = TRUE, initialize = FALSE){
+GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF = 0, minVariance = 0, chunkSize = 10000, missingToMean = TRUE, initialize = FALSE){
 
   chunkSize <- as.integer(chunkSize)
   samples <- paste(samples, collapse = ",")
@@ -100,7 +101,7 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
 
   if (initialize) {
     # Create GenomicDataStream and return external pointer
-    ptr <- create_xptr(file, field, region, samples, minVariance, chunkSize, missingToMean)
+    ptr <- create_xptr(file, field, region, samples, MAF, minVariance, chunkSize, missingToMean)
 
     # get additional information about data
     info <- getInfo(ptr)
@@ -113,6 +114,7 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
       field = field,
       region = region,
       samples = samples,
+      MAF = MAF,
       minVariance = minVariance,
       chunkSize = chunkSize,
       missingToMean = missingToMean,
@@ -127,6 +129,7 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
       field = field,
       region = region,
       samples = samples,
+      MAF = MAF,
       minVariance = minVariance,
       chunkSize = chunkSize,
       missingToMean = missingToMean
@@ -165,9 +168,10 @@ isInitialized <- function(x) {
 
 #' Initialize GenomicDataStream
 #'
-#' Read file info from path to initialise stream
+#' Read file info from path to initialise stream. If already initialized, return to the beginning of the stream
 #'
 #' @param x \code{GenomicDataStream}
+#' @param region target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants
 #'
 #' @return initialized \code{GenomicDataStream}
 #'
@@ -185,8 +189,12 @@ isInitialized <- function(x) {
 #' isInitialized(obj)
 #' 
 #' @export
-initializeStream <- function(x) {
+initializeStream <- function(x, region = NULL) {
+
+  if(is.null(region)) region <- x@region
+
   if (isInitialized(x)) {
+    x <- setRegion(x, region)
     return(x)
   }
 
@@ -196,55 +204,7 @@ initializeStream <- function(x) {
     field = x@field,
     region = x@region,
     samples = x@samples,
-    minVariance = x@minVariance,
-    chunkSize = x@chunkSize,
-    missingToMean = x@missingToMean,
-    initialize = TRUE
-  )
-}
-
-
-#' Reinitialize GenomicDataStream
-#'
-#' Read file info from path to initialise stream
-#'
-#' @param x \code{GenomicDataStream}
-#' @param region new set of region, as a string
-#'
-#' @return initialized \code{GenomicDataStream}
-#'
-#' @examples
-#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
-#'
-#' obj <- GenomicDataStream(file, "DS", chunkSize = 5)
-#'
-#' # by default, GenomicDataStream is not initialized
-#' isInitialized(obj)
-#'
-#' # initialize
-#' obj <- initializeStream(obj)
-#'
-#' reinitializeStream(obj)
-#' 
-#' @export
-reinitializeStream <- function (x, region = NULL) {
-
-  # if( is.null(region) ){
-  #   ret <- initializeStream(x);
-  # }else{
-  #   ret <- setRegion(x, region);
-  # }
-
-  # return(ret);
-
-  if(is.null(region)) region <- x@region
-
-  # Create initialized GenomicDataStream
-  GenomicDataStream(
-    file = x@file,
-    field = x@field,
-    region = region,
-    samples = x@samples,
+    MAF = x@MAF,
     minVariance = x@minVariance,
     chunkSize = x@chunkSize,
     missingToMean = x@missingToMean,
@@ -267,7 +227,7 @@ reinitializeStream <- function (x, region = NULL) {
 #'
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize=TRUE)
 #'
-#' setChunkSize(obj, 200)
+#' obj <- setChunkSize(obj, 200)
 #' 
 #' @export
 setChunkSize <- function (x, chunkSize) {
@@ -287,6 +247,7 @@ setChunkSize <- function (x, chunkSize) {
         field = x@field,
         region = x@region,
         samples = x@samples,
+        MAF = x@MAF,
         minVariance = x@minVariance,
         chunkSize = chunkSize,
         missingToMean = x@missingToMean,
@@ -299,6 +260,7 @@ setChunkSize <- function (x, chunkSize) {
       field = x@field,
       region = x@region,
       samples = x@samples,
+      MAF = x@MAF,
       minVariance = x@minVariance,
       chunkSize = chunkSize,
       missingToMean = x@missingToMean)
@@ -343,6 +305,7 @@ setRegion <- function(x, region) {
         field = x@field,
         region = region,
         samples = x@samples,
+        MAF = x@MAF,
         minVariance = x@minVariance,
         chunkSize = x@chunkSize,
         missingToMean = x@missingToMean,
@@ -355,6 +318,7 @@ setRegion <- function(x, region) {
       field = x@field,
       region = region,
       samples = x@samples,
+      MAF = x@MAF,
       minVariance = x@minVariance,
       chunkSize = x@chunkSize,
       missingToMean = x@missingToMean)
@@ -543,9 +507,12 @@ setMethod(
     cat("  initialized:  ", isInitialized(object), "\n")
     if (isInitialized(object)) {
       cat("  stream type:  ", object@streamType, "\n")
-      cat("  field:        ", object@field, "\n")
+      if( object@streamType %in% c("vcf", "vcf.gz", "bcf")){
+        cat("  field:        ", object@field, "\n")
+      }
       cat("  region:       ", object@region, "\n")
       cat("  samples:      ", object@nsamples, "\n")
+      cat("  MAF:          ", object@MAF, "\n")
       cat("  minVar cutoff:", object@minVariance, "\n")
       cat("  missingToMean:", object@missingToMean, "\n")
       cat("  chunkSize:    ", object@chunkSize, "\n")
@@ -593,7 +560,7 @@ getVariantLocations = function(x){
   # pass R CMD check
   CHROM <- POS <- NULL
 
-  x <- reinitializeStream(x)
+  x <- initializeStream(x)
 
   lst <- list()
   i <- 1
@@ -638,7 +605,7 @@ countChunks = function(x){
   counts <- c()
 
   # count number of variants
-  x <- reinitializeStream(x)
+  x <- initializeStream(x)
   while(1){
     dat <- getNextChunk(x)
     counts <- append(counts, ncol(dat$X))

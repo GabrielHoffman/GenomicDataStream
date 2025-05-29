@@ -189,30 +189,32 @@ class bgenstream :
 		return toString( param.fileType);
 	}
 
-	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
+	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, number_of_samples, getMAF(), getMinVariance() );
+		}	
+		
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 	    chunk = DataChunk<arma::mat>( M, vInfo );		
 
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
+	bool getNextChunk( DataChunk<arma::sp_mat> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, number_of_samples, getMAF(), getMinVariance() );
+		}	
+		
 		arma::mat M(matDosage.data(), number_of_samples, vInfo->size(), false, true);
 
     chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), vInfo );
@@ -221,15 +223,16 @@ class bgenstream :
 	}
 
 	#ifndef DISABLE_EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, number_of_samples, getMAF(), getMinVariance() );
+		}	
+		
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
@@ -238,15 +241,16 @@ class bgenstream :
 	}
 
 
-	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, number_of_samples, getMAF(), getMinVariance() );
+		}	
+		
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), number_of_samples, vInfo->size());
 
 		chunk = DataChunk<Eigen::SparseMatrix<double>>( M.sparseView(), vInfo );
@@ -256,15 +260,16 @@ class bgenstream :
 	#endif
 
 	#ifndef DISABLE_RCPP
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk) override {
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, number_of_samples, getMAF(), getMinVariance() );
+		}	
+		
 		Rcpp::NumericMatrix M(number_of_samples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
 	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
@@ -275,15 +280,16 @@ class bgenstream :
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<vector<double> > & chunk) override {
+	bool getNextChunk( DataChunk<vector<double> > & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, number_of_samples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, number_of_samples, getMAF(), getMinVariance() );
+		}	
+		
 		chunk = DataChunk<vector<double> >( matDosage, vInfo );
 
 		return ret;

@@ -1,4 +1,10 @@
 
+# GenomicDataStream 0.0.52
+ - May 28, 2025
+ - Update `PCAstream()`
+ - update C++ streams to add `useFilter`
+ - in C++, add `applyVariantFilter()` based on MAF for SNPs
+
 # GenomicDataStream 0.0.51
  - May 21, 2025
  - Fix bug reading plink files

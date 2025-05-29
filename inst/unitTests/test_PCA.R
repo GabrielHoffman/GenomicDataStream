@@ -17,26 +17,62 @@ test_PCA = function(){
 	# remove BGEN v1.1, since this doesn't store sample names
 	files = grep("1.1.bgen", files, value=TRUE, invert=TRUE)
 
+	k = 4
+
 	for(file in files){
 		# cat(file,"\n")
 
-		gds <- GenomicDataStream(file, "DS", init=TRUE)
+		gds <- GenomicDataStream(file, "GT", init=TRUE) 
 
 		# PCAstream
-		k = 4
-		res <- PCAstream(gds, k=k, verbose=FALSE)
+		res <- PCAstream(gds, k=k, verbose=FALSE, shuffle=FALSE, threads=1)
 
 		# Standard PCA
-		gds <- GenomicDataStream(file, "DS", init=TRUE)
+		gds <- GenomicDataStream(file, "GT", init=TRUE) 
 		dat <- getNextChunk(gds)
-		standardize_in_place(dat$X)
-		dcmp <- svd(dat$X, k, k)
 
+		X_scale = scale(dat$X) / sqrt(nrow(dat$X)-1)
+		dcmp <- svd(X_scale, k, k)
+		
 		checkEqualsNumeric( res$d, dcmp$d[1:k])
 		checkEqualsNumeric( res$u^2, dcmp$u^2)
 		checkEqualsNumeric( res$v^2, dcmp$v^2)
 	}
 
+
+	# file = files[3]
+	# gds <- GenomicDataStream(file, "DS", init=TRUE)
+	# a = summaryChunks(gds)
+	# gds <- GenomicDataStream(file, "DS", init=TRUE, region=paste0(a$regions, collapse=','))
+	# res <- PCAstream(gds, k=k, verbose=TRUE, shuffle=FALSE, p=0)
+
+
+
+	# gds <- GenomicDataStream(files[3], "DS", init=TRUE, chunkSize=4)
+	# dat <- getNextChunk(gds)
+	# str(dat)
+	# res <- PCAstream(gds, k=k, verbose=TRUE, shuffle=FALSE, p=0)
+
+
+	# q()
+	# R
+	# suppressPackageStartupMessages({
+	# library(GenomicDataStream)})
+
+	# file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+	# gds <- GenomicDataStream(file, "DS", init=TRUE)
+	# a = summaryChunks(gds)
+	# gds <- GenomicDataStream(file, "DS", init=TRUE, region=paste0(a$regions, collapse=','))
+	# while (1) {
+	#    dat <- getNextChunk(gds)
+	 
+	#    if (atEndOfStream(gds)) break
+	 
+	#    print(dat$info)
+	#  }
+
+
+    
 	# q()
 	# R
 	# suppressPackageStartupMessages(
@@ -45,9 +81,6 @@ test_PCA = function(){
 	# gds1 <- GenomicDataStream(file, "DS", init=TRUE, missingToMean=FALSE)
 	# # a = summaryChunks(gds1)
 	# dat1 <- getNextChunk(gds1)
-
-
-
 
 	# file = "/Users/gabrielhoffman/prog/R-4.4.2/library/GenomicDataStream/extdata/test.pgen"
 	# gds2 <- GenomicDataStream(file, "DS", init=TRUE, missingToMean=FALSE)

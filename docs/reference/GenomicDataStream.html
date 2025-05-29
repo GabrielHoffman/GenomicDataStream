@@ -12,7 +12,7 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.52</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 <span>  region <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  samples <span class="op">=</span> <span class="st">"-"</span>,</span>
 <span>  MAF <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  minVariance <span class="op">=</span> <span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">MAF</span><span class="op">)</span> <span class="op">*</span> <span class="va">MAF</span>,</span>
+<span>  minVariance <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  chunkSize <span class="op">=</span> <span class="fl">10000</span>,</span>
 <span>  missingToMean <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  initialize <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -95,11 +95,11 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 
 
 <dt>MAF</dt>
-<dd><p>generalized minor allele frequency cutoff keeps variants with variance &gt; \(2(1-f)f\).</p></dd>
+<dd><p>minor allele frequency filter applied to variants with max value &lt;= 2</p></dd>
 
 
 <dt>minVariance</dt>
-<dd><p>features with variance <code>&gt;= minVariance</code> are retained.  Defaults to \(2(1-f)f\). If <code>NaN</code>, no filtering is applied.</p></dd>
+<dd><p>minimum variance filter applied to variants with max value &lt; 2</p></dd>
 
 
 <dt>chunkSize</dt>
@@ -143,6 +143,7 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 <span class="r-out co"><span class="r-pr">#&gt;</span>   field:         DS </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   region:         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   samples:       60 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   MAF:           0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   minVar cutoff: 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   missingToMean: TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chunkSize:     5 </span>

@@ -96,7 +96,7 @@ class DelayedStream :
 		return "DelayedStream";
 	}
 
-	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
+	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();
@@ -108,7 +108,7 @@ class DelayedStream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
+	bool getNextChunk( DataChunk<arma::sp_mat> & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();
@@ -122,7 +122,7 @@ class DelayedStream :
 	}
 
 	#ifndef DISABLE_EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();
@@ -134,7 +134,7 @@ class DelayedStream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();
@@ -148,7 +148,7 @@ class DelayedStream :
 	#endif
 
 	#ifndef DISABLE_RCPP
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk) override {
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();
@@ -163,7 +163,7 @@ class DelayedStream :
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<vector<double> > & chunk) override {
+	bool getNextChunk( DataChunk<vector<double> > & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();

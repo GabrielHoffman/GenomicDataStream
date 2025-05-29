@@ -169,7 +169,7 @@ class VariantInfo :
         regions.reserve(POS.size());
 
         for(int i=0; i<POS.size(); i++){
-            regions.push_back( CHROM[i] + ":" + to_string(POS[i]) );
+            regions.push_back( CHROM[i] + ":" + to_string(POS[i]) + "-" + to_string(POS[i]) );
         }
 
         return regions;

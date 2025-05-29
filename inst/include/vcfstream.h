@@ -149,15 +149,16 @@ class vcfstream :
 		return toString( param.fileType);
 	}
 
-	bool getNextChunk( DataChunk<arma::mat> & chunk) override {
+	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, reader->nsamples, getMAF(), getMinVariance() );
+		}	
+		
 		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
@@ -167,15 +168,16 @@ class vcfstream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<arma::sp_mat> & chunk) override {
+	bool getNextChunk( DataChunk<arma::sp_mat> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, reader->nsamples, getMAF(), getMinVariance() );
+		}	
+		
 		// otherwise, set chunk and return ret
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), false, true);
 
@@ -186,15 +188,16 @@ class vcfstream :
 	}
 
 	#ifndef DISABLE_EIGEN
-	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::MatrixXd> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, reader->nsamples, getMAF(), getMinVariance() );
+		}	
+		
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
@@ -202,15 +205,16 @@ class vcfstream :
 		return ret;
 	}
 
-	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk) override {
+	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, reader->nsamples, getMAF(), getMinVariance() );
+		}	
+		
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
 		chunk = DataChunk<Eigen::SparseMatrix<double> >( M.sparseView(), vInfo );
@@ -220,15 +224,16 @@ class vcfstream :
 	#endif
 
 	#ifndef DISABLE_RCPP
-	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk) override {
+	bool getNextChunk( DataChunk<Rcpp::NumericMatrix> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, reader->nsamples, getMAF(), getMinVariance() );
+		}	
+		
 		Rcpp::NumericMatrix M(reader->nsamples, vInfo->size(), matDosage.data()); 
 		colnames(M) = Rcpp::wrap( vInfo->getFeatureNames() );
 	    rownames(M) = Rcpp::wrap( vInfo->sampleNames );  
@@ -239,15 +244,16 @@ class vcfstream :
 	}
 	#endif
 
-	bool getNextChunk( DataChunk<vector<double>> & chunk) override {
+	bool getNextChunk( DataChunk<vector<double>> & chunk, const bool &useFilter = true) override {
 
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
-		// keep features with variance >= minVariance
-		// modifies matDosage and vInfo directly
-		applyVarianceFilter(matDosage, vInfo, reader->nsamples, getMinVariance() );
-
+		if( useFilter ){
+			// modifies matDosage and vInfo directly
+			applyVariantFilter(matDosage, vInfo, reader->nsamples, getMAF(), getMinVariance() );
+		}	
+		
 		chunk = DataChunk<vector<double>>( matDosage, vInfo );
 
 		return ret;
@@ -372,11 +378,11 @@ class vcfstream :
 			}
 
 			// store variant information 
-			vInfo->addVariant(	record->CHROM(), 
-								record->POS(), 
-								record->ID(), 
-								record->REF(), 
-								record->ALT() );
+			vInfo->addVariant(record->CHROM(), 
+												record->POS(), 
+												record->ID(), 
+												record->REF(), 
+												record->ALT() );
 		}
 
 		bool ret = true;

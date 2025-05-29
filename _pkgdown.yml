@@ -29,7 +29,6 @@ reference:
   contents:
   - "getNextChunk"
   - "initializeStream"
-  - "reinitializeStream"
   - "setChunkSize"
   - "setRegion"
 

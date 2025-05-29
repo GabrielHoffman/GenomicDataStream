@@ -10,7 +10,7 @@ GenomicDataStream(
   region = "",
   samples = "-",
   MAF = 0,
-  minVariance = 2 * (1 - MAF) * MAF,
+  minVariance = 0,
   chunkSize = 10000,
   missingToMean = TRUE,
   initialize = FALSE
@@ -25,9 +25,9 @@ GenomicDataStream(
 
 \item{samples}{string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples}
 
-\item{MAF}{generalized minor allele frequency cutoff keeps variants with variance > \eqn{2(1-f)f}.}
+\item{MAF}{minor allele frequency filter applied to variants with max value <= 2}
 
-\item{minVariance}{features with variance \code{>= minVariance} are retained.  Defaults to \eqn{2(1-f)f}. If \code{NaN}, no filtering is applied.}
+\item{minVariance}{minimum variance filter applied to variants with max value < 2}
 
 \item{chunkSize}{number of variants to return per chunk}
 

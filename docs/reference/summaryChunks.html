@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.52</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@
 <span class="r-in"><span><span class="co"># initialize</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize <span class="op">=</span> <span class="fl">3</span>, initialize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">summaryChunks</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $regions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $intervals</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1:10000-12000" "1:13000-15000" "1:16000-18000" "1:19000-19000"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks</span>
@@ -93,6 +93,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $variantIDs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "1:10000:C:A" "1:11000:T:C" "1:12000:T:C" "1:13000:T:C" "1:14000:G:C"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "1:15000:A:C" "1:16000:G:A" "1:17000:C:A" "1:18000:C:G" "1:19000:T:G"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $regions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "1:10000-10000" "1:11000-11000" "1:12000-12000" "1:13000-13000"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "1:14000-14000" "1:15000-15000" "1:16000-16000" "1:17000-17000"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "1:18000-18000" "1:19000-19000"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

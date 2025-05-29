@@ -22,6 +22,6 @@ file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 5, initialize=TRUE)
 
-setChunkSize(obj, 200)
+obj <- setChunkSize(obj, 200)
 
 }

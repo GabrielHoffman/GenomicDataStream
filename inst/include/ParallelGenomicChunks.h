@@ -5,13 +5,18 @@
  * Copyright (C) 2025. The use of this code is governed by the LICENSE file.
  ***********************************************************************/
 
+#ifndef PARALLEL_GENOMIC_CHUNKS_H_
+#define PARALLEL_GENOMIC_CHUNKS_H_
+
 #include <atomic>
 #include <memory>
 #include <type_traits>
+#include <algorithm>
 
 #include "GenomicDataStream.h"
 #include "GenomicDataStream_virtual.h"
 #include "threadpool.hpp"
+#include "utils.h"
 
 // Thread-safe chunk processor for coordinating between reader and worker threads
 template <typename T>
@@ -20,17 +25,20 @@ private:
   // Internal class to manage a pool of file readers
   class ReaderPool {
   public:
-    ReaderPool(const gds::Param &param, const std::vector<std::string> &regions, size_t poolSize) : param(param), regions(regions) {
+    ReaderPool(const gds::Param &param, const std::vector<std::string> &regions, size_t numChunks, size_t poolSize) : param(param) {
       // pre-create readers
       for (size_t i = 0; i < poolSize; ++i) {
         readers.push_back(gds::createFileView_shared(param));
       }
+
+      regionSets = gds::chunk_vector(regions, numChunks);
     }
 
     std::shared_ptr<gds::GenomicDataStream> getReader(size_t i) {
       std::lock_guard<std::mutex> lock(mutex);
       // alter the region so that this reader get a specific chunk
-	  std::vector<std::string> rg{regions[i]};
+      std::vector<std::string> rg{regionSets[i]};
+
       if (readers.empty()) {
         // create a new reader
         auto reader = gds::createFileView_shared(param);
@@ -51,17 +59,18 @@ private:
 
   private:
    gds::Param param;
-	 std::vector<std::string> regions;
+	 std::vector<std::vector<std::string> > regionSets;
    std::vector<std::shared_ptr<gds::GenomicDataStream>> readers;
    std::mutex mutex;
   };
 
 public:
-  MultiGenomicStreamProcessor(const gds::Param &param, const std::vector<std::string> &regions, size_t numThreads)
-      : chunkSize(param.chunkSize), numChunks(regions.size()),
+  MultiGenomicStreamProcessor(const gds::Param &param, const std::vector<std::string> &regions, size_t numChunks, size_t numThreads)
+      : chunkSize(param.chunkSize), 
+        numChunks(numChunks),
         pool(numThreads),
-        readerPool(param, regions, std::max(numThreads, (size_t)std::thread::hardware_concurrency())) // as many as possible readers
-  {}
+        readerPool(param, regions, numChunks, std::max(numThreads, (size_t)std::thread::hardware_concurrency())) // as many as possible readers
+  { }
 
   void
   processChunk(std::function<void(const gds::DataChunk<T> &, size_t)> processFunc) {
@@ -103,3 +112,4 @@ private:
 
 
 
+#endif

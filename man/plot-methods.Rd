@@ -5,14 +5,14 @@
 \alias{plot,PCA-method}
 \title{Plot PCAstream}
 \usage{
-\S4method{plot}{PCA,ANY}(x, y, ...)
+\S4method{plot}{PCA,ANY}(x, ..., main = "scree plot")
 }
 \arguments{
 \item{x}{\code{PCA} object}
 
-\item{y}{not used}
-
 \item{...}{other arguments}
+
+\item{main}{title}
 }
 \description{
 Plot PCAstream

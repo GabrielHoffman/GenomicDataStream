@@ -4,16 +4,18 @@
 \alias{initializeStream}
 \title{Initialize GenomicDataStream}
 \usage{
-initializeStream(x)
+initializeStream(x, region = NULL)
 }
 \arguments{
 \item{x}{\code{GenomicDataStream}}
+
+\item{region}{target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants}
 }
 \value{
 initialized \code{GenomicDataStream}
 }
 \description{
-Read file info from path to initialise stream
+Read file info from path to initialise stream. If already initialized, return to the beginning of the stream
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")

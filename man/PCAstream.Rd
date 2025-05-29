@@ -15,23 +15,24 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
+  threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  verbose = FALSE
+  verbose = TRUE
 )
 
 \S4method{PCAstream}{GenomicDataStream}(
   x,
   k,
   ...,
-  algorithm = c("serial", "parallel"),
   p = 7,
   s = 20,
   B = 64,
   threads = 4,
+  threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  verbose = FALSE
+  verbose = TRUE
 )
 
 \S4method{PCAstream}{ANY}(
@@ -42,9 +43,10 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
+  threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  verbose = FALSE
+  verbose = TRUE
 )
 
 \S4method{PCAstream}{SummarizedExperiment}(
@@ -57,6 +59,7 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
+  threads2 = 4,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = FALSE
@@ -80,7 +83,10 @@ oversampling parameter (by default \eqn{s=20}).}
 number of windows (by default \eqn{B=64}).}
 
 \item{threads}{integer, optional; \cr
-number of threads (by default \eqn{threads=4}).  Set to \code{min(threads, floor(nrow(chunks) / B))}}
+number of threads (by default \eqn{threads=4}) to read data}
+
+\item{threads2}{integer, optional; \cr
+number of threads (by default \eqn{threads=1}), used for linear algebra opertions}
 
 \item{scaleAndCenter}{bool, optional; \cr
 if \code{TRUE}, scale and center features}
@@ -89,9 +95,7 @@ if \code{TRUE}, scale and center features}
 if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk}
 
 \item{verbose}{string, optional; \cr
-if \code{TRUE} (default is \code{FALSE}) print details}
-
-\item{algorithm}{if \code{"serial"} read \code{GenomicDataStream} with a single thread}
+if \code{TRUE} (default), print details}
 
 \item{chunkSize}{number of features to read per chunk in \code{GenomicDataStream}}
 
@@ -117,19 +121,21 @@ if \code{TRUE} (default is \code{FALSE}) print details}
 Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
 }
 \details{
-PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023)
+PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023).
+
+If \code{scaleAndCenter}, the data matrix is scaled each feature has amean of zero and a cross-product of 1. In this case the sum of squares of all eigen values equals the number of features (i.e \code{sum(d^2) = p}).   
+
+Computational time is spent on two steps.  1) Reading and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}
 }
 \note{
-The singular vectors are not unique and only defined up to sign.
-If a left singular vector has its sign changed, changing the sign of the corresponding right vector
-gives an equivalent decomposition.
+The singular vectors are not unique and only defined up to sign. If a left singular vector has its sign changed, changing the sign of the corresponding right vector gives an equivalent decomposition.
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 
-res <- PCAstream(obj, k=5)
+res <- PCAstream(obj, k=5, threads=1)
 
 res
 
