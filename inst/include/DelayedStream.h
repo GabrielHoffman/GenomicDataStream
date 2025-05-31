@@ -1,8 +1,8 @@
 /***********************************************************************
  * @file		DelayedStream.h
- * @author		Gabriel Hoffman
+ * @author	Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		DelayedStream reads a DelayedArray into memory
+ * @brief		DelayedStream reads a DelayedArray into memory in chunks
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -37,20 +37,16 @@ class DelayedStream :
 	public GenomicDataStream {
 	public:
 
-	DelayedStream( Rcpp::RObject robj, const vector<string> &rowNames, const int &chunkSize) 
-		: GenomicDataStream(), rowNames(rowNames), chunkSize(chunkSize) {
+	DelayedStream( const shared_ptr<tatami::NumericMatrix> &ptr, const vector<string> &rowNames, const int &chunkSize) 
+		: GenomicDataStream(), ptr(ptr), rowNames(rowNames), chunkSize(chunkSize) {
 
 		if( chunkSize < 1){					
 			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
 		}
-
-		parsed = new Rtatami::BoundNumericPointer(robj);
-
 		// set current position in matrix to zero
 		pos = 0;
 
 		// set size of intermediate variables
-		const auto& ptr = (*parsed)->ptr;
 		NC = ptr->ncol();
 		NR = ptr->nrow();
 
@@ -68,7 +64,6 @@ class DelayedStream :
 	 */ 
 	~DelayedStream(){
 		if( mInfo != nullptr) delete mInfo;
-		if( parsed != nullptr) delete parsed;
 	}
 
 	/** setter
@@ -81,6 +76,12 @@ class DelayedStream :
 	 */ 
 	int n_samples() override {
 		return NC;
+	}
+
+	/** Get number of rows in data matrix
+	 */ 
+	int n_rows() {
+		return NR;
 	}
 
 	/** Get vector of sample names in order that the genotypes are extracted
@@ -101,7 +102,7 @@ class DelayedStream :
 		// Update vector<double> output
 		bool ret = getNextChunk_helper();
 
-	    arma::mat M(output.data(), NC, chunkSize, false, true);
+		arma::mat M(output.data(), NC, chunkSize, false, true);
 
 		chunk = DataChunk<arma::mat>( M, mInfo );
 
@@ -116,7 +117,7 @@ class DelayedStream :
 		arma::mat M(output.data(), NC, chunkSize, false, true);
 
 		// create sparse matrix from dense matrix
-	    chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), mInfo);
+		chunk = DataChunk<arma::sp_mat>( arma::sp_mat(M), mInfo);
 
 		return ret;
 	}
@@ -155,7 +156,7 @@ class DelayedStream :
 
 		Rcpp::NumericMatrix M(NC, chunkSize, output.data()); 
 		colnames(M) = Rcpp::wrap( mInfo->getFeatureNames() );
-	    // rownames(M) = Rcpp::wrap( mInfo->sampleNames );  
+    // rownames(M) = Rcpp::wrap( mInfo->sampleNames );  
 
 		chunk = DataChunk<Rcpp::NumericMatrix>( M, mInfo );
 
@@ -173,9 +174,37 @@ class DelayedStream :
 		return ret;
 	}
 
+	/**
+	 * Get chunks based on start and end 
+	 */ 
+	void getNextChunk( DataChunk<Eigen::MatrixXd> & chunk, int start, int len){
+
+		int length = min(len, NR - start);
+
+		// Rcpp::Rcout << "range: " << NC << " " << start << " " << length << endl;
+
+		// get workspace as dense row
+		auto wrk = ptr->dense_row();
+
+		// loop through rows
+		for (int i = 0; i < length; i++) {
+			// get data for row start + i
+	    auto extracted = wrk->fetch(start + i, buffer.data());
+
+	    // copy data into output vector in column i
+	    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
+		}
+
+		// get feature names		
+		mInfo->setRowNames(rowNames, start, start + length);
+
+		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output.data(), NC, length);
+
+		chunk = DataChunk<Eigen::MatrixXd>( M, mInfo );
+	}
 
 	private:
-	Rtatami::BoundNumericPointer *parsed = nullptr;	
+	const shared_ptr<tatami::NumericMatrix> &ptr;
 	vector<double> buffer; 
 	vector<double> output; 
 	MatrixInfo *mInfo = nullptr;
@@ -191,10 +220,7 @@ class DelayedStream :
 		// if end of file reached, return false
 		if( ! continueIterating ) return continueIterating;
 
-		// // get pointer to data
-		const auto& ptr = (*parsed)->ptr;
-
-		// // get workspace as dense row
+		// get workspace as dense row
 		auto wrk = ptr->dense_row();
 
 		// if remaning rows is less than chunkSize, 
@@ -204,10 +230,10 @@ class DelayedStream :
 		// loop through rows
 		for (int i = 0; i < chunkSize; i++) {
 			// get data for row pos + i
-		    auto extracted = wrk->fetch(pos + i, buffer.data());
+	    auto extracted = wrk->fetch(pos + i, buffer.data());
 
-		    // copy data into output vector in column i
-		    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
+	    // copy data into output vector in column i
+	    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
 		}
 
 		// get feature names		
@@ -220,7 +246,7 @@ class DelayedStream :
 		// 	return true to continue and get text chunk
 		continueIterating = (pos < NR);
 
-	    return true;
+		return true;
 	}
 };
 

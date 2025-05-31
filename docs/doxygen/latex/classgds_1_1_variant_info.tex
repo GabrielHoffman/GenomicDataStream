@@ -27,7 +27,9 @@ void \mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d
 \item 
 void \mbox{\hyperlink{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2}{clear}} ()
 \item 
-string \mbox{\hyperlink{classgds_1_1_variant_info_ae5db77be6a6bb3c4135ae546d6a6cdfb}{get\+Interval}} ()
+string \mbox{\hyperlink{classgds_1_1_variant_info_acfd0fa443960cca17bd65186da8f5a24}{get\+Interval}} () const
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7}{get\+Regions}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classgds_1_1_data_info}{gds\+::\+Data\+Info}}}
 \begin{DoxyCompactItemize}
@@ -111,13 +113,19 @@ append variants in a new \doxylink{classgds_1_1_variant_info}{Variant\+Info} to 
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_a304659a38460f4dc8d9dbb509f3fe8c2} 
 void gds\+::\+Variant\+Info\+::clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Clear vectors storing variant information, but leave sample\+Names \Hypertarget{classgds_1_1_variant_info_ae5db77be6a6bb3c4135ae546d6a6cdfb}\index{gds::VariantInfo@{gds::VariantInfo}!getInterval@{getInterval}}
+Clear vectors storing variant information, but leave sample\+Names \Hypertarget{classgds_1_1_variant_info_acfd0fa443960cca17bd65186da8f5a24}\index{gds::VariantInfo@{gds::VariantInfo}!getInterval@{getInterval}}
 \index{getInterval@{getInterval}!gds::VariantInfo@{gds::VariantInfo}}
 \doxysubsubsection{\texorpdfstring{getInterval()}{getInterval()}}
-{\footnotesize\ttfamily \label{classgds_1_1_variant_info_ae5db77be6a6bb3c4135ae546d6a6cdfb} 
-string gds\+::\+Variant\+Info\+::get\+Interval (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_info_acfd0fa443960cca17bd65186da8f5a24} 
+string gds\+::\+Variant\+Info\+::get\+Interval (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-get genome interval as a string \Hypertarget{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}\index{gds::VariantInfo@{gds::VariantInfo}!retainVariants@{retainVariants}}
+get genome interval as a string \Hypertarget{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7}\index{gds::VariantInfo@{gds::VariantInfo}!getRegions@{getRegions}}
+\index{getRegions@{getRegions}!gds::VariantInfo@{gds::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{getRegions()}{getRegions()}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7} 
+vector$<$ string $>$ gds\+::\+Variant\+Info\+::get\+Regions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+get genomic regions as vector \Hypertarget{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}\index{gds::VariantInfo@{gds::VariantInfo}!retainVariants@{retainVariants}}
 \index{retainVariants@{retainVariants}!gds::VariantInfo@{gds::VariantInfo}}
 \doxysubsubsection{\texorpdfstring{retainVariants()}{retainVariants()}}
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5} 

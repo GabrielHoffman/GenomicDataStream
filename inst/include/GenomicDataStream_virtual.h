@@ -141,7 +141,7 @@ struct Param {
 		for( auto &x: regions){
 			out << x << endl;
 		}
-			out << endl;
+		out << endl;
 	}
 
 	string file, fileSamples = "";

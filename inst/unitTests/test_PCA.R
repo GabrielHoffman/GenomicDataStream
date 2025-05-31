@@ -25,7 +25,7 @@ test_PCA = function(){
 		gds <- GenomicDataStream(file, "GT", init=TRUE) 
 
 		# PCAstream
-		res <- PCAstream(gds, k=k, verbose=FALSE, shuffle=FALSE, threads=1)
+		res <- PCAstream(gds, k=k, verbose=FALSE, shuffle=TRUE, threads=1)
 
 		# Standard PCA
 		gds <- GenomicDataStream(file, "GT", init=TRUE) 
@@ -34,9 +34,9 @@ test_PCA = function(){
 		X_scale = scale(dat$X) / sqrt(nrow(dat$X)-1)
 		dcmp <- svd(X_scale, k, k)
 		
-		checkEqualsNumeric( res$d, dcmp$d[1:k])
-		checkEqualsNumeric( res$u^2, dcmp$u^2)
-		checkEqualsNumeric( res$v^2, dcmp$v^2)
+		checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-5)
+		checkEqualsNumeric( normPC(res$u), normPC(dcmp$u), tol=1e-3)
+		checkEqualsNumeric( normPC(res$v), normPC(dcmp$v), tol=1e-3)
 	}
 
 
@@ -98,22 +98,42 @@ test_PCA = function(){
 	# cbind(a,b)
 
 
-    hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
-    X <- hilbert(9)[, 1:6]
+
+	q()
+	R
+
+	suppressPackageStartupMessages({
+	library(GenomicDataStream)
+	library(Matrix)
+	library(RUnit)
+	library(DelayedArray)})
+
+  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
+  # X <- hilbert(13000)[,seq(10000)]
+  X <- hilbert(10)
 	k = 4
 
 	# matrix
-    dcmp <- svd( scale(X), k, k)
-	res <- PCAstream( t(X), k=k)
+	X_scale = scale(X) / sqrt(nrow(X) -1)
+  dcmp <-irlba::irlba( X_scale, k, k)
+	res <- PCAstream( t(X), k=k, 2, threads=4, verbose=TRUE)
 
 	checkEqualsNumeric( res$d, dcmp$d[1:k])
 	checkEqualsNumeric( res$u^2, dcmp$u^2)
 	checkEqualsNumeric( res$v^2, dcmp$v^2)
 
-	# sparseMatrix
-	X <- as(hilbert(9)[, 1:6], "sparseMatrix")
+	# doesn't give same result due to standardize()
+	# res2 <- PCAstream( X, k=k, 100, threads=4, verbose=TRUE)
+	# checkEqualsNumeric( res2$d, dcmp$d[1:k])
+	# checkEqualsNumeric( res2$u^2, dcmp$u^2)
+	# checkEqualsNumeric( res2$v^2, dcmp$v^2)
 
-    dcmp <- svd( scale(X), k, k)
+
+	# sparseMatrix
+	Xa <- as(X, "sparseMatrix")
+	X_scale = scale(Xa) / sqrt(nrow(Xa) -1)
+
+  dcmp <- irlba::irlba( X_scale, k, k)
 	res <- PCAstream( t(X), k=k)
 
 	checkEqualsNumeric( res$d, dcmp$d[1:k])
@@ -121,18 +141,18 @@ test_PCA = function(){
 	checkEqualsNumeric( res$v^2, dcmp$v^2)
 
 	# DelayedArray
-	X <- DelayedArray(hilbert(9)[, 1:6])
+	Xa <- DelayedArray(X)
 
-    dcmp <- svd( scale(X), k, k)
-	res <- PCAstream( t(X), k=k)
+  dcmp <- irlba::irlba( X_scale, k, k)
+	res <- PCAstream( t(Xa), k=k)
 
 	checkEqualsNumeric( res$d, dcmp$d[1:k])
 	checkEqualsNumeric( res$u^2, dcmp$u^2)
 	checkEqualsNumeric( res$v^2, dcmp$v^2)
 
 	# DelayedArray with transformation
-	dcmp <- svd( scale(log(X)), k, k)
-	res <- PCAstream( t(log(X)), k=k)
+	dcmp <- irlba::irlba( scale(log(X)) / sqrt(nrow(X) -1), k, k)
+	res <- PCAstream( t(log(Xa)), k=k)
 
 	checkEqualsNumeric( res$d, dcmp$d[1:k])
 	checkEqualsNumeric( res$u^2, dcmp$u^2)

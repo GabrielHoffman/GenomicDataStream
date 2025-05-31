@@ -131,6 +131,7 @@ Computational time is spent on two steps.  1) Reading and processing data.  Mult
 The singular vectors are not unique and only defined up to sign. If a left singular vector has its sign changed, changing the sign of the corresponding right vector gives an equivalent decomposition.
 }
 \examples{
+# Example: PCA on genotype data
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 3)
@@ -142,6 +143,7 @@ res
 par(pty="s")
 plot(res)
 
+# Example: PCA on gene expression data
 library(muscat)
 library(SingleCellExperiment)
 library(GenomicDataStream)

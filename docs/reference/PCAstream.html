@@ -228,7 +228,8 @@ if <code>TRUE</code> (default), print details</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example: PCA on genotype data</span></span></span>
+<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="GenomicDataStream.html">GenomicDataStream</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"DS"</span>, chunkSize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -266,6 +267,7 @@ if <code>TRUE</code> (default), print details</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PCAstream-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example: PCA on gene expression data</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HelenaLC/muscat" class="external-link">muscat</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SingleCellExperiment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/GenomicDataStream" class="external-link">GenomicDataStream</a></span><span class="op">)</span></span></span>
@@ -293,12 +295,12 @@ if <code>TRUE</code> (default), print details</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $v</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         PC1        PC2          PC3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATCATGCTGCGTAT-1 0.02645793 0.01315682 -0.006795819</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GTACGAACTGTCAG-1 0.02738446 0.01994145 -0.007117738</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATCATGCTGCGTAT-1 0.02645793 0.01315682 -0.006795809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GTACGAACTGTCAG-1 0.02738446 0.01994145 -0.007117735</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 987.3837 434.5438 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27.75039 12.21284 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -308,7 +310,7 @@ if <code>TRUE</code> (default), print details</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="http://gabrielhoffman.github.io" class="external-link">Gabriel Hoffman</a>.</p>
+  <p>Developed by <a href="http://gabrielhoffman.github.io" class="external-link">Gabriel Hoffman</a>, Zilong Li.</p>
 </div>
 
 <div class="pkgdown-footer-right">

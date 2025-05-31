@@ -1,0 +1,152 @@
+\doxysection{PCAOne.\+h}
+\hypertarget{_p_c_a_one_8h_source}{}\label{_p_c_a_one_8h_source}\index{inst/include/PCAOne.h@{inst/include/PCAOne.h}}
+\mbox{\hyperlink{_p_c_a_one_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ PCAOne.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman,\ Zilong\ Li}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ PCA\ One\ algorithm}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ PCA\_ONE\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ PCA\_ONE\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_genomic_data_stream_8h}{GenomicDataStream.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_rand_8hpp}{Rand.hpp}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parallel_genomic_chunks_8h}{ParallelGenomicChunks.h}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacegds}{gds}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_p_c_a_ac25edabf56fa584965c2821522c7ee37}{PCA}}\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{struct_p_c_a_ac25edabf56fa584965c2821522c7ee37}{PCA}}(\ Eigen::MatrixXd\ \mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}}):}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}}(\mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}})\ \{\}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{struct_p_c_a_aa126dbcf12f75297ae3eb311aac4acd4}{PCA}}(\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&\mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}},\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&\mbox{\hyperlink{struct_p_c_a_a8c0d81f4528bc96ee5349bb979355731}{v}},\ \textcolor{keyword}{const}\ Eigen::VectorXd\ \&\mbox{\hyperlink{struct_p_c_a_a0b7a123969b528a9f6aef1b1eedfe6a9}{d}},\ \textcolor{keyword}{const}\ vector<string>\ \mbox{\hyperlink{struct_p_c_a_a583e4cb5defcae45d27a246a8fecbe6c}{featureIds}}):}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}}(\mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}}),\ \mbox{\hyperlink{struct_p_c_a_a8c0d81f4528bc96ee5349bb979355731}{v}}(\mbox{\hyperlink{struct_p_c_a_a8c0d81f4528bc96ee5349bb979355731}{v}}),\ \mbox{\hyperlink{struct_p_c_a_a0b7a123969b528a9f6aef1b1eedfe6a9}{d}}(\mbox{\hyperlink{struct_p_c_a_a0b7a123969b528a9f6aef1b1eedfe6a9}{d}}),\ \mbox{\hyperlink{struct_p_c_a_a583e4cb5defcae45d27a246a8fecbe6c}{featureIds}}(\mbox{\hyperlink{struct_p_c_a_a583e4cb5defcae45d27a246a8fecbe6c}{featureIds}})\ \{\}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ Eigen::MatrixXd\ \mbox{\hyperlink{struct_p_c_a_afb9f7873c56059067aaf0d2af8b93aa4}{u}},\ \mbox{\hyperlink{struct_p_c_a_a8c0d81f4528bc96ee5349bb979355731}{v}};}
+\DoxyCodeLine{00030\ \ \ \ \ Eigen::VectorXd\ \mbox{\hyperlink{struct_p_c_a_a0b7a123969b528a9f6aef1b1eedfe6a9}{d}};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \mbox{\hyperlink{struct_p_c_a_a583e4cb5defcae45d27a246a8fecbe6c}{featureIds}};}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \mbox{\hyperlink{struct_p_c_a}{PCA}}\ \mbox{\hyperlink{_p_c_a_one_8h_a1c15d2c73bd9ae94d7269091b4b26b3d}{pcaone}}(\ \ \ \ \textcolor{keyword}{const}\ shared\_ptr<GenomicDataStream>\ \mbox{\hyperlink{namespacegds}{gds}},}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&region,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ m,\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ k,\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ s\ =\ 20,\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ 7,\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ B\ =\ 64,\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ threads\ =\ 4,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ verbose\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ scaleAndCenter\ =\ \textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00046\ \ \ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{auto}\ regions\ =\ splitRegionString(\ region\ );\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<Eigen::MatrixXd>}}\ chunk;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{int}\ n\ =\ \mbox{\hyperlink{namespacegds}{gds}}-\/>n\_samples();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ l\ =\ k\ +\ s;}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{auto}\ randomEngine\ =\ std::default\_random\_engine\{\};}
+\DoxyCodeLine{00054\ \ \ Eigen::MatrixXd\ Omg\ =\ \mbox{\hyperlink{_rand_8hpp_a6b1edd9fcef408b8f7e08c30e67e9ebc}{StandardNormalRandom<Eigen::MatrixXd,\ std::default\_random\_engine>}}(n,\ l,\ randomEngine);}
+\DoxyCodeLine{00055\ \ \ Eigen::MatrixXd\ Omg2\ =\ Omg;}
+\DoxyCodeLine{00056\ \ \ Eigen::MatrixXd\ H1\ =\ Eigen::MatrixXd::Zero(n,\ l);}
+\DoxyCodeLine{00057\ \ \ Eigen::MatrixXd\ H2\ =\ Eigen::MatrixXd::Zero(n,\ l);}
+\DoxyCodeLine{00058\ \ \ Eigen::MatrixXd\ H(n,\ l),\ G(m,\ l),\ R(l,\ l),\ Rt(l,\ l);}
+\DoxyCodeLine{00059\ \ \ }
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{size\_t}\ band\ =\ ceil((\textcolor{keywordtype}{double})\ nchunks\ /\ B);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{class_multi_genomic_stream_processor}{MultiGenomicStreamProcessor<Eigen::MatrixXd>}}\ processor(\mbox{\hyperlink{namespacegds}{gds}}-\/>getParam(),\ regions,\ nchunks,\ threads);}
+\DoxyCodeLine{00063\ \ \ std::mutex\ pcaMutex;\ \ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ vector<string>\ featureIds;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ pi\ =\ 0;\ pi\ <=\ p;\ pi++)\ \{}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::pow(2,\ pi)\ >=\ B)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ H1,\ H2\ to\ zero}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ H1.setZero();}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ H2.setZero();}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ band\ =\ std::fmin(band\ *\ 2,\ nchunks);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\{1\},\ \ start\{0\};}
+\DoxyCodeLine{00077\ \ \ \ \ processor.\mbox{\hyperlink{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}{processChunk}}([\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<Eigen::MatrixXd>}}\ \&chunk,\ \textcolor{keywordtype}{size\_t}\ b)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ Ab\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scaleAndCenter\ )\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ standardize(Ab);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ Ab\ /=\ sqrt(n-\/1);\ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(pcaMutex);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ verbose\ )\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)rEpoch\ "{}}\ <<\ pi\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ p\ <<\ \textcolor{stringliteral}{"{},\ chunk\ "{}}\ <<\ b\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t"{}};}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pi\ ==\ 0)\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a48eb70592fa64b169e1569985d468294}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>()-\/>getFeatureNames();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ featureIds.insert(featureIds.end(),\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp.begin(),\ tmp.end());}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ G.middleRows(start,\ Ab.cols()).noalias()\ =\ Ab.transpose()\ *\ Omg;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <=\ band\ /\ 2)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ H1.noalias()\ +=\ Ab\ *\ G.middleRows(start,\ Ab.cols());}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ H2.noalias()\ +=\ Ab\ *\ G.middleRows(start,\ Ab.cols());}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ adjacent\ =}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ (pi\ >\ 0\ \&\&\ (b\ +\ 1)\ ==\ std::pow(2,\ pi\ -\/\ 1)\ \&\&\ std::pow(2,\ pi)\ <\ B);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((!((b\ +\ 1)\ <\ band\ \&\&\ !adjacent))\ \&\&\ ((i\ ==\ band)\ ||\ (i\ ==\ band\ /\ 2)\ ||\ adjacent))\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ H\ =\ H1\ +\ H2;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ Eigen::HouseholderQR<Eigen::MatrixXd>\ qr(H);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ Omg.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(n,\ l);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}{flipOmg}}(Omg2,\ Omg);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ band)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ H1.setZero();}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ H2.setZero();}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ start\ +=\ Ab.cols();}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \});}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ get\ USV}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{if}(\ verbose\ )\{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nFinal\ decompositions"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>>\ qr(G);}
+\DoxyCodeLine{00126\ \ \ \ \ R.noalias()\ =\ Eigen::MatrixXd::Identity(l,\ m)\ *\ qr.matrixQR().triangularView<Eigen::Upper>();}
+\DoxyCodeLine{00127\ \ \ \ \ G.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(m,\ l);}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>>\ qr(G);}
+\DoxyCodeLine{00131\ \ \ \ \ Rt.noalias()\ =\ Eigen::MatrixXd::Identity(l,\ m)\ *\ qr.matrixQR().triangularView<Eigen::Upper>();}
+\DoxyCodeLine{00132\ \ \ \ \ G.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(m,\ l);}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ R\ =\ Rt\ *\ R;}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ Eigen::MatrixXd\ out\ =\ R.transpose().fullPivHouseholderQr().solve(H.transpose());}
+\DoxyCodeLine{00138\ \ \ Eigen::JacobiSVD<Eigen::MatrixXd>\ svd(out,\ Eigen::ComputeThinU\ |\ Eigen::ComputeThinV);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_p_c_a}{PCA}}(svd.matrixV().leftCols(k),}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ G\ *\ svd.matrixU().leftCols(k),}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svd.singularValues().head(k),}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ featureIds);}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

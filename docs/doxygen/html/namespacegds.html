@@ -185,6 +185,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a48cc834ac88e3e65adee23e4843a842d" id="r_a48cc834ac88e3e65adee23e4843a842d"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a48cc834ac88e3e65adee23e4843a842d"><td class="memTemplItemLeft" align="right" valign="top">vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a48cc834ac88e3e65adee23e4843a842d">cast_elements</a> (const vector&lt; string &gt; &amp;v)</td></tr>
 <tr class="separator:a48cc834ac88e3e65adee23e4843a842d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36a26c4a2000330f861fea50e6babad0" id="r_a36a26c4a2000330f861fea50e6babad0"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a36a26c4a2000330f861fea50e6babad0"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a36a26c4a2000330f861fea50e6babad0">chunk_vector</a> (const std::vector&lt; T &gt; &amp;vec, int k)</td></tr>
+<tr class="separator:a36a26c4a2000330f861fea50e6babad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ac70f2ea13e13e9f24bdd7a1717666a22" name="ac70f2ea13e13e9f24bdd7a1717666a22"></a>
@@ -258,6 +261,30 @@ template&lt;typename T&gt; </div>
       </table>
 </div><div class="memdoc">
 <p>Convert vector&lt;string&gt; to vector&lt;T&gt; </p>
+
+</div>
+</div>
+<a id="a36a26c4a2000330f861fea50e6babad0" name="a36a26c4a2000330f861fea50e6babad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36a26c4a2000330f861fea50e6babad0">&#9670;&#160;</a></span>chunk_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::vector&lt; T &gt; &gt; gds::chunk_vector </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>vec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>k</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Split vector into k chunks </p>
 
 </div>
 </div>

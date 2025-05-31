@@ -1,6 +1,8 @@
 
 
 May 29, 
+	1) only use DelayedStream() constructor once
+	2) Which access is faster?
 	test on minerva
 	test on DelayedMatrix and regular matrix
 

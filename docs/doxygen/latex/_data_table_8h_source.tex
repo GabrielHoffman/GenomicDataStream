@@ -111,7 +111,7 @@
 \DoxyCodeLine{00117\ }
 \DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ initialize\ data\ with\ column\ for\ each\ header\ entry}}
 \DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<colNames.size();\ i++)\{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ data.push\_back(\ vector<string>()\ );}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ data.push\_back(\ vector<string>()\ );}
 \DoxyCodeLine{00121\ \ \ \ \ \}}
 \DoxyCodeLine{00122\ }
 \DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ Read\ data\ rows}}
@@ -121,21 +121,21 @@
 \DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ for\ each\ row}}
 \DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(strm,\ line))\ \{}
 \DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ colIndex\ =\ 0;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ colIndex\ =\ 0;}
 \DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
 \DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ >\ data.size()\ )\ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ data[colIndex++].push\_back(\ *it\ );}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ >\ data.size()\ )\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ data[colIndex++].push\_back(\ *it\ );}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ !=\ colNames.size())\{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Line\ "{}}\ +\ to\_string(lineIdx)\ +\ \textcolor{stringliteral}{"{}\ is\ not\ valid:\ "{}}\ +\ line);}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ !=\ colNames.size())\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Line\ "{}}\ +\ to\_string(lineIdx)\ +\ \textcolor{stringliteral}{"{}\ is\ not\ valid:\ "{}}\ +\ line);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ lineIdx++;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ lineIdx++;}
 \DoxyCodeLine{00145\ \ \ \ \ \}}
 \DoxyCodeLine{00146\ }
 \DoxyCodeLine{00147\ \ \ \ \ strm.close();}

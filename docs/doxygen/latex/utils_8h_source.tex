@@ -22,86 +22,86 @@
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00024\ \textcolor{keyword}{static}\ vector<double>\ GP\_to\_dosage(\ \textcolor{keyword}{const}\ vector<T>\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&missingToMean)\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ vector<double>\ res(\ v.size()\ /\ 3.0);}
-\DoxyCodeLine{00026\ \ \ \ \ vector<int>\ missing;}
+\DoxyCodeLine{00025\ \ \ vector<double>\ res(\ v.size()\ /\ 3.0);}
+\DoxyCodeLine{00026\ \ \ vector<int>\ missing;}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ initialize}}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00028\ \ \ \textcolor{comment}{//\ initialize}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{double}\ value;}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ dosage\ from\ genotype\ probabilties}}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ value\ =\ v[3*i]*0\ +\ v[3*i+1]*1\ +\ v[3*i+2]*2;}
+\DoxyCodeLine{00032\ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
+\DoxyCodeLine{00033\ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ compute\ dosage\ from\ genotype\ probabilties}}
+\DoxyCodeLine{00036\ \ \ \ \ value\ =\ v[3*i]*0\ +\ v[3*i+1]*1\ +\ v[3*i+2]*2;}
 \DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ missing.push\_back(i);}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ runningSum\ +=\ value;}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ nValid++;}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ missing.push\_back(i);}
+\DoxyCodeLine{00043\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ runningSum\ +=\ value;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ nValid++;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ res[i]\ =\ value;}
-\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
+\DoxyCodeLine{00050\ \ \ \ \ res[i]\ =\ value;}
+\DoxyCodeLine{00051\ \ \ \}}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
+\DoxyCodeLine{00053\ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
 \DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
-\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
+\DoxyCodeLine{00060\ \ \ \}}
 \DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordflow}{return}\ res;}
 \DoxyCodeLine{00063\ \}}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00069\ \textcolor{keyword}{static}\ vector<double>\ intToDosage(\ \textcolor{keyword}{const}\ vector<int>\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&missingToMean)\ \{}
 \DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ store\ and\ return\ result}}
-\DoxyCodeLine{00072\ \ \ \ \ vector<double>\ res(\ v.size()\ /\ 2.0);}
-\DoxyCodeLine{00073\ \ \ \ \ vector<int>\ missing;}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ store\ and\ return\ result}}
+\DoxyCodeLine{00072\ \ \ vector<double>\ res(\ v.size()\ /\ 2.0);}
+\DoxyCodeLine{00073\ \ \ vector<int>\ missing;}
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ initialize}}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ initialize}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{int}\ runningSum\ =\ 0,\ nValid\ =\ 0;}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{double}\ value;}
 \DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ value\ =\ v[2*i]\ +\ v[2*i+1];}
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ result}}
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//\ use\ two\ adjacent\ values}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<res.size();\ i++)\{}
+\DoxyCodeLine{00082\ \ \ \ \ value\ =\ v[2*i]\ +\ v[2*i+1];}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ missing.push\_back(i);}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ runningSum\ +=\ value;}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ nValid++;}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ -\/9\ is\ the\ missing\ value,\ so\ -\/18\ is\ diploid}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{if}(\ value\ ==\ -\/18)\{\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ missing,\ set\ to\ NaN}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ value\ =\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ missing.push\_back(i);}
+\DoxyCodeLine{00089\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \textcolor{comment}{//\ for\ computing\ mean}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ runningSum\ +=\ value;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ nValid++;}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
 \DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ res[i]\ =\ value;}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ set\ dosage\ value}}
+\DoxyCodeLine{00096\ \ \ \ \ res[i]\ =\ value;}
+\DoxyCodeLine{00097\ \ \ \}}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ mean\ excluding\ NaNs}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{double}\ mu\ =\ runningSum\ /\ (double)\ nValid;}
 \DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
-\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ if\ missing\ values\ should\ be\ set\ to\ mean}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{if}(\ missingToMean\ )\{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ with\ a\ missing\ value,\ set\ to\ mean}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ i\ :\ missing)\ res[i]\ =\ mu;}
+\DoxyCodeLine{00106\ \ \ \}}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordflow}{return}\ res;}
 \DoxyCodeLine{00109\ \}}
 \DoxyCodeLine{00110\ \ }
 \DoxyCodeLine{00114\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
@@ -125,176 +125,194 @@
 \DoxyCodeLine{00132\ \ }
 \DoxyCodeLine{00136\ \textcolor{keyword}{static}\ arma::vec\ colSums(\ \textcolor{keyword}{const}\ arma::mat\ \&X)\{}
 \DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//\ row\ vector\ of\ 1's}}
-\DoxyCodeLine{00139\ \ \ \ \ arma::rowvec\ ONE(X.n\_rows,\ arma::fill::ones);}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ row\ vector\ of\ 1's}}
+\DoxyCodeLine{00139\ \ \ arma::rowvec\ ONE(X.n\_rows,\ arma::fill::ones);}
 \DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{comment}{//\ matrix\ multiplication\ to\ get\ sums}}
-\DoxyCodeLine{00142\ \ \ \ \ arma::mat\ tmp\ =\ ONE\ *\ X;}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ matrix\ multiplication\ to\ get\ sums}}
+\DoxyCodeLine{00142\ \ \ arma::mat\ tmp\ =\ ONE\ *\ X;}
 \DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ arma::conv\_to<arma::vec>::from(\ tmp\ );}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordflow}{return}\ arma::conv\_to<arma::vec>::from(\ tmp\ );}
 \DoxyCodeLine{00145\ \}}
 \DoxyCodeLine{00146\ }
 \DoxyCodeLine{00147\ }
 \DoxyCodeLine{00155\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ standardize(\ arma::mat\ \&X,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&center\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&scale\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ tol\ =\ 1e-\/10\ )\{}
 \DoxyCodeLine{00156\ \ \ \ \ }
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{double}\ sqrt\_rdf\ =\ sqrt(X.n\_rows\ -\/\ 1.0);}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{double}\ sqrt\_rdf\ =\ sqrt(X.n\_rows\ -\/\ 1.0);}
 \DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ if\ center,\ subtract\ mean\ of\ each\ column}}
-\DoxyCodeLine{00160\ \ \ \ \ \textcolor{comment}{//\ if\ scale,\ divide\ by\ sd\ of\ each\ column}}
-\DoxyCodeLine{00161\ \ \ \ \ \textcolor{comment}{//\ Note,\ norm()\ does\ not\ center\ the\ column}}
-\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ \ \ this\ give\ results\ consistent\ with\ base::scale()}}
-\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ \ \ when\ scale\ is\ FALSE}}
-\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j=0;\ j<X.n\_cols;\ j++)\{}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ center\ )\ X.col(j)\ -\/=\ mean(X.col(j));}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sd\ =\ norm(X.col(j))\ /\ sqrt\_rdf;}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scale\ \&\&\ sd\ >\ tol\ )\ \ X.col(j)\ /=\ sd;}
-\DoxyCodeLine{00168\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{//\ if\ center,\ subtract\ mean\ of\ each\ column}}
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{//\ if\ scale,\ divide\ by\ sd\ of\ each\ column}}
+\DoxyCodeLine{00161\ \ \ \textcolor{comment}{//\ Note,\ norm()\ does\ not\ center\ the\ column}}
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ \ \ this\ give\ results\ consistent\ with\ base::scale()}}
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{//\ \ \ when\ scale\ is\ FALSE}}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j=0;\ j<X.n\_cols;\ j++)\{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{if}(\ center\ )\ X.col(j)\ -\/=\ mean(X.col(j));}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{double}\ sd\ =\ norm(X.col(j))\ /\ sqrt\_rdf;}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{if}(\ scale\ \&\&\ sd\ >\ tol\ )\ \ X.col(j)\ /=\ sd;}
+\DoxyCodeLine{00168\ \ \ \}}
 \DoxyCodeLine{00169\ \}}
 \DoxyCodeLine{00170\ }
 \DoxyCodeLine{00171\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ standardize(\ Eigen::MatrixXd\ \&X,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&center\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&scale\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ tol\ =\ 1e-\/10\ )\{}
 \DoxyCodeLine{00172\ \ \ \ \ }
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{double}\ sqrt\_rdf\ =\ sqrt(X.rows()\ -\/\ 1.0);}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{if}(center)\ X.rowwise()\ -\/=\ X.colwise().mean();\ \textcolor{comment}{//\ centering}}
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{if}(scale)\ \{}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ X\ is\ centered,\ then\ we\ can\ convert\ norm\ to\ sd}}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j=0;\ j<X.cols();\ j++)\ \{}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sd\ =\ X.col(j).norm()\ \ /\ sqrt\_rdf\ ;\ \textcolor{comment}{//\ sd}}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sd\ >\ tol)\ \ X.col(j)\ /=\ sd;}
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{double}\ sqrt\_rdf\ =\ sqrt(X.rows()\ -\/\ 1.0);}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordflow}{if}(center)\ X.rowwise()\ -\/=\ X.colwise().mean();\ \textcolor{comment}{//\ centering}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordflow}{if}(scale)\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{comment}{//\ if\ X\ is\ centered,\ then\ we\ can\ convert\ norm\ to\ sd}}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j=0;\ j<X.cols();\ j++)\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sd\ =\ X.col(j).norm()\ \ /\ sqrt\_rdf\ ;\ \textcolor{comment}{//\ sd}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sd\ >\ tol)\ \ X.col(j)\ /=\ sd;}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \}}
 \DoxyCodeLine{00182\ \}}
 \DoxyCodeLine{00183\ }
 \DoxyCodeLine{00186\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isOnlyDigits(\textcolor{keyword}{const}\ std::string\&\ s)\{}
-\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ count\_if(s.begin(),\ s.end(),}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ c)\{\ return\ isdigit(c);\ \}\ }
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordflow}{return}(\ n\ ==\ s.size());}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{int}\ n\ =\ count\_if(s.begin(),\ s.end(),}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ c)\{\ return\ isdigit(c);\ \}\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordflow}{return}(\ n\ ==\ s.size());}
 \DoxyCodeLine{00191\ \}}
 \DoxyCodeLine{00192\ }
 \DoxyCodeLine{00193\ \ }
 \DoxyCodeLine{00196\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ nanToMean(\ arma::vec\ \&\ v)\{}
 \DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//\ get\ indeces\ of\ finite\ elements}}
-\DoxyCodeLine{00198\ \ \ \ \ arma::uvec\ idx\ =\ arma::find\_finite(v);}
+\DoxyCodeLine{00198\ \ \ arma::uvec\ idx\ =\ arma::find\_finite(v);}
 \DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \ \ \ \ \textcolor{comment}{//\ if\ number\ of\ finite\ elements\ is\ less\ than\ the\ total}}
-\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{if}(\ idx.n\_elem\ <\ v.n\_elem\ )\{}
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ mean\ from\ finite\ elements}}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ arma::mean(\ v.elem(idx));}
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{//\ if\ number\ of\ finite\ elements\ is\ less\ than\ the\ total}}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordflow}{if}(\ idx.n\_elem\ <\ v.n\_elem\ )\{}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{comment}{//\ compute\ mean\ from\ finite\ elements}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ =\ arma::mean(\ v.elem(idx));}
 \DoxyCodeLine{00204\ }
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ replace\ nan\ with\ mu}}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ v.replace(arma::datum::nan,\ mu);}
-\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{comment}{//\ replace\ nan\ with\ mu}}
+\DoxyCodeLine{00206\ \ \ \ \ v.replace(arma::datum::nan,\ mu);}
+\DoxyCodeLine{00207\ \ \ \}}
 \DoxyCodeLine{00208\ \}}
 \DoxyCodeLine{00209\ }
 \DoxyCodeLine{00210\ \ }
 \DoxyCodeLine{00213\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
-\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}},}
-\DoxyCodeLine{00215\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}},}
-\DoxyCodeLine{00216\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}},}
-\DoxyCodeLine{00217\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}},}
-\DoxyCodeLine{00218\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}},}
-\DoxyCodeLine{00219\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}},}
-\DoxyCodeLine{00220\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}}
+\DoxyCodeLine{00214\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}},}
+\DoxyCodeLine{00215\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}},}
+\DoxyCodeLine{00216\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}},}
+\DoxyCodeLine{00217\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}},}
+\DoxyCodeLine{00218\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}},}
+\DoxyCodeLine{00219\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}},}
+\DoxyCodeLine{00220\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}}
 \DoxyCodeLine{00221\ \}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}};}
 \DoxyCodeLine{00222\ \ }
 \DoxyCodeLine{00225\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ toString(\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}}\ x)\{}
 \DoxyCodeLine{00226\ }
-\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{switch}(x)\{}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}vcf"{}};}
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}vcf.gz"{}};}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}bcf"{}};}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}bgen"{}};}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}pgen"{}};}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}bed"{}};}
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}other"{}};}
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}other"{}};}
-\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordflow}{switch}(x)\{}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}vcf"{}};}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}}:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}vcf.gz"{}};}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}}:\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}bcf"{}};}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}}:\ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}bgen"{}};}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}}:\ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}pgen"{}};}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}}:\ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}bed"{}};}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}}:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}other"{}};}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{default}:\ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}other"{}};}
+\DoxyCodeLine{00236\ \ \ \}}
 \DoxyCodeLine{00237\ \}}
 \DoxyCodeLine{00238\ }
 \DoxyCodeLine{00239\ }
 \DoxyCodeLine{00240\ \ }
 \DoxyCodeLine{00243\ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}}\ getFileType(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&file\ )\{}
 \DoxyCodeLine{00244\ }
-\DoxyCodeLine{00245\ \ \ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}}\ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}};}
+\DoxyCodeLine{00245\ \ \ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{FileType}}\ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a5142a628384098cf78e117d74c7e2bbd}{OTHER}};}
 \DoxyCodeLine{00246\ }
-\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).vcf\$"{}}))\ )\{}
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}};}
-\DoxyCodeLine{00249\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).vcf\(\backslash\)\(\backslash\).gz\$"{}}))\ )\{}
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}};}
-\DoxyCodeLine{00251\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).bcf\$"{}}))\ )\ \{}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}};}
-\DoxyCodeLine{00253\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).bgen\$"{}}))\ )\{}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}};}
-\DoxyCodeLine{00255\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).pgen\$"{}}))\ )\{}
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}};}
-\DoxyCodeLine{00257\ \ \ \ \ \}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).bed\$"{}}))\ )\{}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}};}
-\DoxyCodeLine{00259\ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).vcf\$"{}}))\ )\{}
+\DoxyCodeLine{00248\ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aed5c7a6a1b1c14bfe29735b44865ab91}{VCF}};}
+\DoxyCodeLine{00249\ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).vcf\(\backslash\)\(\backslash\).gz\$"{}}))\ )\{}
+\DoxyCodeLine{00250\ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361ad3e130e26d40b91a4a41c0743686597c}{VCFGZ}};}
+\DoxyCodeLine{00251\ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).bcf\$"{}}))\ )\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7b8af3633cb6e71ee68cf1622db365e0}{BCF}};}
+\DoxyCodeLine{00253\ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).bgen\$"{}}))\ )\{}
+\DoxyCodeLine{00254\ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361a7936475c1dc11bdd449bf5753342f251}{BGEN}};}
+\DoxyCodeLine{00255\ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).pgen\$"{}}))\ )\{}
+\DoxyCodeLine{00256\ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361acd7964afde789f206cb6d015daa3e267}{PGEN}};}
+\DoxyCodeLine{00257\ \ \ \}\ \textcolor{keywordflow}{if}(\ regex\_search(\ file,\ regex(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\).bed\$"{}}))\ )\{}
+\DoxyCodeLine{00258\ \ \ \ \ ft\ =\ \mbox{\hyperlink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361aa230ef319dc5f1f2757eff35f6f78e1e}{PBED}};}
+\DoxyCodeLine{00259\ \ \ \}}
 \DoxyCodeLine{00260\ }
-\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{return}\ ft;}
+\DoxyCodeLine{00261\ \ \ \textcolor{keywordflow}{return}\ ft;}
 \DoxyCodeLine{00262\ \}}
 \DoxyCodeLine{00263\ }
 \DoxyCodeLine{00264\ }
 \DoxyCodeLine{00265\ \ }
 \DoxyCodeLine{00268\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00269\ vector<T>\ \mbox{\hyperlink{namespacegds_a48cc834ac88e3e65adee23e4843a842d}{cast\_elements}}(\ \textcolor{keyword}{const}\ vector<string>\ \&v\ )\{}
-\DoxyCodeLine{00270\ \ \ \ \ vector<T>\ output(0,\ v.size());}
+\DoxyCodeLine{00270\ \ \ vector<T>\ output(0,\ v.size());}
 \DoxyCodeLine{00271\ }
-\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&s\ :\ v)\ \{}
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ stringstream\ parser(s);}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ T\ x\ =\ 0;}
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ parser\ >>\ x;}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ output.push\_back(x);}
-\DoxyCodeLine{00277\ \ \ \ \ \}}
-\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{return}\ output;}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&s\ :\ v)\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ stringstream\ parser(s);}
+\DoxyCodeLine{00274\ \ \ \ \ T\ x\ =\ 0;}
+\DoxyCodeLine{00275\ \ \ \ \ parser\ >>\ x;}
+\DoxyCodeLine{00276\ \ \ \ \ output.push\_back(x);}
+\DoxyCodeLine{00277\ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordflow}{return}\ output;}
 \DoxyCodeLine{00279\ \}}
 \DoxyCodeLine{00280\ }
 \DoxyCodeLine{00281\ }
 \DoxyCodeLine{00287\ \textcolor{keyword}{static}\ vector<string>\ splitRegionString(\ \textcolor{keywordtype}{string}\ regionString)\{}
 \DoxyCodeLine{00288\ }
-\DoxyCodeLine{00289\ \ \ \ \ vector<string>\ regions;}
+\DoxyCodeLine{00289\ \ \ vector<string>\ regions;}
 \DoxyCodeLine{00290\ }
-\DoxyCodeLine{00291\ \ \ \ \ \textcolor{comment}{//\ regionString\ is\ string\ of\ chr:start-\/end\ delim\ by\ "{}\(\backslash\)t,\(\backslash\)n"{}}}
-\DoxyCodeLine{00292\ \ \ \ \ \textcolor{comment}{//\ remove\ spaces,\ then\ split\ based\ on\ delim}}
-\DoxyCodeLine{00293\ \ \ \ \ boost::erase\_all(regionString,\ \textcolor{stringliteral}{"{}\ "{}});}
-\DoxyCodeLine{00294\ \ \ \ \ boost::split(regions,\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
+\DoxyCodeLine{00291\ \ \ \textcolor{comment}{//\ regionString\ is\ string\ of\ chr:start-\/end\ delim\ by\ "{}\(\backslash\)t,\(\backslash\)n"{}}}
+\DoxyCodeLine{00292\ \ \ \textcolor{comment}{//\ remove\ spaces,\ then\ split\ based\ on\ delim}}
+\DoxyCodeLine{00293\ \ \ boost::erase\_all(regionString,\ \textcolor{stringliteral}{"{}\ "{}});}
+\DoxyCodeLine{00294\ \ \ boost::split(regions,\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
 \DoxyCodeLine{00295\ }
-\DoxyCodeLine{00296\ \ \ \ \ \textcolor{comment}{//\ remove\ duplicate\ regions,\ but\ preserve\ order}}
-\DoxyCodeLine{00297\ \ \ \ \ removeDuplicates(\ regions\ );}
+\DoxyCodeLine{00296\ \ \ \textcolor{comment}{//\ remove\ duplicate\ regions,\ but\ preserve\ order}}
+\DoxyCodeLine{00297\ \ \ removeDuplicates(\ regions\ );}
 \DoxyCodeLine{00298\ }
-\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{return}\ regions;}
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordflow}{return}\ regions;}
 \DoxyCodeLine{00300\ \}}
 \DoxyCodeLine{00301\ }
 \DoxyCodeLine{00302\ }
 \DoxyCodeLine{00305\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ T2>}
 \DoxyCodeLine{00306\ \textcolor{keyword}{static}\ vector<T>\ subset\_vector(\textcolor{keyword}{const}\ vector<T>\ \&x,\ \textcolor{keyword}{const}\ vector<T2>\ \&idx)\{}
 \DoxyCodeLine{00307\ }
-\DoxyCodeLine{00308\ \ \ \ \ \textcolor{comment}{//\ initialize\ x\_subset\ to\ have\ size\ idx.size()}}
-\DoxyCodeLine{00309\ \ \ \ \ vector<T>\ x\_subset;}
-\DoxyCodeLine{00310\ \ \ \ \ x\_subset.reserve(idx.size());}
+\DoxyCodeLine{00308\ \ \ \textcolor{comment}{//\ initialize\ x\_subset\ to\ have\ size\ idx.size()}}
+\DoxyCodeLine{00309\ \ \ vector<T>\ x\_subset;}
+\DoxyCodeLine{00310\ \ \ x\_subset.reserve(idx.size());}
 \DoxyCodeLine{00311\ }
-\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ i:\ idx)\{}
-\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ >\ x.size()\ )\{}
-\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds"{}});\ }
-\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ x\_subset.push\_back(\ x[i]\ );}
-\DoxyCodeLine{00317\ \ \ \ \ \}}
+\DoxyCodeLine{00312\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ i:\ idx)\{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ >\ x.size()\ )\{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds"{}});\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ x\_subset.push\_back(\ x[i]\ );}
+\DoxyCodeLine{00317\ \ \ \}}
 \DoxyCodeLine{00318\ }
-\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{return}\ x\_subset;}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordflow}{return}\ x\_subset;}
 \DoxyCodeLine{00320\ \}}
 \DoxyCodeLine{00321\ }
 \DoxyCodeLine{00322\ }
 \DoxyCodeLine{00323\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00324\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ print\_vec(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&title,\ \textcolor{keyword}{const}\ vector<T>\ \&x)\{}
-\DoxyCodeLine{00325\ \ \ \ \ Rcpp::Rcout\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
-\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ a:\ x)\ Rcpp::Rcout\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
-\DoxyCodeLine{00327\ \ \ \ \ Rcpp::Rcout\ <<\ endl;}
+\DoxyCodeLine{00325\ \ \ Rcpp::Rcout\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ a:\ x)\ Rcpp::Rcout\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00327\ \ \ Rcpp::Rcout\ <<\ endl;}
 \DoxyCodeLine{00328\ \}}
 \DoxyCodeLine{00329\ }
-\DoxyCodeLine{00330\ }
-\DoxyCodeLine{00331\ }
-\DoxyCodeLine{00332\ }
-\DoxyCodeLine{00333\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00330\ \ }
+\DoxyCodeLine{00333\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00334\ std::vector<std::vector<T>>\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{chunk\_vector}}(\textcolor{keyword}{const}\ std::vector<T>\&\ vec,\ \textcolor{keywordtype}{int}\ k)\ \{}
+\DoxyCodeLine{00335\ \ \ std::vector<std::vector<T>\ >\ result;}
+\DoxyCodeLine{00336\ \ \ \textcolor{keywordtype}{int}\ size\ =\ vec.size();}
+\DoxyCodeLine{00337\ \ \ \textcolor{keywordtype}{int}\ chunk\_size\ =\ size\ /\ k;}
+\DoxyCodeLine{00338\ \ \ \textcolor{keywordtype}{int}\ remainder\ =\ size\ \%\ k;}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \textcolor{keywordtype}{int}\ start\ =\ 0;}
+\DoxyCodeLine{00341\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ k;\ ++i)\ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_chunk\_size\ =\ chunk\_size;}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ remainder)\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ current\_chunk\_size++;}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ \ \ \ \ std::vector<T>\ chunk(vec.begin()\ +\ start,\ vec.begin()\ +\ start\ +\ current\_chunk\_size);}
+\DoxyCodeLine{00347\ \ \ \ \ result.push\_back(chunk);}
+\DoxyCodeLine{00348\ \ \ \ \ start\ +=\ current\_chunk\_size;}
+\DoxyCodeLine{00349\ \ \ \}}
+\DoxyCodeLine{00350\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00351\ \}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

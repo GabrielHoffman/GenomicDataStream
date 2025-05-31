@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['underneath_20r_0',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
-  ['uniformrandom_1',['UniformRandom',['../_rand_8hpp.html#a08e8992646418067ff91c0df2aa2a416',1,'Rand.hpp']]],
-  ['utils_2eh_2',['utils.h',['../utils_8h.html',1,'']]]
+  ['u_0',['u',['../struct_p_c_a.html#afb9f7873c56059067aaf0d2af8b93aa4',1,'PCA']]],
+  ['underneath_20r_1',['A scalable interface between data and analysis underneath R',['../index.html',1,'']]],
+  ['uniformrandom_2',['UniformRandom',['../_rand_8hpp.html#a08e8992646418067ff91c0df2aa2a416',1,'Rand.hpp']]],
+  ['utils_2eh_3',['utils.h',['../utils_8h.html',1,'']]]
 ];

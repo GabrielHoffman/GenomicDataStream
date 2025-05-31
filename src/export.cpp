@@ -265,6 +265,36 @@ void test_DataTable(const string &file, const string &headerKey, const string &d
 
 
 // [[Rcpp::export]]
+List stream_pcaone( SEXP x, 
+                    const string &region,
+                    int m, 
+                    int k, 
+                    int nchunks,
+                    int s = 20, 
+                    int p = 7, 
+                    int B = 64, 
+                    int threads = 4,
+                    int threads_eigen = 1,
+                    const bool verbose = true,
+                    const bool scaleAndCenter = true) {
+
+  XPtr<BoundDataStream> ptr(x);
+  shared_ptr<GenomicDataStream> gds = ptr->ptr;
+
+  Eigen::setNbThreads(threads_eigen);   
+
+  PCA res = pcaone( gds, region, m, k, nchunks, s, p, B, threads, verbose, scaleAndCenter);
+
+  return List::create(
+        Named("d") = wrap(res.d),
+        Named("u") = wrap(res.u),
+        Named("v") = wrap(res.v),
+        Named("featureIds") = wrap(res.featureIds));
+}
+
+
+
+// [[Rcpp::export]]
 Rcpp::List stream_pcaone_robj(
 										const RObject &x, 
 										const std::vector<std::string> &ids, 
@@ -280,12 +310,17 @@ Rcpp::List stream_pcaone_robj(
 										const bool verbose=true,
                     const bool scaleAndCenter = true) {
 
-	DataChunk<Eigen::MatrixXd> chunk;
+  // auto ptr = std::make_shared<tatami_r::UnknownMatrix<double, int> >(x);
 
-	const int l = k + s;
+  // tatami interface to matrix x 
+  Rtatami::BoundNumericPointer *parsed = new Rtatami::BoundNumericPointer(x);
+  const auto& ptr = (*parsed)->ptr;
 
-  Eigen::setNbThreads(8); 
+	const int l = min(m, k + s);
+  size_t band = ceil((double) nchunks / B);
+  std::mutex pcaMutex;  
 
+  // initialize global matricies
   auto randomEngine = std::default_random_engine{};
   Eigen::MatrixXd Omg = StandardNormalRandom<Eigen::MatrixXd, std::default_random_engine>(n, l, randomEngine);
   Eigen::MatrixXd Omg2 = Omg;
@@ -293,12 +328,13 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
 
-  size_t band = ceil((double)nchunks / B);
+  Eigen::setNbThreads(1); 
 
+  // power iterations
   for (int pi = 0; pi <= p; pi++) {
 
   	if( verbose ){
-  		Rcpp::Rcout << "\nEpoch " << pi << " / " << p << "";
+  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p;
   	}
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
@@ -307,45 +343,58 @@ Rcpp::List stream_pcaone_robj(
     }
     band = std::fmin(band * 2, nchunks);
 
-    size_t i{1},  start{0};
-    // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) 
-    size_t b{0};
-    DelayedStream ds( x, ids, chunkSize);
-    while( ds.getNextChunk( chunk ) ){
+    size_t i{1}, b{0};
+    // parallelize across threads
+    tatami_r::parallelize([&](size_t thread_id, int chk, int len) -> void {
 
-      // read data so columns are features
-      auto Ab = chunk.getData();
-      if( scaleAndCenter ) standardize(Ab); // standardize
-      if( verbose ){
-        Rcpp::Rcout << "...";
-      }
-      {
-        // std::lock_guard<std::mutex> lock(pcaMutex);
-        G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
-        if (i <= band / 2)
-          H1.noalias() += Ab * G.middleRows(start, Ab.cols());
-        else
-          H2.noalias() += Ab * G.middleRows(start, Ab.cols());
-        bool adjacent =
-          (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
-        if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
-          H = H1 + H2;
-          Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
-          Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
-          flipOmg(Omg2, Omg);
-          if (i == band) {
-            H1.setZero();
-            i = 0;
-          } else {
-            H2.setZero();
+      // initialize variables for this thread
+      DelayedStream ds( ptr, ids, chunkSize);
+      DataChunk<Eigen::MatrixXd> chunk;
+
+      // In this thread, loop through multiple chunks
+      for(int idx=chk; idx<chk+len; idx++){
+
+        // Evaluated concurrently
+        int start = idx*chunkSize;
+        ds.getNextChunk( chunk, idx*chunkSize, chunkSize);
+
+        auto Ab = chunk.getData();
+
+        if( scaleAndCenter ){
+          standardize(Ab);
+          Ab /= sqrt(Ab.rows()-1);    
+        } 
+
+        {
+          // Only evaluated by 1 thread at a time
+          // since it modifies global matrices
+          // mutex ensures serial execution
+          std::lock_guard<std::mutex> lock(pcaMutex);
+
+          G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+          if (i <= band / 2)
+            H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+          else
+            H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+          bool adjacent =
+            (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+          if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+            H = H1 + H2;
+            Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+            Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+            flipOmg(Omg2, Omg);
+            if (i == band) {
+              H1.setZero();
+              i = 0;
+            } else {
+              H2.setZero();
+            }
           }
+          i++;      
+          b++;
         }
-        start += Ab.cols();
-        i++;
-      }      
-      b++;
-    }
-    // );
+      }
+    }, nchunks, min(threads, nchunks));
   }
 
   // get USV
@@ -379,34 +428,4 @@ Rcpp::List stream_pcaone_robj(
 
  
  
-
-// [[Rcpp::export]]
-List stream_pcaone(	SEXP x, 
-                    const string &region,
-                    int m, 
-                    int k, 
-                    int nchunks,
-                    int s = 20, 
-                    int p = 7, 
-                    int B = 64, 
-                    int threads = 4,
-                    int threads_eigen = 1,
-                    const bool verbose = true,
-                    const bool scaleAndCenter = true) {
-
-  XPtr<BoundDataStream> ptr(x);
-  shared_ptr<GenomicDataStream> gds = ptr->ptr;
-
-  Eigen::setNbThreads(threads_eigen);   
-
-  PCA res = pcaone( gds, region, m, k, nchunks, s, p, B, threads, verbose, scaleAndCenter);
-
-  return List::create(
-  			Named("d") = wrap(res.d),
-        Named("u") = wrap(res.u),
-        Named("v") = wrap(res.v),
-        Named("featureIds") = wrap(res.featureIds));
-}
-
-
 

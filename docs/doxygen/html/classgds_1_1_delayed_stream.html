@@ -140,30 +140,34 @@ Inheritance diagram for gds::DelayedStream:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8c2cbc77c84dbf62c4dd7e78dc6a0034" id="r_a8c2cbc77c84dbf62c4dd7e78dc6a0034"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c2cbc77c84dbf62c4dd7e78dc6a0034">DelayedStream</a> (Rcpp::RObject robj, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize)</td></tr>
-<tr class="separator:a8c2cbc77c84dbf62c4dd7e78dc6a0034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384ad91ab9953d831d2bd4e6779e7359" id="r_a384ad91ab9953d831d2bd4e6779e7359"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a384ad91ab9953d831d2bd4e6779e7359">DelayedStream</a> (const shared_ptr&lt; tatami::NumericMatrix &gt; &amp;ptr, const vector&lt; string &gt; &amp;rowNames, const int &amp;chunkSize)</td></tr>
+<tr class="separator:a384ad91ab9953d831d2bd4e6779e7359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa16d9a0d9427b79f473e9007a0d3da0" id="r_afa16d9a0d9427b79f473e9007a0d3da0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa16d9a0d9427b79f473e9007a0d3da0">~DelayedStream</a> ()</td></tr>
 <tr class="separator:afa16d9a0d9427b79f473e9007a0d3da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a323477c8f2ecfa8857477cfc1ca4afe3" id="r_a323477c8f2ecfa8857477cfc1ca4afe3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a323477c8f2ecfa8857477cfc1ca4afe3">setRegions</a> (const vector&lt; string &gt; &amp;regions) override</td></tr>
 <tr class="separator:a323477c8f2ecfa8857477cfc1ca4afe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaca9837fce72787b03e08d2d5fc5b77" id="r_afaca9837fce72787b03e08d2d5fc5b77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afaca9837fce72787b03e08d2d5fc5b77">n_samples</a> () override</td></tr>
 <tr class="separator:afaca9837fce72787b03e08d2d5fc5b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad36d43b3ddf03ea9f62e0214d07a3507" id="r_ad36d43b3ddf03ea9f62e0214d07a3507"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad36d43b3ddf03ea9f62e0214d07a3507">n_rows</a> ()</td></tr>
+<tr class="separator:ad36d43b3ddf03ea9f62e0214d07a3507"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fcf6165222ce8cfb3a38d60c635c3b3" id="r_a6fcf6165222ce8cfb3a38d60c635c3b3"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fcf6165222ce8cfb3a38d60c635c3b3">getSampleNames</a> () override</td></tr>
 <tr class="separator:a6fcf6165222ce8cfb3a38d60c635c3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec1ed3c3d3fc25e0bdae288f56d6f163" id="r_aec1ed3c3d3fc25e0bdae288f56d6f163"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec1ed3c3d3fc25e0bdae288f56d6f163">getStreamType</a> () override</td></tr>
 <tr class="separator:aec1ed3c3d3fc25e0bdae288f56d6f163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53e33ac406037006bcf6954e8b6e6704" id="r_a53e33ac406037006bcf6954e8b6e6704"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53e33ac406037006bcf6954e8b6e6704">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat &gt; &amp;chunk) override</td></tr>
-<tr class="separator:a53e33ac406037006bcf6954e8b6e6704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7336c2cd39dd994562433e86cb2268c4" id="r_a7336c2cd39dd994562433e86cb2268c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7336c2cd39dd994562433e86cb2268c4">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat &gt; &amp;chunk) override</td></tr>
-<tr class="separator:a7336c2cd39dd994562433e86cb2268c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb3c8d3143f5a4d820fe339feee047c1" id="r_afb3c8d3143f5a4d820fe339feee047c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb3c8d3143f5a4d820fe339feee047c1">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;chunk) override</td></tr>
-<tr class="separator:afb3c8d3143f5a4d820fe339feee047c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a685f2f5f0ef414e3bd45b372b969cb69" id="r_a685f2f5f0ef414e3bd45b372b969cb69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a685f2f5f0ef414e3bd45b372b969cb69">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::SparseMatrix&lt; double &gt; &gt; &amp;chunk) override</td></tr>
-<tr class="separator:a685f2f5f0ef414e3bd45b372b969cb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c83e9fe09f0760c4b6f76852e1561cc" id="r_a7c83e9fe09f0760c4b6f76852e1561cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c83e9fe09f0760c4b6f76852e1561cc">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix &gt; &amp;chunk) override</td></tr>
-<tr class="separator:a7c83e9fe09f0760c4b6f76852e1561cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1698b24d9f8aca2ef3f0f1adc2dca22" id="r_ac1698b24d9f8aca2ef3f0f1adc2dca22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1698b24d9f8aca2ef3f0f1adc2dca22">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; vector&lt; double &gt; &gt; &amp;chunk) override</td></tr>
-<tr class="separator:ac1698b24d9f8aca2ef3f0f1adc2dca22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcfdba3bb518ef878370cde93cdb205f" id="r_adcfdba3bb518ef878370cde93cdb205f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcfdba3bb518ef878370cde93cdb205f">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
+<tr class="separator:adcfdba3bb518ef878370cde93cdb205f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ab57931c9913e0efe738d490bf0dbee" id="r_a4ab57931c9913e0efe738d490bf0dbee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ab57931c9913e0efe738d490bf0dbee">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
+<tr class="separator:a4ab57931c9913e0efe738d490bf0dbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5947e161d12be92dfc82f881cf62b82" id="r_ad5947e161d12be92dfc82f881cf62b82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5947e161d12be92dfc82f881cf62b82">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
+<tr class="separator:ad5947e161d12be92dfc82f881cf62b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892e4c41a4bcc9e331c3a54fbc65b44e" id="r_a892e4c41a4bcc9e331c3a54fbc65b44e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a892e4c41a4bcc9e331c3a54fbc65b44e">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::SparseMatrix&lt; double &gt; &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
+<tr class="separator:a892e4c41a4bcc9e331c3a54fbc65b44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5ef36042f1324e76480cc6f3159b64e" id="r_ad5ef36042f1324e76480cc6f3159b64e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5ef36042f1324e76480cc6f3159b64e">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
+<tr class="separator:ad5ef36042f1324e76480cc6f3159b64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8eb70e5ecd7d7538090bf9e027bb78b" id="r_ab8eb70e5ecd7d7538090bf9e027bb78b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8eb70e5ecd7d7538090bf9e027bb78b">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; vector&lt; double &gt; &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
+<tr class="separator:ab8eb70e5ecd7d7538090bf9e027bb78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33d599629d1d951a6482aaf5d1ab9d14" id="r_a33d599629d1d951a6482aaf5d1ab9d14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33d599629d1d951a6482aaf5d1ab9d14">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;chunk, int start, int len)</td></tr>
+<tr class="separator:a33d599629d1d951a6482aaf5d1ab9d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classgds_1_1_genomic_data_stream"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classgds_1_1_genomic_data_stream')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classgds_1_1_genomic_data_stream.html">gds::GenomicDataStream</a></td></tr>
 <tr class="memitem:ad98c4f80648627ad9f1b99ff628771ad inherit pub_methods_classgds_1_1_genomic_data_stream" id="r_ad98c4f80648627ad9f1b99ff628771ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgds_1_1_genomic_data_stream.html#ad98c4f80648627ad9f1b99ff628771ad">GenomicDataStream</a> ()</td></tr>
 <tr class="separator:ad98c4f80648627ad9f1b99ff628771ad inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,8 +177,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5cf33d3baa9ce882db43fea4cc5d1ed6 inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4434237ab37224fcff1d2b17f276679f inherit pub_methods_classgds_1_1_genomic_data_stream" id="r_a4434237ab37224fcff1d2b17f276679f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgds_1_1_genomic_data_stream.html#a4434237ab37224fcff1d2b17f276679f">getMinVariance</a> ()</td></tr>
 <tr class="separator:a4434237ab37224fcff1d2b17f276679f inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c4e355b95dc7e5932efe18541f1e5fb inherit pub_methods_classgds_1_1_genomic_data_stream" id="r_a6c4e355b95dc7e5932efe18541f1e5fb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgds_1_1_genomic_data_stream.html#a6c4e355b95dc7e5932efe18541f1e5fb">getMAF</a> () const</td></tr>
+<tr class="separator:a6c4e355b95dc7e5932efe18541f1e5fb inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54bbafa0043c0905126e468e1da6c219 inherit pub_methods_classgds_1_1_genomic_data_stream" id="r_a54bbafa0043c0905126e468e1da6c219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgds_1_1_genomic_data_stream.html#a54bbafa0043c0905126e468e1da6c219">setMinVariance</a> (const double &amp;value)</td></tr>
+<tr class="separator:a54bbafa0043c0905126e468e1da6c219 inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7184d3bdd2211562669bcba991513fa inherit pub_methods_classgds_1_1_genomic_data_stream" id="r_aa7184d3bdd2211562669bcba991513fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgds_1_1_genomic_data_stream.html#aa7184d3bdd2211562669bcba991513fa">setChunkSize</a> (const int &amp;chunkSize)</td></tr>
 <tr class="separator:aa7184d3bdd2211562669bcba991513fa inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89378170faac82d2da8103dc47efcceb inherit pub_methods_classgds_1_1_genomic_data_stream" id="r_a89378170faac82d2da8103dc47efcceb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgds_1_1_param.html">Param</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgds_1_1_genomic_data_stream.html#a89378170faac82d2da8103dc47efcceb">getParam</a> () const</td></tr>
+<tr class="separator:a89378170faac82d2da8103dc47efcceb inherit pub_methods_classgds_1_1_genomic_data_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -185,8 +195,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reads an Robject </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8c2cbc77c84dbf62c4dd7e78dc6a0034" name="a8c2cbc77c84dbf62c4dd7e78dc6a0034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c2cbc77c84dbf62c4dd7e78dc6a0034">&#9670;&#160;</a></span>DelayedStream()</h2>
+<a id="a384ad91ab9953d831d2bd4e6779e7359" name="a384ad91ab9953d831d2bd4e6779e7359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384ad91ab9953d831d2bd4e6779e7359">&#9670;&#160;</a></span>DelayedStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,7 +207,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">gds::DelayedStream::DelayedStream </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::RObject</td>          <td class="paramname"><span class="paramname"><em>robj</em></span>, </td>
+          <td class="paramtype">const shared_ptr&lt; tatami::NumericMatrix &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -246,8 +256,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a53e33ac406037006bcf6954e8b6e6704" name="a53e33ac406037006bcf6954e8b6e6704"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53e33ac406037006bcf6954e8b6e6704">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[1/6]</span></h2>
+<a id="adcfdba3bb518ef878370cde93cdb205f" name="adcfdba3bb518ef878370cde93cdb205f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcfdba3bb518ef878370cde93cdb205f">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,8 +268,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool gds::DelayedStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>useFilter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -270,12 +284,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as arma::mat </p>
 
-<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a753dfdcf7a1c2c1c19185fbae88e5284">gds::GenomicDataStream</a>.</p>
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a3197b3af06dd06ba1a381c6218d509de">gds::GenomicDataStream</a>.</p>
 
 </div>
 </div>
-<a id="a7336c2cd39dd994562433e86cb2268c4" name="a7336c2cd39dd994562433e86cb2268c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7336c2cd39dd994562433e86cb2268c4">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[2/6]</span></h2>
+<a id="a4ab57931c9913e0efe738d490bf0dbee" name="a4ab57931c9913e0efe738d490bf0dbee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ab57931c9913e0efe738d490bf0dbee">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,8 +300,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool gds::DelayedStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>useFilter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -298,12 +316,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as arma::sp_mat </p>
 
-<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a295092e873af53ccb142b35447d2d9a6">gds::GenomicDataStream</a>.</p>
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#aae943c218a710554cfb8073b21f6ca29">gds::GenomicDataStream</a>.</p>
 
 </div>
 </div>
-<a id="afb3c8d3143f5a4d820fe339feee047c1" name="afb3c8d3143f5a4d820fe339feee047c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb3c8d3143f5a4d820fe339feee047c1">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[3/6]</span></h2>
+<a id="ad5947e161d12be92dfc82f881cf62b82" name="ad5947e161d12be92dfc82f881cf62b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5947e161d12be92dfc82f881cf62b82">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,8 +332,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool gds::DelayedStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>useFilter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -326,12 +348,47 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as Eigen::MatrixXd </p>
 
-<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a42d886bf483760a54617718c9aa2f997">gds::GenomicDataStream</a>.</p>
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a93bd02d558586b8c73b57abb2c0a9cf8">gds::GenomicDataStream</a>.</p>
 
 </div>
 </div>
-<a id="a685f2f5f0ef414e3bd45b372b969cb69" name="a685f2f5f0ef414e3bd45b372b969cb69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a685f2f5f0ef414e3bd45b372b969cb69">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[4/6]</span></h2>
+<a id="a33d599629d1d951a6482aaf5d1ab9d14" name="a33d599629d1d951a6482aaf5d1ab9d14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33d599629d1d951a6482aaf5d1ab9d14">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gds::DelayedStream::getNextChunk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get chunks based on start and end </p>
+
+</div>
+</div>
+<a id="a892e4c41a4bcc9e331c3a54fbc65b44e" name="a892e4c41a4bcc9e331c3a54fbc65b44e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a892e4c41a4bcc9e331c3a54fbc65b44e">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,8 +399,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool gds::DelayedStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::SparseMatrix&lt; double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::SparseMatrix&lt; double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>useFilter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -354,12 +415,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as SparseMatrix&lt;double&gt; </p>
 
-<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#ae6c87ca8b9592f0d13f0acb8ef25bc7a">gds::GenomicDataStream</a>.</p>
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#ad76e0872a8a8d1e88ed50e6eed724c32">gds::GenomicDataStream</a>.</p>
 
 </div>
 </div>
-<a id="a7c83e9fe09f0760c4b6f76852e1561cc" name="a7c83e9fe09f0760c4b6f76852e1561cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c83e9fe09f0760c4b6f76852e1561cc">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[5/6]</span></h2>
+<a id="ad5ef36042f1324e76480cc6f3159b64e" name="ad5ef36042f1324e76480cc6f3159b64e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5ef36042f1324e76480cc6f3159b64e">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -370,8 +431,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool gds::DelayedStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Rcpp::NumericMatrix &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>useFilter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -382,12 +447,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as Rcpp::NumericMatrix </p>
 
-<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a8ea52bd005ea1c29bf3eea907944c330">gds::GenomicDataStream</a>.</p>
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#aba155da6c9b127c7127a08e19143a180">gds::GenomicDataStream</a>.</p>
 
 </div>
 </div>
-<a id="ac1698b24d9f8aca2ef3f0f1adc2dca22" name="ac1698b24d9f8aca2ef3f0f1adc2dca22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1698b24d9f8aca2ef3f0f1adc2dca22">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[6/6]</span></h2>
+<a id="ab8eb70e5ecd7d7538090bf9e027bb78b" name="ab8eb70e5ecd7d7538090bf9e027bb78b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8eb70e5ecd7d7538090bf9e027bb78b">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,8 +463,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool gds::DelayedStream::getNextChunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; vector&lt; double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; vector&lt; double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>useFilter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -410,7 +479,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get next chunk of <em>features</em> as vector&lt;double&gt; </p>
 
-<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#aeff00fd9766e1a5b9c9970f9cf831a7a">gds::GenomicDataStream</a>.</p>
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a17f0a984e0fa07a1903e8004240356c7">gds::GenomicDataStream</a>.</p>
 
 </div>
 </div>
@@ -467,6 +536,32 @@ Additional Inherited Members</h2></td></tr>
 <p>get <a class="el" href="namespacegds.html#a337c0e2976570a4dbbe8f8dd4e794361">FileType</a> of param.file </p>
 
 <p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#af9241b3887386fc9c7313412f275ad84">gds::GenomicDataStream</a>.</p>
+
+</div>
+</div>
+<a id="ad36d43b3ddf03ea9f62e0214d07a3507" name="ad36d43b3ddf03ea9f62e0214d07a3507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad36d43b3ddf03ea9f62e0214d07a3507">&#9670;&#160;</a></span>n_rows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int gds::DelayedStream::n_rows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get number of rows in data matrix </p>
 
 </div>
 </div>

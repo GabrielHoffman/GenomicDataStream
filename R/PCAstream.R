@@ -64,6 +64,7 @@
 #' @author Zilong Li \email{zilong.dk@gmail.com}
 #'
 #' @examples
+#' # Example: PCA on genotype data
 #' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 #' 
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 3)
@@ -207,7 +208,7 @@ setMethod(
     B <- B / 2
   }
 
-  p <- max(c(p, log2(B)+1)) 
+  p <- max(c(p, log2(B)+1))   
 
   ptr <- initializeCpp(x)
 
@@ -240,6 +241,7 @@ setMethod(
 #' @param assay for \code{SummarizedExperiment} which \code{assay} to perform PCA on
 #' 
 #' @examples
+#' # Example: PCA on gene expression data
 #' library(muscat)
 #' library(SingleCellExperiment)
 #' library(GenomicDataStream)
