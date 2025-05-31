@@ -61,7 +61,7 @@
 #'  \item Li, Z., Meisner, J., & Albrechtsen, A. (2023). Fast and accurate out-of-core PCA framework for large scale biobank data. Genome Research, 33(9), 1599-1608. \doi{10.1101/gr.277525.122}.
 #' }
 #'
-#' @author Zilong Li \email{zilong.dk@gmail.com}
+#' @author Zilong Li \email{zilong.dk@gmail.com}, Gabriel Hoffman 
 #'
 #' @examples
 #' # Example: PCA on genotype data
