@@ -1,4 +1,4 @@
-#' Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
+#' Window-based Randomized SVD 
 #' 
 #' @param x  \code{GenomicDataStream}
 #'
@@ -27,6 +27,9 @@
 #'
 #' @param shuffle  bool, optional; \cr
 #'                  if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk
+#' 
+#' @param transpose  bool, optional; \cr
+#'                  if \code{TRUE}, transpose the matrix before running PCA
 #' 
 #' @param verbose  string, optional; \cr
 #'                  if \code{TRUE} (default), print details
@@ -79,7 +82,7 @@
 #' @export
 setGeneric(
   "PCAstream",
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
     standardGeneric("PCAstream")
   }
 )
@@ -91,7 +94,7 @@ setGeneric(
 #' @aliases PCAstream,GenomicDataStream-method
 setMethod(
   "PCAstream", signature(x = "GenomicDataStream"),
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
 
   stopifnot(is(x, "GenomicDataStream"))
   stopifnot(k >= 2)
@@ -184,14 +187,19 @@ setMethod(
 #' @export
 #' @importFrom methods slot
 #' @importFrom beachmat initializeCpp
+#' @importFrom Matrix t
 #' @rdname PCAstream
 #' @aliases PCAstream,ANY-method
 setMethod(
   "PCAstream", signature(x = "ANY"),
-  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
+  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
 
-  if( is.null(rownames(x))){
-    rownames(x) <- paste0("f_", seq(nrow(x)))
+  cat("PCAstream ANY")
+
+  # if transpose
+  # set featuress to be along _rows_
+  if( transpose ){
+    x <- t(x)
   }
 
   M <- nrow(x)
@@ -209,6 +217,13 @@ setMethod(
   }
 
   p <- max(c(p, log2(B)+1))   
+
+  if( is.null(rownames(x)) ){
+    rownames(x) <- paste0("f_", seq(nrow(x)))
+  }  
+  if( is.null(colnames(x)) ){
+    colnames(x) <- paste0("s_", seq(ncol(x)))
+  }
 
   ptr <- initializeCpp(x)
 
@@ -232,6 +247,9 @@ setMethod(
   colnames(res$u) <- paste0("PC", seq(k))
   colnames(res$v) <- paste0("PC", seq(k))
   names(res$d) <- paste0("PC", seq(k))
+
+  res$p = M
+  res$n = N
 
   new("PCA", res)
 })
@@ -268,11 +286,19 @@ setMethod(
 #' @aliases PCAstream,SummarizedExperiment-method
 setMethod(
   "PCAstream", signature(x = "SummarizedExperiment"),
-  function(x, k, chunkSize = 100, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = FALSE) {
-
-  Y <- SummarizedExperiment::assay(x, assay)
+  function(x, k, chunkSize = 1000, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, transpose = FALSE, verbose = TRUE) {
     
-  PCAstream(t(Y), k = k, chunkSize = chunkSize, p = p, s = s, B = B, threads = threads, scaleAndCenter = scaleAndCenter, verbose=verbose, ...)
+  PCAstream(x = SummarizedExperiment::assay(x, assay), 
+            k = k, 
+            chunkSize = chunkSize, 
+            p = p, 
+            s = s,
+            B = B, 
+            threads = threads, 
+            scaleAndCenter = scaleAndCenter, 
+            transpose = FALSE, 
+            verbose=verbose, 
+            ...)
 })
 
 
@@ -365,7 +391,6 @@ setMethod("print", signature(x = "PCA"),
 #' Plot PCAstream
 #'
 #' @param x \code{PCA} object
-# @param y not used
 #' @param main title
 #' @param ... other arguments
 #'
@@ -375,7 +400,7 @@ setMethod("print", signature(x = "PCA"),
 setMethod("plot", signature(x = "PCA"), 
   function(x, ..., main="scree plot") {
 
-  plot(x$d^2 / x$p, type="b", ..., xlab = "Principal component", ylab = "Fraction of total variance", main=main)  
+  plot(x$d^2 / x$p, xlab = "Principal component", ylab = "Fraction of total variance", main=main, ...)  
 })
 
 
@@ -405,7 +430,7 @@ setMethod("plot", signature(x = "PCA"),
 #' k = 4
 #' 
 #' dcmp <- svd( scale(X), k, k)
-#' res <- PCAstream( t(X), k=k)
+#' res <- PCAstream( X, k=k)
 #' 
 #' perfMetric(dcmp$u, res$u, metric = "MEV")
 #' 
@@ -417,6 +442,7 @@ perfMetric = function(U, U_est, k = ncol(U_est), metric = c("MEV", "minSSE")){
   metric = match.arg( metric )
   stopifnot(is.numeric(k))
   stopifnot(k > 0)
+  stopifnot(nrow(U) == nrow(U_est))
 
   # Modify signs of principal components
   # so diagonal are always positive

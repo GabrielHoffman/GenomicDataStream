@@ -74,6 +74,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1},  start{0};
+    size_t maxIdx = 0;
     processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
 			auto Ab = chunk.getData();
 
@@ -83,9 +84,11 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
       }
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
+
 				if( verbose ){
-        	Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << b << "\t\t";
+          Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
         }
+        maxIdx++;
         if( pi == 0){
         	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
     			featureIds.insert(featureIds.end(), 

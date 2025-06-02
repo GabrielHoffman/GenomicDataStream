@@ -310,8 +310,6 @@ Rcpp::List stream_pcaone_robj(
 										const bool verbose=true,
                     const bool scaleAndCenter = true) {
 
-  // auto ptr = std::make_shared<tatami_r::UnknownMatrix<double, int> >(x);
-
   // tatami interface to matrix x 
   Rtatami::BoundNumericPointer *parsed = new Rtatami::BoundNumericPointer(x);
   const auto& ptr = (*parsed)->ptr;
@@ -333,9 +331,6 @@ Rcpp::List stream_pcaone_robj(
   // power iterations
   for (int pi = 0; pi <= p; pi++) {
 
-  	if( verbose ){
-  		Rcpp::Rcout << "\rEpoch " << pi << " / " << p;
-  	}
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
       H1.setZero();
@@ -344,6 +339,7 @@ Rcpp::List stream_pcaone_robj(
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1}, b{0};
+    int maxIdx = 0;
     // parallelize across threads
     tatami_r::parallelize([&](size_t thread_id, int chk, int len) -> void {
 
@@ -370,6 +366,11 @@ Rcpp::List stream_pcaone_robj(
           // since it modifies global matrices
           // mutex ensures serial execution
           std::lock_guard<std::mutex> lock(pcaMutex);
+
+          if( verbose ){
+            Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
+          }
+          maxIdx++;
 
           G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
           if (i <= band / 2)
@@ -426,6 +427,81 @@ Rcpp::List stream_pcaone_robj(
 }
 
 
+// [[Rcpp::export]]
+Rcpp::List readData_rows(const RObject &x, int start, int length){
+
+  // tatami interface to matrix x 
+  Rtatami::BoundNumericPointer *parsed = new Rtatami::BoundNumericPointer(x);
+  const auto& ptr = (*parsed)->ptr;
+
+  // set size of intermediate variables
+  int NC = ptr->ncol();
+  int NR = ptr->nrow();
+
+  // # time
+  Rcpp::Rcout << "range: " << NC << " " << start << " " << length << endl;
+
+  vector<double> output, buffer;
+  output.reserve(NC*length);
+  buffer.reserve(NC);
+
+  // get workspace as dense row
+  auto wrk = ptr->dense_row();
+
+  // loop through rows
+  for (int i = 0; i < length; i++) {    
+    // get data for row start + i
+    auto extracted = wrk->fetch(start + i, buffer.data());
+
+    // copy data into output vector in column i
+    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
+  }
+  Rcpp::Rcout << "end " << endl;
+
+  Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output.data(), NC, length);
+
+  return Rcpp::List::create(
+        Rcpp::Named("X") = wrap(M));
+}
  
+
+// [[Rcpp::export]]
+Rcpp::List readData_cols(const RObject &x, int start, int length){
+
+  // tatami interface to matrix x 
+  Rtatami::BoundNumericPointer *parsed = new Rtatami::BoundNumericPointer(x);
+  const auto& ptr = (*parsed)->ptr;
+
+  // set size of intermediate variables
+  int NC = ptr->ncol();
+  int NR = ptr->nrow();
+
+  // # time
+  Rcpp::Rcout << "range: " << NR << " " << start << " " << length << endl;
+
+  vector<double> output2, buffer2;
+  output2.reserve(NR*length);
+  buffer2.reserve(NR);
+
+  // get workspace as dense row
+  auto wrk2 = ptr->dense_column();
+
+  // loop through rows
+  for (int i = 0; i < length; i++) {
+    // get data for row start + i
+    auto extracted = wrk2->fetch(start + i, buffer2.data());
+
+    // copy data into output vector in column i
+    memcpy(output2.data() + NR*i, extracted, NR*sizeof(double));
+  }
+  Rcpp::Rcout << "end " << endl;
+
+
+  Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output2.data(), NR, length);
+
+  return Rcpp::List::create(
+        Rcpp::Named("X") = wrap(M));
+
+}
  
 

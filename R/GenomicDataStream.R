@@ -375,7 +375,7 @@ getSampleNames <- function(x) {
 #
 #' @rawNamespace export(rownames)
 #' @rdname rownames
-# @aliases rownames,GenomicDataStream-method
+#' @aliases rownames,GenomicDataStream-method
 setMethod(
   "rownames", signature(x = "GenomicDataStream"),
   function(x){

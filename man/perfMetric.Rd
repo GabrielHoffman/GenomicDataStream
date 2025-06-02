@@ -30,7 +30,7 @@ hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
 k = 4
 
 dcmp <- svd( scale(X), k, k)
-res <- PCAstream( t(X), k=k)
+res <- PCAstream( X, k=k)
 
 perfMetric(dcmp$u, res$u, metric = "MEV")
 

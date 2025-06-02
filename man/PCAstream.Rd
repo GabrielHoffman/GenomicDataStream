@@ -5,7 +5,7 @@
 \alias{PCAstream,GenomicDataStream-method}
 \alias{PCAstream,ANY-method}
 \alias{PCAstream,SummarizedExperiment-method}
-\title{Window-based Randomized SVD on data streamed from \code{GenomicDataStream}}
+\title{Window-based Randomized SVD}
 \usage{
 PCAstream(
   x,
@@ -18,6 +18,7 @@ PCAstream(
   threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
+  transpose = TRUE,
   verbose = TRUE
 )
 
@@ -32,6 +33,7 @@ PCAstream(
   threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
+  transpose = TRUE,
   verbose = TRUE
 )
 
@@ -46,13 +48,14 @@ PCAstream(
   threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
+  transpose = TRUE,
   verbose = TRUE
 )
 
 \S4method{PCAstream}{SummarizedExperiment}(
   x,
   k,
-  chunkSize = 100,
+  chunkSize = 1000,
   assay = "logcounts",
   ...,
   p = 7,
@@ -62,7 +65,8 @@ PCAstream(
   threads2 = 4,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  verbose = FALSE
+  transpose = FALSE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -94,6 +98,9 @@ if \code{TRUE}, scale and center features}
 \item{shuffle}{bool, optional; \cr
 if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk}
 
+\item{transpose}{bool, optional; \cr
+if \code{TRUE}, transpose the matrix before running PCA}
+
 \item{verbose}{string, optional; \cr
 if \code{TRUE} (default), print details}
 
@@ -118,7 +125,7 @@ if \code{TRUE} (default), print details}
 }
 }
 \description{
-Window-based Randomized SVD on data streamed from \code{GenomicDataStream}
+Window-based Randomized SVD
 }
 \details{
 PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023).
@@ -168,5 +175,5 @@ res
 }
 }
 \author{
-Zilong Li \email{zilong.dk@gmail.com}
+Zilong Li \email{zilong.dk@gmail.com}, Gabriel Hoffman
 }

@@ -181,7 +181,7 @@ class DelayedStream :
 
 		int length = min(len, NR - start);
 
-		// Rcpp::Rcout << "range: " << NC << " " << start << " " << length << endl;
+		Rcpp::Rcout << "range: " << NC << " " << start << " " << length << endl;
 
 		// get workspace as dense row
 		auto wrk = ptr->dense_row();
@@ -197,6 +197,8 @@ class DelayedStream :
 
 		// get feature names		
 		mInfo->setRowNames(rowNames, start, start + length);
+
+		Rcpp::Rcout << "Eigen::Map: " << endl;
 
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output.data(), NC, length);
 
