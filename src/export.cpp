@@ -350,9 +350,8 @@ Rcpp::List stream_pcaone_robj(
       // In this thread, loop through multiple chunks
       for(int idx=chk; idx<chk+len; idx++){
 
-        // Evaluated concurrently
         int start = idx*chunkSize;
-        ds.getNextChunk( chunk, idx*chunkSize, chunkSize);
+        ds.getNextChunk( chunk, start, chunkSize);
 
         auto Ab = chunk.getData();
 
@@ -505,3 +504,23 @@ Rcpp::List readData_cols(const RObject &x, int start, int length){
 }
  
 
+// [[Rcpp::export(rng=false)]]
+Rcpp::NumericVector parallel_column_sums(Rcpp::RObject initmat, int nthreads) {
+    Rtatami::BoundNumericPointer parsed(initmat);
+    const auto& ptr = parsed->ptr;
+
+    auto NR = ptr->nrow();
+    auto NC = ptr->ncol();
+    Rcpp::NumericVector output(NC);
+
+    tatami::parallelize([&](int thread, int start, int length) {
+        std::vector<double> buffer(NR);
+        auto wrk = ptr->dense_column();
+        for (int i = start, end = start + length; i < end; ++i) {
+            auto extracted = wrk->fetch(i, buffer.data());
+            output[i] = std::accumulate(extracted, extracted + NR, 0.0);
+        }
+    }, NC, nthreads);
+
+    return output;
+}

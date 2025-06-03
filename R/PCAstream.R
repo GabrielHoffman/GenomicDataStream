@@ -194,8 +194,6 @@ setMethod(
   "PCAstream", signature(x = "ANY"),
   function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
 
-  cat("PCAstream ANY")
-
   # if transpose
   # set featuress to be along _rows_
   if( transpose ){

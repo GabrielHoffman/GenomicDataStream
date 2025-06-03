@@ -227,6 +227,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// parallel_column_sums
+Rcpp::NumericVector parallel_column_sums(Rcpp::RObject initmat, int nthreads);
+RcppExport SEXP _GenomicDataStream_parallel_column_sums(SEXP initmatSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Rcpp::RObject >::type initmat(initmatSEXP);
+    Rcpp::traits::input_parameter< int >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(parallel_column_sums(initmat, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 8},
@@ -245,6 +256,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_stream_pcaone_robj", (DL_FUNC) &_GenomicDataStream_stream_pcaone_robj, 13},
     {"_GenomicDataStream_readData_rows", (DL_FUNC) &_GenomicDataStream_readData_rows, 3},
     {"_GenomicDataStream_readData_cols", (DL_FUNC) &_GenomicDataStream_readData_cols, 3},
+    {"_GenomicDataStream_parallel_column_sums", (DL_FUNC) &_GenomicDataStream_parallel_column_sums, 2},
     {NULL, NULL, 0}
 };
 

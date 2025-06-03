@@ -65,3 +65,7 @@ readData_cols <- function(x, start, length) {
     .Call('_GenomicDataStream_readData_cols', PACKAGE = 'GenomicDataStream', x, start, length)
 }
 
+parallel_column_sums <- function(initmat, nthreads) {
+    .Call('_GenomicDataStream_parallel_column_sums', PACKAGE = 'GenomicDataStream', initmat, nthreads)
+}
+
