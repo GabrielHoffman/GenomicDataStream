@@ -19,24 +19,12 @@
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
 
-
-// #ifdef _OPENMP
-// 	// [[Rcpp::plugins(openmp)]]
-// 	#include <omp.h>
-// #else
-// 	#define omp_get_num_threads() 0
-// 	#define omp_get_thread_num() 0
-// #endif
-
 #include "GenomicDataStream.h"
 #include "DataTable.h"
 #include "ParallelGenomicChunks.h"
 #include "PCAOne.h"
 
 #include "Rand.hpp"
-
-//[[Rcpp::depends(RcppClock)]]
-#include <RcppClock.h>
 
 using namespace std;
 using namespace vcfpp;
@@ -342,7 +330,7 @@ Rcpp::List stream_pcaone_robj(
     size_t i{1}, b{0};
     int maxIdx = 0;
     // parallelize across threads
-    tatami_r::parallelize([&](size_t thread_id, int chk, int len) -> void {
+    tatami::parallelize([&](size_t thread_id, int chk, int len) -> void {
 
       // initialize variables for this thread
       DelayedStream ds( ptr, ids, chunkSize);
