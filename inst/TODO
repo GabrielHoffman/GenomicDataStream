@@ -1,4 +1,10 @@
 
+June 3,
+	PCAstream works on DelayedArray
+		in fastglmm, compute residuals for large data as DelayedArray
+
+
+
 
 May 29, 
 	1) only use DelayedStream() constructor once

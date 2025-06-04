@@ -4,10 +4,14 @@
 \alias{rownames,GenomicDataStream-method}
 \title{Get rownames}
 \usage{
-\S4method{rownames}{GenomicDataStream}(x)
+\S4method{rownames}{GenomicDataStream}(x, do.NULL = TRUE, prefix = "row")
 }
 \arguments{
 \item{x}{\code{GenomicDataStream}}
+
+\item{do.NULL}{not used}
+
+\item{prefix}{not used}
 }
 \value{
 array of string names

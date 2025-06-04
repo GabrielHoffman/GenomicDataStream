@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.52</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.53</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
 </h3>
 <p><img src="reference/figures/GenomicDataStream.png"></p>
 <div align="justify">
-<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can’t be separated for use in other applications.</p>
+<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file.</p>
 <p>The <code>GenomicDataStream</code> interface separates:</p>
 <ol style="list-style-type: decimal">
 <li>data source</li>
@@ -97,22 +97,17 @@
 <a class="anchor" aria-label="anchor" href="#see-header-only-c-library-documentation"></a>
 </h3>
 </div>
-<div class="section level2">
-<h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
-</h2>
+<div class="section level3">
+<h3 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install latest version of pgenlibr</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"chrchang/plink-ng"</span>, subdir <span class="op">=</span> <span class="st">"2.0/pgenlibr"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># install latest version of GenomicDataStream</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"GabrielHoffman/GenomicDataStream"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># currently, works with BH v1.84.0.0</span></span>
-<span><span class="co"># it will not work with a more recent version</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Install latest version of GenomicDataStream</span></span>
+<span><span class="co"># and dependencies</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"GabrielHoffman/GenomicDataStream"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="supported-formats">Supported formats<a class="anchor" aria-label="anchor" href="#supported-formats"></a>
-</h2>
+<div class="section level3">
+<h3 id="supported-formats">Supported formats<a class="anchor" aria-label="anchor" href="#supported-formats"></a>
+</h3>
 <div class="section level4">
 <h4 id="genetic-data">Genetic data<a class="anchor" aria-label="anchor" href="#genetic-data"></a>
 </h4>
@@ -162,9 +157,9 @@
 <p>Count matrices for single cell data are stored in the H5AD format. This format, based on <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression. H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
-</h2>
+<div class="section level3">
+<h3 id="key-dependencies">Key Dependencies<a class="anchor" aria-label="anchor" href="#key-dependencies"></a>
+</h3>
 <table class="table">
 <colgroup>
 <col width="7%">
@@ -230,9 +225,9 @@
 </tbody>
 </table>
 </div>
-<div class="section level2">
-<h2 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
-</h2>
+<div class="section level3">
+<h3 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
+</h3>
 <p><code>GenomicDataStream</code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>:</p>
 <p><code>-D DISABLE_DELAYED_STREAM</code><br>
            Omit <code>DelayedStream</code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code></p>

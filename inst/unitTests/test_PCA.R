@@ -59,13 +59,6 @@ test_PCA = function(){
 	checkEqualsNumeric( res$u^2, dcmp$u^2)
 	checkEqualsNumeric( res$v^2, dcmp$v^2)
 
-	# doesn't give same result due to standardize()
-	# res2 <- PCAstream( X, k=k, 100, threads=4, verbose=TRUE)
-	# checkEqualsNumeric( res2$d, dcmp$d[1:k])
-	# checkEqualsNumeric( res2$u^2, dcmp$u^2)
-	# checkEqualsNumeric( res2$v^2, dcmp$v^2)
-
-
 	# sparseMatrix
 	Xa <- as(X, "sparseMatrix")
 	X_scale = scale(Xa) / sqrt(nrow(Xa) -1)
@@ -116,21 +109,69 @@ test_PCA = function(){
 
 	X = t(logcounts(sce))
 	X_scale = scale(X) / sqrt(nrow(X) -1)
-	dcmp = svd(X_scale, k, k)
-
+	dcmp = irlba::irlba(X_scale, k, k)
 
 	checkEqualsNumeric( res$d, dcmp$d[1:k])
-	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-3)
-	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-3)
+	checkEqualsNumeric( abs(res$u), abs(dcmp$u), tol=1e-3)
+	checkEqualsNumeric( abs(res$v), abs(dcmp$v), tol=1e-3)
+
+
+	library(beachmat.hdf5)
+	library(HDF5Array)
+
+	h5ad_file <- system.file("extdata", "krumsiek11.h5ad",
+	                        package="zellkonverter")
+	X <- H5ADMatrix(h5ad_file)
+
+	res <- PCAstream(X, k=k)
+
+	X_scale = scale(X) / sqrt(nrow(X) -1)
+	dcmp = irlba::irlba(X_scale, k, k)
+
+	checkEqualsNumeric( res$d, dcmp$d[1:k])
+	checkEqualsNumeric( abs(res$u), abs(dcmp$u), tol=1e-3)
+	checkEqualsNumeric( abs(res$v), abs(dcmp$v), tol=1e-3)
+
+	if( FALSE ){
+		# test on real data
+		suppressPackageStartupMessages({
+		library(DelayedArray)
+		library(zellkonverter)
+		library(SingleCellExperiment)
+		library(RUnit)
+		library(DelayedMatrixStats)
+		library(BiocSingular)
+		library(GenomicDataStream)
+		})
+
+		file = "~/Downloads/4e6932db-5a78-40e4-b961-f87f66ba139a.h5ad"
+		# file = "~/4e6932db-5a78-40e4-b961-f87f66ba139a.h5ad"
+		sce_in = readH5AD(file, use_hdf5=TRUE, raw=TRUE, verbose=TRUE, uns=FALSE, obsp=FALSE, obsm=FALSE)
+		sce <- swapAltExp(sce_in, "raw") 
+		counts(sce) <- assay(sce, "X") 
+		sce$total_counts = colSums2(counts(sce))
+
+		lib.size = sce$total_counts
+		prior.count = 1
+		logcounts(sce) <- t(log2(t(counts(sce) + prior.count)) - log2(lib.size) + log2(1e6))
+
+		k = 100
+		system.time(
+		res <- PCAstream(t(logcounts(sce)), k=k, chunkSize=1000, threads=6)
+		)
+
+		X = t(logcounts(sce))
+
+		system.time({
+			X_scale = scale(X) / sqrt(nrow(X) -1)
+			dcmp <- irlba::irlba(X_scale, k, k)
+			})
+		checkEqualsNumeric(dcmp$d[seq(k)], res1$d, tol=1e-3)
+		checkEqualsNumeric(abs(dcmp$u), abs(res1$u), tol=1e-3)
+		checkEqualsNumeric(abs(dcmp$v), abs(res1$v), tol=1e-3)
 
 
 
-
-
-
-
-
-
-
+	}
 
 }

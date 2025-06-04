@@ -11,8 +11,8 @@ Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/cours
 <a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>,
 <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>,
 <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>,
-<a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications.
-
+<a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a>,
+<a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format in way that the two components can't be separated for use in other applications.  For example, regresson analysis paired with genotype data from a VCF file.
 
 The `GenomicDataStream` interface separates:
  
@@ -26,20 +26,15 @@ The `GenomicDataStream` interface separates:
 ### See header-only C++ library [documentation](doxygen/html/index.html)
  
 
-## Install
+### Install
 ```r
-# install latest version of pgenlibr
-devtools::install_github("chrchang/plink-ng", subdir = "2.0/pgenlibr")
-
-# install latest version of GenomicDataStream
-devtools::install_github("GabrielHoffman/GenomicDataStream")
-
-# currently, works with BH v1.84.0.0
-# it will not work with a more recent version
+# Install latest version of GenomicDataStream
+# and dependencies
+BiocManager::install("GabrielHoffman/GenomicDataStream")
 ```
 
 
-## Supported formats
+### Supported formats
 
 #### Genetic data 
 | Format | Version | Support |
@@ -55,7 +50,7 @@ Count matrices for single cell data are stored in the H5AD format.  This format,
 
 
 
-## Dependencies
+### Key Dependencies
 
 | Package | Ref | Role |
 | - | --- | --------- |
@@ -71,7 +66,7 @@ Count matrices for single cell data are stored in the H5AD format.  This format,
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
 
 
-## Notes
+### Notes
 
 `GenomicDataStream` provide flexability in terms of data input types and and matrix libraries.  This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times.  Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in `Makevars`:
 

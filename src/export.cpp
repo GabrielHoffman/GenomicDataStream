@@ -307,7 +307,8 @@ Rcpp::List stream_pcaone_robj(
 										int p = 7, 
 										int B = 64, 
 										int threads = 4, 
-										const bool verbose=true,
+                    int threads_eigen = 1,
+										const bool verbose = true,
                     const bool scaleAndCenter = true) {
 
   // tatami interface to matrix x 
@@ -326,7 +327,7 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
 
-  Eigen::setNbThreads(1); 
+  Eigen::setNbThreads(threads_eigen); 
 
   // power iterations
   for (int pi = 0; pi <= p; pi++) {
@@ -346,6 +347,7 @@ Rcpp::List stream_pcaone_robj(
       // initialize variables for this thread
       DelayedStream ds( ptr, ids, chunkSize);
       DataChunk<Eigen::MatrixXd> chunk;
+      Eigen::MatrixXd Ab;
 
       // In this thread, loop through multiple chunks
       for(int idx=chk; idx<chk+len; idx++){
@@ -353,11 +355,11 @@ Rcpp::List stream_pcaone_robj(
         int start = idx*chunkSize;
         ds.getNextChunk( chunk, start, chunkSize);
 
-        auto Ab = chunk.getData();
+        Ab = chunk.getData();
 
         if( scaleAndCenter ){
           standardize(Ab);
-          Ab /= sqrt(Ab.rows()-1);    
+          Ab /= sqrt(Ab.rows()-1);  
         } 
 
         {
@@ -425,102 +427,3 @@ Rcpp::List stream_pcaone_robj(
   return lst;                            
 }
 
-
-// [[Rcpp::export]]
-Rcpp::List readData_rows(const RObject &x, int start, int length){
-
-  // tatami interface to matrix x 
-  Rtatami::BoundNumericPointer *parsed = new Rtatami::BoundNumericPointer(x);
-  const auto& ptr = (*parsed)->ptr;
-
-  // set size of intermediate variables
-  int NC = ptr->ncol();
-  int NR = ptr->nrow();
-
-  // # time
-  Rcpp::Rcout << "range: " << NC << " " << start << " " << length << endl;
-
-  vector<double> output, buffer;
-  output.reserve(NC*length);
-  buffer.reserve(NC);
-
-  // get workspace as dense row
-  auto wrk = ptr->dense_row();
-
-  // loop through rows
-  for (int i = 0; i < length; i++) {    
-    // get data for row start + i
-    auto extracted = wrk->fetch(start + i, buffer.data());
-
-    // copy data into output vector in column i
-    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
-  }
-  Rcpp::Rcout << "end " << endl;
-
-  Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output.data(), NC, length);
-
-  return Rcpp::List::create(
-        Rcpp::Named("X") = wrap(M));
-}
- 
-
-// [[Rcpp::export]]
-Rcpp::List readData_cols(const RObject &x, int start, int length){
-
-  // tatami interface to matrix x 
-  Rtatami::BoundNumericPointer *parsed = new Rtatami::BoundNumericPointer(x);
-  const auto& ptr = (*parsed)->ptr;
-
-  // set size of intermediate variables
-  int NC = ptr->ncol();
-  int NR = ptr->nrow();
-
-  // # time
-  Rcpp::Rcout << "range: " << NR << " " << start << " " << length << endl;
-
-  vector<double> output2, buffer2;
-  output2.reserve(NR*length);
-  buffer2.reserve(NR);
-
-  // get workspace as dense row
-  auto wrk2 = ptr->dense_column();
-
-  // loop through rows
-  for (int i = 0; i < length; i++) {
-    // get data for row start + i
-    auto extracted = wrk2->fetch(start + i, buffer2.data());
-
-    // copy data into output vector in column i
-    memcpy(output2.data() + NR*i, extracted, NR*sizeof(double));
-  }
-  Rcpp::Rcout << "end " << endl;
-
-
-  Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(output2.data(), NR, length);
-
-  return Rcpp::List::create(
-        Rcpp::Named("X") = wrap(M));
-
-}
- 
-
-// [[Rcpp::export(rng=false)]]
-Rcpp::NumericVector parallel_column_sums(Rcpp::RObject initmat, int nthreads) {
-    Rtatami::BoundNumericPointer parsed(initmat);
-    const auto& ptr = parsed->ptr;
-
-    auto NR = ptr->nrow();
-    auto NC = ptr->ncol();
-    Rcpp::NumericVector output(NC);
-
-    tatami::parallelize([&](int thread, int start, int length) {
-        std::vector<double> buffer(NR);
-        auto wrk = ptr->dense_column();
-        for (int i = start, end = start + length; i < end; ++i) {
-            auto extracted = wrk->fetch(i, buffer.data());
-            output[i] = std::accumulate(extracted, extracted + NR, 0.0);
-        }
-    }, NC, nthreads);
-
-    return output;
-}

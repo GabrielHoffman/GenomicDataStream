@@ -28,9 +28,6 @@
 #' @param shuffle  bool, optional; \cr
 #'                  if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk
 #' 
-#' @param transpose  bool, optional; \cr
-#'                  if \code{TRUE}, transpose the matrix before running PCA
-#' 
 #' @param verbose  string, optional; \cr
 #'                  if \code{TRUE} (default), print details
 #' 
@@ -79,10 +76,11 @@
 #' par(pty="s")
 #' plot(res)
 #' 
+#' @importFrom beachmat.hdf5 initializeCpp
 #' @export
 setGeneric(
   "PCAstream",
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
     standardGeneric("PCAstream")
   }
 )
@@ -94,7 +92,7 @@ setGeneric(
 #' @aliases PCAstream,GenomicDataStream-method
 setMethod(
   "PCAstream", signature(x = "GenomicDataStream"),
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
 
   stopifnot(is(x, "GenomicDataStream"))
   stopifnot(k >= 2)
@@ -192,12 +190,18 @@ setMethod(
 #' @aliases PCAstream,ANY-method
 setMethod(
   "PCAstream", signature(x = "ANY"),
-  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, transpose = TRUE, verbose = TRUE) {
+  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
 
-  # if transpose
-  # set featuress to be along _rows_
-  if( transpose ){
-    x <- t(x)
+  if( scaleAndCenter ){
+    if( verbose ){
+      cat("Scale and centering...\n")
+    }
+    # compute mean and scale of columns
+    ptr <- initializeCpp(x)
+    adj = compute_center_and_scale(ptr, threads)
+
+    # standardize columns with mean, scale and nrows
+    x = t((t(x) - adj$center) / (adj$scale*sqrt(nrow(x)-1)))
   }
 
   M <- nrow(x)
@@ -236,7 +240,9 @@ setMethod(
                         p = p, 
                         B = B, 
                         threads = threads, 
-                        verbose = verbose)
+                        threads_eigen = threads2,
+                        verbose = verbose,
+                        scaleAndCenter = FALSE)
 
   # set row and column names
   rownames(res$u) <- colnames(x)
@@ -246,10 +252,11 @@ setMethod(
   colnames(res$v) <- paste0("PC", seq(k))
   names(res$d) <- paste0("PC", seq(k))
 
-  res$p = M
-  res$n = N
+  res2 = list(d = res$d, u = res$v, v = res$u)
+  res2$p = M
+  res2$n = N
 
-  new("PCA", res)
+  new("PCA", res2)
 })
 
 
@@ -284,9 +291,9 @@ setMethod(
 #' @aliases PCAstream,SummarizedExperiment-method
 setMethod(
   "PCAstream", signature(x = "SummarizedExperiment"),
-  function(x, k, chunkSize = 1000, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, transpose = FALSE, verbose = TRUE) {
+  function(x, k, chunkSize = 1000, assay="logcounts",..., p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
     
-  PCAstream(x = SummarizedExperiment::assay(x, assay), 
+  PCAstream(x = t(assay(x, assay)), 
             k = k, 
             chunkSize = chunkSize, 
             p = p, 
@@ -294,8 +301,7 @@ setMethod(
             B = B, 
             threads = threads, 
             scaleAndCenter = scaleAndCenter, 
-            transpose = FALSE, 
-            verbose=verbose, 
+            verbose = verbose, 
             ...)
 })
 
@@ -427,11 +433,14 @@ setMethod("plot", signature(x = "PCA"),
 #'  X <- hilbert(9)[, 1:6]
 #' k = 4
 #' 
+#' Compute SVD using two methods
 #' dcmp <- svd( scale(X), k, k)
 #' res <- PCAstream( X, k=k)
 #' 
+#' # Mean variance explained is 1
 #' perfMetric(dcmp$u, res$u, metric = "MEV")
 #' 
+#' # minimum of sum of squared errors zero
 #' perfMetric(dcmp$u, res$u, metric = "minSSE")
 #
 #' @export

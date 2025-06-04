@@ -18,7 +18,6 @@ PCAstream(
   threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  transpose = TRUE,
   verbose = TRUE
 )
 
@@ -33,7 +32,6 @@ PCAstream(
   threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  transpose = TRUE,
   verbose = TRUE
 )
 
@@ -48,7 +46,6 @@ PCAstream(
   threads2 = 1,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  transpose = TRUE,
   verbose = TRUE
 )
 
@@ -65,7 +62,6 @@ PCAstream(
   threads2 = 4,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
-  transpose = FALSE,
   verbose = TRUE
 )
 }
@@ -97,9 +93,6 @@ if \code{TRUE}, scale and center features}
 
 \item{shuffle}{bool, optional; \cr
 if \code{TRUE} (default) shuffle genomic regions, the next chunk is not in LD with the previous chunk}
-
-\item{transpose}{bool, optional; \cr
-if \code{TRUE}, transpose the matrix before running PCA}
 
 \item{verbose}{string, optional; \cr
 if \code{TRUE} (default), print details}

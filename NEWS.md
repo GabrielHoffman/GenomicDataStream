@@ -1,4 +1,10 @@
 
+# GenomicDataStream 0.0.53
+ - June 3, 2025
+ -  `PCAstream()` works on `DelayedArray` and `SingleCellExperiment`
+ - Add `scaleAndCenter` argument
+ - add `compute_center_and_scale()`
+
 # GenomicDataStream 0.0.52
  - May 30, 2025
  - Update `PCAstream()`

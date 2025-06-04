@@ -356,11 +356,19 @@ getSampleNames <- function(x) {
   return( getSampleNames_rcpp( x@ptr ) )
 }
 
+#' @export
+#' @docType methods
+#' @keywords internal
+#' @aliases rownames
+setGeneric("rownames", function(x, do.NULL = TRUE, prefix = "row") standardGeneric("rownames"))
+
 #' Get rownames
 #'
-#' Get rownames (i.e. sample names) in order that the genotypes are extracted
+#' Get rownames (i.e. sample names) in order that the samples are extracted
 #'
 #' @param x \code{GenomicDataStream}
+#' @param do.NULL not used
+#' @param prefix not used
 #'
 #' @return array of string names
 #'
@@ -378,7 +386,7 @@ getSampleNames <- function(x) {
 #' @aliases rownames,GenomicDataStream-method
 setMethod(
   "rownames", signature(x = "GenomicDataStream"),
-  function(x){
+  function(x, do.NULL = TRUE, prefix = "row"){
   getSampleNames(x)
 })
 

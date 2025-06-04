@@ -175,11 +175,26 @@ static void standardize( Eigen::MatrixXd &X, const bool &center = true, const bo
   if(scale) {
     // if X is centered, then we can convert norm to sd
     for(size_t j=0; j<X.cols(); j++) {
-      double sd = X.col(j).norm()  / sqrt_rdf ; // sd
-      if(sd > tol)  X.col(j) /= sd;
+      double sd = X.col(j).norm() / sqrt_rdf ; // sd
+      if(sd > tol) X.col(j) /= sd;
     }
   }
 }
+
+
+static void standardize_rows( Eigen::MatrixXd &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
+    
+  double sqrt_rdf = sqrt(X.cols() - 1.0);
+  if(center) X.colwise() -= X.rowwise().mean(); // centering
+  if(scale) {
+    // if X is centered, then we can convert norm to sd
+    for(size_t j=0; j<X.rows(); j++) {
+      double sd = X.row(j).norm() / sqrt_rdf ; // sd
+      if(sd > tol) X.row(j) /= sd;
+    }
+  }
+}
+
 
 /** if string contains only digits, return true.  Else false
  */
