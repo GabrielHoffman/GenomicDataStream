@@ -103,7 +103,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
           Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx << " / " << nchunks << "          ";
         }
         maxIdx++;
-        getCstackInfo(Rcpp::Rcout);
+        // getCstackInfo(Rcpp::Rcout);
         if( pi == 0){
 
           Rcpp::Rcout << "featureIds" << endl;
