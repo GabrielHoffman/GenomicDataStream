@@ -26,6 +26,14 @@ private:
   class ReaderPool {
   public:
     ReaderPool(const gds::Param &param, const std::vector<std::string> &regions, size_t numChunks, size_t poolSize) : param(param) {
+
+      Rcpp::Rcout << "regions:" << endl;
+      for( auto x: regions){
+        Rcpp::Rcout << x << endl;
+      }
+      Rcpp::Rcout << "numChunks: " << numChunks << endl;
+      Rcpp::Rcout << "poolSize: " << poolSize << endl;
+
       // pre-create readers
       for (size_t i = 0; i < poolSize; ++i) {
         readers.push_back(gds::createFileView_shared(param));
@@ -84,7 +92,10 @@ public:
         auto reader = readerPool.getReader(i);
         gds::DataChunk<T> chunk;
         try {
+          Rcpp::Rcout << "reader->getNextChunk(chunk)" << endl;
           if (reader->getNextChunk(chunk)) {
+
+            Rcpp::Rcout << "processFunc" << endl;
             processFunc(chunk, i);
           }
           // put the reader back the pool so that we can reuse it later
