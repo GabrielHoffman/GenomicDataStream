@@ -82,46 +82,46 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
       	standardize(Ab);
       	Ab /= sqrt(n-1);    
       }
-      {
-        std::lock_guard<std::mutex> lock(pcaMutex);
+      // {
+      //   std::lock_guard<std::mutex> lock(pcaMutex);
 
-				if( verbose ){
-          Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
-        }
-        maxIdx++;
-        if( pi == 0){
+			// 	if( verbose ){
+      //     Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
+      //   }
+      //   maxIdx++;
+      //   if( pi == 0){
 
-          Rcpp::Rcout << "featureIds" << endl;
-        	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
-    			featureIds.insert(featureIds.end(), 
-    					tmp.begin(), tmp.end());
-        }
+      //     Rcpp::Rcout << "featureIds" << endl;
+      //   	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
+    	// 		featureIds.insert(featureIds.end(), 
+    	// 				tmp.begin(), tmp.end());
+      //   }
 
-        // Rcpp::Rcout << "G.middleRows" << endl;
-        // G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
-        // if (i <= band / 2)
-        //   H1.noalias() += Ab * G.middleRows(start, Ab.cols());
-        // else
-        //   H2.noalias() += Ab * G.middleRows(start, Ab.cols());
-        // bool adjacent =
-        //   (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
-        // if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+      //   // Rcpp::Rcout << "G.middleRows" << endl;
+      //   // G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+      //   // if (i <= band / 2)
+      //   //   H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+      //   // else
+      //   //   H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+      //   // bool adjacent =
+      //   //   (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+      //   // if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
 
-        //   Rcpp::Rcout << "HouseholderQR" << endl;
-        //   H = H1 + H2;
-        //   Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
-        //   Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
-        //   flipOmg(Omg2, Omg);
-        //   if (i == band) {
-        //     H1.setZero();
-        //     i = 0;
-        //   } else {
-        //     H2.setZero();
-        //   }
-        // }
-        start += Ab.cols();
-        i++;
-      }
+      //   //   Rcpp::Rcout << "HouseholderQR" << endl;
+      //   //   H = H1 + H2;
+      //   //   Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+      //   //   Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+      //   //   flipOmg(Omg2, Omg);
+      //   //   if (i == band) {
+      //   //     H1.setZero();
+      //   //     i = 0;
+      //   //   } else {
+      //   //     H2.setZero();
+      //   //   }
+      //   // }
+      //   start += Ab.cols();
+      //   i++;
+      // }
     });
   }
 
