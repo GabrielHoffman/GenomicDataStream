@@ -204,14 +204,35 @@ checkEqualsNumeric(abs(dcmp$v), abs(res$v))
 times
 
 
+
+q()
+R
+suppressPackageStartupMessages({
+library(DelayedArray)
+library(zellkonverter)
+library(SingleCellExperiment)
+library(RUnit)
+library(DelayedMatrixStats)
+library(BiocSingular)
+library(GenomicDataStream)
+library(dreamlet)
+})
+
 file = "/sc/arion/projects/CommonMind/leed62/GENESIS/GEN_A2/GEN_A2_pass3_anno.h5ad"
 sce_in = readH5AD(file, use_hdf5=TRUE, verbose=TRUE, raw=TRUE, uns=FALSE, obsp=FALSE, obsm=FALSE)
 sce <- swapAltExp(sce_in, "raw") # use raw as main
 counts(sce) <- assay(sce, "X") 
 
-# logcounts(sce) <- computeLogCPM(sce)
-# lib.size = colSums2(counts(sce))
+ 
+sce$total_counts = colSums2(counts(sce))
+lib.size = sce$total_counts
+prior.count = 1
+logcounts(sce) <- t(log2(t(counts(sce) + prior.count)) - log2(lib.size) + log2(1e6))
 
+k = 40
+system({
+res1 <- PCAstream(t(logcounts(sce)), k=k, chunkSize=1000, threads=6)
+})
 
 q()
 R
@@ -353,7 +374,8 @@ R
 suppressPackageStartupMessages({
 library(GenomicDataStream)
 })
-file = "~/Downloads/1kg_chr1.bcf"
+file = "~/Downloads/1kg_chr21.bcf"
+file = "1kg_chr21.bed"
 k = 200
 MAF = .2
 
@@ -368,7 +390,7 @@ dcmp = irlba::irlba(X_scale, k, k)
 
 # Streaming winSVD
 # small chunkSize
-gds = GenomicDataStream(file, field="GT", init=TRUE, chunkSize=100000, MAF=MAF)
+gds = GenomicDataStream(file, field="GT", init=TRUE, chunkSize=10000, MAF=MAF)
 
 system.time(
 res <- PCAstream(gds, k, verbose=TRUE)

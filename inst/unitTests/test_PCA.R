@@ -53,7 +53,7 @@ test_PCA = function(){
 	# matrix
 	X_scale = scale(X) / sqrt(nrow(X) -1)
   dcmp <- irlba::irlba( X_scale, k, k)
-	res <- PCAstream( X, k=k, 2, threads=1)
+	res <- PCAstream( X, k=k, 2, threads=3)
 
 	checkEqualsNumeric( res$d, dcmp$d[1:k])
 	checkEqualsNumeric( res$u^2, dcmp$u^2)

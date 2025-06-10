@@ -3,7 +3,9 @@ June 3,
 	PCAstream works on DelayedArray
 		in fastglmm, compute residuals for large data as DelayedArray
 
-
+	use logNormCounts
+	On Linux with VCFs and DelayedMarix:
+		Error: C stack usage  127400479284 is too close to the limit
 
 
 May 29, 
