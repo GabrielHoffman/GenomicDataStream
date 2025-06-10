@@ -1,7 +1,12 @@
 
+# GenomicDataStream 0.0.54
+ - June 10, 2025
+ - Move `Depends` to `Imports`
+
+
 # GenomicDataStream 0.0.53
  - June 3, 2025
- -  `PCAstream()` works on `DelayedArray` and `SingleCellExperiment`
+ - `PCAstream()` works on `DelayedArray` and `SingleCellExperiment`
  - Add `scaleAndCenter` argument
  - add `compute_center_and_scale()`
 
