@@ -77,7 +77,7 @@ public:
       : chunkSize(param.chunkSize), 
         numChunks(numChunks),
         pool(numThreads),
-        readerPool(param, regions, numChunks, std::min(numThreads, (size_t)std::thread::hardware_concurrency())) // as many as possible readers
+        readerPool(param, regions, numChunks, std::max(numThreads, (size_t)std::thread::hardware_concurrency())) // as many as possible readers
   { }
 
   void
