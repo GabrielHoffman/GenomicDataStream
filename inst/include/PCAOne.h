@@ -75,7 +75,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     size_t i{1},  start{0};
     size_t maxIdx = 0;
     processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
-			auto Ab = chunk.getData();
+      
+			Eigen::MatrixXd Ab = chunk.getData();
 
       if( scaleAndCenter ){
       	standardize(Ab);
