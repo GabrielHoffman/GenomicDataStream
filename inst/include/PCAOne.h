@@ -97,28 +97,28 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     					tmp.begin(), tmp.end());
         }
 
-        Rcpp::Rcout << "G.middleRows" << endl;
-        G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
-        if (i <= band / 2)
-          H1.noalias() += Ab * G.middleRows(start, Ab.cols());
-        else
-          H2.noalias() += Ab * G.middleRows(start, Ab.cols());
-        bool adjacent =
-          (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
-        if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+        // Rcpp::Rcout << "G.middleRows" << endl;
+        // G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
+        // if (i <= band / 2)
+        //   H1.noalias() += Ab * G.middleRows(start, Ab.cols());
+        // else
+        //   H2.noalias() += Ab * G.middleRows(start, Ab.cols());
+        // bool adjacent =
+        //   (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
+        // if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
 
-          Rcpp::Rcout << "HouseholderQR" << endl;
-          H = H1 + H2;
-          Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
-          Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
-          flipOmg(Omg2, Omg);
-          if (i == band) {
-            H1.setZero();
-            i = 0;
-          } else {
-            H2.setZero();
-          }
-        }
+        //   Rcpp::Rcout << "HouseholderQR" << endl;
+        //   H = H1 + H2;
+        //   Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
+        //   Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
+        //   flipOmg(Omg2, Omg);
+        //   if (i == band) {
+        //     H1.setZero();
+        //     i = 0;
+        //   } else {
+        //     H2.setZero();
+        //   }
+        // }
         start += Ab.cols();
         i++;
       }
