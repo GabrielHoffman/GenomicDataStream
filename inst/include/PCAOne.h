@@ -76,12 +76,12 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     size_t maxIdx = 0;
     processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
       
-			Eigen::MatrixXd Ab = chunk.getData();
+			// Eigen::MatrixXd Ab = chunk.getData();
 
-      if( scaleAndCenter ){
-      	standardize(Ab);
-      	Ab /= sqrt(n-1);    
-      }
+      // if( scaleAndCenter ){
+      // 	standardize(Ab);
+      // 	Ab /= sqrt(n-1);    
+      // }
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
 
