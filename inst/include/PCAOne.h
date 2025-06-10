@@ -98,12 +98,12 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
 
-        getCstackInfo(Rcpp::Rcout);
 
 				if( verbose ){
           Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx << " / " << nchunks << "          ";
         }
         maxIdx++;
+        getCstackInfo(Rcpp::Rcout);
         if( pi == 0){
 
           Rcpp::Rcout << "featureIds" << endl;
