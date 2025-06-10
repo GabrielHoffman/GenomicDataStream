@@ -92,7 +92,7 @@ public:
         } catch (...) {
           // ensure reader is returned to pool even if exception occurs
           readerPool.returnReader(reader);
-          throw;
+          throw std::invalid_argument("processChunk error");
         }
       }));
     }
