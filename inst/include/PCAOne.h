@@ -18,6 +18,19 @@ using namespace std;
 using namespace arma;
 using namespace gds;
 
+#include <Rcpp.h>
+void getCstackInfo( std::ostream& os ) {
+  // Call the R function Cstack_info()
+  Rcpp::Function Cstack_info_r = Rcpp::Environment::base_env()["Cstack_info"];
+  Rcpp::List res = Cstack_info_r();
+
+  os << Rcpp::as<int>(res[0]) << ", ";
+  os << Rcpp::as<int>(res[1]) << ", ";
+  os << Rcpp::as<int>(res[2]) << ", ";
+  os << Rcpp::as<int>(res[3]) << endl;
+}
+
+
 struct PCA {
 
 	PCA( Eigen::MatrixXd u):
@@ -84,6 +97,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
       // }
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
+
+        getCstackInfo(Rcpp::Rcout);
 
 				if( verbose ){
           Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx << " / " << nchunks << "          ";
