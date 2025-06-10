@@ -58,10 +58,10 @@ private:
     }
 
   private:
-   gds::Param param;
-	 std::vector<std::vector<std::string> > regionSets;
-   std::vector<std::shared_ptr<gds::GenomicDataStream>> readers;
-   std::mutex mutex;
+  gds::Param param;
+  std::vector<std::vector<std::string> > regionSets;
+  std::vector<std::shared_ptr<gds::GenomicDataStream>> readers;
+  std::mutex mutex;
   };
 
 public:
