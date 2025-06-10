@@ -119,7 +119,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         //     H2.setZero();
         //   }
         // }
-        start += Ab.cols();
+        // start += Ab.cols();
         i++;
       }
     });
