@@ -83,7 +83,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
       // 	Ab /= sqrt(n-1);    
       // }
       {
-        // std::lock_guard<std::mutex> lock(pcaMutex);
+        std::lock_guard<std::mutex> lock(pcaMutex);
 
 				if( verbose ){
           Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx << " / " << nchunks << "          ";
