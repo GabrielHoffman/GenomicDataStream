@@ -106,6 +106,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         bool adjacent =
           (pi > 0 && (b + 1) == std::pow(2, pi - 1) && std::pow(2, pi) < B);
         if((!((b + 1) < band && !adjacent)) && ((i == band) || (i == band / 2) || adjacent)){
+
+          Rcpp::Rcout << "HouseholderQR" << endl;
           H = H1 + H2;
           Eigen::HouseholderQR<Eigen::MatrixXd> qr(H);
           Omg.noalias() = qr.householderQ() * Eigen::MatrixXd::Identity(n, l);
