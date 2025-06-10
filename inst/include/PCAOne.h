@@ -73,9 +73,9 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1},  start{0};
-    size_t maxIdx = 0;
+    size_t maxIdx {0};
     processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
-      
+
 			// Eigen::MatrixXd Ab = chunk.getData();
 
       // if( scaleAndCenter ){
@@ -89,13 +89,13 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
           Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
         }
         maxIdx++;
-        if( pi == 0){
+        // if( pi == 0){
 
-          Rcpp::Rcout << "featureIds" << endl;
-        	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
-    			featureIds.insert(featureIds.end(), 
-    					tmp.begin(), tmp.end());
-        }
+        //   Rcpp::Rcout << "featureIds" << endl;
+        // 	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
+    		// 	featureIds.insert(featureIds.end(), 
+    		// 			tmp.begin(), tmp.end());
+        // }
 
         // Rcpp::Rcout << "G.middleRows" << endl;
         // G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
