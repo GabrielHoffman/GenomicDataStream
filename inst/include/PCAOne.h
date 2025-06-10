@@ -89,13 +89,13 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
           Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx << " / " << nchunks << "          ";
         }
         maxIdx++;
-        // if( pi == 0){
+        if( pi == 0){
 
-        //   Rcpp::Rcout << "featureIds" << endl;
-        // 	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
-    		// 	featureIds.insert(featureIds.end(), 
-    		// 			tmp.begin(), tmp.end());
-        // }
+          Rcpp::Rcout << "featureIds" << endl;
+        	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
+    			featureIds.insert(featureIds.end(), 
+    					tmp.begin(), tmp.end());
+        }
 
         // Rcpp::Rcout << "G.middleRows" << endl;
         // G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
