@@ -86,15 +86,18 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         std::lock_guard<std::mutex> lock(pcaMutex);
 
 				if( verbose ){
-          Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
+          Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
         }
         maxIdx++;
         if( pi == 0){
+
+          Rcpp::Rcout << "featureIds" << endl;
         	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
     			featureIds.insert(featureIds.end(), 
     					tmp.begin(), tmp.end());
         }
 
+        Rcpp::Rcout << "G.middleRows" << endl;
         G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
         if (i <= band / 2)
           H1.noalias() += Ab * G.middleRows(start, Ab.cols());
