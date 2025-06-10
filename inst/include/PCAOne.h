@@ -74,7 +74,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
 
     size_t i{1},  start{0};
     size_t maxIdx {0};
-    processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+    // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
 
 			// Eigen::MatrixXd Ab = chunk.getData();
 
@@ -122,7 +122,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         // start += Ab.cols();
         i++;
       }
-    });
+    // });
   }
 
   // get USV
