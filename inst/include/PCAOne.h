@@ -73,8 +73,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1},  start{0};
-    size_t maxIdx {0};
-    // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+    size_t maxIdx {1};
+    processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
 
 			// Eigen::MatrixXd Ab = chunk.getData();
 
@@ -86,7 +86,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         // std::lock_guard<std::mutex> lock(pcaMutex);
 
 				if( verbose ){
-          Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
+          Rcpp::Rcout << "\nEpoch " << pi << " / " << p << ", chunk " << maxIdx << " / " << nchunks << "          ";
         }
         maxIdx++;
         // if( pi == 0){
@@ -122,7 +122,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         // start += Ab.cols();
         i++;
       }
-    // });
+    });
   }
 
   // get USV
