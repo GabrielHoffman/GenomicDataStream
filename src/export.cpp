@@ -356,9 +356,9 @@ Rcpp::List stream_pcaone_robj(
           // mutex ensures serial execution
           std::lock_guard<std::mutex> lock(pcaMutex);
 
-          if( verbose ){
-            Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
-          }
+          // if( verbose ){
+          //   Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
+          // }
           maxIdx++;
 
           G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
