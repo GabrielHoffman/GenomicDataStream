@@ -10,7 +10,7 @@
  *
  \image html "https://gabrielhoffman.github.io/GenomicDataStream/reference/figures/GenomicDataStream.png"
 <div style="text-align: justify">
-Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [PGEN](https://www.cog-genomics.org/plink/2.0/input#pgen), [BED](https://www.cog-genomics.org/plink/2.0/input#bed), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](eigen.tuxfamily.org) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications. 
+Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [PGEN](https://www.cog-genomics.org/plink/2.0/input#pgen), [BED](https://www.cog-genomics.org/plink/2.0/input#bed), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](eigen.tuxfamily.org) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. 
  </div>
 
 #### The `GenomicDataStream` C++ interface separates 
@@ -18,7 +18,9 @@ Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/
  -# data source 
  -# streaming chunks of features into a data matrix
  -# downstream analysis  
- * 
+ 
+GenomicDataStream provides interfaces at both the C++ and R levels. The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.
+
  * ### Example code with C++17
 ```cpp
 #include <RcppArmadillo.h>
@@ -32,12 +34,13 @@ string file = "test.vcf.gz";
 string field = "DS";    // read dosage field
 string region = "";     // no region filter
 string samples = "-";   // no samples filter
+double MAF = 0.05;   // minor allele freq filter
 double minVariance = 0; // retain features with var > minVariance 
 int chunkSize = 4;      // each chunk will read 4 variants
 
 // initialize parameters
-Param param(file, region, samples, minVariance, chunkSize);
-param.setField( field );
+Param param( file, region, samples, MAF, minVariance, chunkSize);
+param.setField(field);
 
 // Initialise GenomicDataStream to read 
 // VCF/BCF/BGEN/PGEN with same interface
@@ -64,7 +67,7 @@ while( gdsStream->getNextChunk( chunk ) ){
 ```
 
  
- * ## Dependencies
+ * ## Key Dependencies
 | Package | Ref | Role |
 | - | --- | --------- |
 [vcfppR](https://cran.r-project.org/package=vcfppR) | [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae049)  | C++ API for htslib  |

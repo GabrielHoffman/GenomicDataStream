@@ -122,7 +122,7 @@ $(function(){ initResizable(false); });
 <div class="textblock"><div class="image">
 <img src="https://gabrielhoffman.github.io/GenomicDataStream/reference/figures/GenomicDataStream.png" alt=""/>
 </div>
- <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format (i.e. regresson analysis paired with genotype data from a VCF) in way that the two components can't be separated for use in other applications. </div><h4><a class="anchor" id="autotoc_md0"></a>
+ <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. </div><h4><a class="anchor" id="autotoc_md0"></a>
 The <code>GenomicDataStream</code> C++ interface separates</h4>
 <ol type="1">
 <li>data source</li>
@@ -130,6 +130,7 @@ The <code>GenomicDataStream</code> C++ interface separates</h4>
 <li>downstream analysis <br  />
 </li>
 </ol>
+<p>GenomicDataStream provides interfaces at both the C++ and R levels. The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.</p>
 <h3><a class="anchor" id="autotoc_md1"></a>
 Example code with C++17</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;RcppArmadillo.h&gt;</span></div>
@@ -143,12 +144,13 @@ Example code with C++17</h3>
 <div class="line"><span class="keywordtype">string</span> field = <span class="stringliteral">&quot;DS&quot;</span>;    <span class="comment">// read dosage field</span></div>
 <div class="line"><span class="keywordtype">string</span> region = <span class="stringliteral">&quot;&quot;</span>;     <span class="comment">// no region filter</span></div>
 <div class="line"><span class="keywordtype">string</span> samples = <span class="stringliteral">&quot;-&quot;</span>;   <span class="comment">// no samples filter</span></div>
+<div class="line"><span class="keywordtype">double</span> MAF = 0.05;   <span class="comment">// minor allele freq filter</span></div>
 <div class="line"><span class="keywordtype">double</span> minVariance = 0; <span class="comment">// retain features with var &gt; minVariance </span></div>
 <div class="line"><span class="keywordtype">int</span> chunkSize = 4;      <span class="comment">// each chunk will read 4 variants</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// initialize parameters</span></div>
-<div class="line"><a class="code hl_struct" href="structgds_1_1_param.html">Param</a> param(file, region, samples, minVariance, chunkSize);</div>
-<div class="line">param.setField( field );</div>
+<div class="line"><a class="code hl_struct" href="structgds_1_1_param.html">Param</a> param( file, region, samples, MAF, minVariance, chunkSize);</div>
+<div class="line">param.setField(field);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Initialise GenomicDataStream to read </span></div>
 <div class="line"><span class="comment">// VCF/BCF/BGEN/PGEN with same interface</span></div>
@@ -180,7 +182,7 @@ Example code with C++17</h3>
 <div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:32</div></div>
 <div class="ttc" id="astructgds_1_1_param_html"><div class="ttname"><a href="structgds_1_1_param.html">gds::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:64</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
-Dependencies</h2>
+Key Dependencies</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">Ref   </th><th class="markdownTableHeadNone">Role    </th></tr>

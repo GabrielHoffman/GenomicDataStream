@@ -10,6 +10,6 @@ var searchData=
   ['datatable_2eh_7',['DataTable.h',['../_data_table_8h.html',1,'']]],
   ['delayedstream_8',['DelayedStream',['../classgds_1_1_delayed_stream.html',1,'gds::DelayedStream'],['../classgds_1_1_delayed_stream.html#a384ad91ab9953d831d2bd4e6779e7359',1,'gds::DelayedStream::DelayedStream()']]],
   ['delayedstream_2eh_9',['DelayedStream.h',['../_delayed_stream_8h.html',1,'']]],
-  ['dependencies_10',['Dependencies',['../index.html#autotoc_md2',1,'']]],
+  ['dependencies_10',['Key Dependencies',['../index.html#autotoc_md2',1,'']]],
   ['dst_11',['dst',['../struct_z_s_t_d__out_buffer__s.html#ae17b7e44abe8ffd1f72f448df86f2a23',1,'ZSTD_outBuffer_s']]]
 ];

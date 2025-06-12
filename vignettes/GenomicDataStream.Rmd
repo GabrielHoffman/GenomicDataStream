@@ -40,7 +40,7 @@ body {
 text-align: justify}
 </style>
 
-`GenomicDataStream` designed to chunks of _features_ rather than chunks of _samples_. Features are stored as columns in the matrix returned by R/C++, <ins>independent of the underlying data storage format</ins>.    
+`GenomicDataStream` is designed to read chunks of _features_ rather than chunks of _samples_. Features are stored as columns in the matrix returned by R/C++, <ins>independent of the underlying data storage format</ins>.    
 
 # Usage
 `GenomicDataStreamRegression` implements regression models (linear and GLMs) that stream chucks of features using the `GenomicDataStream` interface.  In general, variants from genetic data are used as covariates in `lmFitFeatures()`, and genes from single cell data are used as responses in `lmFitResponses()`.
@@ -65,17 +65,17 @@ design = model.matrix(~1, data.frame(y))
 # loop until break
 while( 1 ){
 
-    # get data chunk
-    # data$X matrix with features as columns
-    # data$info information about each feature as rows
-    dat = getNextChunk(gds)
+  # get data chunk
+  # data$X matrix with features as columns
+  # data$info information about each feature as rows
+  dat = getNextChunk(gds)
 
-    # check if end of stream 
-    if( atEndOfStream(gds) ) break
-    
-    # do analysis on this chunk of data
-    # from GenomicDataStreamRegression
-    fit = lmFitFeatures(y, design, dat$X)
+  # check if end of stream 
+  if( atEndOfStream(gds) ) break
+
+  # do analysis on this chunk of data
+  # from GenomicDataStreamRegression
+  fit = lmFitFeatures(y, design, dat$X)
 }
 ```
 
@@ -108,48 +108,48 @@ fit = lmFitFeatures(y, design, gds)
 ```c++
 #include <RcppArmadillo.h>
 #include <GenomicDataStream.h>
-
+ 
 // use namespace for GenomicDataStream
 using namespace gds;
-
+ 
 // parameters 
 string file = "test.vcf.gz";
 string field = "DS";    // read dosage field
 string region = "";     // no region filter
 string samples = "-";   // no samples filter
+double MAF = 0.05;   // minor allele freq filter
 double minVariance = 0; // retain features with var > minVariance 
 int chunkSize = 4;      // each chunk will read 4 variants
-
+ 
 // initialize parameters
-Param param(file, region, samples, minVariance, chunkSize);
-param.setField( field );
-
+Param param( file, region, samples, MAF, minVariance, chunkSize);
+param.setField(field);
+ 
 // Initialise GenomicDataStream to read 
 // VCF/BCF/BGEN/PGEN with same interface
 unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
-
+ 
 // declare DataChunk storing an Armadillo matrix for each chunk
 DataChunk<arma::mat> chunk;
-
+ 
 // Store meta-data about each variant
 VariantInfo *info;
-
+ 
 // loop through chunks
 while( gdsStream->getNextChunk( chunk ) ){
 
-    // get data from chunk
-    arma::mat X = chunk.getData();
+  // get data from chunk
+  arma::mat X = chunk.getData();
 
-    // get variant information
-    info = chunk.getInfo<VariantInfo>();
+  // get variant information
+  info = chunk.getInfo<VariantInfo>();
 
-    // Do analysis with variants in this chunk
-    analysis_function(X, info);
+  // Do analysis with variants in this chunk
+  analysis_function(X, info);
 }
 ```
 
 Accessing data 
-
 
 # Data types
 At the C++ level data from the `GenomicDataStream` can be accessed as multiple types a according to the templated definition of `DataChunk`.  Above, each `chunk` is a `DataChunk<arma::mat>` so the data is returned as an Armadillo matrix of doubles (i.e. `arma::mat`).
