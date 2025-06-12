@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.54</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.55</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -240,8 +240,7 @@ if <code>TRUE</code> (default), print details</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  # threads: 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  B: 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  k: 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Epoch 0 / 7, chunk 1 / 2          Epoch 0 / 7, chunk 2 / 2          Epoch 1 / 7, chunk 1 / 2          Epoch 1 / 7, chunk 2 / 2          Epoch 2 / 7, chunk 1 / 2          Epoch 2 / 7, chunk 2 / 2          Epoch 3 / 7, chunk 1 / 2          Epoch 3 / 7, chunk 2 / 2          Epoch 4 / 7, chunk 1 / 2          Epoch 4 / 7, chunk 2 / 2          Epoch 5 / 7, chunk 1 / 2          Epoch 5 / 7, chunk 2 / 2          Epoch 6 / 7, chunk 1 / 2          Epoch 6 / 7, chunk 2 / 2          Epoch 7 / 7, chunk 1 / 2          Epoch 7 / 7, chunk 2 / 2          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Final decompositions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Epoch 0 / 7  Epoch 1 / 7  Epoch 2 / 7  Epoch 3 / 7  Epoch 4 / 7  Epoch 5 / 7  Epoch 6 / 7  Epoch 7 / 7  Final decompositionsCompleted            </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -349,23 +348,22 @@ if <code>TRUE</code> (default), print details</p></dd>
 <span class="r-in"><span><span class="co"># PCA on SingleCellExperiment with assay logcounts</span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PCAstream</span><span class="op">(</span><span class="va">sce</span>, k<span class="op">=</span><span class="fl">5</span>, assay<span class="op">=</span><span class="st">"logcounts"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scale and centering...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Epoch 0 / 7, chunk 1 / 2          Epoch 0 / 7, chunk 2 / 2          Epoch 1 / 7, chunk 1 / 2          Epoch 1 / 7, chunk 2 / 2          Epoch 2 / 7, chunk 1 / 2          Epoch 2 / 7, chunk 2 / 2          Epoch 3 / 7, chunk 1 / 2          Epoch 3 / 7, chunk 2 / 2          Epoch 4 / 7, chunk 1 / 2          Epoch 4 / 7, chunk 2 / 2          Epoch 5 / 7, chunk 1 / 2          Epoch 5 / 7, chunk 2 / 2          Epoch 6 / 7, chunk 1 / 2          Epoch 6 / 7, chunk 2 / 2          Epoch 7 / 7, chunk 1 / 2          Epoch 7 / 7, chunk 2 / 2          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Final decompositions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Epoch 0 / 7  Epoch 1 / 7  Epoch 2 / 7  Epoch 3 / 7  Epoch 4 / 7  Epoch 5 / 7  Epoch 6 / 7  Epoch 7 / 7  Final decompositionsCompleted            </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        PCA: Computed first 5 PCs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $u</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PC1         PC2           PC3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATCATGCTGCGTAT-1 -0.02663795 -0.00430031 -0.0108045808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GTACGAACTGTCAG-1 -0.01792728  0.01190781 -0.0007037754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PC1          PC2           PC3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATCATGCTGCGTAT-1 -0.02663795 -0.004300371 -0.0108049057</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GTACGAACTGTCAG-1 -0.01792728  0.011907831 -0.0007039027</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $v</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                PC1         PC2        PC3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HES4  -0.029479111 -0.03760662 0.02539629</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ISG15  0.004348096 -0.09931692 0.09957697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HES4  -0.029479111 -0.03760661 0.02539624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ISG15  0.004348096 -0.09931692 0.09957708</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $d</span>

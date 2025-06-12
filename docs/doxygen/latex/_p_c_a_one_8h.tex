@@ -1,5 +1,6 @@
 \doxysection{inst/include/\+PCAOne.h File Reference}
 \hypertarget{_p_c_a_one_8h}{}\label{_p_c_a_one_8h}\index{inst/include/PCAOne.h@{inst/include/PCAOne.h}}
+{\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include "{}Genomic\+Data\+Stream.\+h"{}}\newline
 {\ttfamily \#include "{}Rand.\+hpp"{}}\newline
 {\ttfamily \#include "{}Parallel\+Genomic\+Chunks.\+h"{}}\newline
@@ -11,14 +12,14 @@ struct \mbox{\hyperlink{struct_p_c_a}{PCA}}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{struct_p_c_a}{PCA}} \mbox{\hyperlink{_p_c_a_one_8h_a1c15d2c73bd9ae94d7269091b4b26b3d}{pcaone}} (const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$ gds, const string \&region, int m, int k, int nchunks, int s=20, int p=7, int B=64, int threads=4, const bool verbose=true, const bool scale\+And\+Center=true)
+\mbox{\hyperlink{struct_p_c_a}{PCA}} \mbox{\hyperlink{_p_c_a_one_8h_a70ad9df83e84f234d9383137fb68f644}{pcaone}} (const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$ gds, const string \&region, int m, int k, int nchunks, int s=20, int p=7, int B=64, int threads=4, const bool verbose=true, const bool scale\+And\+Center=true, ostream \&outstrm=Rcpp\+::\+Rcout)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{_p_c_a_one_8h_a1c15d2c73bd9ae94d7269091b4b26b3d}\index{PCAOne.h@{PCAOne.h}!pcaone@{pcaone}}
+\Hypertarget{_p_c_a_one_8h_a70ad9df83e84f234d9383137fb68f644}\index{PCAOne.h@{PCAOne.h}!pcaone@{pcaone}}
 \index{pcaone@{pcaone}!PCAOne.h@{PCAOne.h}}
 \doxysubsubsection{\texorpdfstring{pcaone()}{pcaone()}}
-{\footnotesize\ttfamily \label{_p_c_a_one_8h_a1c15d2c73bd9ae94d7269091b4b26b3d} 
-\mbox{\hyperlink{struct_p_c_a}{PCA}} pcaone (\begin{DoxyParamCaption}\item[{const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$}]{gds}{, }\item[{const string \&}]{region}{, }\item[{int}]{m}{, }\item[{int}]{k}{, }\item[{int}]{nchunks}{, }\item[{int}]{s}{ = {\ttfamily 20}, }\item[{int}]{p}{ = {\ttfamily 7}, }\item[{int}]{B}{ = {\ttfamily 64}, }\item[{int}]{threads}{ = {\ttfamily 4}, }\item[{const bool}]{verbose}{ = {\ttfamily true}, }\item[{const bool}]{scale\+And\+Center}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{_p_c_a_one_8h_a70ad9df83e84f234d9383137fb68f644} 
+\mbox{\hyperlink{struct_p_c_a}{PCA}} pcaone (\begin{DoxyParamCaption}\item[{const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$}]{gds}{, }\item[{const string \&}]{region}{, }\item[{int}]{m}{, }\item[{int}]{k}{, }\item[{int}]{nchunks}{, }\item[{int}]{s}{ = {\ttfamily 20}, }\item[{int}]{p}{ = {\ttfamily 7}, }\item[{int}]{B}{ = {\ttfamily 64}, }\item[{int}]{threads}{ = {\ttfamily 4}, }\item[{const bool}]{verbose}{ = {\ttfamily true}, }\item[{const bool}]{scale\+And\+Center}{ = {\ttfamily true}, }\item[{ostream \&}]{outstrm}{ = {\ttfamily Rcpp\+:\+:Rcout}}\end{DoxyParamCaption})}
 

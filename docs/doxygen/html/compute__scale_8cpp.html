@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>GenomicDataStream: inst/include/PCAOne.h File Reference</title>
+<title>GenomicDataStream: src/compute_scale.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -115,100 +115,42 @@ $(function(){ initResizable(false); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_920884c6b3b2f0be94e27d51660adee5.html">inst</a></li><li class="navelem"><a class="el" href="dir_2b5d1a398a9eec011391d543f21db223.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">PCAOne.h File Reference</div></div>
+  <div class="headertitle"><div class="title">compute_scale.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
-<code>#include &quot;<a class="el" href="_genomic_data_stream_8h_source.html">GenomicDataStream.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_rand_8hpp_source.html">Rand.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_parallel_genomic_chunks_8h_source.html">ParallelGenomicChunks.h</a>&quot;</code><br />
-</div>
-<p><a href="_p_c_a_one_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_p_c_a.html">PCA</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+<div class="textblock"><code>#include &quot;Rtatami.h&quot;</code><br />
+<code>#include &quot;tatami_stats/tatami_stats.hpp&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a70ad9df83e84f234d9383137fb68f644" id="r_a70ad9df83e84f234d9383137fb68f644"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_p_c_a.html">PCA</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70ad9df83e84f234d9383137fb68f644">pcaone</a> (const shared_ptr&lt; <a class="el" href="classgds_1_1_genomic_data_stream.html">GenomicDataStream</a> &gt; gds, const string &amp;region, int m, int k, int nchunks, int s=20, int p=7, int B=64, int threads=4, const bool verbose=true, const bool scaleAndCenter=true, ostream &amp;outstrm=Rcpp::Rcout)</td></tr>
-<tr class="separator:a70ad9df83e84f234d9383137fb68f644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f608cf2cf762ae4bfe4c4dc7a5c3991" id="r_a2f608cf2cf762ae4bfe4c4dc7a5c3991"><td class="memItemLeft" align="right" valign="top">Rcpp::List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f608cf2cf762ae4bfe4c4dc7a5c3991">compute_center_and_scale</a> (Rcpp::RObject mat, int nthreads)</td></tr>
+<tr class="separator:a2f608cf2cf762ae4bfe4c4dc7a5c3991"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a70ad9df83e84f234d9383137fb68f644" name="a70ad9df83e84f234d9383137fb68f644"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70ad9df83e84f234d9383137fb68f644">&#9670;&#160;</a></span>pcaone()</h2>
+<a id="a2f608cf2cf762ae4bfe4c4dc7a5c3991" name="a2f608cf2cf762ae4bfe4c4dc7a5c3991"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f608cf2cf762ae4bfe4c4dc7a5c3991">&#9670;&#160;</a></span>compute_center_and_scale()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_p_c_a.html">PCA</a> pcaone </td>
+          <td class="memname">Rcpp::List compute_center_and_scale </td>
           <td>(</td>
-          <td class="paramtype">const shared_ptr&lt; <a class="el" href="classgds_1_1_genomic_data_stream.html">GenomicDataStream</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>gds</em></span>, </td>
+          <td class="paramtype">Rcpp::RObject</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>k</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nchunks</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>s</em></span><span class="paramdefsep"> = </span><span class="paramdefval">20</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>p</em></span><span class="paramdefsep"> = </span><span class="paramdefval">7</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>B</em></span><span class="paramdefsep"> = </span><span class="paramdefval">64</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>threads</em></span><span class="paramdefsep"> = </span><span class="paramdefval">4</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>scaleAndCenter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>outstrm</em></span><span class="paramdefsep"> = </span><span class="paramdefval">Rcpp::Rcout</span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
