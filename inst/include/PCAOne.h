@@ -10,6 +10,8 @@
 #ifndef PCA_ONE_H
 #define PCA_ONE_H
 
+#include <iostream>
+
 #include "GenomicDataStream.h"
 #include "Rand.hpp"
 #include "ParallelGenomicChunks.h"
@@ -42,7 +44,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
 						int B = 64, 
 						int threads = 4,
 						const bool verbose = true,
-						const bool scaleAndCenter = true) {
+						const bool scaleAndCenter = true,
+            ostream& outstrm = Rcpp::Rcout) {
   
   auto regions = splitRegionString( region ); 
 
@@ -66,6 +69,10 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
 
   for (int pi = 0; pi <= p; pi++) {
 
+    if( verbose ){
+      outstrm << "\rEpoch " << pi << " / " << p << "  ";
+    }
+
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
       H1.setZero();
@@ -74,7 +81,6 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1},  start{0};
-    size_t maxIdx = 0;
     processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
 			auto Ab = chunk.getData();
 
@@ -85,10 +91,6 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
 
-				if( verbose ){
-          Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
-        }
-        maxIdx++;
         if( pi == 0){
         	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
     			featureIds.insert(featureIds.end(), 
@@ -122,7 +124,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
 
   // get USV
   if( verbose ){
-		Rcpp::Rcout << "\nFinal decompositions" << std::endl;
+		outstrm << "\rFinal decompositions";
 	}
   {
     Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
@@ -139,6 +141,10 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
 
   Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
   Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
+
+  if( verbose ){
+    outstrm << "\rCompleted            " << std::endl;
+  }
 
   return PCA(svd.matrixV().leftCols(k),
 			  	G * svd.matrixU().leftCols(k),

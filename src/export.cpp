@@ -315,10 +315,14 @@ Rcpp::List stream_pcaone_robj(
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
 
-  Eigen::setNbThreads(threads_eigen); 
+  Eigen::setNbThreads(threads_eigen);
 
   // power iterations
   for (int pi = 0; pi <= p; pi++) {
+
+    if( verbose ){
+      Rcpp::Rcout << "\rEpoch " << pi << " / " << p << "  ";
+    }
 
     if (std::pow(2, pi) >= B) {
       // reset H1, H2 to zero
@@ -328,7 +332,6 @@ Rcpp::List stream_pcaone_robj(
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1}, b{0};
-    int maxIdx = 0;
     // parallelize across threads
     tatami::parallelize([&](size_t thread_id, int chk, int len) -> void {
 
@@ -355,11 +358,6 @@ Rcpp::List stream_pcaone_robj(
           // since it modifies global matrices
           // mutex ensures serial execution
           std::lock_guard<std::mutex> lock(pcaMutex);
-
-          if( verbose ){
-            Rcpp::Rcout << "\rEpoch " << pi << " / " << p << ", chunk " << maxIdx + 1 << " / " << nchunks << "          ";
-          }
-          maxIdx++;
 
           G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;
           if (i <= band / 2)
@@ -389,7 +387,7 @@ Rcpp::List stream_pcaone_robj(
 
   // get USV
   if( verbose ){
-		Rcpp::Rcout << "\nFinal decompositions" << std::endl;
+    Rcpp::Rcout << "\rFinal decompositions";
 	}
   {
     Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>> qr(G);
@@ -406,6 +404,10 @@ Rcpp::List stream_pcaone_robj(
 
   Eigen::MatrixXd out = R.transpose().fullPivHouseholderQr().solve(H.transpose());
   Eigen::JacobiSVD<Eigen::MatrixXd> svd(out, Eigen::ComputeThinU | Eigen::ComputeThinV);
+
+  if( verbose ){
+    Rcpp::Rcout << "\rCompleted            " << std::endl;
+  }
 
   Rcpp::List lst =  Rcpp::List::create(
   			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
