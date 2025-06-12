@@ -78,75 +78,78 @@
 \DoxyCodeLine{00074\ \ \ \ \ band\ =\ std::fmin(band\ *\ 2,\ nchunks);}
 \DoxyCodeLine{00075\ }
 \DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\{1\},\ \ start\{0\};}
-\DoxyCodeLine{00077\ \ \ \ \ processor.\mbox{\hyperlink{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}{processChunk}}([\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<Eigen::MatrixXd>}}\ \&chunk,\ \textcolor{keywordtype}{size\_t}\ b)\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ Ab\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}();}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scaleAndCenter\ )\{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ standardize(Ab);}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ Ab\ /=\ sqrt(n-\/1);\ \ \ \ }
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(pcaMutex);}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ verbose\ )\{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)rEpoch\ "{}}\ <<\ pi\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ p\ <<\ \textcolor{stringliteral}{"{},\ chunk\ "{}}\ <<\ b\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t"{}};}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pi\ ==\ 0)\{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a48eb70592fa64b169e1569985d468294}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>()-\/>getFeatureNames();}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ featureIds.insert(featureIds.end(),\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp.begin(),\ tmp.end());}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ G.middleRows(start,\ Ab.cols()).noalias()\ =\ Ab.transpose()\ *\ Omg;}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <=\ band\ /\ 2)}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ H1.noalias()\ +=\ Ab\ *\ G.middleRows(start,\ Ab.cols());}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ H2.noalias()\ +=\ Ab\ *\ G.middleRows(start,\ Ab.cols());}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ adjacent\ =}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ (pi\ >\ 0\ \&\&\ (b\ +\ 1)\ ==\ std::pow(2,\ pi\ -\/\ 1)\ \&\&\ std::pow(2,\ pi)\ <\ B);}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((!((b\ +\ 1)\ <\ band\ \&\&\ !adjacent))\ \&\&\ ((i\ ==\ band)\ ||\ (i\ ==\ band\ /\ 2)\ ||\ adjacent))\{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ H\ =\ H1\ +\ H2;}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ Eigen::HouseholderQR<Eigen::MatrixXd>\ qr(H);}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ Omg.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(n,\ l);}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}{flipOmg}}(Omg2,\ Omg);}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ band)\ \{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ H1.setZero();}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ 0;}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ H2.setZero();}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ start\ +=\ Ab.cols();}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ i++;}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00117\ \ \ \ \ \});}
-\DoxyCodeLine{00118\ \ \ \}}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ get\ USV}}
-\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{if}(\ verbose\ )\{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nFinal\ decompositions"{}}\ <<\ std::endl;}
-\DoxyCodeLine{00123\ \ \ \ \ \}}
-\DoxyCodeLine{00124\ \ \ \{}
-\DoxyCodeLine{00125\ \ \ \ \ Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>>\ qr(G);}
-\DoxyCodeLine{00126\ \ \ \ \ R.noalias()\ =\ Eigen::MatrixXd::Identity(l,\ m)\ *\ qr.matrixQR().triangularView<Eigen::Upper>();}
-\DoxyCodeLine{00127\ \ \ \ \ G.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(m,\ l);}
-\DoxyCodeLine{00128\ \ \ \}}
-\DoxyCodeLine{00129\ \ \ \{}
-\DoxyCodeLine{00130\ \ \ \ \ Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>>\ qr(G);}
-\DoxyCodeLine{00131\ \ \ \ \ Rt.noalias()\ =\ Eigen::MatrixXd::Identity(l,\ m)\ *\ qr.matrixQR().triangularView<Eigen::Upper>();}
-\DoxyCodeLine{00132\ \ \ \ \ G.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(m,\ l);}
-\DoxyCodeLine{00133\ \ \ \}}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ R\ =\ Rt\ *\ R;}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ Eigen::MatrixXd\ out\ =\ R.transpose().fullPivHouseholderQr().solve(H.transpose());}
-\DoxyCodeLine{00138\ \ \ Eigen::JacobiSVD<Eigen::MatrixXd>\ svd(out,\ Eigen::ComputeThinU\ |\ Eigen::ComputeThinV);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxIdx\ =\ 0;}
+\DoxyCodeLine{00078\ \ \ \ \ processor.\mbox{\hyperlink{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}{processChunk}}([\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<Eigen::MatrixXd>}}\ \&chunk,\ \textcolor{keywordtype}{size\_t}\ b)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ Ab\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scaleAndCenter\ )\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ standardize(Ab);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ Ab\ /=\ sqrt(n-\/1);\ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(pcaMutex);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ verbose\ )\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)rEpoch\ "{}}\ <<\ pi\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ p\ <<\ \textcolor{stringliteral}{"{},\ chunk\ "{}}\ <<\ maxIdx\ +\ 1\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ nchunks\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ "{}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ maxIdx++;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pi\ ==\ 0)\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a48eb70592fa64b169e1569985d468294}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>()-\/>getFeatureNames();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ featureIds.insert(featureIds.end(),\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp.begin(),\ tmp.end());}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ G.middleRows(start,\ Ab.cols()).noalias()\ =\ Ab.transpose()\ *\ Omg;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <=\ band\ /\ 2)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ H1.noalias()\ +=\ Ab\ *\ G.middleRows(start,\ Ab.cols());}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ H2.noalias()\ +=\ Ab\ *\ G.middleRows(start,\ Ab.cols());}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ adjacent\ =}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ (pi\ >\ 0\ \&\&\ (b\ +\ 1)\ ==\ std::pow(2,\ pi\ -\/\ 1)\ \&\&\ std::pow(2,\ pi)\ <\ B);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((!((b\ +\ 1)\ <\ band\ \&\&\ !adjacent))\ \&\&\ ((i\ ==\ band)\ ||\ (i\ ==\ band\ /\ 2)\ ||\ adjacent))\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ H\ =\ H1\ +\ H2;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ Eigen::HouseholderQR<Eigen::MatrixXd>\ qr(H);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ Omg.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(n,\ l);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}{flipOmg}}(Omg2,\ Omg);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ band)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ H1.setZero();}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ H2.setZero();}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ start\ +=\ Ab.cols();}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \});}
+\DoxyCodeLine{00121\ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ get\ USV}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordflow}{if}(\ verbose\ )\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nFinal\ decompositions"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>>\ qr(G);}
+\DoxyCodeLine{00129\ \ \ \ \ R.noalias()\ =\ Eigen::MatrixXd::Identity(l,\ m)\ *\ qr.matrixQR().triangularView<Eigen::Upper>();}
+\DoxyCodeLine{00130\ \ \ \ \ G.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(m,\ l);}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ Eigen::HouseholderQR<Eigen::Ref<Eigen::MatrixXd>>\ qr(G);}
+\DoxyCodeLine{00134\ \ \ \ \ Rt.noalias()\ =\ Eigen::MatrixXd::Identity(l,\ m)\ *\ qr.matrixQR().triangularView<Eigen::Upper>();}
+\DoxyCodeLine{00135\ \ \ \ \ G.noalias()\ =\ qr.householderQ()\ *\ Eigen::MatrixXd::Identity(m,\ l);}
+\DoxyCodeLine{00136\ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ R\ =\ Rt\ *\ R;}
 \DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_p_c_a}{PCA}}(svd.matrixV().leftCols(k),}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ G\ *\ svd.matrixU().leftCols(k),}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svd.singularValues().head(k),}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ featureIds);}
-\DoxyCodeLine{00144\ \}}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00140\ \ \ Eigen::MatrixXd\ out\ =\ R.transpose().fullPivHouseholderQr().solve(H.transpose());}
+\DoxyCodeLine{00141\ \ \ Eigen::JacobiSVD<Eigen::MatrixXd>\ svd(out,\ Eigen::ComputeThinU\ |\ Eigen::ComputeThinV);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_p_c_a}{PCA}}(svd.matrixV().leftCols(k),}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ G\ *\ svd.matrixU().leftCols(k),}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svd.singularValues().head(k),}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ featureIds);}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

@@ -184,10 +184,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>   <a class="code hl_struct" href="structgds_1_1_param.html">gds::Param</a> param;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>     std::vector&lt;std::vector&lt;std::string&gt; &gt; regionSets;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>   std::vector&lt;std::shared_ptr&lt;gds::GenomicDataStream&gt;&gt; readers;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>   std::mutex mutex;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <a class="code hl_struct" href="structgds_1_1_param.html">gds::Param</a> param;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  std::vector&lt;std::vector&lt;std::string&gt; &gt; regionSets;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  std::vector&lt;std::shared_ptr&lt;gds::GenomicDataStream&gt;&gt; readers;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  std::mutex mutex;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  };</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">public</span>:</div>
@@ -250,7 +250,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclass_multi_genomic_stream_processor_html_abe5152a44bfecaadad5d401262ec9d2d"><div class="ttname"><a href="class_multi_genomic_stream_processor.html#abe5152a44bfecaadad5d401262ec9d2d">MultiGenomicStreamProcessor::processChunk</a></div><div class="ttdeci">void processChunk(std::function&lt; void(const gds::DataChunk&lt; T &gt; &amp;, size_t)&gt; processFunc)</div><div class="ttdef"><b>Definition</b> ParallelGenomicChunks.h:76</div></div>
 <div class="ttc" id="aclass_thread_pool_html"><div class="ttname"><a href="class_thread_pool.html">ThreadPool</a></div><div class="ttdef"><b>Definition</b> threadpool.hpp:20</div></div>
 <div class="ttc" id="aclassgds_1_1_data_chunk_html"><div class="ttname"><a href="classgds_1_1_data_chunk.html">gds::DataChunk</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:33</div></div>
-<div class="ttc" id="anamespacegds_html_a36a26c4a2000330f861fea50e6babad0"><div class="ttname"><a href="namespacegds.html#a36a26c4a2000330f861fea50e6babad0">gds::chunk_vector</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; T &gt; &gt; chunk_vector(const std::vector&lt; T &gt; &amp;vec, int k)</div><div class="ttdef"><b>Definition</b> utils.h:334</div></div>
+<div class="ttc" id="anamespacegds_html_a36a26c4a2000330f861fea50e6babad0"><div class="ttname"><a href="namespacegds.html#a36a26c4a2000330f861fea50e6babad0">gds::chunk_vector</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; T &gt; &gt; chunk_vector(const std::vector&lt; T &gt; &amp;vec, int k)</div><div class="ttdef"><b>Definition</b> utils.h:349</div></div>
 <div class="ttc" id="astructgds_1_1_param_html"><div class="ttname"><a href="structgds_1_1_param.html">gds::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:64</div></div>
 <div class="ttc" id="athreadpool_8hpp_html"><div class="ttname"><a href="threadpool_8hpp.html">threadpool.hpp</a></div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div></div>
