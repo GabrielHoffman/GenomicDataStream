@@ -81,8 +81,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1},  start{0};
-    processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
-			auto Ab = chunk.getData();
+    auto pcaChunk = [&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+	  auto Ab = chunk.getData();
 
       if( scaleAndCenter ){
       	standardize(Ab);
@@ -119,7 +119,9 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         start += Ab.cols();
         i++;
       }
-    });
+    };
+    // now run
+    processor.processChunk(pcaChunk);
   }
 
   // get USV

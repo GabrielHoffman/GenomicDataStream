@@ -72,8 +72,8 @@ public:
         readerPool(param, regions, numChunks, std::max(numThreads, (size_t)std::thread::hardware_concurrency())) // as many as possible readers
   { }
 
-  void
-  processChunk(std::function<void(const gds::DataChunk<T> &, size_t)> processFunc) {
+  template<class F>
+  void processChunk(F processFunc) {
 
     std::vector<std::future<void>> futures;
 
