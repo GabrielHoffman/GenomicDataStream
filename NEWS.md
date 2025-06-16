@@ -1,6 +1,8 @@
 
-# GenomicDataStream 0.0.55
- - June 12, 2025
+# GenomicDataStream 0.0.57
+ - June 16, 2025
+ - Fix issue with multiple variants at the same site
+ - PCA is now parallelize with TBB
 
 
 # GenomicDataStream 0.0.54

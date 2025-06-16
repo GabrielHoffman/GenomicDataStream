@@ -10,7 +10,7 @@
  *
  \image html "https://gabrielhoffman.github.io/GenomicDataStream/reference/figures/GenomicDataStream.png"
 <div style="text-align: justify">
-Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [PGEN](https://www.cog-genomics.org/plink/2.0/input#pgen), [BED](https://www.cog-genomics.org/plink/2.0/input#bed), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](eigen.tuxfamily.org) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. 
+Reading genomic data files ([VCF](https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/), [BCF](https://samtools.github.io/bcftools/howtos/index.html), [BGEN](https://www.chg.ox.ac.uk/~gav/bgen_format/index.html), [PGEN](https://www.cog-genomics.org/plink/2.0/input#pgen), [BED](https://www.cog-genomics.org/plink/2.0/input#bed), [H5AD](https://anndata.readthedocs.io/en/latest/index.html), [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), [DelayedArray](https://bioconductor.org/packages/DelayedArray)) into R/Rcpp in chunks for analysis with [Armadillo](https://doi.org/10.21105/joss.00026) / [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) / [Rcpp](https://www.rcpp.org) libraries.  Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. 
  </div>
 
 #### The `GenomicDataStream` C++ interface separates 
@@ -77,7 +77,7 @@ while( gdsStream->getNextChunk( chunk ) ){
 [Rcpp](https://cran.r-project.org/package=Rcpp)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) |  API for R/C++ integration
 [RcppEigen](https://cran.r-project.org/package=RcppEigen) | [J Stat Software](https://doi.org/10.18637/jss.v052.i05) | API for Rcpp access to Eigen matrix library
 [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
-[Eigen](https://eigen.tuxfamily.org) | |C++ library for linear algebra with advanced features
+[Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) | |C++ library for linear algebra with advanced features
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
  * 
  * 
@@ -119,6 +119,7 @@ Omit support for `PLINK` files (PGEN, BED), and remove dependence on `pgenlibr`
 #include "MatrixInfo.h"
 #include "VariantInfo.h"
 
+
 #ifndef DISABLE_PLINK
 #include "pgenstream.h"
 #endif 
@@ -128,39 +129,7 @@ namespace gds {
 /** Create a reader for VCF/VCFGZ/BCF and BGEN that instantiates either vcfstream or bgenstream based on the file extension in param.
  * @param param class of Param type
  */ 
-static unique_ptr<GenomicDataStream> createFileView( const Param & param ){
-
-    unique_ptr<GenomicDataStream> gdsStream;
-
-    // Define reader for VCF/VCFGZ/BCF or BGEN
-    // depending on file extension
-    switch( param.fileType ){
-        case VCF:
-        case VCFGZ:
-        case BCF:
-            gdsStream = make_unique<vcfstream>( param );
-            break;
-        case BGEN:
-            gdsStream = make_unique<bgenstream>( param );
-            break;
-        case PGEN:
-        case PBED:            
-#ifndef DISABLE_PLINK
-            gdsStream = make_unique<pgenstream>( param );    
-            break;
-#endif
-        case OTHER:
-            throw runtime_error("Invalid file extension: " + param.file);
-            break;
-    }  
-
-    return gdsStream; 
-}
-
-/** Create a reader for VCF/VCFGZ/BCF and BGEN that instantiates either vcfstream or bgenstream based on the file extension in param.
- * @param param class of Param type
- */ 
-static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param ){
+static shared_ptr<GenomicDataStream> createFileView( const Param & param ){
 
     shared_ptr<GenomicDataStream> gdsStream;
 
@@ -178,7 +147,7 @@ static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param 
         case PGEN:
         case PBED:       
 #ifndef DISABLE_PLINK
-            gdsStream = make_unique<pgenstream>( param );
+            gdsStream = make_shared<pgenstream>( param );
             break;
 #endif
         case OTHER:
@@ -192,7 +161,7 @@ static shared_ptr<GenomicDataStream> createFileView_shared( const Param & param 
 /* Defines type for interface with Rcpp */
 typedef struct BoundDataStream {
     BoundDataStream(const Param &param){
-        ptr = createFileView_shared( param );
+        ptr = createFileView( param );
     }
 
     shared_ptr<gds::GenomicDataStream> ptr;
@@ -201,7 +170,9 @@ typedef struct BoundDataStream {
 } BoundDataStream;
 
 
-
 }
+
+
+#include "GenomicDataStreamParallel.h"
 
 #endif

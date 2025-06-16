@@ -102,8 +102,16 @@ setMethod(
   # get summary of GenomicDataStream
   sObj <- summaryChunks(x)
 
+  N <- slot(x, "nsamples")
+  M <- sum(sObj$chunks)
+  s <- min(s, M-k-1)
+
+  if( M < 2 ){
+    stop(paste("Cannot perform PCA with", M, "features"))
+  }
+
   # permute chunks
-  regions <- sObj$regions
+  regions <- unique(sObj$regions)
   if( shuffle ){
     regions <- sample(regions, length(regions))
   }
@@ -111,10 +119,6 @@ setMethod(
   if( is.null(regions) ){
     stop("Chunks not read from index")
   }
-
-  N <- slot(x, "nsamples")
-  M <- sum(sObj$chunks)
-  s <- min(s, M-k-1)
 
   # B must be a even
   stopifnot(B %% 2 == 0)
@@ -145,7 +149,7 @@ setMethod(
     cat(" k:", k, "\n")
   }
 
-  p <- max(c(p, log2(B)+1)) 
+  # p <- max(c(p, log2(B)+1)) 
 
   x <- initializeStream(x)
 
@@ -162,11 +166,15 @@ setMethod(
           threads_eigen = threads2,
           verbose = verbose)
 
+  # cat("featureIDs:\n", paste0(res$featureIds, collapse=" "), "\n", sep='')
+  # cat("variantID:\n", paste0(sObj$variantIDs, collapse=" "), "\n", sep='')
+
   # set row and column names
   # Since variant order can be shuffled
   # res$VariantIds contains the order seen by PCA
   rownames(res$u) <- sObj$sampleIDs
   rownames(res$v) <- res$featureIds
+
   res$v <- res$v[sObj$variantIDs,,drop=FALSE]
   res$featureIds <- NULL
 
