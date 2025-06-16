@@ -1,8 +1,8 @@
 /***********************************************************************
- * @file		export.cpp
- * @author	Gabriel Hoffman
- * @email	  gabriel.hoffman@mssm.edu
- * @brief	   Expose GenomicDataStream library to R
+ * @file	 export.cpp
+ * @author Gabriel Hoffman
+ * @email	 gabriel.hoffman@mssm.edu
+ * @brief  Expose GenomicDataStream library to R
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
@@ -21,10 +21,7 @@
 
 #include "GenomicDataStream.h"
 #include "DataTable.h"
-// #include "ParallelGenomicChunks.h"
 #include "PCAOne.h"
-
-// #include "Rand.hpp"
 
 using namespace std;
 using namespace vcfpp;

@@ -1,0 +1,38 @@
+\doxysection{Genomic\+Data\+Stream\+Parallel\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_genomic_data_stream_parallel}{}\label{class_genomic_data_stream_parallel}\index{GenomicDataStreamParallel$<$ T $>$@{GenomicDataStreamParallel$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Genomic\+Data\+Stream\+Parallel.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{Genomic\+Data\+Stream\+Parallel}} (const \mbox{\hyperlink{structgds_1_1_param}{Param}} \&param, const vector$<$ string $>$ \&regions, size\+\_\+t num\+Chunks, size\+\_\+t num\+Threads)
+\item 
+void \mbox{\hyperlink{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}{process\+Chunks}} (std\+::function$<$ void(const \mbox{\hyperlink{classgds_1_1_data_chunk}{gds\+::\+Data\+Chunk}}$<$ T $>$ \&, size\+\_\+t)$>$ process\+Func)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}\index{GenomicDataStreamParallel$<$ T $>$@{GenomicDataStreamParallel$<$ T $>$}!GenomicDataStreamParallel@{GenomicDataStreamParallel}}
+\index{GenomicDataStreamParallel@{GenomicDataStreamParallel}!GenomicDataStreamParallel$<$ T $>$@{GenomicDataStreamParallel$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GenomicDataStreamParallel()}{GenomicDataStreamParallel()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_genomic_data_stream_parallel}{Genomic\+Data\+Stream\+Parallel}}$<$ T $>$\mbox{\hyperlink{class_genomic_data_stream_parallel}{\+::\+Genomic\+Data\+Stream\+Parallel}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structgds_1_1_param}{Param}} \&}]{param}{, }\item[{const vector$<$ string $>$ \&}]{regions}{, }\item[{size\+\_\+t}]{num\+Chunks}{, }\item[{size\+\_\+t}]{num\+Threads}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}\index{GenomicDataStreamParallel$<$ T $>$@{GenomicDataStreamParallel$<$ T $>$}!processChunks@{processChunks}}
+\index{processChunks@{processChunks}!GenomicDataStreamParallel$<$ T $>$@{GenomicDataStreamParallel$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{processChunks()}{processChunks()}}
+{\footnotesize\ttfamily \label{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_genomic_data_stream_parallel}{Genomic\+Data\+Stream\+Parallel}}$<$ T $>$\+::process\+Chunks (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(const \mbox{\hyperlink{classgds_1_1_data_chunk}{gds\+::\+Data\+Chunk}}$<$ T $>$ \&, size\+\_\+t)$>$}]{process\+Func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{_genomic_data_stream_parallel_8h}{Genomic\+Data\+Stream\+Parallel.\+h}}\end{DoxyCompactItemize}

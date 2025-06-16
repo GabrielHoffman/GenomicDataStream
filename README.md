@@ -12,7 +12,7 @@ Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/cours
 <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>,
 <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>,
 <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a>,
-<a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format in way that the two components can't be separated for use in other applications.  For example, regression analysis paired with genotype data from a VCF file.
+<a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026">Armadillo</a></nobr> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries.  Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time.  Yet in practice, many implementations require the whole dataset stored in memory.  Others pair an analysis with a specific data format in way that the two components can't be separated for use in other applications.  For example, regression analysis paired with genotype data from a VCF file.
 
 The `GenomicDataStream` interface separates:
  
@@ -62,7 +62,7 @@ Count matrices for single cell data are stored in the H5AD format.  This format,
 [Rcpp](https://cran.r-project.org/package=Rcpp)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) |  API for R/C++ integration
 [RcppEigen](https://cran.r-project.org/package=RcppEigen) | [J Stat Software](https://doi.org/10.18637/jss.v052.i05) | API for Rcpp access to Eigen matrix library
 [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
-[Eigen](https://eigen.tuxfamily.org) | |C++ library for linear algebra with advanced features
+[Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) | |C++ library for linear algebra with advanced features
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
 
 

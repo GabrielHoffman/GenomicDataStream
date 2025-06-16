@@ -40,7 +40,7 @@ void \mbox{\hyperlink{export_8cpp_a460652a0b54569d18db86d07ebf1b365}{standardize
 \item 
 void \mbox{\hyperlink{export_8cpp_a66b83a0410791c289af3f71b4a9a2854}{test\+\_\+\+Data\+Table}} (const string \&file, const string \&header\+Key, const string \&delim="{}\textbackslash{}t "{})
 \item 
-List \mbox{\hyperlink{export_8cpp_ab2a08ca3a4b47e52b57f357c13bf8cdc}{stream\+\_\+pcaone}} (SEXP x, const string \&region, int m, int k, int nchunks, int s=20, int p=7, int B=64, int threads=4, int threads\+\_\+eigen=1, const bool verbose=true, const bool scale\+And\+Center=true)
+List \mbox{\hyperlink{export_8cpp_a7dc059f4dbe21463d2a9124b24435993}{stream\+\_\+pcaone}} (SEXP x, const string \&region, int m, int k, int nchunks, int s=20, int p=7, int B=64, int threads=4, int threads\+\_\+eigen=4, const bool verbose=true, const bool scale\+And\+Center=true)
 \item 
 Rcpp\+::\+List \mbox{\hyperlink{export_8cpp_aa9ade8c89e0067d551b72cddd44b94ef}{stream\+\_\+pcaone\+\_\+robj}} (const RObject \&x, const std\+::vector$<$ std\+::string $>$ \&ids, const int \&n, const int \&chunk\+Size, const int \&nchunks, int m, int k, int s=20, int p=7, int B=64, int threads=4, int threads\+\_\+eigen=1, const bool verbose=true, const bool scale\+And\+Center=true)
 \end{DoxyCompactItemize}
@@ -116,11 +116,11 @@ SEXP set\+Regions\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{
 {\footnotesize\ttfamily \label{export_8cpp_a460652a0b54569d18db86d07ebf1b365} 
 void standardize\+\_\+in\+\_\+place (\begin{DoxyParamCaption}\item[{arma\+::mat \&}]{X}{, }\item[{const bool \&}]{center}{ = {\ttfamily true}, }\item[{const bool \&}]{scale}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_ab2a08ca3a4b47e52b57f357c13bf8cdc}\index{export.cpp@{export.cpp}!stream\_pcaone@{stream\_pcaone}}
+\Hypertarget{export_8cpp_a7dc059f4dbe21463d2a9124b24435993}\index{export.cpp@{export.cpp}!stream\_pcaone@{stream\_pcaone}}
 \index{stream\_pcaone@{stream\_pcaone}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{stream\_pcaone()}{stream\_pcaone()}}
-{\footnotesize\ttfamily \label{export_8cpp_ab2a08ca3a4b47e52b57f357c13bf8cdc} 
-List stream\+\_\+pcaone (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{const string \&}]{region}{, }\item[{int}]{m}{, }\item[{int}]{k}{, }\item[{int}]{nchunks}{, }\item[{int}]{s}{ = {\ttfamily 20}, }\item[{int}]{p}{ = {\ttfamily 7}, }\item[{int}]{B}{ = {\ttfamily 64}, }\item[{int}]{threads}{ = {\ttfamily 4}, }\item[{int}]{threads\+\_\+eigen}{ = {\ttfamily 1}, }\item[{const bool}]{verbose}{ = {\ttfamily true}, }\item[{const bool}]{scale\+And\+Center}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a7dc059f4dbe21463d2a9124b24435993} 
+List stream\+\_\+pcaone (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{const string \&}]{region}{, }\item[{int}]{m}{, }\item[{int}]{k}{, }\item[{int}]{nchunks}{, }\item[{int}]{s}{ = {\ttfamily 20}, }\item[{int}]{p}{ = {\ttfamily 7}, }\item[{int}]{B}{ = {\ttfamily 64}, }\item[{int}]{threads}{ = {\ttfamily 4}, }\item[{int}]{threads\+\_\+eigen}{ = {\ttfamily 4}, }\item[{const bool}]{verbose}{ = {\ttfamily true}, }\item[{const bool}]{scale\+And\+Center}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_aa9ade8c89e0067d551b72cddd44b94ef}\index{export.cpp@{export.cpp}!stream\_pcaone\_robj@{stream\_pcaone\_robj}}
 \index{stream\_pcaone\_robj@{stream\_pcaone\_robj}!export.cpp@{export.cpp}}

@@ -7,20 +7,20 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_thread_pool_af2e1d6baca11e5aac55b31419f67fbc9}{Thread\+Pool}} (std\+::size\+\_\+t n\+Threads)
+\mbox{\hyperlink{class_thread_pool_a92cf02d7b3cb03c02e64f343da727600}{Thread\+Pool}} (size\+\_\+t thread\+\_\+count)
+\item 
+{\footnotesize template$<$class F, class... Args$>$ }\\auto \mbox{\hyperlink{class_thread_pool_ac30c1b50991e65e30e64c2b93c40508f}{enqueue}} (F \&\&f, Args \&\&... args) -\/$>$ std\+::future$<$ std\+::invoke\+\_\+result\+\_\+t$<$ F, Args... $>$ $>$
 \item 
 \mbox{\hyperlink{class_thread_pool_a44d3d2ab618970605e684efc216655eb}{\texorpdfstring{$\sim$}{\string~}\+Thread\+Pool}} ()
-\item 
-{\footnotesize template$<$class F, class... A$>$ }\\decltype(auto) \mbox{\hyperlink{class_thread_pool_aee2fe172c3fc2087b23805a6dd6ef4f8}{enqueue}} (F \&\&callable, A \&\&... arguments)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{class_thread_pool_af2e1d6baca11e5aac55b31419f67fbc9}\index{ThreadPool@{ThreadPool}!ThreadPool@{ThreadPool}}
+\Hypertarget{class_thread_pool_a92cf02d7b3cb03c02e64f343da727600}\index{ThreadPool@{ThreadPool}!ThreadPool@{ThreadPool}}
 \index{ThreadPool@{ThreadPool}!ThreadPool@{ThreadPool}}
 \doxysubsubsection{\texorpdfstring{ThreadPool()}{ThreadPool()}}
-{\footnotesize\ttfamily \label{class_thread_pool_af2e1d6baca11e5aac55b31419f67fbc9} 
-Thread\+Pool\+::\+Thread\+Pool (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{n\+Threads}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{class_thread_pool_a92cf02d7b3cb03c02e64f343da727600} 
+Thread\+Pool\+::\+Thread\+Pool (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{thread\+\_\+count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 \Hypertarget{class_thread_pool_a44d3d2ab618970605e684efc216655eb}\index{ThreadPool@{ThreadPool}!````~ThreadPool@{\texorpdfstring{$\sim$}{\string~}ThreadPool}}
 \index{````~ThreadPool@{\texorpdfstring{$\sim$}{\string~}ThreadPool}!ThreadPool@{ThreadPool}}
@@ -31,12 +31,12 @@ Thread\+Pool\+::\texorpdfstring{$\sim$}{\string~}\+Thread\+Pool (\begin{DoxyPara
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_thread_pool_aee2fe172c3fc2087b23805a6dd6ef4f8}\index{ThreadPool@{ThreadPool}!enqueue@{enqueue}}
+\Hypertarget{class_thread_pool_ac30c1b50991e65e30e64c2b93c40508f}\index{ThreadPool@{ThreadPool}!enqueue@{enqueue}}
 \index{enqueue@{enqueue}!ThreadPool@{ThreadPool}}
 \doxysubsubsection{\texorpdfstring{enqueue()}{enqueue()}}
-{\footnotesize\ttfamily \label{class_thread_pool_aee2fe172c3fc2087b23805a6dd6ef4f8} 
-template$<$class F, class... A$>$ \\
-decltype(auto) Thread\+Pool\+::enqueue (\begin{DoxyParamCaption}\item[{F \&\&}]{callable}{, }\item[{A \&\&...}]{arguments}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{class_thread_pool_ac30c1b50991e65e30e64c2b93c40508f} 
+template$<$class F, class... Args$>$ \\
+auto Thread\+Pool\+::enqueue (\begin{DoxyParamCaption}\item[{F \&\&}]{f}{, }\item[{Args \&\&...}]{args}{}\end{DoxyParamCaption}) -\/$>$ std\+::future$<$std\+::invoke\+\_\+result\+\_\+t$<$F, Args...$>$$>$}
 
 
 

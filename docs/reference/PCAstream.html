@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.55</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.57</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
 <span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>  threads2 <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  threads2 <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  scaleAndCenter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -98,7 +98,7 @@
 <span>  s <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  B <span class="op">=</span> <span class="fl">64</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>  threads2 <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  threads2 <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  scaleAndCenter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  shuffle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -159,7 +159,7 @@ number of threads (by default \(threads=4\)) to read data</p></dd>
 
 <dt>threads2</dt>
 <dd><p>integer, optional; <br>
-number of threads (by default \(threads=1\)), used for linear algebra opertions</p></dd>
+number of threads (by default \(threads=4\)), used for linear algebra opertions</p></dd>
 
 
 <dt>scaleAndCenter</dt>
@@ -236,7 +236,7 @@ if <code>TRUE</code> (default), print details</p></dd>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PCAstream</span><span class="op">(</span><span class="va">obj</span>, k<span class="op">=</span><span class="fl">5</span>, threads<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Read through...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  # features: 10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  # chunks: 2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  # chunks: 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  # threads: 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  B: 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  k: 5 </span>

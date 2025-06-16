@@ -32,7 +32,7 @@
 \DoxyCodeLine{00028\ \ \ \ \ ReaderPool(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{gds::Param}}\ \&param,\ \textcolor{keyword}{const}\ std::vector<std::string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ poolSize)\ :\ param(param)\ \{}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \textcolor{comment}{//\ pre-\/create\ readers}}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ poolSize;\ ++i)\ \{}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ readers.push\_back(gds::createFileView\_shared(param));}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ readers.push\_back(gds::createFileView(param));}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \ \ \ \ \ \ regionSets\ =\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{gds::chunk\_vector}}(regions,\ numChunks);}
@@ -41,81 +41,89 @@
 \DoxyCodeLine{00037\ \ \ \ \ std::shared\_ptr<gds::GenomicDataStream>\ getReader(\textcolor{keywordtype}{size\_t}\ i)\ \{}
 \DoxyCodeLine{00038\ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(mutex);}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \textcolor{comment}{//\ alter\ the\ region\ so\ that\ this\ reader\ get\ a\ specific\ chunk}}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ std::vector<std::string>\ rg\{regionSets[i]\};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ rg\ =\ regionSets[i];}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (readers.empty())\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ a\ new\ reader}}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ gds::createFileView\_shared(param);}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ reader-\/>setRegions(rg);}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reader;}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}getReader"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ x:\ rg)\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ x\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ Rcpp::Rcout\ <<\ endl;}
+\DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ readers.back();}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ readers.pop\_back();}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ reader-\/>setRegions(rg);}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reader;}
-\DoxyCodeLine{00053\ \ \ \ \ \}}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ returnReader(std::shared\_ptr<gds::GenomicDataStream>\ reader)\ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(mutex);}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ readers.push\_back(reader);}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{structgds_1_1_param}{gds::Param}}\ param;}
-\DoxyCodeLine{00062\ \ \ std::vector<std::vector<std::string>\ >\ regionSets;}
-\DoxyCodeLine{00063\ \ \ std::vector<std::shared\_ptr<gds::GenomicDataStream>>\ readers;}
-\DoxyCodeLine{00064\ \ \ std::mutex\ mutex;}
-\DoxyCodeLine{00065\ \ \ \};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (readers.empty())\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ a\ new\ reader}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ gds::createFileView(param);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ reader-\/>setRegions(rg);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reader;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ readers.back();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ readers.pop\_back();}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ reader-\/>setRegions(rg);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reader;}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ returnReader(std::shared\_ptr<gds::GenomicDataStream>\ reader)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(mutex);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ readers.push\_back(reader);}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
 \DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{class_multi_genomic_stream_processor_a95e8376bd540b81132e4cd5f94efbebb}{MultiGenomicStreamProcessor}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{gds::Param}}\ \&param,\ \textcolor{keyword}{const}\ std::vector<std::string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ numThreads)}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ :\ chunkSize(param.chunkSize),\ }
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ numChunks(numChunks),}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ pool(numThreads),}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ readerPool(param,\ regions,\ numChunks,\ std::max(numThreads,\ (size\_t)std::thread::hardware\_concurrency()))\ \textcolor{comment}{//\ as\ many\ as\ possible\ readers}}
-\DoxyCodeLine{00073\ \ \ \{\ \}}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}{processChunk}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<T>}}\ \&,\ \textcolor{keywordtype}{size\_t})>\ processFunc)\ \{}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ std::vector<std::future<void>>\ futures;}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ submit\ task\ to\ thread\ pool}}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ numChunks;\ ++i)\ \{}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ futures.emplace\_back(pool.enqueue([\textcolor{keyword}{this},\ i,\ processFunc]\ \{}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ and\ process\ the\ chunk}}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ auto\ reader\ =\ readerPool.getReader(i);}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ gds::DataChunk<T>\ chunk;}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ try\ \{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ if\ (reader-\/>getNextChunk(chunk))\ \{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ processFunc(chunk,\ i);}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ put\ the\ reader\ back\ the\ pool\ so\ that\ we\ can\ reuse\ it\ later}}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ readerPool.returnReader(reader);}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}\ catch\ (...)\ \{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ensure\ reader\ is\ returned\ to\ pool\ even\ if\ exception\ occurs}}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ readerPool.returnReader(reader);}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \}));}
-\DoxyCodeLine{00098\ \ \ \ \ \}}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ wait\ for\ all\ to\ complete}}
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&future\ :\ futures)\ \{}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ future.get();}
-\DoxyCodeLine{00103\ \ \ \ \ \}}
-\DoxyCodeLine{00104\ \ \ \}}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ chunkSize;}
-\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ numChunks;}
-\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{class_thread_pool}{ThreadPool}}\ pool;}
-\DoxyCodeLine{00110\ \ \ ReaderPool\ readerPool;}
-\DoxyCodeLine{00111\ \};}
-\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{structgds_1_1_param}{gds::Param}}\ param;}
+\DoxyCodeLine{00069\ \ \ std::vector<std::vector<std::string>\ >\ regionSets;}
+\DoxyCodeLine{00070\ \ \ std::vector<std::shared\_ptr<gds::GenomicDataStream>>\ readers;}
+\DoxyCodeLine{00071\ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{00072\ \ \ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{class_multi_genomic_stream_processor_a95e8376bd540b81132e4cd5f94efbebb}{MultiGenomicStreamProcessor}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{gds::Param}}\ \&param,\ \textcolor{keyword}{const}\ std::vector<std::string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ numThreads)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ :\ chunkSize(param.chunkSize),\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ numChunks(numChunks),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ pool(numThreads),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ readerPool(param,\ regions,\ numChunks,\ std::max(numThreads,\ (size\_t)std::thread::hardware\_concurrency()))\ \textcolor{comment}{//\ as\ many\ as\ possible\ readers}}
+\DoxyCodeLine{00080\ \ \ \{\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ F>}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_multi_genomic_stream_processor_a497528d30dc8ed280190574cc0f97765}{processChunk}}(F\ processFunc)\ \{}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ std::vector<std::future<void>>\ futures;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ submit\ task\ to\ thread\ pool}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ numChunks;\ ++i)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ futures.emplace\_back(pool.enqueue([\textcolor{keyword}{this},\ i,\ processFunc]\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ and\ process\ the\ chunk}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ auto\ reader\ =\ readerPool.getReader(i);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ gds::DataChunk<T>\ chunk;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ try\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ if\ (reader-\/>getNextChunk(chunk))\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ processFunc(chunk,\ i);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ put\ the\ reader\ back\ the\ pool\ so\ that\ we\ can\ reuse\ it\ later}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ readerPool.returnReader(reader);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}\ catch\ (...)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ensure\ reader\ is\ returned\ to\ pool\ even\ if\ exception\ occurs}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ readerPool.returnReader(reader);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}reader\ fails"{}}\ <<\ endl;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \}));}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{comment}{//\ wait\ for\ all\ to\ complete}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&future\ :\ futures)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ future.get();}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \}}
 \DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ chunkSize;}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ numChunks;}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{class_thread_pool}{ThreadPool}}\ pool;}
+\DoxyCodeLine{00118\ \ \ ReaderPool\ readerPool;}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

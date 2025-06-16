@@ -128,8 +128,8 @@ setMethod(
     B <- B / 2
   }
 
-  ## x <- setChunkSize(x, ceiling( M / B )) # DO NOT reset chunks here
-  nchunks <- length(regions)
+  x <- setChunkSize(x, ceiling( M / B ))
+  nchunks <- B
 
   # number of parallel chunks
   n_pll_chunks <- max(1, log2(B))
@@ -144,9 +144,8 @@ setMethod(
     }
     cat(" # features:", format(M, big.mark=','), "\n")
     cat(" # chunks:", format(nchunks, big.mark=','), "\n")
+    cat(" # PCs:", k, "\n")
     cat(" # threads:", n_pll_chunks, "\n")
-    cat(" B:", B, "\n")
-    cat(" k:", k, "\n")
   }
 
   # p <- max(c(p, log2(B)+1)) 
@@ -165,9 +164,6 @@ setMethod(
           threads = n_pll_chunks, 
           threads_eigen = threads2,
           verbose = verbose)
-
-  # cat("featureIDs:\n", paste0(res$featureIds, collapse=" "), "\n", sep='')
-  # cat("variantID:\n", paste0(sObj$variantIDs, collapse=" "), "\n", sep='')
 
   # set row and column names
   # Since variant order can be shuffled
@@ -441,7 +437,7 @@ setMethod("plot", signature(x = "PCA"),
 #'  X <- hilbert(9)[, 1:6]
 #' k = 4
 #' 
-#' Compute SVD using two methods
+#' # Compute SVD using two methods
 #' dcmp <- svd( scale(X), k, k)
 #' res <- PCAstream( X, k=k)
 #' 

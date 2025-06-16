@@ -29,7 +29,7 @@ hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
  X <- hilbert(9)[, 1:6]
 k = 4
 
-Compute SVD using two methods
+# Compute SVD using two methods
 dcmp <- svd( scale(X), k, k)
 res <- PCAstream( X, k=k)
 

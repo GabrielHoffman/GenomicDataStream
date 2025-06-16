@@ -6,5 +6,6 @@ var searchData=
   ['pgenstream_3',['pgenstream',['../classgds_1_1pgenstream.html#af76c1bf0dc513cccf2e93bc8cdc9545f',1,'gds::pgenstream::pgenstream()'],['../classgds_1_1pgenstream.html#a9d1c5a49e0367506c6d4872913f67d33',1,'gds::pgenstream::pgenstream(const Param &amp;param)']]],
   ['point_4',['point',['../structgds_1_1point.html#ad10ecd7d769f8c570dff713674506e0b',1,'gds::point::point(const int &amp;position, const size_t &amp;index)'],['../structgds_1_1point.html#aa5b1dd0a7e13d30c67b40a888b169f50',1,'gds::point::point(const int &amp;position)']]],
   ['print_5',['print',['../structgds_1_1_param.html#a3e8677008966dba8b7737ed223d56b93',1,'gds::Param']]],
-  ['processchunk_6',['processChunk',['../class_multi_genomic_stream_processor.html#abe5152a44bfecaadad5d401262ec9d2d',1,'MultiGenomicStreamProcessor']]]
+  ['processchunk_6',['processChunk',['../class_multi_genomic_stream_processor.html#a497528d30dc8ed280190574cc0f97765',1,'MultiGenomicStreamProcessor']]],
+  ['processchunks_7',['processChunks',['../class_genomic_data_stream_parallel.html#a7a76a1315ca81aaa1f3ce6b143db3b7e',1,'GenomicDataStreamParallel']]]
 ];

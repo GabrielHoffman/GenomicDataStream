@@ -122,7 +122,7 @@ $(function(){ initResizable(false); });
 <div class="textblock"><div class="image">
 <img src="https://gabrielhoffman.github.io/GenomicDataStream/reference/figures/GenomicDataStream.png" alt=""/>
 </div>
- <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="eigen.tuxfamily.org">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. </div><h4><a class="anchor" id="autotoc_md0"></a>
+ <div style="text-align: justify"> Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a>) into R/Rcpp in chunks for analysis with <a href="https://doi.org/10.21105/joss.00026">Armadillo</a> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> / <a href="https://www.rcpp.org">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. </div><h4><a class="anchor" id="autotoc_md0"></a>
 The <code>GenomicDataStream</code> C++ interface separates</h4>
 <ol type="1">
 <li>data source</li>
@@ -130,7 +130,7 @@ The <code>GenomicDataStream</code> C++ interface separates</h4>
 <li>downstream analysis <br  />
 </li>
 </ol>
-<p>GenomicDataStream provides interfaces at both the C++ and R levels. The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.</p>
+<p><a class="el" href="classgds_1_1_genomic_data_stream.html">GenomicDataStream</a> provides interfaces at both the C++ and R levels. The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.</p>
 <h3><a class="anchor" id="autotoc_md1"></a>
 Example code with C++17</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;RcppArmadillo.h&gt;</span></div>
@@ -201,14 +201,14 @@ Key Dependencies</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a href="https://cran.r-project.org/package=RcppArmadillo">RcppArmadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.18637/jss.v040.i08">J Stat Software</a>   </td><td class="markdownTableBodyNone">API for Rcpp access to Armadillo matrix library    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a href="https://eigen.tuxfamily.org">Eigen</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">C++ library for linear algebra with advanced features    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">C++ library for linear algebra with advanced features    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a href="https://arma.sourceforge.net">Armadillo</a>   </td><td class="markdownTableBodyNone"><a href="https://doi.org/10.21105/joss.00026">J Open Src Soft</a>   </td><td class="markdownTableBodyNone">User-friendly C++ library for linear algebra   </td></tr>
 </table>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Notes</h2>
-<div style="text-align: justify"> <code>GenomicDataStream</code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>: </div><p><code>-D DISABLE_DELAYED_STREAM</code> <br  />
- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit <code>DelayedStream</code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code> <br  />
+<div style="text-align: justify"> <code><a class="el" href="classgds_1_1_genomic_data_stream.html">GenomicDataStream</a></code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>: </div><p><code>-D DISABLE_DELAYED_STREAM</code> <br  />
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit <code><a class="el" href="classgds_1_1_delayed_stream.html">DelayedStream</a></code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code> <br  />
 </p>
 <p><code>-D DISABLE_EIGEN</code> <br  />
  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code> and <code>Eigen</code></p>

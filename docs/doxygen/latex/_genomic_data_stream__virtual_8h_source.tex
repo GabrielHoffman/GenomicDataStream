@@ -143,7 +143,7 @@
 \DoxyCodeLine{00168\ }
 \DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\string~GenomicDataStream}}()\ \{\};}
 \DoxyCodeLine{00172\ }
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}{setRegions}}(\textcolor{keyword}{const}\ vector<string>\ \&regions)\ =\ 0;\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}{setRegions}}(\textcolor{keyword}{const}\ vector<string>\ \&regions\ )\ =\ 0;\ }
 \DoxyCodeLine{00176\ \ \ \ \ \ }
 \DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8bfa63dae08a7972722b03b56395e927}{n\_samples}}()\ =\ 0;}
 \DoxyCodeLine{00180\ \ }
@@ -206,7 +206,7 @@
 \DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ arma::rowvec\ colmax\ =\ max(M);}
 \DoxyCodeLine{00269\ }
 \DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ minor\ allele\ frequencies}}
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ arma::rowvec\ maf(colsum\ /\ (2*number\_of\_samples));}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ arma::rowvec\ maf(colsum\ /\ (2.0*number\_of\_samples));}
 \DoxyCodeLine{00272\ }
 \DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<maf.n\_elem;\ i++)\{}
 \DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ maf[i]\ =\ min(maf[i],\ 1.0\ -\/\ maf[i]);}
@@ -227,19 +227,32 @@
 \DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ vector<unsigned\ int>\ idx2(idx.n\_elem);}
 \DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ copy(idx.begin(),\ idx.end(),\ idx2.begin());}
 \DoxyCodeLine{00291\ }
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ only\ variants\ specified\ in\ idx2}}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}{retainVariants}}(\ idx2\ );}
-\DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ subset\ of\ columns}}
-\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ arma::mat\ M\_subset\ =\ M.cols(idx);}
-\DoxyCodeLine{00297\ }
-\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ M\_subset\ into\ matDosage}}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ memcpy(matDosage.data(),\ M\_subset.memptr(),\ M\_subset.n\_elem*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
-\DoxyCodeLine{00300\ \ \ \ \ \}}
-\DoxyCodeLine{00301\ \}}
-\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ retain\ variants\ at\ sites\ that\ pass\ filter}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ position\ identifiers\ for\ each\ variant}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ vector<string>\ chromPos\_all\ =\ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a35702a158a428aa1be369ab7bc329ab3}{getChromPos}}();}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ position\ identifers\ for\ variant\ that\ pass\ filter}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ vector<string>\ chromPos\_sub\ =\ subset\_vector(chromPos\_all,\ idx2);}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ any\ variant\ at\ sites\ in\ POSID\_sub}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ chromPos\_all\ \%in\%\ chromPos\_sub}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ idx2\ =\ which\_in(chromPos\_all,\ chromPos\_sub);}
 \DoxyCodeLine{00303\ }
-\DoxyCodeLine{00304\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ only\ variants\ specified\ in\ idx2}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_a95aa9d6aa717eed7ab7f921ff93311d5}{retainVariants}}(\ idx2\ );}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ subset\ of\ columns}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ arma::uvec\ idx2a(idx2.data(),\ idx2.size());}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ arma::mat\ M\_subset\ =\ M.cols(idx2a);}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ M\_subset\ into\ matDosage}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ memcpy(matDosage.data(),\ M\_subset.memptr(),\ M\_subset.n\_elem*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00313\ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

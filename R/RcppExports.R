@@ -53,7 +53,7 @@ test_DataTable <- function(file, headerKey, delim = "\t ") {
     invisible(.Call('_GenomicDataStream_test_DataTable', PACKAGE = 'GenomicDataStream', file, headerKey, delim))
 }
 
-stream_pcaone <- function(x, region, m, k, nchunks, s = 20L, p = 7L, B = 64L, threads = 4L, threads_eigen = 1L, verbose = TRUE, scaleAndCenter = TRUE) {
+stream_pcaone <- function(x, region, m, k, nchunks, s = 20L, p = 7L, B = 64L, threads = 4L, threads_eigen = 4L, verbose = TRUE, scaleAndCenter = TRUE) {
     .Call('_GenomicDataStream_stream_pcaone', PACKAGE = 'GenomicDataStream', x, region, m, k, nchunks, s, p, B, threads, threads_eigen, verbose, scaleAndCenter)
 }
 

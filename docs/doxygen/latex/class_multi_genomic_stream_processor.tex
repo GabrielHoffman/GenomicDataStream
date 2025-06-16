@@ -9,7 +9,7 @@
 \item 
 \mbox{\hyperlink{class_multi_genomic_stream_processor_a95e8376bd540b81132e4cd5f94efbebb}{Multi\+Genomic\+Stream\+Processor}} (const \mbox{\hyperlink{structgds_1_1_param}{gds\+::\+Param}} \&param, const std\+::vector$<$ std\+::string $>$ \&regions, size\+\_\+t num\+Chunks, size\+\_\+t num\+Threads)
 \item 
-void \mbox{\hyperlink{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}{process\+Chunk}} (std\+::function$<$ void(const \mbox{\hyperlink{classgds_1_1_data_chunk}{gds\+::\+Data\+Chunk}}$<$ T $>$ \&, size\+\_\+t)$>$ process\+Func)
+{\footnotesize template$<$class F$>$ }\\void \mbox{\hyperlink{class_multi_genomic_stream_processor_a497528d30dc8ed280190574cc0f97765}{process\+Chunk}} (F process\+Func)
 \end{DoxyCompactItemize}
 
 
@@ -24,12 +24,13 @@ template$<$typename T$>$ \\
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d}\index{MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}!processChunk@{processChunk}}
+\Hypertarget{class_multi_genomic_stream_processor_a497528d30dc8ed280190574cc0f97765}\index{MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}!processChunk@{processChunk}}
 \index{processChunk@{processChunk}!MultiGenomicStreamProcessor$<$ T $>$@{MultiGenomicStreamProcessor$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{processChunk()}{processChunk()}}
-{\footnotesize\ttfamily \label{class_multi_genomic_stream_processor_abe5152a44bfecaadad5d401262ec9d2d} 
+{\footnotesize\ttfamily \label{class_multi_genomic_stream_processor_a497528d30dc8ed280190574cc0f97765} 
 template$<$typename T$>$ \\
-void \mbox{\hyperlink{class_multi_genomic_stream_processor}{Multi\+Genomic\+Stream\+Processor}}$<$ T $>$\+::process\+Chunk (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(const \mbox{\hyperlink{classgds_1_1_data_chunk}{gds\+::\+Data\+Chunk}}$<$ T $>$ \&, size\+\_\+t)$>$}]{process\+Func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+template$<$class F$>$ \\
+void \mbox{\hyperlink{class_multi_genomic_stream_processor}{Multi\+Genomic\+Stream\+Processor}}$<$ T $>$\+::process\+Chunk (\begin{DoxyParamCaption}\item[{F}]{process\+Func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

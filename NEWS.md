@@ -2,7 +2,8 @@
 # GenomicDataStream 0.0.57
  - June 16, 2025
  - Fix issue with multiple variants at the same site
- - PCA is now parallelize with TBB
+ - PCA is now parallelized with [oneTBB](https://uxlfoundation.github.io/oneTBB/)
+ - add `GenomicDataStreamParallel.h`
 
 
 # GenomicDataStream 0.0.54

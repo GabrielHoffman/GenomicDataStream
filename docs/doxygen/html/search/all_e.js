@@ -15,6 +15,7 @@ var searchData=
   ['pos_12',['pos',['../struct_z_s_t_d__in_buffer__s.html#af25828e77def7d36cb648494649ecaa4',1,'ZSTD_inBuffer_s::pos'],['../struct_z_s_t_d__out_buffer__s.html#a51b01c063d6e338d333a865b88ea243c',1,'ZSTD_outBuffer_s::pos']]],
   ['position_13',['position',['../structgds_1_1point.html#a790082ec81e2b763ac1da050f21f6602',1,'gds::point']]],
   ['print_14',['print',['../structgds_1_1_param.html#a3e8677008966dba8b7737ed223d56b93',1,'gds::Param']]],
-  ['processchunk_15',['processChunk',['../class_multi_genomic_stream_processor.html#abe5152a44bfecaadad5d401262ec9d2d',1,'MultiGenomicStreamProcessor']]],
-  ['ptr_16',['ptr',['../structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9',1,'gds::BoundDataStream']]]
+  ['processchunk_15',['processChunk',['../class_multi_genomic_stream_processor.html#a497528d30dc8ed280190574cc0f97765',1,'MultiGenomicStreamProcessor']]],
+  ['processchunks_16',['processChunks',['../class_genomic_data_stream_parallel.html#a7a76a1315ca81aaa1f3ce6b143db3b7e',1,'GenomicDataStreamParallel']]],
+  ['ptr_17',['ptr',['../structgds_1_1_bound_data_stream.html#abf1a91c6f22f65fbd200b618fc8180f9',1,'gds::BoundDataStream']]]
 ];

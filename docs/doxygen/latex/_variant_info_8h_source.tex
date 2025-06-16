@@ -158,16 +158,29 @@
 \DoxyCodeLine{00174\ }
 \DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ regions;}
 \DoxyCodeLine{00176\ \ \ \ \ \}}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00178\ \ \ \ \ \textcolor{comment}{//\ private:}}
-\DoxyCodeLine{00179\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_ad77368d79bf9efcaf87fd004c7a41efa}{sampleNames}};}
-\DoxyCodeLine{00180\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_a70b37daa458aca44124d9065e69a4453}{CHROM}};}
-\DoxyCodeLine{00181\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_info_a320ffc7aeff978eaf7f7c89075013844}{POS}};}
-\DoxyCodeLine{00182\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_a3072054809e3f672a80e5a342b522f00}{A1}},\ \mbox{\hyperlink{classgds_1_1_variant_info_ac42747fd4e529b7a4e37befdb4d1849b}{A2}};}
-\DoxyCodeLine{00183\ \};}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \}}
-\DoxyCodeLine{00186\ }
-\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00177\ \ }
+\DoxyCodeLine{00180\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_a35702a158a428aa1be369ab7bc329ab3}{getChromPos}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ vector<string>\ ChromPos;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ ChromPos.reserve(\ \mbox{\hyperlink{classgds_1_1_data_info_af8d39001b9a18c530c6d60f5caf32789}{size}}());}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ str;\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<\mbox{\hyperlink{classgds_1_1_data_info_af8d39001b9a18c530c6d60f5caf32789}{size}}();\ i++)\{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ str\ =\ \mbox{\hyperlink{classgds_1_1_variant_info_a70b37daa458aca44124d9065e69a4453}{CHROM}}[i]\ +\ \textcolor{stringliteral}{"{}:"{}}\ +\ to\_string(\mbox{\hyperlink{classgds_1_1_variant_info_a320ffc7aeff978eaf7f7c89075013844}{POS}}[i]);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ ChromPos.push\_back(\ str\ );}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ChromPos;}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ private:}}
+\DoxyCodeLine{00194\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_ad77368d79bf9efcaf87fd004c7a41efa}{sampleNames}};}
+\DoxyCodeLine{00195\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_a70b37daa458aca44124d9065e69a4453}{CHROM}};}
+\DoxyCodeLine{00196\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_info_a320ffc7aeff978eaf7f7c89075013844}{POS}};}
+\DoxyCodeLine{00197\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_info_a3072054809e3f672a80e5a342b522f00}{A1}},\ \mbox{\hyperlink{classgds_1_1_variant_info_ac42747fd4e529b7a4e37befdb4d1849b}{A2}};}
+\DoxyCodeLine{00198\ \};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

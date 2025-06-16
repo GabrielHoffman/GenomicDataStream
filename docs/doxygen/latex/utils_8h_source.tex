@@ -326,8 +326,35 @@
 \DoxyCodeLine{00364\ \ \ \}}
 \DoxyCodeLine{00365\ \ \ \textcolor{keywordflow}{return}\ result;}
 \DoxyCodeLine{00366\ \}}
-\DoxyCodeLine{00367\ }
-\DoxyCodeLine{00368\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00367\ \ }
+\DoxyCodeLine{00370\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00371\ \textcolor{keyword}{static}\ vector<unsigned\ int>\ which\_in(\ \textcolor{keyword}{const}\ vector<T>\ \&v1,\ \textcolor{keyword}{const}\ vector<T>\ \&v2)\{}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \textcolor{comment}{//\ Create\ a\ hash\ map\ (unordered\_map)\ of\ elements\ in\ v2\ for\ efficient\ lookups}}
+\DoxyCodeLine{00374\ \ \ unordered\_map<T,\ bool>\ v2\_elements;}
+\DoxyCodeLine{00375\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&x\ :\ v2)\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ v2\_elements[x]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00377\ \ \ \}}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \textcolor{comment}{//\ Iterate\ through\ v1\ and\ check\ if\ the\ element\ exists\ in\ the\ hash\ map\ \ \ }}
+\DoxyCodeLine{00380\ \ \ vector<unsigned\ int>\ shared\_indices;}
+\DoxyCodeLine{00381\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ v1.size();\ ++i)\ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ element\ exists\ in\ the\ map}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v2\_elements.count(v1[i]))\ \{\ }
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ index\ from\ v1}}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ shared\_indices.push\_back(i);\ }
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00387\ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordflow}{return}\ shared\_indices;}
+\DoxyCodeLine{00390\ \}}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

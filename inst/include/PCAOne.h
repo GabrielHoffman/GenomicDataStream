@@ -122,10 +122,8 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
         start += Ab.cols();
         i++;
       }
-    };
-    // now run
-    processor.processChunk(pcaChunk);
-  }
+    }); // end processChunks
+  } // end for
 
   // get USV
   if( verbose ){
