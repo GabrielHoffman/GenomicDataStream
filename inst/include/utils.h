@@ -365,5 +365,34 @@ std::vector<std::vector<T>> chunk_vector(const std::vector<T>& vec, int k) {
   return result;
 }
 
+/** Get indieces of v1 that have for which elements are present in v2
+ */ 
+template<typename T>
+static vector<unsigned int> which_in( const vector<T> &v1, const vector<T> &v2){
+
+  // Create a hash map (unordered_map) of elements in v2 for efficient lookups
+  unordered_map<T, bool> v2_elements;
+  for (auto &x : v2) {
+      v2_elements[x] = true;
+  }
+
+  // Iterate through v1 and check if the element exists in the hash map   
+  vector<unsigned int> shared_indices;
+  for (int i = 0; i < v1.size(); ++i) {
+      // Check if the element exists in the map
+      if (v2_elements.count(v1[i])) { 
+        // Add the index from v1
+          shared_indices.push_back(i); 
+      }
+  }
+
+  return shared_indices;
+}
+
+
+
+
+
+
 } // end namespace
 #endif

@@ -17,6 +17,7 @@
 #include <string>
 #include <regex>
 #include <unordered_map>
+#include <algorithm>
 
 #include "VariantInfo.h"
 #include "GenomicDataStream_virtual.h"
@@ -113,26 +114,19 @@ class pgenstream :
 
 	/** setter
 	 */
-	void setRegions(const vector<string> &regions) override {
+	void setRegions(const vector<string> &regions ) override {
 
 		// Initialize genomic regions
 		// from delimited string
 		GenomicRanges gr( regions );
 		// if not empty
 		if( gr.size() != 0){
-			// get indeces of entries in .pvar located 
-			// within regions
-			// Search is linear time for each interval
-			// varIdx = gr.getWithinIndeces( dt["CHROM"], cast_elements<size_t>(dt["POS"]) );
 
 			// Search is log time for each interval
 			VariantSet vs(dt["CHROM"], cast_elements<int>(dt["POS"]));
 			varIdx = vs.getIndeces( gr );
+
 		}else{
-			// else
-			// set entries to seq(0, dt.nrows()-1)
-			// varIdx.resize(dt.nrows());
-			// iota(begin(varIdx), end(varIdx), 0); 
 			varIdx.clear();
 			for(int i=0; i<dt.nrows(); i++){
 				varIdx.push_back(i);

@@ -21,10 +21,10 @@
 
 #include "GenomicDataStream.h"
 #include "DataTable.h"
-#include "ParallelGenomicChunks.h"
+// #include "ParallelGenomicChunks.h"
 #include "PCAOne.h"
 
-#include "Rand.hpp"
+// #include "Rand.hpp"
 
 using namespace std;
 using namespace vcfpp;

@@ -28,7 +28,7 @@ private:
     ReaderPool(const gds::Param &param, const std::vector<std::string> &regions, size_t numChunks, size_t poolSize) : param(param) {
       // pre-create readers
       for (size_t i = 0; i < poolSize; ++i) {
-        readers.push_back(gds::createFileView_shared(param));
+        readers.push_back(gds::createFileView(param));
       }
 
       regionSets = gds::chunk_vector(regions, numChunks);
@@ -39,9 +39,16 @@ private:
       // alter the region so that this reader get a specific chunk
       const std::vector<std::string>& rg = regionSets[i];
 
+      Rcpp::Rcout << "getReader" << std::endl;
+      for(auto x: rg){
+        Rcpp::Rcout << x << " ";
+      }
+      Rcpp::Rcout << endl;
+
+
       if (readers.empty()) {
         // create a new reader
-        auto reader = gds::createFileView_shared(param);
+        auto reader = gds::createFileView(param);
         reader->setRegions(rg);
         return reader;
       }
@@ -92,6 +99,7 @@ public:
         } catch (...) {
           // ensure reader is returned to pool even if exception occurs
           readerPool.returnReader(reader);
+          Rcpp::Rcout << "reader fails" << endl;
           throw;
         }
       }));

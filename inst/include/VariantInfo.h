@@ -175,6 +175,21 @@ class VariantInfo :
         return regions;
     }
 
+    /** get genomic regions as vector
+     */ 
+    vector<string> getChromPos() const {
+
+        vector<string> ChromPos;
+        ChromPos.reserve( size());
+        string str; 
+        for(int i=0; i<size(); i++){
+            str = CHROM[i] + ":" + to_string(POS[i]);
+            ChromPos.push_back( str );
+        }
+
+        return ChromPos;
+    }
+
     // private:
     vector<string> sampleNames;
     vector<string> CHROM;

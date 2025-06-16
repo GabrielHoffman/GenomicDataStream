@@ -14,7 +14,6 @@
 
 #include "GenomicDataStream.h"
 #include "Rand.hpp"
-#include "ParallelGenomicChunks.h"
 
 using namespace std;
 using namespace arma;
@@ -59,12 +58,17 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
   
+  // Test: Read in Serial
+  shared_ptr<GenomicDataStream> gdsStream = createFileView( gds->getParam() );
+  gdsStream->setRegions( regions );
+  DataChunk<Eigen::MatrixXd> ch;
+  
+  // Parallel part using Thread Building Blocks
+  GenomicDataStreamParallel<Eigen::MatrixXd> gsp(gds->getParam(), regions, nchunks, threads);
+
   size_t band = ceil((double) nchunks / B);
-
-  MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(gds->getParam(), regions, nchunks, threads);
-  std::mutex pcaMutex;  
-
   vector<string> featureIds;
+  std::mutex pcaMutex;  
 
   for (int pi = 0; pi <= p; pi++) {
 
@@ -80,20 +84,20 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
     band = std::fmin(band * 2, nchunks);
 
     size_t i{1},  start{0};
-    auto pcaChunk = [&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
-	  auto Ab = chunk.getData();
+    gsp.processChunks([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
+      auto Ab = chunk.getData();
 
       if( scaleAndCenter ){
-      	standardize(Ab);
-      	Ab /= sqrt(n-1);    
+        standardize(Ab);
+        Ab /= sqrt(n-1);    
       }
       {
         std::lock_guard<std::mutex> lock(pcaMutex);
 
         if( pi == 0){
-        	auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
-    			featureIds.insert(featureIds.end(), 
-    					tmp.begin(), tmp.end());
+          auto tmp = chunk.getInfo<VariantInfo>()->getFeatureNames();
+          featureIds.insert(featureIds.end(), 
+              tmp.begin(), tmp.end());
         }
 
         G.middleRows(start, Ab.cols()).noalias() = Ab.transpose() * Omg;

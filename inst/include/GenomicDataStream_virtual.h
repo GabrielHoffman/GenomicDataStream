@@ -172,7 +172,7 @@ class GenomicDataStream {
 
 	/** setter
 	 */
-	virtual void setRegions(const vector<string> &regions) = 0; 
+	virtual void setRegions(const vector<string> &regions ) = 0; 
 	
 	/** Get number of columns in data matrix
 	 */ 
@@ -248,7 +248,7 @@ class GenomicDataStream {
 
 /** Given matDosage.data(), number_of_samples, vInfo->size()
  * set matDosage and vInfo so the first K entries are the valid
- * features
+ * features. Importantly, if multiple variants are present at the same site (i.e. identical chromosome and position), and 1 passes the filter, then all variants at that site are retained.  This can happen when multiple allelic variants are coded as two variants at the same site with the same reference but different alt alleles.
  * 
  * if MAF and minVariance are not NAN, eval filter
  * if max value of variant is <= 2, apply MAF filter
@@ -268,7 +268,7 @@ static void applyVariantFilter(vector<double> &matDosage, VariantInfo *vInfo, co
 		arma::rowvec colmax = max(M);
 
 		// compute minor allele frequencies
-		arma::rowvec maf(colsum / (2*number_of_samples));
+		arma::rowvec maf(colsum / (2.0*number_of_samples));
 
 		for(int i=0; i<maf.n_elem; i++){
 			maf[i] = min(maf[i], 1.0 - maf[i]);
@@ -289,11 +289,24 @@ static void applyVariantFilter(vector<double> &matDosage, VariantInfo *vInfo, co
 		vector<unsigned int> idx2(idx.n_elem);
 		copy(idx.begin(), idx.end(), idx2.begin());
 
+		// retain variants at sites that pass filter
+
+		// get position identifiers for each variant
+		vector<string> chromPos_all = vInfo->getChromPos();
+		
+		// position identifers for variant that pass filter
+		vector<string> chromPos_sub = subset_vector(chromPos_all, idx2);
+
+		// keep any variant at sites in POSID_sub
+		// chromPos_all %in% chromPos_sub
+		idx2 = which_in(chromPos_all, chromPos_sub);
+
 		// keep only variants specified in idx2
 		vInfo->retainVariants( idx2 );
 
 		// set subset of columns
-		arma::mat M_subset = M.cols(idx);
+		arma::uvec idx2a(idx2.data(), idx2.size());
+		arma::mat M_subset = M.cols(idx2a);
 
 		// copy M_subset into matDosage
 		memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*sizeof(double));
