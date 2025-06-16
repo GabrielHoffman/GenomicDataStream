@@ -103,7 +103,7 @@ setMethod(
   sObj <- summaryChunks(x)
 
   # permute chunks
-  regions <- sObj$regions
+  regions <- sObj$intervals # DO NOT use sObj$regions here which is one variant per chunk
   if( shuffle ){
     regions <- sample(regions, length(regions))
   }
@@ -124,12 +124,12 @@ setMethod(
     B <- B / 2
   }
 
-  x <- setChunkSize(x, ceiling( M / B ))
-  nchunks <- B
+  ## x <- setChunkSize(x, ceiling( M / B )) # DO NOT reset chunks here
+  nchunks <- length(regions)
 
   # number of parallel chunks
   n_pll_chunks <- max(1, log2(B))
-  n_pll_chunks <- min(n_pll_chunks, threads)
+  n_pll_chunks <- max(n_pll_chunks, threads)
 
   # k must be < min(N,M)
   k <- min(c(k,N,M))
