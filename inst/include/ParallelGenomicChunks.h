@@ -37,7 +37,7 @@ private:
     std::shared_ptr<gds::GenomicDataStream> getReader(size_t i) {
       std::lock_guard<std::mutex> lock(mutex);
       // alter the region so that this reader get a specific chunk
-      std::vector<std::string> rg{regionSets[i]};
+      const std::vector<std::string>& rg = regionSets[i];
 
       if (readers.empty()) {
         // create a new reader

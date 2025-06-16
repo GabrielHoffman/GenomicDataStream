@@ -49,7 +49,6 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
   
   auto regions = splitRegionString( region ); 
 
-  DataChunk<Eigen::MatrixXd> chunk;
   int n = gds->n_samples();
 
   const int l = k + s;
