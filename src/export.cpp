@@ -262,14 +262,14 @@ List stream_pcaone( SEXP x,
                     int p = 7, 
                     int B = 64, 
                     int threads = 4,
-                    int threads_eigen = 1,
+                    int threads_eigen = 4,
                     const bool verbose = true,
                     const bool scaleAndCenter = true) {
 
   XPtr<BoundDataStream> ptr(x);
   shared_ptr<GenomicDataStream> gds = ptr->ptr;
 
-  Eigen::setNbThreads(threads_eigen);   
+  Eigen::setNbThreads(threads_eigen);   // be careful about choosing the appropriate number of threads
 
   PCA res = pcaone( gds, region, m, k, nchunks, s, p, B, threads, verbose, scaleAndCenter);
 

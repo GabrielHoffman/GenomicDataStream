@@ -20,7 +20,7 @@
 #'                number of threads (by default \eqn{threads=4}) to read data
 #'
 #' @param threads2 integer, optional; \cr
-#'                number of threads (by default \eqn{threads=1}), used for linear algebra opertions
+#'                number of threads (by default \eqn{threads=4}), used for linear algebra opertions
 #' 
 #' @param scaleAndCenter bool, optional; \cr
 #'                if \code{TRUE}, scale and center features
@@ -80,7 +80,7 @@
 #' @export
 setGeneric(
   "PCAstream",
-  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
+  function(x, k,..., p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
     standardGeneric("PCAstream")
   }
 )
@@ -128,8 +128,8 @@ setMethod(
     B <- B / 2
   }
 
-  x <- setChunkSize(x, ceiling( M / B ))
-  nchunks <- B
+  ## x <- setChunkSize(x, ceiling( M / B )) # DO NOT reset chunks here
+  nchunks <- length(regions)
 
   # number of parallel chunks
   n_pll_chunks <- max(1, log2(B))
@@ -198,7 +198,7 @@ setMethod(
 #' @aliases PCAstream,ANY-method
 setMethod(
   "PCAstream", signature(x = "ANY"),
-  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 1, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
+  function(x, k, chunkSize = 1000, p = 7, s = 20, B = 64, threads = 4, threads2 = 4, scaleAndCenter = TRUE, shuffle = TRUE, verbose = TRUE) {
 
   if( scaleAndCenter ){
     if( verbose ){

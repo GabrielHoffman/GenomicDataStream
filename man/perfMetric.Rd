@@ -29,11 +29,14 @@ hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
  X <- hilbert(9)[, 1:6]
 k = 4
 
+Compute SVD using two methods
 dcmp <- svd( scale(X), k, k)
 res <- PCAstream( X, k=k)
 
+# Mean variance explained is 1
 perfMetric(dcmp$u, res$u, metric = "MEV")
 
+# minimum of sum of squared errors zero
 perfMetric(dcmp$u, res$u, metric = "minSSE")
 }
 \references{

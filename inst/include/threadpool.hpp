@@ -1,5 +1,4 @@
 /*******************************************************************************
- * @file        https://github.com/Zilong-Li/phaseless/src/threadpool.hpp
  * @author      Zilong Li
  * Copyright (C) 2023. The use of this code is governed by the LICENSE file.
  ******************************************************************************/
@@ -14,72 +13,75 @@
 #include <stdexcept>
 #include <thread>
 
-// inspired by https://github.com/progschj/ThreadPool/blob/master/ThreadPool.h
-// replace std::queue< std::function<void()>> with std::queue<std::packaged_task<void()>>
-class ThreadPool
-{
-  public:
-    ThreadPool(std::size_t nThreads);
+class ThreadPool {
+public:
+    explicit ThreadPool(size_t thread_count);
+    template<class F, class... Args>
+    auto enqueue(F&& f, Args&&... args)
+      -> std::future<std::invoke_result_t<F, Args...>>;
     ~ThreadPool();
-    template<class F, class... A>
-    decltype(auto) enqueue(F && callable, A &&... arguments); // magic power by modern C++
 
-  private:
-    std::vector<std::thread> workers; // keep track of threads
-    std::queue<std::packaged_task<void()>> tasks_queue; // use packaged_task instead of function<void()>
-    std::mutex mutex_queue;
-    std::condition_variable condition; // synchronization
-    bool stop;
+private:
+    std::vector<std::thread> workers;
+    std::queue<std::function<void()>> tasks;
+    std::mutex queue_mutex;
+    std::condition_variable condition;
+    bool stop = false;
 };
 
-inline ThreadPool::ThreadPool(std::size_t nThreads) : stop(false)
-{
-    workers.reserve(nThreads);
-    for(std::size_t i = 0; i < nThreads; ++i)
-    {
-        workers.emplace_back(
-            [this]
-            {
-                while(true)
+inline ThreadPool::ThreadPool(size_t threads) {
+    workers.reserve(threads);
+    for (size_t i = 0; i < threads; ++i) {
+        workers.emplace_back([this] {
+            while (true) {
+                std::function<void()> task;
                 {
-                    std::packaged_task<void()> task; // pack void() func into task
-                    {
-                        std::unique_lock<std::mutex> lock(mutex_queue);
-                        condition.wait(lock, [this] { return stop || !tasks_queue.empty(); });
-                        if(tasks_queue.empty() && stop) return;
-                        task = std::move(tasks_queue.front()); // front task in the queue moved
-                        tasks_queue.pop(); // now pop out the moved front task
-                    }
-                    task(); // packaged_task created
+                    std::unique_lock<std::mutex> lock(queue_mutex);
+                    condition.wait(lock, [this] {
+                        return stop || !tasks.empty();
+                    });
+                    if (stop && tasks.empty())
+                        return;
+                    task = std::move(tasks.front());
+                    tasks.pop();
                 }
-            });
+                task();
+            }
+        });
     }
 }
 
-template<class F, class... A>
-decltype(auto) ThreadPool::enqueue(F && callable, A &&... arguments)
-{
-    using ReturnType = std::invoke_result_t<F, A...>;
-    std::packaged_task<ReturnType()> task(std::bind(std::forward<F>(callable), std::forward<A>(arguments)...));
-    std::future<ReturnType> taskGetFuture = task.get_future();
+template<class F, class... Args>
+auto ThreadPool::enqueue(F&& f, Args&&... args)
+    -> std::future<std::invoke_result_t<F, Args...>> {
+    using return_type = std::invoke_result_t<F, Args...>;
+
+    // wrap the callable+args into a packaged_task
+    auto task_ptr = std::make_shared<std::packaged_task<return_type()>>(
+        [fn = std::forward<F>(f), ... a = std::forward<Args>(args)]() mutable {
+            return fn(a...);
+        }
+    );
+
+    std::future<return_type> res = task_ptr->get_future();
     {
-        std::unique_lock<std::mutex> lock(mutex_queue); // tasks_queue not threading-safe. locking here
-        if(stop) // don't allow enqueueing after stopping the pool
+        std::lock_guard<std::mutex> lock(queue_mutex);
+        if (stop)
             throw std::runtime_error("enqueue on stopped ThreadPool");
-        tasks_queue.emplace(std::move(task)); // task moved into queue
+        tasks.emplace([task_ptr]{ (*task_ptr)(); });
     }
     condition.notify_one();
-    return taskGetFuture;
+    return res;
 }
 
-inline ThreadPool::~ThreadPool()
-{
+inline ThreadPool::~ThreadPool() {
     {
-        std::unique_lock<std::mutex> lock(mutex_queue);
+        std::lock_guard<std::mutex> lock(queue_mutex);
         stop = true;
     }
     condition.notify_all();
-    for(std::thread & worker : workers) worker.join(); // join all threads
+    for (auto &worker : workers)
+        worker.join();
 }
 
 #endif // THREADPOOL_H_

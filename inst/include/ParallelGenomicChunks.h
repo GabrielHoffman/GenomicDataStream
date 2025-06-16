@@ -37,7 +37,7 @@ private:
     std::shared_ptr<gds::GenomicDataStream> getReader(size_t i) {
       std::lock_guard<std::mutex> lock(mutex);
       // alter the region so that this reader get a specific chunk
-      std::vector<std::string> rg{regionSets[i]};
+      const std::vector<std::string>& rg = regionSets[i];
 
       Rcpp::Rcout << "getReader" << std::endl;
       for(auto x: rg){
@@ -79,8 +79,8 @@ public:
         readerPool(param, regions, numChunks, std::max(numThreads, (size_t)std::thread::hardware_concurrency())) // as many as possible readers
   { }
 
-  void
-  processChunk(std::function<void(const gds::DataChunk<T> &, size_t)> processFunc) {
+  template<class F>
+  void processChunk(F processFunc) {
 
     std::vector<std::future<void>> futures;
 

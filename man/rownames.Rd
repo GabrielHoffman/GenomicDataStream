@@ -20,7 +20,7 @@ array of string names
 BGEN uses sample order from the query, but VCF/BCF/PGEN uses order in file
 }
 \details{
-Get rownames (i.e. sample names) in order that the genotypes are extracted
+Get rownames (i.e. sample names) in order that the samples are extracted
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
