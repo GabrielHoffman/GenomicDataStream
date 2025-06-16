@@ -15,7 +15,7 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
-  threads2 = 1,
+  threads2 = 4,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = TRUE
@@ -43,7 +43,7 @@ PCAstream(
   s = 20,
   B = 64,
   threads = 4,
-  threads2 = 1,
+  threads2 = 4,
   scaleAndCenter = TRUE,
   shuffle = TRUE,
   verbose = TRUE
@@ -86,7 +86,7 @@ number of windows (by default \eqn{B=64}).}
 number of threads (by default \eqn{threads=4}) to read data}
 
 \item{threads2}{integer, optional; \cr
-number of threads (by default \eqn{threads=1}), used for linear algebra opertions}
+number of threads (by default \eqn{threads=4}), used for linear algebra opertions}
 
 \item{scaleAndCenter}{bool, optional; \cr
 if \code{TRUE}, scale and center features}
