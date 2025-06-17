@@ -26,12 +26,12 @@ Imports:
   Matrix,
   beachmat,
   beachmat.hdf5,
-  SummarizedExperiment
+  SummarizedExperiment,
+  RcppParallel
 LinkingTo: 
   Rcpp, 
   RcppArmadillo, 
   RcppEigen, 
-  RcppParallel,
   beachmat (>= 2.21.9),
   assorthead,  
   BH (>= 1.87.0),
