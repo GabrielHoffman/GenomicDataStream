@@ -44,7 +44,7 @@ reference:
   - "print,GenomicDataStream-method"  
   - "rownames,GenomicDataStream-method"
   - "show,GenomicDataStream-method"
-  - "summaryChunks"
+  - "summarizeChunks"
 
 - title: Other functions
   contents:
