@@ -122,13 +122,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // summarizeChunks_rcpp
-List summarizeChunks_rcpp(SEXP x);
-RcppExport SEXP _GenomicDataStream_summarizeChunks_rcpp(SEXP xSEXP) {
+List summarizeChunks_rcpp(SEXP x, const int& threads);
+RcppExport SEXP _GenomicDataStream_summarizeChunks_rcpp(SEXP xSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(summarizeChunks_rcpp(x));
+    Rcpp::traits::input_parameter< const int& >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(summarizeChunks_rcpp(x, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -224,7 +225,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
-    {"_GenomicDataStream_summarizeChunks_rcpp", (DL_FUNC) &_GenomicDataStream_summarizeChunks_rcpp, 1},
+    {"_GenomicDataStream_summarizeChunks_rcpp", (DL_FUNC) &_GenomicDataStream_summarizeChunks_rcpp, 2},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},
     {"_GenomicDataStream_standardize_in_place", (DL_FUNC) &_GenomicDataStream_standardize_in_place, 3},
     {"_GenomicDataStream_test_DataTable", (DL_FUNC) &_GenomicDataStream_test_DataTable, 3},

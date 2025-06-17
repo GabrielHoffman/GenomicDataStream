@@ -13,7 +13,6 @@
 
 #include <vector>
 #include <algorithm>
-#include <Rcpp.h>
 #include "DataInfo.h"
 
 using namespace std;
@@ -35,8 +34,6 @@ class MatrixInfo :
         }
     }
 };
-
-
 
 
 }

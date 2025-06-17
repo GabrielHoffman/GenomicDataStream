@@ -9,6 +9,7 @@
 #ifndef UTIL_RAND_H
 #define UTIL_RAND_H
 
+#ifndef DISABLE_EIGEN
 #include <Eigen/Dense>
 #include <random>
 
@@ -141,5 +142,5 @@ void center_and_scale(
   }
 
 }
-
+#endif 
 #endif // UTIL_RAND_H

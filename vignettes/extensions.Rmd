@@ -55,6 +55,34 @@ The simplest new type to implement would be a `float` version of an existing typ
 
 
 
+# Importing into other projects
+
+`GenomicDataStream` is written so that core functions are in C++17 with no dependence or R or Rcpp.  On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.  
+
+The C++ code is divided into two sections:
+
+  - `inst/include`: header-only C++17 code with no R dependencies
+  
+  - `src/export.cpp`: Rcpp layer between header-only library to R interface
+
+`GenomicDataStream` provides flexability in terms of data input types and and matrix libraries.  This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times.  Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in `Makevars`:
+
+ `-D DISABLE_DELAYED_STREAM`     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Omit `DelayedStream` class, remove dependence on `Rcpp` and `beachmat`
+ 
+ `-D DISABLE_EIGEN`   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Omit support for Eigen matrix library, and remove dependence on `RcppEigen` and `Eigen`
+
+ `-D DISABLE_RCPP`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
+
+ `-D DISABLE_PLINK`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Omit support for `PLINK` files (PGEN, BED), and remove dependence on `pgenlibr`
+
 
 
 

@@ -1,4 +1,12 @@
 
+June 16,
+	benchmarking on GenomicDataStream for genetics
+	benchmarking on DelayedArray and matrix
+	First read-thru in parallel
+		summarizeChunks() is now in parallel
+			But need to chunk regions
+
+
 June 3,
 	PCAstream works on DelayedArray
 		in fastglmm, compute residuals for large data as DelayedArray

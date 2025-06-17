@@ -100,7 +100,7 @@ setMethod(
   if( verbose ) cat("Read through...\n")
 
   # get summary of GenomicDataStream
-  sObj <- summaryChunks(x)
+  sObj <- summarizeChunks(x, threads)
 
   N <- slot(x, "nsamples")
   M <- sum(sObj$chunks)
@@ -171,6 +171,9 @@ setMethod(
   rownames(res$u) <- sObj$sampleIDs
   rownames(res$v) <- res$featureIds
 
+  # if( length(res$featureIds) != length(sObj$variantIDs)){
+  #   warning("Lenght does not match")
+  # }
   res$v <- res$v[sObj$variantIDs,,drop=FALSE]
   res$featureIds <- NULL
 
@@ -317,19 +320,20 @@ setMethod(
 #' Read through stream to get size of each chunk, IDs of variants and samples
 #' 
 #' @param x \code{GenomicDataStream}
+#' @param threads number of threads
 #' 
 #' @examples
 #' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 #'
 #' # initialize
 #' obj <- GenomicDataStream(file, "DS", chunkSize = 3, initialize = TRUE)
-#' summaryChunks(obj)
+#' summarizeChunks(obj)
 #' 
 #' @export
-summaryChunks <- function(x){
+summarizeChunks <- function(x, threads=4){
 
   x <- initializeStream(x)
-  summarizeChunks_rcpp(x@ptr)
+  summarizeChunks_rcpp(x@ptr, threads)
 }
 
 #' PCA result

@@ -37,8 +37,8 @@ getNextChunk_rcpp <- function(x) {
     .Call('_GenomicDataStream_getNextChunk_rcpp', PACKAGE = 'GenomicDataStream', x)
 }
 
-summarizeChunks_rcpp <- function(x) {
-    .Call('_GenomicDataStream_summarizeChunks_rcpp', PACKAGE = 'GenomicDataStream', x)
+summarizeChunks_rcpp <- function(x, threads = 4L) {
+    .Call('_GenomicDataStream_summarizeChunks_rcpp', PACKAGE = 'GenomicDataStream', x, threads)
 }
 
 colSums_test <- function(X) {

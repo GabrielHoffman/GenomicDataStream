@@ -123,6 +123,10 @@ struct Param {
 		regions = splitRegionString( regionString );
 	}
 
+	vector<string> getRegions() const {
+		return regions;
+	}
+
   /** Custom path to PSAM/FAM file
  	*/
 	void setSamplesFile( const string &file) {
@@ -248,7 +252,7 @@ class GenomicDataStream {
 
 /** Given matDosage.data(), number_of_samples, vInfo->size()
  * set matDosage and vInfo so the first K entries are the valid
- * features. Importantly, if multiple variants are present at the same site (i.e. identical chromosome and position), and 1 passes the filter, then all variants at that site are retained.  This can happen when multiple allelic variants are coded as two variants at the same site with the same reference but different alt alleles.
+ * features. 
  * 
  * if MAF and minVariance are not NAN, eval filter
  * if max value of variant is <= 2, apply MAF filter
@@ -289,30 +293,34 @@ static void applyVariantFilter(vector<double> &matDosage, VariantInfo *vInfo, co
 		vector<unsigned int> idx2(idx.n_elem);
 		copy(idx.begin(), idx.end(), idx2.begin());
 
-		// retain variants at sites that pass filter
-
-		// get position identifiers for each variant
-		vector<string> chromPos_all = vInfo->getChromPos();
-		
-		// position identifers for variant that pass filter
-		vector<string> chromPos_sub = subset_vector(chromPos_all, idx2);
-
-		// keep any variant at sites in POSID_sub
-		// chromPos_all %in% chromPos_sub
-		idx2 = which_in(chromPos_all, chromPos_sub);
-
 		// keep only variants specified in idx2
 		vInfo->retainVariants( idx2 );
 
 		// set subset of columns
-		arma::uvec idx2a(idx2.data(), idx2.size());
-		arma::mat M_subset = M.cols(idx2a);
-
+		arma::mat M_subset = M.cols(idx);
+		
 		// copy M_subset into matDosage
 		memcpy(matDosage.data(), M_subset.memptr(), M_subset.n_elem*sizeof(double));
 	}
 }
 
+// COMMENT OUT
+// retain variants at sites that pass filter
+// Importantly, if multiple variants are present at the same site (i.e. identical chromosome and position), and 1 passes the filter, then all variants at that site are retained.  This can happen when multiple allelic variants are coded as two variants at the same site with the same reference but different alt alleles.
+
+// // get position identifiers for each variant
+// vector<string> chromPos_all = vInfo->getChromPos();
+
+// // position identifers for variant that pass filter
+// vector<string> chromPos_sub = subset_vector(chromPos_all, idx2);
+
+// // keep any variant at sites in POSID_sub
+// // chromPos_all %in% chromPos_sub
+// idx2 = which_in(chromPos_all, chromPos_sub);
+
+// set subset of columns
+// arma::uvec idx2a(idx2.data(), idx2.size());
+// arma::mat M_subset = M.cols(idx2a);
 
 } // end namespace
 #endif

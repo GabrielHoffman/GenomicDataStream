@@ -127,7 +127,7 @@ param.setField(field);
  
 // Initialise GenomicDataStream to read 
 // VCF/BCF/BGEN/PGEN with same interface
-unique_ptr<GenomicDataStream> gdsStream = createFileView( param );
+shared_ptr<GenomicDataStream> gdsStream = createFileView( param );
  
 // declare DataChunk storing an Armadillo matrix for each chunk
 DataChunk<arma::mat> chunk;

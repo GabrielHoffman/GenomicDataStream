@@ -13,10 +13,12 @@ wget https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high
 # FILTER="(AF > 0.10) & (AF < 0.90) & (TYPE='snp') & (ALT='A')"
 FILTER="(AF > 0.01) & (AF < 0.99) & (TYPE='snp') & (ALT='A')"
 
-bcftools view -i "(AF > 0.01) & (AF < 0.99) & (TYPE='snp') & (ALT='A')" 1kGP_high_coverage_Illumina.chr21.filtered.SNV_INDEL_SV_phased_panel.vcf.gz | bcftools view -O b -o 1kg_chr21.bcf
+bcftools view -i "(AF > 0.01) & (AF < 0.99) & (TYPE='snp')" 1kGP_high_coverage_Illumina.chr21.filtered.SNV_INDEL_SV_phased_panel.vcf.gz | bcftools view -O b -o 1kg_chr21.bcf
 bcftools index 1kg_chr21.bcf
 
 plink2 --bcf 1kg_chr21.bcf --allow-extra-chr --make-bed --out 1kg_chr21
+
+plink2 --bcf 1kg_chr21.bcf --allow-extra-chr --make-pgen --out 1kg_chr21
 
 
 
@@ -376,29 +378,31 @@ library(GenomicDataStream)
 })
 file = "~/Downloads/1kg_chr21.bcf"
 file = "1kg_chr21.bed"
-k = 200
-MAF = .2
+k = 50
+MAF = .48
 
-gds = GenomicDataStream(file, field="GT", init=TRUE, chunkSize=100000, MAF=MAF, minVariance=0)
-dat = getNextChunk(gds)
+gds = GenomicDataStream(file, field="GT", init=TRUE, chunkSize=100000, MAF=MAF)
 
-X_scale = scale(dat$X) / sqrt(nrow(dat$X)-1)
-# dcmp = svd(X_scale, k, k)
+X = c()
+while(1){
+	dat = getNextChunk(gds)	
+	X = cbind(X, dat$X)
+  if (atEndOfStream(gds)) break
+}
+
+X_scale = scale(X) / sqrt(nrow(X)-1)
 dcmp = irlba::irlba(X_scale, k, k)
 
-# res = pcaone::pcaone( scale(dat$X), k=k, shuffle=TRUE )
+# res = pcaone::pcaone( X_scale, k=k, shuffle=TRUE )
 
 # Streaming winSVD
 # small chunkSize
 gds = GenomicDataStream(file, field="GT", init=TRUE, chunkSize=10000, MAF=MAF)
 
 system.time(
-res <- PCAstream(gds, k, verbose=TRUE)
+res <- PCAstream(gds, k)
 )
 perfMetric(dcmp$u, res$u, k, "MEV")
-
-
-
 
 
 values = sapply(seq(k), function(i){
@@ -428,14 +432,23 @@ trace("PCAstream", browser, exit=browser, signature = c("ANY"))
 
 q()
 R
+
+
+
+
 suppressPackageStartupMessages({
 library(GenomicDataStream)
 })
-file = "~/Downloads/1kg_chr21.bed"
-k = 5
+file = "~/Downloads/1kg_chr1.bed"
+k = 100
 gds = GenomicDataStream(file, "GT", chunkSize=100000, MAF=0.05 )
 
-res <- PCAstream(gds, k, verbose=FALSE, shuffle=FALSE)
+system.time({
+res <- PCAstream(gds, k)
+})
+
+
+
 
 
 res <- PCAstream(gds, k, verbose=FALSE, shuffle=TRUE)

@@ -19,6 +19,7 @@ using namespace std;
 using namespace arma;
 using namespace gds;
 
+#ifndef DISABLE_EIGEN
 struct PCA {
 
 	PCA( Eigen::MatrixXd u):
@@ -57,12 +58,7 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
   Eigen::MatrixXd H1 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H2 = Eigen::MatrixXd::Zero(n, l);
   Eigen::MatrixXd H(n, l), G(m, l), R(l, l), Rt(l, l);
-  
-  // Test: Read in Serial
-  shared_ptr<GenomicDataStream> gdsStream = createFileView( gds->getParam() );
-  gdsStream->setRegions( regions );
-  DataChunk<Eigen::MatrixXd> ch;
-  
+    
   // Parallel part using Thread Building Blocks
   GenomicDataStreamParallel<Eigen::MatrixXd> gsp(gds->getParam(), regions, nchunks, threads);
 
@@ -155,4 +151,5 @@ PCA pcaone(	const shared_ptr<GenomicDataStream> gds,
 			  	featureIds);
 }
 
+#endif
 #endif

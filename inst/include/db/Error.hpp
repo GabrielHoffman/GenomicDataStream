@@ -41,7 +41,9 @@ namespace db {
 	{
 		StatementPreparationError( std::string const& caller, std::string const& db_spec, int error_code, std::string const& sql = "(unknown)" ): Error( caller, db_spec, error_code, sql ) {}
 		~StatementPreparationError() throw() {}
-		char const* what() const throw() { return "db::StatementPreparationError" ; }
+		char const* what() const throw() { 
+			return "db::StatementPreparationError" ; 
+		}
 	} ;
 
 	struct StatementStepError: public Error

@@ -10,8 +10,12 @@
 #ifndef MULTI_STREAM_H
 #define MULTI_STREAM_H
 
+#if RCPP_PARALLEL_USE_TBB
 // [[Rcpp::depends(RcppParallel)]]
 #include <RcppParallel.h>
+#else
+#include <tbb.h>
+#endif
 
 using namespace std;
 using namespace gds;
@@ -22,7 +26,7 @@ class GenomicDataStreamParallel {
   public:
   
   GenomicDataStreamParallel(const Param &param, const vector<string> &regions, size_t numChunks, size_t numThreads) :
-    numChunks(numChunks),
+    numChunks(min(numChunks, regions.size())),
     numThreads(numThreads), 
     limited_arena(numThreads) {
 

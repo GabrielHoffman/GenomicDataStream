@@ -87,7 +87,7 @@
 </h4>
             
             <h4 data-toc-skip class="date">Run on 2025-06-16
-13:36:42</h4>
+15:49:30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/GenomicDataStream/blob/HEAD/vignettes/extensions.Rmd" class="external-link"><code>vignettes/extensions.Rmd</code></a></small>
       <div class="d-none name"><code>extensions.Rmd</code></div>
@@ -140,6 +140,39 @@ array.</p>
 version of an existing type. This could reduce memory usage in
 downstream analyses and increase speed at the cost of numerical
 precision.</p>
+</div>
+<div class="section level2">
+<h2 id="importing-into-other-projects">Importing into other projects<a class="anchor" aria-label="anchor" href="#importing-into-other-projects"></a>
+</h2>
+<p><code>GenomicDataStream</code> is written so that core functions are
+in C++17 with no dependence or R or Rcpp. On top of that, there is a
+thin wrapper that uses Rcpp to interface between R and the lower-level
+library.</p>
+<p>The C++ code is divided into two sections:</p>
+<ul>
+<li><p><code>inst/include</code>: header-only C++17 code with no R
+dependencies</p></li>
+<li><p><code>src/export.cpp</code>: Rcpp layer between header-only
+library to R interface</p></li>
+</ul>
+<p><code>GenomicDataStream</code> provides flexability in terms of data
+input types and and matrix libraries. This can useful in many cases, but
+the large number of dependencies can require installation of additional
+libraries and increase compile times. Some of these dependencies can be
+avoided by removing support for some capabilities with compiler flags in
+<code>Makevars</code>:</p>
+<p><code>-D DISABLE_DELAYED_STREAM</code><br>
+           Omit <code>DelayedStream</code> class, remove dependence on
+<code>Rcpp</code> and <code>beachmat</code></p>
+<p><code>-D DISABLE_EIGEN</code><br>
+           Omit support for Eigen matrix library, and remove dependence
+on <code>RcppEigen</code> and <code>Eigen</code></p>
+<p><code>-D DISABLE_RCPP</code><br>
+           Omit support for <code>Rcpp</code> matrix library, and remove
+dependence on <code>Rcpp</code></p>
+<p><code>-D DISABLE_PLINK</code><br>
+           Omit support for <code>PLINK</code> files (PGEN, BED), and
+remove dependence on <code>pgenlibr</code></p>
 <!-- 
 # Session info
 <details>

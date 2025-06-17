@@ -162,49 +162,35 @@ List getNextChunk_rcpp( SEXP x){
 }
 
 
-List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
+List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &threads=4){
 
   DataChunk<arma::mat> chunk;
   VariantInfo *info;
   vector<string> variantIDs, intervals, tmp, regions;
   vector<int> chunkCounts;
 
-  // loop through chunks
-  while( gds->getNextChunk( chunk ) ){
+  // Parallel part using Thread Building Blocks
+  int nchunks = 64;
+  GenomicDataStreamParallel<arma::mat> gsp(gds->getParam(), gds->getParam().getRegions(), nchunks, threads);
 
-      // get variant information
-      info = chunk.getInfo<VariantInfo>();
+  std::mutex mtx;  
 
-      tmp = info->getFeatureNames();
-      variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());
+  gsp.processChunks([&](const DataChunk<arma::mat> &chunk, size_t b) {
 
-      tmp = info->getRegions();
-      regions.insert(regions.end(), tmp.begin(), tmp.end());
+    std::lock_guard<std::mutex> lock(mtx);
 
-      intervals.push_back( info->getInterval() );
-      chunkCounts.push_back( info->size() );
-  }
+    // get variant information
+    VariantInfo *info = chunk.getInfo<VariantInfo>(); 
 
-  // MultiGenomicStreamProcessor<Eigen::MatrixXd> processor(gds->getParam(), regions, nthreads, nthreads);
-  // std::mutex pcaMutex;  
+    tmp = info->getFeatureNames();
+    variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());
 
-  // processor.processChunk([&](const gds::DataChunk<Eigen::MatrixXd> &chunk, size_t b) {
-      
-  //   std::lock_guard<std::mutex> lock(pcaMutex);
+    tmp = info->getRegions();
+    regions.insert(regions.end(), tmp.begin(), tmp.end());
 
-  //   // get variant information
-  //   VariantInfo *info = chunk.getInfo<VariantInfo>(); 
-
-  //   tmp = info->getFeatureNames();
-  //   variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());
-
-  //   tmp = info->getRegions();
-  //   regions.insert(regions.end(), tmp.begin(), tmp.end());
-
-  //   intervals.push_back( info->getInterval() );
-  //   chunkCounts.push_back( info->size() ); 
-  // });
-
+    intervals.push_back( info->getInterval() );
+    chunkCounts.push_back( info->size() ); 
+  });
 
   return List::create(
         Named("intervals") = intervals,
@@ -216,11 +202,11 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds){
 
 
 // [[Rcpp::export]]
-List summarizeChunks_rcpp( SEXP x){ 
+List summarizeChunks_rcpp( SEXP x, const int &threads=4){ 
 
   Rcpp::XPtr<BoundDataStream> ptr(x);
 
-  return summarizeChunks( ptr->ptr );
+  return summarizeChunks( ptr->ptr, threads );
 }
 
 

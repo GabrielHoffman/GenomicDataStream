@@ -1,6 +1,9 @@
 
 #include <armadillo>
+
+#ifndef DISABLE_EIGEN
 #include <Eigen/Core>
+#endif 
 
 #include <vector>
 #include <random>
@@ -168,6 +171,7 @@ static void standardize( arma::mat &X, const bool &center = true, const bool &sc
   }
 }
 
+#ifndef DISABLE_EIGEN
 static void standardize( Eigen::MatrixXd &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
   double sqrt_rdf = sqrt(X.rows() - 1.0);
@@ -194,7 +198,7 @@ static void standardize_rows( Eigen::MatrixXd &X, const bool &center = true, con
     }
   }
 }
-
+#endif
 
 /** if string contains only digits, return true.  Else false
  */

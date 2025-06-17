@@ -1,0 +1,188 @@
+---
+title: "Demonstrate performance of [GenomicDataStream](https://gabrielhoffman.github.io/GenomicDataStream/)"
+subtitle: 'Genetic variants'
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r Sys.time()`"
+output: 
+  html_document:
+    toc: true
+    smart: true
+    self_contained: true
+---
+
+<!---
+
+
+# rm -rf demo_cache/
+
+ rmarkdown::render("demo.Rmd");
+
+
+--->
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning=FALSE,
+  message=FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  dev = c("png", "pdf"),
+  package.startup.message = FALSE,
+  cache = TRUE,
+  cache.lazy = FALSE)
+```
+
+```{r getData, eval=FALSE}
+wget https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV/1kGP_high_coverage_Illumina.chr1.filtered.SNV_INDEL_SV_phased_panel.vcf.gz
+
+CHR=21
+OUT=1kg_chr${CHR}
+
+# VCF
+bcftools view -i "(AF > 0.001) & (AF < 0.999) & (TYPE='snp')" 1kGP_high_coverage_Illumina.chr${CHR}.filtered.SNV_INDEL_SV_phased_panel.vcf.gz | awk '{gsub(/^chr/,""); print}' | bgzip > ${OUT}.vcf.gz
+bcftools index -f ${OUT}.vcf.gz
+
+# BCF
+bcftools view ${OUT}.vcf.gz | bcftools view -O b -o ${OUT}.bcf
+bcftools index -f ${OUT}.bcf
+
+# BED
+plink2 --bcf ${OUT}.bcf --allow-extra-chr --make-bed --out $OUT
+
+# PGEN
+plink2 --bcf $OUT.bcf --allow-extra-chr --make-pgen --out $OUT
+
+# BGEN
+plink2 --bcf $OUT.bcf --allow-extra-chr --export bgen-1.3 --out $OUT
+~/miniconda3/bin/bgenix -g ${OUT}.bgen -index -clobber
+```
+
+
+```{r load, cache=FALSE}
+library(GenomicDataStream)
+library(ggplot2)
+library(tidyverse)
+library(peakRAM)
+
+file = "~/Downloads/1kg_chr21.bed"
+gds = GenomicDataStream(file)
+res <- summarizeChunks(gds)
+region = paste(res$intervals, collapse=",")
+```
+
+# Time vs number of variants
+```{r numVariants}
+file = "~/Downloads/1kg_chr21.bed"
+k = 20
+
+maf_array = c(0.01, .05, .1, .2, .3, .4)
+
+res = lapply(maf_array, function(MAF){
+
+  gds = GenomicDataStream(file, MAF=MAF, region=region)
+
+  res_time = system.time({
+    res <- PCAstream(gds, k, threads=4)
+  })
+
+  data.frame(MAF = MAF, SNPs = nrow(res$v), t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+```{r numVariantsPlot, cache=FALSE}
+ggplot(res, aes(SNPs, elapsed)) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1) +
+  ylab("Time (seconds)")
+```
+
+
+# Memory vs number of variants
+```{r numVariantsMemory}
+maf_array = c(0.01, .05, .1, .2, .3, .4)
+
+res = lapply(maf_array, function(MAF){
+
+  gds = GenomicDataStream(file, MAF=MAF, region=region)
+
+  res_mem = peakRAM({
+    res <- PCAstream(gds, k, threads=4)
+  })
+
+  data.frame(MAF = MAF, SNPs = nrow(res$v), res_mem)
+})
+res = do.call(rbind, res)
+```
+
+```{r numVariantsMemoryPlot, cache=FALSE}
+ggplot(res, aes(SNPs, Peak_RAM_Used_MiB / 1e6)) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1) +
+  ylab("Memory usage (Gb)")
+```
+
+# Time vs genotype format
+```{r FileFormats}
+files = dir("~/Downloads", pattern="1kg_chr21", full.names=TRUE)
+files = grep(".bcf$|.vcf.gz$|.pgen$|.bed$|.bgen$", files, value=TRUE)
+
+k = 2
+res = lapply(files, function(file){
+
+  gds = GenomicDataStream(file, field="GT", region=region)
+
+  res_time = system.time({
+    res <- PCAstream(gds, k, threads=4)
+  })
+
+  data.frame(file, t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+
+```{r FileFormatsPlot, cache=FALSE, eval=FALSE}
+res %>%
+  mutate(Type = gsub("1kg_chr21.", "", basename(file))) %>%
+  ggplot(aes(Type, elapsed, fill=Type)) +
+  geom_bar(stat="identity") +
+  theme_classic() +
+  theme(aspect.ratio=1, legend.position="none") +
+  scale_y_continuous(limits=c(0, NA), expand=c(0,0)) +
+  ylab("Time (seconds)") +
+  xlab("File type")
+```
+
+
+
+# Time vs number of threads
+```{r nThreads}
+file = "~/Downloads/1kg_chr21.bed"
+k = 2
+res = lapply(c(1,2,4), function(threads){
+
+  gds = GenomicDataStream(file, region=region)
+
+  res_time = system.time({
+    res <- PCAstream(gds, k, threads=threads, p=0)
+  })
+
+  data.frame(threads=threads, t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+
+```{r nThreadsPlot, cache=FALSE}
+ggplot(res, aes(threads, elapsed )) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1, legend.position="none") +
+  ylab("Time (seconds)")
+```
+

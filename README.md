@@ -46,8 +46,9 @@ BiocManager::install("GabrielHoffman/GenomicDataStream")
 |VCF / BCF | 4.x | biallelic variants with `GT/GP` fields, continuous dosage with `DS` field
 
 #### Single cell data
+<div align="justify"> 
 Count matrices for single cell data are stored in the H5AD format.  This format, based on [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression.  H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.
-
+</div> 
 
 
 ### Key Dependencies
@@ -64,30 +65,6 @@ Count matrices for single cell data are stored in the H5AD format.  This format,
 [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
 [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) | |C++ library for linear algebra with advanced features
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
-
-
-### Notes
-
-`GenomicDataStream` provide flexability in terms of data input types and and matrix libraries.  This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times.  Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in `Makevars`:
-
- `-D DISABLE_DELAYED_STREAM`     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Omit `DelayedStream` class, remove dependence on `Rcpp` and `beachmat`
- 
- `-D DISABLE_EIGEN`   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Omit support for Eigen matrix library, and remove dependence on `RcppEigen` and `Eigen`
-
- `-D DISABLE_RCPP`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-Omit support for `Rcpp` matrix library, and remove dependence on `Rcpp`
-
- `-D DISABLE_PLINK`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-Omit support for `PLINK` files (PGEN, BED), and remove dependence on `pgenlibr`
-
-`GenomicDataStream` is written so that core functions are in C++17 with no dependence or R or Rcpp.  On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.
-
 
 
 
