@@ -40,7 +40,8 @@ LinkingTo:
 Encoding: UTF-8
 SystemRequirements: 
   GNU make, 
-  C++17
+  C++17,
+  Intel TBB
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Remotes: 
