@@ -35,7 +35,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r getData, eval=FALSE}
-wget https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV/1kGP_high_coverage_Illumina.chr1.filtered.SNV_INDEL_SV_phased_panel.vcf.gz
+wget https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV/1kGP_high_coverage_Illumina.chr21.filtered.SNV_INDEL_SV_phased_panel.vcf.gz
 
 CHR=21
 OUT=1kg_chr${CHR}
@@ -66,7 +66,9 @@ library(ggplot2)
 library(tidyverse)
 library(peakRAM)
 
-file = "~/Downloads/1kg_chr21.bed"
+PATH = "~/Downloads/"
+
+file = paste0(PATH, "/1kg_chr21.bed")
 gds = GenomicDataStream(file)
 res <- summarizeChunks(gds)
 region = paste(res$intervals, collapse=",")
@@ -74,7 +76,7 @@ region = paste(res$intervals, collapse=",")
 
 # Time vs number of variants
 ```{r numVariants}
-file = "~/Downloads/1kg_chr21.bed"
+file = paste0(PATH, "/1kg_chr21.bed")
 k = 20
 
 maf_array = c(0.01, .05, .1, .2, .3, .4)
@@ -128,7 +130,7 @@ ggplot(res, aes(SNPs, Peak_RAM_Used_MiB / 1e6)) +
 
 # Time vs genotype format
 ```{r FileFormats}
-files = dir("~/Downloads", pattern="1kg_chr21", full.names=TRUE)
+files = dir(PATH, pattern="1kg_chr21", full.names=TRUE)
 files = grep(".bcf$|.vcf.gz$|.pgen$|.bed$|.bgen$", files, value=TRUE)
 
 k = 2
@@ -162,7 +164,7 @@ res %>%
 
 # Time vs number of threads
 ```{r nThreads}
-file = "~/Downloads/1kg_chr21.bed"
+file = paste0(PATH, "/1kg_chr21.bed")
 k = 2
 res = lapply(c(1,2,4), function(threads){
 

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['enqueue_0',['enqueue',['../class_thread_pool.html#ac30c1b50991e65e30e64c2b93c40508f',1,'ThreadPool']]]
+  ['featuresread_5frcpp_0',['featuresRead_rcpp',['../export_8cpp.html#a617d48bad593d338039f37d1bc6de5a5',1,'featuresRead_rcpp(SEXP x):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a617d48bad593d338039f37d1bc6de5a5',1,'featuresRead_rcpp(SEXP x):&#160;export.cpp']]],
+  ['flipomg_1',['flipOmg',['../_rand_8hpp.html#a1b2e8519194e452761f9f4afd19860f0',1,'Rand.hpp']]]
 ];

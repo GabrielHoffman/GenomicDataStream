@@ -13,6 +13,9 @@
     <loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/index.html</loc>
   </url>
   <url>
+    <loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/mac_osx.html</loc>
+  </url>
+  <url>
     <loc>http://gabrielhoffman.github.io/GenomicDataStream/authors.html</loc>
   </url>
   <url>
@@ -434,6 +437,9 @@
   </url>
   <url>
     <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/standardize_in_place.html</loc>
+  </url>
+  <url>
+    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/summarizeChunks.html</loc>
   </url>
   <url>
     <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/summaryChunks.html</loc>

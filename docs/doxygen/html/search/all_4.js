@@ -1,7 +1,7 @@
 var searchData=
 [
   ['c_2017_0',['Example code with C++17',['../index.html#autotoc_md1',1,'']]],
-  ['c_20interface_20separates_1',['The &lt;tt&gt;GenomicDataStream&lt;/tt&gt; C++ interface separates',['../index.html#autotoc_md0',1,'']]],
+  ['c_20interface_20separates_1',['The &lt;span class=&quot;tt&quot;&gt;GenomicDataStream&lt;/span&gt; C++ interface separates',['../index.html#autotoc_md0',1,'']]],
   ['cast_5felements_2',['cast_elements',['../namespacegds.html#a48cc834ac88e3e65adee23e4843a842d',1,'gds']]],
   ['center_5fand_5fscale_3',['center_and_scale',['../_rand_8hpp.html#a0a0ded3a5d21fca7fb7274696a85c54f',1,'center_and_scale(const MatrixType &amp;matrix, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;center, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;scale, const bool byrow):&#160;Rand.hpp'],['../_rand_8hpp.html#a3d9b477a5ad1b8bbc1c388a4eda98f20',1,'center_and_scale(Eigen::MatrixXd &amp;mat, const MatrixType &amp;matrix, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;center, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;scale, const bool byrow, const int start, const int nb):&#160;Rand.hpp']]],
   ['chrom_4',['CHROM',['../classgds_1_1_variant_info.html#a70b37daa458aca44124d9065e69a4453',1,'gds::VariantInfo']]],

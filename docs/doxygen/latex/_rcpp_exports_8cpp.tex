@@ -43,9 +43,9 @@ List \mbox{\hyperlink{_rcpp_exports_8cpp_ab00a0564a52e574e823c23a2c0be7add}{get\
 \item 
 Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_abdad1c9e5b5196c5eb4ccca35893d467}{\+\_\+\+Genomic\+Data\+Stream\+\_\+get\+Next\+Chunk\+\_\+rcpp}} (SEXP x\+SEXP)
 \item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_ac75943b4b9da0f4a459075d5ac3ccd9c}{summarize\+Chunks\+\_\+rcpp}} (SEXP x)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_a29dfcd6b1f44acf6260c246644ab5c1d}{summarize\+Chunks\+\_\+rcpp}} (SEXP x, const int \&threads)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_ae6c98ffe8e5525b4c71c3859a5b94fef}{\+\_\+\+Genomic\+Data\+Stream\+\_\+summarize\+Chunks\+\_\+rcpp}} (SEXP x\+SEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a6d94c5a387cd48b8af46478a83ba5bf7}{\+\_\+\+Genomic\+Data\+Stream\+\_\+summarize\+Chunks\+\_\+rcpp}} (SEXP x\+SEXP, SEXP threads\+SEXP)
 \item 
 arma\+::vec \mbox{\hyperlink{_rcpp_exports_8cpp_a7fee884670a74f3630ba041bcf13a0e9}{col\+Sums\+\_\+test}} (const arma\+::mat \&X)
 \item 
@@ -71,6 +71,8 @@ Rcpp\+Export void \mbox{\hyperlink{_rcpp_exports_8cpp_a28813cc54257bc2fa1103e529
 \end{DoxyCompactItemize}
 
 
+\label{doc-func-members}
+\Hypertarget{_rcpp_exports_8cpp_doc-func-members}
 \doxysubsection{Function Documentation}
 \Hypertarget{_rcpp_exports_8cpp_a3b0d8fcaf04d7819474e9ab4f7698c29}\index{RcppExports.cpp@{RcppExports.cpp}!\_GenomicDataStream\_atEndOfStream\_rcpp@{\_GenomicDataStream\_atEndOfStream\_rcpp}}
 \index{\_GenomicDataStream\_atEndOfStream\_rcpp@{\_GenomicDataStream\_atEndOfStream\_rcpp}!RcppExports.cpp@{RcppExports.cpp}}
@@ -150,11 +152,11 @@ Rcpp\+Export SEXP \+\_\+\+Genomic\+Data\+Stream\+\_\+stream\+\_\+pcaone (\begin{
 {\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a75816ce0f10e0c1151abd191c1d59714} 
 Rcpp\+Export SEXP \+\_\+\+Genomic\+Data\+Stream\+\_\+stream\+\_\+pcaone\+\_\+robj (\begin{DoxyParamCaption}\item[{SEXP}]{x\+SEXP}{, }\item[{SEXP}]{ids\+SEXP}{, }\item[{SEXP}]{n\+SEXP}{, }\item[{SEXP}]{chunk\+Size\+SEXP}{, }\item[{SEXP}]{nchunks\+SEXP}{, }\item[{SEXP}]{m\+SEXP}{, }\item[{SEXP}]{k\+SEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{p\+SEXP}{, }\item[{SEXP}]{BSEXP}{, }\item[{SEXP}]{threads\+SEXP}{, }\item[{SEXP}]{threads\+\_\+eigen\+SEXP}{, }\item[{SEXP}]{verbose\+SEXP}{, }\item[{SEXP}]{scale\+And\+Center\+SEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_ae6c98ffe8e5525b4c71c3859a5b94fef}\index{RcppExports.cpp@{RcppExports.cpp}!\_GenomicDataStream\_summarizeChunks\_rcpp@{\_GenomicDataStream\_summarizeChunks\_rcpp}}
+\Hypertarget{_rcpp_exports_8cpp_a6d94c5a387cd48b8af46478a83ba5bf7}\index{RcppExports.cpp@{RcppExports.cpp}!\_GenomicDataStream\_summarizeChunks\_rcpp@{\_GenomicDataStream\_summarizeChunks\_rcpp}}
 \index{\_GenomicDataStream\_summarizeChunks\_rcpp@{\_GenomicDataStream\_summarizeChunks\_rcpp}!RcppExports.cpp@{RcppExports.cpp}}
 \doxysubsubsection{\texorpdfstring{\_GenomicDataStream\_summarizeChunks\_rcpp()}{\_GenomicDataStream\_summarizeChunks\_rcpp()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ae6c98ffe8e5525b4c71c3859a5b94fef} 
-Rcpp\+Export SEXP \+\_\+\+Genomic\+Data\+Stream\+\_\+summarize\+Chunks\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x\+SEXP}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a6d94c5a387cd48b8af46478a83ba5bf7} 
+Rcpp\+Export SEXP \+\_\+\+Genomic\+Data\+Stream\+\_\+summarize\+Chunks\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x\+SEXP}{, }\item[{SEXP}]{threads\+SEXP}{}\end{DoxyParamCaption})}
 
 \Hypertarget{_rcpp_exports_8cpp_aabb4dcf56b0725ef90cb1895238e302a}\index{RcppExports.cpp@{RcppExports.cpp}!\_GenomicDataStream\_test\_DataTable@{\_GenomicDataStream\_test\_DataTable}}
 \index{\_GenomicDataStream\_test\_DataTable@{\_GenomicDataStream\_test\_DataTable}!RcppExports.cpp@{RcppExports.cpp}}
@@ -246,11 +248,11 @@ List stream\+\_\+pcaone (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{cons
 {\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a78ffc119a9566ce8d17fe47e7d976082} 
 Rcpp\+::\+List stream\+\_\+pcaone\+\_\+robj (\begin{DoxyParamCaption}\item[{const RObject \&}]{x}{, }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{ids}{, }\item[{const int \&}]{n}{, }\item[{const int \&}]{chunk\+Size}{, }\item[{const int \&}]{nchunks}{, }\item[{int}]{m}{, }\item[{int}]{k}{, }\item[{int}]{s}{, }\item[{int}]{p}{, }\item[{int}]{B}{, }\item[{int}]{threads}{, }\item[{int}]{threads\+\_\+eigen}{, }\item[{const bool}]{verbose}{, }\item[{const bool}]{scale\+And\+Center}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_ac75943b4b9da0f4a459075d5ac3ccd9c}\index{RcppExports.cpp@{RcppExports.cpp}!summarizeChunks\_rcpp@{summarizeChunks\_rcpp}}
+\Hypertarget{_rcpp_exports_8cpp_a29dfcd6b1f44acf6260c246644ab5c1d}\index{RcppExports.cpp@{RcppExports.cpp}!summarizeChunks\_rcpp@{summarizeChunks\_rcpp}}
 \index{summarizeChunks\_rcpp@{summarizeChunks\_rcpp}!RcppExports.cpp@{RcppExports.cpp}}
 \doxysubsubsection{\texorpdfstring{summarizeChunks\_rcpp()}{summarizeChunks\_rcpp()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ac75943b4b9da0f4a459075d5ac3ccd9c} 
-List summarize\+Chunks\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a29dfcd6b1f44acf6260c246644ab5c1d} 
+List summarize\+Chunks\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{const int \&}]{threads}{}\end{DoxyParamCaption})}
 
 \Hypertarget{_rcpp_exports_8cpp_a75e0a1c475d53cb0eb2e325f33141284}\index{RcppExports.cpp@{RcppExports.cpp}!test\_DataTable@{test\_DataTable}}
 \index{test\_DataTable@{test\_DataTable}!RcppExports.cpp@{RcppExports.cpp}}

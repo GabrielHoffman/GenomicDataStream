@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iswithin_0',['isWithin',['../classgds_1_1_genomic_ranges.html#a2d8bfc2cc7726cb6447f98f2c8572895',1,'gds::GenomicRanges::isWithin(const size_t &amp;start, const size_t &amp;end, const size_t &amp;position) const'],['../classgds_1_1_genomic_ranges.html#a6d4c6fccf2e56885d72f067c1f6cc765',1,'gds::GenomicRanges::isWithin(const string &amp;chr, const size_t &amp;position) const']]]
+  ['matrixinfo_0',['MatrixInfo',['../classgds_1_1_matrix_info.html#a4cbb33dd36a7ff13602b481c8fdb9dd4',1,'gds::MatrixInfo::MatrixInfo()'],['../classgds_1_1_matrix_info.html#ac8265e9eae5a2045eb024ae9cf672068',1,'gds::MatrixInfo::MatrixInfo(const vector&lt; string &gt; &amp;ID)']]]
 ];
