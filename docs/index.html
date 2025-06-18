@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.57</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.58</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="articles/extensions.html">Extending GenomicDataStream</a>
+    <a class="dropdown-item" href="articles/mac_osx.html">Issues on Mac OS X</a>
   </div>
 </li>
 <li class="nav-item">
@@ -82,7 +83,7 @@
 </h3>
 <p><img src="reference/figures/GenomicDataStream.png"></p>
 <div align="justify">
-<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/<a href="https://www.rcpp.org" class="external-link">Rcpp</a> in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page" class="external-link">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regression analysis paired with genotype data from a VCF file.</p>
+<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page" class="external-link">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Mondern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in way that the two components can’t be separated for use in other applications. For example, regression analysis paired with genotype data from a VCF file.</p>
 <p>The <code>GenomicDataStream</code> interface separates:</p>
 <ol style="list-style-type: decimal">
 <li>data source</li>
@@ -101,8 +102,7 @@
 <h3 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install latest version of GenomicDataStream</span></span>
-<span><span class="co"># and dependencies</span></span>
+<code class="sourceCode R"><span><span class="co"># Install latest version of GenomicDataStream and dependencies</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"GabrielHoffman/GenomicDataStream"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -226,22 +226,6 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section level3">
-<h3 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
-</h3>
-<div align="justify">
-<p><code>GenomicDataStream</code> provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in <code>Makevars</code>:</p>
-<p><code>-D DISABLE_DELAYED_STREAM</code><br>
-           Omit <code>DelayedStream</code> class, remove dependence on <code>Rcpp</code> and <code>beachmat</code></p>
-<p><code>-D DISABLE_EIGEN</code><br>
-           Omit support for Eigen matrix library, and remove dependence on <code>RcppEigen</code> and <code>Eigen</code></p>
-<p><code>-D DISABLE_RCPP</code><br>
-           Omit support for <code>Rcpp</code> matrix library, and remove dependence on <code>Rcpp</code></p>
-<p><code>-D DISABLE_PLINK</code><br>
-           Omit support for <code>PLINK</code> files (PGEN, BED), and remove dependence on <code>pgenlibr</code></p>
-<p><code>GenomicDataStream</code> is written so that core functions are in C++17 with no dependence or R or Rcpp. On top of that, there is a thin wrapper that uses Rcpp to interface between R and the lower-level library.</p>
-</div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">

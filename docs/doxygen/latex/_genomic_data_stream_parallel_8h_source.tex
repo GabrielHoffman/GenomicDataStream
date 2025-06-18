@@ -14,104 +14,108 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ MULTI\_STREAM\_H}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ MULTI\_STREAM\_H}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <RcppParallel.h>}}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{using\ namespace\ }std;}
-\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacegds}{gds}};}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}\ \{}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00023\ \ \ }
-\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&param,\ \textcolor{keyword}{const}\ vector<string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ numThreads)\ :}
-\DoxyCodeLine{00025\ \ \ \ \ numChunks(numChunks),}
-\DoxyCodeLine{00026\ \ \ \ \ numThreads(numThreads),\ }
-\DoxyCodeLine{00027\ \ \ \ \ limited\_arena(numThreads)\ \{}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ reserve\ space\ for\ each\ reader}}
-\DoxyCodeLine{00030\ \ \ \ \ readers.reserve(numThreads);}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ Initialize\ each\ reader,\ run\ in\ parallel}}
-\DoxyCodeLine{00033\ \ \ \ \ limited\_arena.execute([\&]\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ tbb::parallel\_for(}
-\DoxyCodeLine{00035\ \ \ \ \ tbb::blocked\_range<int>(0,\ numThreads,\ 1),\ }
-\DoxyCodeLine{00036\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ readers[r.begin()]\ =\ gds::createFileView(param);}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00040\ \ \ \ \ \});}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ RCPP\_PARALLEL\_USE\_TBB}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <RcppParallel.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <tbb.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacegds}{gds}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}\ \{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ }
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&param,\ \textcolor{keyword}{const}\ vector<string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ numThreads)\ :}
+\DoxyCodeLine{00029\ \ \ \ \ numChunks(min(numChunks,\ regions.size())),}
+\DoxyCodeLine{00030\ \ \ \ \ numThreads(numThreads),\ }
+\DoxyCodeLine{00031\ \ \ \ \ limited\_arena(numThreads)\ \{}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ reserve\ space\ for\ each\ reader}}
+\DoxyCodeLine{00034\ \ \ \ \ readers.reserve(numThreads);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Initialize\ each\ reader,\ run\ in\ parallel}}
+\DoxyCodeLine{00037\ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00039\ \ \ \ \ tbb::blocked\_range<int>(0,\ numThreads,\ 1),\ }
+\DoxyCodeLine{00040\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ split\ regions\ by\ chunk}}
-\DoxyCodeLine{00043\ \ \ \ \ regionSets\ =\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{gds::chunk\_vector}}(regions,\ numChunks);}
-\DoxyCodeLine{00044\ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ readers[r.begin()]\ =\ gds::createFileView(param);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00044\ \ \ \ \ \});}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}{processChunks}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<T>}}\ \&,\ \textcolor{keywordtype}{size\_t})>\ processFunc)\ \{}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ useFilter\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ split\ regions\ by\ chunk}}
+\DoxyCodeLine{00047\ \ \ \ \ regionSets\ =\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{gds::chunk\_vector}}(regions,\ numChunks);}
+\DoxyCodeLine{00048\ \ \ \}}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ vector<DataChunk<T>\ >\ chunkSet;}
-\DoxyCodeLine{00051\ \ \ \ \ chunkSet.reserve(numThreads);}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ mutex\ mtx;\ \ }
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ like\ a\ thread\ pool,\ but\ just\ stores\ index\ of\ thread}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ initialize\ threadSet\ as\ 0:numThreads}}
-\DoxyCodeLine{00057\ \ \ \ \ vector<int>\ threadSet(numThreads);}
-\DoxyCodeLine{00058\ \ \ \ \ iota(threadSet.begin(),\ threadSet.end(),\ 0);}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
-\DoxyCodeLine{00061\ \ \ \ \ limited\_arena.execute([\&]\ \{}
-\DoxyCodeLine{00062\ \ \ \ \ tbb::parallel\_for(}
-\DoxyCodeLine{00063\ \ \ \ \ tbb::blocked\_range<int>(0,\ numChunks,\ 1),\ }
-\DoxyCodeLine{00064\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ threadIdx\ from\ threadSet}}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ lock\ this,\ so\ only\ one\ thread\ uses\ readers[i]}}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ threadIdx;}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ lock\_guard<mutex>\ lock(mtx);}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ threadIdx\ =\ threadSet.back();}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ threadSet.pop\_back();}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ chunkIdx\ =\ r.begin();\ \textcolor{comment}{//\ which\ chunk}}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ reader\ and\ set\ region}}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ readers[threadIdx];}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ reader-\/>setRegions(\ regionSets[chunkIdx]\ );}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ data\ and\ run\ analysis\ function}}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<T>}}\ chunk\ =\ chunkSet[threadIdx];}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while\ reader\ get\ variants}}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (reader-\/>getNextChunk(chunk,\ useFilter))\ \{}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ processFunc(chunk,\ chunkIdx);}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ push\ thread\ back\ into\ the\ pool}}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ lock\_guard<mutex>\ lock(mtx);}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ threadSet.push\_back(threadIdx);}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00096\ \ \ \ \ \});}
-\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}{processChunks}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<T>}}\ \&,\ \textcolor{keywordtype}{size\_t})>\ processFunc)\ \{}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{bool}\ useFilter\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ vector<DataChunk<T>\ >\ chunkSet;}
+\DoxyCodeLine{00055\ \ \ \ \ chunkSet.reserve(numThreads);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ mutex\ mtx;\ \ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ like\ a\ thread\ pool,\ but\ just\ stores\ index\ of\ thread}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ initialize\ threadSet\ as\ 0:numThreads}}
+\DoxyCodeLine{00061\ \ \ \ \ vector<int>\ threadSet(numThreads);}
+\DoxyCodeLine{00062\ \ \ \ \ iota(threadSet.begin(),\ threadSet.end(),\ 0);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00065\ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00067\ \ \ \ \ tbb::blocked\_range<int>(0,\ numChunks,\ 1),\ }
+\DoxyCodeLine{00068\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ threadIdx\ from\ threadSet}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ lock\ this,\ so\ only\ one\ thread\ uses\ readers[i]}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ threadIdx;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ lock\_guard<mutex>\ lock(mtx);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ threadIdx\ =\ threadSet.back();}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ threadSet.pop\_back();}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ chunkIdx\ =\ r.begin();\ \textcolor{comment}{//\ which\ chunk}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ reader\ and\ set\ region}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ readers[threadIdx];}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ reader-\/>setRegions(\ regionSets[chunkIdx]\ );}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ data\ and\ run\ analysis\ function}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<T>}}\ chunk\ =\ chunkSet[threadIdx];}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while\ reader\ get\ variants}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (reader-\/>getNextChunk(chunk,\ useFilter))\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ processFunc(chunk,\ chunkIdx);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ push\ thread\ back\ into\ the\ pool}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ lock\_guard<mutex>\ lock(mtx);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ threadSet.push\_back(threadIdx);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{int}\ numChunks,\ numThreads;}
-\DoxyCodeLine{00101\ \ \ tbb::task\_arena\ limited\_arena;}
-\DoxyCodeLine{00102\ \ \ vector<shared\_ptr<GenomicDataStream>\ >\ readers;}
-\DoxyCodeLine{00103\ \ \ vector<vector<string>\ >\ regionSets;}
-\DoxyCodeLine{00104\ \};}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00100\ \ \ \ \ \});}
+\DoxyCodeLine{00101\ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{int}\ numChunks,\ numThreads;}
+\DoxyCodeLine{00105\ \ \ tbb::task\_arena\ limited\_arena;}
+\DoxyCodeLine{00106\ \ \ vector<shared\_ptr<GenomicDataStream>\ >\ readers;}
+\DoxyCodeLine{00107\ \ \ vector<vector<string>\ >\ regionSets;}
+\DoxyCodeLine{00108\ \};}
 \DoxyCodeLine{00109\ }
 \DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

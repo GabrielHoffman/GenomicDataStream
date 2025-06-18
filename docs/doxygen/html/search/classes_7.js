@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['variantinfo_0',['VariantInfo',['../classgds_1_1_variant_info.html',1,'gds']]],
-  ['variantset_1',['VariantSet',['../classgds_1_1_variant_set.html',1,'gds']]],
-  ['vcfstream_2',['vcfstream',['../classgds_1_1vcfstream.html',1,'gds']]]
+  ['zstd_5finbuffer_5fs_0',['ZSTD_inBuffer_s',['../struct_z_s_t_d__in_buffer__s.html',1,'']]],
+  ['zstd_5foutbuffer_5fs_1',['ZSTD_outBuffer_s',['../struct_z_s_t_d__out_buffer__s.html',1,'']]]
 ];

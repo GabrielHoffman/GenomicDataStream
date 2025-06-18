@@ -13,6 +13,6 @@ var searchData=
   ['_5fgenomicdatastream_5fstandardize_5fin_5fplace_10',['_GenomicDataStream_standardize_in_place',['../_rcpp_exports_8cpp.html#ab0235a29be19a8ade494d7d005204b74',1,'RcppExports.cpp']]],
   ['_5fgenomicdatastream_5fstream_5fpcaone_11',['_GenomicDataStream_stream_pcaone',['../_rcpp_exports_8cpp.html#a25e24e07572ee136b5db01e38882ac35',1,'RcppExports.cpp']]],
   ['_5fgenomicdatastream_5fstream_5fpcaone_5frobj_12',['_GenomicDataStream_stream_pcaone_robj',['../_rcpp_exports_8cpp.html#a75816ce0f10e0c1151abd191c1d59714',1,'RcppExports.cpp']]],
-  ['_5fgenomicdatastream_5fsummarizechunks_5frcpp_13',['_GenomicDataStream_summarizeChunks_rcpp',['../_rcpp_exports_8cpp.html#ae6c98ffe8e5525b4c71c3859a5b94fef',1,'RcppExports.cpp']]],
+  ['_5fgenomicdatastream_5fsummarizechunks_5frcpp_13',['_GenomicDataStream_summarizeChunks_rcpp',['../_rcpp_exports_8cpp.html#a6d94c5a387cd48b8af46478a83ba5bf7',1,'RcppExports.cpp']]],
   ['_5fgenomicdatastream_5ftest_5fdatatable_14',['_GenomicDataStream_test_DataTable',['../_rcpp_exports_8cpp.html#aabb4dcf56b0725ef90cb1895238e302a',1,'RcppExports.cpp']]]
 ];
