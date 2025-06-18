@@ -1,4 +1,9 @@
 
+# GenomicDataStream 0.0.58
+ - June 18, 2025
+ - Article addressing `RcppParallel` on Mac OS X
+ - Fix Makefile
+
 # GenomicDataStream 0.0.57
  - June 16, 2025
  - Fix issue with multiple variants at the same site

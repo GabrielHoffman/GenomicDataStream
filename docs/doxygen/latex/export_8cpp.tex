@@ -30,9 +30,9 @@ long \mbox{\hyperlink{export_8cpp_a617d48bad593d338039f37d1bc6de5a5}{features\+R
 \item 
 List \mbox{\hyperlink{export_8cpp_ab00a0564a52e574e823c23a2c0be7add}{get\+Next\+Chunk\+\_\+rcpp}} (SEXP x)
 \item 
-List \mbox{\hyperlink{export_8cpp_aee54d1acbad4bf97e41722ad82a45c85}{summarize\+Chunks}} (const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$ gds)
+List \mbox{\hyperlink{export_8cpp_a6131eee7c1555bd2408425a0b6d23be4}{summarize\+Chunks}} (const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$ gds, const int \&threads=4)
 \item 
-List \mbox{\hyperlink{export_8cpp_ac75943b4b9da0f4a459075d5ac3ccd9c}{summarize\+Chunks\+\_\+rcpp}} (SEXP x)
+List \mbox{\hyperlink{export_8cpp_a69bb401b7491e08f2c610b16661b904c}{summarize\+Chunks\+\_\+rcpp}} (SEXP x, const int \&threads=4)
 \item 
 arma\+::vec \mbox{\hyperlink{export_8cpp_a7fee884670a74f3630ba041bcf13a0e9}{col\+Sums\+\_\+test}} (const arma\+::mat \&X)
 \item 
@@ -46,6 +46,8 @@ Rcpp\+::\+List \mbox{\hyperlink{export_8cpp_aa9ade8c89e0067d551b72cddd44b94ef}{s
 \end{DoxyCompactItemize}
 
 
+\label{doc-define-members}
+\Hypertarget{export_8cpp_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{export_8cpp_a6ee1a17bf79231337da741265d2f6856}\index{export.cpp@{export.cpp}!ARMA\_WARN\_LEVEL@{ARMA\_WARN\_LEVEL}}
 \index{ARMA\_WARN\_LEVEL@{ARMA\_WARN\_LEVEL}!export.cpp@{export.cpp}}
@@ -55,6 +57,8 @@ Rcpp\+::\+List \mbox{\hyperlink{export_8cpp_aa9ade8c89e0067d551b72cddd44b94ef}{s
 
 
 
+\label{doc-func-members}
+\Hypertarget{export_8cpp_doc-func-members}
 \doxysubsection{Function Documentation}
 \Hypertarget{export_8cpp_a72cd0eaac00f6f47aebed59a00ffedf9}\index{export.cpp@{export.cpp}!atEndOfStream\_rcpp@{atEndOfStream\_rcpp}}
 \index{atEndOfStream\_rcpp@{atEndOfStream\_rcpp}!export.cpp@{export.cpp}}
@@ -128,17 +132,17 @@ List stream\+\_\+pcaone (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{cons
 {\footnotesize\ttfamily \label{export_8cpp_aa9ade8c89e0067d551b72cddd44b94ef} 
 Rcpp\+::\+List stream\+\_\+pcaone\+\_\+robj (\begin{DoxyParamCaption}\item[{const RObject \&}]{x}{, }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{ids}{, }\item[{const int \&}]{n}{, }\item[{const int \&}]{chunk\+Size}{, }\item[{const int \&}]{nchunks}{, }\item[{int}]{m}{, }\item[{int}]{k}{, }\item[{int}]{s}{ = {\ttfamily 20}, }\item[{int}]{p}{ = {\ttfamily 7}, }\item[{int}]{B}{ = {\ttfamily 64}, }\item[{int}]{threads}{ = {\ttfamily 4}, }\item[{int}]{threads\+\_\+eigen}{ = {\ttfamily 1}, }\item[{const bool}]{verbose}{ = {\ttfamily true}, }\item[{const bool}]{scale\+And\+Center}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_aee54d1acbad4bf97e41722ad82a45c85}\index{export.cpp@{export.cpp}!summarizeChunks@{summarizeChunks}}
+\Hypertarget{export_8cpp_a6131eee7c1555bd2408425a0b6d23be4}\index{export.cpp@{export.cpp}!summarizeChunks@{summarizeChunks}}
 \index{summarizeChunks@{summarizeChunks}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{summarizeChunks()}{summarizeChunks()}}
-{\footnotesize\ttfamily \label{export_8cpp_aee54d1acbad4bf97e41722ad82a45c85} 
-List summarize\+Chunks (\begin{DoxyParamCaption}\item[{const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$}]{gds}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a6131eee7c1555bd2408425a0b6d23be4} 
+List summarize\+Chunks (\begin{DoxyParamCaption}\item[{const shared\+\_\+ptr$<$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} $>$}]{gds}{, }\item[{const int \&}]{threads}{ = {\ttfamily 4}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_ac75943b4b9da0f4a459075d5ac3ccd9c}\index{export.cpp@{export.cpp}!summarizeChunks\_rcpp@{summarizeChunks\_rcpp}}
+\Hypertarget{export_8cpp_a69bb401b7491e08f2c610b16661b904c}\index{export.cpp@{export.cpp}!summarizeChunks\_rcpp@{summarizeChunks\_rcpp}}
 \index{summarizeChunks\_rcpp@{summarizeChunks\_rcpp}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{summarizeChunks\_rcpp()}{summarizeChunks\_rcpp()}}
-{\footnotesize\ttfamily \label{export_8cpp_ac75943b4b9da0f4a459075d5ac3ccd9c} 
-List summarize\+Chunks\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a69bb401b7491e08f2c610b16661b904c} 
+List summarize\+Chunks\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{, }\item[{const int \&}]{threads}{ = {\ttfamily 4}}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a66b83a0410791c289af3f71b4a9a2854}\index{export.cpp@{export.cpp}!test\_DataTable@{test\_DataTable}}
 \index{test\_DataTable@{test\_DataTable}!export.cpp@{export.cpp}}

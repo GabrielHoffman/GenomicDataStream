@@ -15,6 +15,8 @@ void \mbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{set
 \item 
 void \mbox{\hyperlink{structgds_1_1_param_a0b421926820fe1cb1d9f706e060fe080}{set\+Regions}} (const string \&region\+String)
 \item 
+vector$<$ string $>$ \mbox{\hyperlink{structgds_1_1_param_a5de7f858a8939813f178a7553e2cc999}{get\+Regions}} () const
+\item 
 void \mbox{\hyperlink{structgds_1_1_param_a8c752be96dffc51b142914a8b2fe2f33}{set\+Samples\+File}} (const string \&\mbox{\hyperlink{structgds_1_1_param_ada92631b1e8dfaec19d59cb4225540c5}{file}})
 \item 
 void \mbox{\hyperlink{structgds_1_1_param_a3e8677008966dba8b7737ed223d56b93}{print}} (ostream \&out) const
@@ -47,6 +49,8 @@ bool \mbox{\hyperlink{structgds_1_1_param_af5eae8c29ee634c69c59e5f76d8df801}{mis
 \doxysubsection{Detailed Description}
 Store parameters to pass to \doxylink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream} 
 
+\label{doc-constructors}
+\Hypertarget{structgds_1_1_param_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{structgds_1_1_param_a53694d9da67ec6e0e5a5e4993858f915}\index{gds::Param@{gds::Param}!Param@{Param}}
 \index{Param@{Param}!gds::Param@{gds::Param}}
@@ -83,7 +87,15 @@ constructor
 \end{DoxyParams}
 Note that field must be set separately for VCF/\+BCF\+: field\+: {\ttfamily "{}\+GT"{}} for genotype strings, {\ttfamily "{}\+DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}\+GT"{}} is the only string type supported 
 
+\label{doc-func-members}
+\Hypertarget{structgds_1_1_param_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{structgds_1_1_param_a5de7f858a8939813f178a7553e2cc999}\index{gds::Param@{gds::Param}!getRegions@{getRegions}}
+\index{getRegions@{getRegions}!gds::Param@{gds::Param}}
+\doxysubsubsection{\texorpdfstring{getRegions()}{getRegions()}}
+{\footnotesize\ttfamily \label{structgds_1_1_param_a5de7f858a8939813f178a7553e2cc999} 
+vector$<$ string $>$ gds\+::\+Param\+::get\+Regions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \Hypertarget{structgds_1_1_param_a3e8677008966dba8b7737ed223d56b93}\index{gds::Param@{gds::Param}!print@{print}}
 \index{print@{print}!gds::Param@{gds::Param}}
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
@@ -110,6 +122,8 @@ void gds\+::\+Param\+::set\+Samples\+File (\begin{DoxyParamCaption}\item[{const 
 
 Custom path to PSAM/\+FAM file 
 
+\label{doc-variable-members}
+\Hypertarget{structgds_1_1_param_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{structgds_1_1_param_ae82660852c54b3b6ac70d7aea6a37824}\index{gds::Param@{gds::Param}!chunkSize@{chunkSize}}
 \index{chunkSize@{chunkSize}!gds::Param@{gds::Param}}

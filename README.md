@@ -28,8 +28,7 @@ The `GenomicDataStream` interface separates:
 
 ### Install
 ```r
-# Install latest version of GenomicDataStream
-# and dependencies
+# Install latest version of GenomicDataStream and dependencies
 BiocManager::install("GabrielHoffman/GenomicDataStream")
 ```
 

@@ -1,0 +1,143 @@
+---
+title: "Demonstrate performance of [GenomicDataStream](https://gabrielhoffman.github.io/GenomicDataStream/)"
+subtitle: 'DelayedMatrix'
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r Sys.time()`"
+output: 
+  html_document:
+    toc: true
+    smart: true
+    self_contained: true
+---
+
+<!---
+
+
+# rm -rf demo_matrix_cache/
+
+rmarkdown::render("demo_matrix.Rmd");
+
+
+--->
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning=FALSE,
+  message=FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  dev = c("png", "pdf"),
+  package.startup.message = FALSE,
+  cache = TRUE,
+  cache.lazy = FALSE)
+```
+
+
+```{r load, cache=FALSE}
+suppressPackageStartupMessages({
+library(DelayedArray)
+library(zellkonverter)
+library(SingleCellExperiment)
+library(RUnit)
+library(DelayedMatrixStats)
+library(BiocSingular)
+library(ggplot2)
+library(GenomicDataStream)
+})
+
+file = "~/Downloads/4e6932db-5a78-40e4-b961-f87f66ba139a.h5ad"
+# file = "~/4e6932db-5a78-40e4-b961-f87f66ba139a.h5ad"
+sce_in = readH5AD(file, use_hdf5=TRUE, raw=TRUE, verbose=TRUE, uns=FALSE, obsp=FALSE, obsm=FALSE)
+sce <- swapAltExp(sce_in, "raw") 
+counts(sce) <- assay(sce, "X") 
+sce$total_counts = colSums2(counts(sce))
+
+lib.size = sce$total_counts
+prior.count = 1
+logcounts(sce) <- t(log2(t(counts(sce) + prior.count)) - log2(lib.size) + log2(1e6))
+```
+
+
+
+# Time vs number of genes
+```{r numGenes}
+k = 20
+
+n_features = c(1000, 2000, 5000, 10000, nrow(sce))
+
+res = lapply(n_features, function(p){
+
+  res_time = system.time({
+    res <- PCAstream(sce[seq(p),], k, threads=4)
+  })
+
+  data.frame(n_features = p, t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+```{r numGenesPlot, cache=FALSE}
+ggplot(res, aes(n_features, elapsed)) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1) +
+  ylab("Time (seconds)")
+
+```
+
+
+
+# Time vs number of cells
+```{r numCells}
+k = 20
+
+n_cells = c(1000, 5000, 20000, ncol(sce))
+
+res = lapply(n_cells, function(nc){
+
+  res_time = system.time({
+    res <- PCAstream(sce[,seq(nc)], k, threads=4)
+  })
+
+  data.frame(nc = nc, t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+```{r numCellsPlot, cache=FALSE}
+ggplot(res, aes(nc, elapsed)) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1) +
+  ylab("Time (seconds)")
+
+```
+
+
+
+# Time vs number of threads
+```{r nThreads}
+k = 20
+res = lapply(c(1,2,4,6), function(threads){
+
+  res_time = system.time({
+    res <- PCAstream(sce, k, threads=threads)
+  })
+
+  data.frame(threads=threads, t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+
+```{r nThreadsPlot, cache=FALSE}
+ggplot(res, aes(threads, elapsed )) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1, legend.position="none") +
+  ylab("Time (seconds)")
+```
+
+
