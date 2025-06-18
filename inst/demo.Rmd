@@ -146,7 +146,7 @@ res = do.call(rbind, res)
 ```
 
 
-```{r FileFormatsPlot, cache=FALSE, eval=FALSE}
+```{r FileFormatsPlot, cache=FALSE}
 res %>%
   mutate(Type = gsub("1kg_chr21.", "", basename(file))) %>%
   ggplot(aes(Type, elapsed, fill=Type)) +
