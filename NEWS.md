@@ -1,4 +1,10 @@
 
+# GenomicDataStream 0.0.59
+ - June 23, 2025
+ - `bgenstream` now supports reading a large number of genomic intervals using `VariantSet` and then querying by rsid instead of postion, instead of crashing at ~10k
+ - In `VariantSet`, add `id` field 
+ - In `pgenstream` move where `VariantSet` is initialized
+
 # GenomicDataStream 0.0.58
  - June 18, 2025
  - Article addressing `RcppParallel` on Mac OS X

@@ -163,9 +163,40 @@ namespace genfile {
 	#if DEBUG
 			std::cerr << "BgenIndex::build_query(): SQL is: \"" << select_sql << "\"...\n" ;
 	#endif
-	
+
 			return m_connection->get_statement( select_sql ) ;
 		}
+
+		// populate vectors of rsid, chrom, start, end
+		// for _all_ variants in the database
+		void SqliteIndexQuery::get_variant_info( 
+			std::vector<std::string> *rsid,
+			std::vector<std::string> *chrom,
+			std::vector<int> *position){
+
+			rsid->clear();
+			chrom->clear();
+			position->clear();
+
+			std::string const qry = "SELECT chromosome, position, rsid FROM `" + m_index_table_name + "` V" ;
+
+			db::Connection::StatementPtr stmt = m_connection->get_statement( qry ); 
+
+			std::size_t batch_i = 0 ;
+			for( stmt->step() ; !stmt->empty(); stmt->step(), ++batch_i ) {
+
+				std::string const chr = stmt->get< std::string >( 0 ) ;
+				int const pos = stmt->get< int >( 1 ) ;
+				std::string const id = stmt->get< std::string >( 2 ) ;
+
+				rsid->push_back( id );
+				chrom->push_back( chr );
+				position->push_back( pos );
+			}
+		}
+
+
+
 	}
 }
 

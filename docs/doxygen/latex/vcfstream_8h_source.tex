@@ -88,37 +88,37 @@
 \DoxyCodeLine{00093\ }
 \DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ validRegions.reserve(regions.size());}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ validRegions.clear();}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ status\ of\ each\ region}}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ retain\ only\ valid,\ non-\/empty\ regions\ in\ validRegions}}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ region\ :\ regions)\{}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ reader-\/>getStatus(\ region\ )\ )\{}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ region\ is\ vaild\ and\ not\ empty}}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validRegions.push\_back(region);\ }
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ the\ region\ is\ valid\ but\ empty.}}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:\ \textcolor{comment}{//\ there\ is\ no\ index\ file\ found.}}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ retrieve\ index\ file"{}});}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/2:\ \textcolor{comment}{//\ the\ region\ is\ not\ valid}}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}region:"{}}\ +\ region\ +\ \textcolor{stringliteral}{"{};\(\backslash\)n"{}};}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}region\ was\ not\ found:\ "{}}\ +\ region\ );}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ to\ false}}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ continueIterating\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ valid\ set\ is\ not\ empty}}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ validRegions.size()\ >\ 0\ )\{}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ iterator}}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ itReg\ =\ validRegions.begin();}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ copy(regions.begin(),\ regions.end(),\ back\_inserter(validRegions));}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&region:\ regions)\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ reader-\/>getStatus(\ region\ )\ )\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ region\ is\ vaild\ and\ not\ empty}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validRegions.push\_back(region);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ the\ region\ is\ valid\ but\ empty.}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:\ \textcolor{comment}{//\ there\ is\ no\ index\ file\ found.}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ retrieve\ index\ file"{}});}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/2:\ \textcolor{comment}{//\ the\ region\ is\ not\ valid}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}region:"{}}\ +\ region\ +\ \textcolor{stringliteral}{"{};\(\backslash\)n"{}};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}region\ was\ not\ found:\ "{}}\ +\ region\ );}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ to\ false}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ continueIterating\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ valid\ set\ is\ not\ empty}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ validRegions.size()\ >\ 0\ )\{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ iterator}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ itReg\ =\ validRegions.begin();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ checkStatus(\ *itReg\ );}
 \DoxyCodeLine{00127\ }
 \DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ reader-\/>setRegion(\ *itReg\ );}
 \DoxyCodeLine{00129\ }
@@ -377,12 +377,30 @@
 \DoxyCodeLine{00392\ }
 \DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
 \DoxyCodeLine{00394\ \ \ \ \ \}}
-\DoxyCodeLine{00395\ \};}
-\DoxyCodeLine{00396\ }
-\DoxyCodeLine{00397\ }
-\DoxyCodeLine{00398\ }
-\DoxyCodeLine{00399\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00400\ }
-\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{comment}{//\ check\ status\ of\ region}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordtype}{void}\ checkStatus(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ region)\{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ reader-\/>getStatus(\ region\ )\ )\{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ region\ is\ vaild\ and\ not\ empty}}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ the\ region\ is\ valid\ but\ empty.}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:\ \textcolor{comment}{//\ there\ is\ no\ index\ file\ found.}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ retrieve\ index\ file"{}});}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/2:\ \textcolor{comment}{//\ the\ region\ is\ not\ valid}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}region:"{}}\ +\ region\ +\ \textcolor{stringliteral}{"{};\(\backslash\)n"{}};}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}region\ was\ not\ found:\ "{}}\ +\ region\ );}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00414\ \ \ \ \ \}}
+\DoxyCodeLine{00415\ \};}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

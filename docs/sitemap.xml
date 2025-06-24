@@ -1,447 +1,151 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/404.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/GenomicDataStream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/extensions.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/mac_osx.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_info_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_info_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_table_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_table_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream__virtual_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream__virtual_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_parallel_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_parallel_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_ranges_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_ranges_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_matrix_info_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_matrix_info_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_p_c_a_one_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_p_c_a_one_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_parallel_genomic_chunks_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_parallel_genomic_chunks_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_rand_8hpp.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_rand_8hpp_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_rcpp_exports_8cpp.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_info_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_info_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_set_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_set_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/annotated.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgen__load_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgen__load_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgenstream_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgenstream_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_parallel-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_parallel.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_multi_genomic_stream_processor-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_multi_genomic_stream_processor.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_thread_pool-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_thread_pool.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classes.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_chunk-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_chunk.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_info-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_info.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_table-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_table.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_delayed_stream-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_delayed_stream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_data_stream-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_data_stream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_ranges-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_ranges.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_matrix_info-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_matrix_info.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_info-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_info.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_set-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_set.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1bgenstream-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1bgenstream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1pgenstream-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1pgenstream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1vcfstream-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1vcfstream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/compute__scale_8cpp.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/dir_2b5d1a398a9eec011391d543f21db223.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/dir_920884c6b3b2f0be94e27d51660adee5.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/doxygen_crawl.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/export_8cpp.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/files.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/functions.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/functions_func.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/functions_vars.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals_defs.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals_func.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals_type.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/hierarchy.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/index.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacegds.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_enum.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_eval.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_func.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_type.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespaces.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/pgenstream_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/pgenstream_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_p_c_a-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_p_c_a.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_01_random_engine_type_01_4.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_07023c03c4051b8c6bf8dccce7d70e3ba.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_ma9af63eb6c059e68fd0f4ece0ffbe50df.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_maf542e54d4aedc393a9985dfeb66c7b59.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__in_buffer__s-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__in_buffer__s.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__out_buffer__s-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__out_buffer__s.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_bound_data_stream-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_bound_data_stream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_param-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_param.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1point-members.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1point.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/threadpool_8hpp.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/threadpool_8hpp_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/utils_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/utils_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/vcfstream_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/vcfstream_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/zstd_8h.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/zstd_8h_source.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/index.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream-class.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCA-class.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/atEndOfStream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/countChunks.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/featuresRead.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getNextChunk.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getSampleNames.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getVariantLocations.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/initializeStream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/isInitialized.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/normPC.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/perfMetric.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/plot-methods.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/print-methods.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/reinitializeStream.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/rownames-GenomicDataStream-method.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/rownames.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/setChunkSize.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/setRegion.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/show-methods.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/standardize_in_place.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/summarizeChunks.html</loc>
-  </url>
-  <url>
-    <loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/summaryChunks.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/404.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/GenomicDataStream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/extensions.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/index.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/articles/mac_osx.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/authors.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_info_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_info_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_table_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_data_table_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_delayed_stream_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream__virtual_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream__virtual_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_parallel_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_data_stream_parallel_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_ranges_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_genomic_ranges_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_matrix_info_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_matrix_info_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_p_c_a_one_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_p_c_a_one_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_parallel_genomic_chunks_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_parallel_genomic_chunks_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_rand_8hpp.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_rand_8hpp_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_rcpp_exports_8cpp.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_info_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_info_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_set_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/_variant_set_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/annotated.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgen__load_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgen__load_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgenstream_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/bgenstream_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_parallel-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_genomic_data_stream_parallel.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_multi_genomic_stream_processor-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_multi_genomic_stream_processor.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_thread_pool-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/class_thread_pool.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classes.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_chunk-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_chunk.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_info-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_info.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_table-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_data_table.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_delayed_stream-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_delayed_stream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_data_stream-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_data_stream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_ranges-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_genomic_ranges.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_matrix_info-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_matrix_info.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_info-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_info.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_set-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1_variant_set.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1bgenstream-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1bgenstream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1pgenstream-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1pgenstream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1vcfstream-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/classgds_1_1vcfstream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/compute__scale_8cpp.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/dir_2b5d1a398a9eec011391d543f21db223.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/dir_920884c6b3b2f0be94e27d51660adee5.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/doxygen_crawl.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/export_8cpp.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/files.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/functions.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/functions_func.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/functions_vars.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals_defs.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals_func.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/globals_type.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/hierarchy.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/index.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacegds.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_enum.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_eval.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_func.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespacemembers_type.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/namespaces.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/pgenstream_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/pgenstream_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_p_c_a-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_p_c_a.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_01_random_engine_type_01_4.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_07023c03c4051b8c6bf8dccce7d70e3ba.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_ma9af63eb6c059e68fd0f4ece0ffbe50df.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_maf542e54d4aedc393a9985dfeb66c7b59.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__in_buffer__s-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__in_buffer__s.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__out_buffer__s-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/struct_z_s_t_d__out_buffer__s.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_bound_data_stream-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_bound_data_stream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_param-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1_param.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1point-members.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/structgds_1_1point.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/threadpool_8hpp.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/threadpool_8hpp_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/utils_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/utils_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/vcfstream_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/vcfstream_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/zstd_8h.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/doxygen/html/zstd_8h_source.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/index.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/news/index.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream-class.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCA-class.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/atEndOfStream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/countChunks.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/featuresRead.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getNextChunk.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getSampleNames.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getVariantLocations.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/index.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/initializeStream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/isInitialized.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/normPC.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/perfMetric.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/plot-methods.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/print-methods.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/reinitializeStream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/rownames-GenomicDataStream-method.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/rownames.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/setChunkSize.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/setRegion.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/show-methods.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/standardize_in_place.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/summarizeChunks.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/summaryChunks.html</loc></url>
 </urlset>
+

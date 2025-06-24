@@ -256,7 +256,7 @@
 \DoxyCodeLine{00283\ }
 \DoxyCodeLine{00284\ \ }
 \DoxyCodeLine{00287\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00288\ vector<T>\ \mbox{\hyperlink{namespacegds_a48cc834ac88e3e65adee23e4843a842d}{cast\_elements}}(\ \textcolor{keyword}{const}\ vector<string>\ \&v\ )\{}
+\DoxyCodeLine{00288\ \textcolor{keyword}{static}\ vector<T>\ cast\_elements(\ \textcolor{keyword}{const}\ vector<string>\ \&v\ )\{}
 \DoxyCodeLine{00289\ \ \ vector<T>\ output(0,\ v.size());}
 \DoxyCodeLine{00290\ }
 \DoxyCodeLine{00291\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&s\ :\ v)\ \{}
@@ -268,97 +268,110 @@
 \DoxyCodeLine{00297\ \ \ \textcolor{keywordflow}{return}\ output;}
 \DoxyCodeLine{00298\ \}}
 \DoxyCodeLine{00299\ }
-\DoxyCodeLine{00300\ }
-\DoxyCodeLine{00306\ \textcolor{keyword}{static}\ vector<string>\ splitRegionString(\ \textcolor{keywordtype}{string}\ regionString)\{}
+\DoxyCodeLine{00300\ \ }
+\DoxyCodeLine{00303\ \textcolor{keyword}{static}\ vector<int>\ stoi\_vec(\ \textcolor{keyword}{const}\ vector<string>\ \&v\ )\{}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ vector<int>\ output;}
+\DoxyCodeLine{00306\ \ \ output.reserve(v.size());}
 \DoxyCodeLine{00307\ }
-\DoxyCodeLine{00308\ \ \ vector<string>\ regions;}
-\DoxyCodeLine{00309\ }
-\DoxyCodeLine{00310\ \ \ \textcolor{comment}{//\ regionString\ is\ string\ of\ chr:start-\/end\ delim\ by\ "{}\(\backslash\)t,\(\backslash\)n"{}}}
-\DoxyCodeLine{00311\ \ \ \textcolor{comment}{//\ remove\ spaces,\ then\ split\ based\ on\ delim}}
-\DoxyCodeLine{00312\ \ \ boost::erase\_all(regionString,\ \textcolor{stringliteral}{"{}\ "{}});}
-\DoxyCodeLine{00313\ \ \ boost::split(regions,\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
+\DoxyCodeLine{00308\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ s\ :\ v)\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ output.push\_back(std::stoi(s));}
+\DoxyCodeLine{00310\ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordflow}{return}\ output;}
+\DoxyCodeLine{00312\ \}}
+\DoxyCodeLine{00313\ }
 \DoxyCodeLine{00314\ }
-\DoxyCodeLine{00315\ \ \ \textcolor{comment}{//\ remove\ duplicate\ regions,\ but\ preserve\ order}}
-\DoxyCodeLine{00316\ \ \ removeDuplicates(\ regions\ );}
-\DoxyCodeLine{00317\ }
-\DoxyCodeLine{00318\ \ \ \textcolor{keywordflow}{return}\ regions;}
-\DoxyCodeLine{00319\ \}}
-\DoxyCodeLine{00320\ }
-\DoxyCodeLine{00321\ }
-\DoxyCodeLine{00324\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ T2>}
-\DoxyCodeLine{00325\ \textcolor{keyword}{static}\ vector<T>\ subset\_vector(\textcolor{keyword}{const}\ vector<T>\ \&x,\ \textcolor{keyword}{const}\ vector<T2>\ \&idx)\{}
-\DoxyCodeLine{00326\ }
-\DoxyCodeLine{00327\ \ \ \textcolor{comment}{//\ initialize\ x\_subset\ to\ have\ size\ idx.size()}}
-\DoxyCodeLine{00328\ \ \ vector<T>\ x\_subset;}
-\DoxyCodeLine{00329\ \ \ x\_subset.reserve(idx.size());}
-\DoxyCodeLine{00330\ }
-\DoxyCodeLine{00331\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ i:\ idx)\{}
-\DoxyCodeLine{00332\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ >\ x.size()\ )\{}
-\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds"{}});\ }
-\DoxyCodeLine{00334\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00335\ \ \ \ \ \ \ x\_subset.push\_back(\ x[i]\ );}
-\DoxyCodeLine{00336\ \ \ \}}
-\DoxyCodeLine{00337\ }
-\DoxyCodeLine{00338\ \ \ \textcolor{keywordflow}{return}\ x\_subset;}
-\DoxyCodeLine{00339\ \}}
-\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00321\ \textcolor{keyword}{static}\ vector<string>\ splitRegionString(\ \textcolor{keywordtype}{string}\ regionString)\{}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ vector<string>\ regions;}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \textcolor{comment}{//\ regionString\ is\ string\ of\ chr:start-\/end\ delim\ by\ "{}\(\backslash\)t,\(\backslash\)n"{}}}
+\DoxyCodeLine{00326\ \ \ \textcolor{comment}{//\ remove\ spaces,\ then\ split\ based\ on\ delim}}
+\DoxyCodeLine{00327\ \ \ boost::erase\_all(regionString,\ \textcolor{stringliteral}{"{}\ "{}});}
+\DoxyCodeLine{00328\ \ \ boost::split(regions,\ regionString,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}\(\backslash\)t,\(\backslash\)n"{}}));}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \textcolor{comment}{//\ remove\ duplicate\ regions,\ but\ preserve\ order}}
+\DoxyCodeLine{00331\ \ \ removeDuplicates(\ regions\ );}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \textcolor{keywordflow}{return}\ regions;}
+\DoxyCodeLine{00334\ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00339\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00340\ \textcolor{keyword}{static}\ vector<T>\ subset\_vector(\textcolor{keyword}{const}\ vector<T>\ \&x,\ \textcolor{keyword}{const}\ vector<T2>\ \&idx)\{}
 \DoxyCodeLine{00341\ }
-\DoxyCodeLine{00342\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00343\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ print\_vec(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&title,\ \textcolor{keyword}{const}\ vector<T>\ \&x)\{}
-\DoxyCodeLine{00344\ \ \ Rcpp::Rcout\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
-\DoxyCodeLine{00345\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ a:\ x)\ Rcpp::Rcout\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
-\DoxyCodeLine{00346\ \ \ Rcpp::Rcout\ <<\ endl;}
-\DoxyCodeLine{00347\ \}}
-\DoxyCodeLine{00348\ }
-\DoxyCodeLine{00349\ \ }
-\DoxyCodeLine{00352\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00353\ std::vector<std::vector<T>>\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{chunk\_vector}}(\textcolor{keyword}{const}\ std::vector<T>\&\ vec,\ \textcolor{keywordtype}{int}\ k)\ \{}
-\DoxyCodeLine{00354\ \ \ std::vector<std::vector<T>\ >\ result;}
-\DoxyCodeLine{00355\ \ \ \textcolor{keywordtype}{int}\ size\ =\ vec.size();}
-\DoxyCodeLine{00356\ \ \ \textcolor{keywordtype}{int}\ chunk\_size\ =\ size\ /\ k;}
-\DoxyCodeLine{00357\ \ \ \textcolor{keywordtype}{int}\ remainder\ =\ size\ \%\ k;}
-\DoxyCodeLine{00358\ }
-\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{int}\ start\ =\ 0;}
-\DoxyCodeLine{00360\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ k;\ ++i)\ \{}
-\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_chunk\_size\ =\ chunk\_size;}
-\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ remainder)\ \{}
-\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ current\_chunk\_size++;}
-\DoxyCodeLine{00364\ \ \ \ \ \}}
-\DoxyCodeLine{00365\ \ \ \ \ std::vector<T>\ chunk(vec.begin()\ +\ start,\ vec.begin()\ +\ start\ +\ current\_chunk\_size);}
-\DoxyCodeLine{00366\ \ \ \ \ result.push\_back(chunk);}
-\DoxyCodeLine{00367\ \ \ \ \ start\ +=\ current\_chunk\_size;}
-\DoxyCodeLine{00368\ \ \ \}}
-\DoxyCodeLine{00369\ \ \ \textcolor{keywordflow}{return}\ result;}
-\DoxyCodeLine{00370\ \}}
-\DoxyCodeLine{00371\ \ }
-\DoxyCodeLine{00374\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00375\ \textcolor{keyword}{static}\ vector<unsigned\ int>\ which\_in(\ \textcolor{keyword}{const}\ vector<T>\ \&v1,\ \textcolor{keyword}{const}\ vector<T>\ \&v2)\{}
-\DoxyCodeLine{00376\ }
-\DoxyCodeLine{00377\ \ \ \textcolor{comment}{//\ Create\ a\ hash\ map\ (unordered\_map)\ of\ elements\ in\ v2\ for\ efficient\ lookups}}
-\DoxyCodeLine{00378\ \ \ unordered\_map<T,\ bool>\ v2\_elements;}
-\DoxyCodeLine{00379\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&x\ :\ v2)\ \{}
-\DoxyCodeLine{00380\ \ \ \ \ \ \ v2\_elements[x]\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00381\ \ \ \}}
-\DoxyCodeLine{00382\ }
-\DoxyCodeLine{00383\ \ \ \textcolor{comment}{//\ Iterate\ through\ v1\ and\ check\ if\ the\ element\ exists\ in\ the\ hash\ map\ \ \ }}
-\DoxyCodeLine{00384\ \ \ vector<unsigned\ int>\ shared\_indices;}
-\DoxyCodeLine{00385\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ v1.size();\ ++i)\ \{}
-\DoxyCodeLine{00386\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ element\ exists\ in\ the\ map}}
-\DoxyCodeLine{00387\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v2\_elements.count(v1[i]))\ \{\ }
-\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ index\ from\ v1}}
-\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ shared\_indices.push\_back(i);\ }
-\DoxyCodeLine{00390\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00391\ \ \ \}}
-\DoxyCodeLine{00392\ }
-\DoxyCodeLine{00393\ \ \ \textcolor{keywordflow}{return}\ shared\_indices;}
-\DoxyCodeLine{00394\ \}}
-\DoxyCodeLine{00395\ }
-\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00342\ \ \ \textcolor{comment}{//\ initialize\ x\_subset\ to\ have\ size\ idx.size()}}
+\DoxyCodeLine{00343\ \ \ vector<T>\ x\_subset;}
+\DoxyCodeLine{00344\ \ \ x\_subset.reserve(idx.size());}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ i:\ idx)\{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ >\ x.size()\ )\{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds"{}});\ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ x\_subset.push\_back(\ x[i]\ );}
+\DoxyCodeLine{00351\ \ \ \}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordflow}{return}\ x\_subset;}
+\DoxyCodeLine{00354\ \}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00358\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ print\_vec(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&title,\ \textcolor{keyword}{const}\ vector<T>\ \&x)\{}
+\DoxyCodeLine{00359\ \ \ Rcpp::Rcout\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00360\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ a:\ x)\ Rcpp::Rcout\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00361\ \ \ Rcpp::Rcout\ <<\ endl;}
+\DoxyCodeLine{00362\ \}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ }
+\DoxyCodeLine{00367\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00368\ std::vector<std::vector<T>>\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{chunk\_vector}}(\textcolor{keyword}{const}\ std::vector<T>\&\ vec,\ \textcolor{keywordtype}{int}\ k)\ \{}
+\DoxyCodeLine{00369\ \ \ std::vector<std::vector<T>\ >\ result;}
+\DoxyCodeLine{00370\ \ \ \textcolor{keywordtype}{int}\ size\ =\ vec.size();}
+\DoxyCodeLine{00371\ \ \ \textcolor{keywordtype}{int}\ chunk\_size\ =\ size\ /\ k;}
+\DoxyCodeLine{00372\ \ \ \textcolor{keywordtype}{int}\ remainder\ =\ size\ \%\ k;}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \textcolor{keywordtype}{int}\ start\ =\ 0;}
+\DoxyCodeLine{00375\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ k;\ ++i)\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_chunk\_size\ =\ chunk\_size;}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ remainder)\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ current\_chunk\_size++;}
+\DoxyCodeLine{00379\ \ \ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \ \ std::vector<T>\ chunk(vec.begin()\ +\ start,\ vec.begin()\ +\ start\ +\ current\_chunk\_size);}
+\DoxyCodeLine{00381\ \ \ \ \ result.push\_back(chunk);}
+\DoxyCodeLine{00382\ \ \ \ \ start\ +=\ current\_chunk\_size;}
+\DoxyCodeLine{00383\ \ \ \}}
+\DoxyCodeLine{00384\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00385\ \}}
+\DoxyCodeLine{00386\ \ }
+\DoxyCodeLine{00389\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00390\ \textcolor{keyword}{static}\ vector<unsigned\ int>\ which\_in(\ \textcolor{keyword}{const}\ vector<T>\ \&v1,\ \textcolor{keyword}{const}\ vector<T>\ \&v2)\{}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \textcolor{comment}{//\ Create\ a\ hash\ map\ (unordered\_map)\ of\ elements\ in\ v2\ for\ efficient\ lookups}}
+\DoxyCodeLine{00393\ \ \ unordered\_map<T,\ bool>\ v2\_elements;}
+\DoxyCodeLine{00394\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&x\ :\ v2)\ \{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ v2\_elements[x]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00396\ \ \ \}}
 \DoxyCodeLine{00397\ }
-\DoxyCodeLine{00398\ }
-\DoxyCodeLine{00399\ }
-\DoxyCodeLine{00400\ }
-\DoxyCodeLine{00401\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00398\ \ \ \textcolor{comment}{//\ Iterate\ through\ v1\ and\ check\ if\ the\ element\ exists\ in\ the\ hash\ map\ \ \ }}
+\DoxyCodeLine{00399\ \ \ vector<unsigned\ int>\ shared\_indices;}
+\DoxyCodeLine{00400\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ v1.size();\ ++i)\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ element\ exists\ in\ the\ map}}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v2\_elements.count(v1[i]))\ \{\ }
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ index\ from\ v1}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ shared\_indices.push\_back(i);\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ \textcolor{keywordflow}{return}\ shared\_indices;}
+\DoxyCodeLine{00409\ \}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

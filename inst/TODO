@@ -1,8 +1,19 @@
 
+June 23, 
+	note in IndexQuery.cpp build_query() 
+		reads variants sorted by position 
+	vcfstream is slow for large number of regions
+
+	Use Parallel reading for intial read with library
+	 with BED, PGEN, BGEN since these have a variant list
+	 but cant do with VCF/BCF
+	 	Can I read contig information for length?
+
+
 June 16,
 	benchmarking on GenomicDataStream for genetics
 	benchmarking on DelayedArray and matrix
-	First read-thru in parallel
+	*** First read-thru in parallel
 		summarizeChunks() is now in parallel
 			But need to chunk regions
 

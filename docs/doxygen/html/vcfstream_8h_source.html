@@ -202,37 +202,37 @@ $(function() {
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        validRegions.reserve(regions.size());</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        validRegions.clear();</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="comment">// check status of each region</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">// retain only valid, non-empty regions in validRegions</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; region : regions){</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">switch</span>( reader-&gt;getStatus( region ) ){</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keywordflow">case</span> 1: <span class="comment">// region is vaild and not empty</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                validRegions.push_back(region); </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="keywordflow">case</span> 0: <span class="comment">// the region is valid but empty.</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                <span class="keywordflow">case</span> -1: <span class="comment">// there is no index file found.</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Could not retrieve index file&quot;</span>);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <span class="keywordflow">case</span> -2: <span class="comment">// the region is not valid</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                Rcpp::Rcout &lt;&lt; <span class="stringliteral">&quot;region:&quot;</span> + region + <span class="stringliteral">&quot;;\n&quot;</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;region was not found: &quot;</span> + region );</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">// initialize to false</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        continueIterating = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="comment">// if valid set is not empty</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">if</span>( validRegions.size() &gt; 0 ){</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="comment">// initialize iterator</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            itReg = validRegions.begin();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// copy(regions.begin(), regions.end(), back_inserter(validRegions));</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span>(<span class="keyword">auto</span> &amp;region: regions){</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">switch</span>( reader-&gt;getStatus( region ) ){</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                <span class="keywordflow">case</span> 1: <span class="comment">// region is vaild and not empty</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                    validRegions.push_back(region);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordflow">case</span> 0: <span class="comment">// the region is valid but empty.</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">case</span> -1: <span class="comment">// there is no index file found.</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                    <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Could not retrieve index file&quot;</span>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordflow">case</span> -2: <span class="comment">// the region is not valid</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                    Rcpp::Rcout &lt;&lt; <span class="stringliteral">&quot;region:&quot;</span> + region + <span class="stringliteral">&quot;;\n&quot;</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;region was not found: &quot;</span> + region );</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// initialize to false</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        continueIterating = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">// if valid set is not empty</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">if</span>( validRegions.size() &gt; 0 ){</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="comment">// initialize iterator</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            itReg = validRegions.begin();</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            checkStatus( *itReg );</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            reader-&gt;setRegion( *itReg );</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
@@ -512,14 +512,32 @@ $(function() {
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    }</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>};</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <span class="comment">// check status of region</span></div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    <span class="keywordtype">void</span> checkStatus(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; region){            </div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>        <span class="keywordflow">switch</span>( reader-&gt;getStatus( region ) ){</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>            <span class="keywordflow">case</span> 1: <span class="comment">// region is vaild and not empty</span></div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>            <span class="keywordflow">case</span> 0: <span class="comment">// the region is valid but empty.</span></div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>            <span class="keywordflow">case</span> -1: <span class="comment">// there is no index file found.</span></div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Could not retrieve index file&quot;</span>);</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span> </div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>            <span class="keywordflow">case</span> -2: <span class="comment">// the region is not valid</span></div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>                Rcpp::Rcout &lt;&lt; <span class="stringliteral">&quot;region:&quot;</span> + region + <span class="stringliteral">&quot;;\n&quot;</span>;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>                <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;region was not found: &quot;</span> + region );</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        }</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    }</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>};</div>
 </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span> </div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>} <span class="comment">// end namespace</span></div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span> </div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>} <span class="comment">// end namespace</span></div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span> </div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_genomic_data_stream__virtual_8h_html"><div class="ttname"><a href="_genomic_data_stream__virtual_8h.html">GenomicDataStream_virtual.h</a></div></div>
 <div class="ttc" id="a_variant_info_8h_html"><div class="ttname"><a href="_variant_info_8h.html">VariantInfo.h</a></div></div>
 <div class="ttc" id="aclassgds_1_1_data_chunk_html"><div class="ttname"><a href="classgds_1_1_data_chunk.html">gds::DataChunk</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:33</div></div>
@@ -543,7 +561,7 @@ $(function() {
 <div class="ttc" id="aclassgds_1_1vcfstream_html_ae1534b46ee3f3ea31c547b9c2ed554a1"><div class="ttname"><a href="classgds_1_1vcfstream.html#ae1534b46ee3f3ea31c547b9c2ed554a1">gds::vcfstream::setRegions</a></div><div class="ttdeci">void setRegions(const vector&lt; string &gt; &amp;regions) override</div><div class="ttdef"><b>Definition</b> vcfstream.h:92</div></div>
 <div class="ttc" id="aclassgds_1_1vcfstream_html_ae529c74265502e991aa7b258707aee15"><div class="ttname"><a href="classgds_1_1vcfstream.html#ae529c74265502e991aa7b258707aee15">gds::vcfstream::getNextChunk</a></div><div class="ttdeci">bool getNextChunk(DataChunk&lt; Eigen::MatrixXd &gt; &amp;chunk, const bool &amp;useFilter=true) override</div><div class="ttdef"><b>Definition</b> vcfstream.h:191</div></div>
 <div class="ttc" id="aclassgds_1_1vcfstream_html_af7fb7318a9d4eb5451399738bce56fe8"><div class="ttname"><a href="classgds_1_1vcfstream.html#af7fb7318a9d4eb5451399738bce56fe8">gds::vcfstream::n_samples</a></div><div class="ttdeci">int n_samples() override</div><div class="ttdef"><b>Definition</b> vcfstream.h:136</div></div>
-<div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:32</div></div>
+<div class="ttc" id="anamespacegds_html"><div class="ttname"><a href="namespacegds.html">gds</a></div><div class="ttdef"><b>Definition</b> bgenstream.h:33</div></div>
 <div class="ttc" id="astructgds_1_1_param_html"><div class="ttname"><a href="structgds_1_1_param.html">gds::Param</a></div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:64</div></div>
 <div class="ttc" id="astructgds_1_1_param_html_ae82660852c54b3b6ac70d7aea6a37824"><div class="ttname"><a href="structgds_1_1_param.html#ae82660852c54b3b6ac70d7aea6a37824">gds::Param::chunkSize</a></div><div class="ttdeci">int chunkSize</div><div class="ttdef"><b>Definition</b> GenomicDataStream_virtual.h:156</div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div></div>

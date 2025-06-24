@@ -123,7 +123,6 @@ class pgenstream :
 		if( gr.size() != 0){
 
 			// Search is log time for each interval
-			VariantSet vs(dt["CHROM"], cast_elements<int>(dt["POS"]));
 			varIdx = vs.getIndeces( gr );
 
 		}else{
@@ -274,6 +273,7 @@ class pgenstream :
 	RPgenReader *pg = nullptr;
 	RPvar *pvar = nullptr;
 	DataTable dt;
+	VariantSet vs;
 	string fileIdx;
 	int n_samples_psam;
 	vector<int> sampleIdx1;
@@ -350,6 +350,9 @@ class pgenstream :
 			throw logic_error("Not valid genotype file extension: " + param.file);
 		}
 	
+		// initialize variant set
+		vs = VariantSet(dt["CHROM"], stoi_vec(dt["POS"]));
+
 		// Set genomic regions regions
 		setRegions( param.regions );
 	}

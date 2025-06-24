@@ -118,15 +118,43 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a73950b13fb87817b6a80ef67c9771996" id="r_a73950b13fb87817b6a80ef67c9771996"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73950b13fb87817b6a80ef67c9771996">VariantSet</a> (const vector&lt; string &gt; &amp;chrom, const vector&lt; int &gt; &amp;position)</td></tr>
+<tr class="memitem:aed65ec1832bf8a47bd9797c87ae9acb5" id="r_aed65ec1832bf8a47bd9797c87ae9acb5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed65ec1832bf8a47bd9797c87ae9acb5">VariantSet</a> ()</td></tr>
+<tr class="memitem:aad673d873b6c51edfcafa84c81221418" id="r_aad673d873b6c51edfcafa84c81221418"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad673d873b6c51edfcafa84c81221418">VariantSet</a> (const vector&lt; string &gt; &amp;chrom, const vector&lt; int &gt; &amp;position, const vector&lt; string &gt; &amp;id=vector&lt; string &gt;())</td></tr>
 <tr class="memitem:a8c585c0ea9ab7f16afe1b76fa2c9de68" id="r_a8c585c0ea9ab7f16afe1b76fa2c9de68"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c585c0ea9ab7f16afe1b76fa2c9de68">getIndeces</a> (const string &amp;chrom, const int &amp;start, const int &amp;end)</td></tr>
 <tr class="memitem:a8649174d7f3075dc4a76c9ac28ebb8dc" id="r_a8649174d7f3075dc4a76c9ac28ebb8dc"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8649174d7f3075dc4a76c9ac28ebb8dc">getIndeces</a> (const <a class="el" href="classgds_1_1_genomic_ranges.html">GenomicRanges</a> &amp;gr)</td></tr>
+<tr class="memitem:ae23674ed5743c8992d5209ab6000e29b" id="r_ae23674ed5743c8992d5209ab6000e29b"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae23674ed5743c8992d5209ab6000e29b">getVariantIDs</a> () const</td></tr>
+<tr class="memitem:a23c5fb61fb9a885cb0a46f40858c3311" id="r_a23c5fb61fb9a885cb0a46f40858c3311"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c5fb61fb9a885cb0a46f40858c3311">getVariantIDs</a> (const vector&lt; int &gt; &amp;idx) const</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Store position and ID, sorted by position. Get indeces of variants with a query interval using binary search in O(log(N)) time. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a73950b13fb87817b6a80ef67c9771996" name="a73950b13fb87817b6a80ef67c9771996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73950b13fb87817b6a80ef67c9771996">&#9670;&#160;</a></span>VariantSet()</h2>
+<a id="aed65ec1832bf8a47bd9797c87ae9acb5" name="aed65ec1832bf8a47bd9797c87ae9acb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed65ec1832bf8a47bd9797c87ae9acb5">&#9670;&#160;</a></span>VariantSet() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">gds::VariantSet::VariantSet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad673d873b6c51edfcafa84c81221418" name="aad673d873b6c51edfcafa84c81221418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad673d873b6c51edfcafa84c81221418">&#9670;&#160;</a></span>VariantSet() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,7 +170,12 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const vector&lt; int &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span>&#160;)</td>
+          <td class="paramtype">const vector&lt; int &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>id</em></span><span class="paramdefsep"> = </span><span class="paramdefval">vector&lt;string&gt;()</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -213,6 +246,56 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Get indeces of variants within the query interval using binary search </p>
+
+</div>
+</div>
+<a id="ae23674ed5743c8992d5209ab6000e29b" name="ae23674ed5743c8992d5209ab6000e29b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23674ed5743c8992d5209ab6000e29b">&#9670;&#160;</a></span>getVariantIDs() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; string &gt; gds::VariantSet::getVariantIDs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23c5fb61fb9a885cb0a46f40858c3311" name="a23c5fb61fb9a885cb0a46f40858c3311"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c5fb61fb9a885cb0a46f40858c3311">&#9670;&#160;</a></span>getVariantIDs() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; string &gt; gds::VariantSet::getVariantIDs </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; int &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

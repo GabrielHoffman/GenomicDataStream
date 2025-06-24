@@ -140,10 +140,17 @@ namespace genfile {
 
 		public:
 			// IndexQuery methods
-			void initialise( ProgressCallback callback = ProgressCallback() ) ;
+			void initialise( ProgressCallback callback = ProgressCallback() );
 			OptionalFileMetadata const& file_metadata() const ;
 			std::size_t number_of_variants() const ;
 			FileRange locate_variant( std::size_t index ) const ;
+
+			// populate vectors of rsid, chrom, start, end
+			// for _all_ variants in the database
+			void get_variant_info( 
+				std::vector<std::string> *rsid,
+				std::vector<std::string> *chrom,
+				std::vector<int> *position);
 
 		private:
 			db::Connection::UniquePtr open_connection( std::string const& filename ) const ;

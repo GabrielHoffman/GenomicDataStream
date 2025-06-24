@@ -23,6 +23,7 @@
 #include "VariantInfo.h"
 #include "GenomicDataStream_virtual.h"
 #include "GenomicRanges.h"
+#include "VariantSet.h"
 #include "bgen_load.h"
 
 using namespace std;
@@ -89,6 +90,25 @@ static genfile::bgen::View::UniquePtr construct_view(
 	return view ;
 }
 
+static std::shared_ptr<VariantSet> getVariantSet( 
+	const string & index_filename){
+
+	// Initialize SQLite database
+	SqliteIndexQuery query(index_filename);
+
+	std::vector<std::string> rsid, chrom;
+	std::vector<int> position;
+
+	// populate rsid, chrom, position for all variants
+	query.get_variant_info(&rsid, &chrom, &position);
+
+	// construct VariantSet
+	VariantSet vs(chrom, position, rsid);
+
+	// return shared pointer
+	return std::make_shared<VariantSet>(vs);
+}
+
 
 
 /** bgenstream reads a BGEN into an matrix in chunks, storing variants in columns.  Applies filtering for specified samples and genome region. 
@@ -110,7 +130,10 @@ class bgenstream :
 		view = construct_view( param.file ) ;
 
 		filenameIdxGlobal = param.file + ".bgi";
-		queryGlobal = construct_query( param.file + ".bgi" );
+		queryGlobal = construct_query( filenameIdxGlobal );
+
+		// Read VariantSet from SQLite .bgi file
+		vs = getVariantSet( filenameIdxGlobal );
 
 		// apply region filters
 		setRegions( param.regions );
@@ -150,16 +173,18 @@ class bgenstream :
 		
 		GenomicRanges gr( regions );
 
-		// auto query = queryGlobal;
-
 		auto query = construct_query( filenameIdxGlobal );
 
 		if( gr.size() > 0){	
-			for( int i = 0; i < gr.size(); i++ ) {
-				query->include_range( 
-					IndexQuery::GenomicRange( gr.get_chrom(i) , gr.get_start(i), gr.get_end(i) ) ) ;
-			}
-			// query->include_rsids( rsids ) ;
+
+			// get indeces of variants overlapping these regions
+			varIdx = vs->getIndeces( gr );
+
+			// get IDs of these variants
+			vector<string> variantIDs = vs->getVariantIDs(varIdx);
+
+			// query these variants from the BGEN file
+			query->include_rsids( variantIDs );
 			query->initialise() ;
 			view->set_query( query ) ;
 		}
@@ -298,6 +323,7 @@ class bgenstream :
 	private:
 	View::UniquePtr view = nullptr; 
 	IndexQuery::UniquePtr queryGlobal = nullptr;
+	std::shared_ptr<VariantSet> vs;
 	size_t number_of_samples = 0;
 	vector<string> sampleNames;
 	map<size_t, size_t> requestedSamplesByIndexInDataIndex;
@@ -307,6 +333,7 @@ class bgenstream :
 	size_t max_entries_per_sample = 4;
 	int n_variants_total;	
 	int variant_idx_start;
+	vector<int> varIdx;
 
 	bool getNextChunk_helper(){	
 

@@ -285,7 +285,7 @@ static FileType getFileType( const string &file ){
 /** Convert vector<string> to vector<T>
  */ 
 template<typename T>
-vector<T> cast_elements( const vector<string> &v ){
+static vector<T> cast_elements( const vector<string> &v ){
   vector<T> output(0, v.size());
 
   for (auto &s : v) {
@@ -296,6 +296,21 @@ vector<T> cast_elements( const vector<string> &v ){
   }
   return output;
 }
+
+
+/** Convert vector<string> to vector<int>
+ */ 
+static vector<int> stoi_vec( const vector<string> &v ){
+
+  vector<int> output;
+  output.reserve(v.size());
+
+  for (const string& s : v) {
+    output.push_back(std::stoi(s));
+  }
+  return output;
+}
+
 
 
 /** regionString is string of chr:start-end delim by "\t,\n"

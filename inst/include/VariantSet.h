@@ -45,7 +45,12 @@ static bool operator<( const point &a, const point &b){
 class VariantSet {
 
 	public:
-	VariantSet( const vector<string> &chrom, const vector<int> &position){
+	VariantSet() {}
+	
+	VariantSet( const vector<string> &chrom, 
+							const vector<int> &position,
+							const vector<string> &id = vector<string>()) :
+		variantIDs(id) {
 
 		// for each variant
 		// insert (position[i], i) into chromosome hash
@@ -99,14 +104,23 @@ class VariantSet {
 			vector<int> idx = getIndeces(gr.get_chrom(i), gr.get_start(i), gr.get_end(i));
 
 			// insert into vector
-   			indeces.insert(indeces.end(), idx.begin(), idx.end());
+ 			indeces.insert(indeces.end(), idx.begin(), idx.end());
 		}
 
 		return indeces;
 	}
 
+	vector<string> getVariantIDs() const {
+		return variantIDs;
+	}
+
+	vector<string> getVariantIDs(const vector<int> &idx) const {
+		return subset_vector(variantIDs, idx);
+	}
+
 	private:
 	unordered_map<string, vector<point> > map;
+	vector<string> variantIDs;
 };
 
 }

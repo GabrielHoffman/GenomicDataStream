@@ -7,11 +7,17 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classgds_1_1_variant_set_a73950b13fb87817b6a80ef67c9771996}{Variant\+Set}} (const vector$<$ string $>$ \&chrom, const vector$<$ int $>$ \&position)
+\mbox{\hyperlink{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5}{Variant\+Set}} ()
+\item 
+\mbox{\hyperlink{classgds_1_1_variant_set_aad673d873b6c51edfcafa84c81221418}{Variant\+Set}} (const vector$<$ string $>$ \&chrom, const vector$<$ int $>$ \&position, const vector$<$ string $>$ \&id=vector$<$ string $>$())
 \item 
 vector$<$ int $>$ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{get\+Indeces}} (const string \&chrom, const int \&start, const int \&end)
 \item 
 vector$<$ int $>$ \mbox{\hyperlink{classgds_1_1_variant_set_a8649174d7f3075dc4a76c9ac28ebb8dc}{get\+Indeces}} (const \mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \&gr)
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b}{get\+Variant\+IDs}} () const
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311}{get\+Variant\+IDs}} (const vector$<$ int $>$ \&idx) const
 \end{DoxyCompactItemize}
 
 
@@ -21,11 +27,17 @@ Store position and ID, sorted by position. Get indeces of variants with a query 
 \label{doc-constructors}
 \Hypertarget{classgds_1_1_variant_set_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classgds_1_1_variant_set_a73950b13fb87817b6a80ef67c9771996}\index{gds::VariantSet@{gds::VariantSet}!VariantSet@{VariantSet}}
+\Hypertarget{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5}\index{gds::VariantSet@{gds::VariantSet}!VariantSet@{VariantSet}}
 \index{VariantSet@{VariantSet}!gds::VariantSet@{gds::VariantSet}}
-\doxysubsubsection{\texorpdfstring{VariantSet()}{VariantSet()}}
-{\footnotesize\ttfamily \label{classgds_1_1_variant_set_a73950b13fb87817b6a80ef67c9771996} 
-gds\+::\+Variant\+Set\+::\+Variant\+Set (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{chrom}{, }\item[{const vector$<$ int $>$ \&}]{position}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsubsection{\texorpdfstring{VariantSet()}{VariantSet()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5} 
+gds\+::\+Variant\+Set\+::\+Variant\+Set (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_variant_set_aad673d873b6c51edfcafa84c81221418}\index{gds::VariantSet@{gds::VariantSet}!VariantSet@{VariantSet}}
+\index{VariantSet@{VariantSet}!gds::VariantSet@{gds::VariantSet}}
+\doxysubsubsection{\texorpdfstring{VariantSet()}{VariantSet()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_aad673d873b6c51edfcafa84c81221418} 
+gds\+::\+Variant\+Set\+::\+Variant\+Set (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{chrom}{, }\item[{const vector$<$ int $>$ \&}]{position}{, }\item[{const vector$<$ string $>$ \&}]{id}{ = {\ttfamily vector$<$string$>$()}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -44,7 +56,19 @@ Get indeces of variants within set of query intervals. Use binary search for eac
 {\footnotesize\ttfamily \label{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68} 
 vector$<$ int $>$ gds\+::\+Variant\+Set\+::get\+Indeces (\begin{DoxyParamCaption}\item[{const string \&}]{chrom}{, }\item[{const int \&}]{start}{, }\item[{const int \&}]{end}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Get indeces of variants within the query interval using binary search 
+Get indeces of variants within the query interval using binary search \Hypertarget{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b}\index{gds::VariantSet@{gds::VariantSet}!getVariantIDs@{getVariantIDs}}
+\index{getVariantIDs@{getVariantIDs}!gds::VariantSet@{gds::VariantSet}}
+\doxysubsubsection{\texorpdfstring{getVariantIDs()}{getVariantIDs()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b} 
+vector$<$ string $>$ gds\+::\+Variant\+Set\+::get\+Variant\+IDs (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311}\index{gds::VariantSet@{gds::VariantSet}!getVariantIDs@{getVariantIDs}}
+\index{getVariantIDs@{getVariantIDs}!gds::VariantSet@{gds::VariantSet}}
+\doxysubsubsection{\texorpdfstring{getVariantIDs()}{getVariantIDs()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311} 
+vector$<$ string $>$ gds\+::\+Variant\+Set\+::get\+Variant\+IDs (\begin{DoxyParamCaption}\item[{const vector$<$ int $>$ \&}]{idx}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,12 +1,11 @@
 pandoc: 3.7.0.2
-pkgdown: 2.0.9
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   extensions: extensions.html
   GenomicDataStream: GenomicDataStream.html
   mac_osx: mac_osx.html
-last_built: 2025-06-18T20:00Z
+last_built: 2025-06-24T03:42Z
 urls:
   reference: http://gabrielhoffman.github.io/GenomicDataStream/reference
   article: http://gabrielhoffman.github.io/GenomicDataStream/articles
-
