@@ -110,6 +110,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// getChromRanges_rcpp
+DataFrame getChromRanges_rcpp(SEXP x);
+RcppExport SEXP _GenomicDataStream_getChromRanges_rcpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(getChromRanges_rcpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // getNextChunk_rcpp
 List getNextChunk_rcpp(SEXP x);
 RcppExport SEXP _GenomicDataStream_getNextChunk_rcpp(SEXP xSEXP) {
@@ -224,6 +235,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GenomicDataStream_getSampleNames_rcpp", (DL_FUNC) &_GenomicDataStream_getSampleNames_rcpp, 1},
     {"_GenomicDataStream_atEndOfStream_rcpp", (DL_FUNC) &_GenomicDataStream_atEndOfStream_rcpp, 1},
     {"_GenomicDataStream_featuresRead_rcpp", (DL_FUNC) &_GenomicDataStream_featuresRead_rcpp, 1},
+    {"_GenomicDataStream_getChromRanges_rcpp", (DL_FUNC) &_GenomicDataStream_getChromRanges_rcpp, 1},
     {"_GenomicDataStream_getNextChunk_rcpp", (DL_FUNC) &_GenomicDataStream_getNextChunk_rcpp, 1},
     {"_GenomicDataStream_summarizeChunks_rcpp", (DL_FUNC) &_GenomicDataStream_summarizeChunks_rcpp, 2},
     {"_GenomicDataStream_colSums_test", (DL_FUNC) &_GenomicDataStream_colSums_test, 1},

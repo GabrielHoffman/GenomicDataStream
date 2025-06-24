@@ -8,6 +8,7 @@ authors:
 template:
   bootstrap: 5
   bootswatch: flatly
+  math-rendering: katex
   
   params:
     docsearch:
@@ -44,6 +45,8 @@ reference:
   - "print,GenomicDataStream-method"  
   - "rownames,GenomicDataStream-method"
   - "show,GenomicDataStream-method"
+  - "getChromRanges"
+  - "chopChroms"
   - "summarizeChunks"
 
 - title: Other functions

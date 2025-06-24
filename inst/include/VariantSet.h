@@ -55,6 +55,10 @@ class VariantSet {
 		// for each variant
 		// insert (position[i], i) into chromosome hash
 		for(int i=0; i<chrom.size(); i++){
+			if( map.count(chrom[i]) == 0 ){
+				keys.push_back( chrom[i] );
+			}
+
 			map[chrom[i]].push_back( point(position[i], i) );
 		}
 
@@ -118,8 +122,27 @@ class VariantSet {
 		return subset_vector(variantIDs, idx);
 	}
 
+	GenomicRanges getChromRanges() const {
+
+		vector<string> chroms;
+		vector<size_t> start, end;
+
+		chroms.reserve( keys.size() );
+		start.reserve( keys.size() );
+		end.reserve( keys.size() );
+
+		for( const string & chr: keys){
+			chroms.push_back( chr );
+			start.push_back( map.at(chr).front().position );
+			end.push_back( map.at(chr).back().position );
+		}
+
+		return GenomicRanges(chroms, start, end);
+	}
+
 	private:
 	unordered_map<string, vector<point> > map;
+	vector<string> keys;
 	vector<string> variantIDs;
 };
 

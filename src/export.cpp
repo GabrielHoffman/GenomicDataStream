@@ -19,8 +19,11 @@
 // [[Rcpp::depends(RcppEigen)]]
 #endif 
 
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+
 #include "GenomicDataStream.h"
 #include "DataTable.h"
+#include "GenomicRanges.h"
 #include "PCAOne.h"
 
 using namespace std;
@@ -123,6 +126,22 @@ long featuresRead_rcpp( SEXP x){
 	return ptr->featuresRead;
 }
 
+// [[Rcpp::export]]
+DataFrame getChromRanges_rcpp( SEXP x){
+
+  Rcpp::XPtr<BoundDataStream> ptr(x);
+
+  GenomicRanges gr = ptr->ptr->getChromRanges();
+
+  // return created data frame
+  return DataFrame::create(
+          Named("chrom") = Rcpp::wrap(gr.get_chrom()),
+          Named("start") = Rcpp::wrap(gr.get_start()),
+          Named("end") = Rcpp::wrap(gr.get_end()),
+          _["stringsAsFactors"] = false);
+}
+
+
 
 // [[Rcpp::export]]
 List getNextChunk_rcpp( SEXP x){ 
@@ -170,8 +189,9 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
   vector<int> chunkCounts;
 
   // Parallel part using Thread Building Blocks
-  int nchunks = 64;
-  GenomicDataStreamParallel<arma::mat> gsp(gds->getParam(), gds->getParam().getRegions(), nchunks, threads);
+  vector<string> reg = gds->getParam().getRegions();
+  int nchunks = MIN(reg.size(), 64);
+  GenomicDataStreamParallel<arma::mat> gsp(gds->getParam(), reg, nchunks, threads);
 
   std::mutex mtx;  
 

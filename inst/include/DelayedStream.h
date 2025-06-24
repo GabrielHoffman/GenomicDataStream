@@ -24,6 +24,7 @@
 #include "GenomicDataStream_virtual.h"
 #include "MatrixInfo.h"
 #include "utils.h"
+#include "GenomicRanges.h"
 
 using namespace Rcpp;
 using namespace std;
@@ -95,6 +96,10 @@ class DelayedStream :
 	 */ 
 	string getStreamType() override {
 		return "DelayedStream";
+	}
+
+	GenomicRanges getChromRanges() override {
+		return GenomicRanges();
 	}
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {

@@ -33,6 +33,10 @@ featuresRead_rcpp <- function(x) {
     .Call('_GenomicDataStream_featuresRead_rcpp', PACKAGE = 'GenomicDataStream', x)
 }
 
+getChromRanges_rcpp <- function(x) {
+    .Call('_GenomicDataStream_getChromRanges_rcpp', PACKAGE = 'GenomicDataStream', x)
+}
+
 getNextChunk_rcpp <- function(x) {
     .Call('_GenomicDataStream_getNextChunk_rcpp', PACKAGE = 'GenomicDataStream', x)
 }

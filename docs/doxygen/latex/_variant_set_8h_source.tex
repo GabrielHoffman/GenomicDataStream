@@ -53,72 +53,95 @@
 \DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ variant}}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ (position[i],\ i)\ into\ chromosome\ hash}}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<chrom.size();\ i++)\{}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ map[chrom[i]].push\_back(\ \mbox{\hyperlink{structgds_1_1point}{point}}(position[i],\ i)\ );}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ chrom}}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ that\ positions\ are\ sorted}}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keyword}{auto}\ \&v:\ map)\{}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ is\_sorted(v.second.begin(),\ v.second.end())\ )\{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Positions\ are\ not\ sorted\ in\ "{}}\ +\ v.first);}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00068\ \ \ \ \ \}}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00072\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&chrom,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&start,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&end)\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ map.count(chrom[i])\ ==\ 0\ )\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keys.push\_back(\ chrom[i]\ );}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ map[chrom[i]].push\_back(\ \mbox{\hyperlink{structgds_1_1point}{point}}(position[i],\ i)\ );}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ chrom}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ that\ positions\ are\ sorted}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keyword}{auto}\ \&v:\ map)\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ is\_sorted(v.second.begin(),\ v.second.end())\ )\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Positions\ are\ not\ sorted\ in\ "{}}\ +\ v.first);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
 \DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vBegin\ =\ map[chrom].begin();}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vEnd\ =\ map[chrom].end();}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ iterator\ to\ first\ element\ in\ the\ interval}}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it1\ =\ lower\_bound(vBegin,\ vEnd,\ \mbox{\hyperlink{structgds_1_1point}{point}}(start));\ }
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ iterator\ to\ last\ element\ in\ the\ interval}}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it2\ =\ upper\_bound(vBegin,\ vEnd,\ \mbox{\hyperlink{structgds_1_1point}{point}}(end));\ \ }
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ walk\ from\ lower\ to\ upper\ bound}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ saving\ index\ at\ each\ step}}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ it1\ !=\ it2)\{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ indeces.push\_back(\ it1-\/>index\ );}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ it1++;}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
-\DoxyCodeLine{00093\ \ \ \ \ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00097\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_set_a8649174d7f3075dc4a76c9ac28ebb8dc}{getIndeces}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \&gr\ )\{}
+\DoxyCodeLine{00076\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&chrom,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&start,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&end)\{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vBegin\ =\ map[chrom].begin();}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vEnd\ =\ map[chrom].end();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ iterator\ to\ first\ element\ in\ the\ interval}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it1\ =\ lower\_bound(vBegin,\ vEnd,\ \mbox{\hyperlink{structgds_1_1point}{point}}(start));\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ iterator\ to\ last\ element\ in\ the\ interval}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it2\ =\ upper\_bound(vBegin,\ vEnd,\ \mbox{\hyperlink{structgds_1_1point}{point}}(end));\ \ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ walk\ from\ lower\ to\ upper\ bound}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ saving\ index\ at\ each\ step}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ it1\ !=\ it2)\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ indeces.push\_back(\ it1-\/>index\ );}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ it1++;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ genome\ interval}}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a7d1b020b0a925df57b1d9b56ddbae8e3}{size}}();\ i++)\{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ indeces\ of\ variants\ within\ this\ interval}}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ idx\ =\ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a8b1422b3f04aa00d939d1c701bb3ef9b}{get\_chrom}}(i),\ gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a3aa318f5f2fa56de895275963ad0a8c4}{get\_start}}(i),\ gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a4486f09aacfeaa8f977ddbf3fc266ece}{get\_end}}(i));}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ into\ vector}}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ indeces.insert(indeces.end(),\ idx.begin(),\ idx.end());}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_set_a8649174d7f3075dc4a76c9ac28ebb8dc}{getIndeces}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \&gr\ )\{}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ genome\ interval}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a7d1b020b0a925df57b1d9b56ddbae8e3}{size}}();\ i++)\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ indeces\ of\ variants\ within\ this\ interval}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ idx\ =\ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a520a5e62aa9b3f904cac75935e3ef5d6}{get\_chrom}}(i),\ gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a6c3f1ddba6cb0482c10d693fb02e54a2}{get\_start}}(i),\ gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a113e6151e721d4207383fe7f28d2aeb9}{get\_end}}(i));}
 \DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
-\DoxyCodeLine{00111\ \ \ \ \ \}}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b}{getVariantIDs}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variantIDs;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ into\ vector}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ indeces.insert(indeces.end(),\ idx.begin(),\ idx.end());}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
 \DoxyCodeLine{00115\ \ \ \ \ \}}
 \DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311}{getVariantIDs}}(\textcolor{keyword}{const}\ vector<int>\ \&idx)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subset\_vector(variantIDs,\ idx);}
+\DoxyCodeLine{00117\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b}{getVariantIDs}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variantIDs;}
 \DoxyCodeLine{00119\ \ \ \ \ \}}
 \DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00122\ \ \ \ \ unordered\_map<string,\ vector<point>\ >\ map;}
-\DoxyCodeLine{00123\ \ \ \ \ vector<string>\ variantIDs;}
-\DoxyCodeLine{00124\ \};}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \}}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311}{getVariantIDs}}(\textcolor{keyword}{const}\ vector<int>\ \&idx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subset\_vector(variantIDs,\ idx);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \mbox{\hyperlink{classgds_1_1_variant_set_a022b7196a2c42fa7827b0436d3b794ca}{getChromRanges}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ vector<string>\ chroms;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ vector<size\_t>\ start,\ end;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ chroms.reserve(\ keys.size()\ );}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ start.reserve(\ keys.size()\ );}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ end.reserve(\ keys.size()\ );}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ chr:\ keys)\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ chroms.push\_back(\ chr\ );}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ start.push\_back(\ map.at(chr).front().position\ );}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ end.push\_back(\ map.at(chr).back().position\ );}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}(chroms,\ start,\ end);}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00144\ \ \ \ \ unordered\_map<string,\ vector<point>\ >\ map;}
+\DoxyCodeLine{00145\ \ \ \ \ vector<string>\ keys;}
+\DoxyCodeLine{00146\ \ \ \ \ vector<string>\ variantIDs;}
+\DoxyCodeLine{00147\ \};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

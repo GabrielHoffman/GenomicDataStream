@@ -130,7 +130,7 @@ class bgenstream :
 		view = construct_view( param.file ) ;
 
 		filenameIdxGlobal = param.file + ".bgi";
-		queryGlobal = construct_query( filenameIdxGlobal );
+		// queryGlobal = construct_query( filenameIdxGlobal );
 
 		// Read VariantSet from SQLite .bgi file
 		vs = getVariantSet( filenameIdxGlobal );
@@ -212,6 +212,10 @@ class bgenstream :
 	 */ 
 	string getStreamType() override {
 		return toString( param.fileType);
+	}
+
+	GenomicRanges getChromRanges() override {
+		return vs->getChromRanges();
 	}
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
@@ -322,7 +326,7 @@ class bgenstream :
 
 	private:
 	View::UniquePtr view = nullptr; 
-	IndexQuery::UniquePtr queryGlobal = nullptr;
+	// IndexQuery::UniquePtr queryGlobal = nullptr;
 	std::shared_ptr<VariantSet> vs;
 	size_t number_of_samples = 0;
 	vector<string> sampleNames;

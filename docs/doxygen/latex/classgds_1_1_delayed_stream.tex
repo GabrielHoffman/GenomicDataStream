@@ -27,6 +27,8 @@ vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_delayed_stream_a6fcf6165222ce
 \item 
 string \mbox{\hyperlink{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163}{get\+Stream\+Type}} () override
 \item 
+\mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \mbox{\hyperlink{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3}{get\+Chrom\+Ranges}} () override
+\item 
 bool \mbox{\hyperlink{classgds_1_1_delayed_stream_adcfdba3bb518ef878370cde93cdb205f}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
 bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a4ab57931c9913e0efe738d490bf0dbee}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat $>$ \&chunk, const bool \&use\+Filter=true) override
@@ -91,6 +93,16 @@ destructor
 \label{doc-func-members}
 \Hypertarget{classgds_1_1_delayed_stream_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3}\index{gds::DelayedStream@{gds::DelayedStream}!getChromRanges@{getChromRanges}}
+\index{getChromRanges@{getChromRanges}!gds::DelayedStream@{gds::DelayedStream}}
+\doxysubsubsection{\texorpdfstring{getChromRanges()}{getChromRanges()}}
+{\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3} 
+\mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} gds\+::\+Delayed\+Stream\+::get\+Chrom\+Ranges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get maximum position for each chrom 
+
+Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093}{gds\+::\+Genomic\+Data\+Stream}}.
+
 \Hypertarget{classgds_1_1_delayed_stream_adcfdba3bb518ef878370cde93cdb205f}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}

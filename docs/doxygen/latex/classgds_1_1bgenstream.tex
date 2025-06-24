@@ -27,6 +27,8 @@ vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1bgenstream_ae24e5040d72b31f55e
 \item 
 string \mbox{\hyperlink{classgds_1_1bgenstream_a40a7d19c93886cbba77e784589d8d4a9}{get\+Stream\+Type}} () override
 \item 
+\mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \mbox{\hyperlink{classgds_1_1bgenstream_a3e84d00b1d6eb43805c2230b9518f722}{get\+Chrom\+Ranges}} () override
+\item 
 bool \mbox{\hyperlink{classgds_1_1bgenstream_a157edb418738d0b748a6d7bf3e3023f4}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
 bool \mbox{\hyperlink{classgds_1_1bgenstream_a639e92fef5b463d13f5f4b0b4db5e8da}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat $>$ \&chunk, const bool \&use\+Filter=true) override
@@ -100,6 +102,16 @@ destructor
 \label{doc-func-members}
 \Hypertarget{classgds_1_1bgenstream_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classgds_1_1bgenstream_a3e84d00b1d6eb43805c2230b9518f722}\index{gds::bgenstream@{gds::bgenstream}!getChromRanges@{getChromRanges}}
+\index{getChromRanges@{getChromRanges}!gds::bgenstream@{gds::bgenstream}}
+\doxysubsubsection{\texorpdfstring{getChromRanges()}{getChromRanges()}}
+{\footnotesize\ttfamily \label{classgds_1_1bgenstream_a3e84d00b1d6eb43805c2230b9518f722} 
+\mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} gds\+::bgenstream\+::get\+Chrom\+Ranges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get maximum position for each chrom 
+
+Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093}{gds\+::\+Genomic\+Data\+Stream}}.
+
 \Hypertarget{classgds_1_1bgenstream_a157edb418738d0b748a6d7bf3e3023f4}\index{gds::bgenstream@{gds::bgenstream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::bgenstream@{gds::bgenstream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}

@@ -134,6 +134,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aef5ae327d7694f75dfbe1ccdeeab4230" id="r_aef5ae327d7694f75dfbe1ccdeeab4230"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef5ae327d7694f75dfbe1ccdeeab4230">n_samples</a> () override</td></tr>
 <tr class="memitem:a15200068c47f0f0a9f8a5d659c03d850" id="r_a15200068c47f0f0a9f8a5d659c03d850"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15200068c47f0f0a9f8a5d659c03d850">getSampleNames</a> () override</td></tr>
 <tr class="memitem:a782ab9df730a8b2c5c8aec998d8987bb" id="r_a782ab9df730a8b2c5c8aec998d8987bb"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a782ab9df730a8b2c5c8aec998d8987bb">getStreamType</a> () override</td></tr>
+<tr class="memitem:aec877f03b98a5d82abdfb67ad32b58ac" id="r_aec877f03b98a5d82abdfb67ad32b58ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgds_1_1_genomic_ranges.html">GenomicRanges</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec877f03b98a5d82abdfb67ad32b58ac">getChromRanges</a> () override</td></tr>
 <tr class="memitem:a7f7e5638b2e852a7ef6e48d6ea8a85cd" id="r_a7f7e5638b2e852a7ef6e48d6ea8a85cd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f7e5638b2e852a7ef6e48d6ea8a85cd">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::mat &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
 <tr class="memitem:af028ac58c81852b37dec1c7fd384b5c4" id="r_af028ac58c81852b37dec1c7fd384b5c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af028ac58c81852b37dec1c7fd384b5c4">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; arma::sp_mat &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
 <tr class="memitem:ad542ce76e4a6f9a68088b316aea9a632" id="r_ad542ce76e4a6f9a68088b316aea9a632"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad542ce76e4a6f9a68088b316aea9a632">getNextChunk</a> (<a class="el" href="classgds_1_1_data_chunk.html">DataChunk</a>&lt; Eigen::MatrixXd &gt; &amp;chunk, const bool &amp;useFilter=true) override</td></tr>
@@ -236,6 +237,34 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aec877f03b98a5d82abdfb67ad32b58ac" name="aec877f03b98a5d82abdfb67ad32b58ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec877f03b98a5d82abdfb67ad32b58ac">&#9670;&#160;</a></span>getChromRanges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgds_1_1_genomic_ranges.html">GenomicRanges</a> gds::pgenstream::getChromRanges </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get maximum position for each chrom </p>
+
+<p>Implements <a class="el" href="classgds_1_1_genomic_data_stream.html#a7b932c087d2f9ab6a118f53be8745093">gds::GenomicDataStream</a>.</p>
+
+</div>
+</div>
 <a id="a7f7e5638b2e852a7ef6e48d6ea8a85cd" name="a7f7e5638b2e852a7ef6e48d6ea8a85cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f7e5638b2e852a7ef6e48d6ea8a85cd">&#9670;&#160;</a></span>getNextChunk() <span class="overload">[1/6]</span></h2>
 

@@ -1,4 +1,13 @@
 
+Use Heady
+	https://github.com/JamesBoer/Heady#
+	Convert pgenlibr and hts to header only for import
+
+
+	GenomicDataStreamParallel creates *stream for each thread
+	The overhead for BGEN is larger now
+
+
 June 23, 
 	note in IndexQuery.cpp build_query() 
 		reads variants sorted by position 

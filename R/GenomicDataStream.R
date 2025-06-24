@@ -462,6 +462,79 @@ featuresRead <- function(x) {
   featuresRead_rcpp(x@ptr)
 }
 
+#' Get ranges for each chromosome
+#' 
+#' Get max and max postion for each chromosome
+#' 
+#' @param x \code{GenomicDataStream}
+#' 
+#' @examples
+#' file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
+#'
+#' # initialize
+#' obj <- GenomicDataStream(file, chunkSize = 5, initialize = TRUE)
+#' getChromRanges( obj )
+#
+#' @return \code{data.frame} of chrom, start, end
+#' @export
+getChromRanges <- function( x ){
+
+  stopifnot(is(x, "GenomicDataStream"))
+  stopifnot(isInitialized(x))
+
+  getChromRanges_rcpp(x@ptr)
+}
+
+#' Get genomic intervals
+#' 
+#' Get genomic intervals chopping up \code{GenomicDataStream} into chunks
+#' 
+#' @param x \code{GenomicDataStream}
+#' @param nchunks number of chunks
+#' 
+#' @examples
+#' file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
+#'
+#' # initialize
+#' obj <- GenomicDataStream(file, chunkSize = 5, initialize = TRUE)
+#' chopChroms( obj )
+#
+#' @export
+chopChroms <- function( x, nchunks = 10){
+
+  stopifnot(nchunks > 2)
+
+  df <- getChromRanges(x)
+
+  if( nrow(df) == 0 ){
+    return("")
+  }
+
+  k <- (nchunks+1) / seq(nrow(df))
+
+  regions <- sapply(seq(nrow(df)), function(i){
+
+    pos <- seq(df$start[i], df$end[i], length.out=k)
+    pos <- floor(pos)
+
+    regions <- c()
+    for(j in 2:length(pos)){
+      offset <- (j!=2)
+      reg <- paste0(df$chrom[i], ":", pos[j-1] + offset, "-", pos[j])
+      regions <- c(regions, reg)
+    }
+    regions
+    })
+  c(regions)
+}
+
+
+
+
+
+
+
+
 #' Get data chunk from GenomicDataStream
 #'
 #' Get data chunk from GenomicDataStream

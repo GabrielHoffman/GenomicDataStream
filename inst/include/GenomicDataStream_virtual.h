@@ -21,6 +21,7 @@
 #include <filesystem>
 
 #include "VariantInfo.h"
+#include "GenomicRanges.h"
 #include "utils.h"
 
 using namespace std;
@@ -189,6 +190,10 @@ class GenomicDataStream {
 	/** get FileType of param.file
 	 */ 
 	virtual string getStreamType() = 0;
+
+	/** Get maximum position for each chrom
+	 */
+	virtual GenomicRanges getChromRanges() = 0;
 
 	/** get minVariance stored in Param
 	 */ 

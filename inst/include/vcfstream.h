@@ -22,6 +22,7 @@
 #include "VariantInfo.h"
 #include "GenomicDataStream_virtual.h"
 #include "utils.h"
+#include "GenomicRanges.h"
 
 using namespace std;
 using namespace vcfpp;
@@ -147,6 +148,10 @@ class vcfstream :
 	 */ 
 	string getStreamType() override {
 		return toString( param.fileType);
+	}
+
+	GenomicRanges getChromRanges() override {
+		return GenomicRanges();
 	}
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {

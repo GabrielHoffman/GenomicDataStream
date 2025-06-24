@@ -30,28 +30,6 @@
 using namespace std;
 using namespace arma;
 
-
-/*			TODO
-
-done 1) custom psam file
-done 2) plink 1 support
-done 3) empty headerKey
-done 4) GenomicRanges search is quadratic, doesn't use sorting
-	test VariantSet
-	how does distance() work?
-done 5) subset samples
-done 6) fill in chrom and pos info
-		use hash instead
-
-SamplesNames from file, and get raw_sample_ct
-- getNextChunk_helper() logic for chunk size
-- PVar must read positions
-- intersect with BED file
-- define VarIdx from BED file
-
-
-*/
-
 namespace gds {
 
 /** pgenstream reads a PGEN into an matrix in chunks, storing variants in columns.	Applies filtering for specified samples and genome region. 
@@ -155,6 +133,10 @@ class pgenstream :
 	 */ 
 	string getStreamType() override {
 		return toString( param.fileType);
+	}
+
+	GenomicRanges getChromRanges() override {
+		return vs.getChromRanges();
 	}
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {

@@ -25,6 +25,9 @@ namespace gds {
 class GenomicRanges {
 
 	public:
+
+	GenomicRanges() {}
+
 	/** Constructor from vectors of chrom, start, end
 	 */ 
 	GenomicRanges( const vector<string> &chrom, const vector<size_t> &start, const vector<size_t> &end) : 
@@ -47,6 +50,10 @@ class GenomicRanges {
 
 	/** Accessors
 	 */
+	vector<string> get_chrom() const { return chrom;}
+	vector<size_t> get_start() const { return start;}
+	vector<size_t> get_end() const { return end;}
+
 	const string get_chrom(const int &i) const { return chrom[i];}
 	const size_t get_start(const int &i) const { return start[i];}
 	const size_t get_end(const int &i) const { return end[i];}

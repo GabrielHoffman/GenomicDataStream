@@ -8,6 +8,8 @@
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{export_8cpp_a6ee1a17bf79231337da741265d2f6856}{ARMA\+\_\+\+WARN\+\_\+\+LEVEL}}~1
+\item 
+\#define \mbox{\hyperlink{export_8cpp_a3acffbd305ee72dcd4593c0d8af64a4f}{MIN}}(a,  b)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -27,6 +29,8 @@ Character\+Vector \mbox{\hyperlink{export_8cpp_a0376c7389e2e9c85d965bc6496a10b63
 bool \mbox{\hyperlink{export_8cpp_a72cd0eaac00f6f47aebed59a00ffedf9}{at\+End\+Of\+Stream\+\_\+rcpp}} (SEXP x)
 \item 
 long \mbox{\hyperlink{export_8cpp_a617d48bad593d338039f37d1bc6de5a5}{features\+Read\+\_\+rcpp}} (SEXP x)
+\item 
+Data\+Frame \mbox{\hyperlink{export_8cpp_aabe19048a8f1521ba7db295e87c2f155}{get\+Chrom\+Ranges\+\_\+rcpp}} (SEXP x)
 \item 
 List \mbox{\hyperlink{export_8cpp_ab00a0564a52e574e823c23a2c0be7add}{get\+Next\+Chunk\+\_\+rcpp}} (SEXP x)
 \item 
@@ -55,6 +59,17 @@ Rcpp\+::\+List \mbox{\hyperlink{export_8cpp_aa9ade8c89e0067d551b72cddd44b94ef}{s
 {\footnotesize\ttfamily \label{export_8cpp_a6ee1a17bf79231337da741265d2f6856} 
 \#define ARMA\+\_\+\+WARN\+\_\+\+LEVEL~1}
 
+\Hypertarget{export_8cpp_a3acffbd305ee72dcd4593c0d8af64a4f}\index{export.cpp@{export.cpp}!MIN@{MIN}}
+\index{MIN@{MIN}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{MIN}{MIN}}
+{\footnotesize\ttfamily \label{export_8cpp_a3acffbd305ee72dcd4593c0d8af64a4f} 
+\#define MIN(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((a)\ <\ (b)\ ?\ (a)\ :\ (b))}
+
+\end{DoxyCode}
 
 
 \label{doc-func-members}
@@ -83,6 +98,12 @@ SEXP create\+\_\+xptr (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{f
 \doxysubsubsection{\texorpdfstring{featuresRead\_rcpp()}{featuresRead\_rcpp()}}
 {\footnotesize\ttfamily \label{export_8cpp_a617d48bad593d338039f37d1bc6de5a5} 
 long features\+Read\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_aabe19048a8f1521ba7db295e87c2f155}\index{export.cpp@{export.cpp}!getChromRanges\_rcpp@{getChromRanges\_rcpp}}
+\index{getChromRanges\_rcpp@{getChromRanges\_rcpp}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{getChromRanges\_rcpp()}{getChromRanges\_rcpp()}}
+{\footnotesize\ttfamily \label{export_8cpp_aabe19048a8f1521ba7db295e87c2f155} 
+Data\+Frame get\+Chrom\+Ranges\+\_\+rcpp (\begin{DoxyParamCaption}\item[{SEXP}]{x}{}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_ad2d51f7a6459a04793a72e83a03a7dcd}\index{export.cpp@{export.cpp}!getInfo@{getInfo}}
 \index{getInfo@{getInfo}!export.cpp@{export.cpp}}

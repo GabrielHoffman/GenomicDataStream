@@ -39,14 +39,14 @@ BiocManager::install("GabrielHoffman/GenomicDataStream")
 | Format | Version | Support |
 | -- | --- | --------- |
 | BGEN | 1.1 | biallelic variants
-|BGEN |1.2, 1.3| phased or unphased biallelic variants
+| BGEN |1.2, 1.3| phased or unphased biallelic variants
 | PGEN | plink2 | biallelic variants
 | BED | plink1 | biallelic variants
-|VCF / BCF | 4.x | biallelic variants with `GT/GP` fields, continuous dosage with `DS` field
+| VCF / BCF | 4.x | biallelic variants with `GT/GP` fields, continuous dosage with `DS` field
 
 #### Single cell data
 <div align="justify"> 
-Count matrices for single cell data are stored in the H5AD format.  This format, based on [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format), can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression.  H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.
+Count matrices for single cell data are stored in the H5AD format.  This format, based on <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a>, can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression.  H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.
 </div> 
 
 

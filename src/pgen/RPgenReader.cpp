@@ -5,6 +5,7 @@ https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
 
 using namespace std;
 
+
 RPgenReader::RPgenReader() : _info_ptr(nullptr),
                              _allele_idx_offsetsp(nullptr),
                              _nonref_flagsp(nullptr),

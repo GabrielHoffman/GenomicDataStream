@@ -138,6 +138,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8bfa63dae08a7972722b03b56395e927" id="r_a8bfa63dae08a7972722b03b56395e927"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bfa63dae08a7972722b03b56395e927">n_samples</a> ()=0</td></tr>
 <tr class="memitem:a7a549274b79ac4419360c400d80a048b" id="r_a7a549274b79ac4419360c400d80a048b"><td class="memItemLeft" align="right" valign="top">virtual vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a549274b79ac4419360c400d80a048b">getSampleNames</a> ()=0</td></tr>
 <tr class="memitem:af9241b3887386fc9c7313412f275ad84" id="r_af9241b3887386fc9c7313412f275ad84"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9241b3887386fc9c7313412f275ad84">getStreamType</a> ()=0</td></tr>
+<tr class="memitem:a7b932c087d2f9ab6a118f53be8745093" id="r_a7b932c087d2f9ab6a118f53be8745093"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classgds_1_1_genomic_ranges.html">GenomicRanges</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b932c087d2f9ab6a118f53be8745093">getChromRanges</a> ()=0</td></tr>
 <tr class="memitem:a4434237ab37224fcff1d2b17f276679f" id="r_a4434237ab37224fcff1d2b17f276679f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4434237ab37224fcff1d2b17f276679f">getMinVariance</a> ()</td></tr>
 <tr class="memitem:a6c4e355b95dc7e5932efe18541f1e5fb" id="r_a6c4e355b95dc7e5932efe18541f1e5fb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c4e355b95dc7e5932efe18541f1e5fb">getMAF</a> () const</td></tr>
 <tr class="memitem:a54bbafa0043c0905126e468e1da6c219" id="r_a54bbafa0043c0905126e468e1da6c219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54bbafa0043c0905126e468e1da6c219">setMinVariance</a> (const double &amp;value)</td></tr>
@@ -235,6 +236,34 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a7b932c087d2f9ab6a118f53be8745093" name="a7b932c087d2f9ab6a118f53be8745093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b932c087d2f9ab6a118f53be8745093">&#9670;&#160;</a></span>getChromRanges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classgds_1_1_genomic_ranges.html">GenomicRanges</a> gds::GenomicDataStream::getChromRanges </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get maximum position for each chrom </p>
+
+<p>Implemented in <a class="el" href="classgds_1_1bgenstream.html#a3e84d00b1d6eb43805c2230b9518f722">gds::bgenstream</a>, <a class="el" href="classgds_1_1_delayed_stream.html#aaa1f7282766b4a37cbf9e6a6b5fda9b3">gds::DelayedStream</a>, <a class="el" href="classgds_1_1pgenstream.html#aec877f03b98a5d82abdfb67ad32b58ac">gds::pgenstream</a>, and <a class="el" href="classgds_1_1vcfstream.html#a032bbf7403a8b14edb7ece1e5b4cead1">gds::vcfstream</a>.</p>
+
+</div>
+</div>
 <a id="a6c4e355b95dc7e5932efe18541f1e5fb" name="a6c4e355b95dc7e5932efe18541f1e5fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c4e355b95dc7e5932efe18541f1e5fb">&#9670;&#160;</a></span>getMAF()</h2>
 

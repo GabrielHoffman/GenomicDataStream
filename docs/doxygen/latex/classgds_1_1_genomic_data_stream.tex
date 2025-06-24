@@ -27,6 +27,8 @@ virtual vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a
 \item 
 virtual string \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386fc9c7313412f275ad84}{get\+Stream\+Type}} ()=0
 \item 
+virtual \mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093}{get\+Chrom\+Ranges}} ()=0
+\item 
 double \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{get\+Min\+Variance}} ()
 \item 
 double \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a6c4e355b95dc7e5932efe18541f1e5fb}{get\+MAF}} () const
@@ -85,6 +87,16 @@ destructor
 \label{doc-func-members}
 \Hypertarget{classgds_1_1_genomic_data_stream_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093}\index{gds::GenomicDataStream@{gds::GenomicDataStream}!getChromRanges@{getChromRanges}}
+\index{getChromRanges@{getChromRanges}!gds::GenomicDataStream@{gds::GenomicDataStream}}
+\doxysubsubsection{\texorpdfstring{getChromRanges()}{getChromRanges()}}
+{\footnotesize\ttfamily \label{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093} 
+virtual \mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} gds\+::\+Genomic\+Data\+Stream\+::get\+Chrom\+Ranges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Get maximum position for each chrom 
+
+Implemented in \mbox{\hyperlink{classgds_1_1bgenstream_a3e84d00b1d6eb43805c2230b9518f722}{gds\+::bgenstream}}, \mbox{\hyperlink{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3}{gds\+::\+Delayed\+Stream}}, \mbox{\hyperlink{classgds_1_1pgenstream_aec877f03b98a5d82abdfb67ad32b58ac}{gds\+::pgenstream}}, and \mbox{\hyperlink{classgds_1_1vcfstream_a032bbf7403a8b14edb7ece1e5b4cead1}{gds\+::vcfstream}}.
+
 \Hypertarget{classgds_1_1_genomic_data_stream_a6c4e355b95dc7e5932efe18541f1e5fb}\index{gds::GenomicDataStream@{gds::GenomicDataStream}!getMAF@{getMAF}}
 \index{getMAF@{getMAF}!gds::GenomicDataStream@{gds::GenomicDataStream}}
 \doxysubsubsection{\texorpdfstring{getMAF()}{getMAF()}}

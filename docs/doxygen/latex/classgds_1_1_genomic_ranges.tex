@@ -7,11 +7,19 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{classgds_1_1_genomic_ranges_a80a73d585707fccf2243fd83c14cbefe}{Genomic\+Ranges}} ()
+\item 
 \mbox{\hyperlink{classgds_1_1_genomic_ranges_a8c133921e557362c59e9637ce62007d5}{Genomic\+Ranges}} (const vector$<$ string $>$ \&chrom, const vector$<$ size\+\_\+t $>$ \&start, const vector$<$ size\+\_\+t $>$ \&end)
 \item 
 \mbox{\hyperlink{classgds_1_1_genomic_ranges_a3f29b99ac1d64a87caba95df9c0ae72e}{Genomic\+Ranges}} (const vector$<$ string $>$ \&regions)
 \item 
 \mbox{\hyperlink{classgds_1_1_genomic_ranges_ae2da7152da492b0e3c0cb945629336f1}{Genomic\+Ranges}} (const string \&region\+String)
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a520a5e62aa9b3f904cac75935e3ef5d6}{get\+\_\+chrom}} () const
+\item 
+vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a6c3f1ddba6cb0482c10d693fb02e54a2}{get\+\_\+start}} () const
+\item 
+vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{classgds_1_1_genomic_ranges_a113e6151e721d4207383fe7f28d2aeb9}{get\+\_\+end}} () const
 \item 
 const string \mbox{\hyperlink{classgds_1_1_genomic_ranges_a8b1422b3f04aa00d939d1c701bb3ef9b}{get\+\_\+chrom}} (const int \&i) const
 \item 
@@ -35,21 +43,27 @@ Store genomic ranges of type chrom\+:start-\/end
 \label{doc-constructors}
 \Hypertarget{classgds_1_1_genomic_ranges_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classgds_1_1_genomic_ranges_a80a73d585707fccf2243fd83c14cbefe}\index{gds::GenomicRanges@{gds::GenomicRanges}!GenomicRanges@{GenomicRanges}}
+\index{GenomicRanges@{GenomicRanges}!gds::GenomicRanges@{gds::GenomicRanges}}
+\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a80a73d585707fccf2243fd83c14cbefe} 
+gds\+::\+Genomic\+Ranges\+::\+Genomic\+Ranges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \Hypertarget{classgds_1_1_genomic_ranges_a8c133921e557362c59e9637ce62007d5}\index{gds::GenomicRanges@{gds::GenomicRanges}!GenomicRanges@{GenomicRanges}}
 \index{GenomicRanges@{GenomicRanges}!gds::GenomicRanges@{gds::GenomicRanges}}
-\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a8c133921e557362c59e9637ce62007d5} 
 gds\+::\+Genomic\+Ranges\+::\+Genomic\+Ranges (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{chrom}{, }\item[{const vector$<$ size\+\_\+t $>$ \&}]{start}{, }\item[{const vector$<$ size\+\_\+t $>$ \&}]{end}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 Constructor from vectors of chrom, start, end \Hypertarget{classgds_1_1_genomic_ranges_a3f29b99ac1d64a87caba95df9c0ae72e}\index{gds::GenomicRanges@{gds::GenomicRanges}!GenomicRanges@{GenomicRanges}}
 \index{GenomicRanges@{GenomicRanges}!gds::GenomicRanges@{gds::GenomicRanges}}
-\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a3f29b99ac1d64a87caba95df9c0ae72e} 
 gds\+::\+Genomic\+Ranges\+::\+Genomic\+Ranges (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{regions}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 Constructor from string of chr\+:start-\/end \Hypertarget{classgds_1_1_genomic_ranges_ae2da7152da492b0e3c0cb945629336f1}\index{gds::GenomicRanges@{gds::GenomicRanges}!GenomicRanges@{GenomicRanges}}
 \index{GenomicRanges@{GenomicRanges}!gds::GenomicRanges@{gds::GenomicRanges}}
-\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{GenomicRanges()}{GenomicRanges()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_ae2da7152da492b0e3c0cb945629336f1} 
 gds\+::\+Genomic\+Ranges\+::\+Genomic\+Ranges (\begin{DoxyParamCaption}\item[{const string \&}]{region\+String}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -58,21 +72,39 @@ Constructor from string of delimited chr\+:start-\/end,chr\+:start-\/end for del
 \label{doc-func-members}
 \Hypertarget{classgds_1_1_genomic_ranges_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classgds_1_1_genomic_ranges_a8b1422b3f04aa00d939d1c701bb3ef9b}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_chrom@{get\_chrom}}
+\Hypertarget{classgds_1_1_genomic_ranges_a520a5e62aa9b3f904cac75935e3ef5d6}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_chrom@{get\_chrom}}
 \index{get\_chrom@{get\_chrom}!gds::GenomicRanges@{gds::GenomicRanges}}
-\doxysubsubsection{\texorpdfstring{get\_chrom()}{get\_chrom()}}
+\doxysubsubsection{\texorpdfstring{get\_chrom()}{get\_chrom()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a520a5e62aa9b3f904cac75935e3ef5d6} 
+vector$<$ string $>$ gds\+::\+Genomic\+Ranges\+::get\+\_\+chrom (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Accessors \Hypertarget{classgds_1_1_genomic_ranges_a8b1422b3f04aa00d939d1c701bb3ef9b}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_chrom@{get\_chrom}}
+\index{get\_chrom@{get\_chrom}!gds::GenomicRanges@{gds::GenomicRanges}}
+\doxysubsubsection{\texorpdfstring{get\_chrom()}{get\_chrom()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a8b1422b3f04aa00d939d1c701bb3ef9b} 
 const string gds\+::\+Genomic\+Ranges\+::get\+\_\+chrom (\begin{DoxyParamCaption}\item[{const int \&}]{i}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-Accessors \Hypertarget{classgds_1_1_genomic_ranges_a4486f09aacfeaa8f977ddbf3fc266ece}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_end@{get\_end}}
+\Hypertarget{classgds_1_1_genomic_ranges_a113e6151e721d4207383fe7f28d2aeb9}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_end@{get\_end}}
 \index{get\_end@{get\_end}!gds::GenomicRanges@{gds::GenomicRanges}}
-\doxysubsubsection{\texorpdfstring{get\_end()}{get\_end()}}
+\doxysubsubsection{\texorpdfstring{get\_end()}{get\_end()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a113e6151e721d4207383fe7f28d2aeb9} 
+vector$<$ size\+\_\+t $>$ gds\+::\+Genomic\+Ranges\+::get\+\_\+end (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_genomic_ranges_a4486f09aacfeaa8f977ddbf3fc266ece}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_end@{get\_end}}
+\index{get\_end@{get\_end}!gds::GenomicRanges@{gds::GenomicRanges}}
+\doxysubsubsection{\texorpdfstring{get\_end()}{get\_end()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a4486f09aacfeaa8f977ddbf3fc266ece} 
 const size\+\_\+t gds\+::\+Genomic\+Ranges\+::get\+\_\+end (\begin{DoxyParamCaption}\item[{const int \&}]{i}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+\Hypertarget{classgds_1_1_genomic_ranges_a6c3f1ddba6cb0482c10d693fb02e54a2}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_start@{get\_start}}
+\index{get\_start@{get\_start}!gds::GenomicRanges@{gds::GenomicRanges}}
+\doxysubsubsection{\texorpdfstring{get\_start()}{get\_start()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a6c3f1ddba6cb0482c10d693fb02e54a2} 
+vector$<$ size\+\_\+t $>$ gds\+::\+Genomic\+Ranges\+::get\+\_\+start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \Hypertarget{classgds_1_1_genomic_ranges_a3aa318f5f2fa56de895275963ad0a8c4}\index{gds::GenomicRanges@{gds::GenomicRanges}!get\_start@{get\_start}}
 \index{get\_start@{get\_start}!gds::GenomicRanges@{gds::GenomicRanges}}
-\doxysubsubsection{\texorpdfstring{get\_start()}{get\_start()}}
+\doxysubsubsection{\texorpdfstring{get\_start()}{get\_start()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{classgds_1_1_genomic_ranges_a3aa318f5f2fa56de895275963ad0a8c4} 
 const size\+\_\+t gds\+::\+Genomic\+Ranges\+::get\+\_\+start (\begin{DoxyParamCaption}\item[{const int \&}]{i}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 

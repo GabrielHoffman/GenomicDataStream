@@ -121,6 +121,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a6ee1a17bf79231337da741265d2f6856" id="r_a6ee1a17bf79231337da741265d2f6856"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ee1a17bf79231337da741265d2f6856">ARMA_WARN_LEVEL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a3acffbd305ee72dcd4593c0d8af64a4f" id="r_a3acffbd305ee72dcd4593c0d8af64a4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(a,  b)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -132,6 +133,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a0376c7389e2e9c85d965bc6496a10b63" id="r_a0376c7389e2e9c85d965bc6496a10b63"><td class="memItemLeft" align="right" valign="top">CharacterVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0376c7389e2e9c85d965bc6496a10b63">getSampleNames_rcpp</a> (SEXP x)</td></tr>
 <tr class="memitem:a72cd0eaac00f6f47aebed59a00ffedf9" id="r_a72cd0eaac00f6f47aebed59a00ffedf9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72cd0eaac00f6f47aebed59a00ffedf9">atEndOfStream_rcpp</a> (SEXP x)</td></tr>
 <tr class="memitem:a617d48bad593d338039f37d1bc6de5a5" id="r_a617d48bad593d338039f37d1bc6de5a5"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a617d48bad593d338039f37d1bc6de5a5">featuresRead_rcpp</a> (SEXP x)</td></tr>
+<tr class="memitem:aabe19048a8f1521ba7db295e87c2f155" id="r_aabe19048a8f1521ba7db295e87c2f155"><td class="memItemLeft" align="right" valign="top">DataFrame&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabe19048a8f1521ba7db295e87c2f155">getChromRanges_rcpp</a> (SEXP x)</td></tr>
 <tr class="memitem:ab00a0564a52e574e823c23a2c0be7add" id="r_ab00a0564a52e574e823c23a2c0be7add"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab00a0564a52e574e823c23a2c0be7add">getNextChunk_rcpp</a> (SEXP x)</td></tr>
 <tr class="memitem:a6131eee7c1555bd2408425a0b6d23be4" id="r_a6131eee7c1555bd2408425a0b6d23be4"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6131eee7c1555bd2408425a0b6d23be4">summarizeChunks</a> (const shared_ptr&lt; <a class="el" href="classgds_1_1_genomic_data_stream.html">GenomicDataStream</a> &gt; gds, const int &amp;threads=4)</td></tr>
 <tr class="memitem:a69bb401b7491e08f2c610b16661b904c" id="r_a69bb401b7491e08f2c610b16661b904c"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69bb401b7491e08f2c610b16661b904c">summarizeChunks_rcpp</a> (SEXP x, const int &amp;threads=4)</td></tr>
@@ -154,6 +156,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="a3acffbd305ee72dcd4593c0d8af64a4f" name="a3acffbd305ee72dcd4593c0d8af64a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3acffbd305ee72dcd4593c0d8af64a4f">&#9670;&#160;</a></span>MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIN</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((a) &lt; (b) ? (a) : (b))</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
@@ -250,6 +274,23 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">long featuresRead_rcpp </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aabe19048a8f1521ba7db295e87c2f155" name="aabe19048a8f1521ba7db295e87c2f155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe19048a8f1521ba7db295e87c2f155">&#9670;&#160;</a></span>getChromRanges_rcpp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame getChromRanges_rcpp </td>
           <td>(</td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
