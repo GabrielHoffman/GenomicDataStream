@@ -487,24 +487,25 @@ getChromRanges <- function( x ){
 
 #' Get genomic intervals
 #' 
-#' Get genomic intervals chopping up \code{GenomicDataStream} into chunks
+#' Get genomic intervals chopping up regions into smaller chunks
 #' 
-#' @param x \code{GenomicDataStream}
-#' @param nchunks number of chunks
+#' @param x \code{data.frame} with columns chrom, start, end
+#' @param nchunks number of chunks to create
 #' 
 #' @examples
 #' file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
 #'
 #' # initialize
 #' obj <- GenomicDataStream(file, chunkSize = 5, initialize = TRUE)
-#' chopChroms( obj )
+#' df <- getChromRanges(obj)
+#' chopChroms( df )
 #
 #' @export
 chopChroms <- function( x, nchunks = 10){
 
   stopifnot(nchunks > 2)
 
-  df <- getChromRanges(x)
+  df <- x
 
   if( nrow(df) == 0 ){
     return("")
@@ -695,5 +696,51 @@ countChunks = function(x){
   }
   counts
 }
+
+
+#' Collapse array of regions
+#'
+#' Collapse array of regions into one interval per chromosome
+#' 
+#' @param regions array of interval strings
+#' 
+#' @return \code{data.frame} one interval per chromosome spanning all given regions
+#' 
+#' @examples
+#' regions = c( "chr2:3-5", "chr1:4-5", "chr1:1-3")
+#' collapseRegions( regions )
+#
+#' @importFrom stringr str_split
+#' @importFrom dplyr arrange tibble group_by summarize
+#' @importFrom magrittr `%>%`
+#' @export
+#' @keywords internal
+collapseRegions = function(regions){
+
+  start <- end <- NULL
+
+  res1 <- str_split(regions, ":")
+
+  chrom <- sapply(res1, function(x) x[1])
+  pos <- sapply(res1, function(x) x[2])
+  res2 <- str_split(pos, "-")
+
+  tibble(chrom = chrom, 
+        start = as.numeric(sapply(res2, function(x) x[1])),
+        end = as.numeric(sapply(res2, function(x) x[2]))) %>%
+        group_by(chrom) %>%
+        summarize(data.frame(chrom = chrom[1], 
+                          start = min(start), 
+                          end = max(end))) %>%
+        as.data.frame 
+}
+
+
+
+
+
+
+
+
 
 

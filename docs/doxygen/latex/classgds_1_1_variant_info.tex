@@ -32,6 +32,8 @@ string \mbox{\hyperlink{classgds_1_1_variant_info_acfd0fa443960cca17bd65186da8f5
 vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7}{get\+Regions}} () const
 \item 
 vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_info_a35702a158a428aa1be369ab7bc329ab3}{get\+Chrom\+Pos}} () const
+\item 
+int \mbox{\hyperlink{classgds_1_1_variant_info_a2932f73c620649f6f465f312da4c3951}{get\+NVariants\+Before\+Filter}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classgds_1_1_data_info}{gds\+::\+Data\+Info}}}
 \begin{DoxyCompactItemize}
@@ -58,6 +60,8 @@ vector$<$ int $>$ \mbox{\hyperlink{classgds_1_1_variant_info_a320ffc7aeff978eaf7
 vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_info_a3072054809e3f672a80e5a342b522f00}{A1}}
 \item 
 vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_variant_info_ac42747fd4e529b7a4e37befdb4d1849b}{A2}}
+\item 
+int \mbox{\hyperlink{classgds_1_1_variant_info_a84b7d046ac3820296cc420a4dbe71c47}{n\+Variants\+Before\+Filter}} = 0
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classgds_1_1_data_info}{gds\+::\+Data\+Info}}}
@@ -131,7 +135,13 @@ get genomic regions as vector \Hypertarget{classgds_1_1_variant_info_acfd0fa4439
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_acfd0fa443960cca17bd65186da8f5a24} 
 string gds\+::\+Variant\+Info\+::get\+Interval (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-get genome interval as a string \Hypertarget{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7}\index{gds::VariantInfo@{gds::VariantInfo}!getRegions@{getRegions}}
+get genome interval as a string \Hypertarget{classgds_1_1_variant_info_a2932f73c620649f6f465f312da4c3951}\index{gds::VariantInfo@{gds::VariantInfo}!getNVariantsBeforeFilter@{getNVariantsBeforeFilter}}
+\index{getNVariantsBeforeFilter@{getNVariantsBeforeFilter}!gds::VariantInfo@{gds::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{getNVariantsBeforeFilter()}{getNVariantsBeforeFilter()}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_info_a2932f73c620649f6f465f312da4c3951} 
+int gds\+::\+Variant\+Info\+::get\+NVariants\+Before\+Filter (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7}\index{gds::VariantInfo@{gds::VariantInfo}!getRegions@{getRegions}}
 \index{getRegions@{getRegions}!gds::VariantInfo@{gds::VariantInfo}}
 \doxysubsubsection{\texorpdfstring{getRegions()}{getRegions()}}
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_a02002c0fd0f0d41a135c2c7003f5f6b7} 
@@ -165,6 +175,12 @@ vector$<$string$>$ gds\+::\+Variant\+Info\+::\+A2}
 \doxysubsubsection{\texorpdfstring{CHROM}{CHROM}}
 {\footnotesize\ttfamily \label{classgds_1_1_variant_info_a70b37daa458aca44124d9065e69a4453} 
 vector$<$string$>$ gds\+::\+Variant\+Info\+::\+CHROM}
+
+\Hypertarget{classgds_1_1_variant_info_a84b7d046ac3820296cc420a4dbe71c47}\index{gds::VariantInfo@{gds::VariantInfo}!nVariantsBeforeFilter@{nVariantsBeforeFilter}}
+\index{nVariantsBeforeFilter@{nVariantsBeforeFilter}!gds::VariantInfo@{gds::VariantInfo}}
+\doxysubsubsection{\texorpdfstring{nVariantsBeforeFilter}{nVariantsBeforeFilter}}
+{\footnotesize\ttfamily \label{classgds_1_1_variant_info_a84b7d046ac3820296cc420a4dbe71c47} 
+int gds\+::\+Variant\+Info\+::n\+Variants\+Before\+Filter = 0}
 
 \Hypertarget{classgds_1_1_variant_info_a320ffc7aeff978eaf7f7c89075013844}\index{gds::VariantInfo@{gds::VariantInfo}!POS@{POS}}
 \index{POS@{POS}!gds::VariantInfo@{gds::VariantInfo}}

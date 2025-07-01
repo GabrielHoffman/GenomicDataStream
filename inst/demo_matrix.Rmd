@@ -17,6 +17,13 @@ output:
 
 rmarkdown::render("demo_matrix.Rmd");
 
+# Memory profiling
+/usr/bin/time -l /Users/gabrielhoffman/prog/R-4.4.2/bin/R
+
+# Max mem usage reported in bytes, so divide by 1e-9
+#  maximum resident set size
+
+# peakRAM doesn't give correct value
 
 --->
 
@@ -45,6 +52,7 @@ library(DelayedMatrixStats)
 library(BiocSingular)
 library(ggplot2)
 library(GenomicDataStream)
+library(tidyverse)
 })
 
 file = "~/Downloads/4e6932db-5a78-40e4-b961-f87f66ba139a.h5ad"
@@ -58,6 +66,38 @@ lib.size = sce$total_counts
 prior.count = 1
 logcounts(sce) <- t(log2(t(counts(sce) + prior.count)) - log2(lib.size) + log2(1e6))
 ```
+
+# Accuracy
+```{r accuracy}
+k = 50
+sceSub = sce[seq(1000),]
+
+X = t(logcounts(sceSub))
+X_scale = scale(X) / sqrt(nrow(X) -1)
+dcmp <- svd( X_scale, k)
+
+res <- PCAstream(sceSub, k)
+```
+
+```{r accuracyPlot, cache=FALSE, fig.height=8, fig.width=8}
+stat = sapply(seq(k), function(i){
+  perfMetric(dcmp$u[,seq(i),drop=FALSE], res$u[,seq(i),drop=FALSE], metric = "MEV")
+})
+par(pty="s", mfrow=c(2,2))
+plot(seq(k), stat, ylim=c(0,1), xlab="Principal component index", ylab="Mean explained variance")
+
+plot(dcmp$d[seq(k)], res$d, log="xy", xlab="True singular values (log)", ylab="Estimated singular values (log)")
+abline(0, 1, col="red")
+
+stat = sapply(seq(k), function(i){
+  perfMetric(dcmp$u[,seq(i),drop=FALSE], res$u[,seq(i),drop=FALSE], metric = "minSSE")
+})
+plot(seq(k), stat, xlab="Principal component index", ylab="Minimum of sum of squared errors")
+
+fracExpl = dcmp$d[seq(k)]^2 / sum(dcmp$d^2)
+plot( fracExpl , stat, xlab="Fraction of variance explained by PC (log scale)", ylab="Minimum of sum of squared errors", log="x")
+```
+
 
 
 
@@ -139,5 +179,114 @@ ggplot(res, aes(threads, elapsed )) +
   theme(aspect.ratio=1, legend.position="none") +
   ylab("Time (seconds)")
 ```
+
+
+
+# Time vs number of PCs
+
+```{r nPCs, message=FALSE}
+k_array = c(2, 5, seq(10, 110, by=20), 
+        seq(125, 200, by=25))
+
+res = lapply(k_array, function(k){
+
+  res_time = system.time({
+    res <- PCAstream(sce, k, threads=4)
+  })
+
+  data.frame(k=k, t(data.frame(res_time)), Method="PCAstream")
+})
+res = do.call(rbind, res)
+```
+
+
+
+```{r nPcsPlot, cache=FALSE}
+res %>%
+  ggplot(aes(k, elapsed, color=Method )) +
+    geom_point() +
+    theme_classic() +
+    theme(aspect.ratio=1, legend.position="right") +
+    ylab("Time (seconds)")
+```
+
+
+
+# Compare Methods
+```{r compareMethods, message=FALSE}
+ngenes = 10000
+ncells = c(1000, 2000, 5000, seq(10000, 60000, by=10000))
+k = 50
+
+res = lapply(ncells, function(nc){
+
+  sceSub = sce[seq(ngenes),seq(nc)]
+
+  res_time = system.time({
+    res <- PCAstream(sceSub, k, threads=4)
+  })
+
+  data.frame(ncells = nc, t(data.frame(res_time)), Method="PCAstream")
+})
+res = do.call(rbind, res)
+
+# runSVD
+res2 = lapply(ncells, function(nc){
+
+  sceSub = sce[seq(ngenes),seq(nc)]
+
+  res_time_0 = NULL
+  res_time_1 = NULL
+  res_time_2 = NULL
+
+  # if( k < 100 ){
+  #   res_time_0 = system.time({
+  #     out <- runSVD( t(logcounts(sce)), k=k, center=TRUE, scale=TRUE, BSPARAM=ExactParam())
+  #   })
+  #   res_time_0 = t(data.frame(res_time_0)) %>%
+  #               data.frame(Method = "Exact SVD")
+  # }
+
+  if( nc <= 5000 ){
+    res_time_1 = system.time({
+      out <- runSVD( t(logcounts(sceSub)), k=k, center=TRUE, scale=TRUE, BSPARAM=IrlbaParam())
+    })
+    res_time_1 = t(data.frame(res_time_1)) %>%
+                data.frame(Method = "IRLBA")
+  }
+
+  res_time_2 = system.time({
+    out <- runSVD( t(logcounts(sceSub)), k=k, center=TRUE, scale=TRUE, BSPARAM=RandomParam())
+  })
+  res_time_2 = t(data.frame(res_time_2)) %>%
+              data.frame(Method = "Randomized SVD")
+
+  rbind(res_time_0, res_time_1, res_time_2) %>%
+  data.frame(ncells = nc, .)
+})
+res2 = do.call(rbind, res2)
+```
+
+
+
+```{r compareMethodsPlot, cache=FALSE}
+rbind(res, res2) %>%
+  mutate(Method = factor(Method, c("IRLBA", "Randomized SVD", "PCAstream"))) %>%
+  ggplot(aes(ncells, elapsed, color=Method )) +
+    geom_smooth(method="lm", se=FALSE) +
+    geom_point(size=4) +
+    theme_bw() +
+    theme(aspect.ratio=1, legend.position="right") +
+    ylab("Time (seconds)") +
+    xlab("Number of cells") + 
+    scale_x_log10()+ 
+    scale_y_log10()
+```
+
+
+
+
+
+
 
 

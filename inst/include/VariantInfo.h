@@ -120,6 +120,11 @@ class VariantInfo :
     /** Retain only variants with indeces stored in idx
      */ 
     void retainVariants( const vector<unsigned int> &idx){
+
+        // store the total number of variants present
+        // before subsetting
+        nVariantsBeforeFilter = CHROM.size();
+
         CHROM = subset_vector( CHROM, idx );
         POS = subset_vector( POS, idx );
         ID = subset_vector( ID, idx );
@@ -190,11 +195,16 @@ class VariantInfo :
         return ChromPos;
     }
 
+    int getNVariantsBeforeFilter() const {
+        return nVariantsBeforeFilter;
+    }
+
     // private:
     vector<string> sampleNames;
     vector<string> CHROM;
     vector<int> POS;
     vector<string> A1, A2;
+    int nVariantsBeforeFilter = 0;
 };
 
 }

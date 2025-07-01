@@ -64,7 +64,7 @@ Count matrices for single cell data are stored in the H5AD format.  This format,
 [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo)| [J Stat Software](https://doi.org/10.18637/jss.v040.i08) | API for Rcpp access to Armadillo matrix library
 [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) | |C++ library for linear algebra with advanced features
 [Armadillo](https://arma.sourceforge.net) | [J Open Src Soft](https://doi.org/10.21105/joss.00026) | User-friendly C++ library for linear algebra
-
+[RcppParallel](https://rcppcore.github.io/RcppParallel/) | | oneAPI [Threading Building Blocks](https://uxlfoundation.github.io/oneTBB/) for parallel analysis
 
 
 

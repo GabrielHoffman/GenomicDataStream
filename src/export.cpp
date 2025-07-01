@@ -194,8 +194,10 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
   GenomicDataStreamParallel<arma::mat> gsp(gds->getParam(), reg, nchunks, threads);
 
   std::mutex mtx;  
+  int nVariantsBeforeFilter = 0;
 
   gsp.processChunks([&](const DataChunk<arma::mat> &chunk, size_t b) {
+  // while( gds->getNextChunk(chunk) ){
 
     std::lock_guard<std::mutex> lock(mtx);
 
@@ -209,7 +211,9 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
     regions.insert(regions.end(), tmp.begin(), tmp.end());
 
     intervals.push_back( info->getInterval() );
-    chunkCounts.push_back( info->size() ); 
+    chunkCounts.push_back( info->size() );
+
+    nVariantsBeforeFilter += info->getNVariantsBeforeFilter();
   });
 
   return List::create(
@@ -217,7 +221,8 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
         Named("chunks") = chunkCounts,
         Named("sampleIDs") = gds->getSampleNames(),
         Named("variantIDs") = variantIDs,
-        Named("regions") = regions);
+        Named("regions") = regions,
+        Named("nVariantsBeforeFilter") = nVariantsBeforeFilter);
 }
 
 

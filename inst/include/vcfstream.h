@@ -94,27 +94,11 @@ class vcfstream :
 
 		validRegions.reserve(regions.size());
 		validRegions.clear();
-    // copy(regions.begin(), regions.end(), back_inserter(validRegions));
+    copy(regions.begin(), regions.end(), back_inserter(validRegions));
 
-    for(auto &region: regions){
-    	switch( reader->getStatus( region ) ){
-				case 1: // region is vaild and not empty
-					validRegions.push_back(region);
-					break;
-
-				case 0: // the region is valid but empty.
-					break;
-
-				case -1: // there is no index file found.
-					throw runtime_error("Could not retrieve index file");
-					break;
-
-				case -2: // the region is not valid
-					Rcpp::Rcout << "region:" + region + ";\n";
-					throw runtime_error("region was not found: " + region );
-					break;
-			}
-    }
+    // for(auto &region: regions){
+    // 	checkStatus( region );
+    // }
 
 		// initialize to false
 		continueIterating = false;
@@ -123,8 +107,6 @@ class vcfstream :
 		if( validRegions.size() > 0 ){
 			// initialize iterator
 			itReg = validRegions.begin();
-
-			checkStatus( *itReg );
 
 			reader->setRegion( *itReg );
 

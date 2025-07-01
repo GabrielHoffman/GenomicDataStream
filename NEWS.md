@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.0.60
+ - June 30, 2025
+ - Faster PCA for VCF and BCF that solves filtering issue
+
 # GenomicDataStream 0.0.59
  - June 23, 2025
  - `bgenstream` now supports reading a large number of genomic intervals using `VariantSet` and then querying by rsid instead of postion, instead of crashing at ~10k

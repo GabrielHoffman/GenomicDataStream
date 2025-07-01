@@ -7,17 +7,18 @@
 chopChroms(x, nchunks = 10)
 }
 \arguments{
-\item{x}{\code{GenomicDataStream}}
+\item{x}{\code{data.frame} with columns chrom, start, end}
 
-\item{nchunks}{number of chunks}
+\item{nchunks}{number of chunks to create}
 }
 \description{
-Get genomic intervals chopping up \code{GenomicDataStream} into chunks
+Get genomic intervals chopping up regions into smaller chunks
 }
 \examples{
 file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
 
 # initialize
 obj <- GenomicDataStream(file, chunkSize = 5, initialize = TRUE)
-chopChroms( obj )
+df <- getChromRanges(obj)
+chopChroms( df )
 }

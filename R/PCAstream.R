@@ -110,8 +110,25 @@ setMethod(
     stop(paste("Cannot perform PCA with", M, "features"))
   }
 
-  # permute chunks
+  # get query regions
+  # 
+  nVariants <- length(sObj$variantIDs)
+  allVariantsKept <- (sObj$nVariantsBeforeFilter == nVariants)
   regions <- unique(sObj$regions)
+
+  # if no variants were removed by filter
+  if( allVariantsKept ){
+    if( nVariants > 1000 ){
+      # collase array of regions into smaller set of intervals
+      regMerge = collapseRegions( regions )
+      regions = chopChroms( regMerge, B)
+    }
+  }else{
+    if( sObj$streamType %in% c("vcf.gz", "bcf") ){
+      warning("Performing variant filtering and PCA on VCF/BCF files\nis substantially slower than with other formats", immediate.=TRUE)
+    }
+  }
+
   if( shuffle ){
     regions <- sample(regions, length(regions))
   }
@@ -333,7 +350,9 @@ setMethod(
 summarizeChunks <- function(x, threads=4){
 
   x <- initializeStream(x)
-  summarizeChunks_rcpp(x@ptr, threads)
+  res <- summarizeChunks_rcpp(x@ptr, threads)
+  res$streamType = slot(x, "streamType")
+  res
 }
 
 #' PCA result

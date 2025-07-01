@@ -67,11 +67,6 @@ library(tidyverse)
 library(peakRAM)
 
 PATH = "~/Downloads/"
-
-file = paste0(PATH, "/1kg_chr21.bed")
-gds = GenomicDataStream(file)
-res <- summarizeChunks(gds)
-region = paste(res$intervals, collapse=",")
 ```
 
 # Time vs number of variants
@@ -83,7 +78,7 @@ maf_array = c(0.01, .05, .1, .2, .3, .4)
 
 res = lapply(maf_array, function(MAF){
 
-  gds = GenomicDataStream(file, MAF=MAF, region=region)
+  gds = GenomicDataStream(file, MAF=MAF)
 
   res_time = system.time({
     res <- PCAstream(gds, k, threads=4)
@@ -109,7 +104,7 @@ maf_array = c(0.01, .05, .1, .2, .3, .4)
 
 res = lapply(maf_array, function(MAF){
 
-  gds = GenomicDataStream(file, MAF=MAF, region=region)
+  gds = GenomicDataStream(file, MAF=MAF)
 
   res_mem = peakRAM({
     res <- PCAstream(gds, k, threads=4)
@@ -128,15 +123,50 @@ ggplot(res, aes(SNPs, Peak_RAM_Used_MiB / 1e6)) +
   ylab("Memory usage (Gb)")
 ```
 
+
+# Time vs number of PCs
+```{r numPCs}
+file = paste0(PATH, "/1kg_chr21.bed")
+
+k_array = c(2, 5, seq(10, 100, by=10), 
+        seq(125, 200, by=25), 
+        seq(250, 500, by=50))
+
+res = lapply(k_array, function(k){
+
+  gds = GenomicDataStream(file, MAF=.3)
+
+  res_time = system.time({
+    res <- PCAstream(gds, k, threads=4)
+  })
+
+  data.frame(k = k, t(data.frame(res_time)))
+})
+res = do.call(rbind, res)
+```
+
+```{r numPCsPlot, cache=FALSE}
+ggplot(res, aes(k, elapsed)) +
+  geom_point() +
+  theme_classic() +
+  theme(aspect.ratio=1) +
+  ylab("Time (seconds)")
+```
+
+
 # Time vs genotype format
-```{r FileFormats}
+PCA on full file without filtering. Filter is fast with PGEN, BED and BGEN.  But with VCF and BCF, filtering means that each variant is given by its own region.  This is very slow since the variants are zipped by block and requesting two regions within the same block unzips the block each time.
+
+
+
+```{r FileFormats, eval=TRUE}
 files = dir(PATH, pattern="1kg_chr21", full.names=TRUE)
 files = grep(".bcf$|.vcf.gz$|.pgen$|.bed$|.bgen$", files, value=TRUE)
 
 k = 2
 res = lapply(files, function(file){
 
-  gds = GenomicDataStream(file, field="GT", region=region)
+  gds = GenomicDataStream(file, field="GT")
 
   res_time = system.time({
     res <- PCAstream(gds, k, threads=4)
@@ -148,7 +178,7 @@ res = do.call(rbind, res)
 ```
 
 
-```{r FileFormatsPlot, cache=FALSE}
+```{r FileFormatsPlot, cache=FALSE, eval=TRUE}
 res %>%
   mutate(Type = gsub("1kg_chr21.", "", basename(file))) %>%
   ggplot(aes(Type, elapsed, fill=Type)) +
@@ -157,7 +187,7 @@ res %>%
   theme(aspect.ratio=1, legend.position="none") +
   scale_y_continuous(limits=c(0, NA), expand=c(0,0)) +
   ylab("Time (seconds)") +
-  xlab("File type")
+  xlab("File type") 
 ```
 
 
@@ -168,10 +198,10 @@ file = paste0(PATH, "/1kg_chr21.bed")
 k = 2
 res = lapply(c(1,2,4), function(threads){
 
-  gds = GenomicDataStream(file, region=region)
+  gds = GenomicDataStream(file)
 
   res_time = system.time({
-    res <- PCAstream(gds, k, threads=threads, p=0)
+    res <- PCAstream(gds, k, threads=threads)
   })
 
   data.frame(threads=threads, t(data.frame(res_time)))

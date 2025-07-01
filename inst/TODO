@@ -6,6 +6,9 @@ Use Heady
 
 	GenomicDataStreamParallel creates *stream for each thread
 	The overhead for BGEN is larger now
+	Have GenomicDataStreamParallel read once and then swan others?
+	Multi-file GenomicDataStream?
+
 
 
 June 23, 
