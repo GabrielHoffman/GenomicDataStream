@@ -49,13 +49,15 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' @param field field of VCF/BCF to read.  Ignored for other file types
 #' @param region target in the format \code{chr2:1-12345}. Multiple regions can be separated by one of \code{",\n\t"}, for example \code{"chr2:1-12345, chr3:1000-8000"}. Setting region to \code{""} includes all variants
 #' @param samples string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples
-#' @param MAF minor allele frequency filter applied to variants with max value <= 2
-#' @param minVariance minimum variance filter applied to variants with max value < 2
+#' @param MAF minor allele frequency filter applied to variants with max value <= 2. Use \code{NaN} to retain all variants
+#' @param minVariance minimum variance filter applied to variants with max value > 2
 #' @param chunkSize	number of variants to return per chunk
 #' @param missingToMean	if true, set missing values to the mean dosage value. if false, set to \code{NaN}
 #' @param initialize default \code{FALSE}.  If \code{TRUE}, file info is read from path, otherwise store path until \code{GenomicDataStream} is initialized later
 #'
-#' @details Consider minor allele frequency (MAF) \eqn{f} and  Hardy-Weinberg equilibrium, the allelic states have probability \eqn{f^2, 2f(1-f), (1-f)^2}. If the variant has mean \eqn{\mu} and variance \eqn{\sigma^2}, MAF can be estimated from the mean as \eqn{min(\mu/2, 1 - \mu/2)} or from the variance as \eqn{p = 1+sqrt(1-2\sigma^2))/2} and MAF = \eqn{min(p, 1-p)}.  In addition the sample variance of the variant is \eqn{2(1-f)f}.  Therefore, setting a MAF cutoff corresponds to a variance cutoff that can also apply to multi-allelic variants.
+#' @details Variants are filtered using \code{MAF} if the max value is <=2, or \code{minVariance} otherwise
+#
+# @details Consider minor allele frequency (MAF) \eqn{f} and  Hardy-Weinberg equilibrium, the allelic states have probability \eqn{f^2, 2f(1-f), (1-f)^2}. If the variant has mean \eqn{\mu} and variance \eqn{\sigma^2}, MAF can be estimated from the mean as \eqn{min(\mu/2, 1 - \mu/2)} or from the variance as \eqn{p = 1+sqrt(1-2\sigma^2))/2} and MAF = \eqn{min(p, 1-p)}.  In addition the sample variance of the variant is \eqn{2(1-f)f}.  Therefore, setting a MAF cutoff corresponds to a variance cutoff that can also apply to multi-allelic variants.
 #'
 #' @return object of class \code{GenomicDataStream}
 #'
@@ -93,7 +95,7 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
     stop("File does not exist")
   }
 
-  if( MAF < 0 ){
+  if( !is.nan(MAF) & MAF < 0 ){
     stop("MAF must be >= 0")
   }
   if( !is.nan(minVariance) & minVariance < 0 ){
