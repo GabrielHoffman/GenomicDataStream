@@ -1,5 +1,5 @@
 ---
-title: "Data as a GenomicDataStream"
+title: "Reading data as a GenomicDataStream"
 subtitle: "R and C++ code"
 author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
 date: "Run on `r format(Sys.time())`"
