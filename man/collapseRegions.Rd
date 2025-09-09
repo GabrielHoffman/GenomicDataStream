@@ -16,7 +16,7 @@ collapseRegions(regions)
 Collapse array of regions into one interval per chromosome
 }
 \examples{
-regions = c( "chr2:3-5", "chr1:4-5", "chr1:1-3")
+regions <- c( "chr2:3-5", "chr1:4-5", "chr1:1-3")
 collapseRegions( regions )
 }
 \keyword{internal}

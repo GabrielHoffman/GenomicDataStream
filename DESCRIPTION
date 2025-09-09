@@ -23,7 +23,7 @@ Depends:
   methods, 
   stats,
   utils
-Imports:  
+Imports: 
   Rcpp, 
   Matrix,
   beachmat,
@@ -41,12 +41,15 @@ LinkingTo:
   beachmat (>= 2.21.9),
   assorthead,  
   BH (>= 1.87.0),
-  vcfppR (>= 0.8.0), 
-  pgenlibr (>= 0.5.0)
+  vcfppR (>= 0.8.1), 
+  pgenlibr (>= 0.5.3)
+biocViews:
+  DataImport,
+  Infrastructure
 Encoding: UTF-8
 SystemRequirements: 
   GNU make, 
   C++17,
   Intel TBB
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr

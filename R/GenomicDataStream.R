@@ -88,7 +88,7 @@ GenomicDataStream <- function(file, field = "", region = "", samples = "-", MAF 
   chunkSize <- as.integer(chunkSize)
   samples <- paste(samples, collapse = ",")
 
-  file = path.expand(file)
+  file <- path.expand(file)
 
   # check that file exists
   if( ! file.exists(file) ){
@@ -494,6 +494,7 @@ getChromRanges <- function( x ){
 #' @param x \code{data.frame} with columns chrom, start, end
 #' @param nchunks number of chunks to create
 #' 
+#' @return vector genome intervals
 #' @examples
 #' file <- system.file("extdata", "test.bed", package = "GenomicDataStream")
 #'
@@ -515,7 +516,7 @@ chopChroms <- function( x, nchunks = 10){
 
   k <- (nchunks+1) / seq(nrow(df))
 
-  regions <- sapply(seq(nrow(df)), function(i){
+  regions <- lapply(seq(nrow(df)), function(i){
 
     pos <- seq(df$start[i], df$end[i], length.out=k)
     pos <- floor(pos)
@@ -528,7 +529,7 @@ chopChroms <- function( x, nchunks = 10){
     }
     regions
     })
-  c(regions)
+  unlist(regions)
 }
 
 
@@ -640,7 +641,7 @@ setMethod("print", "GenomicDataStream", function(x, ...) {
 #' getVariantLocations(obj)
 #' 
 #' @export
-getVariantLocations = function(x){
+getVariantLocations <- function(x){
 
   # pass R CMD check
   CHROM <- POS <- NULL
@@ -686,7 +687,7 @@ getVariantLocations = function(x){
 #' countChunks(obj)
 #' 
 #' @export
-countChunks = function(x){
+countChunks <- function(x){
   counts <- c()
 
   # count number of variants
@@ -709,7 +710,7 @@ countChunks = function(x){
 #' @return \code{data.frame} one interval per chromosome spanning all given regions
 #' 
 #' @examples
-#' regions = c( "chr2:3-5", "chr1:4-5", "chr1:1-3")
+#' regions <- c( "chr2:3-5", "chr1:4-5", "chr1:1-3")
 #' collapseRegions( regions )
 #
 #' @importFrom stringr str_split
@@ -717,19 +718,22 @@ countChunks = function(x){
 #' @importFrom magrittr `%>%`
 #' @export
 #' @keywords internal
-collapseRegions = function(regions){
+collapseRegions <- function(regions){
 
   start <- end <- NULL
 
   res1 <- str_split(regions, ":")
 
-  chrom <- sapply(res1, function(x) x[1])
-  pos <- sapply(res1, function(x) x[2])
+  chrom <- vapply(res1, function(x) x[1], character(1))
+  pos <- vapply(res1, function(x) x[2], character(1))
   res2 <- str_split(pos, "-")
 
+  a <- vapply(res2, function(x) x[1], character(1))
+  b <- vapply(res2, function(x) x[2], character(1))
+
   tibble(chrom = chrom, 
-        start = as.numeric(sapply(res2, function(x) x[1])),
-        end = as.numeric(sapply(res2, function(x) x[2]))) %>%
+        start = as.numeric(a),
+        end = as.numeric(b)) %>%
         group_by(chrom) %>%
         summarize(data.frame(chrom = chrom[1], 
                           start = min(start), 

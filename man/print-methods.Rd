@@ -15,6 +15,9 @@
 
 \item{...}{other arguments}
 }
+\value{
+printed strings
+}
 \description{
 Print object
 

@@ -14,6 +14,9 @@
 \arguments{
 \item{object}{\code{PCA} object}
 }
+\value{
+printed strings
+}
 \description{
 Show object
 

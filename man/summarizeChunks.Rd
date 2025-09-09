@@ -11,6 +11,9 @@ summarizeChunks(x, threads = 4)
 
 \item{threads}{number of threads}
 }
+\value{
+list of info about stream
+}
 \description{
 Read through stream to get size of each chunk, IDs of variants and samples
 }

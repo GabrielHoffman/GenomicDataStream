@@ -27,7 +27,7 @@ See performance metrics described by Li, et al. (2023)
 \examples{
 hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
  X <- hilbert(9)[, 1:6]
-k = 4
+k <- 4
 
 # Compute SVD using two methods
 dcmp <- svd( scale(X), k, k)

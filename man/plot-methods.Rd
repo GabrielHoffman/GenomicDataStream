@@ -14,6 +14,9 @@
 
 \item{main}{title}
 }
+\value{
+plot
+}
 \description{
 Plot PCAstream
 }

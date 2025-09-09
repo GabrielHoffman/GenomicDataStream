@@ -19,3 +19,10 @@ none, matrix is standardized in place
 \description{
 Standardize mean and variance of matrix columns in place
 }
+\examples{
+X <- matrix(runif(12), 3, 4)
+standardize_in_place(X)
+
+scale(X)
+
+}

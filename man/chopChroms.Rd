@@ -11,6 +11,9 @@ chopChroms(x, nchunks = 10)
 
 \item{nchunks}{number of chunks to create}
 }
+\value{
+vector genome intervals
+}
 \description{
 Get genomic intervals chopping up regions into smaller chunks
 }

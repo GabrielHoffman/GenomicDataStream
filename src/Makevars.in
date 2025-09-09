@@ -1,6 +1,6 @@
 # HTS
 # link against libhts.a from vcfppR
-HTSLIB += -lcurl -lbz2 -llzma -lz #/opt/homebrew/Cellar/htslib/1.22.1/lib/libhts.a
+HTSLIB += -lcurl -lbz2 -llzma -lz 
 HTS_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
  	 'cat(system.file("include/", package = "vcfppR", mustWork = TRUE))')
 
@@ -25,11 +25,6 @@ PKG_CPPFLAGS = $(INCL) $(HTSLIB_CPPFLAGS) \
 PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT @ZSTD_COMPILE_FLAG@ @LIBDEFLATE_COMPILE_FLAG@ @SIMDE_COMPILE_FLAG@ @ZSTD_INCLUDE_PATH@ @LIBDEFLATE_INCLUDE_PATH@ @SIMDE_INCLUDE_PATH@
 
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB)  @ZSTD_LIBS@ @LIBDEFLATE_LIBS@ 
-
-# Plink2 libs 
-# PLINK2_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-#  	 'cat("-L", system.file("libs/", package = "pgenlibr", mustWork = TRUE), sep="")')
-# PKG_LIBS += $(PLINK2_LIBS) #-lPLINK2
 
 # Plink2 includes 
 PLINK2_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \

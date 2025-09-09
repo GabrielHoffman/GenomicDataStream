@@ -107,7 +107,8 @@ setMethod(
   s <- min(s, M-k-1)
 
   if( M < 2 ){
-    stop(paste("Cannot perform PCA with", M, "features"))
+    txt <- paste("Cannot perform PCA with", M, "features")
+    stop(txt)
   }
 
   # get query regions
@@ -120,8 +121,8 @@ setMethod(
   if( allVariantsKept ){
     if( nVariants > 1000 ){
       # collase array of regions into smaller set of intervals
-      regMerge = collapseRegions( regions )
-      regions = chopChroms( regMerge, B)
+      regMerge <- collapseRegions( regions )
+      regions <- chopChroms( regMerge, B)
     }
   }else{
     if( sObj$streamType %in% c("vcf.gz", "bcf") ){
@@ -197,8 +198,8 @@ setMethod(
   colnames(res$u) <- paste0("PC", seq(k))
   colnames(res$v) <- paste0("PC", seq(k))
   names(res$d) <- paste0("PC", seq(k))
-  res$p = M
-  res$n = N
+  res$p <- M
+  res$n <- N
 
   new("PCA", res)
 })
@@ -222,10 +223,10 @@ setMethod(
     }
     # compute mean and scale of columns
     ptr <- initializeCpp(x)
-    adj = compute_center_and_scale(ptr, threads)
+    adj <- compute_center_and_scale(ptr, threads)
 
     # standardize columns with mean, scale and nrows
-    x = t((t(x) - adj$center) / (adj$scale*sqrt(nrow(x)-1)))
+    x <- t((t(x) - adj$center) / (adj$scale*sqrt(nrow(x)-1)))
   }
 
   M <- nrow(x)
@@ -276,9 +277,9 @@ setMethod(
   colnames(res$v) <- paste0("PC", seq(k))
   names(res$d) <- paste0("PC", seq(k))
 
-  res2 = list(d = res$d, u = res$v, v = res$u)
-  res2$p = M
-  res2$n = N
+  res2 <- list(d = res$d, u = res$v, v = res$u)
+  res2$p <- M
+  res2$n <- N
 
   new("PCA", res2)
 })
@@ -339,6 +340,7 @@ setMethod(
 #' @param x \code{GenomicDataStream}
 #' @param threads number of threads
 #' 
+#' @return list of info about stream
 #' @examples
 #' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 #'
@@ -351,7 +353,7 @@ summarizeChunks <- function(x, threads=4){
 
   x <- initializeStream(x)
   res <- summarizeChunks_rcpp(x@ptr, threads)
-  res$streamType = slot(x, "streamType")
+  res$streamType <- slot(x, "streamType")
   res
 }
 
@@ -368,6 +370,7 @@ setClass("PCA", contains="list")
 #'
 #' @param object \code{PCA} object
 #'
+#' @return printed strings
 #' @rdname show-methods
 #' @importFrom utils head
 #' @aliases show,PCA,PCA-method
@@ -379,7 +382,7 @@ setMethod(
 
     cat("\n       PCA: Computed first", length(object$d), "PCs\n\n")
 
-    k = min(3, length(object$d))
+    k <- min(3, length(object$d))
 
     # cat("Samples:\n")
     cat(" $u\n")
@@ -405,6 +408,7 @@ setMethod(
 #' @param x \code{PCA} object
 #' @param ... other arguments
 #'
+#' @return printed strings
 #' @export
 #' @rdname print-methods
 #' @aliases print,PCA-method
@@ -425,6 +429,7 @@ setMethod("print", signature(x = "PCA"),
 #' @param main title
 #' @param ... other arguments
 #'
+#' @return plot
 #' @export
 #' @rdname plot-methods
 #' @aliases plot,PCA-method
@@ -458,7 +463,7 @@ setMethod("plot", signature(x = "PCA"),
 #' @examples
 #' hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
 #'  X <- hilbert(9)[, 1:6]
-#' k = 4
+#' k <- 4
 #' 
 #' # Compute SVD using two methods
 #' dcmp <- svd( scale(X), k, k)
@@ -471,9 +476,9 @@ setMethod("plot", signature(x = "PCA"),
 #' perfMetric(dcmp$u, res$u, metric = "minSSE")
 #
 #' @export
-perfMetric = function(U, U_est, k = ncol(U_est), metric = c("MEV", "minSSE")){
+perfMetric <- function(U, U_est, k = ncol(U_est), metric = c("MEV", "minSSE")){
 
-  metric = match.arg( metric )
+  metric <- match.arg( metric )
   stopifnot(is.numeric(k))
   stopifnot(k > 0)
   stopifnot(nrow(U) == nrow(U_est))
@@ -484,19 +489,19 @@ perfMetric = function(U, U_est, k = ncol(U_est), metric = c("MEV", "minSSE")){
   U_est <- normPC(U_est[,seq(k),drop=FALSE])
 
   if( metric == "MEV" ){
-    values = sapply(seq(ncol(U_est)), function(j){
+    values <- vapply(seq(ncol(U_est)), function(j){
       sum(crossprod(U_est, U[,j]))
-    })
-    score = mean(values)
+    }, numeric(1))
+    score <- mean(values)
   }else{
 
-    sse = matrix(NA, ncol(U_est), ncol(U_est))
+    sse <- matrix(NA, ncol(U_est), ncol(U_est))
     for(i in seq(ncol(U_est))){
       for(j in seq(ncol(U_est))){
-        sse[i,j] = sum((U[,j] - U_est[,i])^2)
+        sse[i,j] <- sum((U[,j] - U_est[,i])^2)
       }
     }
-    score = sum(apply(sse, 1, min))
+    score <- sum(apply(sse, 1, min))
   }
 
   score
@@ -527,14 +532,14 @@ sign0 <- function(x) {
 #' @examples
 #' hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
 #'  X <- hilbert(9)[, 1:6]
-#' k = 4
+#' k <- 4
 #' 
 #' dcmp <- svd( scale(X), k, k)
 #' 
 #' normPC( dcmp$u ) 
 #
 #' @export
-normPC = function(U){
+normPC <- function(U){
   sweep(U, 2, sign0(diag(U)), "*")
 }
 
