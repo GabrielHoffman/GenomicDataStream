@@ -25,9 +25,9 @@ GenomicDataStream(
 
 \item{samples}{string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples}
 
-\item{MAF}{minor allele frequency filter applied to variants with max value <= 2}
+\item{MAF}{minor allele frequency filter applied to variants with max value <= 2. Use \code{NaN} to retain all variants}
 
-\item{minVariance}{minimum variance filter applied to variants with max value < 2}
+\item{minVariance}{minimum variance filter applied to variants with max value > 2}
 
 \item{chunkSize}{number of variants to return per chunk}
 
@@ -44,7 +44,7 @@ Read genomic data files (VCF, BCF, BGEN, h5ad) into R/Rcpp in chunks for analysi
 Interface to GenomicDataStream C++ code
 }
 \details{
-Consider minor allele frequency (MAF) \eqn{f} and  Hardy-Weinberg equilibrium, the allelic states have probability \eqn{f^2, 2f(1-f), (1-f)^2}. If the variant has mean \eqn{\mu} and variance \eqn{\sigma^2}, MAF can be estimated from the mean as \eqn{min(\mu/2, 1 - \mu/2)} or from the variance as \eqn{p = 1+sqrt(1-2\sigma^2))/2} and MAF = \eqn{min(p, 1-p)}.  In addition the sample variance of the variant is \eqn{2(1-f)f}.  Therefore, setting a MAF cutoff corresponds to a variance cutoff that can also apply to multi-allelic variants.
+Variants are filtered using \code{MAF} if the max value is <=2, or \code{minVariance} otherwise
 }
 \examples{
 file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")

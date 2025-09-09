@@ -1,13 +1,17 @@
 
+Convert result of PCA stream to eclairs object
+
 Use Heady
 	https://github.com/JamesBoer/Heady#
 	Convert pgenlibr and hts to header only for import
-
 
 	GenomicDataStreamParallel creates *stream for each thread
 	The overhead for BGEN is larger now
 	Have GenomicDataStreamParallel read once and then swan others?
 	Multi-file GenomicDataStream?
+
+	Randomized SVD diagram: https://genome.cshlp.org/content/suppl/2023/10/05/gr.277525.122.DC1/Supplemental_Material.pdf
+
 
 
 

@@ -63,7 +63,7 @@ The C++ code is divided into two sections:
 
   - `inst/include`: header-only C++17 code with no R dependencies
   
-  - `src/export.cpp`: Rcpp layer between header-only library to R interface
+  - `src/export.cpp`: `Rcpp` layer between header-only library to R interface
 
 `GenomicDataStream` provides flexability in terms of data input types and and matrix libraries.  This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times.  Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in `Makevars`:
 

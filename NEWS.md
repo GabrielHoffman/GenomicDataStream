@@ -1,4 +1,8 @@
 
+
+# GenomicDataStream 0.0.61
+ - update Makefile to resolve install issues
+
 # GenomicDataStream 0.0.60
  - June 30, 2025
  - Faster PCA for VCF and BCF that solves filtering issue
