@@ -50,6 +50,3 @@ SystemRequirements:
   Intel TBB
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
-Remotes: 
-  chrchang/plink-ng/2.0/pgenlibr,
-  Zilong-Li/vcfppR
