@@ -1,5 +1,6 @@
 
-#include <armadillo>
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
 
 #ifndef DISABLE_EIGEN
 #include <Eigen/Core>
