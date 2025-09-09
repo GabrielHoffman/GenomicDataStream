@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.60</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.61</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,23 @@
     <p>none, matrix is standardized in place</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">standardize_in_place</span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]       [,3]       [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00619878 -0.4507576 -0.3616558 -0.4371251</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.01251504 -0.6952803  1.1305141  1.1441387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.99368374  1.1460379 -0.7688583 -0.7070136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"scaled:center")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3.700743e-17  2.960595e-16  0.000000e+00 -3.700743e-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"scaled:scale")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 1 1 1</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

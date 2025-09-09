@@ -9,7 +9,7 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.60</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.61</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,11 +81,11 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
 
 
 <dt id="arg-maf">MAF<a class="anchor" aria-label="anchor" href="#arg-maf"></a></dt>
-<dd><p>minor allele frequency filter applied to variants with max value &lt;= 2</p></dd>
+<dd><p>minor allele frequency filter applied to variants with max value &lt;= 2. Use <code>NaN</code> to retain all variants</p></dd>
 
 
 <dt id="arg-minvariance">minVariance<a class="anchor" aria-label="anchor" href="#arg-minvariance"></a></dt>
-<dd><p>minimum variance filter applied to variants with max value &lt; 2</p></dd>
+<dd><p>minimum variance filter applied to variants with max value &gt; 2</p></dd>
 
 
 <dt id="arg-chunksize">chunkSize<a class="anchor" aria-label="anchor" href="#arg-chunksize"></a></dt>
@@ -106,7 +106,7 @@ Interface to GenomicDataStream C++ code"><meta property="og:image" content="http
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Consider minor allele frequency (MAF) \(f\) and  Hardy-Weinberg equilibrium, the allelic states have probability \(f^2, 2f(1-f), (1-f)^2\). If the variant has mean \(\mu\) and variance \(\sigma^2\), MAF can be estimated from the mean as \(min(\mu/2, 1 - \mu/2)\) or from the variance as \(p = 1+sqrt(1-2\sigma^2))/2\) and MAF = \(min(p, 1-p)\).  In addition the sample variance of the variant is \(2(1-f)f\).  Therefore, setting a MAF cutoff corresponds to a variance cutoff that can also apply to multi-allelic variants.</p>
+    <p>Variants are filtered using <code>MAF</code> if the max value is &lt;=2, or <code>minVariance</code> otherwise</p>
     </div>
 
     <div class="section level2">
