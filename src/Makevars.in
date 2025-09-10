@@ -33,6 +33,7 @@ PLINK2_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 INCL += -I$(PLINK2_INCL)
 
 DEFLATE = $(PLINK2_INCL)/libdeflate/lib
+ZLIB = $(PLINK2_INCL)/zsd/lib
 
 CXX_STD=CXX17
 
@@ -45,7 +46,7 @@ PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()")
 
 PKG_LIBS += ../inst/include/htslib-1.21/libhts.a
 
-C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c) $(wildcard $(DEFLATE)/*.c) $(wildcard $(DEFLATE)/arm/*.c) $(wildcard $(DEFLATE)/x86/*.c)
+C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c) $(wildcard $(DEFLATE)/*.c) $(wildcard $(DEFLATE)/arm/*.c) $(wildcard $(DEFLATE)/x86/*.c) $(wildcard $(ZLIB)/*/*.c)
 CC_SOURCES = $(wildcard $(PLINK2_INCL)/include/*.cc) 
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) $(patsubst %.cc,%.o,$(CC_SOURCES)) 
 CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp) $(wildcard pgen/*.cpp) 
