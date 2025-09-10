@@ -33,7 +33,7 @@ PLINK2_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 INCL += -I$(PLINK2_INCL)
 
 DEFLATE = $(PLINK2_INCL)/libdeflate/lib
-ZLIB = $(PLINK2_INCL)/zsd/lib
+ZLIB = $(PLINK2_INCL)/zstd/lib
 
 CXX_STD=CXX17
 
