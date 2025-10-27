@@ -42,7 +42,7 @@ class vcfstream :
 	*/
 	vcfstream(const Param & param) : GenomicDataStream(param) {
 
-		Rcpp::Rcout << "vcfstream" << std::endl;
+		Rcpp::Rcout << "vcfstream constructor..." << std::endl;
 
 		// check that file exists	
 		if( ! filesystem::exists( param.file ) ){
@@ -80,6 +80,8 @@ class vcfstream :
 		// After j variants have been inserted, only entries up to j*nsamples are populated
 		//  the rest of the vector is allocated doesn't have valid data
 		matDosage.reserve( n_samples() * param.chunkSize );
+
+		Rcpp::Rcout << "\tdone" << std::endl;
 	}
 
 	/** destructor
