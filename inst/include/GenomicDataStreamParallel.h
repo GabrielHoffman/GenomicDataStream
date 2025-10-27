@@ -44,6 +44,7 @@ class GenomicDataStreamParallel {
 
         Rcpp::Rcout << "createFileView" << std::endl;
         readers[r.begin()] = gds::createFileView(param);
+        Rcpp::Rcout << "createFileView...done" << std::endl;
       });
     });
 
