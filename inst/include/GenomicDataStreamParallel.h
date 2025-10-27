@@ -39,7 +39,7 @@ class GenomicDataStreamParallel {
     // Initialize each reader, run in parallel
     limited_arena.execute([&] {
     tbb::parallel_for(
-    tbb::blocked_range<int>(0, 1, 1), 
+    tbb::blocked_range<int>(0, numThreads, 1), 
     [&](const tbb::blocked_range<int>& r){ 
 
         Rcpp::Rcout << "createFileView: " << r.begin() << std::endl;
@@ -61,11 +61,17 @@ class GenomicDataStreamParallel {
     vector<DataChunk<T> > chunkSet;
     chunkSet.reserve(numThreads);
 
+
+    Rcpp::Rcout << "numChunks: " << numChunks << std::endl;
+    Rcpp::Rcout << "numThreads: " << numThreads << std::endl;
+    Rcpp::Rcout << "readers.size(): " << readers.size() << std::endl;
+
+
     mutex mtx;  
 
     // like a thread pool, but just stores index of thread
     // initialize threadSet as 0:numThreads
-    vector<int> threadSet(numThreads);
+    vector<int> threadSet( min(numThreads, numChunks));
     iota(threadSet.begin(), threadSet.end(), 0);
 
     // Parallel part using Thread Building Blocks
@@ -86,6 +92,7 @@ class GenomicDataStreamParallel {
         int chunkIdx = r.begin(); // which chunk
         
         // get reader and set region
+        Rcpp::Rcout << "threadIdx: " << threadIdx << std::endl;
         auto reader = readers[threadIdx];
         reader->setRegions( regionSets[chunkIdx] );
 
