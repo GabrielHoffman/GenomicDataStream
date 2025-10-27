@@ -148,6 +148,10 @@ class vcfstream :
 		
 		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
+		Rcpp::Rcout << "row: " << reader->nsamples << std::endl;
+		Rcpp::Rcout << "col: " << vInfo->size() << std::endl;
+
+	
 		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
 
 	    chunk = DataChunk<arma::mat>( M, vInfo );
