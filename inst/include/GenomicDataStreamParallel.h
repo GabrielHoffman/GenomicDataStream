@@ -59,7 +59,7 @@ class GenomicDataStreamParallel {
     bool useFilter = true;
 
     vector<DataChunk<T> > chunkSet;
-    chunkSet.reserve(numThreads);
+    chunkSet.reserve(min(numThreads, numChunks));
 
 
     Rcpp::Rcout << "numChunks: " << numChunks << std::endl;
@@ -90,20 +90,29 @@ class GenomicDataStreamParallel {
         }
 
         int chunkIdx = r.begin(); // which chunk
+        Rcpp::Rcout << "chunkIdx: " << chunkIdx << std::endl;
         
         // get reader and set region
         Rcpp::Rcout << "threadIdx: " << threadIdx << std::endl;
+        for( auto x: regionSets[chunkIdx]){
+          Rcpp::Rcout << x << std::endl;
+        }
         auto reader = readers[threadIdx];
+        Rcpp::Rcout << "got reader: " << std::endl;
         reader->setRegions( regionSets[chunkIdx] );
+        Rcpp::Rcout << "setRegions " << std::endl;
 
         // Get data and run analysis function
+        Rcpp::Rcout << "getchunkSet " << std::endl;
         DataChunk<T> chunk = chunkSet[threadIdx];
 
+        Rcpp::Rcout << "read variants " << std::endl;
         // while reader get variants
         while (reader->getNextChunk(chunk, useFilter)) {
           processFunc(chunk, chunkIdx);
         }
 
+        Rcpp::Rcout << "reset mutex " << std::endl;
         // push thread back into the pool
         {
           lock_guard<mutex> lock(mtx);
