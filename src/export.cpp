@@ -229,8 +229,10 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
 // [[Rcpp::export]]
 List summarizeChunks_rcpp( SEXP x, const int &threads=4){ 
 
+  Rcpp::Rcout << "summarizeChunks_rcpp()" << std::endl;
   Rcpp::XPtr<BoundDataStream> ptr(x);
 
+  Rcpp::Rcout << "summarizeChunks()" << std::endl;
   return summarizeChunks( ptr->ptr, threads );
 }
 
