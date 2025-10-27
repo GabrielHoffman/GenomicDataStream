@@ -42,6 +42,8 @@ class vcfstream :
 	*/
 	vcfstream(const Param & param) : GenomicDataStream(param) {
 
+		Rcpp::Rcout << "vcfstream" << std::endl;
+
 		// check that file exists	
 		if( ! filesystem::exists( param.file ) ){
 			throw runtime_error("File does not exist: " + param.file);
