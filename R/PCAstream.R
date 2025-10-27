@@ -48,11 +48,13 @@
 #'
 #' @details PCAstream implements the window-based Randomized SVD proposed by Li, et al. (2023).
 #' 
-#' If \code{scaleAndCenter}, the data matrix is scaled each feature has amean of zero and a cross-product of 1. In this case the sum of squares of all eigen values equals the number of features (i.e \code{sum(d^2) = p}).   
+#' If \code{scaleAndCenter}, the data matrix is scaled so that each feature has a mean of zero and a cross-product of 1. In this case the sum of squares of all eigen values equals the number of features (i.e \code{sum(d^2) = p}).   
 #'
-#' Computational time is spent on two steps.  1) Reading and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}  
-
-# 2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}  
+#' Computational time is spent on two steps: 
+#' 
+#' 1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}  
+#'
+#' 2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}  
 #'
 #' @note The singular vectors are not unique and only defined up to sign. If a left singular vector has its sign changed, changing the sign of the corresponding right vector gives an equivalent decomposition.
 #'
