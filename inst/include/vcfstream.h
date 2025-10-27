@@ -138,6 +138,7 @@ class vcfstream :
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
 
+		Rcpp::Rcout << "getNextChunk_helper" << std::endl
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
@@ -151,8 +152,7 @@ class vcfstream :
 		Rcpp::Rcout << "row: " << reader->nsamples << std::endl;
 		Rcpp::Rcout << "col: " << vInfo->size() << std::endl;
 
-	
-		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
+			arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
 
 	    chunk = DataChunk<arma::mat>( M, vInfo );
 
