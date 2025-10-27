@@ -104,12 +104,12 @@ class GenomicDataStreamParallel {
 
         // Get data and run analysis function
         Rcpp::Rcout << "getchunkSet " << std::endl;
-        DataChunk<T> chunk = chunkSet[threadIdx];
+        // DataChunk<T> chunk = chunkSet[threadIdx];
 
         Rcpp::Rcout << "read variants " << std::endl;
         // while reader get variants
-        while (reader->getNextChunk(chunk, useFilter)) {
-          processFunc(chunk, chunkIdx);
+        while (reader->getNextChunk(chunkSet[threadIdx], useFilter)) {
+          processFunc(chunkSet[threadIdx], chunkIdx);
         }
 
         Rcpp::Rcout << "reset mutex " << std::endl;
