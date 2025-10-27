@@ -39,7 +39,7 @@ class GenomicDataStreamParallel {
     // Initialize each reader, run in parallel
     limited_arena.execute([&] {
     tbb::parallel_for(
-    tbb::blocked_range<int>(0, numThreads, 1), 
+    tbb::blocked_range<int>(0, 1, 1), 
     [&](const tbb::blocked_range<int>& r){ 
 
         Rcpp::Rcout << "createFileView: " << r.begin() << std::endl;
