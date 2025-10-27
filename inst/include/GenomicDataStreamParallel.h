@@ -47,6 +47,8 @@ class GenomicDataStreamParallel {
       });
     });
 
+    Rcpp::Rcout << "After createFileViews run in parallel" << std::endl;
+
     // split regions by chunk
     regionSets = gds::chunk_vector(regions, numChunks);
   }
