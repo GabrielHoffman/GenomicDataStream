@@ -42,7 +42,7 @@ class GenomicDataStreamParallel {
     tbb::blocked_range<int>(0, numThreads, 1), 
     [&](const tbb::blocked_range<int>& r){ 
 
-        Rcpp::Rcout << "createFileView" << std::endl;
+        Rcpp::Rcout << "createFileView: " << r.begin() << std::endl;
         readers[r.begin()] = gds::createFileView(param);
         Rcpp::Rcout << "createFileView...done" << std::endl;
       });
