@@ -198,8 +198,9 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
   std::mutex mtx;  
   int nVariantsBeforeFilter = 0;
 
-  gsp.processChunks([&](const DataChunk<arma::mat> &chunk, size_t b) {
-  // while( gds->getNextChunk(chunk) ){
+  Rcpp::Rcout << "processChunks()" << std::endl;
+  // gsp.processChunks([&](const DataChunk<arma::mat> &chunk, size_t b) {
+  while( gds->getNextChunk(chunk) ){
 
     Rcpp::Rcout << "chunk" << std::endl;
     std::lock_guard<std::mutex> lock(mtx);
@@ -217,7 +218,7 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
     chunkCounts.push_back( info->size() );
 
     nVariantsBeforeFilter += info->getNVariantsBeforeFilter();
-  });
+  }//);
 
   return List::create(
         Named("intervals") = intervals,
