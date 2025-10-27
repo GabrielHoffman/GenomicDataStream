@@ -30,6 +30,9 @@ class GenomicDataStreamParallel {
     numThreads(numThreads), 
     limited_arena(numThreads) {
 
+
+    Rcpp::Rcout << "GenomicDataStreamParallel constructor" << std::endl;
+
     // reserve space for each reader
     readers.reserve(numThreads);
 
@@ -39,6 +42,7 @@ class GenomicDataStreamParallel {
     tbb::blocked_range<int>(0, numThreads, 1), 
     [&](const tbb::blocked_range<int>& r){ 
 
+        Rcpp::Rcout << "createFileView" << std::endl;
         readers[r.begin()] = gds::createFileView(param);
       });
     });
