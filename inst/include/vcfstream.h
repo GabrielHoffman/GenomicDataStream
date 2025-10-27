@@ -138,7 +138,7 @@ class vcfstream :
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
 
-		Rcpp::Rcout << "getNextChunk_helper" << std::endl
+		Rcpp::Rcout << "getNextChunk_helper" << std::endl;
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
