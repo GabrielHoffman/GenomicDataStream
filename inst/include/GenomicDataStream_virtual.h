@@ -33,17 +33,34 @@ namespace gds {
 template<typename matType>
 class DataChunk {
 	public:
-		DataChunk() : data() {}
+		DataChunk() : data(), info(nullptr) {}
 
-		DataChunk( matType data) :
-		  data(data) {} 
+		DataChunk( const matType &data) :
+		  data(data), info(nullptr) {} 
 
-		DataChunk( matType data, DataInfo *info) :
-		data(data), info(info) {}
+		DataChunk( const matType &data, DataInfo *info) :
+			data(data), info(info) {}
+
+		
+		/** Copy constructor
+		 */ 
+		DataChunk(const DataChunk &other){
+			Rcpp::Rcout << "Copy constructor" << std::endl;
+			data = other.data;
+			info = other.info;
+		}
+			
+		/** Destructor
+		 */ 
+		~DataChunk(){
+			Rcpp::Rcout << "Destructor" << std::endl;
+		}
 
 		/** Accessor
 		 */ 
-		matType getData() const { return data; }
+		matType getData() const { 
+			return data; 
+		}
 
 		/** Accessor
 		   */   
