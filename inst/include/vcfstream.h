@@ -87,6 +87,7 @@ class vcfstream :
 	/** destructor
 	 */ 
 	~vcfstream() override {
+		Rcpp::Rcout << "~vcfstream destructor" << std::endl;
 		if( reader != nullptr) delete reader;
 		if( record != nullptr) delete record;
 		if( vInfo != nullptr) delete vInfo;
