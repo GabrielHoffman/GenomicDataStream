@@ -104,9 +104,10 @@ class GenomicDataStreamParallel {
 
         // Get data and run analysis function
         Rcpp::Rcout << "read variants " << std::endl;
+        DataChunk<T> chk; //chunkSet[threadIdx]
         // while reader get variants
-        while (reader->getNextChunk(chunkSet[threadIdx], useFilter)) {
-          processFunc(chunkSet[threadIdx], chunkIdx);
+        while (reader->getNextChunk(chk, useFilter)) {
+          processFunc(chk, chunkIdx);
         }
 
         // push thread back into the pool

@@ -33,11 +33,7 @@ namespace gds {
 template<typename matType>
 class DataChunk {
 	public:
-		DataChunk() : data(), info(nullptr) {
-	  	Rcpp::Rcout << "DataChunk constuctor" << std::endl;
-	  	Rcpp::Rcout << "data.rows(): " << data.rows() << std::endl;
-	  	Rcpp::Rcout << "data.cols(): " << data.cols() << std::endl;
-		}
+		DataChunk() : data(), info(nullptr) {}
 
 		explicit DataChunk(matType d) : data(d), info(nullptr) {}
 		explicit DataChunk(matType d, DataInfo *info) : data(d), info(info) {}
