@@ -173,7 +173,6 @@ typedef struct BoundDataStream {
 
 }
 
-
 #include "GenomicDataStreamParallel.h"
 
 #endif

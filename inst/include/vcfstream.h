@@ -42,8 +42,6 @@ class vcfstream :
 	*/
 	vcfstream(const Param & param) : GenomicDataStream(param) {
 
-		Rcpp::Rcout << "\tvcfstream constructor..." << std::endl;
-
 		// check that file exists	
 		if( ! filesystem::exists( param.file ) ){
 			throw runtime_error("File does not exist: " + param.file);
@@ -80,14 +78,11 @@ class vcfstream :
 		// After j variants have been inserted, only entries up to j*nsamples are populated
 		//  the rest of the vector is allocated doesn't have valid data
 		matDosage.reserve( n_samples() * param.chunkSize );
-
-		Rcpp::Rcout << "\tvcfstream constructor...done" << std::endl;
 	}
 
 	/** destructor
 	 */ 
 	~vcfstream() override {
-		Rcpp::Rcout << "~vcfstream destructor" << std::endl;
 		if( reader != nullptr) delete reader;
 		if( record != nullptr) delete record;
 		if( vInfo != nullptr) delete vInfo;
@@ -143,7 +138,6 @@ class vcfstream :
 
 	bool getNextChunk( DataChunk<arma::mat> & chunk, const bool &useFilter = true) override {
 
-		Rcpp::Rcout << "getNextChunk_helper" << std::endl;
 		// Update matDosage and vInfo for the chunk
 		bool ret = getNextChunk_helper();
 
@@ -154,12 +148,10 @@ class vcfstream :
 		
 		// mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)
 		bool copy_aux_mem = false; // create read-only matrix without re-allocating memory
-		Rcpp::Rcout << "row: " << reader->nsamples << std::endl;
-		Rcpp::Rcout << "col: " << vInfo->size() << std::endl;
 
-			arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
+		arma::mat M(matDosage.data(), reader->nsamples, vInfo->size(), copy_aux_mem, true);
 
-	    chunk = DataChunk<arma::mat>( M, vInfo );
+    chunk = DataChunk<arma::mat>( M, vInfo );
 
 		return ret;
 	}
