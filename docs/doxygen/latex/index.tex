@@ -45,10 +45,10 @@
 \DoxyCodeLine{\textcolor{keywordflow}{while}(\ gdsStream-\/>getNextChunk(\ chunk\ )\ )\{}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ get\ data\ from\ chunk}}
-\DoxyCodeLine{\ \ \ \ arma::mat\ X\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}();}
+\DoxyCodeLine{\ \ \ \ arma::mat\ X\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a8694b418a7229000979d93490ba2a7eb}{getData}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ get\ variant\ information}}
-\DoxyCodeLine{\ \ \ \ info\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a48eb70592fa64b169e1569985d468294}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>();}
+\DoxyCodeLine{\ \ \ \ info\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a8803e2c0a7abed36e45f868a4a55767b}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Do\ analysis\ with\ variants\ in\ this\ chunk}}
 \DoxyCodeLine{\ \ \ \ analysis\_function(X,\ info);}
@@ -56,27 +56,20 @@
 
 \end{DoxyCode}
 \hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{Key Dependencies}{Key Dependencies}}\label{index_autotoc_md2}
-\tabulinesep=1mm
-\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
-\hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Package  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Ref  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Role  }\\\cline{1-3}
-\endfirsthead
-\hline
-\endfoot
-\hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Package  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Ref  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Role  }\\\cline{1-3}
-\endhead
-\href{https://cran.r-project.org/package=vcfppR}{\texttt{vcfppR}}  &\href{https://doi.org/10.1093/bioinformatics/btae049}{\texttt{Bioinformatics}}  &C++ API for htslib  \\\cline{1-3}
-\href{https://github.com/samtools/htslib}{\texttt{htslib}}  &\href{https://doi.org/10.1093/gigascience/giab007}{\texttt{Giga\+Science}}  &C API for VCF/\+BCF files  \\\cline{1-3}
-\href{https://cran.r-project.org/package=pgenlibr}{\texttt{pgenlibr}}  &\href{https://doi.org/10.1186/s13742-015-0047-8}{\texttt{Giga\+Science}}  &R/\+C++ API for plink files  \\\cline{1-3}
-\href{https://bioconductor.org/packages/beachmat/}{\texttt{beatchmat}}  &\href{https://doi.org/10.1371/journal.pcbi.1006135}{\texttt{PLoS Comp Biol}}  &C++ API for access data owned by R  \\\cline{1-3}
-\href{https://cran.r-project.org/package=Rcpp}{\texttt{Rcpp}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for R/\+C++ integration  \\\cline{1-3}
-\href{https://cran.r-project.org/package=RcppEigen}{\texttt{Rcpp\+Eigen}}  &\href{https://doi.org/10.18637/jss.v052.i05}{\texttt{J Stat Software}}  &API for Rcpp access to Eigen matrix library  \\\cline{1-3}
-\href{https://cran.r-project.org/package=RcppArmadillo}{\texttt{Rcpp\+Armadillo}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for Rcpp access to Armadillo matrix library  \\\cline{1-3}
-\href{https://eigen.tuxfamily.org/index.php?title=Main_Page}{\texttt{Eigen}}  &&C++ library for linear algebra with advanced features  \\\cline{1-3}
-\href{https://arma.sourceforge.net}{\texttt{Armadillo}}  &\href{https://doi.org/10.21105/joss.00026}{\texttt{J Open Src Soft}}  &User-\/friendly C++ library for linear algebra  \\\cline{1-3}
-\href{https://rcppcore.github.io/RcppParallel/}{\texttt{Rcpp\+Parallel}}  &&one\+API \href{https://uxlfoundation.github.io/oneTBB/}{\texttt{Threading Building Blocks}} for parallel analysis  \\\cline{1-3}
-\end{longtabu}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Package  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Ref  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Role  \\
+\href{https://cran.r-project.org/package=vcfppR}{\texttt{vcfppR}}  &\href{https://doi.org/10.1093/bioinformatics/btae049}{\texttt{Bioinformatics}}  &C++ API for htslib  \\
+\href{https://github.com/samtools/htslib}{\texttt{htslib}}  &\href{https://doi.org/10.1093/gigascience/giab007}{\texttt{Giga\+Science}}  &C API for VCF/\+BCF files  \\
+\href{https://cran.r-project.org/package=pgenlibr}{\texttt{pgenlibr}}  &\href{https://doi.org/10.1186/s13742-015-0047-8}{\texttt{Giga\+Science}}  &R/\+C++ API for plink files  \\
+\href{https://bioconductor.org/packages/beachmat/}{\texttt{beatchmat}}  &\href{https://doi.org/10.1371/journal.pcbi.1006135}{\texttt{PLoS Comp Biol}}  &C++ API for access data owned by R  \\
+\href{https://cran.r-project.org/package=Rcpp}{\texttt{Rcpp}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for R/\+C++ integration  \\
+\href{https://cran.r-project.org/package=RcppEigen}{\texttt{Rcpp\+Eigen}}  &\href{https://doi.org/10.18637/jss.v052.i05}{\texttt{J Stat Software}}  &API for Rcpp access to Eigen matrix library  \\
+\href{https://cran.r-project.org/package=RcppArmadillo}{\texttt{Rcpp\+Armadillo}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for Rcpp access to Armadillo matrix library  \\
+\href{https://eigen.tuxfamily.org/index.php?title=Main_Page}{\texttt{Eigen}}  &&C++ library for linear algebra with advanced features  \\
+\href{https://arma.sourceforge.net}{\texttt{Armadillo}}  &\href{https://doi.org/10.21105/joss.00026}{\texttt{J Open Src Soft}}  &User-\/friendly C++ library for linear algebra  \\
+\href{https://rcppcore.github.io/RcppParallel/}{\texttt{Rcpp\+Parallel}}  &&one\+API \href{https://uxlfoundation.github.io/oneTBB/}{\texttt{Threading Building Blocks}} for parallel analysis  \\
+\end{DoxyTable}
 \hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{index_autotoc_md3}
  {\ttfamily \doxylink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in {\ttfamily Makevars}\+: 
 

@@ -72,7 +72,7 @@
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note,\ this\ allocates\ memory\ but\ does\ not\ change\ .size()}}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ After\ j\ variants\ have\ been\ inserted,\ only\ entries\ up\ to\ j*nsamples\ are\ populated}}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ the\ rest\ of\ the\ vector\ is\ allocated\ doesn't\ have\ valid\ data}}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ matDosage.reserve(\ \mbox{\hyperlink{classgds_1_1pgenstream_aef5ae327d7694f75dfbe1ccdeeab4230}{n\_samples}}()\ *\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.chunkSize\ );\ \ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ matDosage.reserve(\ \mbox{\hyperlink{classgds_1_1pgenstream_aef5ae327d7694f75dfbe1ccdeeab4230}{n\_samples}}()\ *\ \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}.chunkSize\ );\ \ \ \ \ }
 \DoxyCodeLine{00077\ \ \ \ \ \}}
 \DoxyCodeLine{00078\ \ }
 \DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{classgds_1_1pgenstream_a601985a8bdce3bc6b286d418734ce4ad}{\string~pgenstream}}()\{}
@@ -279,7 +279,7 @@
 \DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Populate\ vInfo\ from\ DataTable}}
 \DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looking\ up\ column\ in\ DataTable\ is\ slow}}
 \DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ do\ it\ once\ and\ process\ vector}}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_aa70e661e224740aed4f8fdc3729b9063}{addVariants}}(\ \ subset\_vector(dt[\textcolor{stringliteral}{"{}CHROM"{}}],\ varIdx\_sub),}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ vInfo-\/>\mbox{\hyperlink{classgds_1_1_variant_info_aa70e661e224740aed4f8fdc3729b9063}{addVariants}}(\ subset\_vector(dt[\textcolor{stringliteral}{"{}CHROM"{}}],\ varIdx\_sub),}
 \DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subset\_vector(dt[\textcolor{stringliteral}{"{}POS"{}}],\ varIdx\_sub),\ }
 \DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subset\_vector(dt[\textcolor{stringliteral}{"{}ID"{}}],\ varIdx\_sub),\ }
 \DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subset\_vector(dt[\textcolor{stringliteral}{"{}REF"{}}],\ varIdx\_sub),\ }

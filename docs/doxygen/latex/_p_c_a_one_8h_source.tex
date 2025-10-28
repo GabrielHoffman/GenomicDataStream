@@ -38,7 +38,7 @@
 \DoxyCodeLine{00034\ \};}
 \DoxyCodeLine{00035\ }
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \mbox{\hyperlink{struct_p_c_a}{PCA}}\ \mbox{\hyperlink{_p_c_a_one_8h_a70ad9df83e84f234d9383137fb68f644}{pcaone}}(\ \ \ \ \textcolor{keyword}{const}\ shared\_ptr<GenomicDataStream>\ \mbox{\hyperlink{namespacegds}{gds}},}
+\DoxyCodeLine{00037\ \mbox{\hyperlink{struct_p_c_a}{PCA}}\ \mbox{\hyperlink{_p_c_a_one_8h_a70ad9df83e84f234d9383137fb68f644}{pcaone}}(\ \textcolor{keyword}{const}\ shared\_ptr<GenomicDataStream>\ \mbox{\hyperlink{namespacegds}{gds}},}
 \DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&region,}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ m,\ }
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ k,\ }
@@ -85,7 +85,7 @@
 \DoxyCodeLine{00081\ }
 \DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\{1\},\ \ start\{0\};}
 \DoxyCodeLine{00083\ \ \ \ \ gsp.\mbox{\hyperlink{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}{processChunks}}([\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<Eigen::MatrixXd>}}\ \&chunk,\ \textcolor{keywordtype}{size\_t}\ b)\ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ Ab\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a3970f4f45e6f3f85d8c0619282a630dd}{getData}}();}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ Ab\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a8694b418a7229000979d93490ba2a7eb}{getData}}();}
 \DoxyCodeLine{00085\ }
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ scaleAndCenter\ )\{}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ standardize(Ab);}
@@ -95,7 +95,7 @@
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(pcaMutex);}
 \DoxyCodeLine{00092\ }
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pi\ ==\ 0)\{}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a48eb70592fa64b169e1569985d468294}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>()-\/>getFeatureNames();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a8803e2c0a7abed36e45f868a4a55767b}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>()-\/>getFeatureNames();}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ featureIds.insert(featureIds.end(),\ }
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp.begin(),\ tmp.end());}
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
