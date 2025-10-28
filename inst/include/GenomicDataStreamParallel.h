@@ -37,16 +37,21 @@ class GenomicDataStreamParallel {
     readers.reserve(numThreads);
 
     // Initialize each reader, run in parallel
-    limited_arena.execute([&] {
-    tbb::parallel_for(
-    tbb::blocked_range<int>(0, numThreads, 1), 
-    [&](const tbb::blocked_range<int>& r){ 
+    // limited_arena.execute([&] {
+    // tbb::parallel_for(
+    // tbb::blocked_range<int>(0, numThreads, 1), 
+    // [&](const tbb::blocked_range<int>& r){ 
 
-        Rcpp::Rcout << "createFileView: " << r.begin() << std::endl;
-        readers[r.begin()] = gds::createFileView(param);
-        Rcpp::Rcout << "createFileView...done" << std::endl;
-      });
-    });
+    //     Rcpp::Rcout << "createFileView: " << r.begin() << std::endl;
+    //     readers[r.begin()] = gds::createFileView(param);
+    //     Rcpp::Rcout << "createFileView...done" << std::endl;
+    //   });
+    // });
+
+    for(int i=0; i<numThreads; i++){
+      readers[i] = gds::createFileView(param);
+    }
+
 
     Rcpp::Rcout << "After createFileViews run in parallel" << std::endl;
 
