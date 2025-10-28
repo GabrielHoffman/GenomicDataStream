@@ -35,8 +35,8 @@ class DataChunk {
 	public:
 		DataChunk() : data(), info(nullptr) {}
 
-		explicit DataChunk(matType d) : data(std::move(d)), info(nullptr) {}
-		explicit DataChunk(matType d, DataInfo *info) : data(std::move(d)), info(info) {}
+		explicit DataChunk(matType d) : data(d), info(nullptr) {}
+		explicit DataChunk(matType d, DataInfo *info) : data(d), info(info) {}
 
 		DataChunk(DataChunk&&) noexcept = default;
   	DataChunk& operator=(DataChunk&&) noexcept = default;
@@ -47,7 +47,7 @@ class DataChunk {
 
 	  void setItems( const matType &d, DataInfo *inf){
 	  	Rcpp::Rcout << "setItems" << std::endl;
-	  	data = std::move(d);
+	  	data = d;
 	  	Rcpp::Rcout << "\tsetItems done" << std::endl;
 	  	info = inf;
 	  }
@@ -71,7 +71,7 @@ class DataChunk {
 			return static_cast<const infoType *>( info );
 		}   
 
-		// private:
+		private:
 		matType data;
 		DataInfo *info;
 };
