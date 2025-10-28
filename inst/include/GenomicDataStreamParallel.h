@@ -49,8 +49,7 @@ class GenomicDataStreamParallel {
     // });
 
     for(int i=0; i<numThreads; i++){
-      // readers[i] = gds::createFileView(param);
-      readers[i] = make_shared<vcfstream>( param );
+      readers[i] = gds::createFileView(param);
     }
 
 
