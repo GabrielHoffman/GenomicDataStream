@@ -20,9 +20,9 @@
 #' @export
 standardize_in_place <- function(X, center=TRUE, scale=TRUE){
 
-	stopifnot(is.matrix(X))
-	stopifnot(is.logical(center))
-	stopifnot(is.logical(scale))
+  stopifnot(is.matrix(X))
+  stopifnot(is.logical(center))
+  stopifnot(is.logical(scale))
 
-	.standardize_in_place(X, center, scale)
+  .standardize_in_place(X, center, scale)
 }

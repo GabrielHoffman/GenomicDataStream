@@ -32,7 +32,7 @@ test_sample_order = function(){
 	# VCF/BCF/PGEN: uses order in file
 	res = c()
 	for(file in files){
-	# 	cat(basename(file), ": ")	
+		cat(basename(file), ": ")	
 		ids.rnd = sample(ids, length(ids), replace=FALSE)
 
 		gds1 <- GenomicDataStream(file, "GT", initialize = TRUE, samples=ids.rnd)

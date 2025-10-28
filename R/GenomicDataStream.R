@@ -51,8 +51,8 @@ as.list.GenomicDataStream <- function(x, ...) {
 #' @param samples string of comma separated sample IDs to extract: \code{"ID1,ID2,ID3"}.  \code{"-"} indicates all samples
 #' @param MAF minor allele frequency filter applied to variants with max value <= 2. Use \code{NaN} to retain all variants
 #' @param minVariance minimum variance filter applied to variants with max value > 2
-#' @param chunkSize	number of variants to return per chunk
-#' @param missingToMean	if true, set missing values to the mean dosage value. if false, set to \code{NaN}
+#' @param chunkSize number of variants to return per chunk
+#' @param missingToMean if true, set missing values to the mean dosage value. if false, set to \code{NaN}
 #' @param initialize default \code{FALSE}.  If \code{TRUE}, file info is read from path, otherwise store path until \code{GenomicDataStream} is initialized later
 #'
 #' @details Variants are filtered using \code{MAF} if the max value is <=2, or \code{minVariance} otherwise

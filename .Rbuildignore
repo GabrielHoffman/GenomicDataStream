@@ -14,3 +14,5 @@ lucida
 _pkgdown.yml
 Rprof.out
 pkgdown
+\.a$
+\.html$

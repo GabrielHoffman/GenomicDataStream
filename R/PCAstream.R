@@ -99,7 +99,7 @@ setMethod(
   stopifnot(is(x, "GenomicDataStream"))
   stopifnot(k >= 2)
 
-  if( verbose ) cat("Read through...\n")
+  if( verbose ) message("Read through...\n")
 
   # get summary of GenomicDataStream
   sObj <- summarizeChunks(x, threads)
@@ -160,12 +160,12 @@ setMethod(
 
   if( verbose ){   
     if( length(N) > 0){ 
-      cat(" # samples:", format(N, big.mark=','), "\n")
+      message(" # samples:", format(N, big.mark=','), "\n")
     }
-    cat(" # features:", format(M, big.mark=','), "\n")
-    cat(" # chunks:", format(nchunks, big.mark=','), "\n")
-    cat(" # PCs:", k, "\n")
-    cat(" # threads:", n_pll_chunks, "\n")
+    message(" # features:", format(M, big.mark=','), "\n")
+    message(" # chunks:", format(nchunks, big.mark=','), "\n")
+    message(" # PCs:", k, "\n")
+    message(" # threads:", n_pll_chunks, "\n")
   }
 
   # p <- max(c(p, log2(B)+1)) 
@@ -221,7 +221,7 @@ setMethod(
 
   if( scaleAndCenter ){
     if( verbose ){
-      cat("Scale and centering...\n")
+      message("Scale and centering...\n")
     }
     # compute mean and scale of columns
     ptr <- initializeCpp(x)

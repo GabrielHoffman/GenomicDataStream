@@ -42,7 +42,7 @@ LinkingTo:
   assorthead,  
   BH (>= 1.87.0),
   vcfppR (>= 0.8.1), 
-  pgenlibr (>= 0.5.0)
+  pgenlibr (>= 0.5.3)
 biocViews:
   DataImport,
   Infrastructure
