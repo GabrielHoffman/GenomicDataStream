@@ -33,10 +33,13 @@ namespace gds {
 template<typename matType>
 class DataChunk {
 	public:
-		DataChunk() : data(), info(nullptr) {}
+		DataChunk() : 
+			data(), info(nullptr) {}
 
-		explicit DataChunk(matType d) : data(d), info(nullptr) {}
-		explicit DataChunk(matType d, DataInfo *info) : data(d), info(info) {}
+		explicit DataChunk(matType d) : 
+			data(std::move(d)), info(nullptr) {}
+		explicit DataChunk(matType d, DataInfo *info) : 
+			data(std::move(d)), info(info) {}
 
 		DataChunk(DataChunk&&) noexcept = default;
   	DataChunk& operator=(DataChunk&&) noexcept = default;
@@ -46,22 +49,13 @@ class DataChunk {
 		
 
 	  void setItems( const matType &d, DataInfo *inf){
-	  	Rcpp::Rcout << "setItems" << std::endl;
-
-	  	Rcpp::Rcout << "data.rows(): " << data.rows() << std::endl;
-	  	Rcpp::Rcout << "data.cols(): " << data.cols() << std::endl;
-	  	Rcpp::Rcout << "d.rows(): " << d.rows() << std::endl;
-	  	Rcpp::Rcout << "d.cols(): " << d.cols() << std::endl;
-
-	  	data = d;
-	  	Rcpp::Rcout << "\tsetItems done" << std::endl;
+	  	data = std::move(d);
 	  	info = inf;
 	  }
 
 		/** Destructor
 		 */ 
 		~DataChunk(){
-			Rcpp::Rcout << "Destructor" << std::endl;
 		}
 
 		/** Accessor

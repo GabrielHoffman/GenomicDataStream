@@ -192,17 +192,14 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
   vector<string> reg = gds->getParam().getRegions();
   int nchunks = MIN(reg.size(), 64);
 
-  Rcpp::Rcout << "GenomicDataStreamParallel()" << std::endl;
   GenomicDataStreamParallel<arma::mat> gsp(gds->getParam(), reg, nchunks, threads);
 
   std::mutex mtx;  
   int nVariantsBeforeFilter = 0;
 
-  Rcpp::Rcout << "processChunks()" << std::endl;
   gsp.processChunks([&](const DataChunk<arma::mat> &chunk, size_t b) {
   // while( gds->getNextChunk(chunk) ){
 
-    Rcpp::Rcout << "chunk" << std::endl;
     std::lock_guard<std::mutex> lock(mtx);
 
     // get variant information
@@ -233,10 +230,8 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
 // [[Rcpp::export]]
 List summarizeChunks_rcpp( SEXP x, const int &threads=4){ 
 
-  Rcpp::Rcout << "summarizeChunks_rcpp()" << std::endl;
   Rcpp::XPtr<BoundDataStream> ptr(x);
 
-  Rcpp::Rcout << "summarizeChunks()" << std::endl;
   return summarizeChunks( ptr->ptr, threads );
 }
 

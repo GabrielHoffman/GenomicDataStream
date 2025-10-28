@@ -30,9 +30,6 @@ class GenomicDataStreamParallel {
     numThreads(numThreads), 
     limited_arena(numThreads) {
 
-
-    Rcpp::Rcout << "GenomicDataStreamParallel constructor" << std::endl;
-
     // reserve space for each reader
     readers.reserve(numThreads);
 
@@ -55,8 +52,6 @@ class GenomicDataStreamParallel {
       });
     });
 
-    Rcpp::Rcout << "After createFileViews run in parallel" << std::endl;
-
     // split regions by chunk
     regionSets = gds::chunk_vector(regions, numChunks);
   }
@@ -65,14 +60,8 @@ class GenomicDataStreamParallel {
 
     bool useFilter = true;
 
-    vector<DataChunk<T> > chunkSet;
-    chunkSet.reserve(min(numThreads, numChunks));
-
-
-    Rcpp::Rcout << "numChunks: " << numChunks << std::endl;
-    Rcpp::Rcout << "numThreads: " << numThreads << std::endl;
-    Rcpp::Rcout << "readers.size(): " << readers.size() << std::endl;
-
+    // vector<DataChunk<T> > chunkSet;
+    // chunkSet.reserve(min(numThreads, numChunks));
 
     mutex mtx;  
 
@@ -103,8 +92,7 @@ class GenomicDataStreamParallel {
         reader->setRegions( regionSets[chunkIdx] );
 
         // Get data and run analysis function
-        Rcpp::Rcout << "read variants " << std::endl;
-        DataChunk<T> chk; //chunkSet[threadIdx]
+        DataChunk<T> chk; 
         // while reader get variants
         while (reader->getNextChunk(chk, useFilter)) {
           processFunc(chk, chunkIdx);
