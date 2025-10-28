@@ -39,11 +39,13 @@ CXX_STD=CXX17
 
 PKG_CXXFLAGS = -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF -DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS -DNBOOST_THREAD_PROVIDES_INTERRUPTIONS -DNDEBUG
 PKG_CFLAGS =-DSQLITE_WITHOUT_ZONEMALLOC -DNDEBUG
-PKG_CXXFLAGS += -O0 -g3 -fno-omit-frame-pointer
+
+# DEBUGGING
+# PKG_CXXFLAGS += -O0 -g3 -fno-omit-frame-pointer
 
 # TBB support
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1
-PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()")
+PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()") -lpthread
 
 PKG_LIBS += ../inst/include/htslib-1.21/libhts.a
 
