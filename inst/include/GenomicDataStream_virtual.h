@@ -35,21 +35,15 @@ class DataChunk {
 	public:
 		DataChunk() : data(), info(nullptr) {}
 
-		DataChunk( const matType &data) :
-		  data(data), info(nullptr) {} 
+		explicit DataChunk(matType d) : data(std::move(d)), info(nullptr) {}
+		explicit DataChunk(matType d, DataInfo *info) : data(std::move(d)), info(info) {}
 
-		DataChunk( const matType &data, DataInfo *info) :
-			data(data), info(info) {}
+		DataChunk(DataChunk&&) noexcept = default;
+  	DataChunk& operator=(DataChunk&&) noexcept = default;
 
+	  DataChunk(const DataChunk&) = delete;
+	  DataChunk& operator=(const DataChunk&) = delete;
 		
-		/** Copy constructor
-		 */ 
-		DataChunk(const DataChunk &other){
-			Rcpp::Rcout << "Copy constructor" << std::endl;
-			data = other.data;
-			info = other.info;
-		}
-			
 		/** Destructor
 		 */ 
 		~DataChunk(){
@@ -58,16 +52,16 @@ class DataChunk {
 
 		/** Accessor
 		 */ 
-		matType getData() const { 
-			return data; 
-		}
+	  const matType& getData() const & { return data; }
+	        matType& getData()       & { return data; }
+	        matType  getData()      && { return std::move(data); }
 
 		/** Accessor
-		   */   
-		template<typename infoType>
+	   */   
+	  template<typename infoType>
 		infoType * getInfo() const { 
 			return static_cast<infoType *>( info );
-		}    
+		}   
 
 		// private:
 		matType data;
