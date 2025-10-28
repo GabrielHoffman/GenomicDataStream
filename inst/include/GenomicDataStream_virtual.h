@@ -44,6 +44,12 @@ class DataChunk {
 	  DataChunk(const DataChunk&) = delete;
 	  DataChunk& operator=(const DataChunk&) = delete;
 		
+
+	  void setItems( const matType &d, DataInfo *inf){
+	  	data = std::move(d);
+	  	info = inf;
+	  }
+
 		/** Destructor
 		 */ 
 		~DataChunk(){
@@ -59,8 +65,8 @@ class DataChunk {
 		/** Accessor
 	   */   
 	  template<typename infoType>
-		infoType * getInfo() const { 
-			return static_cast<infoType *>( info );
+		const infoType * getInfo() const { 
+			return static_cast<const infoType *>( info );
 		}   
 
 		// private:

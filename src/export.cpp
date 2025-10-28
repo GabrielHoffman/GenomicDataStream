@@ -165,7 +165,7 @@ List getNextChunk_rcpp( SEXP x){
 	// Convert genotype values for return
 	// set colnames as variant IDs
 	// set rownames as sample IDs
-	VariantInfo *info = chunk.getInfo<VariantInfo>();
+	const VariantInfo *info = chunk.getInfo<VariantInfo>();
 
 	NumericMatrix X = wrap( chunk.getData() );
 	colnames(X) = wrap( info->getFeatureNames() );
@@ -206,7 +206,7 @@ List summarizeChunks( const shared_ptr<GenomicDataStream> gds, const int &thread
     std::lock_guard<std::mutex> lock(mtx);
 
     // get variant information
-    VariantInfo *info = chunk.getInfo<VariantInfo>(); 
+    const VariantInfo *info = chunk.getInfo<VariantInfo>(); 
 
     tmp = info->getFeatureNames();
     variantIDs.insert(variantIDs.end(), tmp.begin(), tmp.end());

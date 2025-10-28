@@ -193,7 +193,8 @@ class vcfstream :
 		Rcpp::Rcout << "M.cols(): " << M.cols() << std::endl;
 		Rcpp::Rcout << "vInfo->size(): " << vInfo->size() << std::endl;
 
-		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
+		// chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
+		chunk.setItems( M, vInfo );
 
 		return ret;
 	}
