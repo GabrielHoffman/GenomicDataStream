@@ -188,6 +188,11 @@ class vcfstream :
 		
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
+		Rcpp::Rcout << "Create chunk" << std::endl;
+		Rcpp::Rcout << "M.rows(): " << M.rows() << std::endl;
+		Rcpp::Rcout << "M.cols(): " << M.cols() << std::endl;
+		Rcpp::Rcout << "vInfo->size(): " << vInfo->size() << std::endl;
+
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
 
 		return ret;
