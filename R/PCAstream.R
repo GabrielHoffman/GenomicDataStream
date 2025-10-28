@@ -99,7 +99,7 @@ setMethod(
   stopifnot(is(x, "GenomicDataStream"))
   stopifnot(k >= 2)
 
-  if( verbose ) message("Read through...\n")
+  if( verbose ) message("Read through...")
 
   # get summary of GenomicDataStream
   sObj <- summarizeChunks(x, threads)
@@ -160,12 +160,12 @@ setMethod(
 
   if( verbose ){   
     if( length(N) > 0){ 
-      message(" # samples:", format(N, big.mark=','), "\n")
+      message(" # samples:", format(N, big.mark=','))
     }
-    message(" # features:", format(M, big.mark=','), "\n")
-    message(" # chunks:", format(nchunks, big.mark=','), "\n")
-    message(" # PCs:", k, "\n")
-    message(" # threads:", n_pll_chunks, "\n")
+    message(" # features: ", format(M, big.mark=','))
+    message(" # chunks: ", format(nchunks, big.mark=','))
+    message(" # PCs: ", k)
+    message(" # threads: ", n_pll_chunks)
   }
 
   # p <- max(c(p, log2(B)+1)) 
@@ -192,7 +192,7 @@ setMethod(
   rownames(res$v) <- res$featureIds
 
   # if( length(res$featureIds) != length(sObj$variantIDs)){
-  #   warning("Lenght does not match")
+  #   warning("Length does not match")
   # }
   res$v <- res$v[sObj$variantIDs,,drop=FALSE]
   res$featureIds <- NULL
@@ -221,7 +221,7 @@ setMethod(
 
   if( scaleAndCenter ){
     if( verbose ){
-      message("Scale and centering...\n")
+      message("Scale and centering...")
     }
     # compute mean and scale of columns
     ptr <- initializeCpp(x)
@@ -294,7 +294,7 @@ setMethod(
 #' # Example: PCA on gene expression data
 #' library(muscat)
 #' library(SingleCellExperiment)
-#' library(GenomicDataStream)
+#' library(GenomicDataStream) 
 #' 
 #' data(example_sce)
 #' sce <- example_sce

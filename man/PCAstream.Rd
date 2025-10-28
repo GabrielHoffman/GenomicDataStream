@@ -150,7 +150,7 @@ plot(res)
 # Example: PCA on gene expression data
 library(muscat)
 library(SingleCellExperiment)
-library(GenomicDataStream)
+library(GenomicDataStream) 
 
 data(example_sce)
 sce <- example_sce
