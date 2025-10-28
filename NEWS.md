@@ -1,5 +1,8 @@
 
 
+# GenomicDataStream 0.0.62
+ - Fix bugs in `PCA`, `DataChunk` and `GenomicDataStreamParallel`
+ 
 # GenomicDataStream 0.0.61
  - update Makefile to resolve install issues
 

@@ -46,12 +46,6 @@ class DataChunk {
 
 	  DataChunk(const DataChunk&) = delete;
 	  DataChunk& operator=(const DataChunk&) = delete;
-		
-
-	  void setItems( const matType &d, DataInfo *inf){
-	  	data = std::move(d);
-	  	info = inf;
-	  }
 
 		/** Destructor
 		 */ 

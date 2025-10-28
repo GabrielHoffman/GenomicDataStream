@@ -60,6 +60,7 @@ class GenomicDataStreamParallel {
 
     bool useFilter = true;
 
+    // define a chunk per thread
     // vector<DataChunk<T> > chunkSet;
     // chunkSet.reserve(min(numThreads, numChunks));
 

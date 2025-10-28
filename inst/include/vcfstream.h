@@ -189,7 +189,6 @@ class vcfstream :
 		Eigen::MatrixXd M = Eigen::Map<Eigen::MatrixXd>(matDosage.data(), reader->nsamples, vInfo->size());
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, vInfo );
-		// chunk.setItems( M, vInfo );
 
 		return ret;
 	}
