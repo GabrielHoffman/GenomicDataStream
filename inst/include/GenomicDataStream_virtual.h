@@ -47,6 +47,12 @@ class DataChunk {
 
 	  void setItems( const matType &d, DataInfo *inf){
 	  	Rcpp::Rcout << "setItems" << std::endl;
+
+	  	Rcpp::Rcout << "data.rows(): " << data.rows() << std::endl
+	  	Rcpp::Rcout << "data.cols(): " << data.cols() << std::endl
+	  	Rcpp::Rcout << "d.rows(): " << d.rows() << std::endl
+	  	Rcpp::Rcout << "d.cols(): " << d.cols() << std::endl;
+
 	  	data = d;
 	  	Rcpp::Rcout << "\tsetItems done" << std::endl;
 	  	info = inf;
