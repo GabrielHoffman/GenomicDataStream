@@ -160,7 +160,7 @@ setMethod(
 
   if( verbose ){   
     if( length(N) > 0){ 
-      message(" # samples:", format(N, big.mark=','))
+      message(" # samples: ", format(N, big.mark=','))
     }
     message(" # features: ", format(M, big.mark=','))
     message(" # chunks: ", format(nchunks, big.mark=','))
