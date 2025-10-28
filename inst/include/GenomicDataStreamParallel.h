@@ -49,9 +49,8 @@ class GenomicDataStreamParallel {
     // });
 
     for(int i=0; i<numThreads; i++){
-      readers.push_back( make_shared<vcfstream>( param ) );
+      readers.push_back( createFileView( param ) );
     }
-
 
     Rcpp::Rcout << "After createFileViews run in parallel" << std::endl;
 
