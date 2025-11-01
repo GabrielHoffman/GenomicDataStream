@@ -66,7 +66,7 @@ PCAstream(
 )
 }
 \arguments{
-\item{x}{\code{GenomicDataStream}}
+\item{x}{\code{GenomicDataStream}, or matrix as \code{matrix}, \code{DelayedArray}.}
 
 \item{k}{integer; \cr
 specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.}
@@ -129,7 +129,9 @@ Computational time is spent on two steps:
 
 1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}  
 
-2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}
+2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}  
+
+If \code{x} is a matrix, PCA is performed using rows as features. Note: this is the _transpose_ of what \code{svd()} does.
 }
 \note{
 The singular vectors are not unique and only defined up to sign. If a left singular vector has its sign changed, changing the sign of the corresponding right vector gives an equivalent decomposition.

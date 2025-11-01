@@ -111,7 +111,7 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p><code>GenomicDataStream</code></p></dd>
+<dd><p><code>GenomicDataStream</code>, or matrix as <code>matrix</code>, <code>DelayedArray</code>.</p></dd>
 
 
 <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
@@ -196,6 +196,7 @@ if <code>TRUE</code> (default), print details</p></dd>
 <p>Computational time is spent on two steps:</p>
 <p>1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting <code>threads</code></p>
 <p>2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting <code>threads2</code></p>
+<p>If <code>x</code> is a matrix, PCA is performed using rows as features. Note: this is the _transpose_ of what <code><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd()</a></code> does.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>

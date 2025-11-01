@@ -514,7 +514,7 @@ chopChroms <- function( x, nchunks = 10){
     return("")
   }
 
-  k <- (nchunks+1) / seq(nrow(df))
+  k <- ceiling((nchunks+1) / nrow(df))
 
   regions <- lapply(seq(nrow(df)), function(i){
 
@@ -531,11 +531,6 @@ chopChroms <- function( x, nchunks = 10){
     })
   unlist(regions)
 }
-
-
-
-
-
 
 
 

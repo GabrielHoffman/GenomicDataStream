@@ -277,10 +277,11 @@ rbind(res, res2) %>%
     geom_point(size=4) +
     theme_bw() +
     theme(aspect.ratio=1, legend.position="right") +
-    ylab("Time (seconds)") +
-    xlab("Number of cells") + 
-    scale_x_log10()+ 
-    scale_y_log10()
+    ylab("Time (seconds) (log10 scale)") +
+    xlab("Number of cells (log10 scale)") + 
+    scale_x_log10() + 
+    scale_y_log10() +
+    scale_color_brewer(palette="Set1")
 ```
 
 

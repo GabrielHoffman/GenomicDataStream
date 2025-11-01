@@ -187,7 +187,8 @@ res %>%
   theme(aspect.ratio=1, legend.position="none") +
   scale_y_continuous(limits=c(0, NA), expand=c(0,0)) +
   ylab("Time (seconds)") +
-  xlab("File type") 
+  xlab("File type") +
+  scale_fill_brewer(palette="Set1")
 ```
 
 

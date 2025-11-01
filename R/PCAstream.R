@@ -1,6 +1,6 @@
 #' Window-based Randomized SVD 
 #' 
-#' @param x  \code{GenomicDataStream}
+#' @param x  \code{GenomicDataStream}, or matrix as \code{matrix}, \code{DelayedArray}. 
 #'
 #' @param k       integer; \cr
 #'                specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.
@@ -55,6 +55,8 @@
 #' 1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}  
 #'
 #' 2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}  
+#'
+#' If \code{x} is a matrix, PCA is performed using rows as features. Note: this is the _transpose_ of what \code{svd()} does.
 #'
 #' @note The singular vectors are not unique and only defined up to sign. If a left singular vector has its sign changed, changing the sign of the corresponding right vector gives an equivalent decomposition.
 #'
@@ -183,7 +185,8 @@ setMethod(
           B = B, 
           threads = n_pll_chunks, 
           threads_eigen = threads2,
-          verbose = verbose)
+          verbose = verbose, 
+          scaleAndCenter = scaleAndCenter)
 
   # set row and column names
   # Since variant order can be shuffled
@@ -256,20 +259,21 @@ setMethod(
 
   ptr <- initializeCpp(x)
 
-  res <- stream_pcaone_robj(x = ptr, 
-                        ids = rownames(x),
-                        n = N,
-                        chunkSize = chunkSize,
-                        nchunks = ceiling(M/chunkSize), 
-                        m = M, 
-                        k = k, 
-                        s = s, 
-                        p = p, 
-                        B = B, 
-                        threads = threads, 
-                        threads_eigen = threads2,
-                        verbose = verbose,
-                        scaleAndCenter = FALSE)
+  res <- stream_pcaone_robj(
+    x = ptr, 
+    ids = rownames(x),
+    n = N,
+    chunkSize = chunkSize,
+    nchunks = ceiling(M/chunkSize), 
+    m = M, 
+    k = k, 
+    s = s, 
+    p = p, 
+    B = B, 
+    threads = threads, 
+    threads_eigen = threads2,
+    verbose = verbose,
+    scaleAndCenter = FALSE)
 
   # set row and column names
   rownames(res$u) <- colnames(x)

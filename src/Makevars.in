@@ -61,7 +61,7 @@ all: build_subprojects $(SHLIB)
 $(SHLIB): ${OBJECTS} Makevars #libBGEN.a
 
 build_subprojects:
-	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -g -O2 -fvisibility=hidden"
+	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall  -O2 -fvisibility=hidden"
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
