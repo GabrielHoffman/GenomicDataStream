@@ -41,11 +41,12 @@ class VariantInfo :
                     const string &allele1, 
                     const string &allele2){
 
-        CHROM.push_back( chr );
-        POS.push_back( pos );
-        ID.push_back( id );
-        A1.push_back( allele1 );
-        A2.push_back( allele2 );
+      CHROM.push_back( chr );
+      POS.push_back( pos );
+      ID.push_back( id );
+      A1.push_back( allele1 );
+      A2.push_back( allele2 );
+      nVariantsBeforeFilter = POS.size();
     }
 
     /** add information for many variant at a time
@@ -56,40 +57,42 @@ class VariantInfo :
                     const vector<string> &allele1, 
                     const vector<string> &allele2){
 
-        int len = chr.size();
+      int len = chr.size();
 
-        if( pos.size() != len || 
-            id.size() != len ||
-            allele1.size() != len || 
-            allele1.size() != len){
-            throw logic_error("All vectors must have same length");
-        }
+      if( pos.size() != len || 
+        id.size() != len ||
+        allele1.size() != len || 
+        allele1.size() != len){
+        throw logic_error("All vectors must have same length");
+      }
 
-        CHROM.insert(CHROM.end(), 
-            chr.begin(), 
-            chr.end());
+      CHROM.insert(CHROM.end(), 
+        chr.begin(), 
+        chr.end());
 
-        // convert pos strings to ints
-        vector<int> posInt;
-        for(auto &x: pos){
-          posInt.push_back( stoi(x) );
-        }
+      // convert pos strings to ints
+      vector<int> posInt;
+      for(auto &x: pos){
+        posInt.push_back( stoi(x) );
+      }
 
-        POS.insert(POS.end(), 
-            posInt.begin(), 
-            posInt.end());
+      POS.insert(POS.end(), 
+        posInt.begin(), 
+        posInt.end());
 
-        ID.insert(ID.end(),
-            id.begin(),
-            id.end());
+      ID.insert(ID.end(),
+        id.begin(),
+        id.end());
 
-        A1.insert(A1.end(),
-            allele1.begin(),
-            allele1.end());
+      A1.insert(A1.end(),
+        allele1.begin(),
+        allele1.end());
 
-        A2.insert(A2.end(),
-            allele2.begin(),
-            allele2.end());
+      A2.insert(A2.end(),
+        allele2.begin(),
+        allele2.end());
+
+      nVariantsBeforeFilter = POS.size();
     }
 
     /** append variants in a new VariantInfo to the end of the current object
@@ -105,41 +108,43 @@ class VariantInfo :
     		vInfo.POS.end());
 
     	ID.insert(ID.end(),
-            vInfo.ID.begin(),
-            vInfo.ID.end());
+          vInfo.ID.begin(),
+          vInfo.ID.end());
 
     	A1.insert(A1.end(),
-            vInfo.A1.begin(),
-            vInfo.A1.end());
+          vInfo.A1.begin(),
+          vInfo.A1.end());
 
     	A2.insert(A2.end(),
-            vInfo.A2.begin(),
-            vInfo.A2.end());
+          vInfo.A2.begin(),
+          vInfo.A2.end());
+        
+      nVariantsBeforeFilter = POS.size();
     }
 
     /** Retain only variants with indeces stored in idx
      */ 
     void retainVariants( const vector<unsigned int> &idx){
 
-        // store the total number of variants present
-        // before subsetting
-        nVariantsBeforeFilter = CHROM.size();
+      // store the total number of variants present
+      // before subsetting
+      nVariantsBeforeFilter = CHROM.size();
 
-        CHROM = subset_vector( CHROM, idx );
-        POS = subset_vector( POS, idx );
-        ID = subset_vector( ID, idx );
-        A1 = subset_vector( A1, idx );
-        A2 = subset_vector( A2, idx );
+      CHROM = subset_vector( CHROM, idx );
+      POS = subset_vector( POS, idx );
+      ID = subset_vector( ID, idx );
+      A1 = subset_vector( A1, idx );
+      A2 = subset_vector( A2, idx );
     }
 
     /** Clear vectors storing variant information, but leave sampleNames
      */ 
     void clear(){
-        CHROM.clear();
-        POS.clear();
-        ID.clear();
-        A1.clear();
-        A2.clear();
+      CHROM.clear();
+      POS.clear();
+      ID.clear();
+      A1.clear();
+      A2.clear();
     }
 
     /** get genome interval as a string
@@ -170,33 +175,33 @@ class VariantInfo :
      */ 
     vector<string> getRegions() const {
 
-        vector<string> regions;
-        regions.reserve(POS.size());
+      vector<string> regions;
+      regions.reserve(POS.size());
 
-        for(int i=0; i<POS.size(); i++){
-            regions.push_back( CHROM[i] + ":" + to_string(POS[i]) + "-" + to_string(POS[i]) );
-        }
+      for(int i=0; i<POS.size(); i++){
+        regions.push_back( CHROM[i] + ":" + to_string(POS[i]) + "-" + to_string(POS[i]) );
+      }
 
-        return regions;
+      return regions;
     }
 
     /** get genomic regions as vector
      */ 
     vector<string> getChromPos() const {
 
-        vector<string> ChromPos;
-        ChromPos.reserve( size());
-        string str; 
-        for(int i=0; i<size(); i++){
-            str = CHROM[i] + ":" + to_string(POS[i]);
-            ChromPos.push_back( str );
-        }
+      vector<string> ChromPos;
+      ChromPos.reserve( size());
+      string str; 
+      for(int i=0; i<size(); i++){
+        str = CHROM[i] + ":" + to_string(POS[i]);
+        ChromPos.push_back( str );
+      }
 
-        return ChromPos;
+      return ChromPos;
     }
 
     int getNVariantsBeforeFilter() const {
-        return nVariantsBeforeFilter;
+      return nVariantsBeforeFilter;
     }
 
     // private:

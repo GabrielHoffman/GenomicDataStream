@@ -1,5 +1,8 @@
 
 
+# GenomicDataStream 0.0.63
+ - Improve performance with no variant filtering
+ 
 # GenomicDataStream 0.0.62
  - Fix bugs in `PCA`, `DataChunk` and `GenomicDataStreamParallel`
  
