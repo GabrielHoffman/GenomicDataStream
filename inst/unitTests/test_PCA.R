@@ -3,7 +3,6 @@
 
 test_PCA = function(){
 
-
 	suppressPackageStartupMessages({
 	library(GenomicDataStream)
 	library(Matrix)

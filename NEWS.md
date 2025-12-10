@@ -1,5 +1,11 @@
 
 
+# GenomicDataStream 0.0.65
+ - update definitions of MatrixInfo and DataChunk to enable filtering
+
+# GenomicDataStream 0.0.64
+ - add `readH5AD()` with `SingleCellExperiment` with file-backed counts
+ 
 # GenomicDataStream 0.0.63
  - Improve performance with no variant filtering
  

@@ -435,6 +435,16 @@ setMethod("print", signature(x = "PCA"),
 #' @param main title
 #' @param ... other arguments
 #'
+#' @examples
+#' # Example: PCA on genotype data
+#' file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
+#' 
+#' obj <- GenomicDataStream(file, "DS", chunkSize = 3)
+#' 
+#' res <- PCAstream(obj, k=5, threads=1)
+#' 
+#' plot(res)
+#
 #' @return plot
 #' @export
 #' @rdname plot-methods
