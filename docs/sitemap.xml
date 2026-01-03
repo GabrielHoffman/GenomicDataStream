@@ -136,11 +136,13 @@
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getVariantLocations.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/index.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/initializeStream.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/isFeatureMajor.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/isInitialized.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/normPC.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/perfMetric.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/plot-methods.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/print-methods.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/reinitializeStream.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/rownames-GenomicDataStream-method.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/rownames.html</loc></url>

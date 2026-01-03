@@ -18,6 +18,8 @@ Inheritance diagram for gds\+::Matrix\+Info\+:\begin{figure}[H]
 \mbox{\hyperlink{classgds_1_1_matrix_info_ac8265e9eae5a2045eb024ae9cf672068}{Matrix\+Info}} (const vector$<$ string $>$ \&\mbox{\hyperlink{classgds_1_1_data_info_af287eddfa72a86e2771d6bdb1453e8ba}{ID}})
 \item 
 void \mbox{\hyperlink{classgds_1_1_matrix_info_ae9531c5a2a3601465e47a504aa980b3e}{set\+Row\+Names}} (const vector$<$ string $>$ \&rn, const int \&start, const int \&end)
+\item 
+\mbox{\hyperlink{classgds_1_1_matrix_info_a4cbb33dd36a7ff13602b481c8fdb9dd4}{Matrix\+Info}} \mbox{\hyperlink{classgds_1_1_matrix_info_a578eb44c0586a2a52eb39430bc41be78}{subset}} (const uvec \&idx) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classgds_1_1_data_info}{gds\+::\+Data\+Info}}}
 \begin{DoxyCompactItemize}
@@ -66,7 +68,13 @@ gds\+::\+Matrix\+Info\+::\+Matrix\+Info (\begin{DoxyParamCaption}\item[{const ve
 {\footnotesize\ttfamily \label{classgds_1_1_matrix_info_ae9531c5a2a3601465e47a504aa980b3e} 
 void gds\+::\+Matrix\+Info\+::set\+Row\+Names (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{rn}{, }\item[{const int \&}]{start}{, }\item[{const int \&}]{end}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+\Hypertarget{classgds_1_1_matrix_info_a578eb44c0586a2a52eb39430bc41be78}\index{gds::MatrixInfo@{gds::MatrixInfo}!subset@{subset}}
+\index{subset@{subset}!gds::MatrixInfo@{gds::MatrixInfo}}
+\doxysubsubsection{\texorpdfstring{subset()}{subset()}}
+{\footnotesize\ttfamily \label{classgds_1_1_matrix_info_a578eb44c0586a2a52eb39430bc41be78} 
+\mbox{\hyperlink{classgds_1_1_matrix_info_a4cbb33dd36a7ff13602b481c8fdb9dd4}{Matrix\+Info}} gds\+::\+Matrix\+Info\+::subset (\begin{DoxyParamCaption}\item[{const uvec \&}]{idx}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+Extract subset corresponding to idx 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -54,6 +54,7 @@ reference:
   - "standardize_in_place"
   - "normPC"
   - "perfMetric"
+  - "readH5AD"
 
 
 

@@ -1,5 +1,8 @@
 
 
+# GenomicDataStream 0.0.66
+ - add lzma.h
+ 
 # GenomicDataStream 0.0.65
  - update definitions of MatrixInfo and DataChunk to enable filtering
 
