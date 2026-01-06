@@ -32,12 +32,17 @@ isFeatureMajor <- function(x){
 #' @importFrom anndataR read_h5ad
 #' @importFrom SingleCellExperiment SingleCellExperiment
 #' @export
-readH5AD <- function(file, layer=NULL, verbose=TRUE){
+readH5AD <- function(file, layer=NULL, verbose=FALSE){
   
   # Read data as Delayed/HDF5-backed matrix
   # if layer = NULL, read X.  Otherwise use layer name
   # returns observations matrix (genes x cells)
-  counts <- H5ADMatrix(file, layer=layer) 
+  tryCatch({
+    counts <- H5ADMatrix(file, layer=layer) 
+    }, 
+    error = function(e){
+      stop("Error reading file, likely H5AD is version < 0.12.0")
+      })
 
   if( verbose ){
     axis <- ifelse( isFeatureMajor(counts), "genes", "cells")
