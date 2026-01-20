@@ -31,9 +31,13 @@ isFeatureMajor <- function(x){
 #' @importFrom HDF5Array H5ADMatrix
 #' @importFrom anndataR read_h5ad
 #' @importFrom SingleCellExperiment SingleCellExperiment
+#' @importFrom rhdf5filters hdf5_plugin_path
 #' @export
 readH5AD <- function(file, layer=NULL, verbose=FALSE){
   
+  # Load hdf5 compression plugins
+  Sys.setenv("HDF5_PLUGIN_PATH" = hdf5_plugin_path())
+
   # Read data as Delayed/HDF5-backed matrix
   # if layer = NULL, read X.  Otherwise use layer name
   # returns observations matrix (genes x cells)
@@ -41,7 +45,7 @@ readH5AD <- function(file, layer=NULL, verbose=FALSE){
     counts <- H5ADMatrix(file, layer=layer) 
     }, 
     error = function(e){
-      stop("Error reading file, likely H5AD is version < 0.12.0")
+      stop("Error reading file. Issue with compression plugin?")
       })
 
   if( verbose ){

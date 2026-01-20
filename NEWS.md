@@ -1,5 +1,8 @@
 
 
+# GenomicDataStream 0.0.67
+ - update `readH5AD()`
+
 # GenomicDataStream 0.0.66
  - add lzma.h
  

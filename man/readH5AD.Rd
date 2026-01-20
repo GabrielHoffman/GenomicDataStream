@@ -4,7 +4,7 @@
 \alias{readH5AD}
 \title{Read H5AD as SingleCellExperiment}
 \usage{
-readH5AD(file, layer = NULL, verbose = TRUE)
+readH5AD(file, layer = NULL, verbose = FALSE)
 }
 \arguments{
 \item{file}{H5AD file}
