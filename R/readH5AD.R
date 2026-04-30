@@ -24,9 +24,9 @@ isFeatureMajor <- function(x){
 #' 
 #' @param file H5AD file 
 #' @param layer \code{NULL} (the default) or the name of a matrix in the \code{/layers} group. By default (i.e. when \code{layer} is not specified) returns the central matrix (\code{X}).
-#' @param raw if \code{TRUE}, read counts from \code{/raw/X}. Cannot be used with \code{layer}.
 #' @param ondisk if \code{TRUE} (default), only stream count data into memory when needed.  If \code{FALSE}, read count data into memory now as a \code{sparseMatrix}
 #' @param verbose print messages
+#' @param raw if \code{TRUE}, read counts from \code{/raw/X}. Cannot be used with \code{layer}.
 #' 
 #' @details Uses \code{HDF5Array::H5ADMatrix()} to read counts as a file-backed DelayedArray, and \code{anndataR::read_h5ad()} to read all other data from H5AD.
 #' 
@@ -37,7 +37,7 @@ isFeatureMajor <- function(x){
 #' @importFrom SingleCellExperiment SingleCellExperiment
 #' @importFrom rhdf5filters hdf5_plugin_path
 #' @export
-readH5AD <- function(file, layer=NULL, raw=FALSE, ondisk = TRUE, verbose=FALSE){
+readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
 
   if( ! file.exists(file) ){
     txt <- paste("File does not exist:", file)
