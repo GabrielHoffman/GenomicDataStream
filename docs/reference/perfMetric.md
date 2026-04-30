@@ -47,30 +47,18 @@ See performance metrics described by Li, et al. (2023)
 
 ``` r
 hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
- X <- hilbert(9)[, 1:6]
+X <- hilbert(9)[, 1:6]
 k <- 4
 
 # Compute SVD using two methods
-dcmp <- svd( scale(X), k, k)
-res <- PCAstream( X, k=k)
-#> Scale and centering...
-#> 
-Epoch 0 / 7  
-Epoch 1 / 7  
-Epoch 2 / 7  
-Epoch 3 / 7  
-Epoch 4 / 7  
-Epoch 5 / 7  
-Epoch 6 / 7  
-Epoch 7 / 7  
-Final decompositions
-Completed            
+dcmp1 <- svd(X, k, k)
+dcmp2 <- dashSVD( X, k=k)
 
 # Mean variance explained is 1
-perfMetric(dcmp$u, res$u, metric = "MEV")
+perfMetric(dcmp1$u, dcmp2$u, metric = "MEV")
 #> [1] 1
 
 # minimum of sum of squared errors zero
-perfMetric(dcmp$u, res$u, metric = "minSSE")
-#> [1] 5.306834e-27
+perfMetric(dcmp1$u, dcmp2$u, metric = "minSSE")
+#> [1] 7.546838e-14
 ```

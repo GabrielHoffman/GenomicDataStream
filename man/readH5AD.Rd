@@ -4,12 +4,16 @@
 \alias{readH5AD}
 \title{Read H5AD as SingleCellExperiment}
 \usage{
-readH5AD(file, layer = NULL, verbose = FALSE)
+readH5AD(file, layer = NULL, raw = FALSE, ondisk = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{file}{H5AD file}
 
 \item{layer}{\code{NULL} (the default) or the name of a matrix in the \code{/layers} group. By default (i.e. when \code{layer} is not specified) returns the central matrix (\code{X}).}
+
+\item{raw}{if \code{TRUE}, read counts from \code{/raw/X}. Cannot be used with \code{layer}.}
+
+\item{ondisk}{if \code{TRUE} (default), only stream count data into memory when needed.  If \code{FALSE}, read count data into memory now as a \code{sparseMatrix}}
 
 \item{verbose}{print messages}
 }

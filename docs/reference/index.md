@@ -1,18 +1,11 @@
 # Package index
 
-## Core functions
+## GenomicDataStream
 
 - [`GenomicDataStream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream.md)
   : GenomicDataStream
 - [`GenomicDataStream-class`](http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream-class.md)
   : Interface to genomic data files
-- [`PCAstream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.md)
-  : Window-based Randomized SVD
-- [`PCA-class`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCA-class.md)
-  : PCA result
-
-## Interact with stream
-
 - [`getNextChunk()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/getNextChunk.md)
   : Get data chunk from GenomicDataStream
 - [`initializeStream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/initializeStream.md)
@@ -21,6 +14,15 @@
   : Set Chunk Size
 - [`setRegion()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/setRegion.md)
   : Set regions of GenomicDataStream
+
+## Out-of-core SVD
+
+- [`dashSVD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/dashSVD.md)
+  : Dynamic Shifts Based Randomized SVD
+- [`PCAone()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAone.md)
+  : Window-based Randomized SVD with PCAone
+- [`PCA-class`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCA-class.md)
+  : PCA result
 
 ## Accessor functions
 
@@ -37,7 +39,7 @@
 - [`isInitialized()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/isInitialized.md)
   : Get status of GenomicDataStream
 - [`plot(`*`<PCA>`*`,`*`<ANY>`*`)`](http://gabrielhoffman.github.io/GenomicDataStream/reference/plot-methods.md)
-  : Plot PCAstream
+  : Plot PCAone
 - [`print(`*`<GenomicDataStream>`*`)`](http://gabrielhoffman.github.io/GenomicDataStream/reference/print-methods.md)
   [`print(`*`<PCA>`*`)`](http://gabrielhoffman.github.io/GenomicDataStream/reference/print-methods.md)
   : Print object

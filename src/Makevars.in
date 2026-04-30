@@ -27,8 +27,7 @@ PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT  @SIMDE_COMPILE_FLAG@ @SIMDE_IN
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB) #@LIBDEFLATE_LIBS@  #@ZSTD_LIBS@ 
 
 # Plink2 includes 
-PLINK2_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
-  	 'cat(system.file("include/", package = "pgenlibr", mustWork = TRUE), sep="")')
+PLINK2_INCL = ../inst/include/pgenlibr/include
 
 INCL += -I$(PLINK2_INCL)
 

@@ -1,5 +1,21 @@
 # Changelog
 
+## GenomicDataStream 0.1.0
+
+- April 30, 2026
+- add
+  [`dashSVD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/dashSVD.md)
+  and update `PCAstream()`
+- updated
+  [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
+  to handle `raw` field
+- provide headers from pgenlibr 0.5.5
+
+## GenomicDataStream 0.0.67
+
+- update
+  [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
+
 ## GenomicDataStream 0.0.66
 
 - add lzma.h
@@ -62,16 +78,14 @@
 ## GenomicDataStream 0.0.53
 
 - June 3, 2025
-- [`PCAstream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.md)
-  works on `DelayedArray` and `SingleCellExperiment`
+- `PCAstream()` works on `DelayedArray` and `SingleCellExperiment`
 - Add `scaleAndCenter` argument
 - add `compute_center_and_scale()`
 
 ## GenomicDataStream 0.0.52
 
 - May 30, 2025
-- Update
-  [`PCAstream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.md)
+- Update `PCAstream()`
 - update C++ streams to add `useFilter`
 - in C++, add `applyVariantFilter()` based on MAF for SNPs
 - Update `DelayedStream`
@@ -90,17 +104,14 @@
 ## GenomicDataStream 0.0.40
 
 - May 15, 2025
-- Progress on
-  [`PCAstream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.md)
+- Progress on `PCAstream()`
 - parsing plink BIM and FAM files supports tab and space delimiters
 
 ## GenomicDataStream 0.0.30
 
 - May 12, 2025
-- Add new
-  [`PCAstream()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.md)
-  using `stream_pcaone()` algorithm with C++ code contributed by
-  [@Zilong-Li](https://github.com/Zilong-Li)
+- Add new `PCAstream()` using `stream_pcaone()` algorithm with C++ code
+  contributed by [@Zilong-Li](https://github.com/Zilong-Li)
 
 ## GenomicDataStream 0.0.20
 

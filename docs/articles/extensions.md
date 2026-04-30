@@ -63,18 +63,18 @@ and increase compile times. Some of these dependencies can be avoided by
 removing support for some capabilities with compiler flags in
 `Makevars`:
 
-`-D DISABLE_DELAYED_STREAM`  
+`-D DISABLE_DELAYED_STREAM`\
            Omit `DelayedStream` class, remove dependence on `Rcpp` and
 `beachmat`
 
-`-D DISABLE_EIGEN`  
+`-D DISABLE_EIGEN`\
            Omit support for Eigen matrix library, and remove dependence
 on `RcppEigen` and `Eigen`
 
-`-D DISABLE_RCPP`  
+`-D DISABLE_RCPP`\
            Omit support for `Rcpp` matrix library, and remove dependence
 on `Rcpp`
 
-`-D DISABLE_PLINK`  
+`-D DISABLE_PLINK`\
            Omit support for `PLINK` files (PGEN, BED), and remove
 dependence on `pgenlibr`

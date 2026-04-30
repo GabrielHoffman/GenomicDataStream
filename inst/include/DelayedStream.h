@@ -20,6 +20,8 @@
 #include <span>
 
 #include <Rtatami.h>
+#include "beachmat3/beachmat.h"
+#include "tatami/tatami.hpp"
 
 #include "GenomicDataStream_virtual.h"
 #include "MatrixInfo.h"
@@ -38,8 +40,14 @@ class DelayedStream :
 	public GenomicDataStream {
 	public:
 
-	DelayedStream( const shared_ptr<tatami::NumericMatrix> &ptr, const vector<string> &rowNames, const int &chunkSize) 
-		: GenomicDataStream(), ptr(ptr), rowNames(rowNames), chunkSize(chunkSize) {
+	DelayedStream( 
+		const shared_ptr<tatami::NumericMatrix> &ptr, 
+		const vector<string> &rowNames, 
+		const int &chunkSize) 
+		: GenomicDataStream(), 
+		ptr(ptr), 
+		rowNames(rowNames), chunkSize(chunkSize) 
+		{
 
 		if( chunkSize < 1){					
 			throw runtime_error("chunkSize must be positive: " + to_string(chunkSize));
@@ -186,13 +194,14 @@ class DelayedStream :
 
 		int length = min(len, NR - start);
 
-		// get workspace as dense row
-		auto wrk = ptr->dense_row();
+		// get consecutive rows
+		// false = row extractor
+    auto wrk = tatami::consecutive_extractor<false>(ptr.get(), true, pos, chunkSize);
 
 		// loop through rows
 		for (int i = 0; i < length; i++) {
-			// get data for row start + i
-	    auto extracted = wrk->fetch(start + i, buffer.data());
+			// using consecutive_extractor, don't need index
+	    auto extracted = wrk->fetch(buffer.data());
 
 	    // copy data into output vector in column i
 	    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));
@@ -224,7 +233,11 @@ class DelayedStream :
 		if( ! continueIterating ) return continueIterating;
 
 		// get workspace as dense row
-		auto wrk = ptr->dense_row();
+		// auto wrk = ptr->dense_row();
+
+		// get consecutive rows
+		// false = row extractor
+    auto wrk = tatami::consecutive_extractor<false>(ptr.get(), true, pos, chunkSize);
 
 		// if remaning rows is less than chunkSize, 
 		// 	then set chunkSize to stop at end
@@ -233,7 +246,10 @@ class DelayedStream :
 		// loop through rows
 		for (int i = 0; i < chunkSize; i++) {
 			// get data for row pos + i
-	    auto extracted = wrk->fetch(pos + i, buffer.data());
+	    // auto extracted = wrk->fetch(pos + i, buffer.data());
+
+			// using consecutive_extractor, don't need index
+	    auto extracted = wrk->fetch(buffer.data());
 
 	    // copy data into output vector in column i
 	    memcpy(output.data() + NC*i, extracted, NC*sizeof(double));

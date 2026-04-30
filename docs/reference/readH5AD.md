@@ -6,7 +6,7 @@ DelayedArray
 ## Usage
 
 ``` r
-readH5AD(file, layer = NULL, verbose = TRUE)
+readH5AD(file, layer = NULL, raw = FALSE, ondisk = TRUE, verbose = FALSE)
 ```
 
 ## Arguments
@@ -21,6 +21,15 @@ readH5AD(file, layer = NULL, verbose = TRUE)
   By default (i.e. when `layer` is not specified) returns the central
   matrix (`X`).
 
+- raw:
+
+  if `TRUE`, read counts from `/raw/X`. Cannot be used with `layer`.
+
+- ondisk:
+
+  if `TRUE` (default), only stream count data into memory when needed.
+  If `FALSE`, read count data into memory now as a `sparseMatrix`
+
 - verbose:
 
   print messages
@@ -30,5 +39,5 @@ readH5AD(file, layer = NULL, verbose = TRUE)
 Uses
 [`HDF5Array::H5ADMatrix()`](https://rdrr.io/pkg/HDF5Array/man/H5ADMatrix-class.html)
 to read counts as a file-backed DelayedArray, and
-[`anndataR::read_h5ad()`](https://anndataR.data-intuitive.com/reference/read_h5ad.html)
+[`anndataR::read_h5ad()`](https://rdrr.io/pkg/anndataR/man/read_h5ad.html)
 to read all other data from H5AD.

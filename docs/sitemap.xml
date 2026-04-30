@@ -124,11 +124,13 @@
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream-class.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/GenomicDataStream.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCA-class.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAone.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAstream.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/atEndOfStream.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/chopChroms.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/collapseRegions.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/countChunks.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/dashSVD.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/featuresRead.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getChromRanges.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/getNextChunk.html</loc></url>
@@ -138,6 +140,7 @@
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/initializeStream.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/isFeatureMajor.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/isInitialized.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/mat_prod_AtAQ.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/normPC.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/perfMetric.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/GenomicDataStream/reference/plot-methods.html</loc></url>

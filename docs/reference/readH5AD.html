@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.67</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">readH5AD</span><span class="op">(</span><span class="va">file</span>, layer <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">readH5AD</span><span class="op">(</span><span class="va">file</span>, layer <span class="op">=</span> <span class="cn">NULL</span>, raw <span class="op">=</span> <span class="cn">FALSE</span>, ondisk <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -59,13 +59,21 @@
 <dd><p><code>NULL</code> (the default) or the name of a matrix in the <code>/layers</code> group. By default (i.e. when <code>layer</code> is not specified) returns the central matrix (<code>X</code>).</p></dd>
 
 
+<dt id="arg-raw">raw<a class="anchor" aria-label="anchor" href="#arg-raw"></a></dt>
+<dd><p>if <code>TRUE</code>, read counts from <code>/raw/X</code>. Cannot be used with <code>layer</code>.</p></dd>
+
+
+<dt id="arg-ondisk">ondisk<a class="anchor" aria-label="anchor" href="#arg-ondisk"></a></dt>
+<dd><p>if <code>TRUE</code> (default), only stream count data into memory when needed.  If <code>FALSE</code>, read count data into memory now as a <code>sparseMatrix</code></p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>print messages</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Uses <code><a href="https://rdrr.io/pkg/HDF5Array/man/H5ADMatrix-class.html" class="external-link">HDF5Array::H5ADMatrix()</a></code> to read counts as a file-backed DelayedArray, and <code><a href="https://anndataR.data-intuitive.com/reference/read_h5ad.html" class="external-link">anndataR::read_h5ad()</a></code> to read all other data from H5AD.</p>
+    <p>Uses <code><a href="https://rdrr.io/pkg/HDF5Array/man/H5ADMatrix-class.html" class="external-link">HDF5Array::H5ADMatrix()</a></code> to read counts as a file-backed DelayedArray, and <code><a href="https://rdrr.io/pkg/anndataR/man/read_h5ad.html" class="external-link">anndataR::read_h5ad()</a></code> to read all other data from H5AD.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -5,6 +5,7 @@ vignettes/.*_cache
 \.o$
 \.a$
 \.so$
+\.dylib$
 \.tmp$
 ^docs$
 _cache$

@@ -19,19 +19,20 @@ search:
   exclude: ['news/index.html']
 
 reference:
-- title: Core functions
+- title: GenomicDataStream
   contents:
   - "GenomicDataStream"
   - "GenomicDataStream-class"
-  - "PCAstream"
-  - "PCA-class"
-
-- title: Interact with stream
-  contents:
   - "getNextChunk"
   - "initializeStream"
   - "setChunkSize"
   - "setRegion"
+
+- title: Out-of-core SVD
+  contents:
+  - "dashSVD"
+  - "PCAone"
+  - "PCA-class"
 
 - title: Accessor functions
   contents:

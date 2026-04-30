@@ -1,5 +1,11 @@
 
 
+# GenomicDataStream 0.1.0
+ - April 30, 2026
+ - add `dashSVD()` and update `PCAstream()`
+ - updated `readH5AD()` to handle `raw` field
+ - provide headers from pgenlibr 0.5.5
+ 
 # GenomicDataStream 0.0.67
  - update `readH5AD()`
 

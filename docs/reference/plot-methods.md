@@ -1,6 +1,6 @@
-# Plot PCAstream
+# Plot PCAone
 
-Plot PCAstream
+Plot PCAone
 
 ## Usage
 
@@ -35,7 +35,7 @@ file <- system.file("extdata", "test.vcf.gz", package = "GenomicDataStream")
 
 obj <- GenomicDataStream(file, "DS", chunkSize = 3)
 
-res <- PCAstream(obj, k=5, threads=1)
+res <- PCAone(obj, k=5, threads=1)
 #> Read through...
 #>  # features: 10
 #>  # chunks: 2

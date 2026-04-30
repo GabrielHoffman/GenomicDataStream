@@ -418,10 +418,10 @@ Rcpp::List stream_pcaone_robj(
     Rcpp::Rcout << "\rCompleted            " << std::endl;
   }
 
-  Rcpp::List lst =  Rcpp::List::create(
-  			Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
-        Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
-        Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
+  Rcpp::List lst = Rcpp::List::create(
+		Rcpp::Named("d") = Rcpp::wrap(svd.singularValues().head(k)),
+    Rcpp::Named("u") = Rcpp::wrap(svd.matrixV().leftCols(k)),
+    Rcpp::Named("v") = Rcpp::wrap(G * svd.matrixU().leftCols(k)));
 
   return lst;                            
 }
