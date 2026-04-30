@@ -1,4 +1,4 @@
-/* Adapted from pgenlibr v0.5.0 by Christopher Chang
+/* Adapted from pgenlibr v0.5.3 by Christopher Chang
 https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
 */
 
@@ -14,6 +14,7 @@ https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
 
 using namespace std;
 
+
 class RPgenReader {
 public:
   // similar to Python/pgenlib.pyx ; has a bit more functionality as of Feb
@@ -25,9 +26,8 @@ public:
   RPgenReader& operator=(const RPgenReader&) = delete;
 #endif
 
-  void Load(const string &filename, RPvar *rp, 
-            int raw_sample_ct,
-            const vector<int> &sample_subset_1based);
+  void Load(const string &filename,  RPvar *rp, int raw_sample_ct,
+            const vector<int> & sample_subset_1based);
 
   uint32_t GetRawSampleCt() const;
 
@@ -39,7 +39,34 @@ public:
 
   uint32_t GetMaxAlleleCt() const;
 
-  void ReadList( vector<double> &buf, const vector<int> &variant_subset, bool meanimpute);
+  uint32_t GetVrtype(uint32_t variant_idx) const;
+
+  // bool HardcallPhasePresent() const;
+
+  // void ReadIntHardcalls(IntegerVector buf, int variant_idx, int allele_idx);
+
+  // void ReadHardcalls(NumericVector buf, int variant_idx, int allele_idx);
+
+  // void ReadIntMaybeSparseHardcalls(IntegerVector buf, int variant_idx, int allele_idx, int max_difflist_len, IntegerVector* sample_nums_ptr, IntegerVector* allele_counts_ptr);
+
+  // void ReadMaybeSparseHardcalls(NumericVector buf, int variant_idx, int allele_idx, int max_difflist_len, IntegerVector* sample_nums_ptr, NumericVector* allele_dosages_ptr);
+
+  // void Read(NumericVector buf, int variant_idx, int allele_idx);
+
+  // void ReadMaybeSparse(NumericVector buf, int variant_idx, int allele_idx, int max_difflist_len, IntegerVector* sample_nums_ptr, NumericVector* allele_dosages_ptr);
+
+  // void ReadAlleles(IntegerMatrix acbuf,
+  //                  Nullable<LogicalVector> phasepresent_buf, int variant_idx);
+
+  // void ReadAllelesNumeric(NumericMatrix acbuf,
+  //                         Nullable<LogicalVector> phasepresent_buf,
+  //                         int variant_idx);
+
+  // void ReadIntList(IntegerMatrix buf, IntegerVector variant_subset);
+
+  void ReadList(vector<double> & buf, vector<int> & variant_subset, bool meanimpute);
+
+  void FillVariantScores(NumericVector result, NumericVector weights, Nullable<IntegerVector> variant_subset);
 
   void Close();
 
@@ -70,12 +97,13 @@ private:
   uintptr_t* _multivar_smaj_phaseinfo_batch_buf;
   uintptr_t* _multivar_smaj_phasepresent_batch_buf;
 
-  void SetSampleSubsetInternal(const vector<int> &sample_subset_1based);
+  void SetSampleSubsetInternal(const vector<int>& sample_subset_1based);
 
   void ReadMaybeSparseHardcallsInternal(int variant_idx, int max_simple_difflist_len, uint32_t* difflist_common_geno_ptr, uint32_t* difflist_len_ptr);
 
   void ReadAllelesPhasedInternal(int variant_idx);
 };
+
 
 
 #endif

@@ -21,11 +21,11 @@ void RPvar::Load(String filename, bool omit_chrom, bool omit_pos) {
   plink2::PglErr reterr = LoadMinimalPvarEx(filename.get_cstring(), load_flags, &_mp, errbuf);
   if (reterr != plink2::kPglRetSuccess) {
     if (reterr == plink2::kPglRetNomem) {
-      throw logic_error("Out of memory");
+      stop("Out of memory");
     } else if (reterr == plink2::kPglRetReadFail) {
-      throw logic_error("File read failure");
+      stop("File read failure");
     } else {
-      throw logic_error(&errbuf[7]);
+      stop(&errbuf[7]);
     }
   }
 }
@@ -42,10 +42,10 @@ const char* RPvar::GetVariantChrom(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    throw logic_error(errbuf);
+    stop(errbuf);
   }
   if (_mp.chr_names == nullptr) {
-    throw logic_error("Chromosome information not loaded");
+    stop("Chromosome information not loaded");
   }
   return _mp.chr_names[_mp.chr_idxs[variant_idx]];
 }
@@ -58,10 +58,10 @@ int32_t RPvar::GetVariantPos(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    throw logic_error(errbuf);
+    stop(errbuf);
   }
   if (_mp.variant_bps == nullptr) {
-    throw logic_error("Position information not loaded");
+    stop("Position information not loaded");
   }
   return _mp.variant_bps[variant_idx];
 }
@@ -74,7 +74,7 @@ const char* RPvar::GetVariantId(uint32_t variant_idx) const {
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    throw logic_error(errbuf);
+    stop(errbuf);
   }
   return _mp.variant_ids[variant_idx];
 }
@@ -93,7 +93,7 @@ uint32_t RPvar::GetAlleleCt(uint32_t variant_idx) const {
   if (variant_idx >= _mp.variant_ct) {
     char errstr_buf[256];
     snprintf(errstr_buf, 256, "variant_num out of range (%d; must be 1..%u)", variant_idx + 1, _mp.variant_ct);
-    throw logic_error(errstr_buf);
+    stop(errstr_buf);
   }
   if (!_mp.allele_idx_offsetsp) {
     return 2;
@@ -110,7 +110,7 @@ const char* RPvar::GetAlleleCode(uint32_t variant_idx, uint32_t allele_idx) cons
     } else {
       strcpy(errbuf, "pvar closed");
     }
-    throw logic_error(errbuf);
+    stop(errbuf);
   }
   uintptr_t allele_idx_offset_base = 2 * variant_idx;
   uint32_t allele_ct = 2;
@@ -122,7 +122,7 @@ const char* RPvar::GetAlleleCode(uint32_t variant_idx, uint32_t allele_idx) cons
   if (allele_idx >= allele_ct) {
     char errbuf[256];
     snprintf(errbuf, 256, "allele_num out of range (%d; must be 1..%d)", allele_idx + 1, allele_ct);
-    throw logic_error(errbuf);
+    stop(errbuf);
   }
   return _mp.allele_storage[allele_idx_offset_base + allele_idx];
 }
@@ -147,4 +147,127 @@ RPvar::~RPvar() {
   _nameToIdxs.clear();
   plink2::CleanupMinimalPvar(&_mp);
 }
+
+//' Loads variant positions, IDs, and allele codes from a .pvar or .bim file
+//' (which can be compressed with gzip or Zstd).
+//'
+//' @param filename .pvar/.bim file path.
+//' @param omit_chrom Whether to skip CHROM column.
+//' @param omit_pos Whether to skip POS column.
+//' @return A pvar object, which can be queried for variant IDs and allele
+//' codes.
+//' @export
+// [[Rcpp::export]]
+SEXP NewPvar(String filename, bool omit_chrom = false, bool omit_pos = false) {
+  XPtr<class RPvar> pvar(new RPvar(), true);
+  pvar->Load(filename, omit_chrom, omit_pos);
+  return List::create(_["class"] = "pvar", _["pvar"] = pvar);
+}
+
+//' Retrieve chromosome ID for given variant index.
+//'
+//' @param pvar Object returned by NewPvar().
+//' @param variant_num Variant index (1-based).
+//' @return Chromosome ID for the variant_numth variant.
+//' @export
+// [[Rcpp::export]]
+String GetVariantChrom(List pvar, int variant_num) {
+  if (strcmp_r_c(pvar[0], "pvar")) {
+    stop("pvar is not a pvar object");
+  }
+  XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
+  String ss(rp->GetVariantChrom(variant_num - 1));
+  return ss;
+}
+
+//' Retrieve POS (base-pair coordinate on a chromosome) for given variant
+//' index.
+//'
+//' @param pvar Object returned by NewPvar().
+//' @param variant_num Variant index (1-based).
+//' @return POS for the variant_numth variant.
+//' @export
+// [[Rcpp::export]]
+int GetVariantPos(List pvar, int variant_num) {
+  if (strcmp_r_c(pvar[0], "pvar")) {
+    stop("pvar is not a pvar object");
+  }
+  XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
+  return rp->GetVariantPos(variant_num - 1);
+}
+
+//' Convert variant index to variant ID string.
+//'
+//' @param pvar Object returned by NewPvar().
+//' @param variant_num Variant index (1-based).
+//' @return The variant_numth variant ID string.
+//' @export
+// [[Rcpp::export]]
+String GetVariantId(List pvar, int variant_num) {
+  if (strcmp_r_c(pvar[0], "pvar")) {
+    stop("pvar is not a pvar object");
+  }
+  XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
+  String ss(rp->GetVariantId(variant_num - 1));
+  return ss;
+}
+
+//' Convert variant ID string to variant index(es).
+//'
+//' @param pvar Object returned by NewPvar().
+//' @param id Variant ID to look up.
+//' @return A list of all (1-based) variant indices with the given variant ID.
+//' @export
+// [[Rcpp::export]]
+IntegerVector GetVariantsById(List pvar, String id) {
+  if (strcmp_r_c(pvar[0], "pvar")) {
+    stop("pvar is not a pvar object");
+  }
+  XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
+  std::pair<std::multimap<const char*, int, classcomp>::iterator, std::multimap<const char*, int, classcomp>::iterator> equal_range = rp->GetVariantsById(id.get_cstring());
+  std::multimap<const char*, int, classcomp>::iterator i1 = equal_range.first;
+  std::multimap<const char*, int, classcomp>::iterator i2 = equal_range.second;
+  const uint32_t len = std::distance(i1, i2);
+  IntegerVector iv = IntegerVector(len);
+  for (uint32_t uii = 0; uii != len; ++uii) {
+    iv[uii] = i1->second + 1;
+    ++i1;
+  }
+  return iv;
+}
+
+//' Look up an allele code.
+//'
+//' @param pvar Object returned by NewPvar().
+//' @param variant_num Variant index (1-based).
+//' @param allele_num Allele index (1-based).
+//' @return The allele_numth allele code for the variant_numth variant.
+//' allele_num=1 corresponds to the REF allele, allele_num=2 corresponds to the
+//' first ALT allele, allele_num=3 corresponds to the second ALT allele if it
+//' exists and errors out otherwise, etc.
+//' @export
+// [[Rcpp::export]]
+String GetAlleleCode(List pvar, int variant_num, int allele_num) {
+  if (strcmp_r_c(pvar[0], "pvar")) {
+    stop("pvar is not a pvar object");
+  }
+  XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
+  String ss(rp->GetAlleleCode(variant_num - 1, allele_num - 1));
+  return ss;
+}
+
+//' Closes a pvar object, releasing memory.
+//'
+//' @param pvar Object returned by NewPvar().
+//' @return No return value, called for side-effect.
+//' @export
+// [[Rcpp::export]]
+void ClosePvar(List pvar) {
+  if (strcmp_r_c(pvar[0], "pvar")) {
+    stop("pvar is not a pvar object");
+  }
+  XPtr<class RPvar> rp = as<XPtr<class RPvar> >(pvar[1]);
+  rp->Close();
+}
+
 
