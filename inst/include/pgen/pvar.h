@@ -5,7 +5,9 @@ https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
 #ifndef __PVAR_H__
 #define __PVAR_H__
 
-#include "include/pvar_ffi_support.h"
+// #include "include/pvar_ffi_support.h"
+#include "../pgenlibr/include/include/pvar_ffi_support.h"
+
 #include <map>
 
 #include <Rcpp.h>

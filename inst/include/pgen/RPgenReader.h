@@ -5,8 +5,11 @@ https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
 #ifndef __RPgenReader_H_
 #define __RPgenReader_H_
 
-#include "include/pgenlib_ffi_support.h"
-#include "include/pgenlib_read.h"
+// #include "include/pgenlib_ffi_support.h"
+// #include "include/pgenlib_read.h"
+
+#include "../pgenlibr/include/include/pvar_ffi_support.h"
+#include "../pgenlibr/include/include/pgenlib_read.h"
 #include "pgen/pvar.h"  // includes Rcpp
 
 using namespace std;
