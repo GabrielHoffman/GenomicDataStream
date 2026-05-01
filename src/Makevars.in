@@ -63,7 +63,7 @@ OBJECTS = RcppExports.o export.o compute_scale.o $(CXX_OBJECTS) $(C_OBJECTS)
 
 .PHONY: all 
 all: build_subprojects $(SHLIB)
-$(SHLIB): ${OBJECTS} Makevars #libBGEN.a
+$(SHLIB): ${OBJECTS} Makevars libdeflate.a #libBGEN.a
 
 build_subprojects:
 	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall  -O2 -fvisibility=hidden"
@@ -71,8 +71,8 @@ build_subprojects:
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
 
-libPGDEFLATE.a: $(LIBDEFLATE)
-	$(AR) rcs libPGDEFLATE.a $(LIBDEFLATE)
+libdeflate.a: $(LIBDEFLATE)
+	$(AR) rcs libdeflate.a $(LIBDEFLATE)
 
 
 
