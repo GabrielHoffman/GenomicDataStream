@@ -11,6 +11,8 @@
 #' @param byrow default \code{FALSE}. Set to true if accessing rows is faster that accessing columns
 #' @param verbose print messages
 #' 
+#' @return \code{PCA} class storing \code{d}, \code{u} and \code{v}
+#'
 #' @examples
 #' 
 #' hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, `+`) }
@@ -175,6 +177,15 @@ eigSVD <- function(A, tol = 1e-10) {
 #' @param A any valid matrix type or \code{ResidualMatrixGLM}
 #' @param Q any valid matrix type
 #'
+#' @return \code{crossprod(A, A \%*\% Q)}
+#'
+#' @examples
+#' A <- matrix(rnorm(4), 2, 2)
+#' Q <- matrix(rnorm(2), 2, 1)
+#'
+#' crossprod(A, A %*% Q)
+#' mat_prod_AtAQ(A, Q)
+#
 #' @rdname mat_prod_AtAQ
 #' @keywords internal
 #' @export

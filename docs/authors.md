@@ -14,12 +14,12 @@ Source:
 
 Hoffman G, Li Z (2026). *GenomicDataStream: Read Genomic Data Files
 (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in Chunks*. R package
-version 0.1.0, <https://github.com/GabrielHoffman/GenomicDataStream>.
+version 0.99.0, <https://github.com/GabrielHoffman/GenomicDataStream>.
 
     @Manual{,
       title = {GenomicDataStream: Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in Chunks},
       author = {Gabriel Hoffman and Zilong Li},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.99.0},
       url = {https://github.com/GabrielHoffman/GenomicDataStream},
     }

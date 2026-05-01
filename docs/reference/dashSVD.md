@@ -44,6 +44,10 @@ dashSVD(x, k, p = 3, s = 20, rand = 1, byrow = FALSE, verbose = FALSE)
 
   print messages
 
+## Value
+
+`PCA` class storing `d`, `u` and `v`
+
 ## References
 
 Feng, X., Yu, W., Xie, Y. and Tang, J., 2024. Algorithm 1043: Faster

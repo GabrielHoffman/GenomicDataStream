@@ -24,6 +24,9 @@ dashSVD(x, k, p = 3, s = 20, rand = 1, byrow = FALSE, verbose = FALSE)
 
 \item{verbose}{print messages}
 }
+\value{
+\code{PCA} class storing \code{d}, \code{u} and \code{v}
+}
 \description{
 DashSVD for fast randomized SVD
 }

@@ -28,6 +28,12 @@ isFeatureMajor <- function(x){
 #' @param verbose print messages
 #' @param raw if \code{TRUE}, read counts from \code{/raw/X}. Cannot be used with \code{layer}.
 #' 
+#' @return \code{SingleCellExperiment}
+#' 
+#' @examples
+#' file <- system.file("extdata", "example.h5ad", package = "anndataR")
+#' sce <- readH5AD(file)
+# 
 #' @details Uses \code{HDF5Array::H5ADMatrix()} to read counts as a file-backed DelayedArray, and \code{anndataR::read_h5ad()} to read all other data from H5AD.
 #' 
 #' @importFrom HDF5Array H5ADMatrix
@@ -36,6 +42,7 @@ isFeatureMajor <- function(x){
 #' @importFrom methods as
 #' @importFrom SingleCellExperiment SingleCellExperiment
 #' @importFrom rhdf5filters hdf5_plugin_path
+#' @importFrom withr with_envvar
 #' @export
 readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
 
@@ -52,8 +59,8 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
     stop("'raw=TRUE' cannot be used with 'layer'")
   }
   
-  # Load hdf5 compression plugins
-  Sys.setenv("HDF5_PLUGIN_PATH" = hdf5_plugin_path())
+  # Load hdf5 compression plugins: not allowed in BioC
+  # Sys.setenv("HDF5_PLUGIN_PATH" = hdf5_plugin_path())
 
   if( verbose ){
     message("Reading counts...")
@@ -67,14 +74,22 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
   # if layer = NULL, read X.  Otherwise use layer name
   # returns observations matrix (genes x cells)
   tryCatch({
+
     if( isTRUE(raw) ){
-      counts <- H5SparseMatrix(file, "raw/X")
+      # set HDF5_PLUGIN_PATH only within the local env
+      # without using Sys.setenv
+      counts <- with_envvar(
+        new = c(HDF5_PLUGIN_PATH = hdf5_plugin_path()),
+        code = H5SparseMatrix(file, "raw/X"))
     }else{
-      counts <- H5ADMatrix(file, layer=layer) 
+      counts <- with_envvar(
+        new = c(HDF5_PLUGIN_PATH = hdf5_plugin_path()),
+        code = H5ADMatrix(file, layer=layer)) 
     }
     }, 
     error = function(e){
-      stop("Error reading file: ", conditionMessage(e), ". Issue with compression plugin?")
+      e$message <- paste0("Error reading file: ", conditionMessage(e), ". Issue with compression plugin?")
+      e
       })
 
   if( verbose ){
@@ -157,7 +172,7 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
 }
 
 .read_h5ad_dataframe <- function(file, group){
-  attrs <- suppressWarnings(h5readAttributes(file, group))
+  attrs <- h5readAttributes(file, group)
   index_col <- attrs[["_index"]]
   columns <- attrs[["column-order"]]
   fields <- unique(c(index_col, columns))

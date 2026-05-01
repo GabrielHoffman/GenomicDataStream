@@ -14,7 +14,17 @@ mat_prod_AtAQ(A, Q)
 
 \item{Q}{any valid matrix type}
 }
+\value{
+\code{crossprod(A, A \%*\% Q)}
+}
 \description{
 When \code{A} is a \code{matrix}, use standard evaluation.  When \code{A} is \code{ResidualMatrixGLM}, use block-wise evaluation
+}
+\examples{
+A <- matrix(rnorm(4), 2, 2)
+Q <- matrix(rnorm(2), 2, 1)
+
+crossprod(A, A \%*\% Q)
+mat_prod_AtAQ(A, Q)
 }
 \keyword{internal}

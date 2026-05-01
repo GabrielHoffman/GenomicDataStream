@@ -5,7 +5,8 @@
 - April 30, 2026
 - add
   [`dashSVD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/dashSVD.md)
-  and update `PCAstream()`
+  and rename `PCAstream()` to
+  [`PCAone()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/PCAone.md)
 - updated
   [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
   to handle `raw` field

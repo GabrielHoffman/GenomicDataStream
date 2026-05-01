@@ -60,5 +60,5 @@ perfMetric(dcmp1$u, dcmp2$u, metric = "MEV")
 
 # minimum of sum of squared errors zero
 perfMetric(dcmp1$u, dcmp2$u, metric = "minSSE")
-#> [1] 7.546838e-14
+#> [1] 1.100796e-12
 ```

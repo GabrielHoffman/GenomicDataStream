@@ -17,9 +17,16 @@ readH5AD(file, layer = NULL, ondisk = TRUE, verbose = FALSE, raw = FALSE)
 
 \item{raw}{if \code{TRUE}, read counts from \code{/raw/X}. Cannot be used with \code{layer}.}
 }
+\value{
+\code{SingleCellExperiment}
+}
 \description{
 Read H5AD as SingleCellExperiment where counts is a file-backed DelayedArray
 }
 \details{
 Uses \code{HDF5Array::H5ADMatrix()} to read counts as a file-backed DelayedArray, and \code{anndataR::read_h5ad()} to read all other data from H5AD.
+}
+\examples{
+file <- system.file("extdata", "example.h5ad", package = "anndataR")
+sce <- readH5AD(file)
 }
