@@ -1,0 +1,144 @@
+\doxysection{dash\+SVD.\+h}
+\hypertarget{dash_s_v_d_8h_source}{}\label{dash_s_v_d_8h_source}\index{inst/include/dashSVD.h@{inst/include/dashSVD.h}}
+\doxymbox{\hyperlink{dash_s_v_d_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ /************************************************************}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ *\ @file\ \ \ \ \ \ \ \ dashSVD.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ *\ @brief\ \ \ \ \ \ \ dashSVD\ One\ algorithm}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ *\ Copyright\ (C)\ 2026\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ *************************************************/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ \#include\ "{}GenomicDataStream.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ using\ namespace\ Rcpp;}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ using\ namespace\ arma;}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ struct\ SVDResult\ \{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ mat\ U;}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ vec\ S;}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ mat\ V;}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ struct\ PCA\ \{}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ \ PCA(\ mat\ u):}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \ \ \ \ u(u)\ \{\}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ \ \ PCA(\ const\ mat\ \&u,\ const\ mat\ \&v,\ const\ vec\ \&d,\ const\ vector<string>\ featureIds):}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ \ \ \ u(u),\ v(v),\ d(d),\ featureIds(featureIds)\ \{\}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ \ \ mat\ u,\ v;}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ \ \ vec\ d;}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ \ \ const\ vector<string>\ featureIds;}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ SVDResult\ eigSVD\_internal(const\ mat\&\ A,\ double\ tol\ =\ 1e-\/10)\ \{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ mat\ C\ =\ A.t()\ *\ A;}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ \ vec\ eigval;}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ mat\ V;}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ eig\_sym(eigval,\ V,\ C);}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ \ \ eigval\ =\ reverse(eigval);}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ \ V\ =\ fliplr(V);}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ \ \ vec\ sigma\ =\ sqrt(clamp(eigval,\ 0.0,\ datum::inf));}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ \ \ vec\ sigma\_inv\ =\ zeros<vec>(sigma.n\_elem);}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ uvec\ keep\ =\ find(sigma\ >\ tol);}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ sigma\_inv.elem(keep)\ =\ 1.0\ /\ sigma.elem(keep);}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ mat\ U\ =\ A\ *\ V;}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ \ U.each\_row()\ \%=\ sigma\_inv.t();}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \ \ return\ \{U,\ sigma,\ V\};}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ inline\ mat\ mat\_prod\_AtAQ(const\ mat\&\ A,\ const\ mat\&\ Q)\ \{}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ \ return\ A.t()\ *\ (A\ *\ Q);}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ inline\ mat\ crossprod(const\ mat\&\ A,\ const\ mat\&\ Q)\ \{}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ \ \ return\ A.t()\ *\ Q;}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ //\ [[Rcpp::export]]}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ List\ dashSVD(}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \ \ \ \ const\ mat\&\ A,}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ \ \ \ \ int\ k,}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ \ \ \ int\ p\ =\ 3,}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \ \ \ int\ s\ =\ 20,}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ \ \ \ \ int\ rand\ =\ 1,}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ bool\ verbose\ =\ false,}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ \ \ \ \ double\ tol\ =\ 1e-\/10}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ )\ \{}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ const\ uword\ M\ =\ A.n\_rows;}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \ const\ uword\ N\ =\ A.n\_cols;}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ \ \ const\ uword\ L\ =\ static\_cast<uword>(k\ +\ s);}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ if\ (k\ <=\ 0)\ \{}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ \ stop("{}k\ must\ be\ positive"{});}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \ \ if\ (L\ >\ N)\ \{}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ \ \ \ \ stop("{}k\ +\ s\ must\ be\ <=\ ncol(A)"{});}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ \ \ mat\ Omg;}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ \ \ if\ (rand\ ==\ 1)\ \{}}
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ \ \ \ \ Omg\ =\ randn<mat>(M,\ L);}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ \ \ \}\ else\ \{}}
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ \ \ \ \ Omg\ =\ randu<mat>(M,\ L);}}
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{//\ \ \ mat\ Q\ =\ crossprod(A.t(),\ Omg);}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ \ \ SVDResult\ e\ =\ eigSVD\_internal(Q,\ tol);}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ \ \ Q\ =\ e.U;}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ \ \ double\ alpha\ =\ 0.0;}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ \ \ for\ (int\ i\ =\ 1;\ i\ <=\ p;\ ++i)\ \{}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ \ \ \ \ if\ (verbose)\ \{}}
+\DoxyCodeLine{00109\ \textcolor{comment}{//\ \ \ \ \ \ \ Rcpp::Rcout\ <<\ "{}power\ iteration\ "{}\ <<\ i}}
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{},\ alpha="{}\ <<\ alpha\ <<\ std::endl;}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ \ \ \ \ mat\ B\ =\ mat\_prod\_AtAQ(A,\ Q)\ -\/\ alpha\ *\ Q;}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ \ \ \ \ e\ =\ eigSVD\_internal(B,\ tol);}}
+\DoxyCodeLine{00116\ \textcolor{comment}{//\ \ \ \ \ Q\ =\ e.U;}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ \ \ \ \ if\ (e.S(L\ -\/\ 1)\ >\ alpha)\ \{}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ \ \ \ \ \ \ alpha\ =\ (alpha\ +\ e.S(L\ -\/\ 1))\ /\ 2.0;}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ \ \ e\ =\ eigSVD\_internal(A\ *\ Q,\ tol);}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ \ mat\ U\ =\ e.U;}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \ \ vec\ S\ =\ e.S;}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ \ mat\ V\ =\ Q\ *\ e.V;}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ \ \ const\ uword\ kk\ =\ static\_cast<uword>(k);}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ \ \ return\ PCA(U.cols(0,\ kk\ -\/\ 1),}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ V.cols(0,\ kk\ -\/\ 1),}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ S.head(kk))}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ }
+
+\end{DoxyCode}

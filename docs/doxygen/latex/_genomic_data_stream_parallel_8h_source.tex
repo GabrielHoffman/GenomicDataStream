@@ -1,6 +1,6 @@
 \doxysection{Genomic\+Data\+Stream\+Parallel.\+h}
 \hypertarget{_genomic_data_stream_parallel_8h_source}{}\label{_genomic_data_stream_parallel_8h_source}\index{inst/include/GenomicDataStreamParallel.h@{inst/include/GenomicDataStreamParallel.h}}
-\mbox{\hyperlink{_genomic_data_stream_parallel_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{_genomic_data_stream_parallel_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00002\ \textcolor{comment}{/*************************************************************}}
@@ -22,14 +22,14 @@
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
-\DoxyCodeLine{00021\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacegds}{gds}};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ namespace\ }\doxymbox{\hyperlink{namespacegds}{gds}};}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}\ \{}
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00026\ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00027\ \ \ }
-\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1_param}{Param}}\ \&param,\ \textcolor{keyword}{const}\ vector<string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ numThreads)\ :}
+\DoxyCodeLine{00028\ \ \ \doxymbox{\hyperlink{class_genomic_data_stream_parallel_a02fa755d346f8137ed5c5d88f704b248}{GenomicDataStreamParallel}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structgds_1_1_param}{Param}}\ \&param,\ \textcolor{keyword}{const}\ vector<string>\ \&regions,\ \textcolor{keywordtype}{size\_t}\ numChunks,\ \textcolor{keywordtype}{size\_t}\ numThreads)\ :}
 \DoxyCodeLine{00029\ \ \ \ \ numChunks(min(numChunks,\ regions.size())),}
 \DoxyCodeLine{00030\ \ \ \ \ numThreads(numThreads),\ }
 \DoxyCodeLine{00031\ \ \ \ \ limited\_arena(numThreads)\ \{}
@@ -57,10 +57,10 @@
 \DoxyCodeLine{00053\ \ \ \ \ \});}
 \DoxyCodeLine{00054\ }
 \DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ split\ regions\ by\ chunk}}
-\DoxyCodeLine{00056\ \ \ \ \ regionSets\ =\ \mbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{gds::chunk\_vector}}(regions,\ numChunks);}
+\DoxyCodeLine{00056\ \ \ \ \ regionSets\ =\ \doxymbox{\hyperlink{namespacegds_a36a26c4a2000330f861fea50e6babad0}{gds::chunk\_vector}}(regions,\ numChunks);}
 \DoxyCodeLine{00057\ \ \ \}}
 \DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}{processChunks}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<T>}}\ \&,\ \textcolor{keywordtype}{size\_t})>\ processFunc)\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_genomic_data_stream_parallel_a7a76a1315ca81aaa1f3ce6b143db3b7e}{processChunks}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classgds_1_1_data_chunk}{gds::DataChunk<T>}}\ \&,\ \textcolor{keywordtype}{size\_t})>\ processFunc)\ \{}
 \DoxyCodeLine{00060\ }
 \DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ useFilter\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00062\ }
@@ -97,7 +97,7 @@
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ reader-\/>setRegions(\ regionSets[chunkIdx]\ );}
 \DoxyCodeLine{00094\ }
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ data\ and\ run\ analysis\ function}}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<T>}}\ chk;\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<T>}}\ chk;\ }
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while\ reader\ get\ variants}}
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (reader-\/>getNextChunk(chk,\ useFilter))\ \{}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ processFunc(chk,\ chunkIdx);}

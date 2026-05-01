@@ -1,6 +1,6 @@
 \doxysection{Variant\+Set.\+h}
 \hypertarget{_variant_set_8h_source}{}\label{_variant_set_8h_source}\index{inst/include/VariantSet.h@{inst/include/VariantSet.h}}
-\mbox{\hyperlink{_variant_set_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{_variant_set_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ VariantSet.h}}
@@ -19,33 +19,33 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <algorithm>}\ \ }
 \DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_genomic_ranges_8h}{GenomicRanges.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_genomic_ranges_8h}{GenomicRanges.h}}"{}}}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacegds}{gds}}\ \{}
 \DoxyCodeLine{00023\ \ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgds_1_1point_ad10ecd7d769f8c570dff713674506e0b}{point}}\ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{structgds_1_1point_ad10ecd7d769f8c570dff713674506e0b}{point}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \&\ \mbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}})\ :}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}(\mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}),\ \mbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}}(\mbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}})\ \{\}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structgds_1_1point_ad10ecd7d769f8c570dff713674506e0b}{point}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \doxymbox{\hyperlink{structgds_1_1point_ad10ecd7d769f8c570dff713674506e0b}{point}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \&\ \doxymbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}})\ :}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}(\doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}),\ \doxymbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}}(\doxymbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}})\ \{\}}
 \DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{structgds_1_1point_aa5b1dd0a7e13d30c67b40a888b169f50}{point}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}})\ :}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}(\mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}})\ \{\}}
+\DoxyCodeLine{00030\ \ \ \ \ \doxymbox{\hyperlink{structgds_1_1point_aa5b1dd0a7e13d30c67b40a888b169f50}{point}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}})\ :}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}(\doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}})\ \{\}}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}};}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{structgds_1_1point_abd89a5deb76f3674ea6d13359bb7d5ec}{index}};}
 \DoxyCodeLine{00035\ \};}
 \DoxyCodeLine{00036\ \ }
-\DoxyCodeLine{00039\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator<(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1point}{point}}\ \&a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgds_1_1point}{point}}\ \&b)\{}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ a.\mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}\ <\ b.\mbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator<(\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structgds_1_1point}{point}}\ \&a,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structgds_1_1point}{point}}\ \&b)\{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ a.\doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}}\ <\ b.\doxymbox{\hyperlink{structgds_1_1point_a790082ec81e2b763ac1da050f21f6602}{position}};}
 \DoxyCodeLine{00041\ \}}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5}{VariantSet}}\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5}{VariantSet}}\ \{}
 \DoxyCodeLine{00046\ }
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5}{VariantSet}}()\ \{\}}
+\DoxyCodeLine{00048\ \ \ \ \ \doxymbox{\hyperlink{classgds_1_1_variant_set_aed65ec1832bf8a47bd9797c87ae9acb5}{VariantSet}}()\ \{\}}
 \DoxyCodeLine{00049\ \ \ \ \ }
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_variant_set_aad673d873b6c51edfcafa84c81221418}{VariantSet}}(\ \textcolor{keyword}{const}\ vector<string>\ \&chrom,\ }
+\DoxyCodeLine{00050\ \ \ \ \ \doxymbox{\hyperlink{classgds_1_1_variant_set_aad673d873b6c51edfcafa84c81221418}{VariantSet}}(\ \textcolor{keyword}{const}\ vector<string>\ \&chrom,\ }
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<int>\ \&position,}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&\textcolor{keywordtype}{id}\ =\ vector<string>())\ :}
 \DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ variantIDs(id)\ \{}
@@ -57,7 +57,7 @@
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keys.push\_back(\ chrom[i]\ );}
 \DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ map[chrom[i]].push\_back(\ \mbox{\hyperlink{structgds_1_1point}{point}}(position[i],\ i)\ );}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ map[chrom[i]].push\_back(\ \doxymbox{\hyperlink{structgds_1_1point}{point}}(position[i],\ i)\ );}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ chrom}}
@@ -69,16 +69,16 @@
 \DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00072\ \ \ \ \ \}}
 \DoxyCodeLine{00073\ }
-\DoxyCodeLine{00076\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&chrom,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&start,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&end)\{}
+\DoxyCodeLine{00076\ \ \ \ \ vector<int>\ \doxymbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&chrom,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&start,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&end)\{}
 \DoxyCodeLine{00077\ }
 \DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vBegin\ =\ map[chrom].begin();}
 \DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vEnd\ =\ map[chrom].end();}
 \DoxyCodeLine{00080\ }
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ iterator\ to\ first\ element\ in\ the\ interval}}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it1\ =\ lower\_bound(vBegin,\ vEnd,\ \mbox{\hyperlink{structgds_1_1point}{point}}(start));\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it1\ =\ lower\_bound(vBegin,\ vEnd,\ \doxymbox{\hyperlink{structgds_1_1point}{point}}(start));\ }
 \DoxyCodeLine{00083\ }
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ iterator\ to\ last\ element\ in\ the\ interval}}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it2\ =\ upper\_bound(vBegin,\ vEnd,\ \mbox{\hyperlink{structgds_1_1point}{point}}(end));\ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it2\ =\ upper\_bound(vBegin,\ vEnd,\ \doxymbox{\hyperlink{structgds_1_1point}{point}}(end));\ \ }
 \DoxyCodeLine{00086\ }
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
 \DoxyCodeLine{00088\ }
@@ -92,14 +92,14 @@
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
 \DoxyCodeLine{00097\ \ \ \ \ \}}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00101\ \ \ \ \ vector<int>\ \mbox{\hyperlink{classgds_1_1_variant_set_a8649174d7f3075dc4a76c9ac28ebb8dc}{getIndeces}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \&gr\ )\{}
+\DoxyCodeLine{00101\ \ \ \ \ vector<int>\ \doxymbox{\hyperlink{classgds_1_1_variant_set_a8649174d7f3075dc4a76c9ac28ebb8dc}{getIndeces}}(\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \&gr\ )\{}
 \DoxyCodeLine{00102\ }
 \DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ vector<int>\ indeces;}
 \DoxyCodeLine{00104\ }
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ genome\ interval}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a7d1b020b0a925df57b1d9b56ddbae8e3}{size}}();\ i++)\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<gr.\doxymbox{\hyperlink{classgds_1_1_genomic_ranges_a7d1b020b0a925df57b1d9b56ddbae8e3}{size}}();\ i++)\{}
 \DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ indeces\ of\ variants\ within\ this\ interval}}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ idx\ =\ \mbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a520a5e62aa9b3f904cac75935e3ef5d6}{get\_chrom}}(i),\ gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a6c3f1ddba6cb0482c10d693fb02e54a2}{get\_start}}(i),\ gr.\mbox{\hyperlink{classgds_1_1_genomic_ranges_a113e6151e721d4207383fe7f28d2aeb9}{get\_end}}(i));}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ idx\ =\ \doxymbox{\hyperlink{classgds_1_1_variant_set_a8c585c0ea9ab7f16afe1b76fa2c9de68}{getIndeces}}(gr.\doxymbox{\hyperlink{classgds_1_1_genomic_ranges_a520a5e62aa9b3f904cac75935e3ef5d6}{get\_chrom}}(i),\ gr.\doxymbox{\hyperlink{classgds_1_1_genomic_ranges_a6c3f1ddba6cb0482c10d693fb02e54a2}{get\_start}}(i),\ gr.\doxymbox{\hyperlink{classgds_1_1_genomic_ranges_a113e6151e721d4207383fe7f28d2aeb9}{get\_end}}(i));}
 \DoxyCodeLine{00109\ }
 \DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ into\ vector}}
 \DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ indeces.insert(indeces.end(),\ idx.begin(),\ idx.end());}
@@ -108,15 +108,15 @@
 \DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indeces;}
 \DoxyCodeLine{00115\ \ \ \ \ \}}
 \DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b}{getVariantIDs}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00117\ \ \ \ \ vector<string>\ \doxymbox{\hyperlink{classgds_1_1_variant_set_ae23674ed5743c8992d5209ab6000e29b}{getVariantIDs}}()\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variantIDs;}
 \DoxyCodeLine{00119\ \ \ \ \ \}}
 \DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ vector<string>\ \mbox{\hyperlink{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311}{getVariantIDs}}(\textcolor{keyword}{const}\ vector<int>\ \&idx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ vector<string>\ \doxymbox{\hyperlink{classgds_1_1_variant_set_a23c5fb61fb9a885cb0a46f40858c3311}{getVariantIDs}}(\textcolor{keyword}{const}\ vector<int>\ \&idx)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subset\_vector(variantIDs,\ idx);}
 \DoxyCodeLine{00123\ \ \ \ \ \}}
 \DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \mbox{\hyperlink{classgds_1_1_variant_set_a022b7196a2c42fa7827b0436d3b794ca}{getChromRanges}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \doxymbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}\ \doxymbox{\hyperlink{classgds_1_1_variant_set_a022b7196a2c42fa7827b0436d3b794ca}{getChromRanges}}()\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00126\ }
 \DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ vector<string>\ chroms;}
 \DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ vector<size\_t>\ start,\ end;}
@@ -131,7 +131,7 @@
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ end.push\_back(\ map.at(chr).back().position\ );}
 \DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}(chroms,\ start,\ end);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classgds_1_1_genomic_ranges}{GenomicRanges}}(chroms,\ start,\ end);}
 \DoxyCodeLine{00141\ \ \ \ \ \}}
 \DoxyCodeLine{00142\ }
 \DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{private}:}

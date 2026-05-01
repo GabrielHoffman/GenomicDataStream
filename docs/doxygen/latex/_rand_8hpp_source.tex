@@ -1,6 +1,6 @@
 \doxysection{Rand.\+hpp}
 \hypertarget{_rand_8hpp_source}{}\label{_rand_8hpp_source}\index{inst/include/Rand.hpp@{inst/include/Rand.hpp}}
-\mbox{\hyperlink{_rand_8hpp}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{_rand_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ Rand.hpp}}
@@ -18,18 +18,18 @@
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <random>}}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType>}
-\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{RealType}}\ =\ \textcolor{keyword}{typename}\ Eigen::NumTraits<typename\ MatrixType::Scalar>::Real;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{RealType}}\ =\ \textcolor{keyword}{typename}\ Eigen::NumTraits<typename\ MatrixType::Scalar>::Real;}
 \DoxyCodeLine{00018\ }
 \DoxyCodeLine{00019\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType,\ \textcolor{keyword}{typename}\ ScalarType,\ \textcolor{keyword}{typename}\ RandomEngineType>}
-\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_standard_normal_random_helper}{StandardNormalRandomHelper}}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_standard_normal_random_helper}{StandardNormalRandomHelper}}}
 \DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MatrixType\ \mbox{\hyperlink{struct_standard_normal_random_helper_a0a5c3a79e3e2f7e8b317975da6647e70}{generate}}(Eigen::Index\ numRows,\ Eigen::Index\ numCols,\ RandomEngineType\ \&\ engine);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MatrixType\ \doxymbox{\hyperlink{struct_standard_normal_random_helper_a0a5c3a79e3e2f7e8b317975da6647e70}{generate}}(Eigen::Index\ numRows,\ Eigen::Index\ numCols,\ RandomEngineType\ \&\ engine);}
 \DoxyCodeLine{00023\ \};}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType,\ \textcolor{keyword}{typename}\ RandomEngineType>}
-\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_standard_normal_random_helper}{StandardNormalRandomHelper}}<MatrixType,\ \mbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{RealType}}<MatrixType>,\ RandomEngineType>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_standard_normal_random_helper}{StandardNormalRandomHelper}}<MatrixType,\ \doxymbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{RealType}}<MatrixType>,\ RandomEngineType>}
 \DoxyCodeLine{00027\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MatrixType\ \mbox{\hyperlink{struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_01_random_engine_type_01_4_a61a06f427f44d5c943559d5b1aff34ac}{generate}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MatrixType\ \doxymbox{\hyperlink{struct_standard_normal_random_helper_3_01_matrix_type_00_01_real_type_3_01_matrix_type_01_4_00_01_random_engine_type_01_4_a61a06f427f44d5c943559d5b1aff34ac}{generate}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Index\ numCols,}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RandomEngineType\ \&\ engine)}
 \DoxyCodeLine{00031\ \ \ \ \ \{}
@@ -40,13 +40,13 @@
 \DoxyCodeLine{00036\ \};}
 \DoxyCodeLine{00037\ }
 \DoxyCodeLine{00038\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType,\ \textcolor{keyword}{typename}\ RandomEngineType>}
-\DoxyCodeLine{00039\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_standard_normal_random_helper}{StandardNormalRandomHelper}}<MatrixType,\ std::complex<RealType<MatrixType>>,\ RandomEngineType>}
+\DoxyCodeLine{00039\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_standard_normal_random_helper}{StandardNormalRandomHelper}}<MatrixType,\ std::complex<RealType<MatrixType>>,\ RandomEngineType>}
 \DoxyCodeLine{00040\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MatrixType\ \mbox{\hyperlink{struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_maf542e54d4aedc393a9985dfeb66c7b59_ae2400ff42db60f889b6bc311356ee2f8}{generate}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MatrixType\ \doxymbox{\hyperlink{struct_standard_normal_random_helper_3_01_matrix_type_00_01std_1_1complex_3_01_real_type_3_01_maf542e54d4aedc393a9985dfeb66c7b59_ae2400ff42db60f889b6bc311356ee2f8}{generate}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Index\ numCols,}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RandomEngineType\ \&\ engine)}
 \DoxyCodeLine{00044\ \ \ \ \ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{RealType<MatrixType>}}\ stdDev\{0.707106781186547\};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{_rand_8hpp_a52faefe9cb535d4ecba2275067f10a51}{RealType<MatrixType>}}\ stdDev\{0.707106781186547\};}
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::normal\_distribution<RealType<MatrixType>>\ distribution\{0,\ stdDev\};}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ complexNormal\{[\&](\textcolor{keyword}{typename}\ MatrixType::Scalar)\ \{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::complex<RealType<MatrixType>>(distribution(engine),\ distribution(engine));}
@@ -56,7 +56,7 @@
 \DoxyCodeLine{00052\ \};}
 \DoxyCodeLine{00053\ }
 \DoxyCodeLine{00054\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType,\ \textcolor{keyword}{typename}\ RandomEngineType>}
-\DoxyCodeLine{00055\ \textcolor{keyword}{inline}\ MatrixType\ \mbox{\hyperlink{_rand_8hpp_a08e8992646418067ff91c0df2aa2a416}{UniformRandom}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
+\DoxyCodeLine{00055\ \textcolor{keyword}{inline}\ MatrixType\ \doxymbox{\hyperlink{_rand_8hpp_a08e8992646418067ff91c0df2aa2a416}{UniformRandom}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Index\ numCols,}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RandomEngineType\ \&\ engine)}
 \DoxyCodeLine{00058\ \{}
@@ -66,16 +66,16 @@
 \DoxyCodeLine{00062\ \}}
 \DoxyCodeLine{00063\ }
 \DoxyCodeLine{00064\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType,\ \textcolor{keyword}{typename}\ RandomEngineType>}
-\DoxyCodeLine{00065\ \textcolor{keyword}{inline}\ MatrixType\ \mbox{\hyperlink{_rand_8hpp_a6b1edd9fcef408b8f7e08c30e67e9ebc}{StandardNormalRandom}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
+\DoxyCodeLine{00065\ \textcolor{keyword}{inline}\ MatrixType\ \doxymbox{\hyperlink{_rand_8hpp_a6b1edd9fcef408b8f7e08c30e67e9ebc}{StandardNormalRandom}}(\textcolor{keyword}{const}\ Eigen::Index\ numRows,}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Index\ numCols,}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RandomEngineType\ \&\ engine)}
 \DoxyCodeLine{00068\ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_standard_normal_random_helper_a0a5c3a79e3e2f7e8b317975da6647e70}{StandardNormalRandomHelper<MatrixType,\ typename\ MatrixType::Scalar,\ RandomEngineType>::generate}}(}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{struct_standard_normal_random_helper_a0a5c3a79e3e2f7e8b317975da6647e70}{StandardNormalRandomHelper<MatrixType,\ typename\ MatrixType::Scalar,\ RandomEngineType>::generate}}(}
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ numRows,\ numCols,\ engine);}
 \DoxyCodeLine{00071\ \}}
 \DoxyCodeLine{00072\ }
 \DoxyCodeLine{00073\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType>}
-\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}{flipOmg}}(MatrixType\ \&\ Omg2,\ MatrixType\ \&\ Omg)}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_rand_8hpp_a1b2e8519194e452761f9f4afd19860f0}{flipOmg}}(MatrixType\ \&\ Omg2,\ MatrixType\ \&\ Omg)}
 \DoxyCodeLine{00075\ \{}
 \DoxyCodeLine{00076\ \ \ \textcolor{keywordflow}{for}(Eigen::Index\ i\ =\ 0;\ i\ <\ Omg.cols();\ ++i)}
 \DoxyCodeLine{00077\ \ \ \{}
@@ -89,7 +89,7 @@
 \DoxyCodeLine{00085\ \}}
 \DoxyCodeLine{00086\ }
 \DoxyCodeLine{00087\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType>}
-\DoxyCodeLine{00088\ Eigen::Matrix<typename\ MatrixType::Scalar,\ Eigen::Dynamic,\ Eigen::Dynamic>\ \mbox{\hyperlink{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f}{center\_and\_scale}}(}
+\DoxyCodeLine{00088\ Eigen::Matrix<typename\ MatrixType::Scalar,\ Eigen::Dynamic,\ Eigen::Dynamic>\ \doxymbox{\hyperlink{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f}{center\_and\_scale}}(}
 \DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ MatrixType\ \&\ matrix,}
 \DoxyCodeLine{00090\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<const\ Eigen::VectorXd>\ \&\ center,}
 \DoxyCodeLine{00091\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<const\ Eigen::VectorXd>\ \&\ scale,}
@@ -119,7 +119,7 @@
 \DoxyCodeLine{00115\ }
 \DoxyCodeLine{00116\ }
 \DoxyCodeLine{00117\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ MatrixType>}
-\DoxyCodeLine{00118\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f}{center\_and\_scale}}(}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_rand_8hpp_a0a0ded3a5d21fca7fb7274696a85c54f}{center\_and\_scale}}(}
 \DoxyCodeLine{00119\ \ \ Eigen::MatrixXd\ \&\ mat,}
 \DoxyCodeLine{00120\ \ \ \textcolor{keyword}{const}\ MatrixType\ \&\ matrix,}
 \DoxyCodeLine{00121\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<const\ Eigen::VectorXd>\ \&\ center,}

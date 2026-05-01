@@ -1,6 +1,6 @@
 \doxysection{Data\+Table.\+h}
 \hypertarget{_data_table_8h_source}{}\label{_data_table_8h_source}\index{inst/include/DataTable.h@{inst/include/DataTable.h}}
-\mbox{\hyperlink{_data_table_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{_data_table_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
 \DoxyCodeLine{00002\ \textcolor{comment}{*\ @file\ \ \ \ \ \ \ \ DataTable.h}}
@@ -24,18 +24,18 @@
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \textcolor{keyword}{using\ namespace\ }std;}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegds}{gds}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacegds}{gds}}\ \{}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ boost::tokenizer<boost::char\_separator<char>\ >\ }
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}};}
+\DoxyCodeLine{00026\ \ \ \ \ \doxymbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}};}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}\ \{}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}()\{\}}
+\DoxyCodeLine{00032\ \ \ \doxymbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}()\{\}}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&headerKey=\textcolor{stringliteral}{"{}"{}},\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)t\ "{}})\{}
+\DoxyCodeLine{00044\ \ \ \doxymbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{DataTable}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&headerKey=\textcolor{stringliteral}{"{}"{}},\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)t\ "{}})\{}
 \DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ filesystem::exists(\ file\ )\ )\{}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}File\ does\ not\ exist:\ "{}}\ +\ file);}
@@ -58,7 +58,7 @@
 \DoxyCodeLine{00064\ \ \ \ \ \ \ getline(strm\_tmp,\ line);}
 \DoxyCodeLine{00065\ }
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
 \DoxyCodeLine{00068\ }
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{comment}{//\ process\ each\ token}}
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ncols\ =\ 1;}
@@ -77,7 +77,7 @@
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(strm,\ line))\ \{}
 \DoxyCodeLine{00084\ }
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
 \DoxyCodeLine{00087\ }
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ process\ each\ token}}
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ }
@@ -124,7 +124,7 @@
 \DoxyCodeLine{00130\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ colIndex\ =\ 0;}
 \DoxyCodeLine{00131\ }
 \DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{comment}{//\ tokenize\ line}}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacegds_a86eaee4f78145d6ca6157241e494c85b}{tokenizer}}\ tokens(line,\ separators);}
 \DoxyCodeLine{00134\ }
 \DoxyCodeLine{00135\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ it\ =\ tokens.begin();\ it\ !=\ tokens.end();\ ++it)\{\ \ \ \ \ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ colIndex\ >\ data.size()\ )\ \textcolor{keywordflow}{break};}
@@ -141,7 +141,7 @@
 \DoxyCodeLine{00147\ \ \ \ \ strm.close();}
 \DoxyCodeLine{00148\ \ \ \}}
 \DoxyCodeLine{00149\ }
-\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{\string~DataTable}}()\{\}}
+\DoxyCodeLine{00150\ \ \ \doxymbox{\hyperlink{classgds_1_1_data_table_afdae3dcee7f77d29f03df7f5affeddeb}{\string~DataTable}}()\{\}}
 \DoxyCodeLine{00151\ }
 \DoxyCodeLine{00152\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncols()\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{return}\ data.size();}

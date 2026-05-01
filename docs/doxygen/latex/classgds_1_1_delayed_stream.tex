@@ -1,10 +1,10 @@
-\doxysection{gds\+::Delayed\+Stream Class Reference}
+\doxysection{gds::\+Delayed\+Stream Class Reference}
 \hypertarget{classgds_1_1_delayed_stream}{}\label{classgds_1_1_delayed_stream}\index{gds::DelayedStream@{gds::DelayedStream}}
 
 
-{\ttfamily \#include $<$Delayed\+Stream.\+h$>$}
+{\ttfamily \+\#include $<$Delayed\+Stream.\+h$>$}
 
-Inheritance diagram for gds\+::Delayed\+Stream\+:\begin{figure}[H]
+Inheritance diagram for gds::\+Delayed\+Stream:\+\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classgds_1_1_delayed_stream}
@@ -13,210 +13,210 @@ Inheritance diagram for gds\+::Delayed\+Stream\+:\begin{figure}[H]
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classgds_1_1_delayed_stream_a384ad91ab9953d831d2bd4e6779e7359}{Delayed\+Stream}} (const shared\+\_\+ptr$<$ tatami\+::\+Numeric\+Matrix $>$ \&ptr, const vector$<$ string $>$ \&row\+Names, const int \&chunk\+Size)
+\doxymbox{\hyperlink{classgds_1_1_delayed_stream_a384ad91ab9953d831d2bd4e6779e7359}{Delayed\+Stream}} (const shared\+\_\+ptr$<$ tatami::\+\+Numeric\+Matrix $>$ \&ptr, const vector$<$ string $>$ \&row\+Names, const int \&chunk\+Size)
 \item 
-\mbox{\hyperlink{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}{\texorpdfstring{$\sim$}{\string~}\+Delayed\+Stream}} ()
+\doxymbox{\hyperlink{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}{\texorpdfstring{$\sim$}{\string~}\+Delayed\+Stream}} ()
 \item 
-void \mbox{\hyperlink{classgds_1_1_delayed_stream_a323477c8f2ecfa8857477cfc1ca4afe3}{set\+Regions}} (const vector$<$ string $>$ \&regions) override
+void \doxymbox{\hyperlink{classgds_1_1_delayed_stream_a323477c8f2ecfa8857477cfc1ca4afe3}{set\+Regions}} (const vector$<$ string $>$ \&regions) override
 \item 
-int \mbox{\hyperlink{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77}{n\+\_\+samples}} () override
+int \doxymbox{\hyperlink{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77}{n\+\_\+samples}} () override
 \item 
-int \mbox{\hyperlink{classgds_1_1_delayed_stream_ad36d43b3ddf03ea9f62e0214d07a3507}{n\+\_\+rows}} ()
+int \doxymbox{\hyperlink{classgds_1_1_delayed_stream_ad36d43b3ddf03ea9f62e0214d07a3507}{n\+\_\+rows}} ()
 \item 
-vector$<$ string $>$ \mbox{\hyperlink{classgds_1_1_delayed_stream_a6fcf6165222ce8cfb3a38d60c635c3b3}{get\+Sample\+Names}} () override
+vector$<$ string $>$ \doxymbox{\hyperlink{classgds_1_1_delayed_stream_a6fcf6165222ce8cfb3a38d60c635c3b3}{get\+Sample\+Names}} () override
 \item 
-string \mbox{\hyperlink{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163}{get\+Stream\+Type}} () override
+string \doxymbox{\hyperlink{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163}{get\+Stream\+Type}} () override
 \item 
-\mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \mbox{\hyperlink{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3}{get\+Chrom\+Ranges}} () override
+\doxymbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} \doxymbox{\hyperlink{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3}{get\+Chrom\+Ranges}} () override
 \item 
-bool \mbox{\hyperlink{classgds_1_1_delayed_stream_adcfdba3bb518ef878370cde93cdb205f}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat $>$ \&chunk, const bool \&use\+Filter=true) override
+bool \doxymbox{\hyperlink{classgds_1_1_delayed_stream_adcfdba3bb518ef878370cde93cdb205f}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma::\+mat $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
-bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a4ab57931c9913e0efe738d490bf0dbee}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat $>$ \&chunk, const bool \&use\+Filter=true) override
+bool \doxymbox{\hyperlink{classgds_1_1_delayed_stream_a4ab57931c9913e0efe738d490bf0dbee}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma::\+sp\+\_\+mat $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
-bool \mbox{\hyperlink{classgds_1_1_delayed_stream_ad5947e161d12be92dfc82f881cf62b82}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Matrix\+Xd $>$ \&chunk, const bool \&use\+Filter=true) override
+bool \doxymbox{\hyperlink{classgds_1_1_delayed_stream_ad5947e161d12be92dfc82f881cf62b82}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen::\+\+Matrix\+Xd $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
-bool \mbox{\hyperlink{classgds_1_1_delayed_stream_a892e4c41a4bcc9e331c3a54fbc65b44e}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ \&chunk, const bool \&use\+Filter=true) override
+bool \doxymbox{\hyperlink{classgds_1_1_delayed_stream_a892e4c41a4bcc9e331c3a54fbc65b44e}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen::\+\+Sparse\+Matrix$<$ double $>$ $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
-bool \mbox{\hyperlink{classgds_1_1_delayed_stream_ad5ef36042f1324e76480cc6f3159b64e}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix $>$ \&chunk, const bool \&use\+Filter=true) override
+bool \doxymbox{\hyperlink{classgds_1_1_delayed_stream_ad5ef36042f1324e76480cc6f3159b64e}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp::\+\+Numeric\+Matrix $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
-bool \mbox{\hyperlink{classgds_1_1_delayed_stream_ab8eb70e5ecd7d7538090bf9e027bb78b}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$ $>$ \&chunk, const bool \&use\+Filter=true) override
+bool \doxymbox{\hyperlink{classgds_1_1_delayed_stream_ab8eb70e5ecd7d7538090bf9e027bb78b}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$ $>$ \&chunk, const bool \&use\+Filter=true) override
 \item 
-void \mbox{\hyperlink{classgds_1_1_delayed_stream_a33d599629d1d951a6482aaf5d1ab9d14}{get\+Next\+Chunk}} (\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Matrix\+Xd $>$ \&chunk, int start, int len)
+void \doxymbox{\hyperlink{classgds_1_1_delayed_stream_a33d599629d1d951a6482aaf5d1ab9d14}{get\+Next\+Chunk}} (\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen::\+\+Matrix\+Xd $>$ \&chunk, int start, int len)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds\+::\+Genomic\+Data\+Stream}}}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds::\+\+Genomic\+Data\+Stream}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{Genomic\+Data\+Stream}} ()
+\doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_ad98c4f80648627ad9f1b99ff628771ad}{Genomic\+Data\+Stream}} ()
 \item 
-\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5d494b75983473682da572b0afa9d19f}{Genomic\+Data\+Stream}} (const \mbox{\hyperlink{structgds_1_1_param}{Param}} \&\mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}})
+\doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a5d494b75983473682da572b0afa9d19f}{Genomic\+Data\+Stream}} (const \doxymbox{\hyperlink{structgds_1_1_param}{Param}} \&param)
 \item 
-virtual \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
+virtual \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a5cf33d3baa9ce882db43fea4cc5d1ed6}{\texorpdfstring{$\sim$}{\string~}\+Genomic\+Data\+Stream}} ()
 \item 
-double \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{get\+Min\+Variance}} ()
+double \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a4434237ab37224fcff1d2b17f276679f}{get\+Min\+Variance}} ()
 \item 
-double \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a6c4e355b95dc7e5932efe18541f1e5fb}{get\+MAF}} () const
+double \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a6c4e355b95dc7e5932efe18541f1e5fb}{get\+MAF}} () const
 \item 
-void \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a54bbafa0043c0905126e468e1da6c219}{set\+Min\+Variance}} (const double \&value)
+void \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a54bbafa0043c0905126e468e1da6c219}{set\+Min\+Variance}} (const double \&value)
 \item 
-void \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aa7184d3bdd2211562669bcba991513fa}{set\+Chunk\+Size}} (const int \&chunk\+Size)
+void \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_aa7184d3bdd2211562669bcba991513fa}{set\+Chunk\+Size}} (const int \&chunk\+Size)
 \item 
-\mbox{\hyperlink{structgds_1_1_param}{Param}} \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a89378170faac82d2da8103dc47efcceb}{get\+Param}} () const
+\doxymbox{\hyperlink{structgds_1_1_param}{Param}} \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a89378170faac82d2da8103dc47efcceb}{get\+Param}} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds\+::\+Genomic\+Data\+Stream}}}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream}{gds::\+\+Genomic\+Data\+Stream}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structgds_1_1_param}{Param}} \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}
+\doxymbox{\hyperlink{structgds_1_1_param}{Param}} \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a707058d3851890ff8da01e5485de164a}{param}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Reads an Robject 
 
-\label{doc-constructors}
+\label{classgds_1_1_delayed_stream_doc-constructors}
 \Hypertarget{classgds_1_1_delayed_stream_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classgds_1_1_delayed_stream_a384ad91ab9953d831d2bd4e6779e7359}\index{gds::DelayedStream@{gds::DelayedStream}!DelayedStream@{DelayedStream}}
 \index{DelayedStream@{DelayedStream}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{DelayedStream()}{DelayedStream()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a384ad91ab9953d831d2bd4e6779e7359} 
-gds\+::\+Delayed\+Stream\+::\+Delayed\+Stream (\begin{DoxyParamCaption}\item[{const shared\+\_\+ptr$<$ tatami\+::\+Numeric\+Matrix $>$ \&}]{ptr}{, }\item[{const vector$<$ string $>$ \&}]{row\+Names}{, }\item[{const int \&}]{chunk\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+gds::\+\+Delayed\+Stream::\+\+Delayed\+Stream (\begin{DoxyParamCaption}\item[{const shared\+\_\+ptr$<$ tatami::\+\+Numeric\+Matrix $>$ \&}]{ptr}{, }\item[{const vector$<$ string $>$ \&}]{row\+Names}{, }\item[{const int \&}]{chunk\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \Hypertarget{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0}\index{gds::DelayedStream@{gds::DelayedStream}!````~DelayedStream@{\texorpdfstring{$\sim$}{\string~}DelayedStream}}
 \index{````~DelayedStream@{\texorpdfstring{$\sim$}{\string~}DelayedStream}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}DelayedStream()}{\string~DelayedStream()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_afa16d9a0d9427b79f473e9007a0d3da0} 
-gds\+::\+Delayed\+Stream\+::\texorpdfstring{$\sim$}{\string~}\+Delayed\+Stream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+gds::\+\+Delayed\+Stream::\+\texorpdfstring{$\sim$}{\string~}\+Delayed\+Stream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 destructor 
 
-\label{doc-func-members}
+\label{classgds_1_1_delayed_stream_doc-func-members}
 \Hypertarget{classgds_1_1_delayed_stream_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3}\index{gds::DelayedStream@{gds::DelayedStream}!getChromRanges@{getChromRanges}}
 \index{getChromRanges@{getChromRanges}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getChromRanges()}{getChromRanges()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_aaa1f7282766b4a37cbf9e6a6b5fda9b3} 
-\mbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} gds\+::\+Delayed\+Stream\+::get\+Chrom\+Ranges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+\doxymbox{\hyperlink{classgds_1_1_genomic_ranges}{Genomic\+Ranges}} gds::\+\+Delayed\+Stream::\+get\+Chrom\+Ranges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Get maximum position for each chrom 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a7b932c087d2f9ab6a118f53be8745093}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_adcfdba3bb518ef878370cde93cdb205f}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_adcfdba3bb518ef878370cde93cdb205f} 
-bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::mat $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+bool gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma::\+mat $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Get next chunk of {\itshape features} as arma\+::mat 
+Get next chunk of {\itshape features} as arma::\+mat 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a3197b3af06dd06ba1a381c6218d509de}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a3197b3af06dd06ba1a381c6218d509de}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_a4ab57931c9913e0efe738d490bf0dbee}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a4ab57931c9913e0efe738d490bf0dbee} 
-bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma\+::sp\+\_\+mat $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+bool gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ arma::\+sp\+\_\+mat $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Get next chunk of {\itshape features} as arma\+::sp\+\_\+mat 
+Get next chunk of {\itshape features} as arma::\+sp\+\_\+mat 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aae943c218a710554cfb8073b21f6ca29}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_aae943c218a710554cfb8073b21f6ca29}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_ad5947e161d12be92dfc82f881cf62b82}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_ad5947e161d12be92dfc82f881cf62b82} 
-bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Matrix\+Xd $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+bool gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen::\+\+Matrix\+Xd $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Get next chunk of {\itshape features} as Eigen\+::\+Matrix\+Xd 
+Get next chunk of {\itshape features} as Eigen::\+\+Matrix\+Xd 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a93bd02d558586b8c73b57abb2c0a9cf8}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a93bd02d558586b8c73b57abb2c0a9cf8}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_a33d599629d1d951a6482aaf5d1ab9d14}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a33d599629d1d951a6482aaf5d1ab9d14} 
-void gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Matrix\+Xd $>$ \&}]{chunk}{, }\item[{int}]{start}{, }\item[{int}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen::\+\+Matrix\+Xd $>$ \&}]{chunk}{, }\item[{int}]{start}{, }\item[{int}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 Get chunks based on start and end \Hypertarget{classgds_1_1_delayed_stream_a892e4c41a4bcc9e331c3a54fbc65b44e}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a892e4c41a4bcc9e331c3a54fbc65b44e} 
-bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+bool gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Eigen::\+\+Sparse\+Matrix$<$ double $>$ $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Get next chunk of {\itshape features} as Sparse\+Matrix$<$double$>$ 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_ad76e0872a8a8d1e88ed50e6eed724c32}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_ad76e0872a8a8d1e88ed50e6eed724c32}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_ad5ef36042f1324e76480cc6f3159b64e}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_ad5ef36042f1324e76480cc6f3159b64e} 
-bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp\+::\+Numeric\+Matrix $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+bool gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ Rcpp::\+\+Numeric\+Matrix $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Get next chunk of {\itshape features} as Rcpp\+::\+Numeric\+Matrix 
+Get next chunk of {\itshape features} as Rcpp::\+\+Numeric\+Matrix 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_aba155da6c9b127c7127a08e19143a180}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_aba155da6c9b127c7127a08e19143a180}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_ab8eb70e5ecd7d7538090bf9e027bb78b}\index{gds::DelayedStream@{gds::DelayedStream}!getNextChunk@{getNextChunk}}
 \index{getNextChunk@{getNextChunk}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getNextChunk()}{getNextChunk()}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_ab8eb70e5ecd7d7538090bf9e027bb78b} 
-bool gds\+::\+Delayed\+Stream\+::get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$ $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+bool gds::\+\+Delayed\+Stream::\+get\+Next\+Chunk (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{Data\+Chunk}}$<$ vector$<$ double $>$ $>$ \&}]{chunk}{, }\item[{const bool \&}]{use\+Filter}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Get next chunk of {\itshape features} as vector$<$double$>$ 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a17f0a984e0fa07a1903e8004240356c7}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a17f0a984e0fa07a1903e8004240356c7}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_a6fcf6165222ce8cfb3a38d60c635c3b3}\index{gds::DelayedStream@{gds::DelayedStream}!getSampleNames@{getSampleNames}}
 \index{getSampleNames@{getSampleNames}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getSampleNames()}{getSampleNames()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a6fcf6165222ce8cfb3a38d60c635c3b3} 
-vector$<$ string $>$ gds\+::\+Delayed\+Stream\+::get\+Sample\+Names (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+vector$<$ string $>$ gds::\+\+Delayed\+Stream::\+get\+Sample\+Names (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Get vector of sample names in order that the genotypes are extracted 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a7a549274b79ac4419360c400d80a048b}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a7a549274b79ac4419360c400d80a048b}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163}\index{gds::DelayedStream@{gds::DelayedStream}!getStreamType@{getStreamType}}
 \index{getStreamType@{getStreamType}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{getStreamType()}{getStreamType()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_aec1ed3c3d3fc25e0bdae288f56d6f163} 
-string gds\+::\+Delayed\+Stream\+::get\+Stream\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+string gds::\+\+Delayed\+Stream::\+get\+Stream\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 get \doxylink{namespacegds_a337c0e2976570a4dbbe8f8dd4e794361}{File\+Type} of param.\+file 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386fc9c7313412f275ad84}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_af9241b3887386fc9c7313412f275ad84}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_ad36d43b3ddf03ea9f62e0214d07a3507}\index{gds::DelayedStream@{gds::DelayedStream}!n\_rows@{n\_rows}}
 \index{n\_rows@{n\_rows}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{n\_rows()}{n\_rows()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_ad36d43b3ddf03ea9f62e0214d07a3507} 
-int gds\+::\+Delayed\+Stream\+::n\+\_\+rows (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+int gds::\+\+Delayed\+Stream::\+n\+\_\+rows (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 Get number of rows in data matrix \Hypertarget{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77}\index{gds::DelayedStream@{gds::DelayedStream}!n\_samples@{n\_samples}}
 \index{n\_samples@{n\_samples}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{n\_samples()}{n\_samples()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_afaca9837fce72787b03e08d2d5fc5b77} 
-int gds\+::\+Delayed\+Stream\+::n\+\_\+samples (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+int gds::\+\+Delayed\+Stream::\+n\+\_\+samples (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Get number of columns in data matrix 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a8bfa63dae08a7972722b03b56395e927}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a8bfa63dae08a7972722b03b56395e927}{gds::\+\+Genomic\+Data\+Stream}}.
 
 \Hypertarget{classgds_1_1_delayed_stream_a323477c8f2ecfa8857477cfc1ca4afe3}\index{gds::DelayedStream@{gds::DelayedStream}!setRegions@{setRegions}}
 \index{setRegions@{setRegions}!gds::DelayedStream@{gds::DelayedStream}}
 \doxysubsubsection{\texorpdfstring{setRegions()}{setRegions()}}
 {\footnotesize\ttfamily \label{classgds_1_1_delayed_stream_a323477c8f2ecfa8857477cfc1ca4afe3} 
-void gds\+::\+Delayed\+Stream\+::set\+Regions (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{regions}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+void gds::\+\+Delayed\+Stream::\+set\+Regions (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{regions}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 setter 
 
-Implements \mbox{\hyperlink{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}{gds\+::\+Genomic\+Data\+Stream}}.
+Implements \doxymbox{\hyperlink{classgds_1_1_genomic_data_stream_a5abd183e6738fa4ccc6609c0b7f63cc8}{gds::\+\+Genomic\+Data\+Stream}}.
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-inst/include/\mbox{\hyperlink{_delayed_stream_8h}{Delayed\+Stream.\+h}}\end{DoxyCompactItemize}
+inst/\+include/\+\doxymbox{\hyperlink{_delayed_stream_8h}{Delayed\+Stream.\+h}}\end{DoxyCompactItemize}

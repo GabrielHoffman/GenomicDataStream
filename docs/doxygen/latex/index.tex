@@ -1,6 +1,6 @@
 \chapter{A scalable interface between data and analysis underneath R }
 \hypertarget{index}{}\label{index}\index{A scalable interface between data and analysis underneath R@{A scalable interface between data and analysis underneath R}}
-  Reading genomic data files (\href{https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/}{\texttt{VCF}}, \href{https://samtools.github.io/bcftools/howtos/index.html}{\texttt{BCF}}, \href{https://www.chg.ox.ac.uk/~gav/bgen_format/index.html}{\texttt{BGEN}}, \href{https://www.cog-genomics.org/plink/2.0/input\#pgen}{\texttt{PGEN}}, \href{https://www.cog-genomics.org/plink/2.0/input\#bed}{\texttt{BED}}, \href{https://anndata.readthedocs.io/en/latest/index.html}{\texttt{H5\+AD}}, \href{https://en.wikipedia.org/wiki/Hierarchical_Data_Format}{\texttt{HDF5}}, \href{https://bioconductor.org/packages/DelayedArray}{\texttt{Delayed\+Array}}) into R/\+Rcpp in chunks for analysis with \href{https://doi.org/10.21105/joss.00026}{\texttt{Armadillo}} / \href{https://eigen.tuxfamily.org/index.php?title=Main_Page}{\texttt{Eigen}} / \href{https://www.rcpp.org}{\texttt{Rcpp}} libraries. Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in a way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. \hypertarget{index_autotoc_md0}{}\doxysubsubsubsection{\texorpdfstring{The {\ttfamily Genomic\+Data\+Stream} C++ interface separates}{The {\ttfamily Genomic\+Data\+Stream} C++ interface separates}}\label{index_autotoc_md0}
+  Reading genomic data files (\href{https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/}{\texttt{VCF}}, \href{https://samtools.github.io/bcftools/howtos/index.html}{\texttt{BCF}}, \href{https://www.chg.ox.ac.uk/~gav/bgen_format/index.html}{\texttt{BGEN}}, \href{https://www.cog-genomics.org/plink/2.0/input\#pgen}{\texttt{PGEN}}, \href{https://www.cog-genomics.org/plink/2.0/input\#bed}{\texttt{BED}}, \href{https://anndata.readthedocs.io/en/latest/index.html}{\texttt{H5\+AD}}, \href{https://en.wikipedia.org/wiki/Hierarchical_Data_Format}{\texttt{HDF5}}, \href{https://bioconductor.org/packages/DelayedArray}{\texttt{Delayed\+Array}}) into R/\+\+Rcpp in chunks for analysis with \href{https://doi.org/10.21105/joss.00026}{\texttt{Armadillo}} /\+ \href{https://eigen.tuxfamily.org/index.php?title=Main_Page}{\texttt{Eigen}} /\+ \href{https://www.rcpp.org}{\texttt{Rcpp}} libraries. Mondern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in a way that the two components can’t be separated for use in other applications. For example, regresson analysis paired with genotype data from a VCF file. \hypertarget{index_autotoc_md0}{}\doxysubsubsubsection{\texorpdfstring{The {\ttfamily Genomic\+Data\+Stream} C++ interface separates}{The {\ttfamily Genomic\+Data\+Stream} C++ interface separates}}\label{index_autotoc_md0}
 
 \begin{DoxyEnumerate}
 \item data source
@@ -13,10 +13,10 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_genomic_data_stream_8h}{GenomicDataStream.h}}>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{_genomic_data_stream_8h}{GenomicDataStream.h}}>}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ use\ namespace\ for\ GenomicDataStream}}
-\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacegds}{gds}};}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\doxymbox{\hyperlink{namespacegds}{gds}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ parameters\ }}
 \DoxyCodeLine{\textcolor{keywordtype}{string}\ file\ =\ \textcolor{stringliteral}{"{}test.vcf.gz"{}};}
@@ -28,7 +28,7 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ chunkSize\ =\ 4;\ \ \ \ \ \ \textcolor{comment}{//\ each\ chunk\ will\ read\ 4\ variants}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ initialize\ parameters}}
-\DoxyCodeLine{\mbox{\hyperlink{structgds_1_1_param}{Param}}\ param(\ file,\ region,\ samples,\ MAF,\ minVariance,\ chunkSize);}
+\DoxyCodeLine{\doxymbox{\hyperlink{structgds_1_1_param}{Param}}\ param(\ file,\ region,\ samples,\ MAF,\ minVariance,\ chunkSize);}
 \DoxyCodeLine{param.setField(field);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Initialise\ GenomicDataStream\ to\ read\ }}
@@ -36,19 +36,19 @@
 \DoxyCodeLine{shared\_ptr<GenomicDataStream>\ gdsStream\ =\ createFileView(\ param\ );}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ declare\ DataChunk\ storing\ an\ Armadillo\ matrix\ for\ each\ chunk}}
-\DoxyCodeLine{\mbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ chunk;}
+\DoxyCodeLine{\doxymbox{\hyperlink{classgds_1_1_data_chunk}{DataChunk<arma::mat>}}\ chunk;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Store\ meta-\/data\ about\ each\ variant}}
-\DoxyCodeLine{\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *info;}
+\DoxyCodeLine{\doxymbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}\ *info;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ loop\ through\ chunks}}
 \DoxyCodeLine{\textcolor{keywordflow}{while}(\ gdsStream-\/>getNextChunk(\ chunk\ )\ )\{}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ get\ data\ from\ chunk}}
-\DoxyCodeLine{\ \ \ \ arma::mat\ X\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a8694b418a7229000979d93490ba2a7eb}{getData}}();}
+\DoxyCodeLine{\ \ \ \ arma::mat\ X\ =\ chunk.\doxymbox{\hyperlink{classgds_1_1_data_chunk_a8694b418a7229000979d93490ba2a7eb}{getData}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ get\ variant\ information}}
-\DoxyCodeLine{\ \ \ \ info\ =\ chunk.\mbox{\hyperlink{classgds_1_1_data_chunk_a8803e2c0a7abed36e45f868a4a55767b}{getInfo}}<\mbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>();}
+\DoxyCodeLine{\ \ \ \ info\ =\ chunk.\doxymbox{\hyperlink{classgds_1_1_data_chunk_a8803e2c0a7abed36e45f868a4a55767b}{getInfo}}<\doxymbox{\hyperlink{classgds_1_1_variant_info}{VariantInfo}}>();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Do\ analysis\ with\ variants\ in\ this\ chunk}}
 \DoxyCodeLine{\ \ \ \ analysis\_function(X,\ info);}
@@ -60,10 +60,10 @@
 \begin{DoxyTable}{3}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Package  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Ref  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Role  \\
 \href{https://cran.r-project.org/package=vcfppR}{\texttt{vcfppR}}  &\href{https://doi.org/10.1093/bioinformatics/btae049}{\texttt{Bioinformatics}}  &C++ API for htslib  \\
-\href{https://github.com/samtools/htslib}{\texttt{htslib}}  &\href{https://doi.org/10.1093/gigascience/giab007}{\texttt{Giga\+Science}}  &C API for VCF/\+BCF files  \\
-\href{https://cran.r-project.org/package=pgenlibr}{\texttt{pgenlibr}}  &\href{https://doi.org/10.1186/s13742-015-0047-8}{\texttt{Giga\+Science}}  &R/\+C++ API for plink files  \\
+\href{https://github.com/samtools/htslib}{\texttt{htslib}}  &\href{https://doi.org/10.1093/gigascience/giab007}{\texttt{Giga\+Science}}  &C API for VCF/\+\+BCF files  \\
+\href{https://cran.r-project.org/package=pgenlibr}{\texttt{pgenlibr}}  &\href{https://doi.org/10.1186/s13742-015-0047-8}{\texttt{Giga\+Science}}  &R/\+\+C++ API for plink files  \\
 \href{https://bioconductor.org/packages/beachmat/}{\texttt{beatchmat}}  &\href{https://doi.org/10.1371/journal.pcbi.1006135}{\texttt{PLoS Comp Biol}}  &C++ API for access data owned by R  \\
-\href{https://cran.r-project.org/package=Rcpp}{\texttt{Rcpp}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for R/\+C++ integration  \\
+\href{https://cran.r-project.org/package=Rcpp}{\texttt{Rcpp}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for R/\+\+C++ integration  \\
 \href{https://cran.r-project.org/package=RcppEigen}{\texttt{Rcpp\+Eigen}}  &\href{https://doi.org/10.18637/jss.v052.i05}{\texttt{J Stat Software}}  &API for Rcpp access to Eigen matrix library  \\
 \href{https://cran.r-project.org/package=RcppArmadillo}{\texttt{Rcpp\+Armadillo}}  &\href{https://doi.org/10.18637/jss.v040.i08}{\texttt{J Stat Software}}  &API for Rcpp access to Armadillo matrix library  \\
 \href{https://eigen.tuxfamily.org/index.php?title=Main_Page}{\texttt{Eigen}}  &&C++ library for linear algebra with advanced features  \\
@@ -71,7 +71,7 @@
 \href{https://rcppcore.github.io/RcppParallel/}{\texttt{Rcpp\+Parallel}}  &&one\+API \href{https://uxlfoundation.github.io/oneTBB/}{\texttt{Threading Building Blocks}} for parallel analysis  \\
 \end{DoxyTable}
 \hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{index_autotoc_md3}
- {\ttfamily \doxylink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in {\ttfamily Makevars}\+: 
+ {\ttfamily \doxylink{classgds_1_1_genomic_data_stream}{Genomic\+Data\+Stream}} provide flexability in terms of data input types and and matrix libraries. This can useful in many cases, but the large number of dependencies can require installation of additional libraries and increase compile times. Some of these dependencies can be avoided by removing support for some capabilities with compiler flags in {\ttfamily Makevars}:\+ 
 
 {\ttfamily -\/D DISABLE\+\_\+\+DELAYED\+\_\+\+STREAM} ~\newline
  ~~~~~~~~~~ Omit {\ttfamily \doxylink{classgds_1_1_delayed_stream}{Delayed\+Stream}} class, remove dependence on {\ttfamily Rcpp} and {\ttfamily beachmat} ~\newline
