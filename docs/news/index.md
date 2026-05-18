@@ -1,5 +1,11 @@
 # Changelog
 
+## GenomicDataStream 0.99.0
+
+- May 1, 2026
+- version bump for Bioc
+- pass BiocCheck
+
 ## GenomicDataStream 0.1.0
 
 - April 30, 2026

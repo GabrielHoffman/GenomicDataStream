@@ -13,8 +13,8 @@
 <link rel="manifest" href="site.webmanifest">
 <!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="katex-auto.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in Chunks">
 <meta name="description" content="Read genomic data files (i.e. VCF, BCF, BGEN, PGEN, BED, H5AD, DelayedArray) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries.">
@@ -62,10 +62,10 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><p><br></p>
-<div class="section level3">
-<h3 id="a-scalable-interface-between-genomic-data-and-analysis-underneath-r">A scalable interface between genomic data and analysis underneath R<a class="anchor" aria-label="anchor" href="#a-scalable-interface-between-genomic-data-and-analysis-underneath-r"></a>
-</h3>
-<p><img src="reference/figures/GenomicDataStream.png"></p>
+<p><img align="right" width="175" src="reference/figures/logo.png"></p>
+<div class="section level2">
+<h2 id="a-scalable-interface-between-genomic-data-and-analysis-underneath-r">A scalable interface between genomic data and analysis underneath R<a class="anchor" aria-label="anchor" href="#a-scalable-interface-between-genomic-data-and-analysis-underneath-r"></a>
+</h2>
 <div align="justify">
 <p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page" class="external-link">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Modern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in a way that the two components can’t be separated for use in other applications. For example, regression analysis paired with genotype data from a VCF file.</p>
 <p>The <code>GenomicDataStream</code> interface separates:</p>
@@ -75,7 +75,7 @@
 <li>downstream analysis</li>
 </ol>
 <p><code>GenomicDataStream</code> provides interfaces at both the C++ and R levels. The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.</p>
-</div>
+<p><img src="reference/figures/GenomicDataStream.png"></p>
 </div>
 <div class="section level3">
 <h3 id="see-header-only-c-library-documentation">See header-only C++ library <a href="doxygen/html/index.html">documentation</a>
@@ -215,6 +215,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">

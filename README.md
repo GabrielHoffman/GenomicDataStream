@@ -1,8 +1,10 @@
 <br>
 
-### A scalable interface between genomic data and analysis underneath R
+<img align="right" width="175" src="man/figures/logo.png">
 
-![](man/figures/GenomicDataStream.png)
+## A scalable interface between genomic data and analysis underneath R
+
+
 
 <div align="justify"> 
 Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/">VCF</a>,
@@ -21,6 +23,8 @@ The `GenomicDataStream` interface separates:
 3. downstream analysis 
 
 `GenomicDataStream` provides interfaces at both the C++ and R levels.  The C++ interface prioritizes efficiency, while the R interface wraps the C++ backend for non-technical users.
+
+![](man/figures/GenomicDataStream.png)
 </div> 
 
 ### See header-only C++ library [documentation](doxygen/html/index.html)
