@@ -66,8 +66,11 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
     message("Reading counts...")
   }
 
-  if( isTRUE(raw) && ! .h5ad_path_exists(file, "raw/X") ){
-    stop("Cannot read raw counts: HDF5 object /raw/X does not exist in this H5AD file")
+  if( isTRUE(raw)  ){
+    # check that raw/X group exists
+    with_envvar(
+        new = c(HDF5_PLUGIN_PATH = hdf5_plugin_path()),
+        code = .check_group(file, "raw/X"))
   }
 
   # Read data as Delayed/HDF5-backed matrix
@@ -94,27 +97,33 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
 
   if( verbose ){
     axis <- ifelse( isFeatureMajor(counts), "genes", "cells")
-    txt <- paste("File optimized for accessing:", axis)
+    txt <- paste("  File optimized for accessing:", axis)
     message(txt)
   }
 
   if( ! ondisk ){
+    if( verbose ){
+      message("  Converting to in-memory sparse matrix...")
+    }
     counts <- as(counts, "dgCMatrix")
   }
 
   if( verbose ){
-    message("Reading colData, etc...")
+    message("Reading supporting data...")
   }
 
   # Read H5AD, file-backed until data access 
   ad <- read_h5ad(file, "HDF5AnnData")
 
-  colData <- data.frame(ad$obs)
-  if( isTRUE(raw) && .h5ad_path_exists(file, "raw/var") ){
-    rowData <- .read_h5ad_dataframe(file, "raw/var")
-  }else{
-    rowData <- data.frame(ad$var)
+  if( verbose ){
+    message("  Reading colData (/obs)...")
   }
+  colData <- data.frame(ad$obs)
+
+  if( verbose ){
+    message("  Reading rowData (/var)...")
+  }
+  rowData <- data.frame(ad$var)
 
   dimnames(counts) <- list(rownames(rowData), rownames(colData))
 
@@ -130,63 +139,30 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
 }
 
 
-#' @importFrom rhdf5 h5read h5readAttributes h5ls
-.read_h5ad_vector <- function(file, path){
-  otype <- .h5ad_object_type(file, path)
-
-  if( identical(otype, "H5I_DATASET") ){
-    return(suppressWarnings(h5read(file, path)))
-  }
-
-  if( identical(otype, "H5I_GROUP") ){
-    attrs <- suppressWarnings(h5readAttributes(file, path))
-    encoding_type <- attrs[["encoding-type"]]
-    if( identical(as.character(encoding_type), "categorical") ){
-      codes <- suppressWarnings(h5read(file, file.path(path, "codes")))
-      categories <- suppressWarnings(h5read(file, file.path(path, "categories")))
-      ans <- rep(NA_character_, length(codes))
-      keep <- !is.na(codes) & codes >= 0
-      ans[keep] <- as.character(categories[codes[keep] + 1L])
-      return(ans)
+# Adapted from HDF5Array:::.check_group()
+#' @importFrom h5mread h5exists h5isdataset h5isgroup
+#' @importFrom S4Vectors wmsg 
+.check_group <- function (filepath, group){
+    if (!h5exists(filepath, group)) 
+        stop(wmsg("HDF5 group \"", group, "\" does not exist ", 
+            "in this HDF5 file"))
+    if (h5isdataset(filepath, group)) {
+        is_h5ad_X_or_layer <- group == "/X" || substr(group, 
+            1L, 8L) == "/layers/"
+        msg1 <- c("\"", group, "\" is an HDF5 dataset, not an HDF5 group, ", 
+            "so it looks like the matrix that you are trying to ", 
+            "access is not stored in a sparse format. Please ", 
+            "consider using the ")
+        if (is_h5ad_X_or_layer) {
+            msg2 <- c("H5ADMatrix() constructor if you are trying ", 
+                "to access the central matrix of an h5ad file. ", 
+                "Otherwise, use the HDF5Array() constructor.")
+        }
+        else {
+            msg2 <- "HDF5Array() constructor to access this dataset."
+        }
+        stop(wmsg(msg1, msg2))
     }
-  }
-
-  stop(sprintf("Unsupported H5AD dataframe column: %s", path))
-}
-
-.h5ad_object_type <- function(file, path){
-  path <- sub("^/", "", path)
-  listing <- suppressWarnings(h5ls(file, recursive = TRUE))
-  object_paths <- file.path(sub("^/", "", listing$group), listing$name)
-  object_paths <- sub("^\\./", "", object_paths)
-  object_paths <- sub("^/", "", object_paths)
-  hit <- which(object_paths == path)
-  if( ! length(hit) ){
-    return(NA_character_)
-  }
-  as.character(listing$otype[hit[[1]]])
-}
-
-.h5ad_path_exists <- function(file, path){
-  ! is.na(.h5ad_object_type(file, path))
-}
-
-.read_h5ad_dataframe <- function(file, group){
-  attrs <- h5readAttributes(file, group)
-  index_col <- attrs[["_index"]]
-  columns <- attrs[["column-order"]]
-  fields <- unique(c(index_col, columns))
-  fields <- fields[nzchar(fields)]
-
-  values <- lapply(fields, function(field){
-    .read_h5ad_vector(file, file.path(group, field))
-  })
-  names(values) <- fields
-
-  df <- data.frame(values[columns], check.names = FALSE)
-  if( length(index_col) && index_col %in% names(values) ){
-    rownames(df) <- make.unique(as.character(values[[index_col]]))
-  }
-
-  df
+    if (!h5isgroup(filepath, group)) 
+        stop(wmsg("HDF5 object \"", group, "\" is not a group"))
 }
