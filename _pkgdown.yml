@@ -19,6 +19,8 @@ search:
   exclude: ['news/index.html']
 
 reference:
+
+
 - title: GenomicDataStream
   contents:
   - "GenomicDataStream"
@@ -27,6 +29,10 @@ reference:
   - "initializeStream"
   - "setChunkSize"
   - "setRegion"
+
+- title: Read H5AD file
+  contents:
+  - "readH5AD"
 
 - title: Out-of-core SVD
   contents:
@@ -55,7 +61,6 @@ reference:
   - "standardize_in_place"
   - "normPC"
   - "perfMetric"
-  - "readH5AD"
 
 
 
