@@ -15,6 +15,11 @@
 - [`setRegion()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/setRegion.md)
   : Set regions of GenomicDataStream
 
+## Read H5AD file
+
+- [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
+  : Read H5AD as SingleCellExperiment
+
 ## Out-of-core SVD
 
 - [`dashSVD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/dashSVD.md)
@@ -63,5 +68,3 @@
   : Normalize principal components
 - [`perfMetric()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/perfMetric.md)
   : Evaluate performance of PC estimates
-- [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
-  : Read H5AD as SingleCellExperiment

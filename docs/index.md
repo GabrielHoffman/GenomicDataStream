@@ -1,6 +1,6 @@
 \
 
-![](reference/figures/logo.png)
+![package logo](reference/figures/logo.png)
 
 ## A scalable interface between genomic data and analysis underneath R
 

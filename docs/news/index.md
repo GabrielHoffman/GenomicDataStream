@@ -1,5 +1,12 @@
 # Changelog
 
+## GenomicDataStream 0.99.1
+
+- July 8, 2026
+- [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
+  is faster and fixes issue reading `raw/var`
+  - now just reads `var`
+
 ## GenomicDataStream 0.99.0
 
 - May 1, 2026

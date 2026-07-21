@@ -1,6 +1,6 @@
 \
 
-![](reference/figures/logo.png)
+![package logo](reference/figures/logo.png)
 
 ## A scalable interface between genomic data and analysis underneath R
 
@@ -101,6 +101,11 @@ reading the entire file in to memory.
 - [`setRegion()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/setRegion.md)
   : Set regions of GenomicDataStream
 
+## Read H5AD file
+
+- [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
+  : Read H5AD as SingleCellExperiment
+
 ## Out-of-core SVD
 
 - [`dashSVD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/dashSVD.md)
@@ -149,8 +154,6 @@ reading the entire file in to memory.
   : Normalize principal components
 - [`perfMetric()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/perfMetric.md)
   : Evaluate performance of PC estimates
-- [`readH5AD()`](http://gabrielhoffman.github.io/GenomicDataStream/reference/readH5AD.md)
-  : Read H5AD as SingleCellExperiment
 
 # Articles
 

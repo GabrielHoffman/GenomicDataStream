@@ -1,9 +1,11 @@
+
 <br>
 
-<img align="right" width="175" src="man/figures/logo.png">
+<div style="float: right; margin-left: 15px; margin-bottom: 2px;">
+  <img src="man/figures/logo.png" alt="package logo" width="150" />
+</div>
 
 ## A scalable interface between genomic data and analysis underneath R
-
 
 
 <div align="justify"> 
