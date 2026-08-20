@@ -95,6 +95,10 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
       e
       })
 
+  if( ! exists("counts") ){
+    stop("Error reading counts. Is layer correct?")
+  }
+
   if( verbose ){
     axis <- ifelse( isFeatureMajor(counts), "genes", "cells")
     txt <- paste("  File optimized for accessing:", axis)
