@@ -13,17 +13,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// compute_center_and_scale
-Rcpp::List compute_center_and_scale(Rcpp::RObject mat, int nthreads);
-RcppExport SEXP _GenomicDataStream_compute_center_and_scale(SEXP matSEXP, SEXP nthreadsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< Rcpp::RObject >::type mat(matSEXP);
-    Rcpp::traits::input_parameter< int >::type nthreads(nthreadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(compute_center_and_scale(mat, nthreads));
-    return rcpp_result_gen;
-END_RCPP
-}
 // create_xptr
 SEXP create_xptr(const std::string& file, const std::string& field, const std::string& region, const std::string& samples, const double& MAF, const double& minVariance, const int& chunkSize, const bool& missingToMean);
 RcppExport SEXP _GenomicDataStream_create_xptr(SEXP fileSEXP, SEXP fieldSEXP, SEXP regionSEXP, SEXP samplesSEXP, SEXP MAFSEXP, SEXP minVarianceSEXP, SEXP chunkSizeSEXP, SEXP missingToMeanSEXP) {
@@ -227,7 +216,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_GenomicDataStream_compute_center_and_scale", (DL_FUNC) &_GenomicDataStream_compute_center_and_scale, 2},
     {"_GenomicDataStream_create_xptr", (DL_FUNC) &_GenomicDataStream_create_xptr, 8},
     {"_GenomicDataStream_getInfo", (DL_FUNC) &_GenomicDataStream_getInfo, 1},
     {"_GenomicDataStream_setRegions_rcpp", (DL_FUNC) &_GenomicDataStream_setRegions_rcpp, 2},

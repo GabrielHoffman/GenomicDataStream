@@ -59,7 +59,7 @@ CC_SOURCES = $(wildcard $(PLINK2_INCL)/include/*.cc)
 C_OBJECTS = $(patsubst %.c,%.o,$(C_SOURCES)) $(patsubst %.cc,%.o,$(CC_SOURCES)) 
 CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp) $(wildcard pgen/*.cpp) 
 CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
-OBJECTS = RcppExports.o export.o compute_scale.o $(CXX_OBJECTS) $(C_OBJECTS) 
+OBJECTS = RcppExports.o export.o $(CXX_OBJECTS) $(C_OBJECTS)  
 
 .PHONY: all 
 all: build_subprojects $(SHLIB)

@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.99.3
+ - Sept 10, 2026
+ - remove compute_scale.cpp to pass BioC tests
+
 # GenomicDataStream 0.99.2
  - Sept 10, 2026
  - reduce max file size by splitting `sqlite3.c`
