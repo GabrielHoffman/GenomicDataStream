@@ -1,0 +1,74 @@
+---
+title: "Issues on Mac OS X"
+subtitle: "Installing TBB and RcppParallel"
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r format(Sys.time())`"
+output:
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    toc_depth: 3
+    fig_width: 5
+vignette: >
+  %\VignetteIndexEntry{Addressing issues on Mac OS X}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+<!---
+
+
+--->
+
+```{r setup, echo=FALSE, results="hide"}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  cache = TRUE,
+  dev = "png",
+  package.startup.message = FALSE,
+  message = FALSE,
+  error = FALSE,
+  warning = FALSE
+)
+options(width = 100)
+``` 
+
+<style>
+body {
+text-align: justify}
+</style>
+
+`GenomicDataStream` runs analyses across multiple cores in parallel using Threading Building Blocks in [oneTBB](https://uxlfoundation.github.io/oneTBB/).  This is available in R using [RcppParallel](https://cran.r-project.org/package=RcppParallel).  This package usually installs without an issue, but if it fails you can use the package after modifying the paths:
+
+
+#### Install TBB using [brew](https://brew.sh)
+```sh
+brew install tbb
+```
+
+#### Install RcppParallel with TBB path
+```r
+DIR = system("echo $(brew --prefix tbb)", intern=TRUE)
+TBB_INC = paste(DIR, "include/", sep='/')
+TBB_LIB = paste(DIR, "lib/", sep='/')
+
+.Internal(Sys.setenv("TBB", DIR))
+.Internal(Sys.setenv("TBB_INC", TBB_INC))
+.Internal(Sys.setenv("TBB_LIB", TBB_LIB))
+
+install.packages("RcppParallel")
+```
+
+
+
+# Session info
+<details>
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
+<\details>
+
+
+<!-- # References -->
+

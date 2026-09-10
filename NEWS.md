@@ -1,4 +1,9 @@
 
+# GenomicDataStream 0.99.2
+ - Sept 10, 2026
+ - reduce max file size by splitting `sqlite3.c`
+ - namespace changes to pass Bioc checks
+
 # GenomicDataStream 0.99.1
  - July 8, 2026
  - `readH5AD()` is faster and fixes issue reading `raw/var`
