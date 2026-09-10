@@ -34,32 +34,44 @@ exportMethods(plot)
 exportMethods(print)
 exportMethods(show)
 importFrom(DelayedArray,seed)
-importFrom(HDF5Array,H5ADMatrix)
-importFrom(HDF5Array,H5SparseMatrix)
+importFrom(HDF5Array,
+  H5ADMatrix,
+  H5SparseMatrix
+)
 importFrom(Rcpp,evalCpp)
 importFrom(RcppParallel,RcppParallelLibs)
 importFrom(S4Vectors,wmsg)
 importFrom(SingleCellExperiment,SingleCellExperiment)
 importFrom(anndataR,read_h5ad)
 importFrom(beachmat.hdf5,initializeCpp)
-importFrom(dplyr,arrange)
-importFrom(dplyr,group_by)
-importFrom(dplyr,summarize)
-importFrom(dplyr,tibble)
-importFrom(h5mread,h5exists)
-importFrom(h5mread,h5isdataset)
-importFrom(h5mread,h5isgroup)
+importFrom(dplyr,
+  arrange,
+  group_by,
+  summarize,
+  tibble
+)
+importFrom(h5mread,
+  h5exists,
+  h5isdataset,
+  h5isgroup
+)
 importFrom(magrittr,`%>%`)
-importFrom(methods,as)
-importFrom(methods,is)
-importFrom(methods,new)
-importFrom(methods,show)
-importFrom(methods,slot)
+importFrom(methods,
+  as,
+  is,
+  new,
+  show,
+  slot
+)
 importFrom(rhdf5filters,hdf5_plugin_path)
-importFrom(stats,rnorm)
-importFrom(stats,runif)
+importFrom(stats,
+  rnorm,
+  runif
+)
 importFrom(stringr,str_split)
-importFrom(utils,head)
-importFrom(utils,tail)
+importFrom(utils,
+  head,
+  tail
+)
 importFrom(withr,with_envvar)
 useDynLib(GenomicDataStream)
