@@ -69,6 +69,7 @@ COMPILE_LIBDEFLATE=""
 SIMDE_COMPILE_FLAG=""
 SIMDE_INCLUDE_PATH=""
 USE_BUNDLED_SIMDE=""
+LIBCURL_LIBS=""
 
 if test "xx$zstd_include_path" != "xx"; then
   AC_MSG_NOTICE([Using user-defined zstd install paths])
@@ -206,6 +207,24 @@ if test xx$USE_BUNDLED_SIMDE != "xxtrue"; then
   SIMDE_COMPILE_FLAG="-DIGNORE_BUNDLED_SIMDE"
 fi
 
+# libcurl detection
+libcurl_devel=ok
+AC_CHECK_HEADER([curl/curl.h], [], [libcurl_devel="headers not found"], [;])
+AC_CHECK_LIB([curl], [curl_easy_pause], [:],
+  [AC_CHECK_LIB([curl], [curl_easy_init],
+     [libcurl_devel="library is too old (7.18+ required)"],
+     [libcurl_devel="library not found"])])
+
+if test "$libcurl_devel" = ok; then
+  AC_MSG_NOTICE([libcurl library detected])
+  LIBCURL_LIBS="-lcurl"
+elif test "xx$PKGCONF" != "xx"; then
+  if "${PKGCONF}" --exists libcurl; then
+    AC_MSG_NOTICE([libcurl detected via pkg-config])
+    LIBCURL_LIBS=`"${PKGCONF}" --libs libcurl`
+  fi
+fi
+
 
 AC_SUBST([ZSTD_COMPILE_FLAG], $ZSTD_COMPILE_FLAG)
 AC_SUBST([ZSTD_INCLUDE_PATH], $ZSTD_INCLUDE_PATH)
@@ -219,6 +238,7 @@ AC_SUBST([LIBDEFLATE_SHLIB], $LIBDEFLATE_SHLIB)
 AC_SUBST([LIBDEFLATE_CLEAN], $LIBDEFLATE_CLEAN)
 AC_SUBST([SIMDE_COMPILE_FLAG], $SIMDE_COMPILE_FLAG)
 AC_SUBST([SIMDE_INCLUDE_PATH], $SIMDE_INCLUDE_PATH)
+AC_SUBST([LIBCURL_LIBS], $LIBCURL_LIBS)
 
 
 AC_CONFIG_FILES([src/Makevars])

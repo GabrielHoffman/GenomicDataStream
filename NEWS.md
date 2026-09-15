@@ -1,4 +1,9 @@
 
+# GenomicDataStream 0.99.6
+ - Sept 15, 2026
+ - update `configure.ac`
+
+
 # GenomicDataStream 0.99.3
  - Sept 10, 2026
  - remove compute_scale.cpp to pass BioC tests
