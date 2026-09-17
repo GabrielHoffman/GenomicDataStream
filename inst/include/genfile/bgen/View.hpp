@@ -12,8 +12,8 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include "genfile/bgen/bgen.hpp"
-#include "genfile/bgen/IndexQuery.hpp"
+#include "bgen.hpp"
+#include "IndexQuery.hpp"
 
 namespace {
 	std::string to_string( std::size_t i ) {
