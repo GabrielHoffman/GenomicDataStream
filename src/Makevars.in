@@ -6,6 +6,8 @@ HTS_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 
 HTSLIB_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -I$(HTS_INCL)
 
+
+
 INCL = -I ../inst/include/ \
 -I$(HTS_INCL) \
 -I. \
@@ -73,6 +75,7 @@ all: build_subprojects $(SHLIB)
 $(SHLIB): ${OBJECTS} Makevars libdeflate.a #libBGEN.a
 
 build_subprojects:
+	$(MAKE) -C ../inst/include/htslib-1.21/ clean || true
 	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall  -O2 -fvisibility=hidden"
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
@@ -80,10 +83,5 @@ libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 
 libdeflate.a: $(LIBDEFLATE)
 	$(AR) rcs libdeflate.a $(LIBDEFLATE)
-
-
-
-
-
 
 
