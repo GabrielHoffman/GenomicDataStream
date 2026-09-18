@@ -10,7 +10,7 @@
 #include <cassert>
 #include <string>
 #include <exception>
-#include "sqlite3/sqlite3.h"
+#include "../sqlite3/sqlite3.h"
 #include "Connection.hpp"
 #include "Transaction.hpp"
 #include "Error.hpp"

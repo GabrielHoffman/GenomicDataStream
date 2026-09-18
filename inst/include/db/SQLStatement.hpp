@@ -12,7 +12,7 @@
 #include <vector>
 #include <exception>
 #include <stdint.h>
-#include "sqlite3/sqlite3.h"
+#include "../sqlite3/sqlite3.h"
 #include "SQLite3Connection.hpp"
 
 namespace db {
