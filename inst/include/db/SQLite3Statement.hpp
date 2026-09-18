@@ -12,8 +12,8 @@
 #include <exception>
 
 #include "sqlite3/sqlite3.h"
-#include "db/SQLite3Connection.hpp"
-#include "db/SQLStatement.hpp"
+#include "SQLite3Connection.hpp"
+#include "SQLStatement.hpp"
 
 namespace db {
 	class SQLite3Statement: public SQLStatement

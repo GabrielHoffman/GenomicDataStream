@@ -11,9 +11,9 @@
 #include <string>
 #include <exception>
 #include "sqlite3/sqlite3.h"
-#include "db/Connection.hpp"
-#include "db/Transaction.hpp"
-#include "db/Error.hpp"
+#include "Connection.hpp"
+#include "Transaction.hpp"
+#include "Error.hpp"
 
 extern "C" {
 	void sqlite3_trace_callback( void* udp, const char* sql ) ;

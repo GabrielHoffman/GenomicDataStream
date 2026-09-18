@@ -13,7 +13,7 @@
 #include <exception>
 #include <stdint.h>
 #include "sqlite3/sqlite3.h"
-#include "db/SQLite3Connection.hpp"
+#include "SQLite3Connection.hpp"
 
 namespace db {
 	

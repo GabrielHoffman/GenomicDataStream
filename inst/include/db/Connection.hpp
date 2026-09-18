@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 #include <stdint.h>
-#include "db/Transaction.hpp"
+#include "Transaction.hpp"
 
 namespace db {
 

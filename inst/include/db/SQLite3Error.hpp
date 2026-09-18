@@ -8,7 +8,7 @@
 #define DB_SQLITE3_ERROR_HPP
 
 #include <string>
-#include "db/SQLStatement.hpp"
+#include "SQLStatement.hpp"
 
 namespace db {
 }
