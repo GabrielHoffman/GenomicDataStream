@@ -14,7 +14,7 @@
 #include <string>
 #include <ctime>
 #include <filesystem>
-#include "db/sqlite3.hpp"
+#include "../../db/sqlite3.hpp"
 
 namespace genfile {
 	namespace bgen {
