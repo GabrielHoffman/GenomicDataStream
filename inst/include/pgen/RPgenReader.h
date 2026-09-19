@@ -10,7 +10,7 @@ https://github.com/chrchang/plink-ng/tree/master/2.0/pgenlibr/src
 
 #include "../pgenlibr/include/include/pvar_ffi_support.h"
 #include "../pgenlibr/include/include/pgenlib_read.h"
-#include "pgen/pvar.h"  // includes Rcpp
+#include "pvar.h"  // includes Rcpp
 
 using namespace std;
 
