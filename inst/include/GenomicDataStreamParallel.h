@@ -14,7 +14,7 @@
 // [[Rcpp::depends(RcppParallel)]]
 #include <RcppParallel.h>
 #else
-#include <tbb.h>
+#include <oneapi/tbb/tbb.h>
 #endif
 
 using namespace std;

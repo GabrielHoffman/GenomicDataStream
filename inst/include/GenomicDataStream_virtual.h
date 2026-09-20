@@ -102,7 +102,7 @@ struct Param {
     const bool &missingToMean = true,
     const bool &permuteFeatureOrder = false,
     const int &rndSeed = 12345) :
-    file( std::filesystem::absolute(file) ), 
+    file( std::filesystem::absolute(file).string() ), 
     samples(samples),  
     MAF(MAF), 
     minVariance(minVariance),
