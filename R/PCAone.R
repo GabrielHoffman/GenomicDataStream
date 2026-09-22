@@ -22,7 +22,7 @@
 #'                number of threads (by default \eqn{threads=4}) to read data
 #'
 #' @param threads2 integer, optional; \cr
-#'                number of threads (by default \eqn{threads=4}), used for linear algebra opertions
+#'                number of threads (by default \eqn{threads=4}), used for linear algebra operations
 #' 
 #' @param scaleAndCenter bool, optional; \cr
 #'                if \code{TRUE}, scale and center features
@@ -54,7 +54,7 @@
 #'
 #' Computational time is spent on two steps: 
 #' 
-#' 1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting \code{threads}  
+#' 1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is controlled by setting \code{threads}  
 #'
 #' 2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting \code{threads2}  
 #'
