@@ -1,4 +1,9 @@
 
+  <!-- badges: start -->
+  [![R-CMD-check](https://github.com/GabrielHoffman/GenomicDataStream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/GabrielHoffman/GenomicDataStream/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
+
+
 <br>
 
 <div style="float: right; margin-left: 15px; margin-bottom: 2px;">

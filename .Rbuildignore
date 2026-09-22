@@ -16,3 +16,4 @@ _pkgdown.yml
 Rprof.out
 pkgdown
 \.a$
+^\.github$
