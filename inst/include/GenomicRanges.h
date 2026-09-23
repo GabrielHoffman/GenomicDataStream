@@ -120,8 +120,10 @@ class GenomicRanges {
 			// make value a string explicitly 
 			// to avoid boost error
 			string value(it.begin(), it.end());
-			boost::split(reg, value, boost::is_any_of(":"));
-			boost::split(pos, reg[1], boost::is_any_of("-"));
+			// boost::split(reg, value, boost::is_any_of(":"));
+			// boost::split(pos, reg[1], boost::is_any_of("-"));
+			reg = split_any_of(value, ":");
+			pos = split_any_of(reg[1], "-");
 
 			// if only start given, set end to same value
 			if( pos.size() == 1 ) pos.push_back( pos[0] );

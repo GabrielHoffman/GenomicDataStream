@@ -395,7 +395,8 @@ class pgenstream :
 			vector<string> requestedSamples;
 
 			// split delmited string into vector
-			boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
+			// boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));			
+			requestedSamples = split_any_of(param.samples, "\t,\n");
 
 			// Use unordered_map linking sample id to index
 			// for fast searching

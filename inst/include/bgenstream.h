@@ -147,7 +147,8 @@ class bgenstream :
 			vector<string> requestedSamples;
 
 			// boost::erase_all(param.samples, " ");
-  		boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));
+  		// boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));  		
+			requestedSamples = split_any_of(param.samples, "\t,\n");
 
 			get_requested_samples( *view, requestedSamples, &number_of_samples, &sampleNames, &requestedSamplesByIndexInDataIndex ) ;
 		}

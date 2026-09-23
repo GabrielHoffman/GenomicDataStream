@@ -19,6 +19,44 @@
 
 namespace gds {
 
+/* Replacement for boost::split() since
+  it causes issues on Windows
+*/
+static vector<string> split_any_of(
+  const string& input,
+  const string& delimiters,
+  bool compress = false)
+{
+  vector<string> output;
+  string::size_type begin = 0;
+
+  while (true) {
+    const auto separator = input.find_first_of(delimiters, begin);
+
+    if (separator == string::npos) {
+      output.emplace_back(input.substr(begin));
+      break;
+    }
+
+    output.emplace_back(input.substr(begin, separator - begin));
+
+    if (!compress) {
+      begin = separator + 1;
+      continue;
+    }
+
+    begin = input.find_first_not_of(delimiters, separator);
+
+    // Preserve the trailing empty field.
+    if (begin == string::npos) {
+      output.emplace_back();
+      break;
+    }
+  }
+
+  return output;
+}
+
 /** Compute dosage values from vector of GP stored as double or float.  Sum adjacent values to get dosage
 * @param v for n samples, vector of length 3*n where dosage is computed as c(v[3*i], v[3*i+1], v[3*i+2]) %*% c(0,1,2)
 * @param missingToMean if true, set missing values to the mean dosage value.  if false, set to NaN
@@ -326,7 +364,8 @@ static vector<string> splitRegionString( string regionString){
   // regionString is string of chr:start-end delim by "\t,\n"
   // remove spaces, then split based on delim
   boost::erase_all(regionString, " ");
-  boost::split(regions, regionString, boost::is_any_of("\t,\n"));
+  // boost::split(regions, regionString, boost::is_any_of("\t,\n"));
+  regions = split_any_of(regionString, "\t,\n");
 
   // remove duplicate regions, but preserve order
   removeDuplicates( regions );
