@@ -11,13 +11,35 @@
 #include <algorithm>
 #include <unordered_set>
 #include <regex>
-
-#include <boost/algorithm/string.hpp>
+#include <string>
 
 #ifndef UTILS_H_
 #define UTILS_H_
 
 namespace gds {
+
+/* Replacement for boost::erase_all() since
+  it causes issues on Windows
+*/
+static void erase_all(string& input, const string& pattern)
+{
+    if (pattern.empty())
+        return;
+
+    string::size_type position = 0;
+
+    while ((position = input.find(pattern, position)) !=
+           string::npos) {
+        input.erase(position, pattern.size());
+    }
+}
+
+static string erase_all_copy(string input,
+                           const string& pattern)
+{
+    erase_all(input, pattern);
+    return input;
+}
 
 /* Replacement for boost::split() since
   it causes issues on Windows
@@ -355,17 +377,14 @@ static vector<int> stoi_vec( const vector<string> &v ){
 /** regionString is string of chr:start-end delim by "\t,\n"
  remove spaces, then split based on delim
  remove duplicate regions, but preserve order
- Note: regionString is copy by value, since boost::erase_all overwrites
+ Note: regionString is copy by value, since erase_all overwrites
  */
 static vector<string> splitRegionString( string regionString){
 
-  vector<string> regions;
-
   // regionString is string of chr:start-end delim by "\t,\n"
   // remove spaces, then split based on delim
-  boost::erase_all(regionString, " ");
-  // boost::split(regions, regionString, boost::is_any_of("\t,\n"));
-  regions = split_any_of(regionString, "\t,\n");
+  erase_all(regionString, " ");
+  vector<string> regions = split_any_of(regionString, "\t,\n");
 
   // remove duplicate regions, but preserve order
   removeDuplicates( regions );

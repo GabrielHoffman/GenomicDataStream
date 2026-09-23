@@ -18,13 +18,12 @@
 #include "genfile/bgen/View.hpp"
 #include "genfile/bgen/IndexQuery.hpp"
 
-#include <boost/algorithm/string.hpp>
-
 #include "VariantInfo.h"
 #include "GenomicDataStream_virtual.h"
 #include "GenomicRanges.h"
 #include "VariantSet.h"
 #include "bgen_load.h"
+#include "utils.h"
 
 using namespace std;
 using namespace arma;
@@ -146,9 +145,10 @@ class bgenstream :
 			// get subset of samples
 			vector<string> requestedSamples;
 
-			// boost::erase_all(param.samples, " ");
-  		// boost::split(requestedSamples, param.samples, boost::is_any_of("\t,\n"));  		
-			requestedSamples = split_any_of(param.samples, "\t,\n");
+				
+			requestedSamples = split_any_of(
+				erase_all_copy(param.samples, " "), 
+				"\t,\n");
 
 			get_requested_samples( *view, requestedSamples, &number_of_samples, &sampleNames, &requestedSamplesByIndexInDataIndex ) ;
 		}
