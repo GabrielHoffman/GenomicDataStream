@@ -203,7 +203,7 @@ namespace {
 		vector<string>* m_result ;
 		SampleIndexMap* m_sample_indices ;
 		RequestedSamples const& m_requested_samples ;
-		size_t m_index ;
+		[[maybe_unused]] size_t m_index ;
 		size_t m_value_index ;
 	} ;
 }

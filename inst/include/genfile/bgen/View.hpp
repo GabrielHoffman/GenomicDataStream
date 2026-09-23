@@ -15,13 +15,13 @@
 #include "bgen.hpp"
 #include "IndexQuery.hpp"
 
-namespace {
-	std::string to_string( std::size_t i ) {
-		std::stringstream s ;
-		s << i ;
-		return s.str() ;
-	}
-}
+// namespace {
+// 	std::string to_string( std::size_t i ) {
+// 		std::stringstream s ;
+// 		s << i ;
+// 		return s.str() ;
+// 	}
+// }
 
 namespace genfile {
 	namespace bgen {

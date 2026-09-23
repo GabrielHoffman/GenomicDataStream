@@ -1684,6 +1684,7 @@ namespace genfile {
 				// otherwise number of samples appears in the probability data block below.
 			}
 
+			[[maybe_unused]]
 			std::size_t const max_id_length = std::numeric_limits< uint16_t >::max() ;
 			assert( SNPID.size() <= static_cast< std::size_t >( max_id_length )) ;
 			assert( RSID.size() <= static_cast< std::size_t >( max_id_length )) ;
