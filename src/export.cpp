@@ -11,12 +11,13 @@
 #include <string>
 #define ARMA_WARN_LEVEL 1
 
+
+// must included RcppArmadillo first
+// [[Rcpp::depends(RcppArmadillo, RcppEigen)]]
 #include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
  
 #ifndef DISABLE_EIGEN
 #include <RcppEigen.h>
-// [[Rcpp::depends(RcppEigen)]]
 #endif 
 
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
