@@ -99,7 +99,7 @@ OBJECTS = RcppExports.o export.o $(CXX_OBJECTS) $(C_OBJECTS)
 
 .PHONY: all
 all: build_subprojects $(SHLIB)
-$(SHLIB): ${OBJECTS} Makevars libdeflate.a #libBGEN.a
+$(SHLIB): ${OBJECTS} libdeflate.a #libBGEN.a
 
 build_subprojects:
 	$(MAKE) -C ../inst/include/htslib-1.21/ clean || true
