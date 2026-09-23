@@ -33,6 +33,8 @@ PKG_CPPFLAGS = $(INCL) $(HTSLIB_CPPFLAGS) \
 -D SQLITE_MAX_EXPR_DEPTH=10000 \
 -D SQLITE_USE_URI=1 
 
+
+
 # import variables from config
 # PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT  @SIMDE_COMPILE_FLAG@ @SIMDE_INCLUDE_PATH@  @LIBDEFLATE_INCLUDE_PATH@ @LIBDEFLATE_COMPILE_FLAG@  -DZSTD_DISABLE_ASM
 #@ZSTD_COMPILE_FLAG@   @ZSTD_INCLUDE_PATH@ 
@@ -50,7 +52,7 @@ PKG_CPPFLAGS += \
   -I$(SIMDE_INCL) \
   -I$(LIBDEFLATE_INCL) \
   -DZSTD_DISABLE_ASM
-  
+
 INCLD = ../inst/include/pgenlibr/include/
 LIBDEFLATE_SOURCES = $(INCLD)/libdeflate/lib/zlib_decompress.c $(INCLD)/libdeflate/lib/zlib_compress.c $(INCLD)/libdeflate/lib/utils.c $(INCLD)/libdeflate/lib/gzip_compress.c $(INCLD)/libdeflate/lib/crc32.c $(INCLD)/libdeflate/lib/adler32.c $(INCLD)/libdeflate/lib/deflate_decompress.c $(INCLD)/libdeflate/lib/deflate_compress.c $(INCLD)/libdeflate/lib/gzip_decompress.c $(INCLD)/libdeflate/lib/arm/arm_cpu_features.c $(INCLD)/libdeflate/lib/x86/x86_cpu_features.c
 LIBDEFLATE = $(LIBDEFLATE_SOURCES:.c=.o)
@@ -66,7 +68,17 @@ ZLIB = $(PLINK2_INCL)/zstd/lib
 
 CXX_STD=CXX17
 
-PKG_CXXFLAGS = -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF -DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS -DNBOOST_THREAD_PROVIDES_INTERRUPTIONS -DNDEBUG
+
+# Windows API target: Windows 8 or newer.
+# Required by Boost's use of WakeByAddressAll/WakeByAddressSingle.
+WIN32_TARGET = -D_WIN32_WINNT=0x0602 -DWINVER=0x0602
+
+PKG_CPPFLAGS += $(WIN32_TARGET)
+PKG_CXXFLAGS += $(WIN32_TARGET) \
+  -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF \
+  -DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS \
+  -DNBOOST_THREAD_PROVIDES_INTERRUPTIONS \
+  -DNDEBUG
 PKG_CFLAGS =-DSQLITE_WITHOUT_ZONEMALLOC -DNDEBUG
 
 # DEBUGGING
