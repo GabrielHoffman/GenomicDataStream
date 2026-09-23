@@ -6,7 +6,9 @@
 
 #include <iostream>
 #include <stdint.h>
-#include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <chrono>
+#include <thread>
+// #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/thread/thread_time.hpp>
 #include <boost/thread/thread.hpp>
 #include "db/SQLite3Connection.hpp"
@@ -24,7 +26,8 @@ extern "C" {
 		if( number_of_tries > 10 ) {
 			return 0 ;
 		}
-		boost::this_thread::sleep( boost::posix_time::milliseconds( 10 ) ) ;
+		// boost::this_thread::sleep( boost::posix_time::milliseconds( 10 ) ) ;		
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		return 1 ;
 	}
 }
@@ -143,7 +146,8 @@ namespace db {
 					#if DEBUG
 					std::cerr << "Open transaction: failure count=" << count << " (~" << count*0.2 << "s).  Bailing out.\n" ;
 					#endif
-					boost::this_thread::sleep( boost::posix_time::milliseconds( 100 ) ) ;
+					// boost::this_thread::sleep( boost::posix_time::milliseconds( 100 ) ) ;
+					std::this_thread::sleep_for(std::chrono::milliseconds(10));
 					throw TransactionError( "SQLite3Connection::open_transaction()", get_spec(), e.error_code(), e.sql() ) ;
 				}
 			}

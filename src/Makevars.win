@@ -7,7 +7,7 @@ endif
 
 # HTS
 # link against libhts.a from vcfppR
-HTSLIB += $(CURL_LIBS) -lgnurx -lbz2 -llzma -lz 
+HTSLIB = ../inst/include/htslib-1.21/libhts.a $(CURL_LIBS) -lgnurx -lbz2 -llzma -lz 
 HTS_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e \
    'cat(system.file("include/", package = "vcfppR", mustWork = TRUE))')
 
@@ -40,8 +40,7 @@ PKG_CPPFLAGS = $(INCL) $(HTSLIB_CPPFLAGS) \
 #@ZSTD_COMPILE_FLAG@   @ZSTD_INCLUDE_PATH@ 
 PKG_CPPFLAGS += -DNO_UNALIGNED -DPGENLIB_NOPRINT -DZSTD_DISABLE_ASM
 
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB)
-PKG_LIBS += ../inst/include/htslib-1.21/libhts.a -L./
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(HTSLIB) -L./
 
 SIMDE_INCL = ../inst/include/pgenlibr/include
 LIBDEFLATE_INCL = ../inst/include/pgenlibr/include/libdeflate
@@ -80,7 +79,12 @@ PKG_CXXFLAGS += $(WIN32_TARGET) \
   -DNBOOST_THREAD_PROVIDES_INTERRUPTIONS \
   -DNDEBUG
 PKG_CFLAGS =-DSQLITE_WITHOUT_ZONEMALLOC -DNDEBUG
-
+PKG_CPPFLAGS += \
+  $(WIN32_TARGET) \
+  -DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS \
+  -DBOOST_THREAD_PROVIDES_INTERRUPTIONS=0 \
+  -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF
+  
 # DEBUGGING
 # PKG_CXXFLAGS += -O0 -g3 -fno-omit-frame-pointer
 
@@ -103,7 +107,7 @@ $(SHLIB): ${OBJECTS} libdeflate.a #libBGEN.a
 
 build_subprojects:
 	$(MAKE) -C ../inst/include/htslib-1.21/ clean || true
-	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -O2 -fvisibility=hidden" CPPFLAGS="$(HTSLIB_CFLAGS)" LIBS="$(HTSLIB)"
+	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -O2 -fvisibility=hidden" CPPFLAGS="$(HTSLIB_CFLAGS)" LIBS="$(CURL_LIBS) -lgnurx -lbz2 -llzma -lz
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
