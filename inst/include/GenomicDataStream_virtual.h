@@ -9,13 +9,19 @@
 #ifndef GENOMIC_DATA_STREAM_READER_H_
 #define GENOMIC_DATA_STREAM_READER_H_
 
-#ifndef DISABLE_EIGEN
-#include <Eigen/Sparse>
-#endif 
+// must included RcppArmadillo first
+// [[Rcpp::depends(RcppArmadillo, RcppEigen)]]
 
 #ifndef DISABLE_RCPP
 #include <RcppArmadillo.h>
 #endif 
+
+#ifndef DISABLE_EIGEN
+// #include <Eigen/Sparse>
+#include <RcppEigen.h>
+#endif 
+
+
 
 #include <string>
 #include <filesystem>

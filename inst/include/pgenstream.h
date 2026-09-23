@@ -11,7 +11,8 @@
 #define PGEN_STREAM_H_
 
 #ifndef DISABLE_EIGEN
-#include <Eigen/Sparse>
+// #include <Eigen/Sparse>
+#include <RcppEigen.h>
 #endif 
 
 #include <string>

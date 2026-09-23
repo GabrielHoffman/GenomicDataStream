@@ -1,9 +1,11 @@
 
+#ifndef DISABLE_RCPP
 #include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#endif 
 
 #ifndef DISABLE_EIGEN
-#include <Eigen/Core>
+// #include <Eigen/Core>
+#include <RcppEigen.h>
 #endif 
 
 #include <vector>

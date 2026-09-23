@@ -13,7 +13,8 @@
 #ifndef DISABLE_DELAYED_STREAM
 
 #ifndef DISABLE_EIGEN
-#include <Eigen/Sparse>
+// #include <Eigen/Sparse>
+#include <RcppEigen.h>
 #endif 
 
 #include <vector>

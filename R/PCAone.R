@@ -7,7 +7,7 @@
 #' @param k       integer; \cr
 #'                specifies the target rank of the low-rank decomposition. \eqn{k} should satisfy \eqn{k << min(m,n)}.
 #'
-#' @param ... other argument to control streaming
+#' @param ... other argument to control streaming 
 #'
 #' @param p       integer, optional; \cr
 #'                number of additional power iterations (by default \eqn{p=7}).
