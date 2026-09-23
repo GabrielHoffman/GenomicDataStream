@@ -46,11 +46,11 @@ SIMDE_INCL = ../inst/include/pgenlibr/include
 LIBDEFLATE_INCL = ../inst/include/pgenlibr/include/libdeflate
 
 PKG_CPPFLAGS += \
-  -DNO_UNALIGNED \
-  -DPGENLIB_NOPRINT \
-  -I$(SIMDE_INCL) \
-  -I$(LIBDEFLATE_INCL) \
-  -DZSTD_DISABLE_ASM
+	-DNO_UNALIGNED \
+	-DPGENLIB_NOPRINT \
+	-I$(SIMDE_INCL) \
+	-I$(LIBDEFLATE_INCL) \
+	-DZSTD_DISABLE_ASM
 
 INCLD = ../inst/include/pgenlibr/include/
 LIBDEFLATE_SOURCES = $(INCLD)/libdeflate/lib/zlib_decompress.c $(INCLD)/libdeflate/lib/zlib_compress.c $(INCLD)/libdeflate/lib/utils.c $(INCLD)/libdeflate/lib/gzip_compress.c $(INCLD)/libdeflate/lib/crc32.c $(INCLD)/libdeflate/lib/adler32.c $(INCLD)/libdeflate/lib/deflate_decompress.c $(INCLD)/libdeflate/lib/deflate_compress.c $(INCLD)/libdeflate/lib/gzip_decompress.c $(INCLD)/libdeflate/lib/arm/arm_cpu_features.c $(INCLD)/libdeflate/lib/x86/x86_cpu_features.c
@@ -74,17 +74,17 @@ WIN32_TARGET = -D_WIN32_WINNT=0x0602 -DWINVER=0x0602
 
 PKG_CPPFLAGS += $(WIN32_TARGET)
 PKG_CXXFLAGS += $(WIN32_TARGET) \
-  -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF \
-  -DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS \
-  -DNBOOST_THREAD_PROVIDES_INTERRUPTIONS \
-  -DNDEBUG
+	-DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF \
+	-DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS \
+	-DNBOOST_THREAD_PROVIDES_INTERRUPTIONS \
+	-DNDEBUG
 PKG_CFLAGS =-DSQLITE_WITHOUT_ZONEMALLOC -DNDEBUG
 PKG_CPPFLAGS += \
-  $(WIN32_TARGET) \
-  -DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS \
-  -DBOOST_THREAD_PROVIDES_INTERRUPTIONS=0 \
-  -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF
-  
+	$(WIN32_TARGET) \
+	-DBOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS \
+	-DBOOST_THREAD_PROVIDES_INTERRUPTIONS=0 \
+	-DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF
+
 # DEBUGGING
 # PKG_CXXFLAGS += -O0 -g3 -fno-omit-frame-pointer
 
@@ -107,7 +107,7 @@ $(SHLIB): ${OBJECTS} libdeflate.a #libBGEN.a
 
 build_subprojects:
 	$(MAKE) -C ../inst/include/htslib-1.21/ clean || true
-	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -O2 -fvisibility=hidden" CPPFLAGS="$(HTSLIB_CFLAGS)" LIBS="$(CURL_LIBS) -lgnurx -lbz2 -llzma -lz
+	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -O2 -fvisibility=hidden" CPPFLAGS="$(HTSLIB_CFLAGS)" LIBS="$(CURL_LIBS) -lgnurx -lbz2 -llzma -lz"
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
