@@ -6,6 +6,7 @@ vignettes/.*_cache
 \.a$
 \.so$
 \.dylib$
+\.dll$
 \.tmp$
 ^docs$
 _cache$
