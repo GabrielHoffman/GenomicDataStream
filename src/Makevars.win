@@ -1,8 +1,8 @@
 
 # Resolve curl flags once.
-CURL_LIBS := $(shell pkg-config --libs libcurl 2>NUL)
+CURL_LIBS := $(shell pkg-config --libs libcurl 2> /dev/null)
 ifeq ($(strip $(CURL_LIBS)),)
-CURL_LIBS := $(shell curl-config --libs 2>NUL)
+CURL_LIBS := $(shell curl-config --libs 2> /dev/null)
 endif
 
 # HTS
