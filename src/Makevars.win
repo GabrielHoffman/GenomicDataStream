@@ -7,11 +7,12 @@ endif
 
 # HTS
 # link against libhts.a from vcfppR
-HTSLIB += $(CURL_LIBS) -lbz2 -llzma -lz 
+HTSLIB += $(CURL_LIBS) -lgnurx -lbz2 -llzma -lz 
 HTS_INCL = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e \
    'cat(system.file("include/", package = "vcfppR", mustWork = TRUE))')
 
 HTSLIB_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -I$(HTS_INCL)
+HTSLIB_CFLAGS = -DCURL_STATICLIB
 
 
 CXX_STD = CXX17
@@ -80,7 +81,7 @@ $(SHLIB): ${OBJECTS} Makevars libdeflate.a #libBGEN.a
 
 build_subprojects:
 	$(MAKE) -C ../inst/include/htslib-1.21/ clean || true
-	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -O2 -fvisibility=hidden" LIBS="$(HTSLIB)"
+	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall -O2 -fvisibility=hidden" CPPFLAGS="$(HTSLIB_CFLAGS)" LIBS="$(HTSLIB)"
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
