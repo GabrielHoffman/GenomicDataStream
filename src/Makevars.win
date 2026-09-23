@@ -73,18 +73,18 @@ CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp
 CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
 OBJECTS = RcppExports.o export.o $(CXX_OBJECTS) $(C_OBJECTS)  
 
-.PHONY: all 
+.PHONY: all
 all: build_subprojects $(SHLIB)
 $(SHLIB): ${OBJECTS} Makevars libdeflate.a #libBGEN.a
 
 build_subprojects:
-  $(MAKE) -C ../inst/include/htslib-1.21/ clean || true
-  $(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall  -O2 -fvisibility=hidden"
+	$(MAKE) -C ../inst/include/htslib-1.21/ clean || true
+	$(MAKE) -C ../inst/include/htslib-1.21/ CFLAGS="-fPIC -Wall  -O2 -fvisibility=hidden"
 
 libBGEN.a: $(CXX_OBJECTS) $(C_OBJECTS)
-  $(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
+	$(AR) rcs libBGEN.a $(CXX_OBJECTS) $(C_OBJECTS)
 
 libdeflate.a: $(LIBDEFLATE)
-  $(AR) rcs libdeflate.a $(LIBDEFLATE)
+	$(AR) rcs libdeflate.a $(LIBDEFLATE)
 
 

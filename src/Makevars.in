@@ -40,7 +40,7 @@ PKG_LIBS += $(CURL_LIBS)
 INCLD = ../inst/include/pgenlibr/include/
 LIBDEFLATE_SOURCES = $(INCLD)/libdeflate/lib/zlib_decompress.c $(INCLD)/libdeflate/lib/zlib_compress.c $(INCLD)/libdeflate/lib/utils.c $(INCLD)/libdeflate/lib/gzip_compress.c $(INCLD)/libdeflate/lib/crc32.c $(INCLD)/libdeflate/lib/adler32.c $(INCLD)/libdeflate/lib/deflate_decompress.c $(INCLD)/libdeflate/lib/deflate_compress.c $(INCLD)/libdeflate/lib/gzip_decompress.c $(INCLD)/libdeflate/lib/arm/arm_cpu_features.c $(INCLD)/libdeflate/lib/x86/x86_cpu_features.c
 LIBDEFLATE = $(LIBDEFLATE_SOURCES:.c=.o)
-
+	
 
 # Plink2 includes 
 PLINK2_INCL = ../inst/include/pgenlibr/include
@@ -71,7 +71,7 @@ CXX_SOURCES = $(wildcard bgen/*.cpp) $(wildcard boost/*.cpp) $(wildcard db/*.cpp
 CXX_OBJECTS = $(patsubst %.cpp,%.o,$(CXX_SOURCES))
 OBJECTS = RcppExports.o export.o $(CXX_OBJECTS) $(C_OBJECTS)  
 
-.PHONY: all 
+.PHONY: all
 all: build_subprojects $(SHLIB)
 $(SHLIB): ${OBJECTS} Makevars libdeflate.a #libBGEN.a
 
