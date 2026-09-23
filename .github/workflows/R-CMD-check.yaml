@@ -21,8 +21,9 @@ jobs:
         config:
           # - {os: macos-latest,   r: 'release'}
           # - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
+          # - {os: ubuntu-latest,   r: 'release'}
           - {os: windows-latest, r: '4.5.2'}
+          - {os: windows-2022, r: '4.5.2'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
@@ -32,13 +33,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-
-      - name: Normalize package file metadata
-        shell: bash
-        run: |
-          find . -type f -exec chmod 644 {} +
-          find . -type f \( -name configure -o -name cleanup \) -exec chmod 755 {} +
-          find . -type f -exec touch {} +
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -51,6 +45,63 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
+
+      - name: Check package timestamps
+        shell: Rscript {0}
+        run: |
+          x <- list.files(
+            ".",
+            recursive = TRUE,
+            all.files = TRUE,
+            full.names = TRUE,
+            include.dirs = TRUE
+          )
+
+          z <- file.info(x)
+
+          # R's internal tar writer ultimately stores mtime
+          # as an integer in the tar header.
+          mtime_int <- suppressWarnings(as.integer(as.numeric(z$mtime)))
+
+          bad <- is.na(mtime_int)
+
+          cat("Oldest timestamps:\n")
+          o <- order(z$mtime)
+          print(
+            head(
+              data.frame(
+                file = x[o],
+                mtime = z$mtime[o]
+              ),
+              20
+            )
+          )
+
+          cat("\nNewest timestamps:\n")
+          print(
+            tail(
+              data.frame(
+                file = x[o],
+                mtime = z$mtime[o]
+              ),
+              20
+            )
+          )
+
+          if (any(bad)) {
+            cat("\nFiles with invalid tar-compatible mtimes:\n")
+            print(
+              data.frame(
+                file = x[bad],
+                mtime = z$mtime[bad]
+              )
+            )
+
+            stop("Files with invalid tar-compatible mtimes found")
+          }
+
+          cat("\nAll source timestamps fit in a 32-bit tar mtime\n")
+
 
       - uses: r-lib/actions/check-r-package@v2
         with:
