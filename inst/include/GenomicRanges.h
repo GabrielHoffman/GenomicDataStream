@@ -117,7 +117,10 @@ class GenomicRanges {
 		for(auto const & it : regions){
 
 			// parse
-			boost::split(reg, it, boost::is_any_of(":"));
+			// make value a string explicitly 
+			// to avoid boost error
+			string value(it.begin(), it.end());
+			boost::split(reg, value, boost::is_any_of(":"));
 			boost::split(pos, reg[1], boost::is_any_of("-"));
 
 			// if only start given, set end to same value
