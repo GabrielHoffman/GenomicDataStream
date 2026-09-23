@@ -147,7 +147,9 @@ class DelayedStream :
 
 		return ret;
 	}
+	#endif
 
+	#ifndef DISABLE_EIGEN
 	bool getNextChunk( DataChunk<Eigen::SparseMatrix<double> > & chunk, const bool &useFilter = true) override {
 
 		// Update vector<double> output
@@ -190,6 +192,7 @@ class DelayedStream :
 	/**
 	 * Get chunks based on start and end 
 	 */ 
+	#ifndef DISABLE_EIGEN
 	void getNextChunk( DataChunk<Eigen::MatrixXd> & chunk, int start, int len){
 
 		int length = min(len, NR - start);
@@ -214,6 +217,7 @@ class DelayedStream :
 
 		chunk = DataChunk<Eigen::MatrixXd>( M, mInfo );
 	}
+	#endif
 
 	private:
 	const shared_ptr<tatami::NumericMatrix> &ptr;

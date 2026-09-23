@@ -62,6 +62,7 @@ PKG_CFLAGS =-DSQLITE_WITHOUT_ZONEMALLOC -DNDEBUG
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1
 PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()")
 
+#PKG_CXXFLAGS += -DDISABLE_EIGEN
 
 C_SOURCES = $(wildcard sqlite3/*.c) $(wildcard zstd-1.1.0/*.c) $(wildcard $(DEFLATE)/*.c) $(wildcard $(DEFLATE)/arm/*.c) $(wildcard $(DEFLATE)/x86/*.c) $(wildcard $(ZLIB)/*/*.c)
 CC_SOURCES = $(wildcard $(PLINK2_INCL)/include/*.cc) 

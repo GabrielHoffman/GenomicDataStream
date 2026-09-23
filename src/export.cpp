@@ -278,8 +278,10 @@ List stream_pcaone( SEXP x,
   XPtr<BoundDataStream> ptr(x);
   shared_ptr<GenomicDataStream> gds = ptr->ptr;
 
+  #ifndef DISABLE_EIGEN
   Eigen::setNbThreads(threads_eigen);   // be careful about choosing the appropriate number of threads
-
+  #endif
+  
   PCA res = pcaone( gds, region, m, k, nchunks, s, p, B, threads, verbose, scaleAndCenter);
 
   return List::create(

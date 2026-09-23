@@ -197,6 +197,7 @@ static size_t removeDuplicates(vector<T>& vec){
 /** Compute sum of each column
  * @param X matrix
  */ 
+[[maybe_unused]]
 static arma::vec colSums( const arma::mat &X){
 
   // row vector of 1's
