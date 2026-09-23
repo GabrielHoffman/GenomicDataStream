@@ -66,6 +66,7 @@ static IndexQuery::UniquePtr construct_query(const string &index_filename){
  * @param gr `GenomicRanges` of intervals
  * @param rsids vector<string> of variant ids
  */ 
+[[maybe_unused]]
 static genfile::bgen::View::UniquePtr construct_view(
 	const string & filename,
 	const string & index_filename,

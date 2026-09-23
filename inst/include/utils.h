@@ -217,6 +217,7 @@ static arma::vec colSums( const arma::mat &X){
  * @param tol do not scale if standard deviation is lower than this
  * 
  */
+[[maybe_unused]]
 static void standardize( arma::mat &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
   double sqrt_rdf = sqrt(X.n_rows - 1.0);
@@ -234,6 +235,7 @@ static void standardize( arma::mat &X, const bool &center = true, const bool &sc
 }
 
 #ifndef DISABLE_EIGEN
+[[maybe_unused]]
 static void standardize( Eigen::MatrixXd &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
   double sqrt_rdf = sqrt(X.rows() - 1.0);
@@ -247,7 +249,7 @@ static void standardize( Eigen::MatrixXd &X, const bool &center = true, const bo
   }
 }
 
-
+[[maybe_unused]]
 static void standardize_rows( Eigen::MatrixXd &X, const bool &center = true, const bool &scale = true, const double tol = 1e-10 ){
     
   double sqrt_rdf = sqrt(X.cols() - 1.0);
