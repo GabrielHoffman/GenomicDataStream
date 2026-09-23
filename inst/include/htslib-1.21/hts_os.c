@@ -28,7 +28,7 @@ DEALINGS IN THE SOFTWARE.  */
 #include "htslib/hts_defs.h"
 
 // Windows (maybe more) lack a drand48 implementation.
-#ifndef HAVE_DRAND48
+#if defined(_WIN32) || !defined(HAVE_DRAND48)
 #include "os/rand.c"
 #else
 #include <stdlib.h>
