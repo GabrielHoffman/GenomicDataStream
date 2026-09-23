@@ -21,9 +21,9 @@ jobs:
         config:
           # - {os: macos-latest,   r: 'release'}
           # - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
           - {os: windows-latest, r: '4.5.2'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          # - {os: ubuntu-latest,   r: 'release'}
           # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
@@ -32,6 +32,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+
+      - name: Normalize package file metadata
+        shell: bash
+        run: |
+          find . -type f -exec chmod 644 {} +
+          find . -type f \( -name configure -o -name cleanup \) -exec chmod 755 {} +
+          find . -type f -exec touch {} +
 
       - uses: r-lib/actions/setup-pandoc@v2
 
