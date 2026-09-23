@@ -22,7 +22,7 @@ jobs:
           # - {os: macos-latest,   r: 'release'}
           # - {os: windows-latest, r: 'release'}
           # - {os: ubuntu-latest,   r: 'release'}
-          - {os: windows-latest, r: '4.5.2'}
+          # - {os: windows-latest, r: '4.5.2'}
           - {os: windows-2022, r: '4.5.2'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           # - {os: ubuntu-latest,   r: 'oldrel-1'}
@@ -49,7 +49,7 @@ jobs:
       - name: Check package timestamps
         shell: Rscript {0}
         run: |
-          x <- list.files(
+          paths <- list.files(
             ".",
             recursive = TRUE,
             all.files = TRUE,
@@ -57,52 +57,146 @@ jobs:
             include.dirs = TRUE
           )
 
-          z <- file.info(x)
+          paths <- paths[!grepl(
+            paste0("^", normalizePath(".git", mustWork = FALSE)),
+            normalizePath(paths, mustWork = FALSE),
+            fixed = TRUE
+          )]
 
-          # R's internal tar writer ultimately stores mtime
-          # as an integer in the tar header.
-          mtime_int <- suppressWarnings(as.integer(as.numeric(z$mtime)))
+          mtimes <- as.numeric(file.info(paths)$mtime)
 
-          bad <- is.na(mtime_int)
+          # POSIX tar stores mtime as a signed 32-bit value.
+          invalid <- is.na(mtimes) | mtimes < 0 | mtimes > 2147483647
 
-          cat("Oldest timestamps:\n")
-          o <- order(z$mtime)
-          print(
-            head(
-              data.frame(
-                file = x[o],
-                mtime = z$mtime[o]
-              ),
-              20
-            )
-          )
-
-          cat("\nNewest timestamps:\n")
-          print(
-            tail(
-              data.frame(
-                file = x[o],
-                mtime = z$mtime[o]
-              ),
-              20
-            )
-          )
-
-          if (any(bad)) {
-            cat("\nFiles with invalid tar-compatible mtimes:\n")
-            print(
-              data.frame(
-                file = x[bad],
-                mtime = z$mtime[bad]
-              )
-            )
-
-            stop("Files with invalid tar-compatible mtimes found")
+          if (any(invalid)) {
+            print(data.frame(
+              file = paths[invalid],
+              mtime = as.POSIXct(mtimes[invalid], origin = "1970-01-01", tz = "UTC")
+            ))
+            stop("Files with timestamps outside the POSIX tar range were found")
           }
 
-          cat("\nAll source timestamps fit in a 32-bit tar mtime\n")
+          cat("All source timestamps are tar-compatible\n")
 
+      - name: Build package for tar diagnostics
+        shell: Rscript {0}
+        run: |
+          status <- system2(
+            file.path(R.home("bin"), "R"),
+            c("CMD", "build", ".", "--no-manual",
+              "--compact-vignettes=gs+qpdf")
+          )
+          if (status != 0)
+            stop("R CMD build failed")
 
+      - name: Inspect tar headers
+        shell: python
+        run: |
+          import glob
+          import gzip
+          import math
+
+          files = glob.glob("GenomicDataStream_*.tar.gz")
+
+          if not files:
+              raise RuntimeError("No package tarball found")
+
+          tarfile = files[-1]
+          print("Inspecting:", tarfile)
+
+          def octal_field(field):
+              # R's internal untar permits spaces, NUL and digits 0..7.
+              for b in field:
+                  if b == 0:
+                      break
+                  if b == 32:
+                      continue
+                  if b < ord("0") or b > ord("7"):
+                      return False
+              return True
+
+          def parse_octal(field):
+              x = field.split(b"\0", 1)[0].strip()
+              return int(x or b"0", 8)
+
+          with gzip.open(tarfile, "rb") as f:
+              entry = 0
+              previous = None
+
+              while True:
+                  offset = f.tell()
+                  block = f.read(512)
+
+                  if not block:
+                      break
+
+                  if len(block) != 512:
+                      raise RuntimeError(
+                          f"Incomplete header at offset {offset}"
+                      )
+
+                  if block == b"\0" * 512:
+                      break
+
+                  entry += 1
+
+                  name = block[0:100].split(b"\0", 1)[0]
+                  prefix = block[345:500].split(b"\0", 1)[0]
+
+                  if prefix:
+                      fullname = prefix + b"/" + name
+                  else:
+                      fullname = name
+
+                  name_string = fullname.decode(
+                      "utf-8", errors="replace"
+                  )
+
+                  size_field  = block[124:136]
+                  mtime_field = block[136:148]
+                  typeflag    = block[156:157]
+
+                  if not octal_field(size_field):
+                      print("\nBAD SIZE FIELD")
+                      print("entry:", entry)
+                      print("offset:", offset)
+                      print("name:", name_string)
+                      print("raw size:", repr(size_field))
+                      raise RuntimeError("Invalid tar size field")
+
+                  if not octal_field(mtime_field):
+                      print("\nBAD MTIME FIELD")
+                      print("entry:", entry)
+                      print("offset:", offset)
+                      print("name:", name_string)
+                      print("type:", repr(typeflag))
+                      print("raw mtime:", repr(mtime_field))
+
+                      if previous:
+                          print("\nPrevious entry:")
+                          print(previous)
+
+                      raise RuntimeError(
+                          "Found malformed tar mtime header"
+                      )
+
+                  size = parse_octal(size_field)
+
+                  previous = {
+                      "entry": entry,
+                      "name": name_string,
+                      "size": size,
+                      "mtime_raw": repr(mtime_field),
+                      "type": repr(typeflag)
+                  }
+
+                  # Skip file contents, padded to 512-byte boundary.
+                  skip = math.ceil(size / 512) * 512
+                  if skip:
+                      f.seek(skip, 1)
+
+          print("All tar headers passed inspection")
+          
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
