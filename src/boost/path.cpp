@@ -15,6 +15,7 @@
 #include <boost/filesystem/detail/path_traits.hpp> // codecvt_error_category()
 #include <boost/system/error_category.hpp> // for BOOST_SYSTEM_HAS_CONSTEXPR
 #include <boost/assert.hpp>
+#include <functional>
 #include <algorithm>
 #include <iterator>
 #include <utility>
@@ -137,6 +138,13 @@ void first_element(string_type const& src, size_type& element_pos, size_type& el
 inline void first_element(string_type const& src, size_type& element_pos, size_type& element_size)
 {
     first_element(src, element_pos, element_size, src.size());
+}
+
+// Checks if the second string overlaps in memory with the first string
+inline bool is_overlapping(string_type const& str, const value_type* arg)
+{
+    std::less< const value_type* > ptr_less{};
+    return !(ptr_less(arg, str.data()) || ptr_less(str.data() + str.size(), arg));
 }
 
 } // unnamed namespace
@@ -478,7 +486,7 @@ BOOST_FILESYSTEM_DECL void path_algorithms::append_v3(path& p, const value_type*
 {
     if (begin != end)
     {
-        if (BOOST_LIKELY(begin < p.m_pathname.data() || begin >= (p.m_pathname.data() + p.m_pathname.size())))
+        if (BOOST_LIKELY(!is_overlapping(p.m_pathname, begin)))
         {
             if (!detail::is_directory_separator(*begin))
                 path_algorithms::append_separator_if_needed(p);
@@ -497,7 +505,7 @@ BOOST_FILESYSTEM_DECL void path_algorithms::append_v4(path& p, const value_type*
 {
     if (begin != end)
     {
-        if (BOOST_LIKELY(begin < p.m_pathname.data() || begin >= (p.m_pathname.data() + p.m_pathname.size())))
+        if (BOOST_LIKELY(!is_overlapping(p.m_pathname, begin)))
         {
             const size_type that_size = end - begin;
             size_type that_root_name_size = 0;
@@ -611,15 +619,15 @@ BOOST_FILESYSTEM_DECL int path_algorithms::compare_v4(path const& left, path con
 
 BOOST_FILESYSTEM_DECL path_algorithms::string_type::size_type path_algorithms::append_separator_if_needed(path& p)
 {
-    if (!p.m_pathname.empty() &&
+    string_type::size_type size(p.m_pathname.size());
+    if (size > static_cast< string_type::size_type >(0) &&
 #ifdef BOOST_WINDOWS_API
-        *(p.m_pathname.end() - 1) != colon &&
+        p.m_pathname[size - 1] != colon &&
 #endif
-        !detail::is_directory_separator(*(p.m_pathname.end() - 1)))
+        !detail::is_directory_separator(p.m_pathname[size - 1]))
     {
-        string_type::size_type tmp(p.m_pathname.size());
         p.m_pathname.push_back(path::preferred_separator);
-        return tmp;
+        return size;
     }
     return 0;
 }
@@ -1419,9 +1427,7 @@ std::locale default_locale()
 #if defined(BOOST_WINDOWS_API)
     std::locale global_loc = std::locale();
     return std::locale(global_loc, new boost::filesystem::detail::windows_file_codecvt());
-    
-    // GEH
-// #elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
+#elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
     // "All BSD system functions expect their string parameters to be in UTF-8 encoding
     // and nothing else." See
     // http://developer.apple.com/mac/library/documentation/MacOSX/Conceptual/BPInternational/Articles/FileEncodings.html
@@ -1441,9 +1447,8 @@ std::locale default_locale()
     //
     // Many thanks to Peter Dimov for digging out the above references!
 
-    // GEH
-    // std::locale global_loc = std::locale();
-    // return std::locale(global_loc, new boost::filesystem::detail::utf8_codecvt_facet());
+    std::locale global_loc = std::locale();
+    return std::locale(global_loc, new boost::filesystem::detail::utf8_codecvt_facet());
 #else // Other POSIX
     // ISO C calls std::locale("") "the locale-specific native environment", and this
     // locale is the default for many POSIX-based operating systems such as Linux.
