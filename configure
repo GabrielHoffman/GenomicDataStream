@@ -4138,25 +4138,9 @@ CFLAGS="-Wall -g -O2 -fvisibility=hidden -fPIC -D_FILE_OFFSET_BITS=64"
 CPPFLAGS="${R_CPPFLAGS} -DNDEBUG"
 
 HTSLIB_DIR="../inst/include/htslib-1.21"
-
-echo "Configuring HTSlib in $HTSLIB_DIR"
 cd src/$HTSLIB_DIR
 
+echo "Configuring HTSlib..."
 
-CC_TARGET=$($CC -dumpmachine 2>/dev/null || true)
-
-case "$CC_TARGET" in
-  wasm32-*|wasm64-*)
-      echo "Configuring HTSlib for WebAssembly"
-      HTSLIB_ARGS="--host=wasm32 \
-          --disable-libcurl \
-          --disable-s3 \
-          --disable-plugins"
-      ;;
-esac
-
-./configure $HTSLIB_ARGS
-
-
-
-
+./configure "$@" \
+  CFLAGS="${CFLAGS}"
