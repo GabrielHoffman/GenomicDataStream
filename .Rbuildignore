@@ -18,4 +18,8 @@ Rprof.out
 pkgdown
 \.a$
 ^\.github$
-inst/include/htslib-1.21/config.h
+inst/include/htslib-1.21/config.h$
+inst/include/htslib-1.21/config.log
+inst/include/htslib-1.21/config.mk$
+inst/include/htslib-1.21/config.status
+inst/include/htslib-1.21/config_vars.h

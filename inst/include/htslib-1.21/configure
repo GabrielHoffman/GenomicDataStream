@@ -5164,16 +5164,16 @@ fi
 pluginpath=$with_plugin_path
 
 
-# if WASM, disable S3
-if echo | $CC -dM -E - 2>/dev/null | \
-  grep -qE '__EMSCRIPTEN__|__wasm__|__wasm32__|__wasm64__'; then
+# # if WASM, disable S3
+# if echo | $CC -dM -E - 2>/dev/null | \
+#   grep -qE '__EMSCRIPTEN__|__wasm__|__wasm32__|__wasm64__'; then
 
-  echo "WASM target detected"
-  enable_s3=no    
-  libcurl=disabled
-  enable_libcurl=no
-  ac_cv_search_HMAC=d
-fi
+#   echo "WASM target detected"
+#   enable_s3=no    
+#   libcurl=disabled
+#   enable_libcurl=no
+#   ac_cv_search_HMAC=d
+# fi
 
 
 
