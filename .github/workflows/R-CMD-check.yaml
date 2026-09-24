@@ -51,7 +51,4 @@ jobs:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
 
-      - name: Build WASM R packages
-        uses: r-wasm/actions/build-rwasm@v1
-        with:
-          packages: "."
+        
