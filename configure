@@ -4142,5 +4142,5 @@ cd src/$HTSLIB_DIR
 
 echo "Configuring HTSlib..."
 
-./configure "$@" \
+./configure \
   CFLAGS="${CFLAGS}"
