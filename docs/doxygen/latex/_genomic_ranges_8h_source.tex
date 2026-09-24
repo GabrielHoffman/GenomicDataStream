@@ -107,35 +107,38 @@
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \&\ it\ :\ regions)\{}
 \DoxyCodeLine{00118\ }
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ parse}}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(reg,\ it,\ boost::is\_any\_of(\textcolor{stringliteral}{"{}:"{}}));}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ boost::split(pos,\ reg[1],\ boost::is\_any\_of(\textcolor{stringliteral}{"{}-\/"{}}));}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ only\ start\ given,\ set\ end\ to\ same\ value}}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pos.size()\ ==\ 1\ )\ pos.push\_back(\ pos[0]\ );}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ make\ value\ a\ string\ explicitly\ }}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ avoid\ boost\ error}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ value(it.begin(),\ it.end());}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ reg\ =\ split\_any\_of(value,\ \textcolor{stringliteral}{"{}:"{}});}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ split\_any\_of(reg[1],\ \textcolor{stringliteral}{"{}-\/"{}});}
 \DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ strings\ to\ long\ int}}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ p0\ =\ atol(pos[0].c\_str());}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ p1\ =\ atol(pos[1].c\_str());}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ region}}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ (reg.size()\ !=\ 2)\ ||\ (pos.size()\ >\ 2)\ ||\ (p1\ <\ p0)\ ||\ (p0<0)\ ||\ (p1<0))\{\ }
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !isOnlyDigits(pos[0])\ ||\ !isOnlyDigits(pos[1]))\{}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ only\ start\ given,\ set\ end\ to\ same\ value}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ pos.size()\ ==\ 1\ )\ pos.push\_back(\ pos[0]\ );}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ strings\ to\ long\ int}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ p0\ =\ atol(pos[0].c\_str());}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ p1\ =\ atol(pos[1].c\_str());}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ region}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ (reg.size()\ !=\ 2)\ ||\ (pos.size()\ >\ 2)\ ||\ (p1\ <\ p0)\ ||\ (p0<0)\ ||\ (p1<0))\{\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);}
 \DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ regions}}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ chrom.push\_back(\ reg[0]\ );}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ start.push\_back(\ p0\ );}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ end.push\_back(\ p1\ );}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}\ \ \ }
-\DoxyCodeLine{00143\ \ \ \ \ \}}
-\DoxyCodeLine{00144\ \};}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !isOnlyDigits(pos[0])\ ||\ !isOnlyDigits(pos[1]))\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\textcolor{stringliteral}{"{}Not\ a\ valid\ genomic\ range:\ "{}}\ +\ it);\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ regions}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ chrom.push\_back(\ reg[0]\ );}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ start.push\_back(\ p0\ );}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ end.push\_back(\ p1\ );}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \};}
 \DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

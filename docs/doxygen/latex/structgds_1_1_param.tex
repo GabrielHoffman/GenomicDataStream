@@ -1,4 +1,4 @@
-\doxysection{gds::\+Param Struct Reference}
+\doxysection{gds::Param Struct Reference}
 \hypertarget{structgds_1_1_param}{}\label{structgds_1_1_param}\index{gds::Param@{gds::Param}}
 
 
@@ -11,7 +11,7 @@
 \item 
 \doxymbox{\hyperlink{structgds_1_1_param_acff775ca1bc2ce6a3d55aa796c06db4e}{Param}} (const string \&file, string region\+String="{}"{}, const string \&samples="{}-\/"{}, const double MAF=0, const double min\+Variance=0, const int \&chunk\+Size=10000, const bool \&missing\+To\+Mean=true, const bool \&permute\+Feature\+Order=false, const int \&rnd\+Seed=12345)
 \item 
-void \doxymbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{set\+Field}} (const string \&field\+\_\+)
+void \doxymbox{\hyperlink{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d}{set\+Field}} (const string \&field\_)
 \item 
 void \doxymbox{\hyperlink{structgds_1_1_param_a0b421926820fe1cb1d9f706e060fe080}{set\+Regions}} (const string \&region\+String)
 \item 
@@ -68,9 +68,9 @@ constructor
 \begin{DoxyParams}{Parameters}
 {\em file} & .vcf, .vcf.\+gz or .bcf file with tabix index \\
 \hline
-{\em region\+String} & target in the format {\ttfamily "{}chr2:\+1-\/12345"{}}. Multiple regions can be separated by one of {\ttfamily ,\textbackslash{}n\textbackslash{}t}, for example {\ttfamily "{}chr2:\+1-\/12345, chr3:\+1000-\/8000"{}}. Setting region to {\ttfamily "{}"{}} includes all variants \\
+{\em region\+String} & target in the format {\ttfamily "{}chr2:1-\/12345"{}}. Multiple regions can be separated by one of {\ttfamily ,\textbackslash{}n\textbackslash{}t}, for example {\ttfamily "{}chr2:1-\/12345, chr3:1000-\/8000"{}}. Setting region to {\ttfamily "{}"{}} includes all variants \\
 \hline
-{\em samples} & string of comma separated sample IDs to extract:\+ "{}\+ID1,\+ID2,\+ID3"{} \\
+{\em samples} & string of comma separated sample IDs to extract: "{}\+ID1,\+ID2,\+ID3"{} \\
 \hline
 {\em MAF} & minor allele frequency filter applied to variants with max value \texorpdfstring{$<$}{<}= 2 \\
 \hline
@@ -85,7 +85,7 @@ constructor
 {\em rnd\+Seed} & random seed for permutation\\
 \hline
 \end{DoxyParams}
-Note that field must be set separately for VCF/\+\+BCF:\+ field:\+ {\ttfamily "{}GT"{}} for genotype strings, {\ttfamily "{}DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}GT"{}} is the only string type supported 
+Note that field must be set separately for VCF/\+\+BCF: field: {\ttfamily "{}GT"{}} for genotype strings, {\ttfamily "{}DS"{}} for dosage, or another other field stored as an integer or float. {\ttfamily "{}GT"{}} is the only string type supported 
 
 \label{structgds_1_1_param_doc-func-members}
 \Hypertarget{structgds_1_1_param_doc-func-members}
@@ -106,7 +106,7 @@ void gds::\+\+Param::\+print (\begin{DoxyParamCaption}\item[{ostream \&}]{out}{}
 \index{setField@{setField}!gds::Param@{gds::Param}}
 \doxysubsubsection{\texorpdfstring{setField()}{setField()}}
 {\footnotesize\ttfamily \label{structgds_1_1_param_a0bedb8b7bc80339cdedb98066dbd157d} 
-void gds::\+\+Param::\+set\+Field (\begin{DoxyParamCaption}\item[{const string \&}]{field\+\_\+}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void gds::\+\+Param::\+set\+Field (\begin{DoxyParamCaption}\item[{const string \&}]{field\_}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \Hypertarget{structgds_1_1_param_a0b421926820fe1cb1d9f706e060fe080}\index{gds::Param@{gds::Param}!setRegions@{setRegions}}
 \index{setRegions@{setRegions}!gds::Param@{gds::Param}}
@@ -187,6 +187,6 @@ string gds::\+\+Param::\+samples}
 
 
 
-The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-inst/\+include/\+\doxymbox{\hyperlink{_genomic_data_stream__virtual_8h}{Genomic\+Data\+Stream\+\_\+virtual.\+h}}\end{DoxyCompactItemize}
+inst/\+include/\doxymbox{\hyperlink{_genomic_data_stream__virtual_8h}{Genomic\+Data\+Stream\+\_\+virtual.\+h}}\end{DoxyCompactItemize}
