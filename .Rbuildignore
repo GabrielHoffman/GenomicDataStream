@@ -18,3 +18,4 @@ Rprof.out
 pkgdown
 \.a$
 ^\.github$
+inst/include/htslib-1.21/config.h

@@ -5164,6 +5164,19 @@ fi
 pluginpath=$with_plugin_path
 
 
+# if WASM, disable S3
+if echo | $CC -dM -E - 2>/dev/null | \
+  grep -qE '__EMSCRIPTEN__|__wasm__|__wasm32__|__wasm64__'; then
+
+  echo "WASM target detected"
+  enable_s3=no    
+  libcurl=disabled
+  enable_libcurl=no
+  ac_cv_search_HMAC=d
+fi
+
+
+
 # Check whether --enable-s3 was given.
 if test ${enable_s3+y}
 then :
@@ -6928,7 +6941,6 @@ then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
   libregex=needed
 fi
-
 
 
 if test "$s3" = enabled ; then
