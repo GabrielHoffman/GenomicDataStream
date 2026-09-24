@@ -21,9 +21,9 @@ jobs:
         config:
           # - {os: macos-latest,   r: 'release'}
           # - {os: windows-latest, r: 'release'}
-          # - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
           # - {os: windows-latest, r: '4.5.2'}
-          - {os: windows-2022, r: '4.5.2'}
+          # - {os: windows-2022, r: '4.5.2'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
@@ -50,3 +50,8 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+      - name: Build WASM R packages
+        uses: r-wasm/actions/build-rwasm@v1
+        with:
+          packages: "."
