@@ -76,28 +76,24 @@ readH5AD <- function(file, layer=NULL, ondisk = TRUE, verbose=FALSE, raw=FALSE){
   # Read data as Delayed/HDF5-backed matrix
   # if layer = NULL, read X.  Otherwise use layer name
   # returns observations matrix (genes x cells)
-  tryCatch({
+  counts <- tryCatch({
 
     if( isTRUE(raw) ){
       # set HDF5_PLUGIN_PATH only within the local env
       # without using Sys.setenv
-      counts <- with_envvar(
+       with_envvar(
         new = c(HDF5_PLUGIN_PATH = hdf5_plugin_path()),
         code = H5SparseMatrix(file, "raw/X"))
     }else{
-      counts <- with_envvar(
+      with_envvar(
         new = c(HDF5_PLUGIN_PATH = hdf5_plugin_path()),
         code = H5ADMatrix(file, layer=layer)) 
     }
     }, 
     error = function(e){
-      e$message <- paste0("Error reading file: ", conditionMessage(e), ". Issue with compression plugin?")
+      e$message <- paste0("Error reading file: ", conditionMessage(e), ". Issue with compression plugin or is layer incorrect?")
       e
       })
-
-  if( ! exists("counts") ){
-    stop("Error reading counts. Is layer correct?")
-  }
 
   if( verbose ){
     axis <- ifelse( isFeatureMajor(counts), "genes", "cells")
