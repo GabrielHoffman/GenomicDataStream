@@ -1,4 +1,8 @@
 
+# GenomicDataStream 0.99.7
+ - Oct 30, 2026
+ - add zarr support
+
 # GenomicDataStream 0.99.6
  - Sept 15, 2026
  - update `configure.ac`

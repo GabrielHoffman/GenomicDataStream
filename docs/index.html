@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in Chunks • GenomicDataStream</title>
+<title>Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD, Zarr) into R/Rcpp in Chunks • GenomicDataStream</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,9 +16,9 @@
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in Chunks">
-<meta name="description" content="Read genomic data files (i.e. VCF, BCF, BGEN, PGEN, BED, H5AD, DelayedArray) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries.">
-<meta property="og:description" content="Read genomic data files (i.e. VCF, BCF, BGEN, PGEN, BED, H5AD, DelayedArray) into R/Rcpp in chunks for analysis with Armadillo or Eigen libraries.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD, Zarr) into R/Rcpp in Chunks">
+<meta name="description" content="Read genomic data files (i.e. VCF, BCF, BGEN, PGEN, BED, H5AD, DelayedArray) into R/Rcpp in chunks for analysis with Armadillo / Eigen / Rcpp libraries. Modern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. GenomicDataStream provides interfaces at both the C++ and R levels for out-of-core analysis.">
+<meta property="og:description" content="Read genomic data files (i.e. VCF, BCF, BGEN, PGEN, BED, H5AD, DelayedArray) into R/Rcpp in chunks for analysis with Armadillo / Eigen / Rcpp libraries. Modern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. GenomicDataStream provides interfaces at both the C++ and R levels for out-of-core analysis.">
 <meta property="og:image" content="http://gabrielhoffman.github.io/GenomicDataStream/logo.svg">
 </head>
 <body>
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.18</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
 <h2 id="a-scalable-interface-between-genomic-data-and-analysis-underneath-r">A scalable interface between genomic data and analysis underneath R<a class="anchor" aria-label="anchor" href="#a-scalable-interface-between-genomic-data-and-analysis-underneath-r"></a>
 </h2>
 <div align="justify">
-<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page" class="external-link">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Modern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in a way that the two components can’t be separated for use in other applications. For example, regression analysis paired with genotype data from a VCF file.</p>
+<p>Reading genomic data files (<a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis/understanding-vcf-format/" class="external-link">VCF</a>, <a href="https://samtools.github.io/bcftools/howtos/index.html" class="external-link">BCF</a>, <a href="https://www.chg.ox.ac.uk/~gav/bgen_format/index.html" class="external-link">BGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#pgen" class="external-link">PGEN</a>, <a href="https://www.cog-genomics.org/plink/2.0/input#bed" class="external-link">BED</a>, <a href="https://anndata.readthedocs.io/en/latest/index.html" class="external-link">H5AD</a>, <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, <a href="https://anndata.readthedocs.io/en/latest/generated/anndata.AnnData.write_zarr.html" class="external-link">Zarr</a>, <a href="https://bioconductor.org/packages/DelayedArray" class="external-link">DelayedArray</a>) into R/Rcpp in chunks for analysis with <nobr><a href="https://doi.org/10.21105/joss.00026" class="external-link">Armadillo</a></nobr> / <a href="https://eigen.tuxfamily.org/index.php?title=Main_Page" class="external-link">Eigen</a> / <a href="https://www.rcpp.org" class="external-link">Rcpp</a> libraries. Modern datasets are often too big to fit into memory, and many analyses <nobr>operate</nobr> on a small chunk features at a time. Yet in practice, many implementations require the whole dataset stored in memory. Others pair an analysis with a specific data format in a way that the two components can’t be separated for use in other applications. For example, regression analysis paired with genotype data from a VCF file.</p>
 <p>The <code>GenomicDataStream</code> interface separates:</p>
 <ol style="list-style-type: decimal">
 <li>data source</li>
@@ -143,7 +143,11 @@
 <h4 id="single-cell-data">Single cell data<a class="anchor" aria-label="anchor" href="#single-cell-data"></a>
 </h4>
 <div align="justify">
-<p>Count matrices for single cell data are stored in the H5AD format. This format, based on <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression. H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.</p>
+<p>Count matrices for single cell data are stored in H5AD or Zarr format.</p>
+<ul>
+<li><p><a href="https://anndata.readthedocs.io/en/latest/fileformat-prose.html" class="external-link"><strong>H5AD</strong></a>: Based on <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" class="external-link">HDF5</a>, and can store millions of cells since it is designed for sparse counts (i.e. many entries are 0) and uses built-in compression. H5AD enables file-backed random access for analyzing a subset of the data without reading the entire file in to memory.</p></li>
+<li><p><a href="https://zarr.readthedocs.io/en/stable/" class="external-link"><strong>zarr</strong></a>: General binary format for storing large datasets. Enables faster, multithreaded access</p></li>
+</ul>
 </div>
 </div>
 </div>

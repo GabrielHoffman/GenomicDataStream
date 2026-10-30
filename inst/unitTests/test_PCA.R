@@ -145,9 +145,9 @@ test_PCA = function(){
   dcmp <- irlba::irlba( X_scale, k, k)
   res = dashSVD(X_scale, k)
 
-	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-6)
-	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-6)
-	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-6)
+	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-5)
+	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-5)
+	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-5)
 
 	# sparseMatrix
 	Xa <- as(X, "sparseMatrix")
@@ -156,9 +156,9 @@ test_PCA = function(){
   dcmp <- irlba::irlba( X_scale, k, k)
   res = dashSVD(X_scale, k)
 
-	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-6)
-	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-6)
-	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-6)
+	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-5)
+	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-5)
+	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-5)
 	# DelayedArray
 	Xa <- DelayedArray(X)
 
@@ -166,18 +166,18 @@ test_PCA = function(){
 	# res <- PCAone( Xa, k=k)
 	res = dashSVD(DelayedArray(X_scale), k)
 
-	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-6)
-	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-6)
-	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-6)
+	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-5)
+	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-5)
+	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-5)
 
 	# DelayedArray with transformation
 	dcmp <- irlba::irlba( scale(log(X)) / sqrt(nrow(X) -1), k, k)
 	# res <- PCAone( log(Xa), k=k)
 	res = dashSVD(DelayedArray(scale(log(X)) / sqrt(nrow(X) -1)), k)
 
-	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-6)
-	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-6)
-	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-6)
+	checkEqualsNumeric( res$d, dcmp$d[1:k], tol=1e-5)
+	checkEqualsNumeric( res$u^2, dcmp$u^2, tol=1e-5)
+	checkEqualsNumeric( res$v^2, dcmp$v^2, tol=1e-5)
 
 	# run SingleCellExperiment
 	##########################

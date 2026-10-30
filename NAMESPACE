@@ -20,6 +20,7 @@ export(mat_prod_AtAQ)
 export(normPC)
 export(perfMetric)
 export(readH5AD)
+export(readZarr)
 export(rownames)
 export(setChunkSize)
 export(setRegion)
@@ -42,7 +43,11 @@ importFrom(Rcpp,evalCpp)
 importFrom(RcppParallel,RcppParallelLibs)
 importFrom(S4Vectors,wmsg)
 importFrom(SingleCellExperiment,SingleCellExperiment)
-importFrom(anndataR,read_h5ad)
+importFrom(ZarrSparseMatrix,ZarrSparseMatrix)
+importFrom(anndataR,
+  read_h5ad,
+  read_zarr
+)
 importFrom(beachmat.hdf5,initializeCpp)
 importFrom(dplyr,
   arrange,
@@ -55,7 +60,7 @@ importFrom(h5mread,
   h5isdataset,
   h5isgroup
 )
-importFrom(magrittr,`%>%`)
+importFrom(magrittr,"%>%")
 importFrom(methods,
   as,
   is,

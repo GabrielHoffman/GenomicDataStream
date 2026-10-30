@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GenomicDataStream</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +113,7 @@ number of threads (by default \(threads=4\)) to read data</p></dd>
 
 <dt id="arg-threads-">threads2<a class="anchor" aria-label="anchor" href="#arg-threads-"></a></dt>
 <dd><p>integer, optional; <br>
-number of threads (by default \(threads=4\)), used for linear algebra opertions</p></dd>
+number of threads (by default \(threads=4\)), used for linear algebra operations</p></dd>
 
 
 <dt id="arg-scaleandcenter">scaleAndCenter<a class="anchor" aria-label="anchor" href="#arg-scaleandcenter"></a></dt>
@@ -154,7 +154,7 @@ if <code>TRUE</code> (default), print details</p></dd>
     <p>PCAone implements the window-based Randomized SVD proposed by Li, et al. (2023).</p>
 <p>If <code>scaleAndCenter</code>, the data matrix is scaled so that each feature has a mean of zero and a cross-product of 1. In this case the sum of squares of all eigen values equals the number of features (i.e <code>sum(d^2) = p</code>).</p>
 <p>Computational time is spent on two steps:</p>
-<p>1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is conrolled by setting <code>threads</code></p>
+<p>1) Reading data from disk and and processing data.  Multiple chunks can be read and processed in parallel.  This is controlled by setting <code>threads</code></p>
 <p>2) Updating PCA with current data chunk. Only one chunk can be processed at a time, but linear algebra operations can be parallelized.  This is conrolled by setting <code>threads2</code></p>
 <p>If <code>x</code> is a matrix, PCA is performed using rows as features. Note: this is the _transpose_ of what <code><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd()</a></code> does.</p>
     </div>

@@ -14,7 +14,9 @@
 #' @importFrom DelayedArray seed
 #' @keywords internal
 isFeatureMajor <- function(x){
-  is(seed(x), "CSR_H5ADMatrixSeed") || is(seed(x), "CSR_H5SparseMatrixSeed")
+  is(seed(x), "CSR_H5ADMatrixSeed") || 
+  is(seed(x), "CSR_H5SparseMatrixSeed") || 
+  is(seed(x), "CSR_ZarrSparseMatrixSeed")
 }
 
 

@@ -30,9 +30,10 @@ reference:
   - "setChunkSize"
   - "setRegion"
 
-- title: Read H5AD file
+- title: Read single cell H5AD and Zarr files
   contents:
   - "readH5AD"
+  - "readZarr"
 
 - title: Out-of-core SVD
   contents:

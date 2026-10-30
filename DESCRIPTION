@@ -1,8 +1,8 @@
 Package: GenomicDataStream
 Type: Package
-Title: Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD) into R/Rcpp in Chunks
-Version: 0.99.28
-Date: 2026-09-29
+Title: Read Genomic Data Files (VCF, BCF, BGEN, PGEN, BED, H5AD, Zarr) into R/Rcpp in Chunks
+Version: 0.99.7
+Date: 2026-10-30
 Authors@R: c(person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224")), person("Zilong", "Li", , "zilong.dk@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0001-5859-2078")))
 Description: Read genomic data files (i.e. VCF, BCF, BGEN, PGEN, BED, H5AD, DelayedArray) into R/Rcpp in chunks for analysis with Armadillo / Eigen / Rcpp libraries.  Modern datasets are often too big to fit into memory, and many analyses operate on a small chunk features at a time. GenomicDataStream provides interfaces at both the C++ and R levels for out-of-core analysis.
 URL: https://github.com/GabrielHoffman/GenomicDataStream
@@ -14,7 +14,8 @@ Suggests:
   muscat,
   VariantAnnotation,
   knitr,
-  rmarkdown
+  rmarkdown,
+  testthat
 Depends: 
   R (>= 4.5.0),
   methods, 
@@ -26,13 +27,14 @@ Imports:
   DelayedArray,
   RcppParallel,
   HDF5Array,
+  ZarrSparseMatrix,
   rhdf5filters,
   SingleCellExperiment,
+  S4Vectors,
   anndataR,
   stringr,
   dplyr,
   h5mread,
-  S4Vectors,
   withr,
   magrittr
 LinkingTo: 
@@ -53,4 +55,7 @@ SystemRequirements:
   Intel TBB,
   libcurl: libcurl-devel (rpm) or libcurl4-openssl-dev (deb)
 VignetteBuilder: knitr
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
+Roxygen: list(markdown = FALSE)
+Remotes:
+    GabrielHoffman/ZarrSparseMatrix
