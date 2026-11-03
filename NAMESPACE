@@ -43,7 +43,7 @@ importFrom(Rcpp,evalCpp)
 importFrom(RcppParallel,RcppParallelLibs)
 importFrom(S4Vectors,wmsg)
 importFrom(SingleCellExperiment,SingleCellExperiment)
-importFrom(ZarrSparseMatrix,ZarrSparseMatrix)
+importFrom(ZarrArray,ZarrSparseMatrix)
 importFrom(anndataR,
   read_h5ad,
   read_zarr

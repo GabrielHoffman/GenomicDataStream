@@ -30,7 +30,7 @@
 #' 
 #' sce
 # 
-#' @importFrom ZarrSparseMatrix ZarrSparseMatrix
+#' @importFrom ZarrArray ZarrSparseMatrix
 #' @importFrom anndataR read_zarr
 #' @export
 readZarr <- function(file, target="X", ondisk = TRUE, verbose=FALSE){
@@ -48,7 +48,7 @@ readZarr <- function(file, target="X", ondisk = TRUE, verbose=FALSE){
   # if layer = NULL, read X.  Otherwise use layer name
   # returns observations matrix (genes x cells)
   counts <- tryCatch({
-    t(ZarrSparseMatrix(file, target))
+    ZarrSparseMatrix(file, target)
     }, 
     error = function(e){
       e$message <- paste0("Error reading file: ", conditionMessage(e))

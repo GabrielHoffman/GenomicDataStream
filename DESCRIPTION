@@ -27,7 +27,7 @@ Imports:
   DelayedArray,
   RcppParallel,
   HDF5Array,
-  ZarrSparseMatrix,
+  ZarrArray (>= 1.1.7),
   rhdf5filters,
   SingleCellExperiment,
   S4Vectors,
@@ -57,5 +57,3 @@ SystemRequirements:
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.1.1
 Roxygen: list(markdown = FALSE)
-Remotes:
-    GabrielHoffman/ZarrSparseMatrix
