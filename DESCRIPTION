@@ -27,7 +27,7 @@ Imports:
   DelayedArray,
   RcppParallel,
   HDF5Array,
-  ZarrArray (>= 1.1.7),
+  ZarrArray,
   rhdf5filters,
   SingleCellExperiment,
   S4Vectors,

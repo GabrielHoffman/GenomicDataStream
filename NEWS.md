@@ -2,6 +2,7 @@
 # GenomicDataStream 0.99.7
  - Oct 30, 2026
  - add zarr support
+  - large zarr's require ZarrArray >= 1.1.8
 
 # GenomicDataStream 0.99.6
  - Sept 15, 2026
