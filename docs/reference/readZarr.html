@@ -88,65 +88,6 @@
 <span class="r-in"><span><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu">getZarr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"example_csc.zarr.zip"</span>, package <span class="op">=</span> <span class="st">"GenomicDataStream"</span><span class="op">)</span>, <span class="st">"example_csc.zarr"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">readZarr</span><span class="op">(</span><span class="va">loc</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/IntScalar</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/StringScalar</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/hvg/flavor</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/leiden/modularity</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/leiden/params/n_iterations</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/leiden/params/random_state</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/leiden/params/resolution</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/neighbors/connectivities_key</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/neighbors/distances_key</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/neighbors/params/method</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/neighbors/params/metric</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/neighbors/params/n_neighbors</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/neighbors/params/random_state</span> of type</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/pca/params/mask_var</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/pca/params/use_highly_variable</span> of type</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/pca/params/zero_center</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/logfoldchanges</span> of type <span style="color: #0000BB;">&lt;rec-array&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> non-character argument</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/names</span> of type <span style="color: #0000BB;">&lt;rec-array&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> non-character argument</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/params/corr_method</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/params/groupby</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/params/method</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/params/reference</span> of type <span style="color: #0000BB;">&lt;string&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/params/use_raw</span> of type</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/pvals</span> of type <span style="color: #0000BB;">&lt;rec-array&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> non-character argument</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/pvals_adj</span> of type <span style="color: #0000BB;">&lt;rec-array&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> non-character argument</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/rank_genes_groups/scores</span> of type <span style="color: #0000BB;">&lt;rec-array&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> non-character argument</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/umap/params/a</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Error reading element <span style="color: #00BB00;">uns/umap/params/b</span> of type <span style="color: #0000BB;">&lt;numeric-scalar&gt;</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 'dims' cannot be of length 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">sce</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SingleCellExperiment </span>
